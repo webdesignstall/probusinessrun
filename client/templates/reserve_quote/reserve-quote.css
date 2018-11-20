@@ -1,0 +1,103 @@
+.jobMain {
+    width: 800px !important;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    /* margin: 100px auto; */
+    text-align: center;
+    left: Calc(50% - 400px);
+}
+
+.enter-code {
+    width: 300px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    /* margin: 100px auto; */
+    text-align: center;
+    left: Calc(50% - 150px);
+}
+
+.enter-code h6 {
+    background-color: #1e272e;
+    color: #ffd32a;
+    padding: 10px;
+    border-radius: 5px;
+    line-height: 20px;
+    letter-spacing: 1px;
+}
+
+.enter-code span {
+    color: #0be881;
+}
+
+.enter-code #code {
+    width: 240px;
+    float: left;
+}
+
+.enter-code button {
+    margin-top: 10px;
+    float: right;
+    width: 50px;
+}
+
+#axtarisin-neticesi {
+    display: none;
+    position: relative;
+    padding: 50px 20px;
+    background-color: #d2dae2;
+    z-index: 2;
+    text-align: center;
+    overflow-y: scroll;
+}
+
+#axtarisin-neticesi p {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.saqa {
+    text-align: left !important;
+}
+
+.sola-cekme {
+    text-align: left !important;
+}
+
+#axtarisin-neticesi table {
+    font-size: 16px;
+    width: 700px;
+    left: 50% !important;
+}
+
+#book-now {
+    background-color: #05c46b !important;
+    color: white !important;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+#son-mesaj {
+    display: none;
+    z-index: 3;
+    position: absolute;
+    background-color: rgb(39, 128, 201);
+    width: 100%;
+    height: 2000px;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    color: white;
+}
+
+.note {
+    background-color: #c0392b;
+    color: white;
+}
+
+.azMargin label {
+    margin-top: 20px !important;
+}

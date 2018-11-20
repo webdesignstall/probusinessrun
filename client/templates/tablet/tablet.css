@@ -1,0 +1,306 @@
+.warning {
+    background-color: #FCF6F5;
+    padding: 10px;
+    margin-top: 10px;
+    color: #B04332 !important;
+    line-height: 25px;
+    text-align: center;
+    border-color: #ef5350 !important;
+}
+
+.from-to fieldset {
+    min-height: 100px !important;
+}
+
+.pricing {
+    margin-top: 10px;
+}
+
+.xxx td {
+    padding: 10px !important;
+}
+
+.xett {
+    border-top: 1px solid black;
+}
+
+#initial_ {
+    width: 40% !important;
+    padding-left: 10px;
+}
+
+#initial_x {
+    width: 25% !important;
+    margin-left: 10px;
+}
+
+.timeline {
+    margin: 20px 0;
+}
+
+.progress-bar {
+    margin: 10px 0;
+    float: left;
+    width: 100%;
+    height: 60px;
+    display: block;
+    overflow: hidden;
+    border: 1px solid #bdc3c7;
+    -moz-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+.packing {
+    float: left;
+    width: 50%;
+    height: 40px;
+    background-color: #2ecc71;
+}
+
+.break {
+    float: left;
+    width: 4%;
+    height: 40px;
+    background-color: #d35400;
+}
+
+.driving {
+    float: left;
+    width: 30%;
+    height: 40px;
+    background-color: #9b59b6;
+}
+
+.unpacking {
+    float: left;
+    width: 16%;
+    height: 40px;
+    background-color: #16a085;
+}
+
+.start-end {
+    background-color: #34495e;
+    color: white;
+    padding: 2px 10px;
+}
+
+#finish-time {
+    float: right;
+}
+
+.work-time-event {
+    margin-top: 10px;
+    background-color: #2196f3;
+    color: white;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.break-time-event {
+    margin-top: 10px;
+    background-color: #e91e63;
+    color: white;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.driving-time-event {
+    margin-top: 10px;
+    background-color: #7e57c2;
+    color: white;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+#tebler-render {
+    display: none;
+}
+
+.close-duymesi {
+    display: block;
+    text-align: center;
+    padding: 10px;
+    background-color: #e55039;
+    color: white;
+}
+
+.elaveler input {
+    width: 40px !important;
+    height: auto !important;
+    padding: 0 !important;
+}
+
+.qrm {
+    background-color: #e74c3c !important;
+    color: white;
+}
+
+.qrm2 {
+    background-color: #2c3e50 !important;
+    color: white;
+}
+
+.kolleksiya {
+    color: white;
+}
+
+#make-payment {
+    padding: 10px;
+}
+
+#make-payment h5 {
+    background-color: #34495e;
+    color: white;
+    margin: 10px;
+    padding: 5px;
+}
+
+.pay-card {
+    margin-top: 8px;
+    width: 80px !important;
+}
+
+.enter {
+    display: block;
+    background-color: #c0392b;
+    color: white;
+    padding: 10px;
+}
+
+.gizlet {
+    display: none;
+}
+
+.goster {
+    display: block;
+}
+
+#payed-full {
+    background-color: #2c3e50;
+    color: white;
+    padding: 10px;
+}
+
+.border {
+    border: 1px solid #b2bec3;
+    padding: 10px;
+}
+
+.tabletJobRendered {
+    margin-top: 5px;
+    border: 1px solid rgb(182, 182, 182);
+    border-radius: 5px;
+    overflow: hidden;
+    -webkit-box-shadow: 0px 0px 79px -19px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 0px 79px -19px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 0px 80px -20px rgba(0, 0, 0, 0.75);
+}
+
+.card__ {
+    border-radius: 5px !important;
+    overflow: hidden !important;
+    margin: 5px;
+    padding: 10px;
+    /* border: 1px solid #d1d1d1; */
+    color: rgb(100, 100, 100);
+    -webkit-box-shadow: 0px 0px 79px -19px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 0px 79px -19px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.75);
+}
+
+.card_ {
+    border-radius: 5px !important;
+    overflow: hidden !important;
+    width: 48% !important;
+    margin: 5px 1% !important;
+    padding: 10px;
+    border: 1px solid rgb(209, 209, 209);
+    background-color: white;
+    color: rgb(100, 100, 100);
+    -webkit-box-shadow: 0px 0px 79px -19px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 0px 79px -19px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.75);
+}
+
+.card__ td {
+    padding: 0 10px !important;
+}
+
+.cardTitle {
+    background-color: rgb(5, 114, 204);
+    color: white;
+    margin: -10px -10px 0 -10px;
+    padding: 5px;
+    font-size: 16px;
+    text-align: center;
+}
+
+.cardInner {
+    padding: 5px;
+}
+
+.amount {
+    margin: 0 !important;
+    left: 0;
+    right: 0;
+    width: 40%;
+    float: left;
+    min-height: 200px;
+    padding: 10px;
+    position: relative;
+}
+
+.notes {
+    width: 60%;
+    margin: 0 !important;
+    float: right;
+    min-height: 200px;
+    padding: 10px;
+    right: 0;
+    left: 0;
+}
+
+.card__ .discount {
+    padding: 0;
+}
+
+.discount .cardTitle {
+    padding: 15px 15px 5px;
+}
+
+.discountTypes {
+    border-left: 1px solid white;
+    cursor: pointer;
+}
+
+.borderRight {
+    position: absolute;
+    right: 0;
+    top: 5%;
+    border-right: 1px solid rgb(223, 223, 223);
+    height: 90%;
+}
+
+#discountNote {
+    width: 90%;
+    min-width: 90%;
+    max-width: 90%;
+    height: 130px;
+    min-height: 130px;
+    max-height: 130px;
+    border: 1px solid rgb(223, 223, 223);
+    overflow-y: scroll !important;
+}
+
+.activeDiscount {
+    background-color: white;
+    color: #3170C5;
+    border: none;
+    top: 0;
+}
+
+.additionalSignature .card__ {
+    cursor: pointer;
+}

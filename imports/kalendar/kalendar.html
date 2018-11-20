@@ -1,0 +1,443 @@
+<template name="kalendar">
+    {{> modalMesaj}}
+    <div id="add-schedule-page">
+        <div class="header-add-schedule">
+            Adding Schedule
+            <a href="#">
+                <i class="material-icons sag baqla">close</i>
+            </a>
+        </div>
+        {{> preQuote}}
+    </div>
+    <div id="edit-schedule-page">
+        <div class="add-schedule">
+            <div class="header-add-schedule">
+                Edit Schedule
+                <a href="#">
+                    <i class="material-icons sag baqla">close</i>
+                </a>
+            </div>
+            {{> updateQuote}}
+        </div>
+    </div>
+    <div>
+        {{> flashMessages}}
+        <div id="kalendar">
+            <div id="ayHaqqinda">
+                <a href="#" id="ay" class="tarixSecim"></a>
+                <a href="#" id="il" class="tarixSecim"></a>
+            </div>
+            <div id="teqvimSecim" style="display: none;">
+                <a href="#" name="0" class="tarixSecim tarixSecimay">Jan</a>
+                <a href="#" name="1" class="tarixSecim tarixSecimay">Feb</a>
+                <a href="#" name="2" class="tarixSecim tarixSecimay">Mar</a>
+                <a href="#" name="3" class="tarixSecim tarixSecimay">Apr</a>
+                <a href="#" name="4" class="tarixSecim tarixSecimay">May</a>
+                <a href="#" name="5" class="tarixSecim tarixSecimay">Jun</a>
+                <a href="#" name="6" class="tarixSecim tarixSecimay">Jul</a>
+                <a href="#" name="7" class="tarixSecim tarixSecimay">Aug</a>
+                <a href="#" name="8" class="tarixSecim tarixSecimay">Sep</a>
+                <a href="#" name="9" class="tarixSecim tarixSecimay">Oct</a>
+                <a href="#" name="10" class="tarixSecim tarixSecimay">Nov</a>
+                <a href="#" name="11" class="tarixSecim tarixSecimay">Dec</a>
+            </div>
+            <table>
+                <tbody id="cedvelBeden">
+                    <tr id="dayOfWeek">
+                        <td>Sun</td>
+                        <td>Mon</td>
+                        <td>Tue</td>
+                        <td>Wed</td>
+                        <td>Thu</td>
+                        <td>Fri</td>
+                        <td>Sat</td>
+                    </tr>
+                    <tr>
+                        <td class="td">
+                            <div class="dayData week1"></div>
+                        </td>
+                        <td class="td">
+                            <div class="dayData week1"></div>
+                        </td>
+                        <td class="td">
+                            <div class="dayData week1"></div>
+                        </td>
+                        <td class="td">
+                            <div class="dayData week1"></div>
+                        </td>
+                        <td class="td">
+                            <div class="dayData week1"></div>
+                        </td>
+                        <td class="td">
+                            <div class="dayData week1"></div>
+                        </td>
+                        <td class="td">
+                            <div class="dayData week1"></div>
+                        </td>
+                    </tr>
+                    <tr class="dayInfo animated fadeIn weektr1">
+                        <td colspan="7" id="week1">
+                            {{#if isGunMelumatVar}} {{#each gununIsleri}}
+                            <div id={{_id}} class="work-list-show {{#if quotedir quote}}teal darken-2{{/if}}">
+                                <a id="isin-saati">
+                                    {{#if isBosdur workMustBeginTime}}--:--{{else}} {{#if isAM
+                                    workMustBeginTime}}{{saatDeqiq workMustBeginTime}} AM {{else}}{{saatDeqiq
+                                    workMustBeginTime}} PM {{/if}} {{/if}}
+                                </a>
+                                <a id="musteri-adi">{{clientFirstName}} {{clientLastName}}</a>
+                                <a id="qiymet">{{price}}$</a>
+                                <a href="#">
+                                    <i class="material-icons sag edit-duymesi">mode_edit</i>
+                                </a>
+                                <a href="#">
+                                    <i class="material-icons sag delete-duymesi">delete_forever</i>
+                                </a>
+                            </div>
+                            {{/each}}
+                            <a href="#">
+                                <div class="add-moreschedule-button">Add more +</div>
+                            </a>
+                            <script>
+                                $('.delete-duymesi').mouseover(function () {
+                                    $(this).addClass("pulse");
+                                }).mouseleave(function () {
+                                    $(this).removeClass("pulse");
+                                });
+                                $('.edit-duymesi').mouseover(function () {
+                                    $(this).addClass("pulse");
+                                }).mouseleave(function () {
+                                    $(this).removeClass("pulse");
+                                });
+                            </script> {{else}}
+                            <div class="work-list-show add-schedule-button">
+                                <a href="#">There is no schedule on this day. Click to add one!</a>
+                            </div>
+                            {{/if}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td">
+                            <div class="dayData week2"></div>
+                        </td>
+                        <td class="td">
+                            <div class="dayData week2"></div>
+                        </td>
+                        <td class="td">
+                            <div class="dayData week2"></div>
+                        </td>
+                        <td class="td">
+                            <div class="dayData week2"></div>
+                        </td>
+                        <td class="td">
+                            <div class="dayData week2"></div>
+                        </td>
+                        <td class="td">
+                            <div class="dayData week2"></div>
+                        </td>
+                        <td class="td">
+                            <div class="dayData week2"></div>
+                        </td>
+                    </tr>
+                    <tr class="dayInfo animated fadeIn weektr2" style="display: none;">
+                        <td colspan="7" id="week2">
+                            {{#if isGunMelumatVar}} {{#each gununIsleri}}
+                            <div id={{_id}} class="work-list-show {{#if quotedir quote}}teal darken-2{{/if}}">
+                                <a id="isin-saati">
+                                    {{#if isBosdur workMustBeginTime}}--:--{{else}} {{#if isAM
+                                    workMustBeginTime}}{{saatDeqiq workMustBeginTime}} AM {{else}}{{saatDeqiq
+                                    workMustBeginTime}} PM {{/if}} {{/if}}
+                                </a>
+                                <a id="musteri-adi">{{clientFirstName}} {{clientLastName}}</a>
+                                <a id="qiymet">{{price}} $
+                                </a>
+                                <a href="#">
+                                    <i class="material-icons sag edit-duymesi animated">mode_edit</i>
+                                </a>
+                                <a href="#">
+                                    <i class="material-icons sag delete-duymesi animated">delete_forever</i>
+                                </a>
+                            </div>
+                            {{/each}}
+                            <a href="#">
+                                <div class="add-moreschedule-button">Add more +</div>
+                            </a>
+                            <script>
+                                $('.delete-duymesi').mouseover(function () {
+                                    $(this).addClass("pulse");
+                                }).mouseleave(function () {
+                                    $(this).removeClass("pulse");
+                                });
+                                $('.edit-duymesi').mouseover(function () {
+                                    $(this).addClass("pulse");
+                                }).mouseleave(function () {
+                                    $(this).removeClass("pulse");
+                                });
+                            </script> {{else}}
+                            <div class="work-list-show add-schedule-button">
+                                <a href="#">There is no schedule on this day. Click to add one!</a>
+                            </div>
+                            {{/if}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td">
+                            <div class="dayData week3"></div>
+                        </td>
+                        <td class="td">
+                            <div class="dayData week3"></div>
+                        </td>
+                        <td class="td">
+                            <div class="dayData week3"></div>
+                        </td>
+                        <td class="td">
+                            <div class="dayData week3"></div>
+                        </td>
+                        <td class="td">
+                            <div class="dayData week3"></div>
+                        </td>
+                        <td class="td">
+                            <div class="dayData week3"></div>
+                        </td>
+                        <td class="td">
+                            <div class="dayData week3"></div>
+                        </td>
+                    </tr>
+                    <tr class="dayInfo animated fadeIn weektr3" style="display: none;">
+                        <td colspan="7" id="week3">
+                            {{#if isGunMelumatVar}} {{#each gununIsleri}}
+                            <div id={{_id}} class="work-list-show {{#if quotedir quote}}teal darken-2{{/if}}">
+                                <a id="isin-saati">
+                                    {{#if isBosdur workMustBeginTime}}--:--{{else}} {{#if isAM
+                                    workMustBeginTime}}{{saatDeqiq workMustBeginTime}} AM {{else}}{{saatDeqiq
+                                    workMustBeginTime}} PM {{/if}} {{/if}}
+                                </a>
+                                <a id="musteri-adi">{{clientFirstName}} {{clientLastName}}</a>
+                                <a id="qiymet">{{price}} $
+                                </a>
+                                <a href="#">
+                                    <i class="material-icons sag edit-duymesi animated">mode_edit</i>
+                                </a>
+                                <a href="#">
+                                    <i class="material-icons sag delete-duymesi animated">delete_forever</i>
+                                </a>
+                            </div>
+                            {{/each}}
+                            <a href="#">
+                                <div class="add-moreschedule-button">Add more +</div>
+                            </a>
+                            <script>
+                                $('.delete-duymesi').mouseover(function () {
+                                    $(this).addClass("pulse");
+                                }).mouseleave(function () {
+                                    $(this).removeClass("pulse");
+                                });
+                                $('.edit-duymesi').mouseover(function () {
+                                    $(this).addClass("pulse");
+                                }).mouseleave(function () {
+                                    $(this).removeClass("pulse");
+                                });
+                            </script> {{else}}
+                            <div class="work-list-show add-schedule-button">
+                                <a href="#">There is no schedule on this day. Click to add one!</a>
+                            </div>
+                            {{/if}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td">
+                            <div class="dayData week4"></div>
+                        </td>
+                        <td class="td">
+                            <div class="dayData week4"></div>
+                        </td>
+                        <td class="td">
+                            <div class="dayData week4"></div>
+                        </td>
+                        <td class="td">
+                            <div class="dayData week4"></div>
+                        </td>
+                        <td class="td">
+                            <div class="dayData week4"></div>
+                        </td>
+                        <td class="td">
+                            <div class="dayData week4"></div>
+                        </td>
+                        <td class="td">
+                            <div class="dayData week4"></div>
+                        </td>
+                    </tr>
+                    <tr class="dayInfo animated fadeIn weektr4" style="display: none;">
+                        <td colspan="7" id="week4">
+                            {{#if isGunMelumatVar}} {{#each gununIsleri}}
+                            <div id={{_id}} class="work-list-show {{#if quotedir quote}}teal darken-2{{/if}}">
+                                <a id="isin-saati">
+                                    {{#if isBosdur workMustBeginTime}}--:--{{else}} {{#if isAM
+                                    workMustBeginTime}}{{saatDeqiq workMustBeginTime}} AM {{else}}{{saatDeqiq
+                                    workMustBeginTime}} PM {{/if}} {{/if}}
+                                </a>
+                                <a id="musteri-adi">{{clientFirstName}} {{clientLastName}}</a>
+                                <a id="qiymet">{{price}} $
+                                </a>
+                                <a href="#">
+                                    <i class="material-icons sag edit-duymesi animated">mode_edit</i>
+                                </a>
+                                <a href="#">
+                                    <i class="material-icons sag delete-duymesi animated">delete_forever</i>
+                                </a>
+                            </div>
+                            {{/each}}
+                            <a href="#">
+                                <div class="add-moreschedule-button">Add more +</div>
+                            </a>
+                            <script>
+                                $('.delete-duymesi').mouseover(function () {
+                                    $(this).addClass("pulse");
+                                }).mouseleave(function () {
+                                    $(this).removeClass("pulse");
+                                });
+                                $('.edit-duymesi').mouseover(function () {
+                                    $(this).addClass("pulse");
+                                }).mouseleave(function () {
+                                    $(this).removeClass("pulse");
+                                });
+                            </script> {{else}}
+                            <div class="work-list-show add-schedule-button">
+                                <a href="#">There is no schedule on this day. Click to add one!</a>
+                            </div>
+                            {{/if}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td">
+                            <div class="dayData week5"></div>
+                        </td>
+                        <td class="td">
+                            <div class="dayData week5"></div>
+                        </td>
+                        <td class="td">
+                            <div class="dayData week5"></div>
+                        </td>
+                        <td class="td">
+                            <div class="dayData week5"></div>
+                        </td>
+                        <td class="td">
+                            <div class="dayData week5"></div>
+                        </td>
+                        <td class="td">
+                            <div class="dayData week5"></div>
+                        </td>
+                        <td class="td">
+                            <div class="dayData week5"></div>
+                        </td>
+                    </tr>
+                    <tr class="dayInfo animated fadeIn weektr5" style="display: none;">
+                        <td colspan="7" id="week5">
+                            {{#if isGunMelumatVar}} {{#each gununIsleri}}
+                            <div id={{_id}} class="work-list-show {{#if quotedir quote}}teal darken-2{{/if}}">
+                                <a id="isin-saati">
+                                    {{#if isBosdur workMustBeginTime}}--:--{{else}} {{#if isAM
+                                    workMustBeginTime}}{{saatDeqiq workMustBeginTime}} AM {{else}}{{saatDeqiq
+                                    workMustBeginTime}} PM {{/if}} {{/if}}
+                                </a>
+                                <a id="musteri-adi">{{clientFirstName}} {{clientLastName}}</a>
+                                <a id="qiymet">{{price}} $
+                                </a>
+                                <a href="#">
+                                    <i class="material-icons sag edit-duymesi animated">mode_edit</i>
+                                </a>
+                                <a href="#">
+                                    <i class="material-icons sag delete-duymesi animated">delete_forever</i>
+                                </a>
+                            </div>
+                            {{/each}}
+                            <a href="#">
+                                <div class="add-moreschedule-button">Add more +</div>
+                            </a>
+                            <script>
+                                $('.delete-duymesi').mouseover(function () {
+                                    $(this).addClass("pulse");
+                                }).mouseleave(function () {
+                                    $(this).removeClass("pulse");
+                                });
+                                $('.edit-duymesi').mouseover(function () {
+                                    $(this).addClass("pulse");
+                                }).mouseleave(function () {
+                                    $(this).removeClass("pulse");
+                                });
+                            </script> {{else}}
+                            <div class="work-list-show add-schedule-button">
+                                <a href="#">There is no schedule on this day. Click to add one!</a>
+                            </div>
+                            {{/if}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="td">
+                            <div class="dayData week6"></div>
+                        </td>
+                        <td class="td">
+                            <div class="dayData week6"></div>
+                        </td>
+                        <td class="td">
+                            <div class="dayData week6"></div>
+                        </td>
+                        <td class="td">
+                            <div class="dayData week6"></div>
+                        </td>
+                        <td class="td">
+                            <div class="dayData week6"></div>
+                        </td>
+                        <td class="td">
+                            <div class="dayData week6"></div>
+                        </td>
+                        <td class="td">
+                            <div class="dayData week6"></div>
+                        </td>
+                    </tr>
+                    <tr class="dayInfo animated fadeIn weektr6" style="display: none;">
+                        <td colspan="7" id="week6">
+                            {{#if isGunMelumatVar}} {{#each gununIsleri}}
+                            <div id={{_id}} class="work-list-show {{#if quotedir quote}}teal darken-2{{/if}}">
+                                <a id="isin-saati">
+                                    {{#if isBosdur workMustBeginTime}}--:--{{else}} {{#if isAM
+                                    workMustBeginTime}}{{saatDeqiq workMustBeginTime}} AM {{else}}{{saatDeqiq
+                                    workMustBeginTime}} PM {{/if}} {{/if}}
+                                </a>
+                                <a id="musteri-adi">{{clientFirstName}} {{clientLastName}}</a>
+                                <a id="qiymet">{{price}} $
+                                </a>
+                                <a href="#">
+                                    <i class="material-icons sag edit-duymesi animated">mode_edit</i>
+                                </a>
+                                <a href="#">
+                                    <i class="material-icons sag delete-duymesi animated">delete_forever</i>
+                                </a>
+                            </div>
+                            {{/each}}
+                            <a href="#">
+                                <div class="add-moreschedule-button">Add more +</div>
+                            </a>
+                            <script>
+                                $('.delete-duymesi').mouseover(function () {
+                                    $(this).addClass("pulse");
+                                }).mouseleave(function () {
+                                    $(this).removeClass("pulse");
+                                });
+                                $('.edit-duymesi').mouseover(function () {
+                                    $(this).addClass("pulse");
+                                }).mouseleave(function () {
+                                    $(this).removeClass("pulse");
+                                });
+                            </script> {{else}}
+                            <div class="work-list-show add-schedule-button">
+                                <a href="#">There is no schedule on this day. Click to add one!</a>
+                            </div>
+                            {{/if}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="yerlesdir"></div>
+</template>

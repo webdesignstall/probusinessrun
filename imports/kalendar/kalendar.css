@@ -1,0 +1,313 @@
+#kalendar {
+    margin-top: 0.5em;
+}
+
+#dayOfWeek td {
+    text-align: center;
+    width: 14.3%;
+    border: 1px solid #fff;
+    color: white;
+    background-color: #2980b9;
+}
+
+#ayHaqqinda {
+    background-color: #8e44ad;
+    color: white;
+    padding: 1em;
+    border: 1px solid white;
+    height: auto;
+}
+
+.td {
+    background-color: #ecf0f1;
+    border: 1px solid white;
+    -webkit-transition: all 0.5s ease-out;
+    -moz-transition: all 0.5s ease-out;
+    -o-transition: all 0.5s ease-out;
+    transition: all 0.5s ease-out;
+}
+
+.td:hover {
+    background-color: #2980b9;
+    border: 1px solid white;
+}
+
+.dayData {
+    height: 80px;
+    color: #95a5a6;
+    padding: 0;
+    font-size: 50px;
+    line-height: 120px;
+    -webkit-transition: all 0.5s ease-out;
+    -moz-transition: all 0.5s ease-out;
+    -o-transition: all 0.5s ease-out;
+    transition: all 0.5s ease-out;
+}
+
+.dayData:hover {
+    height: 80px;
+    color: #ecf0f1;
+    padding: 0;
+    font-size: 50px;
+    line-height: 120px;
+}
+
+.aktivGun {
+    background-color: #2980b9;
+    border: 1px solid white;
+    color: white;
+}
+
+.dayInfo {
+    display: none;
+    background-color: #2c3e50;
+    color: white;
+    font-family: Consolas, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
+}
+
+#teqvimSecim {
+    display: none;
+    background-color: #3c546c;
+    color: white;
+    padding: 1em;
+    border: 1px solid white;
+}
+
+.tarixSecim {
+    color: white;
+    padding: 2px;
+    margin: 0 0 0 6px;
+    border-bottom: 3px solid #2c3e50;
+    -webkit-transition: all 0.5s ease-out;
+    -moz-transition: all 0.5s ease-out;
+    -o-transition: all 0.5s ease-out;
+    transition: all 0.5s ease-out;
+}
+
+.tarixSecimGoToday {
+    background-color: #2c3e50;
+    color: white;
+    padding: 4px 10px;
+    margin: 0 0 0 6px;
+    border-radius: 3px;
+}
+
+.tarixSecimay {
+    color: white;
+    padding: 2px;
+    margin: 0 10px 0 10px;
+    border-bottom: 3px solid #2c3e50;
+    -webkit-transition: all 0.5s ease-out;
+    -moz-transition: all 0.5s ease-out;
+    -o-transition: all 0.5s ease-out;
+    transition: all 0.5s ease-out;
+}
+
+.tarixSecim:hover {
+    border-bottom: 3px solid #2ecc71;
+}
+
+.tarixSecimay:hover {
+    border-bottom: 3px solid #2ecc71;
+}
+
+#isin-saati {
+    position: relative;
+    background-color: #ecf0f1;
+    color: #2c3e50;
+    padding: 2px 5px;
+    margin-right: 4px;
+}
+
+.work-list-show {
+    margin: 10px;
+    border-bottom: 1px dashed #3E5872;
+    transition: ease all 0.5s;
+    -webkit-transition: ease all 0.5s;
+    -moz-transition: ease all 0.5s;
+    -o-transition: ease all 0.5s;
+}
+
+.work-list-show:hover {
+    background-color: #3D5670;
+}
+
+#musteri-adi {
+    font-weight: 500;
+    color: #3498db;
+    padding: 2px 5px;
+    margin-right: 4px;
+}
+
+#qiymet {
+    margin-left: 10px;
+    color: #2ecc71;
+    padding: 2px 5px;
+    margin-right: 4px;
+}
+
+#add-schedule-page {
+    display: none;
+    background-color: #ecf0f1;
+    width: 76%;
+    z-index: 1;
+    position: absolute;
+    padding: 10px 10px 30px 10px;
+}
+
+#edit-schedule-page {
+    display: none;
+    background-color: #ecf0f1;
+    width: 76%;
+    z-index: 1;
+    position: absolute;
+    padding: 10px 10px 30px 10px;
+}
+
+#add-schedule {
+    padding: 10px;
+}
+
+.edit-duymesi {
+    color: #3498db;
+    font-size: 18px !important;
+    padding: 2px 10px 3px 10px;
+}
+
+.edit-duymesi:hover {
+    background-color: #3498db;
+    color: #fff;
+}
+
+.delete-duymesi {
+    color: #e74c3c;
+    font-size: 18px !important;
+    padding: 2px 10px 3px 10px;
+}
+
+.delete-duymesi:hover {
+    background-color: #e74c3c;
+    color: #fff;
+}
+
+.info-duymesi {
+    color: #e74c3c;
+    font-size: 18px !important;
+    padding: 2px 10px 3px 10px;
+}
+
+.info-duymesi:hover {
+    background-color: #e74c3c;
+    color: #fff;
+}
+
+.autoform-add-item {
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    float: left;
+    width: 100px;
+}
+
+.autoform-remove-item {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    float: left;
+    margin-right: 5px;
+    width: 100px;
+}
+
+.selectDate {
+    margin: 10px;
+}
+
+legend {
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+fieldset {
+    background-color: #d7dee2;
+}
+
+fieldset div {
+    margin: 0 !important;
+}
+
+.submitButton {
+    background-color: #2980b9;
+    color: white;
+    width: 45%;
+    border: none;
+    transition: ease all 0.5s;
+    -webkit-transition: ease all 0.5s;
+    -moz-transition: ease all 0.5s;
+    -o-transition: ease all 0.5s;
+}
+
+.resetButton {
+    background-color: #c0392b;
+    color: white;
+    width: 45%;
+    border: none;
+    margin-left: 5%;
+    transition: ease all 0.5s;
+    -webkit-transition: ease all 0.5s;
+    -moz-transition: ease all 0.5s;
+    -o-transition: ease all 0.5s;
+}
+
+.submitButton:hover {
+    background-color: #ECEFF1;
+    color: #2980b9;
+    border: 1px solid #2c3e50;
+}
+
+.header-add-schedule {
+    text-align: center;
+    font-size: 20px;
+    background-color: #16a085;
+    color: white;
+}
+
+.baqla {
+    padding: 3px;
+    background-color: #e74c3c;
+    color: white;
+    transition: ease all 0.5s;
+    -webkit-transition: ease all 0.5s;
+    -moz-transition: ease all 0.5s;
+    -o-transition: ease all 0.5s;
+}
+
+.baqla:hover {
+    cursor: pointer;
+    background-color: #2c3e50;
+    color: #e74c3c;
+}
+
+.add-more {
+    color: white;
+    padding-top: 5 xp;
+}
+
+.add-moreschedule-button {
+    color: white !important;
+    background-color: #16a085;
+    text-align: center;
+    padding: 5px;
+    transition: ease all 0.5s;
+    -webkit-transition: ease all 0.5s;
+    -moz-transition: ease all 0.5s;
+    -o-transition: ease all 0.5s;
+}
+
+.add-moreschedule-button:hover {
+    background-color: rgb(22, 109, 91);
+    color: white;
+}
+
+.elave-et, .sil{
+    cursor: pointer;
+}

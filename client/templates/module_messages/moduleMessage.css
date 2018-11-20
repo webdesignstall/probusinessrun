@@ -1,0 +1,39 @@
+.modal-messages {
+    position: absolute;
+    width: 360px;
+    max-height: 200px;
+    min-height: 100px;
+    z-index: 999;
+    background-color: rgb(31, 31, 31);
+    margin-top: -100px;
+    margin-left: -180px;
+    top: 50%;
+    left: 50%;
+}
+
+.not-header {
+    font-family: 'Roboto Slab', serif;
+    padding: 5px;
+    text-align: center;
+    font-size: 16px;
+    background-color: rgb(16, 146, 201);
+    color: white;
+    border-bottom: 1px solid rgb(68, 94, 121);
+}
+
+.not-mesaj {
+    padding: 10px;
+    text-align: center;
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    font-family: 'Roboto Slab', serif;
+}
+
+.qaraArxa {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 998;
+    background-color: rgba(0, 0, 0, 0.317);
+}

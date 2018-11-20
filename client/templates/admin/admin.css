@@ -1,0 +1,172 @@
+label {
+    font-size: 14px !important;
+}
+
+/*list of works*/
+
+.arxaSecilmis {
+    background-color: #ad1457;
+    color: white;
+    padding: 0.4rem;
+    border-radius: 0.3rem;
+    margin-left: 1rem;
+}
+
+/*lsit of workers*/
+
+.add-new-worker {
+    background-color: #ecf0f1;
+    margin: 1rem 0;
+    padding: 0.5rem 1rem;
+    font-size: 14px;
+    font-family: Consolas, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
+}
+
+.add-user-form {
+    display: none;
+    position: relative;
+    padding: 20px;
+    background-color: #ecf0f1;
+    color: black !important;
+}
+
+.add-user-form header {
+    text-align: center;
+    font-size: 16px;
+    border-bottom: solid 2px #df416a;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+}
+
+.add-user-form button {
+    border: none;
+    background-color: rgb(74, 112, 158);
+    color: white;
+    padding: 10px 20px;
+    margin: 0 !important;
+}
+
+.add-user-form button:hover {
+    border: none;
+    color: white;
+    background-color: #2980b9;
+    padding: 10px 20px;
+    margin-right: 10px;
+}
+
+.add-new-worker i {
+    font-size: 20px;
+    color: #3498db;
+}
+
+.add-new-worker span {
+    margin-right: 1rem;
+}
+
+#insertBookForm {
+    background: #000;
+}
+
+.yari {
+    width: 49%;
+}
+
+.sola {
+    float: left;
+}
+
+.ui-datepicker-header {
+    background: #ecf0f1 !important;
+}
+
+/*iscilerin siyahisi*/
+
+.workers-list {
+    background-color: #e2e5e5;
+    color: black;
+    padding: 10px;
+    font-family: Consolas, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
+}
+
+.iscilerSiyahi {
+    background-color: #ecf0f1;
+    margin-top: 5px;
+    padding: 5px 10px;
+}
+
+.iscilerSiyahi:hover {
+    background-color: #b0b6b9;
+}
+
+.iscinin-nomresi {
+    background-color: #16a085;
+    color: white;
+    padding: 3px 5px;
+}
+
+.add-user-spin {
+    display: none;
+    position: absolute;
+    width: 98%;
+    height: 98%;
+    z-index: 2;
+}
+
+.employeePhotoPlace {
+    background-color: #b0b6b9;
+    color: rgb(111, 111, 111);
+    width: 200px;
+    height: 300px;
+    text-align: center;
+    padding: 20px;
+}
+
+.employeeBlock {
+    float: left;
+    width: 200px;
+}
+
+.employeeInfoBlock {
+    float: right;
+    width: calc(100% - 220px);
+    height: auto;
+    margin-bottom: 15px;
+}
+
+.formButtons {
+    background-color: rgb(161, 189, 223);
+    text-align: center;
+    margin-top: 10px;
+}
+
+#employeeName {
+    float: left;
+    width: 49%;
+}
+
+#employeeLastName {
+    float: right;
+    width: 49%;
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+    width: 200px;
+}
+
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}

@@ -1,0 +1,166 @@
+/* CSS declarations go here */
+
+input::placeholder {
+    color: rgb(168, 168, 168) !important;
+}
+
+input {
+    color: rgb(9, 133, 19) !important;
+}
+
+td, th {
+    padding: 0 !important;
+}
+
+.sag {
+    float: right !important;
+}
+
+.sol {
+    float: left !important;
+}
+
+.clear {
+    clear: both !important;
+}
+
+.td {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+#AddWorkDataForm label {
+    color: black;
+}
+
+#AddWorkDataForm button {
+    border: none;
+    background-color: #2980b9;
+    color: white;
+    border-radius: 3px;
+    padding: 10px 20px;
+    float: left;
+    top: 0;
+    margin-left: 10px;
+}
+
+#AddWorkDataForm div {
+    margin: 0 !important;
+}
+
+#addworkdataform fieldset {
+    width: 100px !important;
+    float: left;
+}
+
+.ui-datepicker-title {
+    background-color: #fff !important;
+    font-family: Roboto;
+    font-weight: normal;
+}
+
+.ui-datepicker-calendar {
+    font-family: Roboto;
+    font-weight: normal;
+}
+
+.ui-widget-header, .ui-datepicker-div, .ui-datepicker-header {
+    background-color: white !important;
+}
+
+#cedvelBeden td {
+    padding: 0 !important;
+}
+
+[type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+    opacity: 1 !important;
+    position: static !important;
+}
+
+.isare {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+.valideyn input {
+    text-indent: 32px;
+}
+
+.wrapper {
+    position: relative;
+    width: 400px;
+    height: 200px;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.signature-pad {
+    position: absolute;
+    border: 1px solid #1b1b1b;
+    left: 0;
+    top: 0;
+    width: 400px;
+    height: 200px;
+    background-color: white;
+}
+
+.margin-top {
+    margin-top: 20px;
+}
+
+/* The Modal (background) */
+
+.modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 99999999999;
+    /* Sit on top */
+    padding-top: 100px;
+    /* Location of the box */
+    left: 0;
+    top: 100px;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+}
+
+/* Modal Content */
+
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/* The Close Button */
+
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover, .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.card__ hr {
+    color: rgb(209, 209, 209) !important;
+}

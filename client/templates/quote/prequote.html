@@ -1,0 +1,278 @@
+<template name="preQuote">
+    <div>
+        <!-- Prequote -->
+        <div id="quote-content" class="row">
+            <form id="quote-request">
+                <!-- First Name -->
+                <div class="input-field valideyn col s12 m6 l3">
+                    <i class="material-icons isare">account_box</i>
+                    <input id="firstName" type="text" placeholder="" required />
+                    <label class="active" for="firstName">First Name</label>
+                </div>
+                <!-- Last Name -->
+                <div class="input-field valideyn col s12 m6 l3">
+                    <i class="material-icons isare">account_box</i>
+                    <input id="lastName" type="text" placeholder="" required />
+                    <label class="active" for="lastName">Last Name</label>
+                </div>
+                <!-- Phone number -->
+                <div class="input-field valideyn col s12 m6 l3">
+                    <i class="material-icons isare">phone</i>
+                    <input id="phoneNumber" type="number" placeholder="" required />
+                    <label class="active" for="phoneNumber">Phone Number</label>
+                </div>
+                <!-- Additional phone number -->
+                <div class="input-field valideyn col s12 m6 l3">
+                    <i class="material-icons isare">phone</i>
+                    <input id="phoneNumberAdditional" type="number" placeholder="" />
+                    <label class="active" for="phoneNumberAdditional">Additional Phone Number</label>
+                </div>
+                <!-- Email -->
+                <div class="input-field valideyn col s12 m6 l3">
+                    <i class="material-icons isare">email</i>
+                    <input id="musteriEmail" type="email" placeholder="" require />
+                    <label class="active" for="musteriEmail">E-mail</label>
+                </div>
+                <!-- Moving Date -->
+                <div class="input-field valideyn col s12 m6 l3">
+                    <i class="material-icons isare">date_range</i>
+                    <input id="quote-date-picker" class="xx" type="text" placeholder="" />
+                    <label class="active" for="quote-date-picker">Moving Date</label>
+                </div>
+                <!-- Moving time window -->
+                <div id="arrival-time" class="input-field valideyn col s12 m6 l3">
+                </div>
+                <!-- Moving from -->
+                <div class="input-field valideyn col s12 m6 l6">
+                    <i class="material-icons isare">location_off</i>
+                    <input id="movingFrom" type="text" placeholder="" />
+                    <label class="active" for="movingFrom">Moving from</label>
+                </div>
+                <!-- Moving to -->
+                <div class="input-field valideyn col s12 m6 l6">
+                    <span class="material-icons isare">location_on</span>
+                    <input id="movingTo" type="text" placeholder="" />
+                    <label class="active" for="movingTo">Moving to</label>
+                </div>
+                <!-- Small item packing -->
+                <div class="input-field valideyn col s12 m6 l3">
+                    <i class="material-icons isare">view_array</i>
+                    <input id="small_item_pack" class="xx" type="number" placeholder="0" />
+                    <label class="active" for="small_item_pack">Small item packing</label>
+                </div>
+                <!-- Large Item fee -->
+                <div class="input-field valideyn col s12 m6 l3">
+                    <i class="material-icons isare">view_carousel</i>
+                    <input id="large_item_fee" class="xx" type="number" placeholder="0" />
+                    <label class="active" for="large_item_fee">Large item fee</label>
+                </div>
+                <!-- Moving time window -->
+                <!-- <div class="input-field valideyn col s12 m6 l3">
+                    <i class="material-icons isare">date_range</i>
+                    <input id="quote-time-picker-to" class="xx" type="text" placeholder="Moving Time window" />
+                </div> -->
+                <!-- Payment charging options -->
+                <div class="clear"></div>
+                <div class="row chargingPanel">
+                    <div class="col s12 m12 l12 orange darken-4 payment-header">
+                        Payment options <i class="lime-text lighten-5 black">[ Flat Rate <input id="flatRateCheck" type="checkbox"
+                                onchange="showFlatRate()">
+                            ]</i>
+                    </div>
+                    <div id="paymentContent">
+                        <!-- Minimum labor time -->
+                        <div class="input-field valideyn col s12 m6 l3">
+                            <i class="material-icons isare">timer</i>
+                            <input id="labor_time" class="xx" type="number" placeholder="0" onchange="(() => {
+                                                                    if (this.value < 0) { 
+                                                                        this.value=0; 
+                                                                    } 
+                                                                })()" />
+                            <label class="active" for="labor_time">Minimum labor time (hours)</label>
+                        </div>
+                        <!-- Hourly rates cash -->
+                        <div class="input-field valideyn col s12 m6 l3">
+                            <i class="material-icons isare">attach_money</i>
+                            <input id="hourly_rates_cash" class="xx" type="number" placeholder="0" onchange="(() => {
+                                                                    if (this.value < 0) {
+                                                                        this.value = 0;
+                                                                    }
+                                                                })()" />
+                            <label class="active" for="hourly_rates_cash">Hourly rates (cash)</label>
+                        </div>
+                        <!-- Hourly rates card -->
+                        <div class="input-field valideyn col s12 m6 l3">
+                            <i class="material-icons isare">attach_money</i>
+                            <input id="hourly_rates_card" class="xx" type="number" placeholder="0" onchange="(() => {
+                                                                    if (this.value < 0) {
+                                                                        this.value = 0;
+                                                                    }
+                                                                })()" />
+                            <label class="active" for="hourly_rates_card">Hourly rates (card)</label>
+                        </div>
+                        <!-- NOt to exceed Price -->
+                        <div class="input-field valideyn col s12 m6 l3">
+                            <i class="material-icons isare">attach_money</i>
+                            <input id="quote_price" class="xx" type="number" placeholder="0" onchange="(() => {
+                                                                    if (this.value < 0) {
+                                                                        this.value = 0;
+                                                                    }
+                                                                })()" />
+                            <label class="active" for="quote_price">Not Exceed Price</label>
+                        </div>
+                    </div>
+                    <div id="flatRate_" class="input-field valideyn col s12 m12 l12 flatRate hide">
+                        <!-- <div class="col s12 m6 l6">
+                            <i class="material-icons isare">attach_money</i>
+                            <input id="flatRate" class="xx" type="number" placeholder="0" onchange="(() => {
+                                                                if (this.value < 0) {
+                                                                    this.value = 0;
+                                                                }
+                                                            })()" />
+                            <label class="active" for="flatRate">Flat Rate (Cash)</label>
+                        </div>
+                        <div class="col s12 m6 l6">
+                            <i class="material-icons isare">attach_money</i>
+                            <input id="flatRateCard" class="xx" type="number" placeholder="0" onchange="(() => {
+                                                                                                                if (this.value < 0) {
+                                                                                                                    this.value = 0;
+                                                                                                                }
+                                                                                                            })()" />
+                            <label class="active" for="flatRateCard">Flat Rate (Card)</label>
+                        </div> -->
+                        <div class="input-field valideyn col s12 m6 l3">
+                            <i class="material-icons isare">attach_money</i>
+                            <input id="flatRateCash" class="xx" type="number" placeholder="0" onchange="(() => {
+                            if (this.value< 0) {
+                                 this.value=0; 
+                                 } })()" />
+                            <label class="active" for="flatRateCash">Flat rate cash</label>
+                        </div>
+                        <!-- Large Item fee -->
+                        <div class="input-field valideyn col s12 m6 l3">
+                            <i class="material-icons isare">attach_money</i>
+                            <input id="flatRateCard" class="xx" type="number" placeholder="0" onchange="(() => {
+                            if (this.value < 0) { this.value=0; } })()" />
+                            <label class="active" for="flatRateCard">Flat rate card</label>
+                        </div>
+                    </div>
+                </div>
+                <!-- Double drive -->
+                <div class="input-field col s12 m3 l3 azMargin">
+                    <select title="Double drive" name="double_drive" id="double_drive">
+                        <option value="false" disabled>Select double drive</option>
+                        <option value="waived" selected>No</option>
+                        <option value="yes">Yes</option>
+                    </select>
+                    <label class="active" for="double_drive">Double Drive Time</label>
+                </div>
+                <!-- Number of movers -->
+                <div id="number-of-movers" class="input-field valideyn col s12 m3 l3 azMargin">
+                    <!-- <i class="material-icons isare">person</i> -->
+                </div>
+                <!-- Select moving size -->
+                <div id="moving-size-main" class="input-field col s12 m6 l6 azMargin">
+                    <select title="moving_size" name="moving_size" id="moving_size_2">
+                        <option value="select_moving_size" selected disabled>Select Moving Size</option>
+                        <option value="items">Items</option>
+                        <option value="studio">Studio</option>
+                        <option value="1_bedroom">1 Bedroom</option>
+                        <option value="2_bedroom_small">2 Bedroom (small size, few items)</option>
+                        <option value="2_bedroom_avg">2 Bedroom (avg. size, avg. items)</option>
+                        <option value="2_bedroom_large">2 Bedroom (large size, many items)</option>
+                        <option value="3_bedroom_avg">3 Bedroom (avg. size, avg. items)</option>
+                        <option value="3_bedroom_large">3 Bedroom (large size, many items)</option>
+                        <option value="4_bedrooom_avg">4 Bedroom (avg. size, avg. items)</option>
+                        <option value="4_bedroom_large">4 Bedroom (large size, many items)</option>
+                        <option value="commercial_avg">Commercial (avg. size, avg. items)</option>
+                        <option value="commercial_large">Commercial (large size, many items)</option>
+                    </select>
+                    <label class="active" for="moving_size_2">Moving Size</label>
+                </div>
+                <!-- Moving company -->
+                <div id="moving-company" class="input-field valideyn col s12 m6 l6">
+                </div>
+                <!-- Gas Fee -->
+                <div class="input-field valideyn col s12 m3 l3">
+                    <i class="material-icons isare">attach_money</i>
+                    <input id="gas_fee" class="xx" type="number" placeholder="0" />
+                    <label class="active" for="gas_fee">Gas Fee</label>
+                </div>
+                <!-- Job ID -->
+                <div class="input-field valideyn col s12 m3 l3">
+                    <i class="material-icons isare">local_offer</i>
+                    <input id="quote-job-number" class="xx" type="text" placeholder="Job ID" disabled />
+                    <label class="active" for="quote-job-number">Job Number</label>
+                </div>
+                <!-- TempTruck -->
+                <div class="iscilerin-siyahisi col s12 m12 l12">
+                    <div id="tempTruck" class="iscilerinSiyahisiRender"></div>
+                </div>
+                <!-- Add Truck -->
+                <div id="addTruck" class="input-field valideyn col s12 m12 l12 add-truck-root">
+                </div>
+                <div class="clear"></div>
+                <!-- Comment -->
+                <div class="input-field col s12">
+                    <textarea id="textarea1" class="materialize-textarea"> </textarea>
+                    <label for="textarea1">Comments</label>
+                </div>
+                <div class="clear"></div>
+                <div class="center-align quote-submit">
+                    <a id="work-request-reset" class="waves-effect waves-light btn amber darken-2" onclick="resetForm()">Reset</a>
+                    <a id="work-request" class="waves-effect waves-light btn">Submit</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        // date selector
+        $('#quote-date-picker').pickadate({
+            selectMonths: true, // Creates a dropdown to control month
+            selectYears: 15, // Creates a dropdown of 15 years to control year,
+            today: 'Today',
+            clear: 'Clear',
+            close: 'Ok',
+            closeOnSelect: false // Close upon selecting a date,
+        });
+
+        // reset form
+        function resetForm() {
+            document.getElementById('quote-request').reset();
+        }
+
+        // declare job number
+        function jobNumber() {
+            document.getElementById('quote-job-number').value = Math.random().toString(36).substr(2, 5);
+        }
+
+        // run job number
+        jobNumber();
+
+        // // Time picker
+        // $('#quote-time-picker-from, #quote-time-picker-to').pickatime({
+        //     default: '9:00AM', // Set default time: 'now', '1:30AM', '16:30'
+        //     fromnow: 0,       // set default time to * milliseconds from now (using with default = 'now')
+        //     twelvehour: true, // Use AM/PM or 24-hour format
+        //     donetext: 'SELECT', // text for done-button
+        //     cleartext: 'Clear', // text for clear-button
+        //     canceltext: 'Cancel', // Text for cancel-button
+        //     autoclose: false, // automatic close timepicker
+        //     ampmclickable: true, // make AM PM clickable
+        //     aftershow: function () { } //Function for after opening timepicker
+        // });
+        let clicked = false;
+
+        function showFlatRate() {
+            clicked === true ? (() => {
+                document.querySelector('#paymentContent').classList.remove('hide');
+                document.querySelector('#flatRate_').classList.add('hide');
+            })() : (() => {
+                document.querySelector('#paymentContent').classList.add('hide');
+                document.querySelector('#flatRate_').classList.remove('hide');
+            })();
+
+            clicked = !clicked;
+        }
+    </script>
+</template>

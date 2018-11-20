@@ -1,0 +1,178 @@
+#basliq {
+    background-color: #34495e;
+    color: white;
+    padding: 10px;
+    margin-top: 20px;
+    border-radius: 10px;
+    width: 100%;
+}
+
+#quote-content {
+    background-color: #ecf0f1;
+    color: rgb(27, 27, 27);
+}
+
+#quote-2nd-header {
+    border-bottom: 1px solid rgb(82, 117, 151);
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+quote-content input {
+    border: none !important;
+}
+
+.quote-submit {
+    margin: 20px 0;
+}
+
+.valideyn {
+    position: relative;
+}
+
+.tarix-in-list {
+    background-color: #355981;
+    color: white;
+    padding: 5px;
+    border-radius: 3px;
+    margin: 0 10px 0 0;
+}
+
+.list-ad {
+    color: black;
+}
+
+/* prequote */
+
+.iscilerin-siyahisi {
+    overflow: auto;
+    padding: 10px !important;
+    margin: 10px;
+    background-color: #b2bec3;
+    border-radius: 5px;
+    color: black;
+    text-decoration: none;
+    line-height: 32px;
+    max-height: 200px;
+}
+
+.iscilerin-siyahisi a {
+    text-decoration: none;
+    color: white;
+    padding: 5px;
+    border-radius: 3px;
+    background-color: #636e72;
+    border: 1px solid #1d344e;
+    margin: 3px;
+    cursor: pointer;
+}
+
+.basliq {
+    padding: 0 10px;
+    margin-bottom: 10px;
+    font-size: 18px;
+    border-bottom: 1px solid #2d3436;
+}
+
+.sil {
+    color: #eb3b5a;
+}
+
+.add-truck {
+    z-index: 5 !important;
+    color: rgb(60, 197, 133);
+    cursor: pointer;
+}
+
+.add-truck:hover {
+    color: green;
+}
+
+.truck-select {
+    margin: 5px 0;
+}
+
+.truck-delete {
+    margin-top: 5px;
+    color: red;
+}
+
+.truck-delete:hover {
+    color: rgb(168, 41, 162);
+    cursor: pointer;
+}
+
+.add-truck-root {
+    margin: 0 0 10px;
+    background-color: #34495e;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.merkez {
+    text-align: center;
+}
+
+hr {
+    border: none;
+    border-bottom: 1px solid #6a89a8;
+}
+
+#hide-update-quote {
+    background-color: #e74c3c;
+    padding: 15px;
+    color: white;
+}
+
+#hide-update-quote a {
+    float: right;
+    margin-top: -5px;
+    background-color: #2c3e50;
+    color: white;
+    box-sizing: border-box;
+    padding: 5px 10px;
+    cursor: pointer;
+    border: 1px solid #2c3e50;
+}
+
+#hide-update-quote a:hover {
+    background-color: #c0392b;
+    border: 1px solid #2c3e50;
+}
+
+#hide-update-quote h5 {
+    margin: 0 !important;
+    display: inline;
+    font-size: 18px;
+}
+
+#update_time_window {
+    border: 1px solid#bdc3c7;
+}
+
+.zona {
+    margin: 5px;
+}
+
+.goy {
+    background-color: #3498db !important;
+    color: white !important;
+}
+
+.chargingPanel {
+    background-color: rgba(0, 0, 0, 0.082) !important;
+}
+
+.payment-header {
+    color: white;
+    padding: 5px 20px;
+}
+
+.input-field label {
+    color: black !important;
+    margin-top: 5px;
+}
+
+.borderRed {
+    border-left: 2px solid red !important;
+}

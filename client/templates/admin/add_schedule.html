@@ -1,0 +1,11 @@
+<template name="addSchedule">
+    <div class="well">
+        <h3 class="center-align">Add schedule</h3>
+        {{> quickForm collection=Collections.WorkData template="plain" id="AddWorkDataForm" type="insert" resetOnSuccess=true }}
+    </div>
+    <script>
+        $(function () {
+            $("[name=workDate]").datepicker();
+        });
+    </script>
+</template>

@@ -1,0 +1,1 @@
+let Calendars = new Mongo.Collection('Calendars');
