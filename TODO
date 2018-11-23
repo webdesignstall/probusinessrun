@@ -11,7 +11,10 @@ Todo:
   ✔ Add functionality to flat rate button @done(18-11-21 16:58)
   ☐ Discount caclculation functionality
   ☐ On type number inside Discount call Calculation function.
+  ☐ Add customer sign place
   ☐ Check is the promo code added or not. If Added check is it correct or not. if correct automatically add Discoutn without waiting response from Admin panel
   ☐ Depend on the input (time, percentage, moneyAmount) calcaulate discount
   ☐ On press ask discount chech is promo code added or not. If not send confirmation notification to admin panel about discount.
   ☐ As soon as discount added (proofed by admin or promo code) to calculation add new line in the total section 'Discount: $50' or something like this.
+
+  

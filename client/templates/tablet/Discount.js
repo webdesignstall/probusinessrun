@@ -26,6 +26,8 @@ export default class Discount extends React.Component {
         this.setState({
             valueOfSelected: e.target.value
         })
+
+        this.props.hesabala;
     }
 
     render() {

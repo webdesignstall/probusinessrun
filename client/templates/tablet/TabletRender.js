@@ -147,10 +147,9 @@ export default class TabletRender extends React.Component {
     }
 
     hesabla(e) {
-        console.log(this.state.vurulmusIs);
         let is = this.state.vurulmusIs[0];
-        let cardInput = document.querySelector('#card').value;
-        let cashInput = document.querySelector('#cash').value;
+        let cardInput = document.querySelector('#card').value < 0 ? 0 : (document.querySelector('#card').value > this.payCard ? this.payCard : document.querySelector('#card').value);
+        let cashInput = document.querySelector('#cash').value < 0 ? 0 : (document.querySelector('#cash').value > this.payCash ? this.payCash : document.querySelector('#cash').value);
         let markAsPayed = document.getElementById('mark-as-payed');
         let totalOdenilmisCashSaati = 0;
         let totalOdenilesiCardSaati = 0;
@@ -158,13 +157,13 @@ export default class TabletRender extends React.Component {
         let totalOdenilesiCash = 0;
 
         let totalHoursWorked = !isNaN(this.round(is.totalWorkHours, 2)) ? this.round(is.totalWorkHours, 2) : console.error('Total worked hours is not a number type');
+        !isNaN(totalHoursWorked) && is.flatRate && is.flatRate[0].isTrue ? totalHoursWorked -= is.laborTime : '';
         let cashRate = is.hourlyRatesCash && !isNaN(is.hourlyRatesCash) ? is.hourlyRatesCash : 0;
         let cardRate = is.hourlyRatesCash && !isNaN(is.hourlyRatesCard) ? is.hourlyRatesCard : 0;
         let cashWorkHourAmount = cashRate * totalHoursWorked;
         let cardWorkHourAmount = cardRate * totalHoursWorked;
         let minimumLaborTime = is.laborTime && !isNaN(is.laborTime) ? is.laborTime : 0;
         let flatRateCash = is.flatRate && !isNaN(is.flatRate[0].cashAmount) ? is.flatRate[0].cashAmount : 0;
-        console.log("​TabletRender -> hesabla -> flatRateCash", flatRateCash)
         let flatRateCashInit = is.flatRate && !isNaN(is.flatRate[0].cashAmount) ? is.flatRate[0].cashAmount : 0;
         let flatRateCard = is.flatRate && !isNaN(is.flatRate[0].cardAmount) ? is.flatRate[0].cardAmount : 0;
         let flatRateCardInit = is.flatRate && !isNaN(is.flatRate[0].cardAmount) ? is.flatRate[0].cardAmount : 0;
@@ -186,13 +185,14 @@ export default class TabletRender extends React.Component {
             // totalOdenilesiCard = this.state.totalPul + (totalOdenilesiCardSaati * this.cardRate) + this.elave;
             // totalOdenilesiCard = totalOdenilesiCard.toFixed(2);
 
-            if (cashAmountPaying === this.payCash) {
+            if (cashAmountPaying == this.payCash) {
                 this.setState({
                     payCard: 0,
                     payCash: cashInput
                 });
                 markAsPayed.classList.remove('disabled');
                 odenilmelidir = 0;
+                return false;
             } else {
                 // Rate olmayan odenislerden odenilecek mebleqi cixiriq
                 qaliq = totalAdditionalCharge - cashAmountPaying;
@@ -255,17 +255,18 @@ export default class TabletRender extends React.Component {
                 // totalOdenilesiCard = this.state.totalPul + (totalOdenilesiCardSaati * this.cardRate) + this.elave;
                 // totalOdenilesiCard = totalOdenilesiCard.toFixed(2);
 
-                if (cardAmountPaying === this.payCard) {
+                if (cardAmountPaying == this.payCard) {
                     this.setState({
                         payCard: cardInput,
                         payCash: 0
                     });
                     markAsPayed.classList.remove('disabled');
                     odenilmelidir = 0;
+
+                    return false;
                 } else {
                     // Rate olmayan odenislerden odenilecek mebleqi cixiriq
                     qaliq = totalAdditionalCharge - cardAmountPaying;
-
                     // Eger odenilen pul ratesiz carghdan coxdursa
                     if (qaliq < 0) {
                         totalAdditionalCharge = 0;
@@ -300,6 +301,7 @@ export default class TabletRender extends React.Component {
                 });
 
                 if (cardInput == this.payCard) {
+                    console.log('bu isledi')
                     this.setState({
                         payCard: cardInput,
                         payCash: 0
@@ -1023,14 +1025,18 @@ export default class TabletRender extends React.Component {
                                         if (isNaN(this.round(is.totalWorkHours, 2))) {
                                             return 0;
                                         } else {
-                                            return this.round(is.totalWorkHours, 2);
+                                            if (is.flatRate[0].isTrue) {
+                                                return this.round(is.totalWorkHours, 2) - is.laborTime;
+                                            } else {
+                                                return this.round(is.totalWorkHours, 2);
+                                            }
                                         }
                                     })()} hours</span>
                                 </li>
                                 <li className="collection-item blue">
                                     Total amount cash:
                                     <span className="sag">= $ {(() => {
-                                        let totalSaat = is.totalWorkHours;
+                                        let totalSaat = is.flatRate && is.flatRate[0].isTrue ? is.totalWorkHours - is.laborTime : is.totalWorkHours;
                                         let cashRate = is.hourlyRatesCash;
                                         this.cashRate = cashRate;
                                         let totalSaatPul = Number(totalSaat) * Number(cashRate);
@@ -1055,6 +1061,7 @@ export default class TabletRender extends React.Component {
 
                                         this.elave = cem;
                                         cem = cem + totalSaatPul + this.state.totalPul;
+                                        is.flatRate && is.flatRate[0].isTrue ? cem += is.flatRate[0].cashAmount : '';
                                         cem = this.round(cem, 2);
                                         this.payCash = cem;
                                         return cem;
@@ -1063,7 +1070,7 @@ export default class TabletRender extends React.Component {
                                 <li className="collection-item blue">
                                     Total amount card:
                                     <span className="sag">= $ {(() => {
-                                        let totalSaat = is.totalWorkHours;
+                                        let totalSaat = is.flatRate && is.flatRate[0].isTrue ? is.totalWorkHours - is.laborTime : is.totalWorkHours;
                                         this.totalSaat = totalSaat;
                                         let cardRate = is.hourlyRatesCard;
                                         this.cardRate = cardRate;
@@ -1087,7 +1094,7 @@ export default class TabletRender extends React.Component {
 
                                         this.elave = cem;
                                         cem = cem + totalSaatPul + this.state.totalPul;
-
+                                        is.flatRate && is.flatRate[0].isTrue ? cem += is.flatRate[0].cardAmount : '';
                                         cem = this.round(cem, 2);
                                         this.payCard = cem;
                                         return cem;
