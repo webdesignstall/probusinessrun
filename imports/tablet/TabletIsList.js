@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Template } from 'meteor/templating';
 import { Meteor } from 'meteor/meteor';
-import WorkData from './../../../common/collections_2';
+import WorkData from '../../common/collections_2';
 import { Tracker } from 'meteor/tracker';
 import { Session } from 'meteor/session';
 

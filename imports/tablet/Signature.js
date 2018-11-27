@@ -8,17 +8,10 @@ export default class Signature extends React.Component {
             id: new Date().getTime(),
             signatureEmpty: false
         }
-
-        this.createCanvas = this.createCanvas.bind(this);
     }
 
     componentDidMount() {
-        console.log('Component qosuldu');
-    }
-
-    createCanvas(id) {
-        console.log('loaded create canvas')
-        let signaturePadElement = document.getElementById(id + 'canvas')
+        let signaturePadElement = document.getElementById(this.state.id + 'canvas')
         this.signaturePad = signaturePadElement ? new SignaturePad(
             signaturePadElement,
             {
@@ -26,26 +19,23 @@ export default class Signature extends React.Component {
                 penColor: 'rgb(0, 0, 0)'
             }
         ) : null;
-        let saveButton = document.getElementById(id + 'save');
-        let clearButton = document.getElementById(id + 'clear')
+        let saveButton = document.getElementById(this.state.id + 'save');
+        let clearButton = document.getElementById(this.state.id + 'clear')
 
         this.state.signatureEmpty ? saveButton.classList.remove(disabled) : null;
 
         clearButton ? clearButton.addEventListener('click', () => this.signaturePad.clear()) : null;
         saveButton ? saveButton.addEventListener('click', () => {
-            console.log('loaded save button');
-            let fullName = document.getElementById(id).value;
-            let date = document.getElementById(id + 'date').innerText;
+            let fullName = document.getElementById(this.state.id).value;
+            let date = document.getElementById(this.state.id + 'date').innerText;
             let signature = this.signaturePad.toDataURL();
-            let typeId = this.props.typeOfSignature;
-            this.props.saveSignature(fullName, date, signature, typeId);
+            this.props.saveSignature(fullName, date, signature, this.props.id);
             let target_ = document.getElementById(`${ this.props.id }`);
             target_.classList.add('hide');
         }) : null;
     }
 
     signatureEmpty() {
-        console.log('Zulumka')
         this.setState((prevState) => {
             signatureEmpty: !prevState.signatureEmpty
         });
@@ -68,8 +58,7 @@ export default class Signature extends React.Component {
                     <canvas id={this.state.id + 'canvas'} className="card__ " width={'400px'} height={'200px'} onChange={this.signatureEmpty} ></canvas>
                     <div className="clear"></div>
                     <button id={this.state.id + 'clear'} className="btn  red lighten-2" >Clear</button>
-                    <button id={this.state.id + 'save'} className="btn">Save</button>
-                    {this.createCanvas(this.state.id)}
+                    <button key={this.state.id + 'key'} id={this.state.id + 'save'} className="btn">Save</button>
                 </div>
             </div>
         );

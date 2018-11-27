@@ -5,7 +5,7 @@ import { Template } from 'meteor/templating';
 import { Tracker } from 'meteor/tracker';
 import { Session } from 'meteor/session';
 import SignaturePad from 'signature_pad';
-import WorkData from './../../../common/collections_2';
+import WorkData from '../../common/collections_2';
 
 import TabletIsList from './TabletIsList';
 import AdditionalSignature from './AdditionalSignature';
