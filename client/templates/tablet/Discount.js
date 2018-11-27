@@ -27,7 +27,7 @@ export default class Discount extends React.Component {
             valueOfSelected: e.target.value
         })
 
-        this.props.hesabala;
+        this.props.yoxlama();
     }
 
     render() {

@@ -1,8 +1,8 @@
 import React from 'react';
-import { Flipper, Flipped } from 'react-flip-toolkit';
 
 // Components
 import Discount from './Discount';
+import AdditionalSignaturesRender from './AdditionalSignaturesRender';
 
 export default class AdditionalSignature extends React.Component {
     constructor(props) {
@@ -10,10 +10,7 @@ export default class AdditionalSignature extends React.Component {
 
         this.state = {
             animate: false,
-            clicked: props.clicked,
-            listOfSignatures: [
-
-            ]
+            clicked: props.clicked
         }
     }
 
@@ -35,13 +32,18 @@ export default class AdditionalSignature extends React.Component {
 
     render() {
         return (
-            <div className={this.state.clicked ? 'hide' : ''}>
-                <div className="card__">Hay</div>
-                <div className="card__">Huy</div>
-                <div className="card__">Duy</div>
+            <div className={!this.state.clicked ? 'hide' : ''}>
+                <div className="card__">
+                    <AdditionalSignaturesRender listOfSignature={this.props.additionalSignatureList} saveSignature={this.props.saveSignature} />
+                </div>
                 <div className="card__">
                     <div onClick={() => this.show('discount_')} >Discount</div>
-                    <div id="discount_" className="hide" ><Discount hesabla={this.props.hesabla} /></div>
+                    <div id="discount_" className="hide" >
+                        <Discount
+                            yoxlama={this.props.yoxlama}
+                            hesabla={this.props.hesabla}
+                        />
+                    </div>
                 </div>
             </div>
         );

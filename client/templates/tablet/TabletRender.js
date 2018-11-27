@@ -46,6 +46,27 @@ export default class TabletRender extends React.Component {
             initialSignAlphabet: '',
             employeeSign: '',
             additionalSignatiure: false,
+            discount: {
+                isTrue: true,
+                list: [
+                    {
+                        type: 'amount',
+                        amount: 20
+                    },
+                    {
+                        type: 'time',
+                        amount: 20
+                    },
+                    {
+                        type: 'time',
+                        amount: 50
+                    },
+                    {
+                        type: 'percent',
+                        amount: 5
+                    }
+                ]
+            },
             vurulmusIs: [
                 {
                     '_id': 'MKqnYLC8bHzNFsQBR',
@@ -73,7 +94,154 @@ export default class TabletRender extends React.Component {
                     'gasFee': 60,
                     'company': 'ukqBneo88GuHj3ETe'
                 }
-            ]
+            ],
+            additionalSignatureList: [
+                {
+                    id: '1additionalSignature',
+                    title: 'WAIVER AND RELEASE OF LIABILITY FOR HAVING RIDE IN TRUCK',
+                    content: `I HEREBY ASSUME ALL OF THE RISKS OF PARTICIPATING IN ANY/ALL ACTIVITIES
+                        ASSOCIATED WITH THIS EVENT, including by way of example and not limitation, any risks that may
+                        arise from negligence or carelessness on the part of the persons or entities being released, from dangerous
+                        or defective equipment or property owned, maintained, or controlled by them, or because of their possible
+                        liability without fault.
+                        I certify that I am physically fit, have sufficiently prepared or trained for participation in this activity, and
+                        have not been advised to not participate by a qualified medical professional.I certify that there are no
+                        health - related reasons or problems which preclude my participation in this activity.
+                        I acknowledge that this Accident Waiver and Release of Liability Form will be used by the event holders,
+                        sponsors, and organizers of the activity in which I may participate, and that it will govern my actions and
+                        responsibilities at said activity.
+                        In consideration of my application and permitting me to participate in this activity, I hereby take action for
+                        myself, my executors, administrators, heirs, next of kin, successors, and assigns as follows:
+                        (A) I WAIVE, RELEASE, AND DISCHARGE from any and all liability, including but not limited to,
+                        liability arising from the negligence or fault of the entities or persons released, for my death, disability,
+                        personal injury, property damage, property theft, or actions of any kind which may hereafter occur to
+                        me including my traveling to and from this activity, THE FOLLOWING ENTITIES OR PERSONS:
+                        Movers Legion, Inc and it’s DBA’s and / or their directors, officers, employees, volunteers,
+                        representatives, and agents, and the activity holders, sponsors, and volunteers;
+                        (B) INDEMNIFY, HOLD HARMLESS, AND PROMISE NOT TO SUE the entities or persons
+                        mentioned in this paragraph from any and all liabilities or claims made as a result of participation in
+                        this activity, whether caused by the negligence of release or otherwise.
+                        I acknowledge that Movers Legion, INC and DBA’s and their directors, officers, volunteers,
+                        representatives, and agents are NOT responsible for the errors, omissions, acts, or failures to act of any
+                        party or entity conducting a specific activity on their behalf.
+                        I acknowledge that this activity may involve a test of a person's physical and mental limits and carries with
+                        it the potential for death, serious injury, and property loss.The risks include, but are not limited to, those
+                        caused by terrain, facilities, temperature, weather, condition of participants, equipment, vehicular traffic,
+                        lack of hydration, and actions of other people including, but not limited to, participants, volunteers,
+                            monitors, and / or producers of the activity.These risks are not only inherent to participants, but are also
+                        present for volunteers.
+                                    I hereby consent to receive medical treatment which may be deemed advisable in the event of injury,
+                        accident, and / or illness during this activity.
+                        I understand while participating in this activity, I may be photographed.I agree to allow my photo, video,
+                        or film likeness to be used for any legitimate purpose by the activity holders, producers, sponsors,
+                            organizers, and assigns.
+                        The Accident Waiver and Release of Liability Form shall be construed broadly to provide a release and
+                        waiver to the maximum extent permissible under applicable law.
+                        I CERTIFY THAT I HAVE READ THIS DOCUMENT AND I FULLY UNDERSTAND ITS CONTENT.
+                        I AM AWARE THAT THIS IS A RELEASE OF LIABILITY AND A CONTRACT AND I SIGN IT OF
+                    MY OWN FREE WILL.`
+                },
+                {
+                    id: '2additionalSignature',
+                    title: 'WAIVER AND RELEASE OF LIABILITY FOR UNWRAPPED ITEMS',
+                    content: `I HEREBY ASSUME ALL OF THE RISKS OF PARTICIPATING IN ANY/ALL ACTIVITIES
+ASSOCIATED WITH THIS EVENT, including by way of example and not limitation, any risks that may
+arise from negligence or carelessness on the part of the persons or entities being released, from dangerous
+or defective equipment or property owned, maintained, or controlled by them, or because of their possible
+liability without fault.
+I acknowledge that this Accident Waiver and Release of Liability Form will be used by the event holders,
+sponsors, and organizers of the activity in which I may participate, and that it will govern my actions and
+responsibilities at said activity.
+In consideration of my application and permitting me to participate in this activity, I hereby take action for
+myself, my executors, administrators, heirs, next of kin, successors, and assigns as follows:
+(A) I WAIVE, RELEASE, AND DISCHARGE from any and all liability, including but not limited to,
+liability arising from the negligence or fault of the entities or persons released, for my furniture or
+any items that I won’t wrap it professionally with protection supplies, THE FOLLOWING
+ENTITIES OR PERSONS: Movers Legion, Inc and it’s DBA’s and/or their directors, officers,
+employees, volunteers, representatives, and agents, and the activity holders, sponsors, and
+volunteers;
+(B) I understand that having furniture or any household goods transporting without protections can
+cause damage, scratches, dents, etc.
+(C) INDEMNIFY, HOLD HARMLESS, AND PROMISE NOT TO SUE the entities or persons
+mentioned in this paragraph from any and all liabilities or claims made as a result of participation in
+this activity, whether caused by the negligence of release or otherwise.
+I acknowledge that Movers Legion, INC and DBA’s and their directors, officers, volunteers,
+representatives, and agents are NOT responsible for the errors, omissions, acts, or failures to act of any
+party or entity conducting a specific activity on their behalf.
+The Accident Waiver and Release of Liability Form shall be construed broadly to provide a release and
+waiver to the maximum extent permissible under applicable law.
+I CERTIFY THAT I HAVE READ THIS DOCUMENT AND I FULLY UNDERSTAND ITS CONTENT.
+I AM AWARE THAT THIS IS A RELEASE OF LIABILITY AND A CONTRACT AND I SIGN IT OF
+MY OWN FREE WILL.`
+                },
+                {
+                    id: '3additionalSignature',
+                    title: 'WAIVER AND RELEASE OF LIABILITY FOR NARROW HALLWAY, STAIRCASE, DOOR.ETC',
+                    content: `I HEREBY ASSUME ALL OF THE RISKS OF PARTICIPATING IN ANY/ALL ACTIVITIES
+ASSOCIATED WITH THIS EVENT, including by way of example and not limitation, any risks that may
+arise from negligence or carelessness on the part of the persons or entities being released, from dangerous
+or defective equipment or property owned, maintained, or controlled by them, or because of their possible
+liability without fault.
+I acknowledge that this Accident Waiver and Release of Liability Form will be used by the event holders,
+sponsors, and organizers of the activity in which I may participate, and that it will govern my actions and
+responsibilities at said activity.
+In consideration of my application and permitting me to participate in this activity, I hereby take action for
+myself, my executors, administrators, heirs, next of kin, successors, and assigns as follows:
+(A) I WAIVE, RELEASE, AND DISCHARGE from any and all liability, including but not limited to,
+liability arising from the negligence or fault of the entities or persons released, for my household
+goods and property, door or frame, wall or hallway or any related items to the property, THE
+FOLLOWING ENTITIES OR PERSONS: Movers Legion, Inc and it’s DBA’s and/or their
+directors, officers, employees, volunteers, representatives, and agents, and the activity holders,
+sponsors, and volunteers;
+(B) I understand that moving bulky household good true to narrow places can cause damage,
+scratches, dents, etc. to my items and property and I take full responsibility for it.
+(C) INDEMNIFY, HOLD HARMLESS, AND PROMISE NOT TO SUE the entities or persons
+mentioned in this paragraph from any and all liabilities or claims made as a result of participation in
+this activity, whether caused by the negligence of release or otherwise.
+I acknowledge that Movers Legion, INC and DBA’s and their directors, officers, volunteers,
+representatives, and agents are NOT responsible for the errors, omissions, acts, or failures to act of any
+party or entity conducting a specific activity on their behalf.
+The Accident Waiver and Release of Liability Form shall be construed broadly to provide a release and
+waiver to the maximum extent permissible under applicable law.
+I CERTIFY THAT I HAVE READ THIS DOCUMENT AND I FULLY UNDERSTAND ITS CONTENT.
+I AM AWARE THAT THIS IS A RELEASE OF LIABILITY AND A CONTRACT AND I SIGN IT OF
+MY OWN FREE WILL`
+                },
+                {
+                    id: '4additionalSignature',
+                    title: 'WAIVER AND RELEASE OF LIABILITY FOR PRERAPPED ITEMS',
+                    content: `I HEREBY ASSUME ALL OF THE RISKS OF PARTICIPATING IN ANY/ALL ACTIVITIES
+ASSOCIATED WITH THIS EVENT, including by way of example and not limitation, any risks that may
+arise from negligence or carelessness on the part of the persons or entities being released, from dangerous
+or defective equipment or property owned, maintained, or controlled by them, or because of their possible
+liability without fault.
+I acknowledge that this Accident Waiver and Release of Liability Form will be used by the event holders,
+sponsors, and organizers of the activity in which I may participate, and that it will govern my actions and
+responsibilities at said activity.
+In consideration of my application and permitting me to participate in this activity, I hereby take action for
+myself, my executors, administrators, heirs, next of kin, successors, and assigns as follows:
+(A) I WAIVE, RELEASE, AND DISCHARGE from any and all liability, including but not limited to,
+liability arising from the negligence or fault of the entities or persons released, for my furniture or
+any household goods items that was wrapped by me or other people or company, THE
+FOLLOWING ENTITIES OR PERSONS: Movers Legion, Inc and it’s DBA’s and/or their
+directors, officers, employees, volunteers, representatives, and agents, and the activity holders,
+sponsors, and volunteers;
+(B) I understand that if any items were packed unprofessionally can cause damage to the items and I
+understand that my current movers are not taking any responsibility for prewrapped items.
+(C) INDEMNIFY, HOLD HARMLESS, AND PROMISE NOT TO SUE the entities or persons
+mentioned in this paragraph from any and all liabilities or claims made as a result of participation in
+this activity, whether caused by the negligence of release or otherwise.
+I acknowledge that Movers Legion, INC and DBA’s and their directors, officers, volunteers,
+representatives, and agents are NOT responsible for the errors, omissions, acts, or failures to act of any
+party or entity conducting a specific activity on their behalf.
+The Accident Waiver and Release of Liability Form shall be construed broadly to provide a release and
+waiver to the maximum extent permissible under applicable law.
+I CERTIFY THAT I HAVE READ THIS DOCUMENT AND I FULLY UNDERSTAND ITS CONTENT.
+I AM AWARE THAT THIS IS A RELEASE OF LIABILITY AND A CONTRACT AND I SIGN IT OF
+MY OWN FREE WILL`
+                }
+            ],
+            additionalSignatures: []
         });
 
         this.requirementEntirely = this.requirementEntirely.bind(this);
@@ -89,6 +257,8 @@ export default class TabletRender extends React.Component {
         this.movingBlankets = this.movingBlankets.bind(this);
         this.wardrobeBoxes = this.wardrobeBoxes.bind(this);
         this.paperBundles = this.paperBundles.bind(this);
+        this.yoxlama = this.yoxlama.bind(this);
+        this.saveSignature = this.saveSignature.bind(this);
     }
 
     requirementEntirely(param, whichState) {
@@ -100,6 +270,18 @@ export default class TabletRender extends React.Component {
     initialAlphabet(e) {
         this.setState({
             initialSignAlphabet: e.target.value
+        });
+    }
+
+    saveSignature(fullname, date, signature, typeId) {
+        let newSignatureList = this.state.additionalSignatures.concat({
+            fullname,
+            date,
+            signature,
+            typeId
+        })
+        this.setState({
+            additionalSignatures: newSignatureList
         });
     }
 
@@ -146,6 +328,13 @@ export default class TabletRender extends React.Component {
         Meteor.call('updateWork', doc);
     }
 
+    yoxlama() {
+        this.setState({
+            yoxlama: true
+        });
+        console.log('Isledi');
+    }
+
     hesabla(e) {
         let is = this.state.vurulmusIs[0];
         let cardInput = document.querySelector('#card').value < 0 ? 0 : (document.querySelector('#card').value > this.payCard ? this.payCard : document.querySelector('#card').value);
@@ -156,8 +345,30 @@ export default class TabletRender extends React.Component {
         let totalOdenilesiCard = 0;
         let totalOdenilesiCash = 0;
 
-        let totalHoursWorked = !isNaN(this.round(is.totalWorkHours, 2)) ? this.round(is.totalWorkHours, 2) : console.error('Total worked hours is not a number type');
+        // discount hesablamasi
+        let totalDiscountTime = 0;
+        let totalDiscountAmount = 0;
+        let totalDiscountPercent = 0;
+
+        this.state.discount.list
+            .filter((discount) => discount.type === 'time')
+            .map((discount) => totalDiscountTime += discount.amount);
+
+        this.state.discount.list
+            .filter((discount) => discount.type === 'amount')
+            .map((discount) => totalDiscountAmount += discount.amount);
+
+        this.state.discount.list
+            .filter((discount) => discount.type === 'percent')
+            .map((discount) => totalDiscountPercent += discount.amount);
+        totalDiscountPercent = totalDiscountPercent / 100;
+
+        let totalHoursWorked =
+            !isNaN(this.round(is.totalWorkHours, 2)) ?
+                this.round(is.totalWorkHours, 2) :
+                console.error('Total worked hours is not a number type');
         !isNaN(totalHoursWorked) && is.flatRate && is.flatRate[0].isTrue ? totalHoursWorked -= is.laborTime : '';
+        totalHoursWorked = this.state.discount.isTrue ? totalHoursWorked - this.round((totalDiscountTime / 60), 2) : totalHoursWorked;
         let cashRate = is.hourlyRatesCash && !isNaN(is.hourlyRatesCash) ? is.hourlyRatesCash : 0;
         let cardRate = is.hourlyRatesCash && !isNaN(is.hourlyRatesCard) ? is.hourlyRatesCard : 0;
         let cashWorkHourAmount = cashRate * totalHoursWorked;
@@ -168,10 +379,11 @@ export default class TabletRender extends React.Component {
         let flatRateCard = is.flatRate && !isNaN(is.flatRate[0].cardAmount) ? is.flatRate[0].cardAmount : 0;
         let flatRateCardInit = is.flatRate && !isNaN(is.flatRate[0].cardAmount) ? is.flatRate[0].cardAmount : 0;
         let flatRateTrue = is.flatRate ? is.flatRate[0].isTrue : false;
-        let cashAmountPaying = cashInput;
-        let cardAmountPaying = cardInput;
+        let cashAmountPaying = Number(cashInput) + Number(totalDiscountAmount);
+        let cardAmountPaying = Number(cardInput) + Number(totalDiscountAmount);
         let totalAdditionalCharge = this.totalAdditionalCharge;
         let qaliq = 0;
+
 
         if (e.target.id === 'cash') {
             if (!markAsPayed.classList.contains('disabled')) {
@@ -293,7 +505,6 @@ export default class TabletRender extends React.Component {
                 }
 
                 totalOdenilesiCash = this.round((totalAdditionalCharge + (flatRateTrue ? (flatRateCard / flatRateCardInit * flatRateCashInit) : 0) + (cardWorkHourAmount / cardRate * cashRate)), 2);
-
 
                 this.setState({
                     payCard: cardInput,
@@ -911,7 +1122,7 @@ export default class TabletRender extends React.Component {
                     <div id="secondStep" className={this.state.initSign ? 'card__' : 'hide card__'} >
                         <div className="card__ additionalSignature center-align">
                             <a className="waves-effect waves-light btn" onClick={() => this.setState({ additionalSignatiure: !this.state.additionalSignatiure })} >{this.state.additionalSignatiure ? 'Need additonal signature HIDE' : 'Need additonal signature SHOW'} </a>
-                            <AdditionalSignature clicked={this.state.additionalSignatiure} />
+                            <AdditionalSignature yoxlama={this.yoxlama.bind(this)} clicked={this.state.additionalSignatiure} additionalSignatureList={this.state.additionalSignatureList} saveSignature={this.saveSignature} />
                         </div>
                         <div className="timeline">
                             <div className="center-align">
@@ -1037,6 +1248,27 @@ export default class TabletRender extends React.Component {
                                     Total amount cash:
                                     <span className="sag">= $ {(() => {
                                         let totalSaat = is.flatRate && is.flatRate[0].isTrue ? is.totalWorkHours - is.laborTime : is.totalWorkHours;
+                                        let totalDiscountTime = 0;
+                                        let totalDiscountAmount = 0;
+                                        let totalDiscountPercent = 0;
+
+                                        this.state.discount.list
+                                            .filter((discount) => discount.type === 'time')
+                                            .map((discount) => totalDiscountTime += discount.amount);
+                                        totalSaat =
+                                            this.state.discount.isTrue ?
+                                                totalSaat - this.round((totalDiscountTime / 60), 2) :
+                                                totalSaat;
+
+                                        this.state.discount.list
+                                            .filter((discount) => discount.type === 'amount')
+                                            .map((discount) => totalDiscountAmount += discount.amount);
+
+                                        this.state.discount.list
+                                            .filter((discount) => discount.type === 'percent')
+                                            .map((discount) => totalDiscountPercent += discount.amount);
+                                        totalDiscountPercent = totalDiscountPercent / 100;
+
                                         let cashRate = is.hourlyRatesCash;
                                         this.cashRate = cashRate;
                                         let totalSaatPul = Number(totalSaat) * Number(cashRate);
@@ -1060,7 +1292,10 @@ export default class TabletRender extends React.Component {
                                         this.totalAdditionalCharge = cem;
 
                                         this.elave = cem;
-                                        cem = cem + totalSaatPul + this.state.totalPul;
+                                        cem = cem + totalSaatPul;
+                                        this.cashPercentDiscount = (cem - totalDiscountAmount) * totalDiscountPercent;
+                                        cem = cem - (cem * totalDiscountPercent) - totalDiscountAmount;
+                                        cem += this.state.totalPul;
                                         is.flatRate && is.flatRate[0].isTrue ? cem += is.flatRate[0].cashAmount : '';
                                         cem = this.round(cem, 2);
                                         this.payCash = cem;
@@ -1071,7 +1306,27 @@ export default class TabletRender extends React.Component {
                                     Total amount card:
                                     <span className="sag">= $ {(() => {
                                         let totalSaat = is.flatRate && is.flatRate[0].isTrue ? is.totalWorkHours - is.laborTime : is.totalWorkHours;
-                                        this.totalSaat = totalSaat;
+                                        let totalDiscountTime = 0;
+                                        let totalDiscountAmount = 0;
+                                        let totalDiscountPercent = 0;
+
+                                        this.state.discount.list
+                                            .filter((discount) => discount.type === 'time')
+                                            .map((discount) => totalDiscountTime += discount.amount);
+                                        totalSaat =
+                                            this.state.discount.isTrue ?
+                                                totalSaat - this.round((totalDiscountTime / 60), 2) :
+                                                totalSaat;
+
+                                        this.state.discount.list
+                                            .filter((discount) => discount.type === 'amount')
+                                            .map((discount) => totalDiscountAmount += discount.amount);
+
+                                        this.state.discount.list
+                                            .filter((discount) => discount.type === 'percent')
+                                            .map((discount) => totalDiscountPercent += discount.amount);
+                                        totalDiscountPercent = totalDiscountPercent / 100;
+
                                         let cardRate = is.hourlyRatesCard;
                                         this.cardRate = cardRate;
                                         let totalSaatPul = Number(totalSaat) * Number(cardRate);
@@ -1093,12 +1348,19 @@ export default class TabletRender extends React.Component {
                                         }
 
                                         this.elave = cem;
-                                        cem = cem + totalSaatPul + this.state.totalPul;
+                                        cem = cem + totalSaatPul;
+                                        this.cardPercentDiscount = (cem - totalDiscountAmount) * totalDiscountPercent;
+                                        cem = cem - (cem * totalDiscountPercent) - totalDiscountAmount;
+                                        cem += this.state.totalPul;
                                         is.flatRate && is.flatRate[0].isTrue ? cem += is.flatRate[0].cardAmount : '';
                                         cem = this.round(cem, 2);
                                         this.payCard = cem;
                                         return cem;
                                     })()}</span>
+                                </li>
+                                <li className="collection-item blue">
+                                    Discount:
+                                    <span className="sag">= ${this.state.discount.total}</span>
                                 </li>
                             </ul>
                         </div>
@@ -1175,13 +1437,14 @@ export default class TabletRender extends React.Component {
 
 Template.tablet.events({
     'click #close-duymesi-id': function () {
-        ReactDOM.unmountComponentAtNode(document.getElementById('tebler-render'));
         ReactDOM.render(<TabletIsList />, document.getElementById('tablet-is-siyahi'));
 
         $('#tablet-is-siyahi').show();
         $('#tebler-render').hide();
     }
 });
+
+// TODO: find where is TabletRender component rendering multiple times
 
 Template.tablet.onRendered(function () {
     ReactDOM.render(<TabletRender />, document.getElementById('tebler-render'));
