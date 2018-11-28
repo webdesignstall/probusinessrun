@@ -413,5 +413,29 @@ Schemas.workSchema = new SimpleSchema({
     'flatRate.$.cardAmount': {
         type: Number,
         optional: true
-    }
+    },
+    additionalSignature: {
+        type: Array,
+        optional: true
+    },
+    'additionalSignature.$': {
+        type: Object,
+        optional: true,
+    },
+    'additionalSignature.$.date': {
+        type: Date,
+        optional: true
+    },
+    'additionalSignature.$.fullname': {
+        type: String,
+        optional: true
+    },
+    'additionalSignature.$.signature': {
+        type: String,
+        optional: true
+    },
+    'additionalSignature.$.typeId': {
+        type: String,
+        optional: true
+    },
 }, { tracker: Tracker });

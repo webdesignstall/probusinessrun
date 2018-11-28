@@ -49,7 +49,7 @@ export default class TabletIsList extends React.Component {
         return (
             this.state.tabletIsler.map((is) => {
                 return (
-                    <a href="#" id={is._id} key={is._id} className="collection-item" onClick={
+                    <a href="#" id={is._id} key={Math.random()} className="collection-item" onClick={
                         () => {
                             Session.set('tabletIsId', is._id);
                             $('#tebler-render').show();

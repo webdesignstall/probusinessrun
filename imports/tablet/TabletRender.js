@@ -9,6 +9,7 @@ import WorkData from '../../common/collections_2';
 
 import TabletIsList from './TabletIsList';
 import AdditionalSignature from './AdditionalSignature';
+import AddedAdditionalSignaturesRender from './AddedAdditionalSignaturesRender';
 
 /*global moment, paypal*/
 
@@ -283,6 +284,15 @@ MY OWN FREE WILL`
         this.setState({
             additionalSignatures: newSignatureList
         });
+        console.log("​TabletRender -> saveSignature -> newSignatureList", newSignatureList)
+
+        // TODO: Bazaya melumatlari elave et
+        let doc = {
+            _id: Session.get('tabletIsId'),
+            additionalSignature: newSignatureList
+        };
+
+        Meteor.call('updateWork', doc);
     }
 
     finishJob() {
@@ -669,6 +679,7 @@ MY OWN FREE WILL`
                         initialSignAlphabet: is.initialSignAlphabet,
                         requirementEntirely: is.requirementEntirely,
                         threeDayPrior: is.threeDayPrior,
+                        additionalSignatures: is.additionalSignature && is.additionalSignature.length >= 0 ? is.additionalSignature : []
                     });
                 });
             }
@@ -1124,6 +1135,7 @@ MY OWN FREE WILL`
                             <a className="waves-effect waves-light btn" onClick={() => this.setState({ additionalSignatiure: !this.state.additionalSignatiure })} >{this.state.additionalSignatiure ? 'Need additonal signature HIDE' : 'Need additonal signature SHOW'} </a>
                             <AdditionalSignature yoxlama={this.yoxlama.bind(this)} clicked={this.state.additionalSignatiure} additionalSignatureList={this.state.additionalSignatureList} saveSignature={this.saveSignature} />
                         </div>
+                        <AddedAdditionalSignaturesRender listOfAddedSignature={this.state.additionalSignatures} listOfAdditionalSignature={this.state.additionalSignatureList} />
                         <div className="timeline">
                             <div className="center-align">
                                 <a id="start-work" onClick={() => { this.vaxtiBaslat(is._id); }} className="waves-effect waves-light btn blue">Start Work time</a>
@@ -1443,8 +1455,6 @@ Template.tablet.events({
         $('#tebler-render').hide();
     }
 });
-
-// TODO: find where is TabletRender component rendering multiple times
 
 Template.tablet.onRendered(function () {
     ReactDOM.render(<TabletRender />, document.getElementById('tebler-render'));

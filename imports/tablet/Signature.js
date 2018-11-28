@@ -6,7 +6,8 @@ export default class Signature extends React.Component {
         super(props);
         this.state = {
             id: new Date().getTime(),
-            signatureEmpty: false
+            signatureEmpty: false,
+            time: new Date().getTime()
         }
     }
 
@@ -27,10 +28,11 @@ export default class Signature extends React.Component {
         clearButton ? clearButton.addEventListener('click', () => this.signaturePad.clear()) : null;
         saveButton ? saveButton.addEventListener('click', () => {
             let fullName = document.getElementById(this.state.id).value;
-            let date = document.getElementById(this.state.id + 'date').innerText;
+            let date = this.state.time;
             let signature = this.signaturePad.toDataURL();
             this.props.saveSignature(fullName, date, signature, this.props.id);
             let target_ = document.getElementById(`${ this.props.id }`);
+            this.signaturePad.clear();
             target_.classList.add('hide');
         }) : null;
     }
@@ -58,7 +60,7 @@ export default class Signature extends React.Component {
                     <canvas id={this.state.id + 'canvas'} className="card__ " width={'400px'} height={'200px'} onChange={this.signatureEmpty} ></canvas>
                     <div className="clear"></div>
                     <button id={this.state.id + 'clear'} className="btn  red lighten-2" >Clear</button>
-                    <button key={this.state.id + 'key'} id={this.state.id + 'save'} className="btn">Save</button>
+                    <button key={Math.random()} id={this.state.id + 'save'} className="btn">Save</button>
                 </div>
             </div>
         );
