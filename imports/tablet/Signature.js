@@ -30,7 +30,14 @@ export default class Signature extends React.Component {
             let fullName = document.getElementById(this.state.id).value;
             let date = this.state.time;
             let signature = this.signaturePad.toDataURL();
-            this.props.saveSignature(fullName, date, signature, this.props.id);
+            let information = {
+                fullName,
+                date,
+                signature,
+                typeId: this.props.id
+            };
+            information = this.props.discountInformation ? Object.assign({}, information, this.props.discountInformation) : information;
+            this.props.saveSignature(this.props.which, information);
             let target_ = document.getElementById(`${ this.props.id }`);
             this.signaturePad.clear();
             target_.classList.add('hide');

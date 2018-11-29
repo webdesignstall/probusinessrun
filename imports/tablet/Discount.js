@@ -1,5 +1,8 @@
 import React from 'react';
 
+// componenets
+import Signature from './Signature';
+
 export default class Discount extends React.Component {
     constructor(props) {
         super(props);
@@ -8,7 +11,8 @@ export default class Discount extends React.Component {
             time: 0,
             percentage: 0,
             selected: 'amount',
-            valueOfSelected: 'Amount'
+            valueOfSelected: 'Amount',
+            note: ''
         }
 
         this.select = this.select.bind(this);
@@ -51,8 +55,20 @@ export default class Discount extends React.Component {
                     <div className="notes">
                         <div className="cardTitle white left-align grey-text">Notes:</div>
                         <div className="noteTextArea">
-                            <textarea name="" id="discountNote" cols="30" rows="10" className="card__" ></textarea>
+                            <textarea name="discountNote" id="discountNote" cols="30" rows="10" className="card__" ></textarea>
                         </div>
+                    </div>
+                    <div className="col s12 m12 l12 hide">
+                        <Signature
+                            saveSignature={this.props.saveSignature}
+                            id={new Date().getTime()}
+                            which="discount"
+                            discountInformation={{
+                                type: this.state.selected,
+                                amount: this.state.amount,
+                                note: this.state.note
+                            }}
+                        />
                     </div>
                 </div>
             </div>

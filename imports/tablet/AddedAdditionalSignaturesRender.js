@@ -13,6 +13,7 @@ export default class AddedAdditionalSignaturesRender extends React.Component {
     renderAdditionalSignatures(list) {
         return (
             list.map((additionalSignature) => {
+                console.log('evale edilmis islerin mappingi basladi')
                 let signatureInfo = this.props.listOfAdditionalSignature.find((additionalSignature_) => {
                     return additionalSignature_.id === additionalSignature.typeId;
                 });
@@ -42,7 +43,7 @@ export default class AddedAdditionalSignaturesRender extends React.Component {
     render() {
         return (
             <div className={this.props.listOfAddedSignature.length > 0 ? 'cadr___ collection' : 'hide'} >
-                <div className="center-align collection-item purple lighten-2 white-text">Added signatures</div>
+                <div className="center-align collection-item purple lighten-2 white-text">ADDED ADDITIONAL SIGNATURES</div>
                 {(() => this.renderAdditionalSignatures(this.props.listOfAddedSignature))()}
             </div>
         );

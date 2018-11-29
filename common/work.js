@@ -438,4 +438,36 @@ Schemas.workSchema = new SimpleSchema({
         type: String,
         optional: true
     },
+    discount: {
+        type: Array,
+        optional: true
+    },
+    'discount.$': {
+        type: Object,
+        optional: true
+    },
+    'discount.$.type': {
+        type: String,
+        optional: true
+    },
+    'discount.$.amount': {
+        type: Number,
+        optional: true
+    },
+    'discount.$.signature': {
+        type: String,
+        optional: true
+    },
+    'discount.$.date': {
+        type: Date,
+        optional: true
+    },
+    'discount.$.fullname': {
+        type: String,
+        optional: true
+    },
+    'discount.$.note': {
+        type: String,
+        optional: true
+    }
 }, { tracker: Tracker });

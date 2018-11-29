@@ -10,6 +10,7 @@ import WorkData from '../../common/collections_2';
 import TabletIsList from './TabletIsList';
 import AdditionalSignature from './AdditionalSignature';
 import AddedAdditionalSignaturesRender from './AddedAdditionalSignaturesRender';
+import AddedDiscountRender from './AddedDiscountRender'
 
 /*global moment, paypal*/
 
@@ -47,27 +48,7 @@ export default class TabletRender extends React.Component {
             initialSignAlphabet: '',
             employeeSign: '',
             additionalSignatiure: false,
-            discount: {
-                isTrue: true,
-                list: [
-                    {
-                        type: 'amount',
-                        amount: 20
-                    },
-                    {
-                        type: 'time',
-                        amount: 20
-                    },
-                    {
-                        type: 'time',
-                        amount: 50
-                    },
-                    {
-                        type: 'percent',
-                        amount: 5
-                    }
-                ]
-            },
+            discount: [],
             vurulmusIs: [
                 {
                     '_id': 'MKqnYLC8bHzNFsQBR',
@@ -242,7 +223,7 @@ I AM AWARE THAT THIS IS A RELEASE OF LIABILITY AND A CONTRACT AND I SIGN IT OF
 MY OWN FREE WILL`
                 }
             ],
-            additionalSignatures: []
+            additionalSignature: []
         });
 
         this.requirementEntirely = this.requirementEntirely.bind(this);
@@ -268,31 +249,40 @@ MY OWN FREE WILL`
         });
     }
 
+    // TODO: discounty da additinal signature duymesini vurduqda save etsin 
+
     initialAlphabet(e) {
         this.setState({
             initialSignAlphabet: e.target.value
         });
     }
 
-    saveSignature(fullname, date, signature, typeId) {
-        let newSignatureList = this.state.additionalSignatures.concat({
-            fullname,
-            date,
-            signature,
-            typeId
-        })
+    saveSignature(which, infromation) {
+        let newList = this.state[which].concat(infromation)
         this.setState({
-            additionalSignatures: newSignatureList
+            [which]: newList
         });
-        console.log("​TabletRender -> saveSignature -> newSignatureList", newSignatureList)
+        console.log("​TabletRender -> saveSignature -> newSignatureList", newList)
 
-        // TODO: Bazaya melumatlari elave et
         let doc = {
             _id: Session.get('tabletIsId'),
-            additionalSignature: newSignatureList
+            [which]: newList, // save additional signature
         };
-
         Meteor.call('updateWork', doc);
+        // if (which === 'discount') {
+        //     let newDiscountList = this.state.discount.concat(information);
+
+        //     this.setState({
+        //         discount: newDiscountList
+        //     });
+
+        //     let doc = {
+        //         _id: Session.get('tabletIsId'),
+        //         discount: this.state.discount // saving discount information
+        //     };
+
+        //     Meteor.call('updateWork', doc);
+        // }
     }
 
     finishJob() {
@@ -360,17 +350,24 @@ MY OWN FREE WILL`
         let totalDiscountAmount = 0;
         let totalDiscountPercent = 0;
 
-        this.state.discount.list
-            .filter((discount) => discount.type === 'time')
-            .map((discount) => totalDiscountTime += discount.amount);
+        this.state.discount.list && this.state.discount.list.length > -1 ?
+            this.state.discount.list
+                .filter((discount) => discount.type === 'time')
+                .map((discount) => totalDiscountTime += discount.amount)
+            : null;
 
-        this.state.discount.list
-            .filter((discount) => discount.type === 'amount')
-            .map((discount) => totalDiscountAmount += discount.amount);
+        this.state.discount.list && this.state.discount.list.length > -1 ?
+            this.state.discount.list
+                .filter((discount) => discount.type === 'amount')
+                .map((discount) => totalDiscountAmount += discount.amount)
+            : null;
 
-        this.state.discount.list
-            .filter((discount) => discount.type === 'percent')
-            .map((discount) => totalDiscountPercent += discount.amount);
+        this.state.discount.list && this.state.discount.list.length > -1 ?
+            this.state.discount.list
+                .filter((discount) => discount.type === 'percent')
+                .map((discount) => totalDiscountPercent += discount.amount)
+            : null;
+
         totalDiscountPercent = totalDiscountPercent / 100;
 
         let totalHoursWorked =
@@ -378,7 +375,7 @@ MY OWN FREE WILL`
                 this.round(is.totalWorkHours, 2) :
                 console.error('Total worked hours is not a number type');
         !isNaN(totalHoursWorked) && is.flatRate && is.flatRate[0].isTrue ? totalHoursWorked -= is.laborTime : '';
-        totalHoursWorked = this.state.discount.isTrue ? totalHoursWorked - this.round((totalDiscountTime / 60), 2) : totalHoursWorked;
+        totalHoursWorked = this.state.discount.length > -1 ? totalHoursWorked - this.round((totalDiscountTime / 60), 2) : totalHoursWorked;
         let cashRate = is.hourlyRatesCash && !isNaN(is.hourlyRatesCash) ? is.hourlyRatesCash : 0;
         let cardRate = is.hourlyRatesCash && !isNaN(is.hourlyRatesCard) ? is.hourlyRatesCard : 0;
         let cashWorkHourAmount = cashRate * totalHoursWorked;
@@ -679,7 +676,11 @@ MY OWN FREE WILL`
                         initialSignAlphabet: is.initialSignAlphabet,
                         requirementEntirely: is.requirementEntirely,
                         threeDayPrior: is.threeDayPrior,
-                        additionalSignatures: is.additionalSignature && is.additionalSignature.length >= 0 ? is.additionalSignature : []
+                        additionalSignature: is.additionalSignature && is.additionalSignature.length > 0 ? is.additionalSignature : [],
+                        discount: is.discount && is.discount.length > 0 ? is.discount : [{
+                            type: 'amount',
+                            amount: 20
+                        }]
                     });
                 });
             }
@@ -1135,7 +1136,9 @@ MY OWN FREE WILL`
                             <a className="waves-effect waves-light btn" onClick={() => this.setState({ additionalSignatiure: !this.state.additionalSignatiure })} >{this.state.additionalSignatiure ? 'Need additonal signature HIDE' : 'Need additonal signature SHOW'} </a>
                             <AdditionalSignature yoxlama={this.yoxlama.bind(this)} clicked={this.state.additionalSignatiure} additionalSignatureList={this.state.additionalSignatureList} saveSignature={this.saveSignature} />
                         </div>
-                        <AddedAdditionalSignaturesRender listOfAddedSignature={this.state.additionalSignatures} listOfAdditionalSignature={this.state.additionalSignatureList} />
+                        <AddedAdditionalSignaturesRender listOfAddedSignature={this.state.additionalSignature} listOfAdditionalSignature={this.state.additionalSignatureList} />
+                        <AddedDiscountRender listOfDiscounts={this.state.discount} />
+                        {/* Finish rendering discounts */}
                         <div className="timeline">
                             <div className="center-align">
                                 <a id="start-work" onClick={() => { this.vaxtiBaslat(is._id); }} className="waves-effect waves-light btn blue">Start Work time</a>
@@ -1264,21 +1267,27 @@ MY OWN FREE WILL`
                                         let totalDiscountAmount = 0;
                                         let totalDiscountPercent = 0;
 
-                                        this.state.discount.list
-                                            .filter((discount) => discount.type === 'time')
-                                            .map((discount) => totalDiscountTime += discount.amount);
+                                        this.state.discount.list && this.state.discount.list.length > -1 ?
+                                            this.state.discount.list
+                                                .filter((discount) => discount.type === 'time')
+                                                .map((discount) => totalDiscountTime += discount.amount)
+                                            : null;
                                         totalSaat =
-                                            this.state.discount.isTrue ?
+                                            this.state.discount.length > -1 ?
                                                 totalSaat - this.round((totalDiscountTime / 60), 2) :
                                                 totalSaat;
 
-                                        this.state.discount.list
-                                            .filter((discount) => discount.type === 'amount')
-                                            .map((discount) => totalDiscountAmount += discount.amount);
+                                        this.state.discount.list && this.state.discount.list.length > -1 ?
+                                            this.state.discount.list
+                                                .filter((discount) => discount.type === 'amount')
+                                                .map((discount) => totalDiscountAmount += discount.amount)
+                                            : null;
 
-                                        this.state.discount.list
-                                            .filter((discount) => discount.type === 'percent')
-                                            .map((discount) => totalDiscountPercent += discount.amount);
+                                        this.state.discount.list && this.state.discount.list.length > -1 ?
+                                            this.state.discount.list
+                                                .filter((discount) => discount.type === 'percent')
+                                                .map((discount) => totalDiscountPercent += discount.amount)
+                                            : null;
                                         totalDiscountPercent = totalDiscountPercent / 100;
 
                                         let cashRate = is.hourlyRatesCash;
@@ -1322,21 +1331,27 @@ MY OWN FREE WILL`
                                         let totalDiscountAmount = 0;
                                         let totalDiscountPercent = 0;
 
-                                        this.state.discount.list
-                                            .filter((discount) => discount.type === 'time')
-                                            .map((discount) => totalDiscountTime += discount.amount);
+                                        this.state.discount.list && this.state.discount.list.length > -1 ?
+                                            this.state.discount.list
+                                                .filter((discount) => discount.type === 'time')
+                                                .map((discount) => totalDiscountTime += discount.amount)
+                                            : null;
                                         totalSaat =
-                                            this.state.discount.isTrue ?
+                                            this.state.discount.lenght > -1 ?
                                                 totalSaat - this.round((totalDiscountTime / 60), 2) :
                                                 totalSaat;
 
-                                        this.state.discount.list
-                                            .filter((discount) => discount.type === 'amount')
-                                            .map((discount) => totalDiscountAmount += discount.amount);
+                                        this.state.discount.list && this.state.discount.list.length > -1 ?
+                                            this.state.discount.list
+                                                .filter((discount) => discount.type === 'amount')
+                                                .map((discount) => totalDiscountAmount += discount.amount)
+                                            : null;
 
-                                        this.state.discount.list
-                                            .filter((discount) => discount.type === 'percent')
-                                            .map((discount) => totalDiscountPercent += discount.amount);
+                                        this.state.discount.list && this.state.discount.list.length > -1 ?
+                                            this.state.discount.list
+                                                .filter((discount) => discount.type === 'percent')
+                                                .map((discount) => totalDiscountPercent += discount.amount)
+                                            : null;
                                         totalDiscountPercent = totalDiscountPercent / 100;
 
                                         let cardRate = is.hourlyRatesCard;
