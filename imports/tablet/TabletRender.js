@@ -239,7 +239,6 @@ MY OWN FREE WILL`
         this.movingBlankets = this.movingBlankets.bind(this);
         this.wardrobeBoxes = this.wardrobeBoxes.bind(this);
         this.paperBundles = this.paperBundles.bind(this);
-        this.yoxlama = this.yoxlama.bind(this);
         this.saveSignature = this.saveSignature.bind(this);
     }
 
@@ -248,8 +247,6 @@ MY OWN FREE WILL`
             [whichState]: param
         });
     }
-
-    // TODO: discounty da additinal signature duymesini vurduqda save etsin 
 
     initialAlphabet(e) {
         this.setState({
@@ -326,13 +323,6 @@ MY OWN FREE WILL`
             threeDayPrior: this.state.threeDayPrior
         };
         Meteor.call('updateWork', doc);
-    }
-
-    yoxlama() {
-        this.setState({
-            yoxlama: true
-        });
-        console.log('Isledi');
     }
 
     hesabla(e) {
@@ -677,10 +667,7 @@ MY OWN FREE WILL`
                         requirementEntirely: is.requirementEntirely,
                         threeDayPrior: is.threeDayPrior,
                         additionalSignature: is.additionalSignature && is.additionalSignature.length > 0 ? is.additionalSignature : [],
-                        discount: is.discount && is.discount.length > 0 ? is.discount : [{
-                            type: 'amount',
-                            amount: 20
-                        }]
+                        discount: is.discount && is.discount.length > 0 ? is.discount : []
                     });
                 });
             }
@@ -1134,7 +1121,7 @@ MY OWN FREE WILL`
                     <div id="secondStep" className={this.state.initSign ? 'card__' : 'hide card__'} >
                         <div className="card__ additionalSignature center-align">
                             <a className="waves-effect waves-light btn" onClick={() => this.setState({ additionalSignatiure: !this.state.additionalSignatiure })} >{this.state.additionalSignatiure ? 'Need additonal signature HIDE' : 'Need additonal signature SHOW'} </a>
-                            <AdditionalSignature yoxlama={this.yoxlama.bind(this)} clicked={this.state.additionalSignatiure} additionalSignatureList={this.state.additionalSignatureList} saveSignature={this.saveSignature} />
+                            <AdditionalSignature clicked={this.state.additionalSignatiure} additionalSignatureList={this.state.additionalSignatureList} saveSignature={this.saveSignature} />
                         </div>
                         <AddedAdditionalSignaturesRender listOfAddedSignature={this.state.additionalSignature} listOfAdditionalSignature={this.state.additionalSignatureList} />
                         <AddedDiscountRender listOfDiscounts={this.state.discount} />

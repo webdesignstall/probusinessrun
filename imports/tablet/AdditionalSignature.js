@@ -40,7 +40,7 @@ export default class AdditionalSignature extends React.Component {
                     <div onClick={() => this.show('discount_')} >Discount</div>
                     <div id="discount_" className="hide" >
                         <Discount
-                            yoxlama={this.props.yoxlama}
+                            saveSignature={this.props.saveSignature}
                             hesabla={this.props.hesabla}
                         />
                     </div>

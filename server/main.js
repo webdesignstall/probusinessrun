@@ -2,6 +2,7 @@
 import { Meteor } from 'meteor/meteor';
 import email from 'emailjs';
 import WorkData from '../common/collections_2';
+import PromoCodes from '../common/collections_2';
 
 Meteor.startup(() => {
     // prepare mailing server
@@ -21,6 +22,11 @@ Meteor.startup(() => {
             this.ready();
         }
     });
+
+    const promoCode = PromoCodes.find({}).fetch();
+    promoCode && promoCode.length < 1 ? PromoCodes.insert({
+        list: ['zumka']
+    }) : ''
 });
 
 if (Meteor.isServer) {
@@ -149,7 +155,7 @@ if (Meteor.isServer) {
                            
                             <div style="font-family: 'Roboto', sans-serif;">
                                 <div class="merkez" style="font-family: 'Roboto', sans-serif;text-align: center;">
-                                    <p style="font-family: 'Roboto', sans-serif;margin: 7px;font-size: 16px;"><b style="font-family: 'Roboto', sans-serif;">Hello ${musteriAdi} ${musteriLastName}!</b></p>
+                                    <p style="font-family: 'Roboto', sans-serif;margin: 7px;font-size: 16px;"><b style="font-family: 'Roboto', sans-serif;">Hello ${musteriAdi } ${ musteriLastName }!</b></p>
                                     <p style="font-family: 'Roboto', sans-serif;margin: 7px;font-size: 16px;"><b style="font-family: 'Roboto', sans-serif;">Thank you for requesting your 50% off moving quote!</b></p>
                                     <p style="font-family: 'Roboto', sans-serif;margin: 7px;font-size: 16px;"><b style="font-family: 'Roboto', sans-serif;">Your quote includes:</b></p>
                                 </div>
@@ -214,7 +220,7 @@ if (Meteor.isServer) {
                                                 CUSTOMER NAME
                                             </td>
                                             <td style="font-family: 'Roboto', sans-serif;padding: 5px 20px;">
-                                                ${musteriAdi} ${musteriLastName}
+                                                ${musteriAdi } ${ musteriLastName }
                                             </td>
                                         </tr>
                                         <tr style="font-family: 'Roboto', sans-serif;">
@@ -222,7 +228,7 @@ if (Meteor.isServer) {
                                                 JOB NUMBER
                                             </td>
                                             <td style="font-family: 'Roboto', sans-serif;padding: 5px 20px;">
-                                                ${jobNumber}
+                                                ${jobNumber }
                                             </td>
                                         </tr>
                                         <tr style="font-family: 'Roboto', sans-serif;">
@@ -230,7 +236,7 @@ if (Meteor.isServer) {
                                                 PHONE NUMBER
                                             </td>
                                             <td style="font-family: 'Roboto', sans-serif;padding: 5px 20px;">
-                                                ${musterininNomre}
+                                                ${musterininNomre }
                                             </td>
                                         </tr>
                                         <tr style="font-family: 'Roboto', sans-serif;">
@@ -238,7 +244,7 @@ if (Meteor.isServer) {
                                                 Cash rate $/hour
                                             </td>
                                             <td style="font-family: 'Roboto', sans-serif;padding: 5px 20px;">
-                                                ${hourlyRatesCash}
+                                                ${hourlyRatesCash }
                                             </td>
                                         </tr>
                                         <tr style="font-family: 'Roboto', sans-serif;">
@@ -246,7 +252,7 @@ if (Meteor.isServer) {
                                                 Card rate $/hour
                                             </td>
                                             <td style="font-family: 'Roboto', sans-serif;padding: 5px 20px;">
-                                                ${hourlyRatesCard}
+                                                ${hourlyRatesCard }
                                             </td>
                                         </tr>
                                         <tr style="font-family: 'Roboto', sans-serif;">
@@ -254,7 +260,7 @@ if (Meteor.isServer) {
                                                 MOVING DATE
                                             </td>
                                             <td style="font-family: 'Roboto', sans-serif;padding: 5px 20px;">
-                                                ${movingDate}
+                                                ${movingDate }
                                             </td>
                                         </tr>
                                         <tr style="font-family: 'Roboto', sans-serif;">
@@ -262,7 +268,7 @@ if (Meteor.isServer) {
                                                 MOVING SIZE
                                             </td>
                                             <td style="font-family: 'Roboto', sans-serif;padding: 5px 20px;">
-                                                ${movingSize}
+                                                ${movingSize }
                                             </td>
                                         </tr>
                                         <tr style="font-family: 'Roboto', sans-serif;">
@@ -270,7 +276,7 @@ if (Meteor.isServer) {
                                                 #of MOVERS
                                             </td>
                                             <td style="font-family: 'Roboto', sans-serif;padding: 5px 20px;">
-                                                ${numerOfMovers}
+                                                ${numerOfMovers }
                                             </td>
                                         </tr>
                                         <tr style="font-family: 'Roboto', sans-serif;">
@@ -278,7 +284,7 @@ if (Meteor.isServer) {
                                                 MINIMUM LABOR TIME
                                             </td>
                                             <td style="font-family: 'Roboto', sans-serif;padding: 5px 20px;">
-                                                ${minimumLaborTime} Hours
+                                                ${minimumLaborTime } Hours
                                             </td>
                                         </tr>
                                         <tr style="font-family: 'Roboto', sans-serif;">
@@ -286,7 +292,7 @@ if (Meteor.isServer) {
                                                 MOVING FROM
                                             </td>
                                             <td style="font-family: 'Roboto', sans-serif;padding: 5px 20px;">
-                                                ${fromAddress}
+                                                ${fromAddress }
                                             </td>
                                         </tr>
                                         <tr style="font-family: 'Roboto', sans-serif;">
@@ -294,7 +300,7 @@ if (Meteor.isServer) {
                                                 MOVING TO
                                             </td>
                                             <td style="font-family: 'Roboto', sans-serif;padding: 5px 20px;">
-                                                ${toAddress}
+                                                ${toAddress }
                                             </td>
                                         </tr>
                                     </table>
@@ -304,12 +310,12 @@ if (Meteor.isServer) {
                                         GAS FEE (one time)
                                         </td>
                                         <td style="font-family: 'Roboto', sans-serif;padding: 5px 20px;">
-                                        $${!isNaN(gasFee) || gasFee === 0 ? gasFee : 'waived'} One-time fee
+                                        $${!isNaN(gasFee) || gasFee === 0 ? gasFee : 'waived' } One-time fee
                                         </td>
                                     </tr>
                                     <tr style="font-family: 'Roboto', sans-serif;">
                                         <td style="font-family: 'Roboto', sans-serif;padding: 5px 20px;">DOUBLE DRIVE TIME</td>
-                                        <td style="font-family: 'Roboto', sans-serif;padding: 5px 20px;">${doubleDrive} (<a href="http://cheapmoversanaheim.com/ProBusinessRun/6.pdf" style="font-family: 'Roboto', sans-serif;">click for learn more</a>)</td>
+                                        <td style="font-family: 'Roboto', sans-serif;padding: 5px 20px;">${doubleDrive } (<a href="http://cheapmoversanaheim.com/ProBusinessRun/6.pdf" style="font-family: 'Roboto', sans-serif;">click for learn more</a>)</td>
                                     </tr>
                                     </table>
                                 </div>
@@ -500,7 +506,7 @@ if (Meteor.isServer) {
                                                                             <tr>
                                                                                 <td style="word-wrap:break-word;font-size:0px;padding:0px 20px 0px 20px;" align="center">
                                                                                     <div style="cursor:auto;color:#000000;font-family:Roboto, Tahoma, sans-serif;font-size:11px;line-height:22px;text-align:center;">
-                                                                                        <p><span style="font-size:14px;"><strong>Hello&#xA0; ${job.clientFirstName}!</strong></span></p>
+                                                                                        <p><span style="font-size:14px;"><strong>Hello&#xA0; ${job.clientFirstName }!</strong></span></p>
                                                                                         <p><span style="font-size:14px;"><strong>Thank you for confirming your move with chat Movers Los Angeles!</strong></span></p>
                                                                                         <p><span style="font-size:14px;"><strong>Please review your Moving Confirmation below to ensure accuracy:</strong></span></p>
                                                                                     </div>
@@ -545,51 +551,51 @@ if (Meteor.isServer) {
                                                                                                             <tbody>
                                                                                                                 <tr>
                                                                                                                     <td><span style="font-size:14px;">Your job number:</span></td>
-                                                                                                                    <td><span style="font-size:14px;">${job.jobNumber}</span></td>
+                                                                                                                    <td><span style="font-size:14px;">${job.jobNumber }</span></td>
                                                                                                                 </tr>
                                                                                                                 <tr>
                                                                                                                     <td><span style="font-size:14px;">Moving date:</span></td>
-                                                                                                                    <td><span style="font-size:14px;">${job.workDate}</span></td>
+                                                                                                                    <td><span style="font-size:14px;">${job.workDate }</span></td>
                                                                                                                 </tr>
                                                                                                                 <tr>
                                                                                                                     <td><span style="font-size:14px;">Arrival window:</span></td>
-                                                                                                                    <td><span style="font-size:14px;">${job.workMustBeginTime}</span></td>
+                                                                                                                    <td><span style="font-size:14px;">${job.workMustBeginTime }</span></td>
                                                                                                                 </tr>
                                                                                                                 <tr>
                                                                                                                     <td><span style="font-size:14px;"># of movers:</span></td>
-                                                                                                                    <td><span style="font-size:14px;">${job.numberOfWorkers}</span></td>
+                                                                                                                    <td><span style="font-size:14px;">${job.numberOfWorkers }</span></td>
                                                                                                                 </tr>
                                                                                                                 <tr>
                                                                                                                     <td><span style="font-size:14px;">Hourly rates cash:</span></td>
-                                                                                                                    <td><span style="font-size:14px;">${job.hourlyRatesCash}</span></td>
+                                                                                                                    <td><span style="font-size:14px;">${job.hourlyRatesCash }</span></td>
                                                                                                                 </tr>
                                                                                                                 <tr>
                                                                                                                     <td><span style="font-size:14px;">Hourly rates card:</span></td>
-                                                                                                                    <td><span style="font-size:14px;">${job.hourlyRatesCard}</span></td>
+                                                                                                                    <td><span style="font-size:14px;">${job.hourlyRatesCard }</span></td>
                                                                                                                 </tr>
                                                                                                                 <tr>
                                                                                                                     <td><span style="font-size:14px;">Minimum labor time:</span></td>
-                                                                                                                    <td><span style="font-size:14px;">${job.laborTime}</span></td>
+                                                                                                                    <td><span style="font-size:14px;">${job.laborTime }</span></td>
                                                                                                                 </tr>
                                                                                                                 <tr>
                                                                                                                     <td><span style="font-size:14px;">Gass fee:</span></td>
-                                                                                                                    <td><span style="font-size:14px;">${job.gasFee}</span></td>
+                                                                                                                    <td><span style="font-size:14px;">${job.gasFee }</span></td>
                                                                                                                 </tr>
                                                                                                                 <tr>
                                                                                                                     <td><span style="font-size:14px;">Double drive time:</span></td>
-                                                                                                                    <td><span style="font-size:14px;">${job.doubleDrive} <a href="http://cheapmoversanaheim.com/ProBusinessRun/6.pdf">Click to learn more</a></span></td>
+                                                                                                                    <td><span style="font-size:14px;">${job.doubleDrive } <a href="http://cheapmoversanaheim.com/ProBusinessRun/6.pdf">Click to learn more</a></span></td>
                                                                                                                 </tr>
                                                                                                                 <tr>
                                                                                                                     <td><span style="font-size:14px;">Moving from:</span></td>
-                                                                                                                    <td><span style="font-size:14px;">${job.addresses[0]}</span></td>
+                                                                                                                    <td><span style="font-size:14px;">${job.addresses[0] }</span></td>
                                                                                                                 </tr>
                                                                                                                 <tr>
                                                                                                                     <td><span style="font-size:14px;">Moving to:</span></td>
-                                                                                                                    <td><span style="font-size:14px;">${job.addresses[1]}</span></td>
+                                                                                                                    <td><span style="font-size:14px;">${job.addresses[1] }</span></td>
                                                                                                                 </tr>
                                                                                                                 <tr>
                                                                                                                     <td><span style="font-size:14px;">Moving size:</span></td>
-                                                                                                                    <td style="text-align: left;"><span style="font-size:14px;">${job.movingSize}</span></td>
+                                                                                                                    <td style="text-align: left;"><span style="font-size:14px;">${job.movingSize }</span></td>
                                                                                                                 </tr>
                                                                                                             </tbody>
                                                                                                         </table>

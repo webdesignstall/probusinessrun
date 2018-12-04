@@ -7,7 +7,9 @@ export default class AddedAdditionalSignaturesRender extends React.Component {
     }
 
     showContent(id) {
-        document.getElementById(id) && document.getElementById(id).classList.contains('hide') ? document.getElementById(id).classList.remove('hide') : document.getElementById(id).classList.add('hide');
+        document.getElementById(id) && document.getElementById(id).classList.contains('hide')
+            ? document.getElementById(id).classList.remove('hide')
+            : document.getElementById(id).classList.add('hide');
     }
 
     renderAdditionalSignatures(list) {
@@ -18,11 +20,13 @@ export default class AddedAdditionalSignaturesRender extends React.Component {
                     return additionalSignature_.id === additionalSignature.typeId;
                 });
 
+                let spesificId = Math.random()
+
                 return (
-                    <div onClick={() => this.showContent(additionalSignature.typeId + 'content')} key={Math.random()} className="collection-item row" style={{ cursor: 'pointer' }} >
+                    <div onClick={() => this.showContent(spesificId)} key={Math.random()} className="collection-item row" style={{ cursor: 'pointer' }} >
                         <span className="col s10 m10 l10" >{signatureInfo.title}</span>
                         <span className="col s2 m2 l2 blue darken-1 white-text center-align" >{moment(additionalSignature.date).format("hh:mm a")}</span>
-                        <div id={additionalSignature.typeId + 'content'} className="hide" >
+                        <div id={spesificId} className="hide" >
                             <div className="clear margin-top"></div>
                             <hr />
                             <p>{signatureInfo.content}</p>
@@ -43,7 +47,7 @@ export default class AddedAdditionalSignaturesRender extends React.Component {
     render() {
         return (
             <div className={this.props.listOfAddedSignature.length > 0 ? 'cadr___ collection' : 'hide'} >
-                <div className="center-align collection-item purple lighten-2 white-text">ADDED ADDITIONAL SIGNATURES</div>
+                <div className="collection-item purple lighten-2 white-text">ADDED ADDITIONAL SIGNATURES</div>
                 {(() => this.renderAdditionalSignatures(this.props.listOfAddedSignature))()}
             </div>
         );

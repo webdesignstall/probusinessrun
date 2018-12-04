@@ -17,7 +17,11 @@ export default class AdditionalSignaturesRender extends React.Component {
                     <div id={additionalSignature.id} className="hide card__" >
                         {additionalSignature.content}<br />
                         <hr />
-                        <Signature saveSignature={this.props.saveSignature} id={additionalSignature.id} which="additionalSignature" />
+                        <Signature
+                            saveSignature={this.props.saveSignature}
+                            id={additionalSignature.id}
+                            which="additionalSignature"
+                        />
                     </div>
                 </div>
             );

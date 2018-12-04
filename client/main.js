@@ -57,6 +57,9 @@ Meteor.startup(() => {
     Session.set('trucklar', []);
     Session.set('clicked', false);
     Session.set('flatRate', false);
+    Session.set('promoCodes', ['zumka']);
+    Session.set('discountAproved', false);
+    Session.set('discountId', null)
 
     Bert.defaults = {
         hideDelay: 5000,
