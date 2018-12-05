@@ -58,7 +58,14 @@
                 <div class="input-field valideyn col s12 m6 l3">
                     <i class="material-icons isare">view_array</i>
                     <input id="small_item_pack" class="xx" type="number" placeholder="0" />
-                    <label class="active" for="small_item_pack">Small item packing</label>
+                    <label class="active" for="small_item_pack">
+                        Small item packing
+                        <input id="smallItemPackInit" type="checkbox" onclick="(() => {
+                            let element = document.getElementById('small_item_pack')
+                            element.value = 0;
+                            element.disabled = !element.disabled;
+                            })()" />
+                    </label>
                 </div>
                 <!-- Large Item fee -->
                 <div class="input-field valideyn col s12 m6 l3">
