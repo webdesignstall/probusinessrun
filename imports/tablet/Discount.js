@@ -35,25 +35,32 @@ export default class Discount extends TrackerReact(React.Component) {
     }
 
     discount(id) {
-        return Discounts.find({ _id: id }).fetch()
+        return Discounts.find({ _id: id }).fetch();
     }
 
     componentDidMount() {
         this.x = Tracker.autorun(() => {
-            console.log('ComponentDidMount rerendered');
-            console.log(this.discount())
             Meteor.subscribe('Dicsounts');
-            console.log(Session.get('discountId'));
             const discount = this.discount(Session.get('discountId'))[0];
-            console.log("​Discount -> componentDidUpdate -> this.state.discountId", this.state.discountId)
-            console.log("​Discount -> componentDidMount -> discount", discount)
-            discount ? Session.set('discountAproved', discount.confirmed) : console.log('Bazadan informasi tapilamyibdir')
+            discount
+                ? Session.set('discountAproved', discount.confirmed)
+                : console.log('Bazadan informasi tapilamyibdir')
             this.setState({ discountApproved: Session.get('discountAproved') });
         });
     }
 
     componentWillUnmount() {
         this.x.stop();
+    }
+
+    componentDidUpdate() {
+        this.state.discountApproved
+            ? Bert.alert({
+                title: `Discount accepted`,
+                message: 'Discount accepted',
+                type: 'success'
+            })
+            : null
     }
 
     select(name) {
@@ -93,16 +100,30 @@ export default class Discount extends TrackerReact(React.Component) {
                         amount: this.state.valueOfSelected,
                         note: this.state.note,
                         type: this.state.selected,
-                        confirmed: false
+                        confirmed: false,
+                        truckNumber: Meteor.user().profile.number
                     }, (error, _id) => {
                         error ? console.log(error)
                             : (
                                 this.setState({ discountId: _id }),
                                 this.setState({ waiting: true }),
                                 Session.set('discountId', _id),
-                                console.log(_id)
-                                // document.getElementById('signatureForDiscount').classList.remove('hide'),
-                                // document.getElementById('askDiscount').setAttribute('disabled', true)
+                                setTimeout(() => {
+                                    console.log('SetTimeout isledi')
+                                    !this.state.confirmed
+                                        ? (
+                                            Meteor.call('removeDiscount', this.state.discountId),
+                                            Bert.alert({
+                                                title: `Discount doesn't accepted`,
+                                                message: 'For more info contact with the manager',
+                                                type: 'danger'
+                                            }),
+                                            this.setState({ waiting: false }),
+                                            Session.set('discountId', ''),
+                                            Session.set('discountAproved', false)
+                                        )
+                                        : null;
+                                }, 120000)
                             )
                     })
                 )
@@ -116,6 +137,10 @@ export default class Discount extends TrackerReact(React.Component) {
     }
 
     resetDiscount() {
+        Discounts.remove({ _id: this.state.discountId },
+            (error) => {
+                error ? console.log(error) : null;
+            })
         Session.set('discountId', '');
         Session.set('discountAproved', false)
         this.setState({

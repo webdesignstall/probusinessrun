@@ -31,6 +31,14 @@ SchemasOfDiscount.discounts = new SimpleSchema({
     confirmed: {
         type: Boolean,
         optional: true
+    },
+    truckNumber: {
+        type: String,
+        optional: true
+    },
+    responded: {
+        type: Boolean,
+        optional: true
     }
 }, { tracker: Tracker });
 

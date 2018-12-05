@@ -50,6 +50,11 @@ if (Meteor.userId()) {
             this.render('preQuote');
         }
     });
+    Router.route('/discount', {
+        onBeforeAction: function () {
+            this.render('discountAdmin');
+        }
+    })
 }
 
 Router.route('/reserve', {
@@ -57,4 +62,3 @@ Router.route('/reserve', {
         this.render('reserveQuote');
     }
 });
-

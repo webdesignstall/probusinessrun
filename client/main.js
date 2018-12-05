@@ -62,7 +62,7 @@ Meteor.startup(() => {
     Session.set('discountId', null)
 
     Bert.defaults = {
-        hideDelay: 5000,
+        hideDelay: 6000,
         // Accepts: a number in milliseconds.
         style: 'fixed-top',
         // Accepts: fixed-top, fixed-bottom, growl-top-left,   growl-top-right,

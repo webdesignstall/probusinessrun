@@ -2,6 +2,7 @@
 import { Meteor } from 'meteor/meteor';
 import email from 'emailjs';
 import WorkData from '../common/collections_2';
+import Discounts from '../common/discountData';
 import PromoCodes from '../common/collections_2';
 
 Meteor.startup(() => {
@@ -679,7 +680,21 @@ if (Meteor.isServer) {
         updateWork: function (doc) {
             WorkData.update({ _id: doc._id }, {
                 $set: doc
+            }, function (error, result) {
+                error ? console.log(error) : console.log(result);
             });
+        },
+        updateDiscount: function (doc, id) {
+            Discounts.update(
+                { _id: id }, {
+                    $set: doc
+                },
+                function (error, result) {
+                    error ? console.log(error) : console.log(result);
+                });
+        },
+        removeDiscount: function (id) {
+            Discounts.remove(id)
         }
     });
 }
