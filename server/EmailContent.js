@@ -77,27 +77,23 @@ export default function EmailContent(job) {
         : '';
 
     let smallItemPackingItems = job.smallPackingItems !== 0
-        ? `
-        <div style="font-family: 'Roboto', sans-serif;">
+        ? ''
+        : `<div style="font-family: 'Roboto', sans-serif;">
             <img width="12" src="https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../assets/preview/2012/png/iconmonstr-check-mark-1.png&r=255&g=0&b=0"
                 alt="" style="font-family: 'Roboto', sans-serif;">
             Small item packing materials: (boxes, packing papers,bubble wrap. etc.)
             <hr style="font-family: 'Roboto', sans-serif; border-top: none; border-color: #786fa6;">
-        </div>
-        `
-        : '';
+        </div>`;
 
     let extraLargeItemPacking = job.largeItemFee > 0
-        ? `
-        <div style="font-family: 'Roboto', sans-serif;">
+        ? ''
+        : `<div style="font-family: 'Roboto', sans-serif;">
             <img width="12" src="https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../assets/preview/2012/png/iconmonstr-check-mark-1.png&r=255&g=0&b=0"
                 alt="" style="font-family: 'Roboto', sans-serif;">
             Extra-Large Item Packing and Transportation: for example, pool tables, pianos, etc.
             (Please ask if you need Extra-Large Item Packing and Moving.)
             <hr style="font-family: 'Roboto', sans-serif; border-top: none; border-color: #786fa6;">
-        </div>
-        `
-        : '';
+        </div>`;
 
     return (
         `
