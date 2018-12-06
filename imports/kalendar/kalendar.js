@@ -14,6 +14,7 @@ import ArrivalWindow from './../../client/templates/quote/ArrivalWindow';
 import UpdateArrivalTime from './../../client/templates/quote/UpdateArrivalTime';
 import MovingSize from './../../client/templates/quote/MovingSize';
 import CompanySelector from './../../client/templates/quote/CompanySelector';
+import Addresses from './../../client/templates/quote/Addresses';
 import RenderEmployees from './../../client/templates/quote/RenderEmployees';
 import UpdateDoubleDrive from './../../client/templates/quote/UpdateDoubleDrive';
 import TempTrucks from './../../client/templates/quote/TempTrucks';
@@ -363,6 +364,7 @@ Template.kalendar.events({
         ReactDOM.render(<ArrivalWindow />, document.getElementById('arrival-time'));
         ReactDOM.render(<CompanySelector />, document.getElementById('moving-company'));
         ReactDOM.render(<TempTrucks />, document.getElementById('tempTruck'));
+        ReactDOM.render(<Addresses />, document.getElementById('addressesId'));
         Session.set('is', '');
 
         $(document).ready(function () {
@@ -377,6 +379,7 @@ Template.kalendar.events({
         ReactDOM.render(<ArrivalWindow />, document.getElementById('arrival-time'));
         ReactDOM.render(<CompanySelector />, document.getElementById('moving-company'));
         ReactDOM.render(<TempTrucks />, document.getElementById('tempTruck'));
+        ReactDOM.render(<Addresses />, document.getElementById('addressesId'));
         Session.set('is', '');
 
         $(document).ready(function () {

@@ -1,13 +1,34 @@
-import React from 'react';
+export default function EmailContent(job) {
+    let additionalPhoneNumber = job.phoneAdditional
+        ? `<div class="clear margin5s" style="font-family: 'Roboto', sans-serif; clear: both; margin: 0 10px;">
+                <hr style="font-family: 'Roboto', sans-serif; border-top: none; border-color: #786fa6;">
+            </div>
+            <div class="half inlineBlock list2 bordert" style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px; border-right: 1px solid #bdc3c7;">
+                PHONE NUMBER
+            </div>
+            <div class="half inlineBlock list2 " style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px;">
+                ${job.phoneAdditional }
+            </div>`
+        : ''
 
-export default class EmailContent extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
-    render() {
+    let movingAddresesRender = job.addresses.map((address, index) => {
         return (
             `
+            <div class="clear margin5s" style="font-family: 'Roboto', sans-serif; clear: both; margin: 0 10px;">
+                <hr style="font-family: 'Roboto', sans-serif; border-top: none; border-color: #786fa6;">
+            </div>
+            <div class="half inlineBlock list2 bordert" style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px; border-right: 1px solid #bdc3c7;">
+                ADDRESS #${ index }
+            </div>
+            <div class="half inlineBlock list2 " style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px;">
+                ${ address }
+            </div>
+            `
+        );
+    })
+
+    return (
+        `
         <!DOCTYPE html>
         <html lang="en" style="font-family: 'Roboto', sans-serif;">
 
@@ -85,7 +106,7 @@ export default class EmailContent extends React.Component {
                         CUSTOMER NAME
                     </div>
                     <div class="half inlineBlock list2 " style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px;">
-                        $CUSTOMER NAME
+                        ${job.firstName }
                     </div>
                     <div class="clear margin5s" style="font-family: 'Roboto', sans-serif; clear: both; margin: 0 10px;">
                         <hr style="font-family: 'Roboto', sans-serif; border-top: none; border-color: #786fa6;">
@@ -94,7 +115,7 @@ export default class EmailContent extends React.Component {
                         JOB NUMBER
                     </div>
                     <div class="half inlineBlock list2 " style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px;">
-                        $CUSTOMER NAME
+                        ${job.jobNumber }
                     </div>
                     <div class="clear margin5s" style="font-family: 'Roboto', sans-serif; clear: both; margin: 0 10px;">
                         <hr style="font-family: 'Roboto', sans-serif; border-top: none; border-color: #786fa6;">
@@ -103,13 +124,17 @@ export default class EmailContent extends React.Component {
                         PHONE NUMBER
                     </div>
                     <div class="half inlineBlock list2 " style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px;">
-                        $CUSTOMER NAME
+                        ${job.phone }
+                    </div>
+                    ${additionalPhoneNumber }
+                    <div class="clear margin5s" style="font-family: 'Roboto', sans-serif; clear: both; margin: 0 10px;">
+                        <hr style="font-family: 'Roboto', sans-serif; border-top: none; border-color: #786fa6;">
                     </div>
                     <div class="half inlineBlock list2 bordert" style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px; border-right: 1px solid #bdc3c7;">
                         ARRIVAL WINDOW
                     </div>
                     <div class="half inlineBlock list2 " style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px;">
-                        $CUSTOMER NAME
+                        ${job.workMustBeginTime }
                     </div>
                     <div class="clear margin5s" style="font-family: 'Roboto', sans-serif; clear: both; margin: 0 10px;">
                         <hr style="font-family: 'Roboto', sans-serif; border-top: none; border-color: #786fa6;">
@@ -118,7 +143,7 @@ export default class EmailContent extends React.Component {
                         CASH DISCOUNT RATE P/HOUR
                     </div>
                     <div class="half inlineBlock list2 " style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px;">
-                        $CUSTOMER NAME
+                        $${job.hourlyRatesCash && job.hourlyRatesCash == 0 ? job.hourlyRatesCash : 'waived' }
                     </div>
                     <div class="clear margin5s" style="font-family: 'Roboto', sans-serif; clear: both; margin: 0 10px;">
                         <hr style="font-family: 'Roboto', sans-serif; border-top: none; border-color: #786fa6;">
@@ -127,7 +152,7 @@ export default class EmailContent extends React.Component {
                         CARD PAYMENT P/HOUR
                     </div>
                     <div class="half inlineBlock list2 " style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px;">
-                        $CUSTOMER NAME
+                        $${job.hourlyRatesCard && job.hourlyRatesCard == 0 ? job.hourlyRatesCard : 'waived' }
                     </div>
                     <div class="clear margin5s" style="font-family: 'Roboto', sans-serif; clear: both; margin: 0 10px;">
                         <hr style="font-family: 'Roboto', sans-serif; border-top: none; border-color: #786fa6;">
@@ -136,7 +161,7 @@ export default class EmailContent extends React.Component {
                         MOVING DATE
                     </div>
                     <div class="half inlineBlock list2 " style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px;">
-                        $CUSTOMER NAME
+                        ${job.movingDateConverted }
                     </div>
                     <div class="clear margin5s" style="font-family: 'Roboto', sans-serif; clear: both; margin: 0 10px;">
                         <hr style="font-family: 'Roboto', sans-serif; border-top: none; border-color: #786fa6;">
@@ -145,7 +170,7 @@ export default class EmailContent extends React.Component {
                         MOVING SIZE
                     </div>
                     <div class="half inlineBlock list2 " style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px;">
-                        $CUSTOMER NAME
+                        ${job.movingDateConverted }
                     </div>
                     <div class="clear margin5s" style="font-family: 'Roboto', sans-serif; clear: both; margin: 0 10px;">
                         <hr style="font-family: 'Roboto', sans-serif; border-top: none; border-color: #786fa6;">
@@ -154,7 +179,7 @@ export default class EmailContent extends React.Component {
                         # of MOVERS
                     </div>
                     <div class="half inlineBlock list2 " style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px;">
-                        $CUSTOMER NAME
+                        ${job.numberOfWorkers }
                     </div>
                     <div class="clear margin5s" style="font-family: 'Roboto', sans-serif; clear: both; margin: 0 10px;">
                         <hr style="font-family: 'Roboto', sans-serif; border-top: none; border-color: #786fa6;">
@@ -163,7 +188,7 @@ export default class EmailContent extends React.Component {
                         MINIMUM LABOR TIME
                     </div>
                     <div class="half inlineBlock list2 " style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px;">
-                        $CUSTOMER NAME
+                        ${job.numberOfWorkers }
                     </div>
                     <div class="clear margin5s" style="font-family: 'Roboto', sans-serif; clear: both; margin: 0 10px;">
                         <hr style="font-family: 'Roboto', sans-serif; border-top: none; border-color: #786fa6;">
@@ -233,6 +258,5 @@ export default class EmailContent extends React.Component {
 
         </html>
         `
-        );
-    }
+    );
 }

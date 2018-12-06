@@ -176,3 +176,28 @@ hr {
 .borderRed {
     border-left: 2px solid red !important;
 }
+
+.addMoreAddress {
+    position: absolute;
+    background-color: green !important;
+    color: rgb(195, 241, 195) !important;
+    right: 0;
+    top: -15px;
+    cursor: pointer;
+    padding: 0 10px !important;
+}
+
+.ikonka {
+    margin-top: 3px;
+    top: 10px !important;
+    width: 24px;
+}
+
+.addMoreAddress span {
+    width: 10px;
+    top: 0 !important;
+}
+
+.relative {
+    position: relative;
+}

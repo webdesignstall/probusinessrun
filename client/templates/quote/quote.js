@@ -312,24 +312,38 @@ Template.preQuote.events({
                             document.querySelector('#flatRateCheck').checked = false
                         );
 
-                    Meteor.call('emailGonder',
+                    let jobInfo = {
                         firstName,
                         lastName,
                         phone,
-                        movingDate,
-                        movingSize,
-                        iscilerinSayi,
+                        phoneAdditional,
+                        email,
                         fromAddress,
                         toAddress,
-                        email,
-                        jobNumber,
+                        movingDateConverted,
+                        price,
                         minimumLaborTime,
-                        gasFee,
-                        doubleDrive,
-                        companyInfo,
                         hourlyRatesCash,
-                        hourlyRatesCard
-                    );
+                        hourlyRatesCard,
+                        trucks,
+                        doubleDrive,
+                        gasFee,
+                        smallPackingItems,
+                        largeItemFee,
+                        jobNumber,
+                        movingSize,
+                        note,
+                        baza,
+                        workMustBeginTime,
+                        numberOfWorkers,
+                        trucksTemp,
+                        companyInfo,
+                        flatRate,
+                        flatRateCash,
+                        flatRateCard
+                    }
+
+                    Meteor.call('emailGonder', jobInfo);
                 }
             }
         );
