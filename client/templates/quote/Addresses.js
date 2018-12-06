@@ -24,13 +24,13 @@ export default class Addresses extends React.Component {
             this.state.arrayOfvalue.map((el, i) =>
                 <div key={i} className="input-field valideyn col s12 m6 l6">
                     <i className="material-icons isare">location_on</i>
-                    <input key={i} type="text" placeholder="" value={this.state.arrayOfvalue[i]} onChange={this.inputChangeHandler.bind(this, i)} />
+                    <input key={i} className="addresses" type="text" placeholder="" value={this.state.arrayOfvalue[i]} onChange={this.inputChangeHandler.bind(this, i)} />
                     <label className="active" htmlFor="movingFrom">{'Address #' + (i + 1)}</label>
                 </div>
             )
         )
     }
-
+    // add functionality to the multi address 
     addMore() {
         this.setState(prevState => ({
             arrayOfvalue: [...prevState.arrayOfvalue, '']
@@ -51,7 +51,6 @@ export default class Addresses extends React.Component {
                 </div>
                 <hr />
                 {this.renderAddressFields()}
-                {/* coordinate + button */}
             </div>
         );
     }

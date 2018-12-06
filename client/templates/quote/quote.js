@@ -188,8 +188,11 @@ Template.preQuote.events({
         let phone = document.getElementById('phoneNumber').value;
         let phoneAdditional = document.getElementById('phoneNumberAdditional').value;
         let email = document.getElementById('musteriEmail').value;
-        let fromAddress = document.getElementById('movingFrom').value;
-        let toAddress = document.getElementById('movingTo').value;
+        let addressesArray = Array.from(document.getElementsByClassName('addresses'));
+        let addresses = [];
+        addressesArray.map((address) => {
+            addresses.push(address.value);
+        });
         let movingDate = document.getElementById('quote-date-picker').value;
         let movingDateConverted = moment(movingDate, 'DD MMMM,YYYY').format('MM/DD/YYYY');
         let price = document.getElementById('quote_price').value;
@@ -245,8 +248,6 @@ Template.preQuote.events({
             baza.push({ id: idniSec(secilmisIsci[i].value) });
         }
 
-        let checkInputs = lastName && phone && fromAddress && toAddress && movingDate && hourlyRatesCash && hourlyRatesCard && email;
-
         // declare job number
         function jobNumber_() {
             document.getElementById('quote-job-number').value = Math.random().toString(36).substr(2, 5);
@@ -258,8 +259,7 @@ Template.preQuote.events({
             phone,
             phoneAdditional,
             email,
-            fromAddress,
-            toAddress,
+            addresses,
             movingDateConverted,
             price,
             minimumLaborTime,
@@ -318,8 +318,7 @@ Template.preQuote.events({
                         phone,
                         phoneAdditional,
                         email,
-                        fromAddress,
-                        toAddress,
+                        addresses,
                         movingDateConverted,
                         price,
                         minimumLaborTime,

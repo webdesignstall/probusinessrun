@@ -57,8 +57,7 @@ if (Meteor.isServer) {
             phone,
             phoneAdditional,
             email,
-            fromAddress,
-            toAddress,
+            addressesArray,
             movingDateConverted,
             price,
             minimumLaborTime,
@@ -87,10 +86,7 @@ if (Meteor.isServer) {
                 phoneNumber: phone,
                 phoneAdditional: phoneAdditional,
                 email: email,
-                addresses: [
-                    fromAddress,
-                    toAddress
-                ],
+                addresses: addressesArray,
                 workDate: movingDateConverted,
                 movingSize: movingSize,
                 note: note,
