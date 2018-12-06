@@ -1,4 +1,8 @@
 import React from 'react';
+import { Tracker } from 'meteor/tracker';
+import WorkData from '../../../common/collections_2';
+import { Meteor } from 'meteor/meteor';
+import { Session } from 'meteor/session';
 
 export default class Addresses extends React.Component {
     constructor(props) {
@@ -11,6 +15,22 @@ export default class Addresses extends React.Component {
         this.renderAddressFields = this.renderAddressFields.bind(this);
         this.addMore = this.addMore.bind(this);
         // this.inputChangeHandler = this.inputChangeHandler.bind(this)
+    }
+
+    componentDidMount() {
+        this.x = Tracker.autorun(() => {
+            Meteor.subscribe('workSchema')
+            let isId = Session.get('is');
+            let isInfo = WorkData.findOne(isId);
+
+            isInfo.addresses.length > 0
+                ? this.setState({ arrayOfvalue: isInfo.addresses })
+                : null;
+        })
+    }
+
+    componentWillUnmount() {
+        this.x.stop();
     }
 
     inputChangeHandler(i) {

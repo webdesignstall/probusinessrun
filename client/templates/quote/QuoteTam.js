@@ -13,7 +13,7 @@ import UpdateAddTruck from './UpdateAddTruck';
 import UpdateArrivalTime from './UpdateArrivalTime';
 import UpdateDoubleDrive from './UpdateDoubleDrive';
 import TempTruck from './TempTrucks';
-
+import Addresses from './Addresses';
 
 
 export default class QuoteTam extends React.Component {
@@ -31,6 +31,8 @@ export default class QuoteTam extends React.Component {
             this.setState({
                 baza: melumatlar
             });
+            console.log(melumatlar);
+
         });
     }
 
@@ -45,9 +47,17 @@ export default class QuoteTam extends React.Component {
         ReactDOM.render(<UpdateDoubleDrive />, document.getElementById('double-drive-time-update'));
         ReactDOM.render(<RenderEmployees />, document.getElementById('iscilerinSiyahisiRender'));
         ReactDOM.render(<TempTruck update={true} />, document.querySelector('#tempTruckUpdate'))
+        ReactDOM.render(<Addresses />, document.querySelector('#addressesIdUpdate'))
         $(document).ready(function () {
             $('select').material_select();
         });
+        let jobSmallItemPacking = WorkData.findOne({ _id: Session.get('is') }).smallItemPacking;
+        jobSmallItemPacking == -1
+            ? (
+                document.getElementById('smallItemPackUpdate').checked = true,
+                document.getElementById('small_item_pack_2').disabled = true
+            )
+            : document.getElementById('smallItemPackUpdate').checked = false;
     }
 
     renderQuotes() {
@@ -78,5 +88,3 @@ export default class QuoteTam extends React.Component {
 Template.quoteTam.onRendered(function () {
     ReactDOM.render(<QuoteTam />, document.getElementById('quoteTam'));
 });
-
-

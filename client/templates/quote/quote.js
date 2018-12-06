@@ -98,6 +98,12 @@ Template.updateQuote.events({
 
         let workDate = document.getElementById('quote-date-picker_2').value;
 
+        let addressesArray = Array.from(document.getElementsByClassName('addresses'));
+        let addresses = [];
+        addressesArray.map((address) => {
+            addresses.push(address.value);
+        });
+
 
         let doc = {
             _id: Session.get('is'),
@@ -106,10 +112,7 @@ Template.updateQuote.events({
             phoneNumber: document.getElementById('phoneNumber_2').value,
             phoneAdditional: document.getElementById('phoneNumber_2_additional').value,
             email: document.getElementById('musteriEmail_2').value,
-            addresses: [
-                document.getElementById('movingFrom_2').value,
-                document.getElementById('movingTo_2').value
-            ],
+            addresses,
             workDate: moment(workDate).format('MM/DD/YYYY'),
             workMustBeginTime: (function () {
                 let birinci = document.getElementById('update-input-custom-time').value;
@@ -388,6 +391,7 @@ Template.quoteTam.events({
         ReactDOM.unmountComponentAtNode(document.querySelector('#double-drive-time-update'));
         ReactDOM.unmountComponentAtNode(document.querySelector('#iscilerinSiyahisiRender'));
         ReactDOM.unmountComponentAtNode(document.querySelector('#tempTruckUpdate'));
+        ReactDOM.unmountComponentAtNode(document.querySelector('#addressesIdUpdate'));
         traker.stop();
         // ReactDOM.unmountComponentAtNode(document.querySelector('#tempTruck'));
 
@@ -405,6 +409,7 @@ Template.quoteTam.onDestroyed(function () {
     ReactDOM.unmountComponentAtNode(document.querySelector('#iscilerinSiyahisiRender'));
     ReactDOM.unmountComponentAtNode(document.querySelector('#tempTruckUpdate'));
     ReactDOM.unmountComponentAtNode(document.querySelector('#quoteTam'));
+    ReactDOM.unmountComponentAtNode(document.querySelector('#addressesIdUpdate'));
 
     document.querySelector('#quoteTam').classList.remove('hide');
     document.querySelector('#updateQuote2').classList.add('hide');

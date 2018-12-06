@@ -34,23 +34,16 @@
                     <input id="musteriEmail_2" type="email" value={{istifadechi.email}} placeholder="E-mail" />
                     <label class="active" for="musteriEmail_2">E-mail</label>
                 </div>
-                <!-- moving from -->
-                <div class="input-field valideyn col s12 m6 l6">
-                    <i class="material-icons isare">location_off</i>
-                    <input id="movingFrom_2" type="text" value={{istifadechi.addresses.[0]}} placeholder="Moving From" />
-                    <label class="active" for="movingFrom_2">Moving from</label>
-                </div>
-                <!-- moving to -->
-                <div class="input-field valideyn col s12 m6 l6">
-                    <span class="material-icons isare">location_on</span>
-                    <input id="movingTo_2" type="text" value={{istifadechi.addresses.[1]}} placeholder="Moving To" />
-                    <label class="active" for="movingTo_2">Moving to</label>
-                </div>
                 <!-- moving date -->
                 <div class="input-field valideyn col s12 m6 l3">
                     <i class="material-icons isare">date_range</i>
                     <input id="quote-date-picker_2" class="xx" value={{istifadechi.workDate}} type="text" placeholder="Moving Date" />
                     <label class="active" for="quote-date-picker_2">Moving Date</label>
+                </div>
+                <div class="clear"></div>
+                <!-- moving addresses -->
+                <div class="col s12 l12 m12 cardBorder relative">
+                    <div id="addressesIdUpdate" class="input-field valideyn"></div>
                 </div>
                 <!-- moving time window -->
                 <div id="update_time_window" class="input-field valideyn col s12 m6 l6">
@@ -71,7 +64,14 @@
                     <i class="material-icons isare">view_array</i>
                     <input id="small_item_pack_2" class="xx" type="number" value={{istifadechi.smallItemPacking}}
                         placeholder="Small item packing" />
-                    <label class="active" for="small_item_pack_2">Small item packing</label>
+                    <label class="active" for="small_item_pack_2">
+                        Small item packing
+                        <input id="smallItemPackUpdate" type="checkbox" onclick="(() => {
+                                                    let element = document.getElementById('small_item_pack_2')
+                                                    element.value == -1 ? element.value = 0 : element.value = -1;
+                                                    element.disabled = !element.disabled;
+                                                    })()" />
+                    </label>
                 </div>
                 <!-- large item fee -->
                 <div class="input-field valideyn col s12 m6 l3">

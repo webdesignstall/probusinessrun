@@ -120,52 +120,52 @@ export default function EmailContent(job) {
                         Your quote includes:
                     </div>
                     <div class="clear margin5" style="font-family: 'Roboto', sans-serif; clear: both; margin: 10px;"></div>
-                    <div class="half inlineBlock list" style="font-family: 'Roboto', sans-serif; display: inline-block; padding: 5px 10px; font-size: 12px;">
+                    <div class="half inlineBlock list" style="font-family: 'Roboto', sans-serif; padding: 5px 10px; font-size: 12px;">
                         <img width="12" src="https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../assets/preview/2012/png/iconmonstr-check-mark-1.png&r=46&g=204&b=113"
                             alt="check" style="font-family: 'Roboto', sans-serif;">
                         &nbsp;Professional, full time movers
                     </div>
-                    <div class="half inlineBlock list" style="font-family: 'Roboto', sans-serif; display: inline-block; padding: 5px 10px; font-size: 12px;">
+                    <div class="half inlineBlock list" style="font-family: 'Roboto', sans-serif; padding: 5px 10px; font-size: 12px;">
                         <img width="12" src="https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../assets/preview/2012/png/iconmonstr-check-mark-1.png&r=46&g=204&b=113"
                             alt="check" style="font-family: 'Roboto', sans-serif;">
                         &nbsp;Use of Wardrobe Boxes
                     </div>
-                    <div class="half inlineBlock list" style="font-family: 'Roboto', sans-serif; display: inline-block; padding: 5px 10px; font-size: 12px;">
+                    <div class="half inlineBlock list" style="font-family: 'Roboto', sans-serif; padding: 5px 10px; font-size: 12px;">
                         <img width="12" src="https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../assets/preview/2012/png/iconmonstr-check-mark-1.png&r=46&g=204&b=113"
                             alt="check" style="font-family: 'Roboto', sans-serif;">
                         &nbsp;Large Item Packing Supplies
                     </div>
-                    <div class="half inlineBlock list" style="font-family: 'Roboto', sans-serif; display: inline-block; padding: 5px 10px; font-size: 12px;">
+                    <div class="half inlineBlock list" style="font-family: 'Roboto', sans-serif; padding: 5px 10px; font-size: 12px;">
                         <img width="12" src="https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../assets/preview/2012/png/iconmonstr-check-mark-1.png&r=46&g=204&b=113"
                             alt="check" style="font-family: 'Roboto', sans-serif;">
                         &nbsp;Moving Trucks & Movers
                     </div>
-                    <div class="half inlineBlock list" style="font-family: 'Roboto', sans-serif; display: inline-block; padding: 5px 10px; font-size: 12px;">
+                    <div class="half inlineBlock list" style="font-family: 'Roboto', sans-serif; padding: 5px 10px; font-size: 12px;">
                         <img width="12" src="https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../assets/preview/2012/png/iconmonstr-check-mark-1.png&r=46&g=204&b=113"
                             alt="check" style="font-family: 'Roboto', sans-serif;">
                         &nbsp;CPUC Licensed & Insured
                     </div>
-                    <div class="half inlineBlock list" style="font-family: 'Roboto', sans-serif; display: inline-block; padding: 5px 10px; font-size: 12px;">
+                    <div class="half inlineBlock list" style="font-family: 'Roboto', sans-serif; padding: 5px 10px; font-size: 12px;">
                         <img width="12" src="https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../assets/preview/2012/png/iconmonstr-check-mark-1.png&r=46&g=204&b=113"
                             alt="check" style="font-family: 'Roboto', sans-serif;">
                         &nbsp;No hidden fees
                     </div>
-                    <div class="half inlineBlock list" style="font-family: 'Roboto', sans-serif; display: inline-block; padding: 5px 10px; font-size: 12px;">
+                    <div class="half inlineBlock list" style="font-family: 'Roboto', sans-serif; padding: 5px 10px; font-size: 12px;">
                         <img width="12" src="https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../assets/preview/2012/png/iconmonstr-check-mark-1.png&r=46&g=204&b=113"
                             alt="check" style="font-family: 'Roboto', sans-serif;">
                         &nbsp;Disassembly and Reassembly
                     </div>
-                    <div class="half inlineBlock list" style="font-family: 'Roboto', sans-serif; display: inline-block; padding: 5px 10px; font-size: 12px;">
+                    <div class="half inlineBlock list" style="font-family: 'Roboto', sans-serif; padding: 5px 10px; font-size: 12px;">
                         <img width="12" src="https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../assets/preview/2012/png/iconmonstr-check-mark-1.png&r=46&g=204&b=113"
                             alt="check" style="font-family: 'Roboto', sans-serif;">
                         &nbsp;Tax Included
                     </div>
-                    <div class="half inlineBlock list" style="font-family: 'Roboto', sans-serif; display: inline-block; padding: 5px 10px; font-size: 12px;">
+                    <div class="half inlineBlock list" style="font-family: 'Roboto', sans-serif; padding: 5px 10px; font-size: 12px;">
                         <img width="12" src="https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../assets/preview/2012/png/iconmonstr-check-mark-1.png&r=46&g=204&b=113"
                             alt="check" style="font-family: 'Roboto', sans-serif;">
                         &nbsp;24/7 Local Support Team
                     </div>
-                    <div class="half inlineBlock list" style="font-family: 'Roboto', sans-serif; display: inline-block; padding: 5px 10px; font-size: 12px;">
+                    <div class="half inlineBlock list" style="font-family: 'Roboto', sans-serif; padding: 5px 10px; font-size: 12px;">
                         <img width="12" src="https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../assets/preview/2012/png/iconmonstr-check-mark-1.png&r=46&g=204&b=113"
                             alt="check" style="font-family: 'Roboto', sans-serif;">
                         &nbsp;Cash Discount per hour
