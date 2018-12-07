@@ -23,7 +23,7 @@ export default class Addresses extends React.Component {
             let isId = Session.get('is');
             let isInfo = WorkData.findOne(isId);
 
-            isInfo.addresses.length > 0
+            isInfo && isInfo.addresses.length > 0
                 ? this.setState({ arrayOfvalue: isInfo.addresses })
                 : null;
         })
@@ -63,10 +63,12 @@ export default class Addresses extends React.Component {
                 <div>
                     Addresses
                     <div className="addMoreAddress cardBorder" onClick={this.addMore}>
-                        <span>Add More</span>
-                        <i className="ikonka material-icons">
-                            add_circle
-                        </i>
+                        <div className="relative">
+                            <span>Add More</span>
+                            <i className="ikonka material-icons">
+                                add_circle
+                            </i>
+                        </div>
                     </div>
                 </div>
                 <hr />
