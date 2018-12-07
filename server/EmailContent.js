@@ -57,7 +57,7 @@ export default function EmailContent(job) {
             SMALL ITEM PACKING
         </div>
         <div class="half inlineBlock list2 " style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px;">
-            ${job.smallPackingItems == -1 ? 'yes' : job.smallPackingItems }
+            ${job.smallPackingItems == -1 ? 'yes' : '$' + job.smallPackingItems }
         </div>
         `
         : '';
@@ -259,7 +259,7 @@ export default function EmailContent(job) {
                         MINIMUM LABOR TIME
                     </div>
                     <div class="half inlineBlock list2 " style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px;">
-                        ${job.minimumLaborTime }
+                        ${job.minimumLaborTime ? job.minimumLaborTime : 0 } Hours
                     </div>
                         ${movingAddresesRender }
                     <div class="clear margin5" style="font-family: 'Roboto', sans-serif; clear: both; margin: 10px;">
