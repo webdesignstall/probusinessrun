@@ -111,7 +111,7 @@ export default function EmailContent(job) {
             <body style="font-family: 'Roboto', sans-serif;">
                 <div class="content" style="font-family: 'Roboto', sans-serif; max-width: 355px; border: 1px solid #574b90; border-radius: 10px; overflow: hidden; margin: 0 auto;">
                     <div class="header" style="font-family: 'Roboto', sans-serif; text-align: center; background-color: #574b90; color: #ecf0f1; padding: 10px; border-bottom: 1px solid #574b90;">
-                        Hello Parvana Aliyeva!
+                        Hello ${job.firstName + ' ' + job.lastName }!
                         Thank you for requesting your 50% off moving quote!
                         Your quote includes:
                     </div>
