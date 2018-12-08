@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { Tracker } from 'meteor/tracker';
 import WorkData from '../../../common/collections_2';
 import { Meteor } from 'meteor/meteor';
@@ -14,6 +15,7 @@ export default class Addresses extends React.Component {
 
         this.renderAddressFields = this.renderAddressFields.bind(this);
         this.addMore = this.addMore.bind(this);
+        this.resetComponent = this.resetComponent.bind(this);
         // this.inputChangeHandler = this.inputChangeHandler.bind(this)
     }
 
@@ -27,6 +29,13 @@ export default class Addresses extends React.Component {
                 ? this.setState({ arrayOfvalue: isInfo.addresses })
                 : null;
         })
+    }
+
+    resetComponent() {
+        this.setState({
+            arrayOfvalue: ['', '']
+        });
+        // this.forceUpdate();
     }
 
     componentWillUnmount() {

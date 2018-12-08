@@ -61,7 +61,7 @@ if (Meteor.isServer) {
                 { _id: id },
                 {
                     $set: {
-                        totalWorkTime: totalIslemeVaxti, //total is vaxti deqiqe ile hecne elave edilmeden
+                        totalWorkTime: Number(totalIslemeVaxti), //total is vaxti deqiqe ile hecne elave edilmeden
                         totalWorkHours: Number(totalIslemeSaati) //total isleme saati cem olaraq driving +
                     }
                 }

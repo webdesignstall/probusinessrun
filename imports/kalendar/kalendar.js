@@ -364,7 +364,9 @@ Template.kalendar.events({
         ReactDOM.render(<ArrivalWindow />, document.getElementById('arrival-time'));
         ReactDOM.render(<CompanySelector />, document.getElementById('moving-company'));
         ReactDOM.render(<TempTrucks />, document.getElementById('tempTruck'));
-        ReactDOM.render(<Addresses />, document.getElementById('addressesId'));
+        window.addresses = ReactDOM.render(<Addresses />, document.getElementById('addressesId'), () => console.log('render olundu'));
+        // console.log("​addressesRendered", addressesRendered)
+        // window.addresses = addressesRendered;
         Session.set('is', '');
 
         $(document).ready(function () {
@@ -379,7 +381,8 @@ Template.kalendar.events({
         ReactDOM.render(<ArrivalWindow />, document.getElementById('arrival-time'));
         ReactDOM.render(<CompanySelector />, document.getElementById('moving-company'));
         ReactDOM.render(<TempTrucks />, document.getElementById('tempTruck'));
-        ReactDOM.render(<Addresses />, document.getElementById('addressesId'));
+        // ReactDOM.render(<Addresses />, document.getElementById('addressesId'));
+        window.addresses = ReactDOM.render(<Addresses />, document.getElementById('addressesId'), () => console.log('render olundu'));
         Session.set('is', '');
 
         $(document).ready(function () {

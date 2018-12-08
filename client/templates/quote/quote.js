@@ -345,6 +345,8 @@ Template.preQuote.events({
                         flatRateCard
                     }
 
+                    window.addresses.resetComponent();
+
                     Meteor.call('emailGonder', jobInfo);
                 }
             }

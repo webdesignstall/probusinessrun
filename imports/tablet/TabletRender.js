@@ -935,7 +935,7 @@ MY OWN FREE WILL`
                                     <div className="card__">
                                         <div>
                                             <div className="cardTitle">Additional contact:</div>
-                                            <div className="cardInner">{is.phoneNumber}</div>
+                                            <div className="cardInner">{is.phoneAdditional}</div>
                                         </div>
                                     </div>
                                 </div>

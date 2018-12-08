@@ -4,7 +4,7 @@ export default function EmailContent(job) {
                 <hr style="font-family: 'Roboto', sans-serif; border-top: none; border-color: #786fa6;">
             </div>
             <div class="half inlineBlock list2 bordert" style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px; border-right: 1px solid #bdc3c7;">
-                PHONE NUMBER
+                ADD. PHONE NUMBER
             </div>
             <div class="half inlineBlock list2 " style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px;">
                 ${job.phoneAdditional }
@@ -35,7 +35,7 @@ export default function EmailContent(job) {
                 FLAT RATE CASH
             </div>
             <div class="half inlineBlock list2 " style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px;">
-                ${job.flatRateCash }
+                $${job.flatRateCash }
             </div>
             <div class="clear margin5s" style="font-family: 'Roboto', sans-serif; clear: both; margin: 0 10px;">
                 <hr style="font-family: 'Roboto', sans-serif; border-top: none; border-color: #786fa6;">
@@ -44,7 +44,7 @@ export default function EmailContent(job) {
                 FLAT RATE CARD
             </div>
             <div class="half inlineBlock list2 " style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px;">
-                ${job.flatRateCard }
+                $${job.flatRateCard }
             </div>`
         : '';
 
@@ -71,7 +71,7 @@ export default function EmailContent(job) {
             LARGE ITEM FEE
         </div>
         <div class="half inlineBlock list2 " style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px;">
-            ${job.largeItemFee > 0 ? job.largeItemFee : 0 }
+            $${job.largeItemFee > 0 ? job.largeItemFee : 0 }
         </div>
         `
         : '';
@@ -111,8 +111,8 @@ export default function EmailContent(job) {
             <body style="font-family: 'Roboto', sans-serif;">
                 <div class="content" style="font-family: 'Roboto', sans-serif; max-width: 355px; border: 1px solid #574b90; border-radius: 10px; overflow: hidden; margin: 0 auto;">
                     <div class="header" style="font-family: 'Roboto', sans-serif; text-align: center; background-color: #574b90; color: #ecf0f1; padding: 10px; border-bottom: 1px solid #574b90;">
-                        Hello ${job.firstName + ' ' + job.lastName }!
-                        Thank you for requesting your 50% off moving quote!
+                        Hello ${job.firstName } ${ job.lastName }!
+                        Thank you for requesting your moving quote!
                         Your quote includes:
                     </div>
                     <div class="clear margin5" style="font-family: 'Roboto', sans-serif; clear: both; margin: 10px;"></div>
@@ -149,7 +149,7 @@ export default function EmailContent(job) {
                     <div class="half inlineBlock list" style="font-family: 'Roboto', sans-serif; padding: 5px 10px; font-size: 12px;">
                         <img width="12" src="https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../assets/preview/2012/png/iconmonstr-check-mark-1.png&r=46&g=204&b=113"
                             alt="check" style="font-family: 'Roboto', sans-serif;">
-                        &nbsp;Disassembly and Reassembly
+                        &nbsp;Disassembling and Reassembling
                     </div>
                     <div class="half inlineBlock list" style="font-family: 'Roboto', sans-serif; padding: 5px 10px; font-size: 12px;">
                         <img width="12" src="https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../assets/preview/2012/png/iconmonstr-check-mark-1.png&r=46&g=204&b=113"
@@ -174,7 +174,7 @@ export default function EmailContent(job) {
                         CUSTOMER NAME
                     </div>
                     <div class="half inlineBlock list2 " style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px;">
-                        ${job.firstName }
+                        ${job.firstName } ${ job.lastName }
                     </div>
                     <div class="clear margin5s" style="font-family: 'Roboto', sans-serif; clear: both; margin: 0 10px;">
                         <hr style="font-family: 'Roboto', sans-serif; border-top: none; border-color: #786fa6;">
@@ -279,6 +279,8 @@ export default function EmailContent(job) {
                     </div>
                     <div class="clear margin5" style="font-family: 'Roboto', sans-serif; clear: both; margin: 10px;"></div>
                     <div class="footer" style="font-family: 'Roboto', sans-serif; background-color: #2c3e50; color: #ecf0f1; font-size: 12px; padding: 10px;">
+                        <div>THE PRICE DOES NOT INCLUDED</div>
+                        <div className="clear margin5"><hr/></div>
                         ${smallItemPackingItems }
                         ${extraLargeItemPacking }
                         <div style="font-family: 'Roboto', sans-serif;">
@@ -295,6 +297,7 @@ export default function EmailContent(job) {
                         </div>
                         <div class="clear" style="font-family: 'Roboto', sans-serif; clear: both; margin: 2px;"></div>
                     </div>
+                    <a class="button" href="http://www.probusinessrun.com/reserve" style="font-family: 'Roboto', sans-serif; padding: 10px 10px; border: none; display: block; text-align: center; font-size: 14px; color: white; background-color: #3dc1d3; margin: 5px 0  5px 50%; transform: translate(-50%, 0); border-radius: 3px;">RESERVE YOUR MOVE</a>
                 </div>
             </body>
         </body>

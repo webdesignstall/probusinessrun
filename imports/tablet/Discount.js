@@ -110,7 +110,7 @@ export default class Discount extends TrackerReact(React.Component) {
                                 Session.set('discountId', _id),
                                 setTimeout(() => {
                                     console.log('SetTimeout isledi')
-                                    !this.state.confirmed
+                                    !this.state.discountApproved
                                         ? (
                                             Meteor.call('removeDiscount', this.state.discountId),
                                             Bert.alert({
@@ -177,7 +177,7 @@ export default class Discount extends TrackerReact(React.Component) {
                                 id="askDiscount"
                                 className="btn"
                                 onClick={this.askDiscount}
-                                disabled={this.state.waiting}
+                                disabled={this.state.waiting || this.state.note === ''}
                             >
                                 <svg className={this.state.waiting ? 'spinner2' : 'spinner2 hide'} width="100%" height="28px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
                                     <circle className="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>

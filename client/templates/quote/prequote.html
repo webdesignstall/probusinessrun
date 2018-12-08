@@ -55,7 +55,7 @@
                         Small item packing
                         <input id="smallItemPackInit" type="checkbox" onclick="(() => {
                             let element = document.getElementById('small_item_pack')
-                            element.value == -1 ? element.value = 0 : element.value = -1;
+                            element.value == -1 ? element.value = '' : element.value = -1;
                             element.disabled = !element.disabled;
                             })()" />
                     </label>

@@ -94,6 +94,7 @@ export default class Signature extends React.Component {
                         id={this.state.id + 'save'}
                         className="btn"
                         onClick={this.saving}
+                        disabled={this.state.fullname === ''}
                     >Save</button>
                 </div>
             </div>

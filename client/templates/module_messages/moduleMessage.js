@@ -7,7 +7,6 @@ Template.modalMesaj.onRendered(() => {
     Tracker.autorun(() => {
         Meteor.subscribe('Dicsounts');
         const discounts = Discounts.find({}).fetch();
-        console.log("​discounts", discounts)
 
         discounts.length > 0
             ? (
