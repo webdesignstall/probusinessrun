@@ -369,13 +369,16 @@ MY OWN FREE WILL`
             // totalOdenilesiCard = this.state.totalPul + (totalOdenilesiCardSaati * this.cardRate) + this.elave;
             // totalOdenilesiCard = totalOdenilesiCard.toFixed(2);
 
-            if (cashAmountPaying == this.payCash) {
+            console.log("​TabletRender -> hesabla -> cashAmountPaying", cashAmountPaying)
+            console.log("​TabletRender -> hesabla -> this.payCash", this.payCash)
+            if (cashAmountPaying == this.payCash + Number(this.totalDiscountAmount)) {
                 this.setState({
                     payCard: 0,
                     payCash: cashInput
                 });
                 markAsPayed.classList.remove('disabled');
                 odenilmelidir = 0;
+                console.log('Beraberdir')
                 return false;
             } else {
                 // Rate olmayan odenislerden odenilecek mebleqi cixiriq
@@ -439,7 +442,7 @@ MY OWN FREE WILL`
                 // totalOdenilesiCard = this.state.totalPul + (totalOdenilesiCardSaati * this.cardRate) + this.elave;
                 // totalOdenilesiCard = totalOdenilesiCard.toFixed(2);
 
-                if (cardAmountPaying == this.payCard) {
+                if (cardAmountPaying == this.payCard + Number(this.totalDiscountAmount)) {
                     this.setState({
                         payCard: cardInput,
                         payCash: 0
@@ -809,7 +812,6 @@ MY OWN FREE WILL`
     }
 
     renderAddresses() {
-        console.log(this.state.vurulmusIs[0])
         return (this.state.vurulmusIs[0].addresses.map((workAddress, index) => {
             return (
                 <div key={index + 'address'} className="col s6 m6 l6">
@@ -1285,11 +1287,16 @@ MY OWN FREE WILL`
 
                                         this.elave = cem;
                                         cem = cem + totalSaatPul;
+                                        console.log("​TabletRender -> render -> cem", cem)
                                         this.cashPercentDiscount = (cem - this.totalDiscountAmount) * this.totalDiscountPercent;
                                         cem = cem - Number(cem * this.totalDiscountPercent) - Number(this.totalDiscountAmount);
+                                        console.log("​TabletRender -> render -> Number(cem * this.totalDiscountPercent)", Number(cem * this.totalDiscountPercent))
+                                        console.log("​TabletRender -> render -> Number(this.totalDiscountAmount)", Number(this.totalDiscountAmount))
+                                        console.log("​TabletRender -> render -> cem", cem)
                                         cem += this.state.totalPul;
                                         is.flatRate && is.flatRate[0].isTrue ? cem += is.flatRate[0].cashAmount : '';
                                         cem = this.round(cem, 2);
+                                        console.log("​TabletRender -> render -> cem", cem)
                                         this.payCash = cem;
                                         return cem;
                                     })()}</span>
