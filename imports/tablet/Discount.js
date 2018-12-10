@@ -180,7 +180,7 @@ export default class Discount extends TrackerReact(React.Component) {
                                 disabled={this.state.waiting || this.state.note === ''}
                             >
                                 <svg className={this.state.waiting ? 'spinner2' : 'spinner2 hide'} width="100%" height="28px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-                                    <circle className="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+                                    <circle className="path" fill="none" strokeWidth="6" strokeLinecap="round" cx="33" cy="33" r="30"></circle>
                                 </svg>
                                 <span className={this.state.waiting ? 'hide' : ''}>Ask Discount</span>
                             </button>

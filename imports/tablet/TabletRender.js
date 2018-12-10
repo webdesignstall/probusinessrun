@@ -240,9 +240,8 @@ MY OWN FREE WILL`
         this.wardrobeBoxes = this.wardrobeBoxes.bind(this);
         this.paperBundles = this.paperBundles.bind(this);
         this.saveSignature = this.saveSignature.bind(this);
+        this.renderAddresses = this.renderAddresses.bind(this);
     }
-
-    // FIXME: discountlar filetri duz getmir nedirse cunki her yerde 0 qalir
 
     requirementEntirely(param, whichState) {
         this.setState({
@@ -805,6 +804,26 @@ MY OWN FREE WILL`
         return shift(Math.round(shift(number, precision, false)), precision, true);
     }
 
+    componentDidUpdate() {
+        this.renderAddresses();
+    }
+
+    renderAddresses() {
+        console.log(this.state.vurulmusIs[0])
+        return (this.state.vurulmusIs[0].addresses.map((workAddress, index) => {
+            return (
+                <div key={index + 'address'} className="col s6 m6 l6">
+                    <div className="card__">
+                        <div >
+                            <div className="cardTitle">Address #{index + 1}</div>
+                            <div className="cardInner">{workAddress}</div>
+                        </div>
+                    </div>
+                </div>
+            )
+        }));
+    }
+
     render() {
         let is = this.state.vurulmusIs[0];
         this.totalSaat = 0;
@@ -881,22 +900,7 @@ MY OWN FREE WILL`
                         <div className="clear"></div>
                         <div className="row from-to">
                             <div className="row">
-                                <div className="col s6 m6 l6">
-                                    <div className="card__">
-                                        <div >
-                                            <div className="cardTitle">From</div>
-                                            <div className="cardInner">{is.addresses[0]}</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col s6 m6 l6">
-                                    <div className="card__">
-                                        <div>
-                                            <div className="cardTitle">To</div>
-                                            <div className="cardInner">{is.addresses[1]}</div>
-                                        </div>
-                                    </div>
-                                </div>
+                                {this.renderAddresses()}
                                 <div className="clear"></div>
                                 <hr />
                                 <div className="col s6 m6 l6">
@@ -1188,7 +1192,7 @@ MY OWN FREE WILL`
                                 </li>
                                 <li className="collection-item blue">
                                     Small Item Pck Supplies:
-                                    <span className="sag">= ${is.smallItemPacking}</span>
+                                    <span className="sag">= ${is.smallItemPacking < 0 ? yes : is.smallItemPacking}</span>
                                 </li>
                                 <li className="collection-item blue">
                                     Extra Large/Heavy Item Fee:
