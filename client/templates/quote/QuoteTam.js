@@ -25,7 +25,7 @@ export default class QuoteTam extends React.Component {
     }
 
     componentDidMount() {
-        Tracker.autorun(() => {
+        this.x = Tracker.autorun(() => {
             Meteor.subscribe('workSchema');
             const melumatlar = WorkData.find({ quote: true }).fetch();
             this.setState({
@@ -58,6 +58,10 @@ export default class QuoteTam extends React.Component {
                 document.getElementById('small_item_pack_2').disabled = true
             )
             : document.getElementById('smallItemPackUpdate').checked = false;
+    }
+
+    componentWillUnmount() {
+        this.x.stop();
     }
 
     renderQuotes() {

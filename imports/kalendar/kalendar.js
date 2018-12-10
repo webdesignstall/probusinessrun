@@ -400,7 +400,9 @@ Template.kalendar.events({
         ReactDOM.unmountComponentAtNode(document.getElementById('iscilerinSiyahisiRender'));
         ReactDOM.unmountComponentAtNode(document.getElementById('moving-company'));
         ReactDOM.unmountComponentAtNode(document.getElementById('tempTruck'));
+        ReactDOM.unmountComponentAtNode(document.getElementById('addressesId'));
         Session.set('secilmisIsciler', '');
+        Session.set('is', '');
     },
     'click .edit-duymesi': function (event) {
         event.preventDefault();
@@ -414,6 +416,7 @@ Template.kalendar.events({
         ReactDOM.render(<MovingSize />, document.getElementById('moving-size'));
         ReactDOM.render(<RenderEmployees />, document.getElementById('iscilerinSiyahisiRender'));
         ReactDOM.render(<UpdateDoubleDrive />, document.getElementById('double-drive-time-update'));
+        ReactDOM.render(<Addresses />, document.getElementById('addressesIdUpdate'));
 
         $(document).ready(function () {
             $('select').material_select();
