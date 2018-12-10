@@ -76,7 +76,7 @@ export default function EmailContent(job) {
         `
         : '';
 
-    let smallItemPackingItems = job.smallPackingItems !== 0
+    let smallItemPackingItems = job.smallPackingItems === -0.01
         ? ''
         : `<div style="font-family: 'Roboto', sans-serif;">
             <img width="12" src="https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../assets/preview/2012/png/iconmonstr-check-mark-1.png&r=255&g=0&b=0"

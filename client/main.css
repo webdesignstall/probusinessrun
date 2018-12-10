@@ -203,6 +203,13 @@ td, th {
     background-color: #2ecc708c;
 }
 
+.discountYeri {
+    background-color: #1abc9c;
+    padding: 2px 7px;
+    border-radius: 3px;
+    margin-left: 4px;
+}
+
 /* spinner */
 
 .spinner2 {

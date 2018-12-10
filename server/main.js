@@ -184,7 +184,7 @@ if (Meteor.isServer) {
                 attachment:
                     [
                         {
-                            data: data,
+                            data: job, // TODO: burda confirmation zamani gonderilecek emailin html ini  duzeldib attach etmek lazimdir
                             alternative: true
                         }
                     ]

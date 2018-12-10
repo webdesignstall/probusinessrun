@@ -10,7 +10,7 @@ export default class AddedDiscountRender extends React.Component {
             this.props.listOfDiscounts.map((discount) => {
                 return (
                     <div key={Math.random()} className="collection-item row">
-                        <span className="col s10 m10 l10">{discount.type}</span>
+                        <span className="col s10 m10 l10">{moment(discount.date).format('hh:mm')}</span>
                         <span className="col s2 m2 l2 blue white-text center-align">
                             {discount.amount}
                             {

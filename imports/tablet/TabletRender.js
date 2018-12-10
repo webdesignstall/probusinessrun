@@ -242,6 +242,8 @@ MY OWN FREE WILL`
         this.saveSignature = this.saveSignature.bind(this);
     }
 
+    // FIXME: discountlar filetri duz getmir nedirse cunki her yerde 0 qalir
+
     requirementEntirely(param, whichState) {
         this.setState({
             [whichState]: param
@@ -335,37 +337,12 @@ MY OWN FREE WILL`
         let totalOdenilesiCard = 0;
         let totalOdenilesiCash = 0;
 
-        // discount hesablamasi
-        let totalDiscountTime = 0;
-        let totalDiscountAmount = 0;
-        let totalDiscountPercent = 0;
-
-        this.state.discount.list && this.state.discount.list.length > -1 ?
-            this.state.discount.list
-                .filter((discount) => discount.type === 'time')
-                .map((discount) => totalDiscountTime += discount.amount)
-            : null;
-
-        this.state.discount.list && this.state.discount.list.length > -1 ?
-            this.state.discount.list
-                .filter((discount) => discount.type === 'amount')
-                .map((discount) => totalDiscountAmount += discount.amount)
-            : null;
-
-        this.state.discount.list && this.state.discount.list.length > -1 ?
-            this.state.discount.list
-                .filter((discount) => discount.type === 'percent')
-                .map((discount) => totalDiscountPercent += discount.amount)
-            : null;
-
-        totalDiscountPercent = totalDiscountPercent / 100;
-
         let totalHoursWorked =
             !isNaN(this.round(is.totalWorkHours, 2)) ?
                 this.round(is.totalWorkHours, 2) :
                 console.error('Total worked hours is not a number type');
         !isNaN(totalHoursWorked) && is.flatRate && is.flatRate[0].isTrue ? totalHoursWorked -= is.laborTime : '';
-        totalHoursWorked = this.state.discount.length > -1 ? totalHoursWorked - this.round((totalDiscountTime / 60), 2) : totalHoursWorked;
+        totalHoursWorked = this.state.discount.length > -1 ? totalHoursWorked - this.round((this.totalDiscountTime / 60), 2) : totalHoursWorked;
         let cashRate = is.hourlyRatesCash && !isNaN(is.hourlyRatesCash) ? is.hourlyRatesCash : 0;
         let cardRate = is.hourlyRatesCash && !isNaN(is.hourlyRatesCard) ? is.hourlyRatesCard : 0;
         let cashWorkHourAmount = cashRate * totalHoursWorked;
@@ -376,11 +353,10 @@ MY OWN FREE WILL`
         let flatRateCard = is.flatRate && !isNaN(is.flatRate[0].cardAmount) ? is.flatRate[0].cardAmount : 0;
         let flatRateCardInit = is.flatRate && !isNaN(is.flatRate[0].cardAmount) ? is.flatRate[0].cardAmount : 0;
         let flatRateTrue = is.flatRate ? is.flatRate[0].isTrue : false;
-        let cashAmountPaying = Number(cashInput) + Number(totalDiscountAmount);
-        let cardAmountPaying = Number(cardInput) + Number(totalDiscountAmount);
+        let cashAmountPaying = Number(cashInput) + Number(this.totalDiscountAmount);
+        let cardAmountPaying = Number(cardInput) + Number(this.totalDiscountAmount);
         let totalAdditionalCharge = this.totalAdditionalCharge;
         let qaliq = 0;
-
 
         if (e.target.id === 'cash') {
             if (!markAsPayed.classList.contains('disabled')) {
@@ -501,7 +477,7 @@ MY OWN FREE WILL`
                     }
                 }
 
-                totalOdenilesiCash = this.round((totalAdditionalCharge + (flatRateTrue ? (flatRateCard / flatRateCardInit * flatRateCashInit) : 0) + (cardWorkHourAmount / cardRate * cashRate)), 2);
+                totalOdenilesiCash = this.round((Number(totalAdditionalCharge) + (flatRateTrue ? (Number(flatRateCard) / Number(flatRateCardInit) * Number(flatRateCashInit)) : 0) + (Number(cardWorkHourAmount) / Number(cardRate) * Number(cashRate))), 2);
 
                 this.setState({
                     payCard: cardInput,
@@ -1250,32 +1226,36 @@ MY OWN FREE WILL`
                                     Total amount cash:
                                     <span className="sag">= $ {(() => {
                                         let totalSaat = is.flatRate && is.flatRate[0].isTrue ? is.totalWorkHours - is.laborTime : is.totalWorkHours;
-                                        let totalDiscountTime = 0;
-                                        let totalDiscountAmount = 0;
-                                        let totalDiscountPercent = 0;
+                                        this.totalDiscountTime = 0;
+                                        this.totalDiscountAmount = 0;
+                                        this.totalDiscountPercent = 0;
 
-                                        this.state.discount.list && this.state.discount.list.length > -1 ?
-                                            this.state.discount.list
+                                        this.state.discount && this.state.discount.length > -1 ?
+                                            this.state.discount
                                                 .filter((discount) => discount.type === 'time')
-                                                .map((discount) => totalDiscountTime += discount.amount)
+                                                .map((discount) => this.totalDiscountTime += discount.amount)
                                             : null;
                                         totalSaat =
                                             this.state.discount.length > -1 ?
-                                                totalSaat - this.round((totalDiscountTime / 60), 2) :
+                                                totalSaat - this.round((this.totalDiscountTime / 60), 2) :
                                                 totalSaat;
 
-                                        this.state.discount.list && this.state.discount.list.length > -1 ?
-                                            this.state.discount.list
+                                        this.state.discount && this.state.discount.length > -1 ?
+                                            this.state.discount
                                                 .filter((discount) => discount.type === 'amount')
-                                                .map((discount) => totalDiscountAmount += discount.amount)
+                                                .map((discount) => this.totalDiscountAmount += discount.amount)
                                             : null;
 
-                                        this.state.discount.list && this.state.discount.list.length > -1 ?
-                                            this.state.discount.list
+                                        this.state.discount && this.state.discount.length > -1 ?
+                                            this.state.discount
                                                 .filter((discount) => discount.type === 'percent')
-                                                .map((discount) => totalDiscountPercent += discount.amount)
+                                                .map((discount) => this.totalDiscountPercent += discount.amount)
                                             : null;
-                                        totalDiscountPercent = totalDiscountPercent / 100;
+
+                                        this.originalPercentDiscount = this.totalDiscountPercent;
+                                        this.totalDiscountPercent = this.totalDiscountPercent / 100;
+
+                                        console.log(this.totalDiscountTime, this.totalDiscountAmount, this.totalDiscountPercent)
 
                                         let cashRate = is.hourlyRatesCash;
                                         this.cashRate = cashRate;
@@ -1301,8 +1281,8 @@ MY OWN FREE WILL`
 
                                         this.elave = cem;
                                         cem = cem + totalSaatPul;
-                                        this.cashPercentDiscount = (cem - totalDiscountAmount) * totalDiscountPercent;
-                                        cem = cem - (cem * totalDiscountPercent) - totalDiscountAmount;
+                                        this.cashPercentDiscount = (cem - this.totalDiscountAmount) * this.totalDiscountPercent;
+                                        cem = cem - Number(cem * this.totalDiscountPercent) - Number(this.totalDiscountAmount);
                                         cem += this.state.totalPul;
                                         is.flatRate && is.flatRate[0].isTrue ? cem += is.flatRate[0].cashAmount : '';
                                         cem = this.round(cem, 2);
@@ -1314,33 +1294,6 @@ MY OWN FREE WILL`
                                     Total amount card:
                                     <span className="sag">= $ {(() => {
                                         let totalSaat = is.flatRate && is.flatRate[0].isTrue ? is.totalWorkHours - is.laborTime : is.totalWorkHours;
-                                        let totalDiscountTime = 0;
-                                        let totalDiscountAmount = 0;
-                                        let totalDiscountPercent = 0;
-
-                                        this.state.discount.list && this.state.discount.list.length > -1 ?
-                                            this.state.discount.list
-                                                .filter((discount) => discount.type === 'time')
-                                                .map((discount) => totalDiscountTime += discount.amount)
-                                            : null;
-                                        totalSaat =
-                                            this.state.discount.lenght > -1 ?
-                                                totalSaat - this.round((totalDiscountTime / 60), 2) :
-                                                totalSaat;
-
-                                        this.state.discount.list && this.state.discount.list.length > -1 ?
-                                            this.state.discount.list
-                                                .filter((discount) => discount.type === 'amount')
-                                                .map((discount) => totalDiscountAmount += discount.amount)
-                                            : null;
-
-                                        this.state.discount.list && this.state.discount.list.length > -1 ?
-                                            this.state.discount.list
-                                                .filter((discount) => discount.type === 'percent')
-                                                .map((discount) => totalDiscountPercent += discount.amount)
-                                            : null;
-                                        totalDiscountPercent = totalDiscountPercent / 100;
-
                                         let cardRate = is.hourlyRatesCard;
                                         this.cardRate = cardRate;
                                         let totalSaatPul = Number(totalSaat) * Number(cardRate);
@@ -1363,8 +1316,8 @@ MY OWN FREE WILL`
 
                                         this.elave = cem;
                                         cem = cem + totalSaatPul;
-                                        this.cardPercentDiscount = (cem - totalDiscountAmount) * totalDiscountPercent;
-                                        cem = cem - (cem * totalDiscountPercent) - totalDiscountAmount;
+                                        this.cardPercentDiscount = (cem - this.totalDiscountAmount) * this.totalDiscountPercent;
+                                        cem = cem - Number(cem * this.totalDiscountPercent) - Number(this.totalDiscountAmount);
                                         cem += this.state.totalPul;
                                         is.flatRate && is.flatRate[0].isTrue ? cem += is.flatRate[0].cardAmount : '';
                                         cem = this.round(cem, 2);
@@ -1374,7 +1327,18 @@ MY OWN FREE WILL`
                                 </li>
                                 <li className="collection-item blue">
                                     Discount:
-                                    <span className="sag">= ${this.state.discount.total}</span>
+                                    {this.totalDiscountAmount && this.totalDiscountAmount > 0
+                                        ? <span className="sag discountYeri">${this.totalDiscountAmount}</span>
+                                        : ''
+                                    }
+                                    {this.totalDiscountTime && this.totalDiscountTime > 0
+                                        ? <span className="sag discountYeri">{this.totalDiscountTime} minutes</span>
+                                        : ''
+                                    }
+                                    {this.totalDiscountPercent && this.totalDiscountPercent > 0
+                                        ? <span className="sag discountYeri">{this.originalPercentDiscount}%</span>
+                                        : ''
+                                    }
                                 </li>
                             </ul>
                         </div>
