@@ -337,9 +337,9 @@ MY OWN FREE WILL`
         let totalOdenilesiCash = 0;
 
         let totalHoursWorked =
-            !isNaN(this.round(is.totalWorkHours, 2)) ?
-                this.round(is.totalWorkHours, 2) :
-                console.error('Total worked hours is not a number type');
+            !isNaN(this.round(((is.totalWorkTime) / 60), 2) ?
+                this.round(((is.totalWorkTime) / 60), 2) :
+                console.error('Total worked hours is not a number type'));
         !isNaN(totalHoursWorked) && is.flatRate && is.flatRate[0].isTrue ? totalHoursWorked -= is.laborTime : '';
         totalHoursWorked = this.state.discount.length > -1 ? totalHoursWorked - this.round((this.totalDiscountTime / 60), 2) : totalHoursWorked;
         let cashRate = is.hourlyRatesCash && !isNaN(is.hourlyRatesCash) ? is.hourlyRatesCash : 0;
@@ -1221,9 +1221,9 @@ MY OWN FREE WILL`
                                             return 0;
                                         } else {
                                             if (is.flatRate[0].isTrue) {
-                                                return this.round((is.totalWorkTime, 2) / 60) - is.laborTime;
+                                                return this.round(((is.totalWorkTime) / 60), 2) - is.laborTime;
                                             } else {
-                                                return this.round((is.totalWorkTime, 2) / 60);
+                                                return this.round(((is.totalWorkTime) / 60), 2);
                                             }
                                         }
                                     })()} hours</span>
@@ -1231,7 +1231,7 @@ MY OWN FREE WILL`
                                 <li className="collection-item blue">
                                     Total amount cash:
                                     <span className="sag">= $ {(() => {
-                                        let totalSaat = is.flatRate && is.flatRate[0].isTrue ? is.totalWorkHours - is.laborTime : is.totalWorkHours;
+                                        let totalSaat = is.flatRate && is.flatRate[0].isTrue ? this.round(((is.totalWorkTime) / 60), 2) - is.laborTime : is.totalWorkHours;
                                         this.totalDiscountTime = 0;
                                         this.totalDiscountAmount = 0;
                                         this.totalDiscountPercent = 0;
@@ -1304,7 +1304,7 @@ MY OWN FREE WILL`
                                 <li className="collection-item blue">
                                     Total amount card:
                                     <span className="sag">= $ {(() => {
-                                        let totalSaat = is.flatRate && is.flatRate[0].isTrue ? is.totalWorkHours - is.laborTime : is.totalWorkHours;
+                                        let totalSaat = is.flatRate && is.flatRate[0].isTrue ? this.round(((is.totalWorkTime) / 60), 2) - is.laborTime : is.totalWorkHours;
                                         let cardRate = is.hourlyRatesCard;
                                         this.cardRate = cardRate;
                                         let totalSaatPul = Number(totalSaat) * Number(cardRate);
