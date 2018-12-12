@@ -1221,9 +1221,9 @@ MY OWN FREE WILL`
                                             return 0;
                                         } else {
                                             if (is.flatRate[0].isTrue) {
-                                                return this.round(is.totalWorkTime, 2) - is.laborTime;
+                                                return this.round((is.totalWorkTime, 2) / 60) - is.laborTime;
                                             } else {
-                                                return this.round(is.totalWorkTime, 2);
+                                                return this.round((is.totalWorkTime, 2) / 60);
                                             }
                                         }
                                     })()} hours</span>
