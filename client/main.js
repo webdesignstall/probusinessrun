@@ -62,7 +62,8 @@ Meteor.startup(() => {
     Session.set('flatRate', false);
     Session.set('promoCodes', ['zumka']);
     Session.set('discountAproved', false);
-    Session.set('discountId', null)
+    Session.set('discountId', null);
+    Session.set('movingSize', 'select_moving_size');
 
     Bert.defaults = {
         hideDelay: 6000,

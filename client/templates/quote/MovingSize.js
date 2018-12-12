@@ -7,8 +7,66 @@ export default class MovingSize extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: 'select_moving_size'
+            options: [
+                {
+                    value: 'select_moving_size',
+                    name: 'Select Moving Size'
+                },
+                {
+                    value: 'items',
+                    name: 'Items'
+                },
+                {
+                    value: 'studio',
+                    name: 'Studio'
+                },
+                {
+                    value: '1_bedroom',
+                    name: '1 Bedroom'
+                },
+                {
+                    value: '2_bedroom_small',
+                    name: '2 Bedroom (small size, few items)'
+                },
+                {
+                    value: '2_bedroom_avg',
+                    name: '2 Bedroom (avg. size, avg. items)'
+                },
+                {
+                    value: '2_bedroom_large',
+                    name: '2 Bedroom (large size, many items)'
+                },
+                {
+                    value: '3_bedroom_avg',
+                    name: '3 Bedroom (avg. size, avg. items)'
+                },
+                {
+                    value: '3_bedroom_large',
+                    name: '3 Bedroom (large size, many items)'
+                },
+                {
+                    value: '4_bedrooom_avg',
+                    name: '4 Bedroom (avg. size, avg. items)'
+                },
+                {
+                    value: '4_bedroom_large',
+                    name: '4 Bedroom (large size, many items)'
+                },
+                {
+                    value: 'commercial_avg',
+                    name: 'Commercial (avg. size, avg. items)'
+                },
+                {
+                    value: 'commercial_large',
+                    name: 'Commercial (large size, many items)'
+                },
+            ]
         };
+
+        this.sizeSelected = React.createRef();
+
+        this.changeSelect = this.changeSelect.bind(this);
+        this.renderSizes = this.renderSizes.bind(this);
     }
 
     componentWillMount() {
@@ -16,9 +74,7 @@ export default class MovingSize extends React.Component {
             if (Session.get('is') !== '') {
                 const ish = WorkData.find({ _id: Session.get('is') }).fetch();
                 if (ish[0].movingSize && (ish[0].movingSize !== '' || ish[0].movingSize !== undefined || ish[0].movingSize !== null)) {
-                    this.setState({
-                        value: ish[0].movingSize
-                    });
+                    Session.set('movingSize', ish[0].movingSize);
                 }
             }
         });
@@ -28,23 +84,26 @@ export default class MovingSize extends React.Component {
         this.x.stop();
     }
 
+    changeSelect() {
+        Session.set('movingSize', this.sizeSelected.current.value)
+    }
+
+    renderSizes() {
+        return (
+            this.state.options.map((option) => {
+                return (
+                    <option value={option.value}>{option.name}</option>
+                );
+            })
+        )
+    }
+
     render() {
         return (
             <div>
-                <select title="moving_size" name="moving_size" value={this.state.value} id="moving_size_2" >
+                <select title="moving_size" className="browser-default" ref={this.sizeSelected} name="moving_size" defaultValue={Session.get('movingSize')} id="moving_size_2" onChange={this.changeSelect}>
                     <option value="select_moving_size" disabled>Select Moving Size</option>
-                    <option value="items">Items</option>
-                    <option value="studio">Studio</option>
-                    <option value="1_bedroom">1 Bedroom</option>
-                    <option value="2_bedroom_small">2 Bedroom (small size, few items)</option>
-                    <option value="2_bedroom_avg">2 Bedroom (avg. size, avg. items)</option>
-                    <option value="2_bedroom_large">2 Bedroom (large size, many items)</option>
-                    <option value="3_bedroom_avg">3 Bedroom (avg. size, avg. items)</option>
-                    <option value="3_bedroom_large">3 Bedroom (large size, many items)</option>
-                    <option value="4_bedrooom_avg">4 Bedroom (avg. size, avg. items)</option>
-                    <option value="4_bedroom_large">4 Bedroom (large size, many items)</option>
-                    <option value="commercial_avg">Commercial (avg. size, avg. items)</option>
-                    <option value="commercial_large">Commercial (large size, many items)</option>
+                    {this.renderSizes()}
                 </select>
             </div>
         );

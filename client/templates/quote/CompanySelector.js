@@ -105,6 +105,7 @@ export default class CompanySelector extends React.Component {
     }
 
     onChange() {
+        console.log('secildi');
         let secilmisIs = this.state.companies.find((companies) => {
             return companies.name === this.companyName.value;
         });

@@ -18,6 +18,7 @@ import Addresses from './../../client/templates/quote/Addresses';
 import RenderEmployees from './../../client/templates/quote/RenderEmployees';
 import UpdateDoubleDrive from './../../client/templates/quote/UpdateDoubleDrive';
 import TempTrucks from './../../client/templates/quote/TempTrucks';
+import NumberOfUsers from '../../client/templates/quote/NumberOfUsers';
 
 /*global moment */
 
@@ -417,6 +418,7 @@ Template.kalendar.events({
         ReactDOM.render(<RenderEmployees />, document.getElementById('iscilerinSiyahisiRender'));
         ReactDOM.render(<UpdateDoubleDrive />, document.getElementById('double-drive-time-update'));
         ReactDOM.render(<Addresses />, document.getElementById('addressesIdUpdate'));
+        ReactDOM.render(<NumberOfUsers />, document.getElementById('number-of-movers2'));
 
         $(document).ready(function () {
             $('select').material_select();

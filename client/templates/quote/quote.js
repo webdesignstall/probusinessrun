@@ -133,7 +133,7 @@ Template.updateQuote.events({
             gasFee: document.getElementById('gas_fee_2').value,
             smallItemPacking: document.getElementById('small_item_pack_2').value,
             largeItemFee: document.getElementById('large_item_fee_2').value,
-            movingSize: document.getElementById('moving_size_2').value,
+            movingSize: Session.get('movingSize'),
             workers: Session.get('secilmisIsciler'),
             note: document.getElementById('textarea2').value,
             trucksTemp: Session.get('trucklar'),
