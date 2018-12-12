@@ -1217,13 +1217,13 @@ MY OWN FREE WILL`
                                 <li className="collection-item blue">
                                     {is.flatRate && is.flatRate[0].isTrue ? 'Total calculated hours after flat rate:' : 'Total calculated hours:'}
                                     <span className="sag">= {(() => {
-                                        if (isNaN(this.round(is.totalWorkHours, 2))) {
+                                        if (isNaN(this.round(is.totalWorkTime, 2))) {
                                             return 0;
                                         } else {
                                             if (is.flatRate[0].isTrue) {
-                                                return this.round(is.totalWorkHours, 2) - is.laborTime;
+                                                return this.round(is.totalWorkTime, 2) - is.laborTime;
                                             } else {
-                                                return this.round(is.totalWorkHours, 2);
+                                                return this.round(is.totalWorkTime, 2);
                                             }
                                         }
                                     })()} hours</span>
