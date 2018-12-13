@@ -336,10 +336,12 @@ MY OWN FREE WILL`
         let totalOdenilesiCard = 0;
         let totalOdenilesiCash = 0;
 
-        let totalHoursWorked =
-            !isNaN(this.round(((is.totalWorkTime) / 60), 2) ?
-                this.round(((is.totalWorkTime) / 60), 2) :
-                console.error('Total worked hours is not a number type'));
+        let totalHoursWorked = 0
+
+        !isNaN(this.round(((is.totalWorkTime) / 60), 2) ?
+            totalHoursWorked = this.round(((is.totalWorkTime) / 60), 2) :
+            console.error('Total worked hours is not a number type'));
+        console.log("​TabletRender -> hesabla -> totalHoursWorked", totalHoursWorked)
         !isNaN(totalHoursWorked) && is.flatRate && is.flatRate[0].isTrue ? totalHoursWorked -= is.laborTime : '';
         totalHoursWorked = this.state.discount.length > -1 ? totalHoursWorked - this.round((this.totalDiscountTime / 60), 2) : totalHoursWorked;
         let cashRate = is.hourlyRatesCash && !isNaN(is.hourlyRatesCash) ? is.hourlyRatesCash : 0;
