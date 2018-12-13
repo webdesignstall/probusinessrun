@@ -1196,7 +1196,7 @@ MY OWN FREE WILL`
                                 </li>
                                 <li className="collection-item blue">
                                     Small Item Pck Supplies:
-                                    <span className="sag">= ${is.smallItemPacking < 0 ? yes : is.smallItemPacking}</span>
+                                    <span className="sag">= ${is.smallItemPacking < 0 ? 'yes' : is.smallItemPacking}</span>
                                 </li>
                                 <li className="collection-item blue">
                                     Extra Large/Heavy Item Fee:
