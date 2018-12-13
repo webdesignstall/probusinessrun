@@ -28,6 +28,7 @@ export default class TempTrucks extends React.Component {
             }
 
             if (secilmisIs) {
+                Session.set('trucklar', secilmisIs.trucksTemp)
                 this.setState({
                     clicked: secilmisIs.trucksTemp
                 });

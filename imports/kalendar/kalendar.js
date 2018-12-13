@@ -419,6 +419,7 @@ Template.kalendar.events({
         ReactDOM.render(<UpdateDoubleDrive />, document.getElementById('double-drive-time-update'));
         ReactDOM.render(<Addresses />, document.getElementById('addressesIdUpdate'));
         ReactDOM.render(<NumberOfUsers />, document.getElementById('number-of-movers2'));
+        ReactDOM.render(<TempTrucks update={true} />, document.getElementById('tempTruckUpdate'));
 
         $(document).ready(function () {
             $('select').material_select();

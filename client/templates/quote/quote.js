@@ -139,10 +139,11 @@ Template.updateQuote.events({
             trucksTemp: Session.get('trucklar'),
             flatRate: [{
                 isTrue: Session.get('flatRate'),
-                cashAmount: !isNaN(document.querySelector('#flatRateCashUpdate')) ? document.querySelector('#flatRateCashUpdate') : 0,
-                cardAmount: !isNaN(document.querySelector('#flatRateCardUpdate')) ? document.querySelector('#flatRateCardUpdate') : 0
+                cashAmount: !isNaN(document.querySelector('#flatRateCashUpdate').value) ? document.querySelector('#flatRateCashUpdate').value : 0,
+                cardAmount: !isNaN(document.querySelector('#flatRateCardUpdate').value) ? document.querySelector('#flatRateCardUpdate').value : 0
             }]
         };
+        console.log(doc);
         Meteor.call('updateWork', doc, function (err) {
             if (err) {
                 Bert.alert({
