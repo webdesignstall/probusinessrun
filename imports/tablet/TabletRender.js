@@ -943,7 +943,7 @@ MY OWN FREE WILL`
                                     <div className="col s6 m6 l6">
                                         Double drive time: {is.doubleDrive}<br />
                                         Extra Large/Heavy Item Fee: ${is.largeItemFee}<br />
-                                        Small-Item Packing: ${is.smallItemPacking}<br />
+                                        Small Item Packing: {is.smallItemPacking < 0 ? 'Yes' : '$' + is.smallItemPacking}<br />
                                         Not to Exceed Price: ${is.price}<br />
                                     </div>
                                     <div className="clear"></div>
@@ -1196,7 +1196,7 @@ MY OWN FREE WILL`
                                 </li>
                                 <li className="collection-item blue">
                                     Small Item Pck Supplies:
-                                    <span className="sag">= ${is.smallItemPacking < 0 ? 'yes' : is.smallItemPacking}</span>
+                                    <span className="sag">= {is.smallItemPacking < 0 ? 'Yes' : '$' + is.smallItemPacking}</span>
                                 </li>
                                 <li className="collection-item blue">
                                     Extra Large/Heavy Item Fee:
