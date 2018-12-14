@@ -346,6 +346,11 @@ Template.preQuote.events({
                         flatRateCard
                     }
 
+                    document.querySelector('#flatRateCheck').checked = false;
+
+                    document.querySelector('#paymentContent').classList.remove('hide');
+                    document.querySelector('#flatRate_').classList.add('hide');
+
                     window.addresses.resetComponent();
 
                     Meteor.call('emailGonder', jobInfo);
