@@ -33,6 +33,9 @@ Template.updateQuote.onRendered(function () {
         if (Session.get('is') !== '' && Session.get('is') !== ishDeyisibdir) {
             Session.set('flatRate', false);
             const ish = WorkData.findOne({ _id: Session.get('is') });
+            ish.smallItemPacking && ish.smallItemPacking == -1
+                ? (document.querySelector('#smallItemPackUpdate').checked = true, document.querySelector('#small_item_pack_2').disabled = true)
+                : null;
             document.querySelector('#flatRateCashUpdate').defaultValue = ish.flatRate[0].cashAmount;
             document.querySelector('#flatRateCardUpdate').defaultValue = ish.flatRate[0].cardAmount;
             document.querySelector('#flatBoxUpdate').checked = ish.flatRate[0].isTrue

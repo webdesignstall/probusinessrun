@@ -92,7 +92,7 @@ export default class MovingSize extends React.Component {
         return (
             this.state.options.map((option) => {
                 return (
-                    <option value={option.value}>{option.name}</option>
+                    <option key={option.value + 'key'} value={option.value}>{option.name}</option>
                 );
             })
         )
