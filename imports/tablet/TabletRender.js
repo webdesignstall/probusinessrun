@@ -260,7 +260,6 @@ MY OWN FREE WILL`
         this.setState({
             [which]: newList
         });
-        console.log("​TabletRender -> saveSignature -> newSignatureList", newList)
 
         let doc = {
             _id: Session.get('tabletIsId'),
@@ -326,184 +325,193 @@ MY OWN FREE WILL`
         Meteor.call('updateWork', doc);
     }
 
-    hesabla(e) {
-        let is = this.state.vurulmusIs[0];
-        let cardInput = document.querySelector('#card').value < 0 ? 0 : (document.querySelector('#card').value > this.payCard ? this.payCard : document.querySelector('#card').value);
-        let cashInput = document.querySelector('#cash').value < 0 ? 0 : (document.querySelector('#cash').value > this.payCash ? this.payCash : document.querySelector('#cash').value);
-        let markAsPayed = document.getElementById('mark-as-payed');
-        let totalOdenilmisCashSaati = 0;
-        let totalOdenilesiCardSaati = 0;
-        let totalOdenilesiCard = 0;
-        let totalOdenilesiCash = 0;
+    calculateAmount() {
+        if (this.state.vurulmusIs.length > 0) {
+            this.totalDiscountTime = 0;
+            this.totalDiscountAmount = 0;
+            this.totalDiscountPercent = 0;
 
-        let totalHoursWorked = 0
+            this.state.discount && this.state.discount.length > -1 ?
+                this.state.discount
+                    .filter((discount) => discount.type === 'time')
+                    .map((discount) => this.totalDiscountTime += discount.amount)
+                : null;
 
-        !isNaN(this.round(((is.totalWorkTime) / 60), 2) ?
-            totalHoursWorked = this.round(((is.totalWorkTime) / 60), 2) :
-            console.error('Total worked hours is not a number type'));
-        console.log("​TabletRender -> hesabla -> totalHoursWorked", totalHoursWorked)
-        !isNaN(totalHoursWorked) && is.flatRate && is.flatRate[0].isTrue ? totalHoursWorked -= is.laborTime : '';
-        totalHoursWorked = this.state.discount.length > -1 ? totalHoursWorked - this.round((this.totalDiscountTime / 60), 2) : totalHoursWorked;
-        let cashRate = is.hourlyRatesCash && !isNaN(is.hourlyRatesCash) ? is.hourlyRatesCash : 0;
-        let cardRate = is.hourlyRatesCash && !isNaN(is.hourlyRatesCard) ? is.hourlyRatesCard : 0;
-        let cashWorkHourAmount = cashRate * totalHoursWorked;
-        let cardWorkHourAmount = cardRate * totalHoursWorked;
-        let minimumLaborTime = is.laborTime && !isNaN(is.laborTime) ? is.laborTime : 0;
-        let flatRateCash = is.flatRate && !isNaN(is.flatRate[0].cashAmount) ? is.flatRate[0].cashAmount : 0;
-        let flatRateCashInit = is.flatRate && !isNaN(is.flatRate[0].cashAmount) ? is.flatRate[0].cashAmount : 0;
-        let flatRateCard = is.flatRate && !isNaN(is.flatRate[0].cardAmount) ? is.flatRate[0].cardAmount : 0;
-        let flatRateCardInit = is.flatRate && !isNaN(is.flatRate[0].cardAmount) ? is.flatRate[0].cardAmount : 0;
-        let flatRateTrue = is.flatRate ? is.flatRate[0].isTrue : false;
-        let cashAmountPaying = Number(cashInput) + Number(this.totalDiscountAmount);
-        let cardAmountPaying = Number(cardInput) + Number(this.totalDiscountAmount);
-        let totalAdditionalCharge = this.totalAdditionalCharge;
-        let qaliq = 0;
+            this.state.discount && this.state.discount.length > -1 ?
+                this.state.discount
+                    .filter((discount) => discount.type === 'amount')
+                    .map((discount) => this.totalDiscountAmount += discount.amount)
+                : null;
 
-        if (e.target.id === 'cash') {
-            if (!markAsPayed.classList.contains('disabled')) {
-                markAsPayed.classList.add('disabled');
-            }
+            this.state.discount && this.state.discount.length > -1 ?
+                this.state.discount
+                    .filter((discount) => discount.type === 'percent')
+                    .map((discount) => this.totalDiscountPercent += discount.amount)
+                : null;
+            let workData = this.state.vurulmusIs.length > 0 ? this.state.vurulmusIs[0] : null;
+            let percentDiscount = Number(this.totalDiscountPercent) || 0;
+            let cashDiscount = Number(this.totalDiscountAmount) || 0;
+            let cashDiscountedPercent = cashDiscount * (1 - (percentDiscount / 100)) || 0;
+            let timeDiscount = Number(this.totalDiscountTime) || 0;
+            let flatRateIsTrue = workData.flatRate ? workData.flatRate[0].isTrue : false;
+            let flatCashAmount = workData.flatRate ? Number(workData.flatRate[0].cashAmount) : 0;
+            let flatCashAmountDiscounted = flatCashAmount * (1 - (percentDiscount / 100)) || 0;
+            let flatCardAmount = workData.flatRate ? Number(workData.flatRate[0].cardAmount) : 0;
+            let flatCardAmountDiscounted = flatCardAmount * (1 - (percentDiscount / 100)) || 0;
+            let cashRate = Number(workData.hourlyRatesCash) || 0;
+            let cardRate = Number(workData.hourlyRatesCard) || 0;
+            let startToFinishTime = Number(
+                this.round((
+                    (this.round((Math.ceil(workData.totalWorkTime / 15) * 15), 2)) / 60), 2
+                )) || 0;
+            let laborTime = workData.laborTime || 0;
 
-            // totalOdenilmisCashSaati = cashInput / this.cashRate;
-            // totalOdenilmisCashSaati = totalOdenilmisCashSaati.toFixed(2);
-            // totalOdenilesiCardSaati = this.totalSaat - totalOdenilmisCashSaati;
-            // totalOdenilesiCardSaati = totalOdenilesiCardSaati.toFixed(2);
-            // totalOdenilesiCard = this.state.totalPul + (totalOdenilesiCardSaati * this.cardRate) + this.elave;
-            // totalOdenilesiCard = totalOdenilesiCard.toFixed(2);
+            // calculate total time after discount
+            flatRateIsTrue
+                ? startToFinishTime -= laborTime
+                : null;
+            timeDiscount > 0
+                ? startToFinishTime -= timeDiscount
+                : null;
+            startToFinishTime = startToFinishTime * (1 - (percentDiscount / 100));
+            let startToFinishCashAmountDiscounted = startToFinishTime * cashRate;
+            let startToFinishCardAmountDiscounted = startToFinishTime * cardRate;
+            let gasFee = Number(workData.gasFee) || 0;
+            let extraLargeItemFee = Number(workData.largeItemFee) || 0;
+            let smallItemPacking = Number(workData.smallItemPacking) || 0;
+            let doubleDriveTime = Number(workData.doubleDrive) > 0 ? Number(workData.doubleDrive) : 0;
+            let doubleDriveCash = doubleDriveTime * cashRate;
+            let doubleDriveCard = doubleDriveTime * cardRate;
+            let additionalCharges = Number(this.totalAdditionalCharge) || 0;
 
-            console.log("​TabletRender -> hesabla -> cashAmountPaying", cashAmountPaying)
-            console.log("​TabletRender -> hesabla -> this.payCash", this.payCash)
-            if (cashAmountPaying == this.payCash + Number(this.totalDiscountAmount)) {
-                this.setState({
-                    payCard: 0,
-                    payCash: cashInput
-                });
-                markAsPayed.classList.remove('disabled');
-                odenilmelidir = 0;
-                console.log('Beraberdir')
-                return false;
-            } else {
-                // Rate olmayan odenislerden odenilecek mebleqi cixiriq
-                qaliq = totalAdditionalCharge - cashAmountPaying;
+            // total additional charges
+            additionalCharges += (gasFee && gasFee > 0 ? gasFee : 0) + (extraLargeItemFee && extraLargeItemFee > 0 ? extraLargeItemFee : 0) + (smallItemPacking > 0 ? smallItemPacking : 0);
 
-                // Eger odenilen pul ratesiz carghdan coxdursa
-                if (qaliq < 0) {
-                    totalAdditionalCharge = 0;
-                    cashAmountPaying = Math.abs(qaliq);
-
-                    // Flat rate-den qaliq mebleqi cixiriq
-                    qaliq = flatRateCash - cashAmountPaying;
-
-                    // if payed money more than nonRateCharge + flatRateCharge
-                    if (qaliq < 0) {
-                        flatRateCash = 0;
-                        cashAmountPaying = Math.abs(qaliq);
-
-                        // Hour * CashRate 
-                        cashWorkHourAmount = cashWorkHourAmount - cashAmountPaying;
-                    } else {
-                        // if payed money less than nonRateCharge + flatRate
-                        flatRateCash = qaliq;
-                    }
-                } else {
-                    // eger odenilen mebleq elace xerclerden azdirsa
-                    totalAdditionalCharge = qaliq;
-                }
-            }
-
-            totalOdenilesiCard = this.round((totalAdditionalCharge + (flatRateTrue ? (flatRateCash / flatRateCashInit * flatRateCardInit) : 0) + (cashWorkHourAmount / cashRate * cardRate)), 2);
-
-            this.setState({
-                payCard: totalOdenilesiCard,
-                payCash: cashInput
-            }, () => {
-                odenilmelidir = totalOdenilesiCard;
-            });
-
-        } else if (e.target.id === 'card') {
-            if (!markAsPayed.classList.contains('disabled')) {
-                markAsPayed.classList.add('disabled');
-            }
-
-            // totalOdenilesiCardSaati = cardInput / this.cardRate;
-            // totalOdenilesiCardSaati = totalOdenilesiCardSaati.toFixed(2);
-            // totalOdenilmisCashSaati = this.totalSaat - totalOdenilesiCardSaati;
-            // totalOdenilmisCashSaati = totalOdenilmisCashSaati.toFixed(2);
-            // totalOdenilesiCash = (totalOdenilmisCashSaati * this.cashRate) + this.state.totalPul + this.elave;
-            // totalOdenilesiCash = totalOdenilesiCash.toFixed(2);
-
-            if (e.target.id === 'card') {
-                if (!markAsPayed.classList.contains('disabled')) {
-                    markAsPayed.classList.add('disabled');
-                }
-
-                // totalOdenilmisCashSaati = cashInput / this.cashRate;
-                // totalOdenilmisCashSaati = totalOdenilmisCashSaati.toFixed(2);
-                // totalOdenilesiCardSaati = this.totalSaat - totalOdenilmisCashSaati;
-                // totalOdenilesiCardSaati = totalOdenilesiCardSaati.toFixed(2);
-                // totalOdenilesiCard = this.state.totalPul + (totalOdenilesiCardSaati * this.cardRate) + this.elave;
-                // totalOdenilesiCard = totalOdenilesiCard.toFixed(2);
-
-                if (cardAmountPaying == this.payCard + Number(this.totalDiscountAmount)) {
-                    this.setState({
-                        payCard: cardInput,
-                        payCash: 0
-                    });
-                    markAsPayed.classList.remove('disabled');
-                    odenilmelidir = 0;
-
-                    return false;
-                } else {
-                    // Rate olmayan odenislerden odenilecek mebleqi cixiriq
-                    qaliq = totalAdditionalCharge - cardAmountPaying;
-                    // Eger odenilen pul ratesiz carghdan coxdursa
-                    if (qaliq < 0) {
-                        totalAdditionalCharge = 0;
-                        cardAmountPaying = Math.abs(qaliq);
-
-                        // Flat rate-den qaliq mebleqi cixiriq
-                        qaliq = flatRateCard - cardAmountPaying;
-
-                        // if payed money more than nonRateCharge + flatRateCharge
-                        if (qaliq < 0) {
-                            flatRateCard = 0;
-                            cardAmountPaying = Math.abs(qaliq);
-
-                            // Hour * CashRate 
-                            cardWorkHourAmount = cardWorkHourAmount - cardAmountPaying;
-                        } else {
-                            // if payed money less than nonRateCharge + flatRate
-                            flatRateCard = qaliq;
-                        }
-                    } else {
-                        // eger odenilen mebleq elace xerclerden azdirsa
-                        totalAdditionalCharge = qaliq;
-                    }
-                }
-
-                totalOdenilesiCash = this.round((Number(totalAdditionalCharge) + (flatRateTrue ? (Number(flatRateCard) / Number(flatRateCardInit) * Number(flatRateCashInit)) : 0) + (Number(cardWorkHourAmount) / Number(cardRate) * Number(cashRate))), 2);
-
-                this.setState({
-                    payCard: cardInput,
-                    payCash: totalOdenilesiCash
-                });
-
-                if (cardInput == this.payCard) {
-                    console.log('bu isledi')
-                    this.setState({
-                        payCard: cardInput,
-                        payCash: 0
-                    });
-                }
-
-                this.setState({
-                    payCard: cardInput,
-                    payCash: totalOdenilesiCash
-                });
-
-                odenilmelidir = cardInput;
-            }
+            // this.payCash ve this.payCard hesablanmasi
+            this.payCash = startToFinishCashAmountDiscounted + flatCashAmountDiscounted - cashDiscountedPercent + doubleDriveCash + additionalCharges;
+            this.payCard = startToFinishCardAmountDiscounted + flatCardAmountDiscounted - cashDiscountedPercent + doubleDriveCard + additionalCharges;
         }
+    }
+
+    hesabla(inputType, e) {
+        let workData = this.state.vurulmusIs.length > 0 ? this.state.vurulmusIs[0] : null;
+        // calculation variables
+        let percentDiscount = Number(this.totalDiscountPercent) || 0;
+        let cashDiscount = Number(this.totalDiscountAmount) || 0;
+        let cashDiscountedPercent = cashDiscount * (1 - (percentDiscount / 100)) || 0;
+        let timeDiscount = Number(this.totalDiscountTime) || 0;
+        let flatRateIsTrue = workData.flatRate[0].isTrue;
+        let flatCashAmount = Number(workData.flatRate[0].cashAmount) || 0;
+        let flatCashAmountDiscounted = flatCashAmount * (1 - (percentDiscount / 100)) || 0;
+        let flatCardAmount = Number(workData.flatRate[0].cardAmount) || 0;
+        let flatCardAmountDiscounted = flatCardAmount * (1 - (percentDiscount / 100)) || 0;
+        let cashRate = Number(workData.hourlyRatesCash) || 0;
+        let cardRate = Number(workData.hourlyRatesCard) || 0;
+        let startToFinishTime = Number(
+            this.round((
+                (this.round((Math.ceil(workData.totalWorkTime / 15) * 15), 2)) / 60), 2
+            )) || 0;
+        let laborTime = workData.laborTime || 0;
+        // calculate total time after discount
+        flatRateIsTrue
+            ? startToFinishTime -= laborTime
+            : null;
+        timeDiscount > 0
+            ? startToFinishTime -= timeDiscount
+            : null;
+        startToFinishTime = startToFinishTime * (1 - (percentDiscount / 100));
+        let startToFinishCashAmountDiscounted = startToFinishTime * cashRate;
+        let startToFinishCardAmountDiscounted = startToFinishTime * cardRate;
+        let gasFee = Number(workData.gasFee) || 0;
+        let extraLargeItemFee = Number(workData.largeItemFee) || 0;
+        let smallItemPacking = Number(workData.smallItemPacking) || 0;
+        let doubleDriveTime = Number(workData.doubleDrive) > 0 ? Number(workData.doubleDrive) : 0;
+        let doubleDriveCash = doubleDriveTime * cashRate;
+        let doubleDriveCard = doubleDriveTime * cardRate;
+        let additionalCharges = Number(this.totalAdditionalCharge) || 0;
+        let inputAmount = Number(e.target.value);
+        let typeOfPayment = inputType;
+        let amountOf = 0;
+
+        // total additional charges
+        additionalCharges += (gasFee && gasFee > 0 ? gasFee : 0) + (extraLargeItemFee && extraLargeItemFee > 0 ? extraLargeItemFee : 0) + (smallItemPacking > 0 ? smallItemPacking : 0);
+
+        // this.payCash ve this.payCard hesablanmasi
+        this.payCash = startToFinishCashAmountDiscounted + flatCashAmountDiscounted - cashDiscountedPercent + doubleDriveCash + additionalCharges;
+        this.payCard = startToFinishCardAmountDiscounted + flatCardAmountDiscounted - cashDiscountedPercent + doubleDriveCard + additionalCharges;
+
+        // TODO: debug why entered amount is not displayin in the input
+        // if amount less 0 equal it to 0 or amount more than should euqal it to max payment amount
+
+        typeOfPayment === 'cash'
+            ? inputAmount < 0
+                ? inputAmount = 0
+                : inputAmount > this.payCash
+                    ? (
+                        inputAmount = this.payCash,
+                        this.setState({
+                            payCard: 0,
+                            payCash: inputAmount
+                        }, () => {
+                            document.getElementById('mark-as-payed').classList.remove('disabled')
+                        })
+                    )
+                    // if payed amount less than what should pay
+                    : ((additionalCharges -= inputAmount) < 0
+                        ? (doubleDriveCash += additionalCharges) < 0
+                            ? (flatCashAmountDiscounted += doubleDriveCash) < 0
+                                ? startToFinishCashAmountDiscounted += flatCashAmountDiscounted
+                                : (flatCashAmountDiscounted += doubleDriveCash, doubleDriveCash = 0)
+                            : (doubleDriveCash += additionalCharges, additionalCharges = 0)
+                        : additionalCharges -= inputAmount,
+                        additionalCharges < 0 ? additionalCharges = 0 : null,
+                        doubleDriveCash < 0 ? doubleDriveCash = 0 : null,
+                        doubleDriveCard = (doubleDriveCash / cashRate * cardRate),
+                        flatCashAmountDiscounted < 0 ? flatCashAmountDiscounted = 0 : null,
+                        flatCardAmountDiscounted = (flatCashAmountDiscounted / flatCashAmount * flatCardAmount),
+                        startToFinishCardAmountDiscounted = (startToFinishCashAmountDiscounted / cashRate * cardRate),
+                        amountOf = startToFinishCardAmountDiscounted + flatCardAmountDiscounted + doubleDriveCard + additionalCharges,
+                        amountOf = amountOf.toFixed(2),
+                        document.getElementById('mark-as-payed').classList.add('disabled'),
+                        this.setState({
+                            payCard: amountOf,
+                            payCash: inputAmount
+                        })
+                    )
+            : inputAmount < 0
+                ? inputAmount = 0
+                : inputAmount > this.payCard
+                    ? (
+                        inputAmount = this.payCard,
+                        this.setState({
+                            payCard: inputAmount,
+                            payCash: 0
+                        }, () => {
+                            document.getElementById('mark-as-payed').classList.remove('disabled')
+                        })
+                    )
+                    // if payed amount less than what should pay
+                    : ((additionalCharges -= inputAmount) < 0
+                        ? (doubleDriveCard += additionalCharges) < 0
+                            ? (flatCardAmountDiscounted += doubleDriveCard) < 0
+                                ? startToFinishCardAmountDiscounted += flatCardAmountDiscounted
+                                : flatCardAmountDiscounted += doubleDriveCard
+                            : doubleDriveCard += additionalCharges
+                        : additionalCharges += inputAmount,
+                        additionalCharges < 0 ? additionalCharges = 0 : null,
+                        doubleDriveCard < 0 ? doubleDriveCard = 0 : null,
+                        doubleDriveCash = (doubleDriveCard / cardRate * cashRate),
+                        flatCardAmountDiscounted < 0 ? flatCardAmountDiscounted = 0 : null,
+                        flatCashAmountDiscounted = (flatCardAmountDiscounted / flatCardAmount * flatCashAmount),
+                        startToFinishCashAmountDiscounted = (startToFinishCardAmountDiscounted / cardRate * cashRate),
+                        amountOf = startToFinishCashAmountDiscounted + flatCashAmountDiscounted + doubleDriveCash + additionalCharges,
+                        amountOf = amountOf.toFixed(2),
+                        document.getElementById('mark-as-payed').classList.add('disabled'),
+                        this.setState({
+                            payCard: inputAmount,
+                            payCash: amountOf
+                        })
+                    );
     }
 
     check() {
@@ -833,8 +841,8 @@ MY OWN FREE WILL`
         this.totalSaat = 0;
         this.cardRate = 0;
         this.cashRate = 0;
-        this.payCard = 0;
-        this.payCash = 0;
+        // this.payCard = 0;
+        // this.payCash = 0;
         this.card = 0;
         this.cash = 0;
         this.elave = 0;
@@ -1196,7 +1204,13 @@ MY OWN FREE WILL`
                                 </li>
                                 <li className="collection-item blue">
                                     Small Item Pck Supplies:
-                                    <span className="sag">= {is.smallItemPacking < 0 ? 'Yes' : '$' + is.smallItemPacking}</span>
+                                    <span className="sag">= {
+                                        is.smallItemPacking && is.smallItemPacking < 0
+                                            ? 'Yes'
+                                            : is.smallItemPacking && is.smallItemPacking > 0
+                                                ? '$' + is.smallItemPacking
+                                                : 'Waived'
+                                    }</span>
                                 </li>
                                 <li className="collection-item blue">
                                     Extra Large/Heavy Item Fee:
@@ -1223,9 +1237,15 @@ MY OWN FREE WILL`
                                             return 0;
                                         } else {
                                             if (is.flatRate[0].isTrue) {
-                                                return this.round(((is.totalWorkTime) / 60), 2) - is.laborTime;
+                                                return Number(
+                                                    this.round((
+                                                        (this.round((Math.ceil(is.totalWorkTime / 15) * 15), 2)) / 60), 2
+                                                    )) - is.laborTime;
                                             } else {
-                                                return this.round(((is.totalWorkTime) / 60), 2);
+                                                return Number(
+                                                    this.round((
+                                                        (this.round((Math.ceil(is.totalWorkTime / 15) * 15), 2)) / 60), 2
+                                                    ));
                                             }
                                         }
                                     })()} hours</span>
@@ -1233,109 +1253,14 @@ MY OWN FREE WILL`
                                 <li className="collection-item blue">
                                     Total amount cash:
                                     <span className="sag">= $ {(() => {
-                                        let totalSaat = is.flatRate && is.flatRate[0].isTrue ? this.round(((is.totalWorkTime) / 60), 2) - is.laborTime : is.totalWorkHours;
-                                        this.totalDiscountTime = 0;
-                                        this.totalDiscountAmount = 0;
-                                        this.totalDiscountPercent = 0;
-
-                                        this.state.discount && this.state.discount.length > -1 ?
-                                            this.state.discount
-                                                .filter((discount) => discount.type === 'time')
-                                                .map((discount) => this.totalDiscountTime += discount.amount)
-                                            : null;
-                                        totalSaat =
-                                            this.state.discount.length > -1 ?
-                                                totalSaat - this.round((this.totalDiscountTime / 60), 2) :
-                                                totalSaat;
-
-                                        this.state.discount && this.state.discount.length > -1 ?
-                                            this.state.discount
-                                                .filter((discount) => discount.type === 'amount')
-                                                .map((discount) => this.totalDiscountAmount += discount.amount)
-                                            : null;
-
-                                        this.state.discount && this.state.discount.length > -1 ?
-                                            this.state.discount
-                                                .filter((discount) => discount.type === 'percent')
-                                                .map((discount) => this.totalDiscountPercent += discount.amount)
-                                            : null;
-
-                                        this.originalPercentDiscount = this.totalDiscountPercent;
-                                        this.totalDiscountPercent = this.totalDiscountPercent / 100;
-
-                                        console.log(this.totalDiscountTime, this.totalDiscountAmount, this.totalDiscountPercent)
-
-                                        let cashRate = is.hourlyRatesCash;
-                                        this.cashRate = cashRate;
-                                        let totalSaatPul = Number(totalSaat) * Number(cashRate);
-                                        let gasFee = is.gasFee;
-                                        let smallItemPacking = is.smallItemPacking;
-                                        let largeItemFee = is.largeItemFee;
-                                        let cem = 0;
-
-                                        if (!isNaN(gasFee)) {
-                                            cem = cem + gasFee;
-                                        }
-
-                                        if (!isNaN(smallItemPacking)) {
-                                            cem = cem + smallItemPacking;
-                                        }
-
-                                        if (!isNaN(largeItemFee)) {
-                                            cem = cem + largeItemFee;
-                                        }
-
-                                        this.totalAdditionalCharge = cem;
-
-                                        this.elave = cem;
-                                        cem = cem + totalSaatPul;
-                                        console.log("​TabletRender -> render -> cem", cem)
-                                        this.cashPercentDiscount = (cem - this.totalDiscountAmount) * this.totalDiscountPercent;
-                                        cem = cem - Number(cem * this.totalDiscountPercent) - Number(this.totalDiscountAmount);
-                                        console.log("​TabletRender -> render -> Number(cem * this.totalDiscountPercent)", Number(cem * this.totalDiscountPercent))
-                                        console.log("​TabletRender -> render -> Number(this.totalDiscountAmount)", Number(this.totalDiscountAmount))
-                                        console.log("​TabletRender -> render -> cem", cem)
-                                        cem += this.state.totalPul;
-                                        is.flatRate && is.flatRate[0].isTrue ? cem += is.flatRate[0].cashAmount : '';
-                                        cem = this.round(cem, 2);
-                                        console.log("​TabletRender -> render -> cem", cem)
-                                        this.payCash = cem;
-                                        return cem;
+                                        this.calculateAmount();
+                                        return this.payCash;
                                     })()}</span>
                                 </li>
                                 <li className="collection-item blue">
                                     Total amount card:
                                     <span className="sag">= $ {(() => {
-                                        let totalSaat = is.flatRate && is.flatRate[0].isTrue ? this.round(((is.totalWorkTime) / 60), 2) - is.laborTime : is.totalWorkHours;
-                                        let cardRate = is.hourlyRatesCard;
-                                        this.cardRate = cardRate;
-                                        let totalSaatPul = Number(totalSaat) * Number(cardRate);
-                                        let gasFee = is.gasFee;
-                                        let smallItemPacking = is.smallItemPacking;
-                                        let largeItemFee = is.largeItemFee;
-
-                                        let cem = 0;
-                                        if (!isNaN(gasFee)) {
-                                            cem = cem + gasFee;
-                                        }
-
-                                        if (!isNaN(smallItemPacking)) {
-                                            cem = cem + smallItemPacking;
-                                        }
-
-                                        if (!isNaN(largeItemFee)) {
-                                            cem = cem + largeItemFee;
-                                        }
-
-                                        this.elave = cem;
-                                        cem = cem + totalSaatPul;
-                                        this.cardPercentDiscount = (cem - this.totalDiscountAmount) * this.totalDiscountPercent;
-                                        cem = cem - Number(cem * this.totalDiscountPercent) - Number(this.totalDiscountAmount);
-                                        cem += this.state.totalPul;
-                                        is.flatRate && is.flatRate[0].isTrue ? cem += is.flatRate[0].cardAmount : '';
-                                        cem = this.round(cem, 2);
-                                        this.payCard = cem;
-                                        return cem;
+                                        return this.payCard;
                                     })()}</span>
                                 </li>
                                 <li className="collection-item blue">
@@ -1364,7 +1289,7 @@ MY OWN FREE WILL`
                                         <a className="enter">enter cash amount</a>
                                         {/* cash payment */}
                                         <div className="input-field">
-                                            <input id="cash" type="number" className="" placeholder="enter cash amount" onChange={this.hesabla} value={this.state.payCash} />
+                                            <input id="cash" type="number" className="" placeholder="enter cash amount" onChange={(e) => this.hesabla('cash', e)} value={this.state.payCash > 0 ? this.state.payCash : ''} />
                                         </div>
                                         <a id="mark-as-payed" className="waves-effect waves-light btn disabled" onClick={this.markPayed} >Mark as fully payed</a>
                                     </div>
@@ -1372,7 +1297,7 @@ MY OWN FREE WILL`
                                         <a className="enter">enter card amount</a>
                                         {/* card payemnt */}
                                         <div className="input-field">
-                                            <input id="card" type="number" placeholder="enter card amount" onChange={this.hesabla} value={this.state.payCard} />
+                                            <input id="card" type="number" placeholder="enter card amount" onChange={(e) => this.hesabla('card', e)} value={this.state.payCard > 0 ? this.state.payCard : ''} />
                                         </div>
                                         <div id="pay-card" className={(this.state.goster ? '' : ' hide')}></div>
                                         <div className={(this.state.goster ? 'hide' : '')}>Read and accept for making payment</div>
