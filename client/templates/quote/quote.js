@@ -141,7 +141,8 @@ Template.updateQuote.events({
                 isTrue: Session.get('flatRate'),
                 cashAmount: !isNaN(document.querySelector('#flatRateCashUpdate').value) ? document.querySelector('#flatRateCashUpdate').value : 0,
                 cardAmount: !isNaN(document.querySelector('#flatRateCardUpdate').value) ? document.querySelector('#flatRateCardUpdate').value : 0
-            }]
+            }],
+            comment: document.getElementById('textarea2').value
         };
         console.log(doc);
         Meteor.call('updateWork', doc, function (err) {
@@ -240,6 +241,7 @@ Template.preQuote.events({
         let flatRate = Session.get('flatRate');
         let flatRateCash = document.querySelector('#flatRateCash').value ? document.querySelector('#flatRateCash').value : 0;
         let flatRateCard = document.querySelector('#flatRateCash').value ? document.querySelector('#flatRateCard').value : 0;
+        let comment = document.getElementById('textarea2').value;
 
         function idniSec(soz) {
             var baslama = soz.indexOf(':');
@@ -285,6 +287,7 @@ Template.preQuote.events({
             flatRate,
             flatRateCash,
             flatRateCard,
+            comment,
             function (err) {
                 if (err) {
                     Bert.alert({

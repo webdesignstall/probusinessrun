@@ -78,7 +78,8 @@ if (Meteor.isServer) {
             companyInfo,
             flatRate,
             flatRateCash,
-            flatRateCard) {
+            flatRateCard,
+            comment) {
             WorkData.insert({
                 quote: true,
                 clientFirstName: firstName,
@@ -110,7 +111,8 @@ if (Meteor.isServer) {
                     isTrue: flatRate,
                     cashAmount: flatRateCash,
                     cardAmount: flatRateCard
-                }]
+                }],
+                comment
             });
         },
 

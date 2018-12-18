@@ -83,6 +83,10 @@ Schemas.workSchema = new SimpleSchema({
     numberOfWorkers: {
         type: Number,
     },
+    comment: {
+        type: String,
+        optional: true
+    },
     trucks: {
         type: Array,
         optional: true
