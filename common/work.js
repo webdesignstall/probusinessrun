@@ -289,12 +289,12 @@ Schemas.workSchema = new SimpleSchema({
     smallItemPacking: {
         type: Number,
         optional: true,
-        label: 'Double Drive'
+        label: 'Small Item Packing'
     },
     largeItemFee: {
         type: Number,
         optional: true,
-        label: 'Double Drive'
+        label: 'Large item fee'
     },
     cardPayed: {
         type: Number,
