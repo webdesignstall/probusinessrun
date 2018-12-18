@@ -388,8 +388,8 @@ MY OWN FREE WILL`
             additionalCharges += (gasFee && gasFee > 0 ? gasFee : 0) + (extraLargeItemFee && extraLargeItemFee > 0 ? extraLargeItemFee : 0) + (smallItemPacking > 0 ? smallItemPacking : 0);
 
             // this.payCash ve this.payCard hesablanmasi
-            this.payCash = startToFinishCashAmountDiscounted + flatCashAmountDiscounted - cashDiscountedPercent + doubleDriveCash + additionalCharges;
-            this.payCard = startToFinishCardAmountDiscounted + flatCardAmountDiscounted - cashDiscountedPercent + doubleDriveCard + additionalCharges;
+            this.payCash = (startToFinishCashAmountDiscounted + flatCashAmountDiscounted - cashDiscountedPercent + doubleDriveCash + additionalCharges).toFixed(2);
+            this.payCard = (startToFinishCardAmountDiscounted + flatCardAmountDiscounted - cashDiscountedPercent + doubleDriveCard + additionalCharges).toFixed(2);
         }
     }
 
@@ -437,8 +437,8 @@ MY OWN FREE WILL`
         additionalCharges += (gasFee && gasFee > 0 ? gasFee : 0) + (extraLargeItemFee && extraLargeItemFee > 0 ? extraLargeItemFee : 0) + (smallItemPacking > 0 ? smallItemPacking : 0);
 
         // this.payCash ve this.payCard hesablanmasi
-        this.payCash = startToFinishCashAmountDiscounted + flatCashAmountDiscounted - cashDiscountedPercent + doubleDriveCash + additionalCharges;
-        this.payCard = startToFinishCardAmountDiscounted + flatCardAmountDiscounted - cashDiscountedPercent + doubleDriveCard + additionalCharges;
+        this.payCash = (startToFinishCashAmountDiscounted + flatCashAmountDiscounted - cashDiscountedPercent + doubleDriveCash + additionalCharges).toFixed(2);
+        this.payCard = (startToFinishCardAmountDiscounted + flatCardAmountDiscounted - cashDiscountedPercent + doubleDriveCard + additionalCharges).toFixed(2);
 
         // TODO: debug why entered amount is not displayin in the input
         // if amount less 0 equal it to 0 or amount more than should euqal it to max payment amount
