@@ -244,7 +244,7 @@ Template.preQuote.events({
         let flatRate = Session.get('flatRate');
         let flatRateCash = document.querySelector('#flatRateCash').value ? document.querySelector('#flatRateCash').value : 0;
         let flatRateCard = document.querySelector('#flatRateCash').value ? document.querySelector('#flatRateCard').value : 0;
-        let comment = document.getElementById('textarea2').value;
+        let comment = document.getElementById('textarea1').value;
 
         function idniSec(soz) {
             var baslama = soz.indexOf(':');
