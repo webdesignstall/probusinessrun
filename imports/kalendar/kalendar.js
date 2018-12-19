@@ -36,6 +36,10 @@ let arrayToObject = function () {
     }
 };
 
+function jobNumber_() {
+    document.getElementById('quote-job-number').value = Math.random().toString(36).substr(2, 5);
+}
+
 function Xuban() {
     $('input[name*="workers"]').autocomplete({
         data: usersBazaObject,
@@ -373,6 +377,8 @@ Template.kalendar.events({
         $(document).ready(function () {
             $('select').material_select();
         });
+
+        jobNumber_()
     },
     'click .add-moreschedule-button': function (event) {
         event.preventDefault();
@@ -389,6 +395,8 @@ Template.kalendar.events({
         $(document).ready(function () {
             $('select').material_select();
         });
+
+        jobNumber_()
     },
     'click .baqla': function (event) {
         event.preventDefault();
