@@ -26,14 +26,17 @@ export default class Signature extends React.Component {
 
     initialize() {
         let signaturePadElement = document.getElementById(this.state.id + 'canvas')
-        this.signaturePad = signaturePadElement ? new SignaturePad(
-            signaturePadElement,
-            {
-                backgroundColor: 'rgba(255, 255, 255, 0)',
-                penColor: 'rgb(0, 0, 0)'
-            }
-        ) : null;
-        this.state.signatureEmpty ? saveButton.classList.remove(disabled) : null;
+        let saveButton = document.getElementById(this.state.id + 'save');
+        this.signaturePad = signaturePadElement ?
+            new SignaturePad(signaturePadElement,
+                {
+                    backgroundColor: 'rgba(255, 255, 255, 0)',
+                    penColor: 'rgb(0, 0, 0)',
+                    onBegin: () => {
+                        this.setState({ signatureEmpty: true })
+                    }
+                }
+            ) : null;
     }
 
     saving() {
@@ -57,12 +60,6 @@ export default class Signature extends React.Component {
         this.props.resetDiscount ? this.props.resetDiscount() : null;
     }
 
-    signatureEmpty() {
-        this.setState((prevState) => {
-            signatureEmpty: !prevState.signatureEmpty
-        });
-    }
-
     fullNameChange(e) {
         this.setState({
             fullname: e.target.value
@@ -83,7 +80,7 @@ export default class Signature extends React.Component {
                 </div>
                 <div className="col s12 m8 l8">
                     <p>Sign below</p>
-                    <canvas id={this.state.id + 'canvas'} className="card__ " width={'400px'} height={'200px'} onChange={this.signatureEmpty} ></canvas>
+                    <canvas id={this.state.id + 'canvas'} className="card__ " width={'400px'} height={'200px'} ></canvas>
                     <div className="clear"></div>
                     <button id={this.state.id + 'clear'}
                         className="btn  red lighten-2"
@@ -94,7 +91,7 @@ export default class Signature extends React.Component {
                         id={this.state.id + 'save'}
                         className="btn"
                         onClick={this.saving}
-                        disabled={this.state.fullname === ''}
+                        disabled={this.state.fullname !== '' && this.state.signatureEmpty ? false : true}
                     >Save</button>
                 </div>
             </div>
