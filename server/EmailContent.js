@@ -1,307 +1,303 @@
 export default function EmailContent(job) {
     let additionalPhoneNumber = job.phoneAdditional
-        ? `<div class="clear margin5s" style="font-family: 'Roboto', sans-serif; clear: both; margin: 0 10px;">
-                <hr style="font-family: 'Roboto', sans-serif; border-top: none; border-color: #786fa6;">
-            </div>
-            <div class="half inlineBlock list2 bordert" style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px; border-right: 1px solid #bdc3c7;">
-                ADD. PHONE NUMBER
-            </div>
-            <div class="half inlineBlock list2 " style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px;">
-                ${job.phoneAdditional }
-            </div>`
+        ? `<tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
+                <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Additional Phone Number:</td>
+                <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${job.phoneAdditional }</td>
+            </tr>`
         : ''
 
-    let movingAddresesRender = job.addresses.map((address, index) => {
-        return (
+    let movingSize = function () {
+        let movingSizeList = {
+            'items': 'Items',
+            'studio': 'Studio',
+            '1_bedroom': '1 Bedroom',
+            '2_bedroom_small': '2 Bedroom (small size, few items)',
+            '2_bedroom_avg': '2 Bedroom (avg. size, avg. items)',
+            '2_bedroom_large': '2 Bedroom (large size, many items)',
+            '3_bedroom_avg': '3 Bedroom (avg. size, avg. items)',
+            '3_bedroom_large': '3 Bedroom (large size, many items)',
+            '4_bedrooom_avg': '4 Bedroom (avg. size, avg. items)',
+            '4_bedroom_large': '4 Bedroom (large size, many items)',
+            'commercial_avg': 'Commercial (avg. size, avg. items)',
+            'commercial_large': 'Commercial (large size, many items)'
+        }
+
+        return movingSizeList[job.movingSize];
+    }
+
+    let movingAddresesRenderHTML = ''
+
+    job.addresses.map((address, index) => {
+        movingAddresesRenderHTML += (
             `
-            <div class="clear margin5s" style="font-family: 'Roboto', sans-serif; clear: both; margin: 0 10px;">
-                <hr style="font-family: 'Roboto', sans-serif; border-top: none; border-color: #786fa6;">
-            </div>
-            <div class="half inlineBlock list2 bordert" style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px; border-right: 1px solid #bdc3c7;">
-                ADDRESS #${ index + 1 }
-            </div>
-            <div class="half inlineBlock list2 " style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px;">
-                ${ address }
-            </div>
+            <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
+                <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Address #${ index + 1 }:</td>
+                <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${ address }</td>
+            </tr>
             `
         );
     })
 
+    let rateDisplay = job.hourlyRatesCash > 0 && job.hourlyRatesCard
+        ?
+        `
+        <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
+            <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Cash Discounted Rate p/hour:</td>
+            <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">$${job.hourlyRatesCash }</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
+            <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Card Regular Rate p/hour:</td>
+            <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">$${job.hourlyRatesCard }</td>
+        </tr>
+        `
+        : '';
+
     let flatRate = job.flatRate
-        ? `<div class="clear margin5s" style="font-family: 'Roboto', sans-serif; clear: both; margin: 0 10px;">
-                <hr style="font-family: 'Roboto', sans-serif; border-top: none; border-color: #786fa6;">
-            </div>
-            <div class="half inlineBlock list2 bordert" style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px; border-right: 1px solid #bdc3c7;">
-                FLAT RATE CASH
-            </div>
-            <div class="half inlineBlock list2 " style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px;">
-                $${job.flatRateCash }
-            </div>
-            <div class="clear margin5s" style="font-family: 'Roboto', sans-serif; clear: both; margin: 0 10px;">
-                <hr style="font-family: 'Roboto', sans-serif; border-top: none; border-color: #786fa6;">
-            </div>
-            <div class="half inlineBlock list2 bordert" style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px; border-right: 1px solid #bdc3c7;">
-                FLAT RATE CARD
-            </div>
-            <div class="half inlineBlock list2 " style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px;">
-                $${job.flatRateCard }
-            </div>`
-        : '';
-
-    let smallItemPacking = job.smallPackingItems !== 0
         ? `
-        <div class="clear margin5s" style="font-family: 'Roboto', sans-serif; clear: both; margin: 0 10px;">
-            <hr style="font-family: 'Roboto', sans-serif; border-top: none; border-color: #786fa6;">
-        </div>
-        <div class="half inlineBlock list2 bordert" style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px; border-right: 1px solid #bdc3c7;">
-            SMALL ITEM PACKING
-        </div>
-        <div class="half inlineBlock list2 " style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px;">
-            ${job.smallPackingItems == -1 ? 'yes' : '$' + job.smallPackingItems }
-        </div>
+        <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
+            <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Flat Rate Cash:</td>
+            <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">$${job.flatRateCash }</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
+            <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Flat Rate Card:</td>
+            <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">$${job.flatRateCard }</td>
+        </tr>
         `
         : '';
 
-    let largeItemFee = job.largeItemFee > 0
-        ? `
-        <div class="clear margin5s" style="font-family: 'Roboto', sans-serif; clear: both; margin: 0 10px;">
-            <hr style="font-family: 'Roboto', sans-serif; border-top: none; border-color: #786fa6;">
-        </div>
-        <div class="half inlineBlock list2 bordert" style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px; border-right: 1px solid #bdc3c7;">
-            LARGE ITEM FEE
-        </div>
-        <div class="half inlineBlock list2 " style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px;">
-            $${job.largeItemFee > 0 ? job.largeItemFee : 0 }
-        </div>
+    let laborTime = job.minimumLaborTime && job.minimumLaborTime > 0 ?
+        `
+        <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
+            <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Minimum Labor Time:</td>
+            <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${job.minimumLaborTime }</td>
+        </tr>
         `
         : '';
 
-    let smallItemPackingItems = job.smallPackingItems === -0.01
-        ? ''
-        : `<div style="font-family: 'Roboto', sans-serif;">
-            <img width="12" src="https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../assets/preview/2012/png/iconmonstr-check-mark-1.png&r=255&g=0&b=0"
-                alt="" style="font-family: 'Roboto', sans-serif;">
-            Small item packing materials: (boxes, packing papers,bubble wrap. etc.)
-            <hr style="font-family: 'Roboto', sans-serif; border-top: none; border-color: #786fa6;">
-        </div>`;
+    let gasFee = job.gasFee && job.gasFee > 0
+        ? `
+        <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
+            <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Gas Fee (one time fee):</td>
+            <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${job.gasFee }</td>
+        </tr>
+        `
+        : job.gasFee || job.gasFee === '' || job.gasFee === 0
+            ? `
+            <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
+                <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Gas Fee (one time fee)</td>
+                <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Waived</td>
+            </tr>
+            `
+            : '';
 
-    let extraLargeItemPacking = job.largeItemFee > 0
-        ? ''
-        : `<div style="font-family: 'Roboto', sans-serif;">
-            <img width="12" src="https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../assets/preview/2012/png/iconmonstr-check-mark-1.png&r=255&g=0&b=0"
-                alt="" style="font-family: 'Roboto', sans-serif;">
-            Extra-Large Item Packing and Transportation: for example, pool tables, pianos, etc.
-            (Please ask if you need Extra-Large Item Packing and Moving.)
-            <hr style="font-family: 'Roboto', sans-serif; border-top: none; border-color: #786fa6;">
-        </div>`;
+    let doubleDrive = job.doubleDrive && job.doubleDrive === 'yes'
+        ? `
+        <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
+            <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Double Drive Time</td>
+            <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Yes, <a href="http://www.moverslegion.com/wp-content/uploads/2018/12/DDT.pdf">learn more</a></td>
+        </tr>
+        `
+        : job.doubleDrive && job.doubleDrive === 'waived'
+            ? `
+            <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
+                <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Double Drive Time</td>
+                <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Waived</td>
+            </tr>
+            `
+            : '';
+
+    let smallItemPacking = job.smallPackingItems && job.smallPackingItems !== 0
+        ? `
+        <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
+            <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Small Item Packing:</td>
+            <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%"> ${job.smallPackingItems < 0 ? 'Yes, <a href="http://www.moverslegion.com/wp-content/uploads/2018/12/small-item-pricing.pdf">learn more</a>' : '$' + job.smallPackingItems }</td>
+        </tr>
+        `
+        : '';
+
+    let doubleDriveAdditional = job.doubleDrive && job.doubleDrive === 'notSure'
+        ?
+        `
+        <div style="margin-bottom: 5px;">Double Drive Time, <a href="http://www.moverslegion.com/wp-content/uploads/2018/12/DDT.pdf">learn more</a></div>
+        `
+        : '';
+
+    let gasFeeAdditional = job.gasFee && job.gasFee === 'notSure'
+        ?
+        `
+        <div style="margin-bottom: 5px;">Gas Fee (one time fee)</div>
+        `
+        : '';
+
+    let extraLargeItemPacking = job.largeItemFee && job.largeItemFee > 0
+        ?
+        `
+        <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
+            <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Extra-Large Item Handling Fee</td>
+            <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${job.largeItemFee }</td>
+        </tr>
+        `
+        : '';
 
     return (
         `
         <!DOCTYPE html>
-        <html lang="en" style="font-family: 'Roboto', sans-serif;">
-
+        <html>
         <head>
+            <title>Quote</title>
             <meta charset="UTF-8">
-            <title>Document</title>
-
         </head>
 
-        <body style="font-family: 'Roboto', sans-serif;">
-
-            <body style="font-family: 'Roboto', sans-serif;">
-                <div class="content" style="font-family: 'Roboto', sans-serif; max-width: 355px; border: 1px solid #574b90; border-radius: 10px; overflow: hidden; margin: 0 auto;">
-                    <div class="header" style="font-family: 'Roboto', sans-serif; text-align: center; background-color: #574b90; color: #ecf0f1; padding: 10px; border-bottom: 1px solid #574b90;">
-                        Hello ${job.firstName } ${ job.lastName }!
-                        Thank you for requesting your moving quote!
-                        Your quote includes:
-                    </div>
-                    <div class="clear margin5" style="font-family: 'Roboto', sans-serif; clear: both; margin: 10px;"></div>
-                    <div class="half inlineBlock list" style="font-family: 'Roboto', sans-serif; padding: 5px 10px; font-size: 12px;">
-                        <img width="12" src="https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../assets/preview/2012/png/iconmonstr-check-mark-1.png&r=46&g=204&b=113"
-                            alt="check" style="font-family: 'Roboto', sans-serif;">
-                        &nbsp;Professional, full time movers
-                    </div>
-                    <div class="half inlineBlock list" style="font-family: 'Roboto', sans-serif; padding: 5px 10px; font-size: 12px;">
-                        <img width="12" src="https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../assets/preview/2012/png/iconmonstr-check-mark-1.png&r=46&g=204&b=113"
-                            alt="check" style="font-family: 'Roboto', sans-serif;">
-                        &nbsp;Use of Wardrobe Boxes
-                    </div>
-                    <div class="half inlineBlock list" style="font-family: 'Roboto', sans-serif; padding: 5px 10px; font-size: 12px;">
-                        <img width="12" src="https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../assets/preview/2012/png/iconmonstr-check-mark-1.png&r=46&g=204&b=113"
-                            alt="check" style="font-family: 'Roboto', sans-serif;">
-                        &nbsp;Large Item Packing Supplies
-                    </div>
-                    <div class="half inlineBlock list" style="font-family: 'Roboto', sans-serif; padding: 5px 10px; font-size: 12px;">
-                        <img width="12" src="https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../assets/preview/2012/png/iconmonstr-check-mark-1.png&r=46&g=204&b=113"
-                            alt="check" style="font-family: 'Roboto', sans-serif;">
-                        &nbsp;Moving Trucks & Movers
-                    </div>
-                    <div class="half inlineBlock list" style="font-family: 'Roboto', sans-serif; padding: 5px 10px; font-size: 12px;">
-                        <img width="12" src="https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../assets/preview/2012/png/iconmonstr-check-mark-1.png&r=46&g=204&b=113"
-                            alt="check" style="font-family: 'Roboto', sans-serif;">
-                        &nbsp;CPUC Licensed & Insured
-                    </div>
-                    <div class="half inlineBlock list" style="font-family: 'Roboto', sans-serif; padding: 5px 10px; font-size: 12px;">
-                        <img width="12" src="https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../assets/preview/2012/png/iconmonstr-check-mark-1.png&r=46&g=204&b=113"
-                            alt="check" style="font-family: 'Roboto', sans-serif;">
-                        &nbsp;No hidden fees
-                    </div>
-                    <div class="half inlineBlock list" style="font-family: 'Roboto', sans-serif; padding: 5px 10px; font-size: 12px;">
-                        <img width="12" src="https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../assets/preview/2012/png/iconmonstr-check-mark-1.png&r=46&g=204&b=113"
-                            alt="check" style="font-family: 'Roboto', sans-serif;">
-                        &nbsp;Disassembling and Reassembling
-                    </div>
-                    <div class="half inlineBlock list" style="font-family: 'Roboto', sans-serif; padding: 5px 10px; font-size: 12px;">
-                        <img width="12" src="https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../assets/preview/2012/png/iconmonstr-check-mark-1.png&r=46&g=204&b=113"
-                            alt="check" style="font-family: 'Roboto', sans-serif;">
-                        &nbsp;Tax Included
-                    </div>
-                    <div class="half inlineBlock list" style="font-family: 'Roboto', sans-serif; padding: 5px 10px; font-size: 12px;">
-                        <img width="12" src="https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../assets/preview/2012/png/iconmonstr-check-mark-1.png&r=46&g=204&b=113"
-                            alt="check" style="font-family: 'Roboto', sans-serif;">
-                        &nbsp;24/7 Local Support Team
-                    </div>
-                    <div class="half inlineBlock list" style="font-family: 'Roboto', sans-serif; padding: 5px 10px; font-size: 12px;">
-                        <img width="12" src="https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../assets/preview/2012/png/iconmonstr-check-mark-1.png&r=46&g=204&b=113"
-                            alt="check" style="font-family: 'Roboto', sans-serif;">
-                        &nbsp;Cash Discount per hour
-                    </div>
-
-                    <div class="clear margin5" style="font-family: 'Roboto', sans-serif; clear: both; margin: 10px;">
-                        <hr style="font-family: 'Roboto', sans-serif; border-top: none; border-color: #786fa6;">
-                    </div>
-                    <div class="half inlineBlock list2 bordert" style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px; border-right: 1px solid #bdc3c7;">
-                        CUSTOMER NAME
-                    </div>
-                    <div class="half inlineBlock list2 " style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px;">
-                        ${job.firstName } ${ job.lastName }
-                    </div>
-                    <div class="clear margin5s" style="font-family: 'Roboto', sans-serif; clear: both; margin: 0 10px;">
-                        <hr style="font-family: 'Roboto', sans-serif; border-top: none; border-color: #786fa6;">
-                    </div>
-                    <div class="half inlineBlock list2 bordert" style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px; border-right: 1px solid #bdc3c7;">
-                        JOB NUMBER
-                    </div>
-                    <div class="half inlineBlock list2 " style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px;">
-                        ${job.jobNumber }
-                    </div>
-                    <div class="clear margin5s" style="font-family: 'Roboto', sans-serif; clear: both; margin: 0 10px;">
-                        <hr style="font-family: 'Roboto', sans-serif; border-top: none; border-color: #786fa6;">
-                    </div>
-                    <div class="half inlineBlock list2 bordert" style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px; border-right: 1px solid #bdc3c7;">
-                        PHONE NUMBER
-                    </div>
-                    <div class="half inlineBlock list2 " style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px;">
-                        ${job.phone }
-                    </div>
-                    ${additionalPhoneNumber }
-                    <div class="clear margin5s" style="font-family: 'Roboto', sans-serif; clear: both; margin: 0 10px;">
-                        <hr style="font-family: 'Roboto', sans-serif; border-top: none; border-color: #786fa6;">
-                    </div>
-                    <div class="half inlineBlock list2 bordert" style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px; border-right: 1px solid #bdc3c7;">
-                        ARRIVAL WINDOW
-                    </div>
-                    <div class="half inlineBlock list2 " style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px;">
-                        ${job.workMustBeginTime }
-                    </div>
-                    <div class="clear margin5s" style="font-family: 'Roboto', sans-serif; clear: both; margin: 0 10px;">
-                        <hr style="font-family: 'Roboto', sans-serif; border-top: none; border-color: #786fa6;">
-                    </div>
-                    <div class="half inlineBlock list2 bordert" style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px; border-right: 1px solid #bdc3c7;">
-                        CASH DISCOUNT RATE P/HOUR
-                    </div>
-                    <div class="half inlineBlock list2 " style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px;">
-                        ${job.hourlyRatesCash && job.hourlyRatesCash > 0 ? '$' + job.hourlyRatesCash : 'waived' }
-                    </div>
-                    <div class="clear margin5s" style="font-family: 'Roboto', sans-serif; clear: both; margin: 0 10px;">
-                        <hr style="font-family: 'Roboto', sans-serif; border-top: none; border-color: #786fa6;">
-                    </div>
-                    <div class="half inlineBlock list2 bordert" style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px; border-right: 1px solid #bdc3c7;">
-                        CARD PAYMENT P/HOUR
-                    </div>
-                    <div class="half inlineBlock list2 " style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px;">
-                        ${job.hourlyRatesCard && job.hourlyRatesCard > 0 ? '$' + job.hourlyRatesCard : 'waived' }
-                    </div>
-                    ${flatRate }
-                    ${smallItemPacking }
-                    ${largeItemFee }
-                    <div class="clear margin5s" style="font-family: 'Roboto', sans-serif; clear: both; margin: 0 10px;">
-                        <hr style="font-family: 'Roboto', sans-serif; border-top: none; border-color: #786fa6;">
-                    </div>
-                    <div class="half inlineBlock list2 bordert" style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px; border-right: 1px solid #bdc3c7;">
-                        MOVING DATE
-                    </div>
-                    <div class="half inlineBlock list2 " style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px;">
-                        ${job.movingDateConverted }
-                    </div>
-                    <div class="clear margin5s" style="font-family: 'Roboto', sans-serif; clear: both; margin: 0 10px;">
-                        <hr style="font-family: 'Roboto', sans-serif; border-top: none; border-color: #786fa6;">
-                    </div>
-                    <div class="half inlineBlock list2 bordert" style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px; border-right: 1px solid #bdc3c7;">
-                        MOVING SIZE
-                    </div>
-                    <div class="half inlineBlock list2 " style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px;">
-                        ${job.movingSize }
-                    </div>
-                    <div class="clear margin5s" style="font-family: 'Roboto', sans-serif; clear: both; margin: 0 10px;">
-                        <hr style="font-family: 'Roboto', sans-serif; border-top: none; border-color: #786fa6;">
-                    </div>
-                    <div class="half inlineBlock list2 bordert" style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px; border-right: 1px solid #bdc3c7;">
-                        # of MOVERS
-                    </div>
-                    <div class="half inlineBlock list2 " style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px;">
-                        ${job.numberOfWorkers }
-                    </div>
-                    <div class="clear margin5s" style="font-family: 'Roboto', sans-serif; clear: both; margin: 0 10px;">
-                        <hr style="font-family: 'Roboto', sans-serif; border-top: none; border-color: #786fa6;">
-                    </div>
-                    <div class="half inlineBlock list2 bordert" style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px; border-right: 1px solid #bdc3c7;">
-                        MINIMUM LABOR TIME
-                    </div>
-                    <div class="half inlineBlock list2 " style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px;">
-                        ${job.minimumLaborTime ? job.minimumLaborTime : 0 } Hours
-                    </div>
-                        ${movingAddresesRender }
-                    <div class="clear margin5" style="font-family: 'Roboto', sans-serif; clear: both; margin: 10px;">
-                        <hr style="font-family: 'Roboto', sans-serif; border-top: none; border-color: #786fa6;">
-                    </div>
-                    <div class="half inlineBlock list2 bordert" style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px; border-right: 1px solid #bdc3c7;">
-                        GAS FEE (one time)
-                    </div>
-                    <div class="half inlineBlock list2 " style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px;">
-                       ${job.gasFee ? job.gasFee + '$ One-time fee' : 'waived' }
-                    </div>
-                    <div class="half inlineBlock list2 bordert" style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px; border-right: 1px solid #bdc3c7;">
-                        DOUBLE DRIVE TIME
-                    </div>
-                    <div class="half inlineBlock list2 " style="font-family: 'Roboto', sans-serif; width: 40%; display: inline-block; padding: 1px 10px; font-size: 12px;">
-                        ${job.doubleDrive === 'yes' ? 'yes (click for learn more)' : 'waived' }
-                    </div>
-                    <div class="clear margin5" style="font-family: 'Roboto', sans-serif; clear: both; margin: 10px;"></div>
-                    <div class="footer" style="font-family: 'Roboto', sans-serif; background-color: #2c3e50; color: #ecf0f1; font-size: 12px; padding: 10px;">
-                        <div>THE PRICE DOES NOT INCLUDED</div>
-                        <div className="clear margin5"><hr/></div>
-                        ${smallItemPackingItems }
-                        ${extraLargeItemPacking }
-                        <div style="font-family: 'Roboto', sans-serif;">
-                            <img width="12" src="https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../assets/preview/2012/png/iconmonstr-check-mark-1.png&r=255&g=0&b=0"
-                                alt="" style="font-family: 'Roboto', sans-serif;">
-                            Customer responsible to hold the space for moving truck (if there is any parking ticket,
-                            Customer is responsible to pay for it.)
-                            <hr style="font-family: 'Roboto', sans-serif; border-top: none; border-color: #786fa6;">
-                        </div>
-                        <div style="font-family: 'Roboto', sans-serif;">
-                            <img width="12" src="https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../assets/preview/2012/png/iconmonstr-check-mark-1.png&r=255&g=0&b=0"
-                                alt="" style="font-family: 'Roboto', sans-serif;">
-                            Full-coverage insurance
-                        </div>
-                        <div class="clear" style="font-family: 'Roboto', sans-serif; clear: both; margin: 2px;"></div>
-                    </div>
-                    <a class="button" href="http://www.probusinessrun.com/reserve" style="font-family: 'Roboto', sans-serif; padding: 10px 10px; border: none; display: block; text-align: center; font-size: 14px; color: white; background-color: #3dc1d3; margin: 5px 0  5px 50%; transform: translate(-50%, 0); border-radius: 3px;">RESERVE YOUR MOVE</a>
+        <body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; background-color: #f3f2f2; letter-spacing: 0.5px; padding: 0; margin: 0;">
+            <div class="container" style="max-width: 560px; background-color: #f3f2f2; width: 100%; margin: 0 auto;">
+            <div class="header" style="background-color: #554b8c; color: white; padding: 20px; font-size: 16px; line-height: 25px; text-align: center;">
+                <b>
+                Hello ${job.firstName } ${ job.lastName }!<br>
+                Thank you for requesting your moving quote! Your quote includes:
+                </b>
+            </div>
+            <div class="included-list" style="padding: 10px;">
+                <div>
+                <div class="half" style="width: 49%; display: inline-block; line-height: 13px; margin-bottom: 5px; min-width: 250px;">
+                    <img src="http://wonder56.com/static/img/index/cg.png" height="13px" style="margin-right: 5px;">Professional, Full Time Movers
                 </div>
-            </body>
+                <div class="half" style="width: 49%; display: inline-block; line-height: 13px; margin-bottom: 5px; min-width: 250px;">
+                    <img src="http://wonder56.com/static/img/index/cg.png" height="13px" style="margin-right: 5px;">No Hidden Fees
+                </div>
+                <div class="half" style="width: 49%; display: inline-block; line-height: 13px; margin-bottom: 5px; min-width: 250px;">
+                    <img src="http://wonder56.com/static/img/index/cg.png" height="13px" style="margin-right: 5px;">Use of Wardrobe Boxes
+                </div>
+                <div class="half" style="width: 49%; display: inline-block; line-height: 13px; margin-bottom: 5px; min-width: 250px;">
+                    <img src="http://wonder56.com/static/img/index/cg.png" height="13px" style="margin-right: 5px;">Disassembling & Reassembling
+                </div>
+                <div class="half" style="width: 49%; display: inline-block; line-height: 13px; margin-bottom: 5px; min-width: 250px;">
+                    <img src="http://wonder56.com/static/img/index/cg.png" height="13px" style="margin-right: 5px;">Large Item Packing Supplies
+                </div>
+                <div class="half" style="width: 49%; display: inline-block; line-height: 13px; margin-bottom: 5px; min-width: 250px;">
+                    <img src="http://wonder56.com/static/img/index/cg.png" height="13px" style="margin-right: 5px;">Tax Included
+                </div>
+                <div class="half" style="width: 49%; display: inline-block; line-height: 13px; margin-bottom: 5px; min-width: 250px;">
+                    <img src="http://wonder56.com/static/img/index/cg.png" height="13px" style="margin-right: 5px;">Moving Trucks & Movers
+                </div>
+                <div class="half" style="width: 49%; display: inline-block; line-height: 13px; margin-bottom: 5px; min-width: 250px;">
+                    <img src="http://wonder56.com/static/img/index/cg.png" height="13px" style="margin-right: 5px;">24/7 Local Support Team
+                </div>
+                <div class="half" style="width: 49%; display: inline-block; line-height: 13px; margin-bottom: 5px; min-width: 250px;">
+                    <img src="http://wonder56.com/static/img/index/cg.png" height="13px" style="margin-right: 5px;">BEARHFTI Licensed & Insured
+                </div>
+                <div class="half" style="width: 49%; display: inline-block; line-height: 13px; margin-bottom: 5px; min-width: 250px;">
+                    <img src="http://wonder56.com/static/img/index/cg.png" height="13px" style="margin-right: 5px;">Cash Discount Per Hour
+                </div>
+                </div>
+            </div>
+            <div class="job-info" style="padding: 10px;">
+                <table style="width: 100%;" width="100%">
+                    <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
+                        <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Customer Name:</td>
+                        <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${job.firstName } ${ job.lastName }</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
+                        <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Phone Number:</td>
+                        <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${job.phone }</td>
+                    </tr>
+                    ${ additionalPhoneNumber }
+                    <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
+                        <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Job Number:</td>
+                        <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${job.jobNumber }</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
+                        <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Moving Date:</td>
+                        <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${job.movingDateConverted }</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
+                        <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Arrival Window:</td>
+                        <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${job.workMustBeginTime }</td>
+                    </tr>
+                    ${movingAddresesRenderHTML }
+                    <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
+                        <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Moving Size:</td>
+                        <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${movingSize() }</td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
+                        <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Number of Movers:</td>
+                        <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${job.numberOfWorkers }</td>
+                    </tr>
+                    ${laborTime }
+                    ${rateDisplay }
+                    ${flatRate }
+                </table>
+            </div>
+            <div class="additional-charges">
+                <div class="additional-charges--header" style="text-align: center; color: white; background-color: #495572; padding: 5px;">ADDITIONAL CHARGES</div>
+                <div class="additional-charges--list" style="padding: 10px;">
+                <table style="width: 100%;" width="100%">
+                    ${gasFee }
+                    ${doubleDrive }
+                    ${smallItemPacking }
+                    ${extraLargeItemPacking }
+                </table>
+                </div>
+            </div>
+            ${
+        job.doubleDrive === 'notSure' || job.gasFee === 'notSure'
+            ?
+            `
+            <div class="additional-charges">
+                <div class="additional-charges--header" style="text-align: center; color: white; background-color: #495572; padding: 5px;">
+                POSSIBLE ADDITIONAL CHARGES
+                </div>
+                <div class="additional-charges--list" style="padding: 10px;">
+                ${doubleDriveAdditional }
+                ${gasFeeAdditional }
+                </div>
+            </div>
+            `
+            : ''
+        }
+            <div class="additional-charges">
+                <div class="additional-charges--header" style="text-align: center; color: white; background-color: #495572; padding: 5px;">
+                THE PRICE DOES NOT INCLUDED
+                </div>
+                <div class="additional-charges--list" style="padding: 10px;">
+                ${
+        job.smallPackingItems === 0 || job.smallPackingItems === ''
+            ?
+            `
+            <div style="margin-bottom: 5px;">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/White_X_in_red_background.svg/2000px-White_X_in_red_background.svg.png" height="13px" style="margin-right: 5px;">Extra-Large Item Packing and Transportation: for example, pool
+                tables, pianos, etc. (Please ask if you need Extra-Large Item
+                Packing and Moving).
+            </div>
+            `: ''
+        }
+                <div style="margin-bottom: 5px;">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/White_X_in_red_background.svg/2000px-White_X_in_red_background.svg.png" height="13px" style="margin-right: 5px;">Small Item Packing Materials: (boxes, packing papers,bubble wrap.
+                    etc.) <a href="http://www.moverslegion.com/wp-content/uploads/2018/12/small-item-pricing.pdf">Require, if needed</a>
+                </div>
+                ${job.largeItemFee || job.largeItemFee === 0 || job.largeItemFee === ''
+            ? ''
+            : `
+            <div style="margin-bottom: 5px;">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/White_X_in_red_background.svg/2000px-White_X_in_red_background.svg.png" height="13px" style="margin-right: 5px;">Extra-Large Item Packing and Transportation: for example, pool
+                tables, pianos, etc. (Please ask if you need Extra-Large Item
+                Packing and Moving).
+            </div>
+            `
+        }
+                <div style="margin-bottom: 5px;">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/White_X_in_red_background.svg/2000px-White_X_in_red_background.svg.png" height="13px" style="margin-right: 5px;">Customer responsible to hold the space for moving truck (if there
+                    is any parking ticket, Customer is responsible to pay for it).
+                </div>
+                <div style="margin-bottom: 5px;">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/White_X_in_red_background.svg/2000px-White_X_in_red_background.svg.png" height="13px" style="margin-right: 5px;">Full-coverage Insurance. <a href="http://www.moverslegion.com/wp-content/uploads/2018/12/Full-Insurance.pdf" >Require, if needed</a>
+                </div>
+                </div>
+            </div>
+            <div class="reserve" style="padding: 5px; text-align: center;">
+                <a href="http://www.probusinessrun.com/reserve" style="padding: 15px 15px; background-color: #554b8c; color: white; font-size: 14px; border: none;"><b>RESERVE YOUR MOVE</b></a>
+            </div>
+            </div>
         </body>
-
         </html>
         `
     );
