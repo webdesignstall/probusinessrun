@@ -42,18 +42,14 @@ Template.updateQuote.onRendered(function () {
             Session.set('flatRate', ish.flatRate[0].isTrue);
             ish.flatRate[0].isTrue
                 ? (
-                    document.querySelector('#paymentContentUpdate').classList.add('hide'),
                     document.querySelector('#flatRateUpdate_').classList.remove('hide')
                 )
-                : (document.querySelector('#paymentContentUpdate').classList.remove('hide'),
-                    document.querySelector('#flatRateUpdate_').classList.add('hide'));
+                : document.querySelector('#flatRateUpdate_').classList.add('hide');
 
             document.querySelector('#flatBoxUpdate').addEventListener('change', function () {
                 if (document.querySelector('#flatBoxUpdate').checked === false) {
-                    document.querySelector('#paymentContentUpdate').classList.remove('hide');
                     document.querySelector('#flatRateUpdate_').classList.add('hide');
                 } else {
-                    document.querySelector('#paymentContentUpdate').classList.add('hide');
                     document.querySelector('#flatRateUpdate_').classList.remove('hide');
                 }
             });
