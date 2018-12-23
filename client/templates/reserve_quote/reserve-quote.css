@@ -1,9 +1,7 @@
 .jobMain {
     width: 800px !important;
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    /* margin: 100px auto; */
+    top: 0;
     text-align: center;
     left: Calc(50% - 400px);
 }
@@ -45,7 +43,7 @@
 #axtarisin-neticesi {
     display: none;
     position: relative;
-    padding: 50px 20px;
+    padding: 20px 20px;
     background-color: #d2dae2;
     z-index: 2;
     text-align: center;
@@ -57,12 +55,20 @@
     font-size: 16px;
 }
 
+#enter-number {
+    margin-top: 48vh !important;
+}
+
 .saqa {
     text-align: left !important;
 }
 
 .sola-cekme {
     text-align: left !important;
+}
+
+.sola-cekme input {
+    font-size: 20px;
 }
 
 #axtarisin-neticesi table {
@@ -81,12 +87,10 @@
 }
 
 #son-mesaj {
-    display: none;
-    z-index: 3;
-    position: absolute;
     background-color: rgb(39, 128, 201);
-    width: 100%;
-    height: 2000px;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
     left: 0;
     right: 0;
     padding: 10px;

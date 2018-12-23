@@ -5,6 +5,7 @@ import WorkData from '../common/collections_2';
 import Discounts from '../common/discountData';
 import PromoCodes from '../common/collections_2';
 import EmailContent from './EmailContent';
+import ConfirmationEmail from './ConfirmationEmail';
 // import ReactDOMServer from 'react-dom/server';
 // import EmailContent from './EmailContent';
 
@@ -186,7 +187,7 @@ if (Meteor.isServer) {
                 attachment:
                     [
                         {
-                            data: job, // TODO: burda confirmation zamani gonderilecek emailin html ini  duzeldib attach etmek lazimdir
+                            data: ConfirmationEmail(job),
                             alternative: true
                         }
                     ]

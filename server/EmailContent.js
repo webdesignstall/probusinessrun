@@ -260,7 +260,7 @@ export default function EmailContent(job) {
                 </div>
                 <div class="additional-charges--list" style="padding: 10px;">
                 ${
-        job.smallPackingItems === 0 || job.smallPackingItems === ''
+        job.largeItemFee === 0 || job.largeItemFee === ''
             ?
             `
             <div style="margin-bottom: 5px;">
@@ -294,7 +294,7 @@ export default function EmailContent(job) {
                 </div>
             </div>
             <div class="reserve" style="padding: 5px; text-align: center;">
-                <a href="http://www.probusinessrun.com/reserve" style="padding: 15px 15px; background-color: #554b8c; color: white; font-size: 14px; border: none;"><b>RESERVE YOUR MOVE</b></a>
+                <a href="https://www.probusinessrun.com/reserve" style="padding: 15px 15px; background-color: #554b8c; color: white; font-size: 14px; border: none;"><b>RESERVE YOUR MOVE</b></a>
             </div>
             </div>
         </body>

@@ -22,14 +22,14 @@ export default class CompanySelector extends React.Component {
                     key: 102
                 },
                 {
-                    name: 'Burbank Moving & Storage',
+                    name: 'Burbank Moving and Storage Company',
                     email: 'info@burbankmovingandstoragecompany.com',
                     smtp: 'mail.burbankmovingandstoragecompany.com',
                     password: 'FXLAC3267724!',
                     key: 103
                 },
                 {
-                    name: 'Orange County Moving & Storage',
+                    name: 'Orange County Moving Company',
                     email: 'info@ocmovingandstorage.com',
                     smtp: 'mail.ocmovingandstorage.com',
                     password: 'FXLAC3267724!',
@@ -57,7 +57,7 @@ export default class CompanySelector extends React.Component {
                     key: 107
                 },
                 {
-                    name: 'Best Cheap Movers Orange County',
+                    name: 'Best Cheap Movers OC',
                     email: 'info@bestcheapmoversorangecounty.com',
                     smtp: 'mail.bestcheapmoversorangecounty.com',
                     password: 'FXLAC3267724!',

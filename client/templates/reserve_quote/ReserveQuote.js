@@ -6,6 +6,11 @@ import { Meteor } from 'meteor/meteor';
 import { Tracker } from 'meteor/tracker';
 import { Session } from 'meteor/session';
 
+import ConfirmationDisplay from './ConfirmationDisplay';
+
+// load companies info json
+const baza = require('./companies.json');
+
 /*global paypal*/
 
 let jobIs = {};
@@ -24,6 +29,8 @@ class ReserveQuote extends React.Component {
 
     componentDidMount() {
         this.x = Tracker.autorun(() => {
+
+            console.log(baza['Cheap Movers Costa Mesa'].email);
             Meteor.subscribe('workSchema');
             const tapilasiIs = WorkData.find({ jobNumber: Session.get('jobNumber') }).fetch();
             this.setState({
@@ -58,13 +65,27 @@ class ReserveQuote extends React.Component {
         Session.set('jobNumber', event.target.value);
     }
 
+    addressesRender(addressler) {
+        return (addressler.map((address, index) => {
+            return (
+                <tr>
+                    <td>
+                        Address#{index + 1}:
+                </td>
+                    <td>
+                        {address}
+                    </td>
+                </tr>
+            );
+        }))
+    }
+
     axtarisinNeticesi() {
         return (
-            this.state.is.map((job) => {
+            this.state.is.map((job, index) => {
                 jobIs = job;
                 return (
-                    <div key="buIs">
-                        <p>_</p>
+                    <div key={index}>
                         <p>Hello {job.clientFirstName}!</p>
                         <p>Thank you for confirming your move with chat Movers Los Angeles!</p>
                         <p>Please review your Moving Confirmation below to ensure accuracy:</p>
@@ -97,78 +118,8 @@ class ReserveQuote extends React.Component {
                                         {job.workMustBeginTime}
                                     </td>
                                 </tr>
-                                {/* # of movers */}
-                                <tr>
-                                    <td>
-                                        # of movers:
-                                    </td>
-                                    <td>
-                                        {job.numberOfWorkers} movers
-                                    </td>
-                                </tr>
-                                {/* hourly rates cash*/}
-                                <tr>
-                                    <td>
-                                        Hourly Rates cash:
-                                    </td>
-                                    <td>
-                                        ${job.hourlyRatesCash} per hour
-                                    </td>
-                                </tr>
-                                {/* hourly rates card*/}
-                                <tr>
-                                    <td>
-                                        Hourly Rates card:
-                                    </td>
-                                    <td>
-                                        ${job.hourlyRatesCard} per hour
-                                    </td>
-                                </tr>
-                                {/* labor time */}
-                                <tr>
-                                    <td>
-                                        Minimum Labor Time:
-                                    </td>
-                                    <td>
-                                        {job.laborTime} hours
-                                    </td>
-                                </tr>
-                                {/* gas fee */}
-                                <tr>
-                                    <td>
-                                        Gas Fee (one time):
-                                    </td>
-                                    <td>
-                                        $ {!isNaN(job.gasFee) ? job.gasFee : 'waived'}
-                                    </td>
-                                </tr>
-                                {/* double drive time */}
-                                <tr>
-                                    <td>
-                                        Double Drive Time
-                                    </td>
-                                    <td>
-                                        {job.doubleDrive == 'false' ? 'waived' : job.doubleDrive} <a href="http://cheapmoversanaheim.com/ProBusinessRun/6.pdf" download="http://cheapmoversanaheim.com/ProBusinessRun/6.pdf" target="_blank">click to learn more</a>
-                                    </td>
-                                </tr>
-                                {/* moving from */}
-                                <tr>
-                                    <td>
-                                        Moving From:
-                                    </td>
-                                    <td>
-                                        {job.addresses[0]}
-                                    </td>
-                                </tr>
-                                {/* moving to */}
-                                <tr>
-                                    <td>
-                                        Moving To:
-                                    </td>
-                                    <td>
-                                        {job.addresses[1]}
-                                    </td>
-                                </tr>
+                                {/* addresses */}
+                                {(() => this.addressesRender(job.addresses))()}
                                 {/* moving size */}
                                 <tr>
                                     <td>
@@ -178,21 +129,165 @@ class ReserveQuote extends React.Component {
                                         {job.movingSize}
                                     </td>
                                 </tr>
+                                {/* # of movers */}
+                                <tr>
+                                    <td>
+                                        Number of Movers:
+                                    </td>
+                                    <td>
+                                        {job.numberOfWorkers} movers
+                                    </td>
+                                </tr>
+                                {/* labor time */}
+                                {
+                                    job.laborTime
+                                        ?
+                                        `<tr>
+                                            <td>
+                                                Minimum Labor Time:
+                                            </td>
+                                            <td>
+                                                ${job.laborTime } hours
+                                            </td>
+                                        </tr>
+                                        `
+                                        : ''
+                                }
+                                {/* cash rate flat */}
+                                {
+                                    job.flatRate && job.flatRate[0].isTrue
+                                        ?
+                                        `
+                                        <tr>
+                                            <td>
+                                                Cash Discount Flat Rate:
+                                            </td>
+                                            <td>
+                                                ${job.flatRate[0].cashAmount }
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Card Flat Rate:
+                                            </td>
+                                            <td>
+                                                ${job.flatRate[0].cardAmount }
+                                            </td>
+                                        </tr>
+                                        `
+                                        : ''
+                                }
+                                {/* hourly rates cash*/}
+                                {
+                                    job.hourlyRatesCash && job.hourlyRatesCash > 0
+                                        ?
+                                        `
+                                         <tr>
+                                            <td>
+                                                Cash Discount Rate p/hour:
+                                            </td>
+                                            <td>
+                                                ${job.hourlyRatesCash } per hour
+                                            </td>
+                                        </tr>
+                                        `
+                                        : ''
+                                }
+
+                                {/* hourly rates card*/}
+                                {
+                                    job.hourlyRatesCard && job.hourlyRatesCard > 0
+                                        ?
+                                        `
+                                        <tr>
+                                            <td>
+                                                Card Regular Rate p/hour:
+                                            </td>
+                                            <td>
+                                                ${job.hourlyRatesCard } per hour
+                                            </td>
+                                        </tr>
+                                        `
+                                        : ''
+                                }
+                                {/* gas fee */}
+                                {
+                                    !isNaN(Number(job.gasFee)) && Number(job.gasFee) > 0
+                                        ? (
+                                            <tr>
+                                                <td>
+                                                    Gas Fee (one time):
+                                                </td>
+                                                <td>
+                                                    $ {job.gasFee}
+                                                </td>
+                                            </tr>
+                                        )
+                                        : ''
+                                }
+                                {/* double drive time */}
+                                {
+                                    job.doubleDrive === 'yes'
+                                        ? (
+                                            <tr>
+                                                <td>
+                                                    Double Drive Time:
+                                                </td>
+                                                <td>
+                                                    Yes, <a href="http://cheapmoversanaheim.com/ProBusinessRun/6.pdf" download="http://cheapmoversanaheim.com/ProBusinessRun/6.pdf" target="_blank">learn more</a>
+                                                </td>
+                                            </tr>
+                                        )
+                                        : ''
+                                }
+                                {/* small item packing */}
+                                {
+                                    job.smallItemPacking < 0 || job.smallItemPacking > 0
+                                        ? (
+                                            <tr>
+                                                <td>
+                                                    Small Item Packing:
+                                                </td>
+                                                <td>
+                                                    {
+                                                        job.smallItemPacking < 0
+                                                            ? ('Yes', <a href="http://cheapmoversanaheim.com/ProBusinessRun/6.pdf" download="http://cheapmoversanaheim.com/ProBusinessRun/6.pdf" target="_blank">learn more</a>)
+                                                            : '$' + job.smallItemPacking
+                                                    }
+                                                </td>
+                                            </tr>
+                                        )
+                                        : ''
+                                }
+                                {/* Extra Large Item Handling */}
+                                {
+                                    job.largeItemFee && job.largeItemFee > 0
+                                        ?
+                                        <tr>
+                                            <td>
+                                                Extra Large Item Handling:
+                                            </td>
+                                            <td>
+                                                {job.largeItemFee}
+                                            </td>
+                                        </tr>
+                                        : ''
+                                }
                             </tbody>
                         </table>
                         <div className="sola-cekme">
                             <p>
                                 {/* finish the on clikc pdf download */}
-                                <input className="secilib" onChange={() => this.checked()} type="checkbox" /> I have read, understand and agree to the contents of the <i><a href="http://cheapmoversanaheim.com/ProBusinessRun/1.pdf" download="http://cheapmoversanaheim.com/ProBusinessRun/1.pdf" target="_blank">&quot;What&apos;s Included&quot; Section.</a></i>
+                                <input className="secilib" onChange={() => this.checked()} type="checkbox" /> I have read, understand and agree to the contents of the <i><a href="http://www.moverslegion.com/wp-content/uploads/2018/12/included.pdf" download="http://www.moverslegion.com/wp-content/uploads/2018/12/included.pdf" target="_blank">&quot;What&apos;s Included&quot; Section.</a></i>
                             </p>
                             <p>
-                                <input className="secilib" onChange={() => this.checked()} type="checkbox" /> I have read, understand and agree to the contents of the <i><a href="http://cheapmoversanaheim.com/ProBusinessRun/5.pdf" download="http://cheapmoversanaheim.com/ProBusinessRun/5.pdf" target="_blank">&quot;What&apos;s Not Included&quot; Section.</a></i>
+                                <input className="secilib" onChange={() => this.checked()} type="checkbox" /> I have read, understand and agree to the contents of the <i><a href="http://www.moverslegion.com/wp-content/uploads/2018/12/not-included.pdf" download="http://www.moverslegion.com/wp-content/uploads/2018/12/not-included.pdf" target="_blank">&quot;What&apos;s Not Included&quot; Section.</a></i>
                             </p>
                             <p>
-                                <input className="secilib" onChange={() => this.checked()} type="checkbox" /> I have read, understand and agree to the contents of the <i><a href="http://cheapmoversanaheim.com/ProBusinessRun/4.pdf" download="http://cheapmoversanaheim.com/ProBusinessRun/4.pdf" target="_blank">&quot;For Your Information&quot; Section.</a></i>
+                                <input className="secilib" onChange={() => this.checked()} type="checkbox" /> I have read, understand and agree to the contents of the <i><a href="http://www.moverslegion.com/wp-content/uploads/2018/12/for-you-1.pdf" download="http://www.moverslegion.com/wp-content/uploads/2018/12/for-you-1.pdf" target="_blank">&quot;For Your Information&quot; Section.</a></i>
                             </p>
                             <p>
-                                <input className="secilib" onChange={() => this.checked()} type="checkbox" /> I have recieved a copy of the <i><a href="http://cheapmoversanaheim.com/ProBusinessRun/2.pdf" download="http://cheapmoversanaheim.com/ProBusinessRun/2.pdf" target="_blank">CPUC &quot;Important Information About Your Move&quot; booklet.</a></i>
+                                <input className="secilib" onChange={() => this.checked()} type="checkbox" /> I have recieved a copy of the <i><a href="http://www.moverslegion.com/wp-content/uploads/2018/12/important.pdf" download="http://www.moverslegion.com/wp-content/uploads/2018/12/important.pdf" target="_blank">CPUC &quot;Important Information About Your Move&quot; booklet.</a></i>
                             </p>
                             <p>
                                 <input className="secilib" onChange={() => this.checked()} type="checkbox" /> I have recieved a copy of the <i><a href="http://cheapmoversanaheim.com/ProBusinessRun/3.pdf" download="http://cheapmoversanaheim.com/ProBusinessRun/3.pdf" target="_blank">CPUC Hazardous Material List</a></i> and I agree not to pack any of the<br />
@@ -234,7 +329,7 @@ class ReserveQuote extends React.Component {
     render() {
         return (
             <div className="jobMain">
-                <div>
+                <div className="job-number-enter">
                     <div id="enter-number" className="enter-code">
                         <h6>Please call customer service to get custom code in order to confirm your move. <span>213-262-9440</span></h6>
                         <input id="code" key="jobNumber" type="text" placeholder="Enter code here please." autoComplete="off" onChange={this.jobNumber} />
@@ -260,6 +355,7 @@ Template.reserveQuote.events({
 
 Template.reserveQuote.onRendered(function () {
     ReactDOM.render(<ReserveQuote />, document.getElementById('reserve-quote'));
+    ReactDOM.render(<ConfirmationDisplay />, document.getElementById('son-mesaj'));
 
     paypal.Button.render({
 
