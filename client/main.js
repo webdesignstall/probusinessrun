@@ -64,6 +64,7 @@ Meteor.startup(() => {
     Session.set('discountAproved', false);
     Session.set('discountId', null);
     Session.set('movingSize', 'select_moving_size');
+    Session.set('job', {})
 
     Bert.defaults = {
         hideDelay: 6000,

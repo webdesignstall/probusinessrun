@@ -59,10 +59,12 @@ class ReserveQuote extends React.Component {
     }
 
     jobNumber(event) {
-        // this.setState({
-        //     jobNumber: event.target.value
-        // });
-        Session.set('jobNumber', event.target.value);
+        let isJob = WorkData.findOne({ jobNumber: event.target.value });
+        isJob
+            ? ($('#axtarisin-neticesi').show(),
+                document.getElementById('enter-number').classList.add('hide'),
+                Session.set('jobNumber', event.target.value))
+            : null;
     }
 
     addressesRender(addressler) {
@@ -80,117 +82,100 @@ class ReserveQuote extends React.Component {
         }))
     }
 
+    submit() {
+        let isJob = WorkData.findOne({ jobNumber: event.target.value });
+        isJob
+            ? ($('#axtarisin-neticesi').show(),
+                document.getElementById('enter-number').classList.add('hide'),
+                Session.set('jobNumber', event.target.value))
+            : Bert.alert({
+                title: 'Uncorrect job number',
+                message: 'Please enter correct job number',
+                type: 'danger'
+            });
+    }
+
     axtarisinNeticesi() {
         return (
             this.state.is.map((job, index) => {
                 jobIs = job;
+                Session.set('job', job);
                 return (
                     <div key={index}>
-                        <p>Hello {job.clientFirstName}!</p>
-                        <p>Thank you for confirming your move with chat Movers Los Angeles!</p>
-                        <p>Please review your Moving Confirmation below to ensure accuracy:</p>
+                        <p>
+                            Hello {job.clientFirstName}!<br />
+                            hank you for confirming your move with chat Movers Los Angeles!<br />
+                            Please review your Moving Confirmation below to ensure accuracy:
+                        </p>
                         <table>
                             <tbody>
                                 {/* job number */}
                                 <tr>
-                                    <td>
-                                        Your Job Number:
-                                    </td>
-                                    <td>
-                                        {job.jobNumber}
-                                    </td>
+                                    <td>Your Job Number:</td>
+                                    <td>{job.jobNumber}</td>
                                 </tr>
                                 {/* moving date */}
                                 <tr>
-                                    <td>
-                                        Moving Date:
-                                    </td>
-                                    <td>
-                                        {job.workDate}
-                                    </td>
+                                    <td>Moving Date:</td>
+                                    <td>{job.workDate}</td>
                                 </tr>
                                 {/* arrival window */}
                                 <tr>
-                                    <td>
-                                        Arrival Window:
-                                    </td>
-                                    <td>
-                                        {job.workMustBeginTime}
-                                    </td>
+                                    <td>Arrival Window:</td>
+                                    <td>{job.workMustBeginTime}</td>
                                 </tr>
                                 {/* addresses */}
                                 {(() => this.addressesRender(job.addresses))()}
                                 {/* moving size */}
                                 <tr>
-                                    <td>
-                                        Moving Size:
-                                    </td>
-                                    <td>
-                                        {job.movingSize}
-                                    </td>
+                                    <td>Moving Size:</td>
+                                    <td>{job.movingSize}</td>
                                 </tr>
                                 {/* # of movers */}
                                 <tr>
-                                    <td>
-                                        Number of Movers:
-                                    </td>
-                                    <td>
-                                        {job.numberOfWorkers} movers
-                                    </td>
+                                    <td>Number of Movers:</td>
+                                    <td>{job.numberOfWorkers} movers</td>
                                 </tr>
                                 {/* labor time */}
                                 {
                                     job.laborTime
                                         ?
-                                        `<tr>
-                                            <td>
-                                                Minimum Labor Time:
-                                            </td>
-                                            <td>
-                                                ${job.laborTime } hours
-                                            </td>
+                                        (<tr>
+                                            <td>Minimum Labor Time:</td>
+                                            <td>${job.laborTime} hours</td>
                                         </tr>
-                                        `
+                                        )
                                         : ''
                                 }
                                 {/* cash rate flat */}
                                 {
                                     job.flatRate && job.flatRate[0].isTrue
                                         ?
-                                        `
-                                        <tr>
-                                            <td>
-                                                Cash Discount Flat Rate:
-                                            </td>
-                                            <td>
-                                                ${job.flatRate[0].cashAmount }
-                                            </td>
+                                        (<tr>
+                                            <td>Cash Discount Flat Rate:</td>
+                                            <td>${job.flatRate[0].cashAmount}</td>
+                                        </tr>)
+                                        : ''
+                                }
+                                {
+                                    job.flatRate && job.flatRate[0].isTrue
+                                        ?
+                                        (<tr>
+                                            <td>Card Flat Rate:</td>
+                                            <td>${job.flatRate[0].cardAmount}</td>
                                         </tr>
-                                        <tr>
-                                            <td>
-                                                Card Flat Rate:
-                                            </td>
-                                            <td>
-                                                ${job.flatRate[0].cardAmount }
-                                            </td>
-                                        </tr>
-                                        `
+                                        )
                                         : ''
                                 }
                                 {/* hourly rates cash*/}
                                 {
                                     job.hourlyRatesCash && job.hourlyRatesCash > 0
                                         ?
-                                        `
-                                         <tr>
-                                            <td>
-                                                Cash Discount Rate p/hour:
-                                            </td>
-                                            <td>
-                                                ${job.hourlyRatesCash } per hour
-                                            </td>
+                                        (<tr>
+                                            <td>Cash Discount Rate p/hour:</td>
+                                            <td>${job.hourlyRatesCash} per hour</td>
                                         </tr>
-                                        `
+                                        )
                                         : ''
                                 }
 
@@ -198,16 +183,12 @@ class ReserveQuote extends React.Component {
                                 {
                                     job.hourlyRatesCard && job.hourlyRatesCard > 0
                                         ?
-                                        `
-                                        <tr>
-                                            <td>
-                                                Card Regular Rate p/hour:
-                                            </td>
-                                            <td>
-                                                ${job.hourlyRatesCard } per hour
-                                            </td>
-                                        </tr>
-                                        `
+                                        (
+                                            <tr>
+                                                <td>Card Regular Rate p/hour:</td>
+                                                <td>${job.hourlyRatesCard} per hour</td>
+                                            </tr>
+                                        )
                                         : ''
                                 }
                                 {/* gas fee */}
@@ -215,12 +196,8 @@ class ReserveQuote extends React.Component {
                                     !isNaN(Number(job.gasFee)) && Number(job.gasFee) > 0
                                         ? (
                                             <tr>
-                                                <td>
-                                                    Gas Fee (one time):
-                                                </td>
-                                                <td>
-                                                    $ {job.gasFee}
-                                                </td>
+                                                <td>Gas Fee (one time):</td>
+                                                <td>${job.gasFee}</td>
                                             </tr>
                                         )
                                         : ''
@@ -230,12 +207,8 @@ class ReserveQuote extends React.Component {
                                     job.doubleDrive === 'yes'
                                         ? (
                                             <tr>
-                                                <td>
-                                                    Double Drive Time:
-                                                </td>
-                                                <td>
-                                                    Yes, <a href="http://cheapmoversanaheim.com/ProBusinessRun/6.pdf" download="http://cheapmoversanaheim.com/ProBusinessRun/6.pdf" target="_blank">learn more</a>
-                                                </td>
+                                                <td>Double Drive Time:</td>
+                                                <td>Yes, <a href="http://cheapmoversanaheim.com/ProBusinessRun/6.pdf" download="http://cheapmoversanaheim.com/ProBusinessRun/6.pdf" target="_blank">learn more</a></td>
                                             </tr>
                                         )
                                         : ''
@@ -245,9 +218,7 @@ class ReserveQuote extends React.Component {
                                     job.smallItemPacking < 0 || job.smallItemPacking > 0
                                         ? (
                                             <tr>
-                                                <td>
-                                                    Small Item Packing:
-                                                </td>
+                                                <td>Small Item Packing:</td>
                                                 <td>
                                                     {
                                                         job.smallItemPacking < 0
@@ -264,12 +235,8 @@ class ReserveQuote extends React.Component {
                                     job.largeItemFee && job.largeItemFee > 0
                                         ?
                                         <tr>
-                                            <td>
-                                                Extra Large Item Handling:
-                                            </td>
-                                            <td>
-                                                {job.largeItemFee}
-                                            </td>
+                                            <td>Extra Large Item Handling:</td>
+                                            <td>${job.largeItemFee}</td>
                                         </tr>
                                         : ''
                                 }
@@ -328,12 +295,12 @@ class ReserveQuote extends React.Component {
 
     render() {
         return (
-            <div className="jobMain">
+            <div id="jobInfoMain" className="jobMain">
                 <div className="job-number-enter">
                     <div id="enter-number" className="enter-code">
                         <h6>Please call customer service to get custom code in order to confirm your move. <span>213-262-9440</span></h6>
                         <input id="code" key="jobNumber" type="text" placeholder="Enter code here please." autoComplete="off" onChange={this.jobNumber} />
-                        <button id="isi-tap" className="btn waves-effect waves-light" type="submit" name="action"><i className="material-icons right">send</i></button>
+                        <button id="isi-tap" className="btn waves-effect waves-light" type="submit" name="action" onClick={this.submit}><i className="material-icons right">send</i></button>
                     </div>
                 </div>
                 <div className="clear"></div>
@@ -347,57 +314,54 @@ class ReserveQuote extends React.Component {
     }
 }
 
-Template.reserveQuote.events({
-    'click #isi-tap': function () {
-        $('#axtarisin-neticesi').show();
-    }
-});
-
 Template.reserveQuote.onRendered(function () {
     ReactDOM.render(<ReserveQuote />, document.getElementById('reserve-quote'));
-    ReactDOM.render(<ConfirmationDisplay />, document.getElementById('son-mesaj'));
+    try {
+        paypal.Button.render({
+            env: 'production', // Or 'sandbox'
 
-    paypal.Button.render({
+            style: {
+                label: 'pay',
+                size: 'medium', // small | medium | large | responsive
+                shape: 'rect',   // pill | rect
+                color: 'blue'   // gold | blue | silver | black
+            },
 
-        env: 'production', // Or 'sandbox'
+            client: {
+                sandbox: 'ASree96P5IIPryoEkaURjZl_uCCGHLcso9ZNy6U_4vLFUnFc5qhU7hIP7KsLIfZoepVvPhxtdwvTsao5',
+                production: 'AeKzmDv5m4KcyrlQI7Y9qiyjYr5jyUYVKd1FsKrXF9Nce7qmfekBC35JIAFbV2am3TdVKhszmcOdFJhK'
+            },
 
-        style: {
-            label: 'pay',
-            size: 'medium', // small | medium | large | responsive
-            shape: 'rect',   // pill | rect
-            color: 'blue'   // gold | blue | silver | black
-        },
+            commit: true, // Show a 'Pay Now' button
 
-        client: {
-            sandbox: 'ASree96P5IIPryoEkaURjZl_uCCGHLcso9ZNy6U_4vLFUnFc5qhU7hIP7KsLIfZoepVvPhxtdwvTsao5',
-            production: 'AeKzmDv5m4KcyrlQI7Y9qiyjYr5jyUYVKd1FsKrXF9Nce7qmfekBC35JIAFbV2am3TdVKhszmcOdFJhK'
-        },
+            payment: function (data, actions) {
+                return actions.payment.create({
+                    payment: {
+                        transactions: [
+                            {
+                                amount: { total: '0.01', currency: 'USD' }
+                            }
+                        ]
+                    }
+                });
+            },
 
-        commit: true, // Show a 'Pay Now' button
+            onAuthorize: function (data, actions) {
+                return actions.payment.execute().then(function (payment) {
+                    document.getElementById('jobInfoMain').classList.add('hide');
+                    document.getElementById('son-mesaj').classList.remove('hide');
+                    Meteor.call('confirmationGonder', jobIs);
+                    ReactDOM.render(<ConfirmationDisplay />, document.getElementById('son-mesaj'));
+                    // The payment is complete!
+                    // You can now show a confirmation message to the customer
+                });
+            }
 
-        payment: function (data, actions) {
-            return actions.payment.create({
-                payment: {
-                    transactions: [
-                        {
-                            amount: { total: '0.01', currency: 'USD' }
-                        }
-                    ]
-                }
-            });
-        },
+        }, '#paypal-button');
 
-        onAuthorize: function (data, actions) {
-            return actions.payment.execute().then(function (payment) {
-                $('#son-mesaj').show();
-                Meteor.call('confirmationGonder', jobIs);
-                // The payment is complete!
-                // You can now show a confirmation message to the customer
-            });
-        }
-
-    }, '#paypal-button');
-
-    $('.paypal-button').hide();
+        $('.paypal-button').hide();
+    } catch (err) {
+        console.log(err);
+    }
 
 });
