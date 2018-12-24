@@ -50,6 +50,10 @@
     overflow-y: scroll;
 }
 
+.center-text {
+    text-align: center;
+}
+
 #axtarisin-neticesi p {
     font-weight: bold;
     font-size: 16px;
