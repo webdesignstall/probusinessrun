@@ -37,10 +37,10 @@ export default class UpdateDoubleDrive extends React.Component {
                     <option value="false" disabled>Select double drive</option>
                     <option value="waived">No</option>
                     <option value="yes">Yes</option>
+                    <option value="notSure">Not Sure</option>
                 </select>
                 <label className="active" htmlFor="updated-double-drive-value">Double drive</label>
             </div>
-
         );
     }
 }
