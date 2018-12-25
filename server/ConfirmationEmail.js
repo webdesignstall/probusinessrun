@@ -46,7 +46,7 @@ export default function ConfirmationEmail(job) {
 
 </head>
 
-<body style="background-color: #d3d9e0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; padding: 5px;">
+<body style="background-color: #d3d9e0; max-width: 550px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; padding: 5px;">
 	<div class="email-content" style="max-width: 550px">
 		<p class="head" style="text-align: center;"><b>Hello ${job.clientFirstName }!</b><br>
 			<b>Thank you for confirming your move with chat Movers Los Angeles!</b><br>
@@ -180,7 +180,7 @@ export default function ConfirmationEmail(job) {
 							Extra Large Item Handling:
 						</td>
 						<td style="width: 49%;" width="49%">
-							{job.largeItemFee}
+							${job.largeItemFee }
 						</td>
 					</tr>` : '' }
 			</tbody>

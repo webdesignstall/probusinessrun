@@ -23,7 +23,6 @@ less@2.7.9
 accounts-ui@1.1.9
 accounts-base
 accounts-password@1.4.0
-meteortoys:allthings
 aldeed:autoform
 aldeed:collection2-core@2.0.0
 momentjs:moment
@@ -33,3 +32,4 @@ daviz:start-loader
 email
 themeteorchef:bert
 ultimatejs:tracker-react
+meteortoys:allthings
