@@ -197,7 +197,12 @@
                 <div class="input-field valideyn col s12 m3 l3">
                     <i class="material-icons isare">attach_money</i>
                     <input id="gas_fee" class="xx" type="number" placeholder="0" />
-                    <label class="active" for="gas_fee">Gas Fee</label>
+                    <label class="active" for="gas_fee">
+                        Gas Fee
+                        <i class="lime-text lighten-5 black">
+                            [ Not sure? <input type="checkbox" onclick="gasFeeNotSure()">]
+                        </i>
+                    </label>
                 </div>
                 <!-- Job ID -->
                 <div class="input-field valideyn col s12 m3 l3">
@@ -249,6 +254,16 @@
 
         // run job number
         jobNumber();
+
+        function gasFeeNotSure() {
+            if (!document.getElementById('gas_fee').disabled) {
+                document.getElementById('gas_fee').value = -0.01;
+                document.getElementById('gas_fee').disabled = true;
+            } else {
+                document.getElementById('gas_fee').disabled = false;
+                document.getElementById('gas_fee').value = 0;
+            }
+        }
 
         function showFlatRate() {
             document.querySelector('#flatRate_').classList.toggle('hide');

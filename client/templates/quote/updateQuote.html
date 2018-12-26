@@ -84,7 +84,8 @@
                 <!-- Payment types -->
                 <div class="row chargingPanel">
                     <div class="col s12 m12 l12 orange darken-4 payment-header">
-                        Payment options <i class="lime-text lighten-5 black">[ Flat Rate <input id="flatBoxUpdate" type="checkbox" />
+                        Payment options <i class="lime-text lighten-5 black">[ Flat Rate <input id="flatBoxUpdate" type="checkbox"
+                                checked={{isFlat}} />
                             ]</i>
                     </div>
                     <div id="paymentContentUpdate">
@@ -158,7 +159,21 @@
                 <div class="input-field valideyn col s12 m3 l3">
                     <i class="material-icons isare">attach_money</i>
                     <input id="gas_fee_2" class="xx" type="number" value={{istifadechi.gasFee}} placeholder="Gas fee" />
-                    <label class="active" for="gas_fee_2">Gas fee</label>
+                    <label class="active" for="gas_fee_2">
+                        Gas fee
+                        <i class="lime-text lighten-5 black">
+                            [ Not sure? <input type="checkbox" onchange="(function hello(){
+                                document.getElementById('gas_fee_2').value < 0
+                                    ? (document.getElementById('gas_fee_2').disabled = false,
+                                    document.getElementById('gas_fee_2').value = 0)
+                                    : (document.getElementById('gas_fee_2').disabled = true,
+                                    document.getElementById('gas_fee_2').value = -0.01);
+
+                                    console.log('Hello');
+                            })()"
+                                checked={{isGasFee}}>]
+                        </i>
+                    </label>
                 </div>
                 <!-- job number -->
                 <div class="input-field valideyn col s12 m3 l3">
@@ -201,19 +216,4 @@
             </form>
         </div>
     </div>
-    <script>
-        // let clicked = false;
-
-        // function showFlatRateUpdate(firstTarget, secondTarget) {
-        //     clicked === true ? (() => {
-        //         document.querySelector(`#${firstTarget}`).classList.remove('hide');
-        //         document.querySelector(`#${secondTarget}`).classList.add('hide');
-        //     })() : (() => {
-        //         document.querySelector(`#${firstTarget}`).classList.add('hide');
-        //         document.querySelector(`#${secondTarget}`).classList.remove('hide');
-        //     })();
-
-        //     clicked = !clicked;
-        // }
-    </script>
 </template>

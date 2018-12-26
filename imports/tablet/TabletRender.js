@@ -946,7 +946,7 @@ MY OWN FREE WILL`
                                         # of movers: {is.workers.length}<br />
                                         Your rates ${is.hourlyRatesCash}(cash) ${is.hourlyRatesCard}(card)<br />
                                         Minimum labor time: {is.laborTime} hours<br />
-                                        Gas fee (one time): ${is.gasFee && is.gasFee > 0 ? is.gasFee : 'Waived'}<br />
+                                        Gas fee (one time): ${is.gasFee && is.gasFee === 0 || is.gasFee === '' ? 'Waived' : is.gasFee < 0 ? 'Not Sure' : is.gasFee}<br />
                                     </div>
                                     <div className="col s6 m6 l6">
                                         Double drive time: {is.doubleDrive}<br />

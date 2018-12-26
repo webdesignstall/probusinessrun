@@ -5,7 +5,6 @@ export default class ConfirmationDisplay extends Component {
     constructor(props) {
         super(props);
 
-        // FIXME: sessionda oalnda ancaq state elave olsun 
         this.state = {
             company: Object.keys(Session.get('job')).length > 0 ? Session.get('job').company : {}
         }

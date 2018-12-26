@@ -38,6 +38,7 @@ Template.updateQuote.onRendered(function () {
                 : null;
             document.querySelector('#flatRateCashUpdate').defaultValue = ish.flatRate[0].cashAmount;
             document.querySelector('#flatRateCardUpdate').defaultValue = ish.flatRate[0].cardAmount;
+            console.log(ish.flatRate[0].isTrue);
             document.querySelector('#flatBoxUpdate').checked = ish.flatRate[0].isTrue
             Session.set('flatRate', ish.flatRate[0].isTrue);
             ish.flatRate[0].isTrue
@@ -63,6 +64,14 @@ Template.updateQuote.helpers({
         return (
             WorkData.findOne({ _id: Session.get('is') })
         );
+    },
+    isGasFee: function () {
+        return WorkData.findOne({ _id: Session.get('is') }).gasFee < 0;
+    },
+    isFlat: function () {
+        return WorkData.findOne({ _id: Session.get('is') })
+            ? WorkData.findOne({ _id: Session.get('is') }).flatRate.isTrue
+            : false;
     }
 });
 
@@ -237,7 +246,7 @@ Template.preQuote.events({
         let numberOfWorkers = document.getElementById('iscinin-sayi').value;
         let companyInfo = Session.get('companyInfo');
         let trucksTemp = Session.get('trucklar');
-        let flatRate = Session.get('flatRate');
+        let flatRate = document.getElementById('flatRateCheck').checked;
         let flatRateCash = document.querySelector('#flatRateCash').value ? document.querySelector('#flatRateCash').value : 0;
         let flatRateCard = document.querySelector('#flatRateCash').value ? document.querySelector('#flatRateCard').value : 0;
         let comment = document.getElementById('textarea1').value;
@@ -349,6 +358,7 @@ Template.preQuote.events({
                     }
 
                     document.querySelector('#flatRateCheck').checked = false;
+                    document.getElementById('gas_fee').disabled = false;
 
                     document.querySelector('#paymentContent').classList.remove('hide');
                     document.querySelector('#flatRate_').classList.add('hide');
