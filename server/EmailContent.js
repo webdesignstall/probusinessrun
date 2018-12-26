@@ -81,7 +81,7 @@ export default function EmailContent(job) {
             <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${job.gasFee }</td>
         </tr>
         `
-        : job.gasFee || job.gasFee === '' || job.gasFee === 0
+        : job.gasFee && job.gasFee === '' || job.gasFee === 0
             ? `
             <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
                 <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Gas Fee (one time fee)</td>
@@ -122,7 +122,7 @@ export default function EmailContent(job) {
         `
         : '';
 
-    let gasFeeAdditional = job.gasFee && job.gasFee === 'notSure'
+    let gasFeeAdditional = job.gasFee && job.gasFee < 0
         ?
         `
         <div style="margin-bottom: 5px;">Gas Fee (one time fee)</div>

@@ -6,7 +6,7 @@ import WorkData from '../../common/collections_2';
 import { Tracker } from 'meteor/tracker';
 import { Session } from 'meteor/session';
 
-import TabletRender from './TabletRender';
+/*global $*/
 
 export default class TabletIsList extends React.Component {
     constructor(props) {

@@ -147,7 +147,8 @@ Schemas.workSchema = new SimpleSchema({
     },
     movingSize: {
         type: String,
-        label: 'Moving size'
+        label: 'Moving size',
+        optional: false
     },
     numberOfTheCompanyMovers: {
         type: Number,
