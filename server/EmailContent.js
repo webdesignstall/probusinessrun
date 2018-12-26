@@ -262,12 +262,11 @@ export default function EmailContent(job) {
                 ${
         job.smallItemPacking && job.smallItemPacking === 0 || job.smallItemPacking === ''
             ?
-            `
-                        ''
-                        `: `<div style="margin-bottom: 5px;">
+            `<div style="margin-bottom: 5px;">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/White_X_in_red_background.svg/2000px-White_X_in_red_background.svg.png" height="13px" style="margin-right: 5px;">Small Item Packing Materials: (boxes, packing papers,bubble wrap.
                             etc.) <a href="http://www.moverslegion.com/wp-content/uploads/2018/12/small-item-pricing.pdf">Require, if needed</a>
                         </div>`
+            : ''
         }
                 ${
         job.largeItemFee || job.largeItemFee === 0 || job.largeItemFee === ''
