@@ -4,7 +4,7 @@ export default function EmailContent(job) {
                 <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Additional Phone Number:</td>
                 <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${job.phoneAdditional }</td>
             </tr>`
-        : ''
+        : '';
 
     let movingSize = function () {
         let movingSizeList = {
@@ -20,12 +20,12 @@ export default function EmailContent(job) {
             '4_bedroom_large': '4 Bedroom (large size, many items)',
             'commercial_avg': 'Commercial (avg. size, avg. items)',
             'commercial_large': 'Commercial (large size, many items)'
-        }
+        };
 
         return movingSizeList[job.movingSize];
-    }
+    };
 
-    let movingAddresesRenderHTML = ''
+    let movingAddresesRenderHTML = '';
 
     job.addresses.map((address, index) => {
         movingAddresesRenderHTML += (
@@ -36,7 +36,7 @@ export default function EmailContent(job) {
             </tr>
             `
         );
-    })
+    });
 
     let rateDisplay = job.hourlyRatesCash > 0 && job.hourlyRatesCard
         ?
@@ -88,7 +88,7 @@ export default function EmailContent(job) {
                 <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Waived</td>
             </tr>
             `
-            : 'Not Sure';
+            : '';
 
     let doubleDrive = job.doubleDrive && job.doubleDrive === 'yes'
         ? `

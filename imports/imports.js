@@ -6,4 +6,4 @@ import './tablet/tablet.html';
 import './tablet/tablet';
 import './tablet/tablet.css';
 import './tablet/TabletRender';
-import './tablet/TabletIsList'
+import './tablet/TabletIsList';

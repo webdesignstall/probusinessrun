@@ -26,45 +26,45 @@ if (Meteor.isServer) {
             );
 
             let ish = WorkData.findOne({ _id: id }); //isi tapir
-            console.log("​ish", ish)
+            console.log("​ish", ish);
             let isBaslama = (ish.startTime).getTime(); //isin baslamasini init vaxti
-            console.log("​isBaslama", isBaslama)
+            console.log("​isBaslama", isBaslama);
             let isBitme = (ish.finishTime).getTime(); //isin bitme vaxti
-            console.log("​isBitme", isBitme)
+            console.log("​isBitme", isBitme);
             let breakTime = ish.totalBreakTime; //total break time
             breakTime > 0 ? null : breakTime = 0;
-            console.log("​breakTime", breakTime)
+            console.log("​breakTime", breakTime);
             let totalDriving = ish.totalDrivingTime; //total driving
             totalDriving > 0 ? null : totalDriving = 0;
-            console.log("​totalDriving", totalDriving)
+            console.log("​totalDriving", totalDriving);
             let totalIslemeVaxti = (isBitme - isBaslama) / 60000; //total isleme vaxti deqiqe ile
-            console.log("​totalIslemeVaxti", totalIslemeVaxti)
+            console.log("​totalIslemeVaxti", totalIslemeVaxti);
             totalIslemeVaxti = Math.round(totalIslemeVaxti, 2);
-            console.log("​totalIslemeVaxti", totalIslemeVaxti)
+            console.log("​totalIslemeVaxti", totalIslemeVaxti);
             let totalIslemeSaati = 0;
-            console.log("​totalIslemeSaati", totalIslemeSaati)
+            console.log("​totalIslemeSaati", totalIslemeSaati);
             totalIslemeSaati = totalIslemeVaxti;
-            console.log("​totalIslemeSaati", totalIslemeSaati)
+            console.log("​totalIslemeSaati", totalIslemeSaati);
             totalIslemeSaati = totalIslemeSaati - (breakTime * 60);
-            console.log("​totalIslemeSaati", totalIslemeSaati)
-
-
-            // eger double drive timed on
-            if (ish.doubleDrive === 'yes') {
-                totalIslemeSaati = totalIslemeSaati + (totalDriving * 60);
-                console.log("​totalIslemeSaati", totalIslemeSaati)
-            }
+            console.log("​totalIslemeSaati", totalIslemeSaati);
 
             //eger is vaxti labor timedan az olarsa
-            if (totalIslemeSaati < ish.laborTime) {
-                totalIslemeSaati = ish.laborTime;
-                console.log("​totalIslemeSaati", totalIslemeSaati)
-                totalIslemeSaati = totalIslemeSaati + (totalDriving * 2);
-                console.log("​totalIslemeSaati", totalIslemeSaati)
+            if (totalIslemeSaati <= ish.laborTime) {
+                // eger double drive timed on
+                if (ish.doubleDrive === 'yes') {
+                    let laborWorkTime = totalIslemeSaati - totalDriving;
+                    laborWorkTime < ish.laborTime && ish.doubleDrive === 'yes'
+                        ? totalIslemeSaati = ish.laborTime + (2 * totalDriving)
+                        : totalIslemeSaati = totalIslemeSaati + totalDriving;
+                    console.log("​totalIslemeSaati", totalIslemeSaati);
+                } else {
+                    totalIslemeSaati = ish.laborTime + totalDriving;
+                    console.log("​totalIslemeSaati", totalIslemeSaati);
+                }
             }
             //2 decimal fixed total time
             totalIslemeSaati = totalIslemeSaati.toFixed(2);
-            console.log("​totalIslemeSaati", totalIslemeSaati)
+            console.log("​totalIslemeSaati", totalIslemeSaati);
             //15 deqiqelik interval hesablamasi
             totalIslemeSaati = ((Math.ceil(totalIslemeSaati / 15)) * 15) / 60; //saata cevrilir
             console.log("​totalIslemeSaati", totalIslemeSaati)

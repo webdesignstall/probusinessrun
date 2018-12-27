@@ -10,9 +10,9 @@ import WorkData from '../../common/collections_2';
 import TabletIsList from './TabletIsList';
 import AdditionalSignature from './AdditionalSignature';
 import AddedAdditionalSignaturesRender from './AddedAdditionalSignaturesRender';
-import AddedDiscountRender from './AddedDiscountRender'
+import AddedDiscountRender from './AddedDiscountRender';
 
-/*global moment, paypal*/
+/*global moment, paypal, $*/
 
 let odenilmelidir = 0;
 
@@ -256,7 +256,7 @@ MY OWN FREE WILL`
     }
 
     saveSignature(which, infromation) {
-        let newList = this.state[which].concat(infromation)
+        let newList = this.state[which].concat(infromation);
         this.setState({
             [which]: newList
         });
@@ -453,7 +453,7 @@ MY OWN FREE WILL`
                             payCard: 0,
                             payCash: inputAmount
                         }, () => {
-                            document.getElementById('mark-as-payed').classList.remove('disabled')
+                            document.getElementById('mark-as-payed').classList.remove('disabled');
                         })
                     )
                     // if payed amount less than what should pay
@@ -463,20 +463,22 @@ MY OWN FREE WILL`
                                 ? startToFinishCashAmountDiscounted += flatCashAmountDiscounted
                                 : (flatCashAmountDiscounted += doubleDriveCash, doubleDriveCash = 0)
                             : (doubleDriveCash += additionalCharges, additionalCharges = 0)
-                        : additionalCharges -= inputAmount,
-                        additionalCharges < 0 ? additionalCharges = 0 : null,
-                        doubleDriveCash < 0 ? doubleDriveCash = 0 : null,
-                        doubleDriveCard = (doubleDriveCash / cashRate * cardRate),
-                        flatCashAmountDiscounted < 0 ? flatCashAmountDiscounted = 0 : null,
-                        flatCardAmountDiscounted = (flatCashAmountDiscounted / flatCashAmount * flatCardAmount),
-                        startToFinishCardAmountDiscounted = (startToFinishCashAmountDiscounted / cashRate * cardRate),
-                        amountOf = startToFinishCardAmountDiscounted + flatCardAmountDiscounted + doubleDriveCard + additionalCharges,
-                        amountOf = amountOf.toFixed(2),
-                        document.getElementById('mark-as-payed').classList.add('disabled'),
-                        this.setState({
-                            payCard: amountOf,
-                            payCash: inputAmount
-                        })
+                        : (
+                            additionalCharges -= inputAmount,
+                            additionalCharges < 0 ? additionalCharges = 0 : null,
+                            doubleDriveCash < 0 ? doubleDriveCash = 0 : null,
+                            doubleDriveCard = (doubleDriveCash / cashRate * cardRate),
+                            flatCashAmountDiscounted < 0 ? flatCashAmountDiscounted = 0 : null,
+                            flatCardAmountDiscounted = (flatCashAmountDiscounted / flatCashAmount * flatCardAmount),
+                            startToFinishCardAmountDiscounted = (startToFinishCashAmountDiscounted / cashRate * cardRate),
+                            amountOf = startToFinishCardAmountDiscounted + flatCardAmountDiscounted + doubleDriveCard + additionalCharges,
+                            amountOf = amountOf.toFixed(2),
+                            document.getElementById('mark-as-payed').classList.add('disabled'),
+                            this.setState({
+                                payCard: amountOf,
+                                payCash: inputAmount
+                            })
+                        )
                     )
             : inputAmount < 0
                 ? inputAmount = 0
@@ -487,7 +489,7 @@ MY OWN FREE WILL`
                             payCard: inputAmount,
                             payCash: 0
                         }, () => {
-                            document.getElementById('mark-as-payed').classList.remove('disabled')
+                            document.getElementById('mark-as-payed').classList.remove('disabled');
                         })
                     )
                     // if payed amount less than what should pay
@@ -497,20 +499,22 @@ MY OWN FREE WILL`
                                 ? startToFinishCardAmountDiscounted += flatCardAmountDiscounted
                                 : flatCardAmountDiscounted += doubleDriveCard
                             : doubleDriveCard += additionalCharges
-                        : additionalCharges += inputAmount,
-                        additionalCharges < 0 ? additionalCharges = 0 : null,
-                        doubleDriveCard < 0 ? doubleDriveCard = 0 : null,
-                        doubleDriveCash = (doubleDriveCard / cardRate * cashRate),
-                        flatCardAmountDiscounted < 0 ? flatCardAmountDiscounted = 0 : null,
-                        flatCashAmountDiscounted = (flatCardAmountDiscounted / flatCardAmount * flatCashAmount),
-                        startToFinishCashAmountDiscounted = (startToFinishCardAmountDiscounted / cardRate * cashRate),
-                        amountOf = startToFinishCashAmountDiscounted + flatCashAmountDiscounted + doubleDriveCash + additionalCharges,
-                        amountOf = amountOf.toFixed(2),
-                        document.getElementById('mark-as-payed').classList.add('disabled'),
-                        this.setState({
-                            payCard: inputAmount,
-                            payCash: amountOf
-                        })
+                        : (
+                            additionalCharges += inputAmount,
+                            additionalCharges < 0 ? additionalCharges = 0 : null,
+                            doubleDriveCard < 0 ? doubleDriveCard = 0 : null,
+                            doubleDriveCash = (doubleDriveCard / cardRate * cashRate),
+                            flatCardAmountDiscounted < 0 ? flatCardAmountDiscounted = 0 : null,
+                            flatCashAmountDiscounted = (flatCardAmountDiscounted / flatCardAmount * flatCashAmount),
+                            startToFinishCashAmountDiscounted = (startToFinishCardAmountDiscounted / cardRate * cashRate),
+                            amountOf = startToFinishCashAmountDiscounted + flatCashAmountDiscounted + doubleDriveCash + additionalCharges,
+                            amountOf = amountOf.toFixed(2),
+                            document.getElementById('mark-as-payed').classList.add('disabled'),
+                            this.setState({
+                                payCard: inputAmount,
+                                payCash: amountOf
+                            })
+                        )
                     );
     }
 
@@ -832,7 +836,7 @@ MY OWN FREE WILL`
                         </div>
                     </div>
                 </div>
-            )
+            );
         }));
     }
 
@@ -962,7 +966,7 @@ MY OWN FREE WILL`
                                         </div>
                                         <div className="col s6 m6 l6">
                                             Initial:
-                                                <input id="initial_" type="text" onChange={this.initialAlphabet} value={this.state.initialSignAlphabet} placeholder="Write initial here please" /> <br />
+                                            <input id="initial_" type="text" onChange={this.initialAlphabet} value={this.state.initialSignAlphabet} placeholder="Write initial here please" /> <br />
                                             {Date()}
                                         </div>
                                     </div>
@@ -973,7 +977,7 @@ MY OWN FREE WILL`
                                         <div className="col s6 m6 l6 center-align">
                                             <button className={(this.state.requirementEntirely ? '' : 'grey') + ' waves-effect waves-light btn'} onClick={() => this.requirementEntirely(true, 'requirementEntirely')} >Yes</button>
                                             &nbsp; &nbsp; &nbsp; &nbsp;
-                                                <button className={(this.state.requirementEntirely ? 'grey' : '') + ' waves-effect waves-light btn'} onClick={() => this.requirementEntirely(false, 'requirementEntirely')} >No</button>
+                                            <button className={(this.state.requirementEntirely ? 'grey' : '') + ' waves-effect waves-light btn'} onClick={() => this.requirementEntirely(false, 'requirementEntirely')} >No</button>
                                         </div>
                                     </div>
                                     <div className="card__ valign-wrapper">
@@ -984,7 +988,7 @@ MY OWN FREE WILL`
                                         <div className="col s6 m6 l6 center-align" >
                                             <button className={(this.state.threeDayPrior ? '' : 'grey') + ' waves-effect waves-light btn'} onClick={() => this.requirementEntirely(true, 'threeDayPrior')} >Yes</button>
                                             &nbsp; &nbsp; &nbsp; &nbsp;
-                                                <button className={(this.state.threeDayPrior ? 'grey' : '') + ' waves-effect waves-light btn'} onClick={() => this.requirementEntirely(false, 'threeDayPrior')} >No</button>
+                                            <button className={(this.state.threeDayPrior ? 'grey' : '') + ' waves-effect waves-light btn'} onClick={() => this.requirementEntirely(false, 'threeDayPrior')} >No</button>
                                         </div>
                                     </div>
                                 </div>
@@ -998,20 +1002,20 @@ MY OWN FREE WILL`
                                         <th>
                                             Transportation<br />
                                             (No additional charge)
-                                            </th>
+                                        </th>
                                         <th>
                                             Maximum Rate<br />
                                             (No additional charge)
-                                            </th>
+                                        </th>
                                         <th>
                                             Storage-in-Transit<br />
                                             (No additional charge)
-                                            </th>
+                                        </th>
                                     </tr>
                                     <tr>
                                         <td>Basic: $0.60 cents/lb./art.</td>
                                         <td>Initial:
-                                                <input id="initial_x" type="text" />
+                                            <input id="initial_x" type="text" />
                                             <input type="checkbox" />
                                         </td>
                                         <td>$_________ per$100</td>
@@ -1021,7 +1025,7 @@ MY OWN FREE WILL`
                                     <tr>
                                         <td>Actual Cash Value</td>
                                         <td>Initial:
-                                                <input id="initial_x" type="text" />
+                                            <input id="initial_x" type="text" />
                                             <input type="checkbox" />
                                         </td>
                                         <td>$_________ per$100</td>
@@ -1038,7 +1042,7 @@ MY OWN FREE WILL`
                                     <tr>
                                         <td>No Deductible</td>
                                         <td>Initial:
-                                                <input id="initial_x" type="text" />
+                                            <input id="initial_x" type="text" />
                                             <input type="checkbox" />
                                         </td>
                                         <td>$_________ per$100</td>
@@ -1048,7 +1052,7 @@ MY OWN FREE WILL`
                                     <tr>
                                         <td>Deductible of $250</td>
                                         <td>Initial:
-                                                <input id="initial_x" type="text" />
+                                            <input id="initial_x" type="text" />
                                             <input type="checkbox" />
                                         </td>
                                         <td>$_________ per$100</td>
@@ -1058,7 +1062,7 @@ MY OWN FREE WILL`
                                     <tr>
                                         <td>Deductible of $500</td>
                                         <td>Initial:
-                                                <input id="initial_x" type="text" />
+                                            <input id="initial_x" type="text" />
                                             <input type="checkbox" />
                                         </td>
                                         <td>$_________ per$100</td>
@@ -1169,7 +1173,7 @@ MY OWN FREE WILL`
                         <div>
                             <ul className="collection kolleksiya">
                                 <li className="collection-item blue">
-                                    Start to Finish
+                                    Start to Finish:
                                     <span className="sag">= {(() => {
                                         if (isNaN(this.round(is.totalWorkTime, 2))) {
                                             return 0;
@@ -1202,24 +1206,6 @@ MY OWN FREE WILL`
                                         }
                                     })()} hours</span>
                                 </li>
-                                <li className="collection-item blue">
-                                    Small Item Pck Supplies:
-                                    <span className="sag">= {
-                                        is.smallItemPacking && is.smallItemPacking < 0
-                                            ? 'Yes'
-                                            : is.smallItemPacking && is.smallItemPacking > 0
-                                                ? '$' + is.smallItemPacking
-                                                : 'Waived'
-                                    }</span>
-                                </li>
-                                <li className="collection-item blue">
-                                    Extra Large/Heavy Item Fee:
-                                    <span className="sag">= ${is.largeItemFee}</span>
-                                </li>
-                                <li className="collection-item blue">
-                                    Gas Fee:
-                                    <span className="sag">= ${is.gasFee}</span>
-                                </li>
                                 <li className="collection-item qrm">
                                     Total Breaks Taken:
                                     <span className="sag">= {(() => {
@@ -1251,17 +1237,50 @@ MY OWN FREE WILL`
                                     })()} hours</span>
                                 </li>
                                 <li className="collection-item blue">
+                                    Small Item Pck Supplies:
+                                    <span className="sag">= {
+                                        is.smallItemPacking && is.smallItemPacking < 0
+                                            ? 'Yes'
+                                            : is.smallItemPacking && is.smallItemPacking > 0
+                                                ? '$' + is.smallItemPacking
+                                                : 'Waived'
+                                    }</span>
+                                </li>
+                                <li className="collection-item blue">
+                                    Extra Large/Heavy Item Fee:
+                                    <span className="sag">= ${is.largeItemFee}</span>
+                                </li>
+                                <li className="collection-item blue">
+                                    Gas Fee:
+                                    <span className="sag">= ${is.gasFee > 0 ? is.gasFee : ''}</span>
+                                </li>
+                                <li className="collection-item blue">
                                     Total amount cash:
-                                    <span className="sag">= $ {(() => {
+                                    <span className="sag">= ${(() => {
                                         this.calculateAmount();
                                         return this.payCash;
                                     })()}</span>
                                 </li>
                                 <li className="collection-item blue">
                                     Total amount card:
-                                    <span className="sag">= $ {(() => {
+                                    <span className="sag">= ${(() => {
                                         return this.payCard;
                                     })()}</span>
+                                </li>
+                                <li className="collection-item blue">
+                                    Deposit Paid:
+                                    <span className="sag">= $50</span>
+                                    {/* TODO: fix */}
+                                </li>
+                                <li className="collection-item blue">
+                                    Grand Total Cash:
+                                    <span className="sag">= $50</span>
+                                    {/* TODO: fix */}
+                                </li>
+                                <li className="collection-item blue">
+                                    Grand Total Card:
+                                    <span className="sag">= $50</span>
+                                    {/* TODO: fix */}
                                 </li>
                                 <li className="collection-item blue">
                                     Discount:
@@ -1277,6 +1296,16 @@ MY OWN FREE WILL`
                                         ? <span className="sag discountYeri">{this.originalPercentDiscount}%</span>
                                         : ''
                                     }
+                                </li>
+                                <li className="collection-item blue">
+                                    Total Cash After Discount:
+                                    <span className="sag">= $50</span>
+                                    {/* TODO: fix */}
+                                </li>
+                                <li className="collection-item blue">
+                                    Total Card After Discount:
+                                    <span className="sag">= $50</span>
+                                    {/* TODO: fix */}
                                 </li>
                             </ul>
                         </div>
@@ -1397,6 +1426,7 @@ Template.tablet.onRendered(function () {
             return actions.payment.execute().then(function (payment) {
                 document.getElementById('odenis-yeri').classList.add('hide');
                 Session.set('payed', true);
+                console.log(payment);
                 // The payment is complete!
                 // You can now show a confirmation message to the customer
             });
