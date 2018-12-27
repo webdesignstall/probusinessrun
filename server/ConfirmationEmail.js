@@ -47,7 +47,7 @@ export default function ConfirmationEmail(job) {
 </head>
 
 <body style="background-color: #d3d9e0; max-width: 550px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; padding: 5px;">
-	<div class="email-content" style="max-width: 550px">
+	<div class="email-content" style="max-width: 550px; margin: 0 auto;">
 		<p class="head" style="text-align: center;"><b>Hello ${job.clientFirstName }!</b><br>
 			<b>Thank you for confirming your move with chat Movers Los Angeles!</b><br>
 			<b>Please review your Moving Confirmation below to ensure accuracy:</b>
@@ -117,7 +117,7 @@ export default function ConfirmationEmail(job) {
 						Cash Discount Flat Rate:
 					</td>
 					<td style="width: 49%;" width="49%">
-						${job.flatRate[0].cashAmount }
+						$${job.flatRate[0].cashAmount }
 					</td>
 				</tr>
 				<tr>
@@ -125,7 +125,7 @@ export default function ConfirmationEmail(job) {
 						Card Flat Rate:
 					</td>
 					<td style="width: 49%;" width="49%">
-						${job.flatRate[0].cardAmount }
+						$${job.flatRate[0].cardAmount }
 					</td>
                 </tr>` : '' } 
                 ${ job.hourlyRatesCash && job.hourlyRatesCash > 0 ? `
@@ -134,7 +134,7 @@ export default function ConfirmationEmail(job) {
 						Cash Discount Rate p/hour:
 					</td>
 					<td style="width: 49%;" width="49%">
-						${job.hourlyRatesCash } per hour
+						$${job.hourlyRatesCash }
 					</td>
 				</tr>
                 ` : '' } 
@@ -144,7 +144,7 @@ export default function ConfirmationEmail(job) {
 						Card Regular Rate p/hour:
 					</td>
 					<td style="width: 49%;" width="49%">
-						${job.hourlyRatesCard } per hour
+						$${job.hourlyRatesCard }
 					</td>
                 </tr>` : '' } 
                 ${ !isNaN(Number(job.gasFee)) && Number(job.gasFee) > 0 ? (`
@@ -153,7 +153,7 @@ export default function ConfirmationEmail(job) {
 						Gas Fee (one time):
 					</td>
 					<td style="width: 49%;" width="49%">
-						${job.gasFee }
+						${job.gasFee < 0 ? 'Not Sure' : job.gasFee }
 					</td>
                 </tr>` ) : '' } 
                 ${ job.doubleDrive === 'yes' ? (`
@@ -180,7 +180,7 @@ export default function ConfirmationEmail(job) {
 							Extra Large Item Handling:
 						</td>
 						<td style="width: 49%;" width="49%">
-							${job.largeItemFee }
+							$${job.largeItemFee }
 						</td>
 					</tr>` : '' }
 			</tbody>
