@@ -81,7 +81,7 @@ export default function EmailContent(job) {
             <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${job.gasFee }</td>
         </tr>
         `
-        : job.gasFee === '' || job.gasFee === 0
+        : job.gasFee === '' || job.gasFee === 0 || job.gasFee === undefined
             ? `
             <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
                 <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Gas Fee (one time fee)</td>
@@ -260,7 +260,7 @@ export default function EmailContent(job) {
                 </div>
                 <div class="additional-charges--list" style="padding: 10px;">
                 ${
-        job.smallItemPacking === 0 || job.smallItemPacking === ''
+        job.smallItemPacking === 0 || job.smallItemPacking === '' || job.smallItemPacking === undefined
             ?
             `<div style="margin-bottom: 5px;">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/White_X_in_red_background.svg/2000px-White_X_in_red_background.svg.png" height="13px" style="margin-right: 5px;">Small Item Packing Materials: (boxes, packing papers,bubble wrap.
@@ -269,7 +269,7 @@ export default function EmailContent(job) {
             : ''
         }
                 ${
-        job.largeItemFee === 0 || job.largeItemFee === ''
+        job.largeItemFee === 0 || job.largeItemFee === '' || job.largeItemFee === undefined
             ? `
             <div style="margin-bottom: 5px;">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/White_X_in_red_background.svg/2000px-White_X_in_red_background.svg.png" height="13px" style="margin-right: 5px;">Extra-Large Item Packing and Transportation: for example, pool
