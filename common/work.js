@@ -114,7 +114,6 @@ Schemas.workSchema = new SimpleSchema({
     workMustBeginTime: {
         type: String,
         label: 'Arriving time window',
-        optional: true,
     },
     //quote olduqunu tesdiqleyir
     quote: {
@@ -147,8 +146,7 @@ Schemas.workSchema = new SimpleSchema({
     },
     movingSize: {
         type: String,
-        label: 'Moving size',
-        optional: false
+        label: 'Moving size'
     },
     numberOfTheCompanyMovers: {
         type: Number,

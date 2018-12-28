@@ -947,15 +947,17 @@ MY OWN FREE WILL`
                                     <div className="cardTitle" >Pricing:</div>
                                     <div className="clear margin-top"></div>
                                     <div className="col s6 m6 l6">
-                                        # of movers: {is.workers.length}<br />
-                                        Your rates ${is.hourlyRatesCash}(cash) ${is.hourlyRatesCard}(card)<br />
-                                        Minimum labor time: {is.laborTime} hours<br />
-                                        Gas fee (one time): ${is.gasFee && is.gasFee === 0 || is.gasFee === '' ? 'Waived' : is.gasFee < 0 ? 'Not Sure' : is.gasFee}<br />
+                                        Number of movers: {is.workers.length}<br />
+                                        Your Flat Rates: ${is.flatRate.cashAmount}(cash) ${is.flatRate.cardAmount}(card)<br />
+                                        Your rates: ${is.hourlyRatesCash}(cash) ${is.hourlyRatesCard}(card)<br />
+                                        Minimum labor time: {is.laborTime} hour(s)<br />
+                                        Moving Size: {is.movingSize}<br />
                                     </div>
                                     <div className="col s6 m6 l6">
-                                        Double drive time: {is.doubleDrive}<br />
-                                        Extra Large/Heavy Item Fee: ${is.largeItemFee}<br />
-                                        Small Item Packing: {is.smallItemPacking < 0 ? 'Yes' : '$' + is.smallItemPacking}<br />
+                                        Gas fee (one time): ${is.gasFee && is.gasFee > 0 ? is.gasFee : 'Waived'}<br />
+                                        Double drive time: {is.doubleDrive === 'yes' ? 'Yes' : 'Waived'}<br />
+                                        Extra Large/Heavy Item Fee: {is.largeItemFee > 0 ? '$' + is.largeItemFee : 'No'}<br />
+                                        Small Item Packing: {is.smallItemPacking < 0 ? 'Yes' : is.smallItemPacking > 0 ? '$' + is.smallItemPacking : 'No'}<br />
                                         Not to Exceed Price: ${is.price}<br />
                                     </div>
                                     <div className="clear"></div>

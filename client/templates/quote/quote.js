@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 import WorkData from './../../../common/collections_2';
 import { Tracker } from 'meteor/tracker';
 
-/*global Bert*/
+/*global Bert, $*/
 
 let traker = null;
 
@@ -39,7 +39,7 @@ Template.updateQuote.onRendered(function () {
             document.querySelector('#flatRateCashUpdate').defaultValue = ish.flatRate[0].cashAmount;
             document.querySelector('#flatRateCardUpdate').defaultValue = ish.flatRate[0].cardAmount;
             console.log(ish.flatRate[0].isTrue);
-            document.querySelector('#flatBoxUpdate').checked = ish.flatRate[0].isTrue
+            document.querySelector('#flatBoxUpdate').checked = ish.flatRate[0].isTrue;
             Session.set('flatRate', ish.flatRate[0].isTrue);
             ish.flatRate[0].isTrue
                 ? (
@@ -56,7 +56,7 @@ Template.updateQuote.onRendered(function () {
             });
             ishDeyisibdir = Session.get('is');
         }
-    })
+    });
 });
 
 Template.updateQuote.helpers({
@@ -92,12 +92,6 @@ Template.updateQuote.events({
             }
             return massivFilter;
         })();
-
-        function idniSec(soz) {
-            let baslama = soz.indexOf(':');
-            let secme = soz.substr(baslama + 1, soz.length);
-            return secme;
-        }
 
         let t = 0;
         for (t = 0; t < bazaIsciOb.length; t++) {
@@ -355,7 +349,7 @@ Template.preQuote.events({
                         flatRate,
                         flatRateCash,
                         flatRateCard
-                    }
+                    };
 
                     document.querySelector('#flatRateCheck').checked = false;
                     document.getElementById('gas_fee').disabled = false;
