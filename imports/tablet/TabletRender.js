@@ -948,13 +948,13 @@ MY OWN FREE WILL`
                                     <div className="clear margin-top"></div>
                                     <div className="col s6 m6 l6">
                                         Number of movers: {is.workers.length}<br />
-                                        Your Flat Rates: {is.flatRate ? '$' + is.flatRate.cashAmount + '(cash)' + ' $' + is.flatRate.cardAmount + '(card)' : 'No'}<br />
+                                        Your Flat Rates: {is.flatRate && is.flatRate.isTrue ? '$' + is.flatRate.cashAmount + '(cash)' + ' $' + is.flatRate.cardAmount + '(card)' : 'No'}<br />
                                         Your rates: {is.hourlyRatesCash && is.hourlyRatesCard ? '$' + is.hourlyRatesCash + '(cash)' + ' $' + is.hourlyRatesCard + '(card)' : 'No'}<br />
                                         Minimum labor time: {is.laborTime} hour(s)<br />
                                         Moving Size: {is.movingSize}<br />
                                     </div>
                                     <div className="col s6 m6 l6">
-                                        Gas fee (one time): ${is.gasFee && is.gasFee > 0 ? is.gasFee : 'Waived'}<br />
+                                        Gas fee (one time): {is.gasFee && is.gasFee > 0 ? '$' + is.gasFee : 'Waived'}<br />
                                         Double drive time: {is.doubleDrive === 'yes' ? 'Yes' : 'Waived'}<br />
                                         Extra Large/Heavy Item Fee: {is.largeItemFee > 0 ? '$' + is.largeItemFee : 'No'}<br />
                                         Small Item Packing: {is.smallItemPacking < 0 ? 'Yes' : is.smallItemPacking > 0 ? '$' + is.smallItemPacking : 'No'}<br />
