@@ -270,14 +270,14 @@ export default function EmailContent(job) {
         }
                 ${
         job.largeItemFee || job.largeItemFee === 0 || job.largeItemFee === ''
-            ? ''
-            : `
-                        <div style="margin-bottom: 5px;">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/White_X_in_red_background.svg/2000px-White_X_in_red_background.svg.png" height="13px" style="margin-right: 5px;">Extra-Large Item Packing and Transportation: for example, pool
-                            tables, pianos, etc. (Please ask if you need Extra-Large Item
-                            Packing and Moving).
-                        </div>
-                        `
+            ? `
+            <div style="margin-bottom: 5px;">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/White_X_in_red_background.svg/2000px-White_X_in_red_background.svg.png" height="13px" style="margin-right: 5px;">Extra-Large Item Packing and Transportation: for example, pool
+                tables, pianos, etc. (Please ask if you need Extra-Large Item
+                Packing and Moving).
+            </div>
+            `
+            : ''
         }
                 <div style="margin-bottom: 5px;">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/White_X_in_red_background.svg/2000px-White_X_in_red_background.svg.png" height="13px" style="margin-right: 5px;">Customer responsible to hold the space for moving truck (if there
