@@ -948,8 +948,8 @@ MY OWN FREE WILL`
                                     <div className="clear margin-top"></div>
                                     <div className="col s6 m6 l6">
                                         Number of movers: {is.workers.length}<br />
-                                        Your Flat Rates: ${is.flatRate.cashAmount}(cash) ${is.flatRate.cardAmount}(card)<br />
-                                        Your rates: ${is.hourlyRatesCash}(cash) ${is.hourlyRatesCard}(card)<br />
+                                        Your Flat Rates: {is.flatRate ? '$' + is.flatRate.cashAmount + '(cash)' + ' $' + is.flatRate.cardAmount + '(card)' : 'No'}<br />
+                                        Your rates: {is.hourlyRatesCash && is.hourlyRatesCard ? '$' + is.hourlyRatesCash + '(cash)' + ' $' + is.hourlyRatesCard + '(card)' : 'No'}<br />
                                         Minimum labor time: {is.laborTime} hour(s)<br />
                                         Moving Size: {is.movingSize}<br />
                                     </div>
