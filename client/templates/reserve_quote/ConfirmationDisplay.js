@@ -6,8 +6,8 @@ export default class ConfirmationDisplay extends Component {
         super(props);
 
         this.state = {
-            company: Object.keys(Session.get('job')).length > 0 ? Session.get('job').company : {}
-        }
+            company: Session.get('job').companyInfo
+        };
     }
     render() {
         return (
@@ -77,18 +77,19 @@ export default class ConfirmationDisplay extends Component {
                 <div>
                     <div>
                         <span>Phone:&nbsp;
-                    <a href={'tel:' + this.state.company.phone} target="_blank" rel="noopener">this.state.company.phone</a>&nbsp;<br />
+                            <a style="color: #daf2ff" href={'tel:' + this.state.company.phone} target="_blank" rel="noopener noreferrer">{this.state.company.phone}</a>&nbsp;<br />
                             E-mail:&nbsp;
-                    <a href={'mailto:' + this.state.company.email} target="_blank" rel="noopener">{this.state.company.email}</a>
+                            <a style="color: #daf2ff" href={'mailto:' + this.state.company.email} target="_blank" rel="noopener noreferrer">{this.state.company.email}</a>
                         </span>
                     </div>
                     <div>
                         <span>Web:&nbsp;
-                    <a href={this.state.company.website} target="_blank" rel="noopener">{this.state.company.website}</a>
+                            <a href={this.state.company.website} target="_blank" rel="noopener noreferrer">{this.state.company.website}</a>
                         </span>
                     </div>
+                    <div>Powered by Movers Legion</div>
                     <div>
-                        <span>CAL PUC T-0191555</span>
+                        <span>BEARHFTI 0191555</span>
                     </div>
                 </div>
             </div>
