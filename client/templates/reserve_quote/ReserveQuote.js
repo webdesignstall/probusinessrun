@@ -11,7 +11,7 @@ import ConfirmationDisplay from './ConfirmationDisplay';
 // load companies info json
 const baza = require('./companies.json');
 
-/*global paypal*/
+/*global paypal, $, Bert*/
 
 let jobIs = {};
 
@@ -61,7 +61,8 @@ class ReserveQuote extends React.Component {
     jobNumber(event) {
         let isJob = WorkData.findOne({ jobNumber: event.target.value });
         isJob
-            ? ($('#axtarisin-neticesi').show(),
+            ? (
+                $('#axtarisin-neticesi').show(),
                 document.getElementById('enter-number').classList.add('hide'),
                 Session.set('jobNumber', event.target.value))
             : null;
@@ -73,7 +74,7 @@ class ReserveQuote extends React.Component {
                 <tr>
                     <td>
                         Address#{index + 1}:
-                </td>
+                    </td>
                     <td>
                         {address}
                     </td>
@@ -85,7 +86,8 @@ class ReserveQuote extends React.Component {
     submit() {
         let isJob = WorkData.findOne({ jobNumber: event.target.value });
         isJob
-            ? ($('#axtarisin-neticesi').show(),
+            ? (
+                $('#axtarisin-neticesi').show(),
                 document.getElementById('enter-number').classList.add('hide'),
                 Session.set('jobNumber', event.target.value))
             : Bert.alert({

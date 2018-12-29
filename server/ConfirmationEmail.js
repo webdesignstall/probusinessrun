@@ -153,7 +153,7 @@ export default function ConfirmationEmail(job) {
 						Gas Fee (one time):
 					</td>
 					<td style="width: 49%;" width="49%">
-						${job.gasFee < 0 ? 'Not Sure' : job.gasFee }
+						${job.gasFee < 0 ? 'Not Sure' : '$' + job.gasFee }
 					</td>
                 </tr>` ) : '' } 
                 ${ job.doubleDrive === 'yes' ? (`

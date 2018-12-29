@@ -10,6 +10,9 @@ export default class ConfirmationDisplay extends Component {
         };
     }
     render() {
+        const colorStyle = {
+            color: '#daf2ff'
+        };
         return (
             <div className="center-text">
                 <div>
@@ -77,9 +80,9 @@ export default class ConfirmationDisplay extends Component {
                 <div>
                     <div>
                         <span>Phone:&nbsp;
-                            <a style="color: #daf2ff" href={'tel:' + this.state.company.phone} target="_blank" rel="noopener noreferrer">{this.state.company.phone}</a>&nbsp;<br />
+                            <a style={colorStyle} href={'tel:' + this.state.company.phone} target="_blank" rel="noopener noreferrer">{this.state.company.phone}</a>&nbsp;<br />
                             E-mail:&nbsp;
-                            <a style="color: #daf2ff" href={'mailto:' + this.state.company.email} target="_blank" rel="noopener noreferrer">{this.state.company.email}</a>
+                            <a style={colorStyle} href={'mailto:' + this.state.company.email} target="_blank" rel="noopener noreferrer">{this.state.company.email}</a>
                         </span>
                     </div>
                     <div>
