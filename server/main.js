@@ -28,10 +28,10 @@ Meteor.startup(() => {
         }
     });
 
-    const promoCode = PromoCodes.find({}).fetch();
-    promoCode && promoCode.length < 1 ? PromoCodes.insert({
-        list: ['zumka']
-    }) : ''
+    // const promoCode = PromoCodes.find({}).fetch();
+    // promoCode && promoCode.length < 1 ? PromoCodes.insert({
+    //     list: ['zumka']
+    // }) : ''
 });
 
 if (Meteor.isServer) {
@@ -148,7 +148,7 @@ if (Meteor.isServer) {
 
             server.send(message, function (err) {
                 console.log(err);
-            })
+            });
 
             // WorkData.update(
             //     {
@@ -222,7 +222,7 @@ if (Meteor.isServer) {
                 });
         },
         removeDiscount: function (id) {
-            Discounts.remove(id)
+            Discounts.remove(id);
         }
     });
 }

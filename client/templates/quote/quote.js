@@ -206,6 +206,7 @@ Template.preQuote.events({
         let movingDateConverted = moment(movingDate, 'DD MMMM,YYYY').format('MM/DD/YYYY');
         let price = document.getElementById('quote_price').value;
         let minimumLaborTime = document.getElementById('labor_time').value;
+        console.log("​minimumLaborTime", minimumLaborTime)
         let hourlyRatesCash = document.getElementById('hourly_rates_cash').value;
         let hourlyRatesCard = document.getElementById('hourly_rates_card').value;
         let trucksArray = document.getElementsByClassName('truck-select');
@@ -263,6 +264,38 @@ Template.preQuote.events({
             document.getElementById('quote-job-number').value = Math.random().toString(36).substr(2, 5);
         }
 
+        let jobInfo = {
+            firstName,
+            lastName,
+            phone,
+            phoneAdditional,
+            email,
+            addresses,
+            movingDateConverted,
+            price,
+            minimumLaborTime,
+            hourlyRatesCash,
+            hourlyRatesCard,
+            trucks,
+            doubleDrive,
+            gasFee,
+            smallPackingItems,
+            largeItemFee,
+            jobNumber,
+            movingSize,
+            note,
+            baza,
+            workMustBeginTime,
+            numberOfWorkers,
+            trucksTemp,
+            companyInfo,
+            flatRate,
+            flatRateCash,
+            flatRateCard
+        };
+
+        console.log(jobInfo);
+
         Meteor.call('quotaniBazayaElaveEt',
             firstName,
             lastName,
@@ -306,62 +339,36 @@ Template.preQuote.events({
                         type: 'success'
                     });
 
-                    document.getElementById('quote-request').reset();
+                    Meteor.call('emailGonder', jobInfo, (err) => {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            document.querySelector('#flatRateCheck').checked = false;
+                            document.getElementById('gas_fee').disabled = false;
 
-                    // run job number
-                    jobNumber_();
+                            document.querySelector('#paymentContent').classList.remove('hide');
+                            document.querySelector('#flatRate_').classList.add('hide');
 
-                    Session.get('flatRate')
-                        ? (
-                            document.querySelector('#flatRate_').classList.remove('hide'),
-                            document.querySelector('#paymentContent').classList.add('hide'),
-                            document.querySelector('#flatRateCheck').checked = true
-                        )
-                        : (
-                            document.querySelector('#flatRate_').classList.add('hide'),
-                            document.querySelector('#paymentContent').classList.remove('hide'),
-                            document.querySelector('#flatRateCheck').checked = false
-                        );
+                            window.addresses.resetComponent();
 
-                    let jobInfo = {
-                        firstName,
-                        lastName,
-                        phone,
-                        phoneAdditional,
-                        email,
-                        addresses,
-                        movingDateConverted,
-                        price,
-                        minimumLaborTime,
-                        hourlyRatesCash,
-                        hourlyRatesCard,
-                        trucks,
-                        doubleDrive,
-                        gasFee,
-                        smallPackingItems,
-                        largeItemFee,
-                        jobNumber,
-                        movingSize,
-                        note,
-                        baza,
-                        workMustBeginTime,
-                        numberOfWorkers,
-                        trucksTemp,
-                        companyInfo,
-                        flatRate,
-                        flatRateCash,
-                        flatRateCard
-                    };
+                            document.getElementById('quote-request').reset();
 
-                    document.querySelector('#flatRateCheck').checked = false;
-                    document.getElementById('gas_fee').disabled = false;
+                            // run job number
+                            jobNumber_();
 
-                    document.querySelector('#paymentContent').classList.remove('hide');
-                    document.querySelector('#flatRate_').classList.add('hide');
-
-                    window.addresses.resetComponent();
-
-                    Meteor.call('emailGonder', jobInfo);
+                            Session.get('flatRate')
+                                ? (
+                                    document.querySelector('#flatRate_').classList.remove('hide'),
+                                    document.querySelector('#paymentContent').classList.add('hide'),
+                                    document.querySelector('#flatRateCheck').checked = true
+                                )
+                                : (
+                                    document.querySelector('#flatRate_').classList.add('hide'),
+                                    document.querySelector('#paymentContent').classList.remove('hide'),
+                                    document.querySelector('#flatRateCheck').checked = false
+                                );
+                        }
+                    });
                 }
             }
         );

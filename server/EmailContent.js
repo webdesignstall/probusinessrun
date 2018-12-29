@@ -78,7 +78,7 @@ export default function EmailContent(job) {
         ? `
         <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
             <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Gas Fee (one time fee):</td>
-            <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${job.gasFee }</td>
+            <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">$${job.gasFee }</td>
         </tr>
         `
         : job.gasFee === '' || job.gasFee === 0 || job.gasFee === undefined
@@ -239,7 +239,9 @@ export default function EmailContent(job) {
                 </div>
             </div>
             ${
-        job.doubleDrive === 'notSure' || job.gasFee === 'notSure'
+        console.log(job.doubleDrive),
+        console.log(job.gasFee),
+        job.doubleDrive === 'notSure' || job.gasFee < 0
             ?
             `
             <div class="additional-charges">
@@ -260,15 +262,18 @@ export default function EmailContent(job) {
                 </div>
                 <div class="additional-charges--list" style="padding: 10px;">
                 ${
-        job.smallItemPacking === 0 || job.smallItemPacking === '' || job.smallItemPacking === undefined
-            ?
-            `<div style="margin-bottom: 5px;">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/White_X_in_red_background.svg/2000px-White_X_in_red_background.svg.png" height="13px" style="margin-right: 5px;">Small Item Packing Materials: (boxes, packing papers,bubble wrap.
-                            etc.) <a href="http://www.moverslegion.com/wp-content/uploads/2018/12/small-item-pricing.pdf">Require, if needed</a>
-                        </div>`
+        console.log(job.smallPackingItems),
+        job.smallPackingItems === 0 || job.smallPackingItems === '' || job.smallPackingItems === undefined
+            ? `
+            <div style="margin-bottom: 5px;">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/White_X_in_red_background.svg/2000px-White_X_in_red_background.svg.png" height="13px" style="margin-right: 5px;">Small Item Packing Materials: (boxes, packing papers,bubble wrap.
+                etc.) <a href="http://www.moverslegion.com/wp-content/uploads/2018/12/small-item-pricing.pdf">Require, if needed</a>
+            </div>
+            `
             : ''
         }
                 ${
+        console.log(job.largeItemFee),
         job.largeItemFee === 0 || job.largeItemFee === '' || job.largeItemFee === undefined
             ? `
             <div style="margin-bottom: 5px;">
