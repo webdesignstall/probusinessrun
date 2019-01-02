@@ -22,66 +22,21 @@ if (Meteor.isServer) {
                     $set: {
                         finishTime: new Date()
                     }
-                }
-            );
+                }, () => { // finish time yaddasa vurulduqdan sonra qalan hesablamalari aparsin
+                    let ish = WorkData.findOne({ _id: id }); //isi tapir
+                    let isBaslama = (ish.startTime).getTime(); //isin baslamasini init vaxti
+                    let isBitme = (ish.finishTime).getTime(); //isin bitme vaxti
+                    let totalIslemeVaxti = (isBitme - isBaslama) / 3600000; //total isleme vaxti saat ile
 
-            let ish = WorkData.findOne({ _id: id }); //isi tapir
-            console.log("​ish", ish);
-            let isBaslama = (ish.startTime).getTime(); //isin baslamasini init vaxti
-            console.log("​isBaslama", isBaslama);
-            let isBitme = (ish.finishTime).getTime(); //isin bitme vaxti
-            console.log("​isBitme", isBitme);
-            let breakTime = ish.totalBreakTime; //total break time
-            breakTime > 0 ? null : breakTime = 0;
-            console.log("​breakTime", breakTime);
-            let totalDriving = ish.totalDrivingTime; //total driving
-            totalDriving > 0 ? null : totalDriving = 0;
-            console.log("​totalDriving", totalDriving);
-            let totalIslemeVaxti = (isBitme - isBaslama) / 60000; //total isleme vaxti deqiqe ile
-            console.log("​totalIslemeVaxti", totalIslemeVaxti);
-            totalIslemeVaxti = Math.round(totalIslemeVaxti, 2);
-            console.log("​totalIslemeVaxti", totalIslemeVaxti);
-            let totalIslemeSaati = 0;
-            console.log("​totalIslemeSaati", totalIslemeSaati);
-            totalIslemeSaati = totalIslemeVaxti;
-            console.log("​totalIslemeSaati", totalIslemeSaati);
-            totalIslemeSaati = totalIslemeSaati - (breakTime * 60);
-            console.log("​totalIslemeSaati", totalIslemeSaati);
-
-            //eger is vaxti labor timedan az olarsa
-            if (totalIslemeSaati <= ish.laborTime) {
-                // eger double drive timed on
-                if (ish.doubleDrive === 'yes') {
-                    let laborWorkTime = totalIslemeSaati - totalDriving;
-                    laborWorkTime < ish.laborTime && ish.doubleDrive === 'yes'
-                        ? totalIslemeSaati = ish.laborTime + (2 * totalDriving)
-                        : totalIslemeSaati = totalIslemeSaati + totalDriving;
-                    console.log("​totalIslemeSaati", totalIslemeSaati);
-                } else {
-                    totalIslemeSaati = ish.laborTime + totalDriving;
-                    console.log("​totalIslemeSaati", totalIslemeSaati);
-                }
-            }
-            //2 decimal fixed total time
-            totalIslemeSaati = totalIslemeSaati.toFixed(2);
-            console.log("​totalIslemeSaati", totalIslemeSaati);
-            //15 deqiqelik interval hesablamasi
-            totalIslemeSaati = ((Math.ceil(totalIslemeSaati / 15)) * 15) / 60; //saata cevrilir
-            console.log("​totalIslemeSaati", totalIslemeSaati)
-            // eger minimum saatdan azdirsa
-            totalIslemeSaati < ish.laborTime ? totalIslemeSaati = ish.laborTime : totalIslemeSaati = totalIslemeSaati
-            console.log("​totalIslemeSaati", totalIslemeSaati)
-
-            ish.flatRate && ish.flatRate[0].isTrue && totalIslemeSaati > ish.laborTime ? totalIslemeSaati = totalIslemeSaati - ish.laborTime : null;
-            console.log('Total isleme saati', totalIslemeSaati)
-            //melumatin bazaya yazilmasi
-            WorkData.update(
-                { _id: id },
-                {
-                    $set: {
-                        totalWorkTime: Number(totalIslemeVaxti), //total is vaxti deqiqe ile hecne elave edilmeden
-                        totalWorkHours: Number(totalIslemeSaati) //total isleme saati cem olaraq driving +
-                    }
+                    //melumatin bazaya yazilmasi
+                    WorkData.update(
+                        { _id: id },
+                        {
+                            $set: {
+                                totalWorkTime: Number(totalIslemeVaxti), //total is vaxti saat ile hecne elave edilmeden
+                            }
+                        }
+                    );
                 }
             );
         },

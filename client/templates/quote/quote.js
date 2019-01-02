@@ -294,7 +294,6 @@ Template.preQuote.events({
             flatRateCard
         };
 
-        console.log(jobInfo);
 
         Meteor.call('quotaniBazayaElaveEt',
             firstName,

@@ -360,28 +360,47 @@ MY OWN FREE WILL`
             let flatCardAmountDiscounted = flatCardAmount * (1 - (percentDiscount / 100)) || 0;
             let cashRate = Number(workData.hourlyRatesCash) || 0;
             let cardRate = Number(workData.hourlyRatesCard) || 0;
-            let startToFinishTime = Number(
-                this.round((
-                    (this.round((Math.ceil(workData.totalWorkTime / 15) * 15), 2)) / 60), 2
-                )) || 0;
-            let laborTime = workData.laborTime || 0;
+            let startToFinishTime = workData.totalWorkTime; //start to finish time included break and driving time
+            let laborTime = Number(workData.laborTime) || 0; // minimum labor time
+            let breakTimeTotal = Number(workData.totalBreakTime) || 0;
+            let doubleDrive = workData.doubleDrive === 'yes' ? true : false;
+            let drivingTime = Number(workData.totalDrivingTime) || 0;
+            let workLaborTime = startToFinishTime - drivingTime - breakTimeTotal;
+            let doubleDriveTime = doubleDrive ? drivingTime : 0;
+            let doubleDriveCash = doubleDriveTime * cashRate;
+            let doubleDriveCard = doubleDriveTime * cardRate;
 
-            // calculate total time after discount
+            // flat rate olduqda
             flatRateIsTrue
-                ? startToFinishTime -= laborTime
+                ? startToFinishTime - laborTime - breakTimeTotal < 0
+                    ? startToFinishTime = laborTime
+                    : startToFinishTime -= laborTime - breakTimeTotal
                 : null;
+
+            // DDT olduqda ve isleme saati labor vaxtdan az olduqda
+            doubleDrive && workLaborTime < laborTime
+                ? startToFinishTime = (Math.ceil((laborTime + (drivingTime * 2)) / 0.25) * 0.25)
+                : null;
+
+            // double drive time olduqda ve isleme saati labor timedan cox olduqda
+            doubleDrive && workLaborTime > laborTime
+                ? startToFinishTime = (Math.ceil((workLaborTime + (drivingTime * 2)) / 0.25) * 0.25)
+                : null;
+
+            // double drive olmadiqda
+            startToFinishTime = (Math.ceil((workLaborTime + drivingTime) / 0.25) * 0.25);
+
+            // time discount calculation
             timeDiscount > 0
                 ? startToFinishTime -= timeDiscount
                 : null;
+
             startToFinishTime = startToFinishTime * (1 - (percentDiscount / 100));
             let startToFinishCashAmountDiscounted = startToFinishTime * cashRate;
             let startToFinishCardAmountDiscounted = startToFinishTime * cardRate;
             let gasFee = Number(workData.gasFee) || 0;
             let extraLargeItemFee = Number(workData.largeItemFee) || 0;
             let smallItemPacking = Number(workData.smallItemPacking) || 0;
-            let doubleDriveTime = Number(workData.doubleDrive) > 0 ? Number(workData.doubleDrive) : 0;
-            let doubleDriveCash = doubleDriveTime * cashRate;
-            let doubleDriveCard = doubleDriveTime * cardRate;
             let additionalCharges = Number(this.totalAdditionalCharge) || 0;
 
             // total additional charges
@@ -395,39 +414,58 @@ MY OWN FREE WILL`
 
     hesabla(inputType, e) {
         let workData = this.state.vurulmusIs.length > 0 ? this.state.vurulmusIs[0] : null;
-        // calculation variables
         let percentDiscount = Number(this.totalDiscountPercent) || 0;
         let cashDiscount = Number(this.totalDiscountAmount) || 0;
         let cashDiscountedPercent = cashDiscount * (1 - (percentDiscount / 100)) || 0;
         let timeDiscount = Number(this.totalDiscountTime) || 0;
-        let flatRateIsTrue = workData.flatRate[0].isTrue;
-        let flatCashAmount = Number(workData.flatRate[0].cashAmount) || 0;
+        let flatRateIsTrue = workData.flatRate ? workData.flatRate[0].isTrue : false;
+        let flatCashAmount = workData.flatRate ? Number(workData.flatRate[0].cashAmount) : 0;
         let flatCashAmountDiscounted = flatCashAmount * (1 - (percentDiscount / 100)) || 0;
-        let flatCardAmount = Number(workData.flatRate[0].cardAmount) || 0;
+        let flatCardAmount = workData.flatRate ? Number(workData.flatRate[0].cardAmount) : 0;
         let flatCardAmountDiscounted = flatCardAmount * (1 - (percentDiscount / 100)) || 0;
         let cashRate = Number(workData.hourlyRatesCash) || 0;
         let cardRate = Number(workData.hourlyRatesCard) || 0;
-        let startToFinishTime = Number(
-            this.round((
-                (this.round((Math.ceil(workData.totalWorkTime / 15) * 15), 2)) / 60), 2
-            )) || 0;
-        let laborTime = workData.laborTime || 0;
-        // calculate total time after discount
+        let startToFinishTime = workData.totalWorkTime; //start to finish time included break and driving time
+        let laborTime = Number(workData.laborTime) || 0; // minimum labor time
+        let breakTimeTotal = Number(workData.totalBreakTime) || 0;
+        let doubleDrive = workData.doubleDrive === 'yes' ? true : false;
+        let drivingTime = Number(workData.totalDrivingTime) || 0;
+        let workLaborTime = startToFinishTime - drivingTime - breakTimeTotal;
+        let doubleDriveTime = doubleDrive ? drivingTime : 0;
+        let doubleDriveCash = doubleDriveTime * cashRate;
+        let doubleDriveCard = doubleDriveTime * cardRate;
+
+        // flat rate olduqda
         flatRateIsTrue
-            ? startToFinishTime -= laborTime
+            ? startToFinishTime - laborTime - breakTimeTotal < 0
+                ? startToFinishTime = laborTime
+                : startToFinishTime -= laborTime - breakTimeTotal
             : null;
+
+        // DDT olduqda ve isleme saati labor vaxtdan az olduqda
+        doubleDrive && workLaborTime < laborTime
+            ? startToFinishTime = (Math.ceil((laborTime + (drivingTime * 2)) / 0.25) * 0.25)
+            : null;
+
+        // double drive time olduqda ve isleme saati labor timedan cox olduqda
+        doubleDrive && workLaborTime > laborTime
+            ? startToFinishTime = (Math.ceil((workLaborTime + (drivingTime * 2)) / 0.25) * 0.25)
+            : null;
+
+        // double drive olmadiqda
+        startToFinishTime = (Math.ceil((workLaborTime + drivingTime) / 0.25) * 0.25);
+
+        // time discount calculation
         timeDiscount > 0
             ? startToFinishTime -= timeDiscount
             : null;
+
         startToFinishTime = startToFinishTime * (1 - (percentDiscount / 100));
         let startToFinishCashAmountDiscounted = startToFinishTime * cashRate;
         let startToFinishCardAmountDiscounted = startToFinishTime * cardRate;
         let gasFee = Number(workData.gasFee) || 0;
         let extraLargeItemFee = Number(workData.largeItemFee) || 0;
         let smallItemPacking = Number(workData.smallItemPacking) || 0;
-        let doubleDriveTime = Number(workData.doubleDrive) > 0 ? Number(workData.doubleDrive) : 0;
-        let doubleDriveCash = doubleDriveTime * cashRate;
-        let doubleDriveCard = doubleDriveTime * cardRate;
         let additionalCharges = Number(this.totalAdditionalCharge) || 0;
         let inputAmount = Number(e.target.value);
         let typeOfPayment = inputType;
