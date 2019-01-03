@@ -377,6 +377,9 @@ MY OWN FREE WILL`
                     : startToFinishTime -= laborTime - breakTimeTotal
                 : null;
 
+            // double drive olmadiqda
+            startToFinishTime = (Math.ceil((workLaborTime + drivingTime) / 0.25) * 0.25);
+
             // DDT olduqda ve isleme saati labor vaxtdan az olduqda
             doubleDrive && workLaborTime < laborTime
                 ? startToFinishTime = (Math.ceil((laborTime + (drivingTime * 2)) / 0.25) * 0.25)
@@ -387,8 +390,6 @@ MY OWN FREE WILL`
                 ? startToFinishTime = (Math.ceil((workLaborTime + (drivingTime * 2)) / 0.25) * 0.25)
                 : null;
 
-            // double drive olmadiqda
-            startToFinishTime = (Math.ceil((workLaborTime + drivingTime) / 0.25) * 0.25);
 
             // time discount calculation
             timeDiscount > 0
@@ -431,7 +432,7 @@ MY OWN FREE WILL`
         let doubleDrive = workData.doubleDrive === 'yes' ? true : false;
         let drivingTime = Number(workData.totalDrivingTime) || 0;
         let workLaborTime = startToFinishTime - drivingTime - breakTimeTotal;
-        let doubleDriveTime = doubleDrive ? drivingTime : 0;
+        let doubleDriveTime = doubleDrive ? drivingTime * 2 : 0;
         let doubleDriveCash = doubleDriveTime * cashRate;
         let doubleDriveCard = doubleDriveTime * cardRate;
 
@@ -442,6 +443,9 @@ MY OWN FREE WILL`
                 : startToFinishTime -= laborTime - breakTimeTotal
             : null;
 
+        // double drive olmadiqda
+        startToFinishTime = (Math.ceil((workLaborTime + drivingTime) / 0.25) * 0.25);
+
         // DDT olduqda ve isleme saati labor vaxtdan az olduqda
         doubleDrive && workLaborTime < laborTime
             ? startToFinishTime = (Math.ceil((laborTime + (drivingTime * 2)) / 0.25) * 0.25)
@@ -451,9 +455,6 @@ MY OWN FREE WILL`
         doubleDrive && workLaborTime > laborTime
             ? startToFinishTime = (Math.ceil((workLaborTime + (drivingTime * 2)) / 0.25) * 0.25)
             : null;
-
-        // double drive olmadiqda
-        startToFinishTime = (Math.ceil((workLaborTime + drivingTime) / 0.25) * 0.25);
 
         // time discount calculation
         timeDiscount > 0
