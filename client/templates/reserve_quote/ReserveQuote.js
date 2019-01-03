@@ -341,7 +341,7 @@ Template.reserveQuote.onRendered(function () {
                     payment: {
                         transactions: [
                             {
-                                amount: { total: '0.01', currency: 'USD' }
+                                amount: { total: Session.get('job').deposit, currency: 'USD' }
                             }
                         ]
                     }

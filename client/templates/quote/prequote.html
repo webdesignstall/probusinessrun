@@ -66,11 +66,23 @@
                     <input id="large_item_fee" class="xx" type="number" placeholder="0" />
                     <label class="active" for="large_item_fee">Large item fee</label>
                 </div>
-                <!-- Moving time window -->
-                <!-- <div class="input-field valideyn col s12 m6 l3">
-                    <i class="material-icons isare">date_range</i>
-                    <input id="quote-time-picker-to" class="xx" type="text" placeholder="Moving Time window" />
-                </div> -->
+                <!-- Gas Fee -->
+                <div class="input-field valideyn col s12 m3 l3">
+                    <i class="material-icons isare">attach_money</i>
+                    <input id="gas_fee" class="xx" type="number" placeholder="0" />
+                    <label class="active" for="gas_fee">
+                        Gas Fee
+                        <i class="lime-text lighten-5 black">
+                            [ Not sure? <input type="checkbox" onclick="gasFeeNotSure()">]
+                        </i>
+                    </label>
+                </div>
+                <!-- Deposit -->
+                <div class="input-field valideyn col s12 m6 l3">
+                    <i class="material-icons isare">attach_money</i>
+                    <input id="deposit" class="xx" type="number" placeholder="0" />
+                    <label class="active" for="deposit">Deposit</label>
+                </div>
                 <!-- Payment charging options -->
                 <div class="clear"></div>
                 <div class="row chargingPanel">
@@ -192,17 +204,6 @@
                 </div>
                 <!-- Moving company -->
                 <div id="moving-company" class="input-field valideyn col s12 m6 l6">
-                </div>
-                <!-- Gas Fee -->
-                <div class="input-field valideyn col s12 m3 l3">
-                    <i class="material-icons isare">attach_money</i>
-                    <input id="gas_fee" class="xx" type="number" placeholder="0" />
-                    <label class="active" for="gas_fee">
-                        Gas Fee
-                        <i class="lime-text lighten-5 black">
-                            [ Not sure? <input type="checkbox" onclick="gasFeeNotSure()">]
-                        </i>
-                    </label>
                 </div>
                 <!-- Job ID -->
                 <div class="input-field valideyn col s12 m3 l3">

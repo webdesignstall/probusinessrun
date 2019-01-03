@@ -146,7 +146,8 @@ Template.updateQuote.events({
                 cashAmount: !isNaN(document.querySelector('#flatRateCashUpdate').value) ? document.querySelector('#flatRateCashUpdate').value : 0,
                 cardAmount: !isNaN(document.querySelector('#flatRateCardUpdate').value) ? document.querySelector('#flatRateCardUpdate').value : 0
             }],
-            comment: document.getElementById('textarea2').value
+            comment: document.getElementById('textarea2').value,
+            deposit: document.getElementById('deposit-update').value
         };
         console.log(doc);
         Meteor.call('updateWork', doc, function (err) {
@@ -206,7 +207,6 @@ Template.preQuote.events({
         let movingDateConverted = moment(movingDate, 'DD MMMM,YYYY').format('MM/DD/YYYY');
         let price = document.getElementById('quote_price').value;
         let minimumLaborTime = document.getElementById('labor_time').value;
-        console.log("​minimumLaborTime", minimumLaborTime)
         let hourlyRatesCash = document.getElementById('hourly_rates_cash').value;
         let hourlyRatesCard = document.getElementById('hourly_rates_card').value;
         let trucksArray = document.getElementsByClassName('truck-select');
@@ -247,6 +247,7 @@ Template.preQuote.events({
         let flatRateCash = document.querySelector('#flatRateCash').value ? document.querySelector('#flatRateCash').value : 0;
         let flatRateCard = document.querySelector('#flatRateCash').value ? document.querySelector('#flatRateCard').value : 0;
         let comment = document.getElementById('textarea1').value;
+        let deposit = document.getElementById('deposit').value;
 
         function idniSec(soz) {
             var baslama = soz.indexOf(':');
@@ -324,6 +325,7 @@ Template.preQuote.events({
             flatRateCash,
             flatRateCard,
             comment,
+            deposit,
             function (err) {
                 if (err) {
                     Bert.alert({

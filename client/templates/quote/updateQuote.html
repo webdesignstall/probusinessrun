@@ -80,6 +80,32 @@
                         placeholder="Large item fee" />
                     <label class="active" for="large_item_fee_2">Large item fee</label>
                 </div>
+                <!-- gas fee -->
+                <div class="input-field valideyn col s12 m3 l3">
+                    <i class="material-icons isare">attach_money</i>
+                    <input id="gas_fee_2" class="xx" type="number" value={{istifadechi.gasFee}} placeholder="Gas fee" />
+                    <label class="active" for="gas_fee_2">
+                        Gas fee
+                        <i class="lime-text lighten-5 black">
+                            [ Not sure? <input type="checkbox" onchange="(function hello(){
+                                                document.getElementById('gas_fee_2').value < 0
+                                                    ? (document.getElementById('gas_fee_2').disabled = false,
+                                                    document.getElementById('gas_fee_2').value = 0)
+                                                    : (document.getElementById('gas_fee_2').disabled = true,
+                                                    document.getElementById('gas_fee_2').value = -0.01);
+                
+                                                    console.log('Hello');
+                                            })()"
+                                checked={{isGasFee}}>]
+                        </i>
+                    </label>
+                </div>
+                <!-- deposit -->
+                <div class="input-field valideyn col s12 m6 l3">
+                    <i class="material-icons isare">view_carousel</i>
+                    <input id="deposit-update" class="xx" type="number" value={{istifadechi.deposit}} placeholder="deposit $" />
+                    <label class="active" for="deposit-update">Deposit</label>
+                </div>
                 <div class="clear"></div>
                 <!-- Payment types -->
                 <div class="row chargingPanel">
@@ -155,26 +181,6 @@
                 <div id="moving-size" class="input-field col s12 m6 l6 azMargin">
                 </div>
                 <div class="clear"></div>
-                <!-- gas fee -->
-                <div class="input-field valideyn col s12 m3 l3">
-                    <i class="material-icons isare">attach_money</i>
-                    <input id="gas_fee_2" class="xx" type="number" value={{istifadechi.gasFee}} placeholder="Gas fee" />
-                    <label class="active" for="gas_fee_2">
-                        Gas fee
-                        <i class="lime-text lighten-5 black">
-                            [ Not sure? <input type="checkbox" onchange="(function hello(){
-                                document.getElementById('gas_fee_2').value < 0
-                                    ? (document.getElementById('gas_fee_2').disabled = false,
-                                    document.getElementById('gas_fee_2').value = 0)
-                                    : (document.getElementById('gas_fee_2').disabled = true,
-                                    document.getElementById('gas_fee_2').value = -0.01);
-
-                                    console.log('Hello');
-                            })()"
-                                checked={{isGasFee}}>]
-                        </i>
-                    </label>
-                </div>
                 <!-- job number -->
                 <div class="input-field valideyn col s12 m3 l3">
                     <i class="material-icons isare">local_offer</i>

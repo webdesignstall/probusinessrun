@@ -289,6 +289,10 @@ Schemas.workSchema = new SimpleSchema({
         optional: true,
         label: 'Double Drive'
     },
+    deposit: {
+        type: Number,
+        optional: true
+    },
     smallItemPacking: {
         type: Number,
         optional: true,
