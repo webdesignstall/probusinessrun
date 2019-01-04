@@ -266,20 +266,6 @@ MY OWN FREE WILL`
             [which]: newList, // save additional signature
         };
         Meteor.call('updateWork', doc);
-        // if (which === 'discount') {
-        //     let newDiscountList = this.state.discount.concat(information);
-
-        //     this.setState({
-        //         discount: newDiscountList
-        //     });
-
-        //     let doc = {
-        //         _id: Session.get('tabletIsId'),
-        //         discount: this.state.discount // saving discount information
-        //     };
-
-        //     Meteor.call('updateWork', doc);
-        // }
     }
 
     finishJob() {
@@ -370,27 +356,30 @@ MY OWN FREE WILL`
             let doubleDriveCash = doubleDriveTime * cashRate;
             let doubleDriveCard = doubleDriveTime * cardRate;
 
+            // double drive olmadiqda
+            startToFinishTime = workLaborTime + drivingTime;
+
             // flat rate olduqda
+            this.lessThanLabor = false;
             flatRateIsTrue
-                ? startToFinishTime - laborTime - breakTimeTotal < 0
-                    ? startToFinishTime = laborTime
+                ? startToFinishTime - laborTime - breakTimeTotal <= 0
+                    ? (startToFinishTime = laborTime, this.lessThanLabor = true)
                     : startToFinishTime -= laborTime - breakTimeTotal
                 : null;
 
-            // double drive olmadiqda
-            startToFinishTime = (Math.ceil((workLaborTime + drivingTime) / 0.25) * 0.25);
-
             // DDT olduqda ve isleme saati labor vaxtdan az olduqda
             doubleDrive && workLaborTime < laborTime
-                ? startToFinishTime = (Math.ceil((laborTime + (drivingTime * 2)) / 0.25) * 0.25)
+                ? startToFinishTime = laborTime + (drivingTime * 2)
                 : null;
 
             // double drive time olduqda ve isleme saati labor timedan cox olduqda
             doubleDrive && workLaborTime > laborTime
-                ? startToFinishTime = (Math.ceil((workLaborTime + (drivingTime * 2)) / 0.25) * 0.25)
+                ? startToFinishTime = workLaborTime + (drivingTime * 2)
                 : null;
 
+            startToFinishTime = Math.ceil(startToFinishTime / 0.25) * 0.25;
 
+            this.totalWorkLaborTime = startToFinishTime;
             // time discount calculation
             timeDiscount > 0
                 ? startToFinishTime -= timeDiscount
@@ -403,13 +392,14 @@ MY OWN FREE WILL`
             let extraLargeItemFee = Number(workData.largeItemFee) || 0;
             let smallItemPacking = Number(workData.smallItemPacking) || 0;
             let additionalCharges = Number(this.totalAdditionalCharge) || 0;
+            let packingSupplies = this.state.totalPul;
 
             // total additional charges
-            additionalCharges += (gasFee && gasFee > 0 ? gasFee : 0) + (extraLargeItemFee && extraLargeItemFee > 0 ? extraLargeItemFee : 0) + (smallItemPacking > 0 ? smallItemPacking : 0);
+            additionalCharges += (gasFee && gasFee > 0 ? gasFee : 0) + (extraLargeItemFee && extraLargeItemFee > 0 ? extraLargeItemFee : 0) + (smallItemPacking > 0 ? smallItemPacking : 0) + packingSupplies;
 
             // this.payCash ve this.payCard hesablanmasi
-            this.payCash = (startToFinishCashAmountDiscounted + flatCashAmountDiscounted - cashDiscountedPercent + doubleDriveCash + additionalCharges).toFixed(2);
-            this.payCard = (startToFinishCardAmountDiscounted + flatCardAmountDiscounted - cashDiscountedPercent + doubleDriveCard + additionalCharges).toFixed(2);
+            this.payCash = ((this.lessThanLabor ? 0 : startToFinishCashAmountDiscounted) + flatCashAmountDiscounted - cashDiscountedPercent + doubleDriveCash + additionalCharges).toFixed(2);
+            this.payCard = ((this.lessThanLabor ? 0 : startToFinishCardAmountDiscounted) + flatCardAmountDiscounted - cashDiscountedPercent + doubleDriveCard + additionalCharges).toFixed(2);
         }
     }
 
@@ -432,19 +422,20 @@ MY OWN FREE WILL`
         let doubleDrive = workData.doubleDrive === 'yes' ? true : false;
         let drivingTime = Number(workData.totalDrivingTime) || 0;
         let workLaborTime = startToFinishTime - drivingTime - breakTimeTotal;
-        let doubleDriveTime = doubleDrive ? drivingTime * 2 : 0;
+        let doubleDriveTime = doubleDrive ? drivingTime : 0;
         let doubleDriveCash = doubleDriveTime * cashRate;
         let doubleDriveCard = doubleDriveTime * cardRate;
 
-        // flat rate olduqda
-        flatRateIsTrue
-            ? startToFinishTime - laborTime - breakTimeTotal < 0
-                ? startToFinishTime = laborTime
-                : startToFinishTime -= laborTime - breakTimeTotal
-            : null;
-
         // double drive olmadiqda
         startToFinishTime = (Math.ceil((workLaborTime + drivingTime) / 0.25) * 0.25);
+
+        // flat rate olduqda
+        this.lessThanLabor = false;
+        flatRateIsTrue
+            ? startToFinishTime - laborTime - breakTimeTotal < 0
+                ? (startToFinishTime = laborTime, this.lessThanLabor = true)
+                : startToFinishTime -= laborTime - breakTimeTotal
+            : null;
 
         // DDT olduqda ve isleme saati labor vaxtdan az olduqda
         doubleDrive && workLaborTime < laborTime
@@ -468,19 +459,18 @@ MY OWN FREE WILL`
         let extraLargeItemFee = Number(workData.largeItemFee) || 0;
         let smallItemPacking = Number(workData.smallItemPacking) || 0;
         let additionalCharges = Number(this.totalAdditionalCharge) || 0;
+        let deposit = Number(workData.deposit) || 0;
+        let packingSupplies = this.state.totalPul;
         let inputAmount = Number(e.target.value);
         let typeOfPayment = inputType;
         let amountOf = 0;
 
-        // total additional charges
-        additionalCharges += (gasFee && gasFee > 0 ? gasFee : 0) + (extraLargeItemFee && extraLargeItemFee > 0 ? extraLargeItemFee : 0) + (smallItemPacking > 0 ? smallItemPacking : 0);
+        // // total additional charges
+        // additionalCharges += (gasFee && gasFee > 0 ? gasFee : 0) + (extraLargeItemFee && extraLargeItemFee > 0 ? extraLargeItemFee : 0) + (smallItemPacking > 0 ? smallItemPacking : 0);
 
-        // this.payCash ve this.payCard hesablanmasi
-        this.payCash = (startToFinishCashAmountDiscounted + flatCashAmountDiscounted - cashDiscountedPercent + doubleDriveCash + additionalCharges).toFixed(2);
-        this.payCard = (startToFinishCardAmountDiscounted + flatCardAmountDiscounted - cashDiscountedPercent + doubleDriveCard + additionalCharges).toFixed(2);
-
-        // TODO: debug why entered amount is not displayin in the input
-        // if amount less 0 equal it to 0 or amount more than should euqal it to max payment amount
+        // // this.payCash ve this.payCard hesablanmasi
+        // this.payCash = (startToFinishCashAmountDiscounted + flatCashAmountDiscounted - cashDiscountedPercent + doubleDriveCash + additionalCharges).toFixed(2);
+        // this.payCard = (startToFinishCardAmountDiscounted + flatCardAmountDiscounted - cashDiscountedPercent + doubleDriveCard + additionalCharges).toFixed(2);
 
         typeOfPayment === 'cash'
             ? inputAmount < 0
@@ -510,7 +500,7 @@ MY OWN FREE WILL`
                             flatCashAmountDiscounted < 0 ? flatCashAmountDiscounted = 0 : null,
                             flatCardAmountDiscounted = (flatCashAmountDiscounted / flatCashAmount * flatCardAmount),
                             startToFinishCardAmountDiscounted = (startToFinishCashAmountDiscounted / cashRate * cardRate),
-                            amountOf = startToFinishCardAmountDiscounted + flatCardAmountDiscounted + doubleDriveCard + additionalCharges,
+                            amountOf = startToFinishCardAmountDiscounted + flatCardAmountDiscounted + doubleDriveCard + additionalCharges - deposit,
                             amountOf = amountOf.toFixed(2),
                             document.getElementById('mark-as-payed').classList.add('disabled'),
                             this.setState({
@@ -546,7 +536,7 @@ MY OWN FREE WILL`
                             flatCardAmountDiscounted < 0 ? flatCardAmountDiscounted = 0 : null,
                             flatCashAmountDiscounted = (flatCardAmountDiscounted / flatCardAmount * flatCashAmount),
                             startToFinishCashAmountDiscounted = (startToFinishCardAmountDiscounted / cardRate * cashRate),
-                            amountOf = startToFinishCashAmountDiscounted + flatCashAmountDiscounted + doubleDriveCash + additionalCharges,
+                            amountOf = startToFinishCashAmountDiscounted + flatCashAmountDiscounted + doubleDriveCash + additionalCharges - deposit,
                             amountOf = amountOf.toFixed(2),
                             document.getElementById('mark-as-payed').classList.add('disabled'),
                             this.setState({
@@ -884,8 +874,6 @@ MY OWN FREE WILL`
         this.totalSaat = 0;
         this.cardRate = 0;
         this.cashRate = 0;
-        // this.payCard = 0;
-        // this.payCash = 0;
         this.card = 0;
         this.cash = 0;
         this.elave = 0;
@@ -1215,13 +1203,7 @@ MY OWN FREE WILL`
                             <ul className="collection kolleksiya">
                                 <li className="collection-item blue">
                                     Start to Finish:
-                                    <span className="sag">= {(() => {
-                                        if (isNaN(this.round(is.totalWorkTime, 2))) {
-                                            return 0;
-                                        } else {
-                                            return this.round(((this.round(is.totalWorkTime, 2)) / 60), 2);
-                                        }
-                                    })()} hours</span>
+                                    <span className="sag">= {is.totalWorkTime} hours</span>
                                 </li>
                                 <li className="collection-item blue">
                                     Driving Time:
@@ -1259,23 +1241,7 @@ MY OWN FREE WILL`
                                 </li>
                                 <li className="collection-item blue">
                                     {is.flatRate && is.flatRate[0].isTrue ? 'Total calculated hours after flat rate:' : 'Total calculated hours:'}
-                                    <span className="sag">= {(() => {
-                                        if (isNaN(this.round(is.totalWorkTime, 2))) {
-                                            return 0;
-                                        } else {
-                                            if (is.flatRate[0].isTrue) {
-                                                return Number(
-                                                    this.round((
-                                                        (this.round((Math.ceil(is.totalWorkTime / 15) * 15), 2)) / 60), 2
-                                                    )) - is.laborTime;
-                                            } else {
-                                                return Number(
-                                                    this.round((
-                                                        (this.round((Math.ceil(is.totalWorkTime / 15) * 15), 2)) / 60), 2
-                                                    ));
-                                            }
-                                        }
-                                    })()} hours</span>
+                                    <span className="sag">= {this.totalWorkLaborTime} hours</span>
                                 </li>
                                 <li className="collection-item blue">
                                     Small Item Pck Supplies:
@@ -1310,18 +1276,15 @@ MY OWN FREE WILL`
                                 </li>
                                 <li className="collection-item blue">
                                     Deposit Paid:
-                                    <span className="sag">= $50</span>
-                                    {/* TODO: fix */}
+                                    <span className="sag">= ${is.deposit}</span>
                                 </li>
                                 <li className="collection-item blue">
                                     Grand Total Cash:
-                                    <span className="sag">= $50</span>
-                                    {/* TODO: fix */}
+                                    <span className="sag">= ${this.payCash - is.deposit}</span>
                                 </li>
                                 <li className="collection-item blue">
                                     Grand Total Card:
-                                    <span className="sag">= $50</span>
-                                    {/* TODO: fix */}
+                                    <span className="sag">= ${this.payCard - is.deposit}</span>
                                 </li>
                                 <li className="collection-item blue">
                                     Discount:
