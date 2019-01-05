@@ -406,14 +406,15 @@ MY OWN FREE WILL`
     hesabla(inputType, e) {
         let workData = this.state.vurulmusIs.length > 0 ? this.state.vurulmusIs[0] : null;
         let percentDiscount = Number(this.totalDiscountPercent) || 0;
+        let percentDiscountRate = 1 - (percentDiscount / 100);
         let cashDiscount = Number(this.totalDiscountAmount) || 0;
-        let cashDiscountedPercent = cashDiscount * (1 - (percentDiscount / 100)) || 0;
+        let cashDiscountedPercent = cashDiscount * percentDiscountRate || 0;
         let timeDiscount = Number(this.totalDiscountTime) || 0;
         let flatRateIsTrue = workData.flatRate ? workData.flatRate[0].isTrue : false;
         let flatCashAmount = workData.flatRate ? Number(workData.flatRate[0].cashAmount) : 0;
-        let flatCashAmountDiscounted = flatCashAmount * (1 - (percentDiscount / 100)) || 0;
+        let flatCashAmountDiscounted = flatCashAmount * percentDiscountRate || 0;
         let flatCardAmount = workData.flatRate ? Number(workData.flatRate[0].cardAmount) : 0;
-        let flatCardAmountDiscounted = flatCardAmount * (1 - (percentDiscount / 100)) || 0;
+        let flatCardAmountDiscounted = flatCardAmount * percentDiscountRate || 0;
         let cashRate = Number(workData.hourlyRatesCash) || 0;
         let cardRate = Number(workData.hourlyRatesCard) || 0;
         let startToFinishTime = workData.totalWorkTime; //start to finish time included break and driving time
@@ -427,125 +428,136 @@ MY OWN FREE WILL`
         let doubleDriveCard = doubleDriveTime * cardRate;
 
         // double drive olmadiqda
-        startToFinishTime = (Math.ceil((workLaborTime + drivingTime) / 0.25) * 0.25);
+        startToFinishTime = workLaborTime + drivingTime;
 
         // flat rate olduqda
         this.lessThanLabor = false;
         flatRateIsTrue
-            ? startToFinishTime - laborTime - breakTimeTotal < 0
+            ? startToFinishTime - laborTime - breakTimeTotal <= 0
                 ? (startToFinishTime = laborTime, this.lessThanLabor = true)
                 : startToFinishTime -= laborTime - breakTimeTotal
             : null;
 
         // DDT olduqda ve isleme saati labor vaxtdan az olduqda
         doubleDrive && workLaborTime < laborTime
-            ? startToFinishTime = (Math.ceil((laborTime + (drivingTime * 2)) / 0.25) * 0.25)
+            ? startToFinishTime = laborTime + (drivingTime * 2)
             : null;
 
         // double drive time olduqda ve isleme saati labor timedan cox olduqda
         doubleDrive && workLaborTime > laborTime
-            ? startToFinishTime = (Math.ceil((workLaborTime + (drivingTime * 2)) / 0.25) * 0.25)
+            ? startToFinishTime = workLaborTime + (drivingTime * 2)
             : null;
 
+        startToFinishTime = Math.ceil(startToFinishTime / 0.25) * 0.25;
+
+        this.totalWorkLaborTime = startToFinishTime;
         // time discount calculation
         timeDiscount > 0
             ? startToFinishTime -= timeDiscount
             : null;
 
-        startToFinishTime = startToFinishTime * (1 - (percentDiscount / 100));
+        startToFinishTime = startToFinishTime * percentDiscountRate;
         let startToFinishCashAmountDiscounted = startToFinishTime * cashRate;
         let startToFinishCardAmountDiscounted = startToFinishTime * cardRate;
         let gasFee = Number(workData.gasFee) || 0;
         let extraLargeItemFee = Number(workData.largeItemFee) || 0;
         let smallItemPacking = Number(workData.smallItemPacking) || 0;
         let additionalCharges = Number(this.totalAdditionalCharge) || 0;
-        let deposit = Number(workData.deposit) || 0;
         let packingSupplies = this.state.totalPul;
         let inputAmount = Number(e.target.value);
         let typeOfPayment = inputType;
         let amountOf = 0;
+        let deposit = workData.deposit;
 
         // // total additional charges
-        // additionalCharges += (gasFee && gasFee > 0 ? gasFee : 0) + (extraLargeItemFee && extraLargeItemFee > 0 ? extraLargeItemFee : 0) + (smallItemPacking > 0 ? smallItemPacking : 0);
+        additionalCharges += (gasFee && gasFee > 0 ? gasFee : 0) + (extraLargeItemFee && extraLargeItemFee > 0 ? extraLargeItemFee : 0) + (smallItemPacking > 0 ? smallItemPacking : 0) + packingSupplies;
 
         // // this.payCash ve this.payCard hesablanmasi
         // this.payCash = (startToFinishCashAmountDiscounted + flatCashAmountDiscounted - cashDiscountedPercent + doubleDriveCash + additionalCharges).toFixed(2);
         // this.payCard = (startToFinishCardAmountDiscounted + flatCardAmountDiscounted - cashDiscountedPercent + doubleDriveCard + additionalCharges).toFixed(2);
 
-        typeOfPayment === 'cash'
-            ? inputAmount < 0
-                ? inputAmount = 0
-                : inputAmount > this.payCash
-                    ? (
-                        inputAmount = this.payCash,
-                        this.setState({
-                            payCard: 0,
-                            payCash: inputAmount
-                        }, () => {
-                            document.getElementById('mark-as-payed').classList.remove('disabled');
-                        })
-                    )
-                    // if payed amount less than what should pay
-                    : ((additionalCharges -= inputAmount) < 0
-                        ? (doubleDriveCash += additionalCharges) < 0
-                            ? (flatCashAmountDiscounted += doubleDriveCash) < 0
-                                ? startToFinishCashAmountDiscounted += flatCashAmountDiscounted
-                                : (flatCashAmountDiscounted += doubleDriveCash, doubleDriveCash = 0)
-                            : (doubleDriveCash += additionalCharges, additionalCharges = 0)
-                        : (
-                            additionalCharges -= inputAmount,
-                            additionalCharges < 0 ? additionalCharges = 0 : null,
-                            doubleDriveCash < 0 ? doubleDriveCash = 0 : null,
-                            doubleDriveCard = (doubleDriveCash / cashRate * cardRate),
-                            flatCashAmountDiscounted < 0 ? flatCashAmountDiscounted = 0 : null,
-                            flatCardAmountDiscounted = (flatCashAmountDiscounted / flatCashAmount * flatCardAmount),
-                            startToFinishCardAmountDiscounted = (startToFinishCashAmountDiscounted / cashRate * cardRate),
-                            amountOf = startToFinishCardAmountDiscounted + flatCardAmountDiscounted + doubleDriveCard + additionalCharges - deposit,
-                            amountOf = amountOf.toFixed(2),
-                            document.getElementById('mark-as-payed').classList.add('disabled'),
-                            this.setState({
-                                payCard: amountOf,
-                                payCash: inputAmount
-                            })
-                        )
-                    )
-            : inputAmount < 0
-                ? inputAmount = 0
-                : inputAmount > this.payCard
-                    ? (
-                        inputAmount = this.payCard,
-                        this.setState({
-                            payCard: inputAmount,
-                            payCash: 0
-                        }, () => {
-                            document.getElementById('mark-as-payed').classList.remove('disabled');
-                        })
-                    )
-                    // if payed amount less than what should pay
-                    : ((additionalCharges -= inputAmount) < 0
-                        ? (doubleDriveCard += additionalCharges) < 0
-                            ? (flatCardAmountDiscounted += doubleDriveCard) < 0
-                                ? startToFinishCardAmountDiscounted += flatCardAmountDiscounted
-                                : flatCardAmountDiscounted += doubleDriveCard
-                            : doubleDriveCard += additionalCharges
-                        : (
-                            additionalCharges += inputAmount,
-                            additionalCharges < 0 ? additionalCharges = 0 : null,
-                            doubleDriveCard < 0 ? doubleDriveCard = 0 : null,
-                            doubleDriveCash = (doubleDriveCard / cardRate * cashRate),
-                            flatCardAmountDiscounted < 0 ? flatCardAmountDiscounted = 0 : null,
-                            flatCashAmountDiscounted = (flatCardAmountDiscounted / flatCardAmount * flatCashAmount),
-                            startToFinishCashAmountDiscounted = (startToFinishCardAmountDiscounted / cardRate * cashRate),
-                            amountOf = startToFinishCashAmountDiscounted + flatCashAmountDiscounted + doubleDriveCash + additionalCharges - deposit,
-                            amountOf = amountOf.toFixed(2),
-                            document.getElementById('mark-as-payed').classList.add('disabled'),
-                            this.setState({
-                                payCard: inputAmount,
-                                payCash: amountOf
-                            })
-                        )
-                    );
+        if (typeOfPayment === 'cash') {
+            if (inputAmount < 0 || inputAmount === '' || inputAmount === 0) {
+                this.setState({
+                    payCard: this.payCard - deposit,
+                    payCash: 0
+                });
+            } else if (inputAmount >= (this.payCash - deposit)) {
+                inputAmount = (this.payCash - deposit);
+                this.setState({
+                    payCard: 0,
+                    payCash: inputAmount
+                }, () => {
+                    document.getElementById('mark-as-payed').classList.remove('disabled');
+                });
+            } else if ((additionalCharges -= inputAmount) < 0) {
+                if ((doubleDriveCash += additionalCharges) < 0) {
+                    if ((flatCashAmountDiscounted += doubleDriveCash) < 0) {
+                        startToFinishCashAmountDiscounted += flatCashAmountDiscounted;
+                        flatCashAmountDiscounted = 0;
+                        doubleDriveCash = 0;
+                        additionalCharges = 0;
+                    } else {
+                        doubleDriveCash = 0;
+                        additionalCharges = 0;
+                    }
+                } else {
+                    additionalCharges = 0;
+                }
+                doubleDriveCard = (doubleDriveCash / cashRate * cardRate);
+                flatCardAmountDiscounted = (flatCashAmountDiscounted / flatCashAmount * flatCardAmount);
+                startToFinishCardAmountDiscounted = (startToFinishCashAmountDiscounted / cashRate * cardRate);
+                amountOf = (this.lessThanLabor ? 0 : startToFinishCardAmountDiscounted) + flatCardAmountDiscounted - cashDiscountedPercent + doubleDriveCard + additionalCharges - deposit;
+                amountOf = amountOf.toFixed(2);
+                document.getElementById('mark-as-payed').classList.add('disabled');
+                this.setState({
+                    payCard: amountOf,
+                    payCash: inputAmount
+                });
+            }
+        } else {
+            if (inputAmount < 0 || inputAmount === '' || inputAmount === 0) {
+                this.setState({
+                    payCard: 0,
+                    payCash: this.payCash - deposit,
+                });
+            } else if (inputAmount >= (this.payCard - deposit)) {
+                inputAmount = (this.payCard - deposit);
+                this.setState({
+                    payCard: inputAmount,
+                    payCash: 0
+                }, () => {
+                    document.getElementById('mark-as-payed').classList.remove('disabled');
+                });
+            } else if ((additionalCharges -= inputAmount) < 0) {
+                if ((doubleDriveCard += additionalCharges) < 0) {
+                    if ((flatCardAmountDiscounted += doubleDriveCard) < 0) {
+                        startToFinishCardAmountDiscounted += flatCardAmountDiscounted;
+                        flatCardAmountDiscounted = 0;
+                        doubleDriveCard = 0;
+                        additionalCharges = 0;
+                    } else {
+                        doubleDriveCard = 0;
+                        additionalCharges = 0;
+                    }
+                } else {
+                    additionalCharges = 0;
+                }
+                doubleDriveCash = (doubleDriveCard / cardRate * cashRate);
+                flatCashAmountDiscounted = (flatCardAmountDiscounted / flatCardAmount * flatCashAmount);
+                startToFinishCashAmountDiscounted = (startToFinishCardAmountDiscounted / cardRate * cashRate);
+                amountOf = (this.lessThanLabor ? 0 : startToFinishCashAmountDiscounted) + flatCashAmountDiscounted - cashDiscountedPercent + doubleDriveCash + additionalCharges - deposit;
+                amountOf = amountOf.toFixed(2);
+                document.getElementById('mark-as-payed').classList.add('disabled');
+                this.setState({
+                    payCard: inputAmount,
+                    payCash: amountOf
+                });
+            }
+        }
     }
+
+
 
     check() {
         let select = document.querySelectorAll('.checked');
