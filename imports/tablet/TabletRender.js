@@ -450,7 +450,7 @@ MY OWN FREE WILL`
 
         startToFinishTime = Math.ceil(startToFinishTime / 0.25) * 0.25;
 
-        this.totalWorkLaborTime = startToFinishTime;
+        this.totalWorkLaborTime = flatRateIsTrue ? startToFinishTime - laborTime : startToFinishTime;
         // time discount calculation
         timeDiscount > 0
             ? startToFinishTime -= timeDiscount
@@ -490,19 +490,21 @@ MY OWN FREE WILL`
                 }, () => {
                     document.getElementById('mark-as-payed').classList.remove('disabled');
                 });
-            } else if ((additionalCharges -= inputAmount) < 0) {
-                if ((doubleDriveCash += additionalCharges) < 0) {
-                    if ((flatCashAmountDiscounted += doubleDriveCash) < 0) {
-                        startToFinishCashAmountDiscounted += flatCashAmountDiscounted;
-                        flatCashAmountDiscounted = 0;
-                        doubleDriveCash = 0;
-                        additionalCharges = 0;
+            } else {
+                if ((additionalCharges -= inputAmount) < 0) {
+                    if ((doubleDriveCash += additionalCharges) < 0) {
+                        if ((flatCashAmountDiscounted += doubleDriveCash) < 0) {
+                            startToFinishCashAmountDiscounted += flatCashAmountDiscounted;
+                            flatCashAmountDiscounted = 0;
+                            doubleDriveCash = 0;
+                            additionalCharges = 0;
+                        } else {
+                            doubleDriveCash = 0;
+                            additionalCharges = 0;
+                        }
                     } else {
-                        doubleDriveCash = 0;
                         additionalCharges = 0;
                     }
-                } else {
-                    additionalCharges = 0;
                 }
                 doubleDriveCard = (doubleDriveCash / cashRate * cardRate);
                 flatCardAmountDiscounted = (flatCashAmountDiscounted / flatCashAmount * flatCardAmount);
@@ -529,19 +531,21 @@ MY OWN FREE WILL`
                 }, () => {
                     document.getElementById('mark-as-payed').classList.remove('disabled');
                 });
-            } else if ((additionalCharges -= inputAmount) < 0) {
-                if ((doubleDriveCard += additionalCharges) < 0) {
-                    if ((flatCardAmountDiscounted += doubleDriveCard) < 0) {
-                        startToFinishCardAmountDiscounted += flatCardAmountDiscounted;
-                        flatCardAmountDiscounted = 0;
-                        doubleDriveCard = 0;
-                        additionalCharges = 0;
+            } else {
+                if ((additionalCharges -= inputAmount) < 0) {
+                    if ((doubleDriveCard += additionalCharges) < 0) {
+                        if ((flatCardAmountDiscounted += doubleDriveCard) < 0) {
+                            startToFinishCardAmountDiscounted += flatCardAmountDiscounted;
+                            flatCardAmountDiscounted = 0;
+                            doubleDriveCard = 0;
+                            additionalCharges = 0;
+                        } else {
+                            doubleDriveCard = 0;
+                            additionalCharges = 0;
+                        }
                     } else {
-                        doubleDriveCard = 0;
                         additionalCharges = 0;
                     }
-                } else {
-                    additionalCharges = 0;
                 }
                 doubleDriveCash = (doubleDriveCard / cardRate * cashRate);
                 flatCashAmountDiscounted = (flatCardAmountDiscounted / flatCardAmount * flatCashAmount);
@@ -1215,7 +1219,7 @@ MY OWN FREE WILL`
                             <ul className="collection kolleksiya">
                                 <li className="collection-item blue">
                                     Start to Finish:
-                                    <span className="sag">= {is.totalWorkTime} hours</span>
+                                    <span className="sag">= {is.totalWorkTime ? is.totalWorkTime.toFixed(2) : null} hours</span>
                                 </li>
                                 <li className="collection-item blue">
                                     Driving Time:
