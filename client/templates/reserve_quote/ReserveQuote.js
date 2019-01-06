@@ -71,7 +71,7 @@ class ReserveQuote extends React.Component {
     addressesRender(addressler) {
         return (addressler.map((address, index) => {
             return (
-                <tr>
+                <tr key={index + 'key'}>
                     <td>
                         Address#{index + 1}:
                     </td>

@@ -167,6 +167,7 @@ if (Meteor.isServer) {
         confirmationGonder: function (job) {
             WorkData.update(job._id, {
                 $set: {
+                    clientFirstName: job.clientFirstName,
                     quote: false
                 }
             });
