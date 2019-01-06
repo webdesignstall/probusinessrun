@@ -106,7 +106,7 @@ class ReserveQuote extends React.Component {
                     <div key={index}>
                         <p>
                             Hello {job.clientFirstName}!<br />
-                            hank you for confirming your move with chat Movers Los Angeles!<br />
+                            Thank you for confirming your move with chat Movers Los Angeles!<br />
                             Please review your Moving Confirmation below to ensure accuracy:
                         </p>
                         <table>
@@ -144,7 +144,7 @@ class ReserveQuote extends React.Component {
                                         ?
                                         (<tr>
                                             <td>Minimum Labor Time:</td>
-                                            <td>${job.laborTime} hours</td>
+                                            <td>{job.laborTime} hours</td>
                                         </tr>
                                         )
                                         : ''
@@ -175,7 +175,7 @@ class ReserveQuote extends React.Component {
                                         ?
                                         (<tr>
                                             <td>Cash Discount Rate p/hour:</td>
-                                            <td>${job.hourlyRatesCash} per hour</td>
+                                            <td>${job.hourlyRatesCash}</td>
                                         </tr>
                                         )
                                         : ''
@@ -188,7 +188,7 @@ class ReserveQuote extends React.Component {
                                         (
                                             <tr>
                                                 <td>Card Regular Rate p/hour:</td>
-                                                <td>${job.hourlyRatesCard} per hour</td>
+                                                <td>${job.hourlyRatesCard}</td>
                                             </tr>
                                         )
                                         : ''
@@ -210,7 +210,7 @@ class ReserveQuote extends React.Component {
                                         ? (
                                             <tr>
                                                 <td>Double Drive Time:</td>
-                                                <td>Yes, <a href="http://cheapmoversanaheim.com/ProBusinessRun/6.pdf" download="http://cheapmoversanaheim.com/ProBusinessRun/6.pdf" target="_blank">learn more</a></td>
+                                                <td>Yes, <a href="http://www.moverslegion.com/wp-content/uploads/2018/12/DDT.pdf" download="http://www.moverslegion.com/wp-content/uploads/2018/12/DDT.pdf" target="_blank" rel="noopener noreferrer">learn more</a></td>
                                             </tr>
                                         )
                                         : ''
@@ -224,7 +224,7 @@ class ReserveQuote extends React.Component {
                                                 <td>
                                                     {
                                                         job.smallItemPacking < 0
-                                                            ? ('Yes', <a href="http://cheapmoversanaheim.com/ProBusinessRun/6.pdf" download="http://cheapmoversanaheim.com/ProBusinessRun/6.pdf" target="_blank">learn more</a>)
+                                                            ? ('Yes', <a href="http://cheapmoversanaheim.com/ProBusinessRun/6.pdf" download="http://cheapmoversanaheim.com/ProBusinessRun/6.pdf" target="_blank" rel="noopener noreferrer">learn more</a>)
                                                             : '$' + job.smallItemPacking
                                                     }
                                                 </td>
@@ -247,23 +247,23 @@ class ReserveQuote extends React.Component {
                         <div className="sola-cekme">
                             <p>
                                 {/* finish the on clikc pdf download */}
-                                <input className="secilib" onChange={() => this.checked()} type="checkbox" /> I have read, understand and agree to the contents of the <i><a href="http://www.moverslegion.com/wp-content/uploads/2018/12/included.pdf" download="http://www.moverslegion.com/wp-content/uploads/2018/12/included.pdf" target="_blank">&quot;What&apos;s Included&quot; Section.</a></i>
+                                <input className="secilib" onChange={() => this.checked()} type="checkbox" /> I have read, understand and agree to the contents of the <i><a href="http://www.moverslegion.com/wp-content/uploads/2018/12/included.pdf" download="http://www.moverslegion.com/wp-content/uploads/2018/12/included.pdf" target="_blank" rel="noopener noreferrer">&quot;What&apos;s Included&quot; Section.</a></i>
                             </p>
                             <p>
-                                <input className="secilib" onChange={() => this.checked()} type="checkbox" /> I have read, understand and agree to the contents of the <i><a href="http://www.moverslegion.com/wp-content/uploads/2018/12/not-included.pdf" download="http://www.moverslegion.com/wp-content/uploads/2018/12/not-included.pdf" target="_blank">&quot;What&apos;s Not Included&quot; Section.</a></i>
+                                <input className="secilib" onChange={() => this.checked()} type="checkbox" /> I have read, understand and agree to the contents of the <i><a href="http://www.moverslegion.com/wp-content/uploads/2018/12/not-included.pdf" download="http://www.moverslegion.com/wp-content/uploads/2018/12/not-included.pdf" target="_blank" rel="noopener noreferrer">&quot;What&apos;s Not Included&quot; Section.</a></i>
                             </p>
                             <p>
-                                <input className="secilib" onChange={() => this.checked()} type="checkbox" /> I have read, understand and agree to the contents of the <i><a href="http://www.moverslegion.com/wp-content/uploads/2018/12/for-you-1.pdf" download="http://www.moverslegion.com/wp-content/uploads/2018/12/for-you-1.pdf" target="_blank">&quot;For Your Information&quot; Section.</a></i>
+                                <input className="secilib" onChange={() => this.checked()} type="checkbox" /> I have read, understand and agree to the contents of the <i><a href="http://www.moverslegion.com/wp-content/uploads/2018/12/for-you-1.pdf" download="http://www.moverslegion.com/wp-content/uploads/2018/12/for-you-1.pdf" target="_blank" rel="noopener noreferrer">&quot;For Your Information&quot; Section.</a></i>
                             </p>
                             <p>
-                                <input className="secilib" onChange={() => this.checked()} type="checkbox" /> I have recieved a copy of the <i><a href="http://www.moverslegion.com/wp-content/uploads/2018/12/important.pdf" download="http://www.moverslegion.com/wp-content/uploads/2018/12/important.pdf" target="_blank">CPUC &quot;Important Information About Your Move&quot; booklet.</a></i>
+                                <input className="secilib" onChange={() => this.checked()} type="checkbox" /> I have recieved a copy of the <i><a href="http://www.moverslegion.com/wp-content/uploads/2018/12/important.pdf" download="http://www.moverslegion.com/wp-content/uploads/2018/12/important.pdf" target="_blank" rel="noopener noreferrer">CPUC &quot;Important Information About Your Move&quot; booklet.</a></i>
                             </p>
                             <p>
-                                <input className="secilib" onChange={() => this.checked()} type="checkbox" /> I have recieved a copy of the <i><a href="http://www.moverslegion.com/wp-content/uploads/2018/12/Hazard.pdf" download="http://www.moverslegion.com/wp-content/uploads/2018/12/Hazard.pdf" target="_blank">CPUC Hazardous Material List</a></i> and I agree not to pack any of the<br />
+                                <input className="secilib" onChange={() => this.checked()} type="checkbox" /> I have recieved a copy of the <i><a href="http://www.moverslegion.com/wp-content/uploads/2018/12/Hazard.pdf" download="http://www.moverslegion.com/wp-content/uploads/2018/12/Hazard.pdf" target="_blank" rel="noopener noreferrer">CPUC Hazardous Material List</a></i> and I agree not to pack any of the<br />
                                 items listed for transportation by Cheap Movers Los Angeles.
                             </p>
                             <p>
-                                <input className="secilib" onChange={() => this.checked()} type="checkbox" /> I understand and agree that I will have <i><a href="#" onClick={() => this.mesaj('cashOrCard')}>Cash or Card Payment</a></i> ready on the day of my move.
+                                <input className="secilib" onChange={() => this.checked()} type="checkbox" /> I understand and agree that I will have Cash or Card Payment ready on the day of my move.
                             </p>
                             <p>
                                 <input className="secilib" onChange={() => this.checked()} type="checkbox" /> Yes! I have read the information above and wish to pay my Moving Deposit to book this move.<br />
