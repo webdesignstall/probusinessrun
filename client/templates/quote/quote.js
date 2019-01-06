@@ -66,9 +66,9 @@ Template.updateQuote.helpers({
         );
     },
     isGasFee: () => {
-        WorkData.findOne({ _id: Session.get('is') }) && WorkData.findOne({ _id: Session.get('is') }).gasFee < 0
+        return (WorkData.findOne({ _id: Session.get('is') }) && WorkData.findOne({ _id: Session.get('is') }).gasFee < 0
             ? true
-            : false;
+            : false);
     },
     isFlat: function () {
         return WorkData.findOne({ _id: Session.get('is') })
