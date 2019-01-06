@@ -357,6 +357,8 @@ Template.preQuote.events({
                             // run job number
                             jobNumber_();
 
+                            Session.set('reset', true);
+
                             Session.get('flatRate')
                                 ? (
                                     document.querySelector('#flatRate_').classList.remove('hide'),

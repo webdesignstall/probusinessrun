@@ -63,6 +63,7 @@ export default class ArrivalWindow extends React.Component {
         this.x = Tracker.autorun(() => {
             let id = Session.get('is');
             let selected = '';
+            let resetted = Session.get('reset')
 
             if (id != '') {
                 selected = WorkData.find({ _id: id }).fetch();
@@ -75,16 +76,23 @@ export default class ArrivalWindow extends React.Component {
                 this.secilmisiRenderEt();
             });
 
-            let that = this;
-            document.getElementById('select-arrive-time').onchange = function () {
+            resetted 
+                ? this.setState({
+                        custom: true
+                    })
+                    :this.setState({
+                        custom: false
+                    });
+
+            document.getElementById('select-arrive-time').onchange = () => {
                 let value = document.getElementById('select-arrive-time').value;
                 if (value === 'Custom') {
                     // document.getElementsByClassName('select-wrapper')[0].classList.add('hide');
-                    that.setState({
+                    this.setState({
                         custom: true
                     });
                 } else {
-                    that.setState({
+                    this.setState({
                         custom: false
                     });
                 }
