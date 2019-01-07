@@ -8,7 +8,7 @@ import { Session } from 'meteor/session';
 
 
 
-/*global Bert*/ //defined globals
+/*global $, Bert*/ //defined globals
 
 window.jQuery = window.$ = $;
 

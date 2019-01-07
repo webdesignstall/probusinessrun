@@ -78,6 +78,84 @@ Template.updateQuote.helpers({
 });
 
 Template.updateQuote.events({
+    'click #resend-email': function (e) {
+        e.preventDefault();
+
+        let job = WorkData.findOne({ _id: Session.get('is') });
+        let companyInfo = job.companyInfo;
+        let bazaIsci = [];
+        let bazaIsciOb = document.getElementsByClassName('secilmisIsci');
+        let trucksSelected = (function () {
+            let massiv = document.getElementsByClassName('truck-select');
+            let massivFilter = [];
+            let i = 0;
+
+            for (i = 0; i < massiv.length; i++) {
+                massivFilter.push({
+                    truck: massiv[i].value
+                });
+            }
+            return massivFilter;
+        })();
+
+        let t = 0;
+        for (t = 0; t < bazaIsciOb.length; t++) {
+            bazaIsci.push({ id: (bazaIsciOb[t].id) });
+        }
+
+        let workDate = document.getElementById('quote-date-picker_2').value;
+
+        let addressesArray = Array.from(document.getElementsByClassName('addresses'));
+        let addresses = [];
+        addressesArray.map((address) => {
+            addresses.push(address.value);
+        });
+
+
+        let doc = {
+            _id: Session.get('is'),
+            clientFirstName: document.getElementById('firstName_2').value,
+            clientLastName: document.getElementById('lastName_2').value,
+            phoneNumber: document.getElementById('phoneNumber_2').value,
+            phoneAdditional: document.getElementById('phoneNumber_2_additional').value,
+            email: document.getElementById('musteriEmail_2').value,
+            addresses,
+            workDate: moment(workDate).format('MM/DD/YYYY'),
+            workMustBeginTime: (function () {
+                let birinci = document.getElementById('update-input-custom-time').value;
+                let ikinci = document.getElementById('update-select-arrive-time').value;
+
+                if (ikinci === 'Select moving time window' || ikinci === 'Custom') {
+                    return birinci;
+                } else {
+                    return ikinci;
+                }
+            })(),
+            price: document.getElementById('quote_price_2').value,
+            laborTime: document.getElementById('labor_time_2').value,
+            hourlyRatesCash: document.getElementById('hourly_rates_cash_2').value,
+            hourlyRatesCard: document.getElementById('hourly_rates_card_2').value,
+            trucks: trucksSelected,
+            companyInfo,
+            doubleDrive: document.getElementById('updated-double-drive-value').value,
+            gasFee: document.getElementById('gas_fee_2').value,
+            smallItemPacking: document.getElementById('small_item_pack_2').value,
+            largeItemFee: document.getElementById('large_item_fee_2').value,
+            movingSize: Session.get('movingSize'),
+            workers: Session.get('secilmisIsciler'),
+            note: document.getElementById('textarea2').value,
+            trucksTemp: Session.get('trucklar'),
+            flatRate: [{
+                isTrue: Session.get('flatRate'),
+                cashAmount: !isNaN(document.querySelector('#flatRateCashUpdate').value) ? document.querySelector('#flatRateCashUpdate').value : 0,
+                cardAmount: !isNaN(document.querySelector('#flatRateCardUpdate').value) ? document.querySelector('#flatRateCardUpdate').value : 0
+            }],
+            comment: document.getElementById('textarea2').value,
+            deposit: document.getElementById('deposit-update').value
+        };
+
+        Meteor.call('emailGonder', doc, (err, res) => err ? console.log(err) : console.log(res));
+    },
     'click #work-update': function (e) {
         e.preventDefault;
         let bazaIsci = [];
@@ -149,7 +227,7 @@ Template.updateQuote.events({
             comment: document.getElementById('textarea2').value,
             deposit: document.getElementById('deposit-update').value
         };
-        console.log(doc);
+
         Meteor.call('updateWork', doc, function (err) {
             if (err) {
                 Bert.alert({
