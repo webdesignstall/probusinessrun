@@ -1278,6 +1278,21 @@ MY OWN FREE WILL`
                                     <span className="sag">= ${is.gasFee > 0 ? is.gasFee : ''}</span>
                                 </li>
                                 <li className="collection-item blue">
+                                    Discount:
+                                    {this.totalDiscountAmount && this.totalDiscountAmount > 0
+                                        ? <span className="sag discountYeri">${this.totalDiscountAmount}</span>
+                                        : ''
+                                    }
+                                    {this.totalDiscountTime && this.totalDiscountTime > 0
+                                        ? <span className="sag discountYeri">{this.totalDiscountTime} minutes</span>
+                                        : ''
+                                    }
+                                    {this.totalDiscountPercent && this.totalDiscountPercent > 0
+                                        ? <span className="sag discountYeri">{this.originalPercentDiscount}%</span>
+                                        : ''
+                                    }
+                                </li>
+                                <li className="collection-item blue">
                                     Total amount cash:
                                     <span className="sag">= ${(() => {
                                         this.calculateAmount();
@@ -1301,31 +1316,6 @@ MY OWN FREE WILL`
                                 <li className="collection-item blue">
                                     Grand Total Card:
                                     <span className="sag">= ${this.payCard - is.deposit}</span>
-                                </li>
-                                <li className="collection-item blue">
-                                    Discount:
-                                    {this.totalDiscountAmount && this.totalDiscountAmount > 0
-                                        ? <span className="sag discountYeri">${this.totalDiscountAmount}</span>
-                                        : ''
-                                    }
-                                    {this.totalDiscountTime && this.totalDiscountTime > 0
-                                        ? <span className="sag discountYeri">{this.totalDiscountTime} minutes</span>
-                                        : ''
-                                    }
-                                    {this.totalDiscountPercent && this.totalDiscountPercent > 0
-                                        ? <span className="sag discountYeri">{this.originalPercentDiscount}%</span>
-                                        : ''
-                                    }
-                                </li>
-                                <li className="collection-item blue">
-                                    Total Cash After Discount:
-                                    <span className="sag">= $50</span>
-                                    {/* TODO: fix */}
-                                </li>
-                                <li className="collection-item blue">
-                                    Total Card After Discount:
-                                    <span className="sag">= $50</span>
-                                    {/* TODO: fix */}
                                 </li>
                             </ul>
                         </div>
