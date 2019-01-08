@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { Tracker } from 'meteor/tracker';
 import WorkData from '../../../common/collections_2';
 import { Meteor } from 'meteor/meteor';
@@ -11,7 +10,7 @@ export default class Addresses extends React.Component {
 
         this.state = {
             arrayOfvalue: ['', '']
-        }
+        };
 
         this.renderAddressFields = this.renderAddressFields.bind(this);
         this.addMore = this.addMore.bind(this);
@@ -21,14 +20,14 @@ export default class Addresses extends React.Component {
 
     componentDidMount() {
         this.x = Tracker.autorun(() => {
-            Meteor.subscribe('workSchema')
+            Meteor.subscribe('workSchema');
             let isId = Session.get('is');
             let isInfo = WorkData.findOne(isId);
 
             isInfo && isInfo.addresses.length > 0
                 ? this.setState({ arrayOfvalue: isInfo.addresses })
                 : null;
-        })
+        });
     }
 
     resetComponent() {
@@ -48,16 +47,21 @@ export default class Addresses extends React.Component {
         this.setState({ arrayOfvalue });
     }
 
+    deleteAddress(id) {
+        document.getElementById(id).remove();
+    }
+
     renderAddressFields() {
         return (
             this.state.arrayOfvalue.map((el, i) =>
-                <div key={i} className="input-field valideyn col s12 m6 l6">
+                <div key={i} id={i + '_id'} className="input-field valideyn col s12 m6 l6">
                     <i className="material-icons isare">location_on</i>
                     <input key={i} className="addresses" type="text" placeholder="" value={this.state.arrayOfvalue[i]} onChange={this.inputChangeHandler.bind(this, i)} />
+                    <i className="material-icons sag delete-address animated" onClick={() => this.deleteAddress(i + '_id')}>delete_forever</i>
                     <label className="active" htmlFor="movingFrom">{'Address #' + (i + 1)}</label>
                 </div>
             )
-        )
+        );
     }
     // add functionality to the multi address 
     addMore() {
