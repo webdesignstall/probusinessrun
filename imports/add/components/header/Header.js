@@ -42,7 +42,7 @@ export default class Header extends Component {
                     <SubMenu subMenu={this.state.subMenu} selectMenu={this.selectMenu} />
                 </div>
                 <div className={this.state.subMenu.length > 0 ? '' : 'hide'} style={{ backgroundColor: '#FFFDF3', fontFamily: 'monospace' }}>
-                    {this.state.selectedMenu !== '' ? <MoverList whatToDisplay={this.state.selectedMenu} /> : null}
+                    {this.state.selectedMenu !== '' ? <MoverList whatToDisplay={this.state.selectedMenu === 'movers' ? 'mover' : this.state.selectedMenu === 'office employees' ? 'officeEmployee' : 'tablet'} /> : null}
                 </div>
             </div>
         );

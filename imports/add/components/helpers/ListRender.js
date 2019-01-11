@@ -8,6 +8,7 @@ export default class ListRender extends Component {
         super(props);
 
         this.state = {
+            rank: this.props.rank,
             list: []
         };
 
@@ -21,9 +22,24 @@ export default class ListRender extends Component {
                 'profile.rank': this.props.rank
             }).fetch();
 
+            console.log(this.state.rank);
+
             this.setState({
                 list
             });
+        });
+    }
+
+    UNSAFE_componentWillReceiveProps(nextProps) {
+        const list = Meteor.users.find({
+            // 'profile.company': Meteor.userId(),
+            'profile.rank': nextProps.rank
+        }).fetch();
+        console.log(nextProps.rank);
+
+        this.setState({
+            rank: nextProps.rank,
+            list
         });
     }
 

@@ -9,7 +9,7 @@ export default class MoverList extends Component {
 
         this.state = {
             obj: {
-                rank: 'mover',
+                rank: (this.props.whatToDisplay),
                 firstName: '',
                 lastName: '',
                 phoneNumber: '',
@@ -28,6 +28,14 @@ export default class MoverList extends Component {
         this.show = this.show.bind(this);
     }
 
+    UNSAFE_componentWillReceiveProps(nextProps, nextContext) {
+        this.setState({
+            obj: {
+                rank: nextProps.whatToDisplay
+            }
+        });
+    }
+
     stateChanged(obj) {
         this.setState({ obj });
     }
@@ -43,9 +51,13 @@ export default class MoverList extends Component {
             <div className="div">
                 <div className="employee--add-button card__">
                     <AddButton obj={this.state.obj} show={this.show} />
-                    <MoverForm show={this.state.show} saveInfo={this.stateChanged} />
+                    {
+                        (this.state.obj.rank === 'mover' || this.state.obj.rank === 'officeEmployee')
+                            ? <MoverForm show={this.state.show} saveInfo={this.stateChanged} rank={this.state.obj.rank} />
+                            : null
+                    }
                 </div>
-                <ListRender rank='mover' />
+                <ListRender rank={this.state.obj.rank} />
             </div>
         );
     }

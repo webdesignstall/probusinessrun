@@ -5,7 +5,7 @@ export default class MoverForm extends Component {
         super(props);
 
         this.state = {
-            rank: 'mover',
+            rank: this.props.rank,
             firstName: '',
             lastName: '',
             phone: '',
@@ -15,6 +15,12 @@ export default class MoverForm extends Component {
         };
 
         this.inputChange = this.inputChange.bind(this);
+    }
+
+    UNSAFE_componentWillReceiveProps(nextProps) {
+        this.setState({
+            rank: nextProps.rank
+        });
     }
 
     inputChange(type, e) {
