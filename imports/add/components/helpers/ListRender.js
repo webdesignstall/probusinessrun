@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
-import { Tracker } from 'meteor/tracker';
 import DeleteButton from './DeleteButton';
+import TrackerReact from 'meteor/ultimatejs:tracker-react';
+import { Tracker } from 'meteor/tracker';
 
-export default class ListRender extends Component {
+export default class ListRender extends TrackerReact(Component) {
     constructor(props) {
         super(props);
 
@@ -15,36 +16,33 @@ export default class ListRender extends Component {
         this.renderList = this.renderList.bind(this);
     }
 
-    componentDidMount() {
+    getlistFromDatabase() {
         this.x = Tracker.autorun(() => {
-            const list = Meteor.users.find({
+            const data = Meteor.users.find({
                 'profile.company': Meteor.userId(),
-                'profile.rank': this.props.rank
+                'profile.rank': this.state.rank
             }).fetch();
 
-            console.log(this.state.rank);
-
             this.setState({
-                list
+                list: data
             });
         });
     }
 
-    UNSAFE_componentWillReceiveProps(nextProps) {
-        const list = Meteor.users.find({
-            // 'profile.company': Meteor.userId(),
-            'profile.rank': nextProps.rank
-        }).fetch();
-        console.log(nextProps.rank);
-
-        this.setState({
-            rank: nextProps.rank,
-            list
-        });
+    componentDidMount() {
+        this.getlistFromDatabase();
+        //     this.x = Tracker.autorun(() => {
+        //         // this.setState({
+        //         //     list: this.getlistFromDatabase(this.state.rank)
+        //         // });
+        //     });
     }
 
-    componentWillUnmount() {
-        this.x.stop();
+    UNSAFE_componentWillReceiveProps(nextProps) {
+        this.setState({
+            rank: nextProps.rank,
+            // list: this.getlistFromDatabase(nextProps.rank)
+        }, () => this.getlistFromDatabase());
     }
 
     renderList() {

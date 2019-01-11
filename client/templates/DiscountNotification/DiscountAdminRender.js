@@ -31,7 +31,7 @@ export default class DiscountAdminRender extends TrackerReact(React.Component) {
             confirmed: false,
             truckNumber: discount.truckNumber,
             responded: true
-        }
+        };
 
         Meteor.call('updateDiscount', doc, discount._id);
     }
@@ -44,15 +44,12 @@ export default class DiscountAdminRender extends TrackerReact(React.Component) {
             confirmed: true,
             truckNumber: discount.truckNumber,
             responded: true
-        }
-
-        console.log(doc);
+        };
 
         Meteor.call('updateDiscount', doc, discount._id);
     }
 
     renderList() {
-        console.log('render basladi');
         return (this.discountsData().map((discount) => {
             return (
                 <div key={Math.random()} className="cardBorder col s12 m12 l12" style={{ 'backgroundColor': '#ecf0f1' }}>
@@ -98,12 +95,11 @@ export default class DiscountAdminRender extends TrackerReact(React.Component) {
                             : null
                     }
                 </div>
-            )
-        }))
+            );
+        }));
     }
 
     render() {
-        console.log(this.discountsData())
         return (
             <div className="row">
                 <div className="col s12 m12 l12">
