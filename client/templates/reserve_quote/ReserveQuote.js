@@ -97,6 +97,24 @@ class ReserveQuote extends React.Component {
             });
     }
 
+    renderSmallitemPacking(job) {
+        return (
+            <tr>
+                <td>Small Item Packing:</td>
+                <td>
+                    {
+                        job.smallItemPacking < 0
+                            ?
+                            <div>
+                                Yes, <a href="http://www.moverslegion.com/wp-content/uploads/2018/12/small-item-pricing.pdf" download="http://www.moverslegion.com/wp-content/uploads/2018/12/small-item-pricing.pdf" target="_blank" rel="noopener noreferrer">learn more</a>
+                            </div>
+                            : '$' + job.smallItemPacking
+                    }
+                </td>
+            </tr>
+        );
+    }
+
     axtarisinNeticesi() {
         return (
             this.state.is.map((job, index) => {
@@ -218,18 +236,7 @@ class ReserveQuote extends React.Component {
                                 {/* small item packing */}
                                 {
                                     job.smallItemPacking < 0 || job.smallItemPacking > 0
-                                        ? (
-                                            <tr>
-                                                <td>Small Item Packing:</td>
-                                                <td>
-                                                    {
-                                                        job.smallItemPacking < 0
-                                                            ? ('Yes', <a href="http://cheapmoversanaheim.com/ProBusinessRun/6.pdf" download="http://cheapmoversanaheim.com/ProBusinessRun/6.pdf" target="_blank" rel="noopener noreferrer">learn more</a>)
-                                                            : '$' + job.smallItemPacking
-                                                    }
-                                                </td>
-                                            </tr>
-                                        )
+                                        ? this.renderSmallitemPacking(job)
                                         : ''
                                 }
                                 {/* Extra Large Item Handling */}

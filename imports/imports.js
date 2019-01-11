@@ -7,3 +7,5 @@ import './tablet/tablet';
 import './tablet/tablet.css';
 import './tablet/TabletRender';
 import './tablet/TabletIsList';
+import './add/add.html';
+import './add/add';

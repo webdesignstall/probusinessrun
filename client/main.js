@@ -5,9 +5,6 @@ import '../imports/imports';
 import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
 
-
-
-
 /*global $, Bert*/ //defined globals
 
 window.jQuery = window.$ = $;

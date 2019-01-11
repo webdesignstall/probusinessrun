@@ -1,0 +1,18 @@
+.employee--phone-number {
+    background-color: #2980b9;
+    color: white;
+    padding: 20px 5px 20px 35px;
+    position: relative;
+}
+
+.employee--info{
+    background-color: #34495e;
+    color: white;
+}
+
+.employee--phone-icon{
+    position: absolute;
+    font-size: 20px !important;
+    left: 0;
+    padding-left: 5px;
+}

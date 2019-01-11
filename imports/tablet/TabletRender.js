@@ -380,6 +380,13 @@ MY OWN FREE WILL`
             startToFinishTime = Math.ceil(startToFinishTime / 0.25) * 0.25;
 
             this.totalWorkLaborTime = startToFinishTime;
+
+            this.totalWorkLaborTime = flatRateIsTrue
+                ? (startToFinishTime - laborTime) < 0
+                    ? 0
+                    : startToFinishTime - laborTime
+                : startToFinishTime;
+
             // time discount calculation
             timeDiscount > 0
                 ? startToFinishTime -= timeDiscount
@@ -450,7 +457,6 @@ MY OWN FREE WILL`
 
         startToFinishTime = Math.ceil(startToFinishTime / 0.25) * 0.25;
 
-        this.totalWorkLaborTime = flatRateIsTrue ? startToFinishTime - laborTime : startToFinishTime;
         // time discount calculation
         timeDiscount > 0
             ? startToFinishTime -= timeDiscount
@@ -711,11 +717,15 @@ MY OWN FREE WILL`
 
             //before beggining customer sign
             let canvas3 = document.querySelector('#signature-pad-before-start');
+            this.canvas3 = canvas3;
             this.signaturePad3 = new SignaturePad(canvas3, {
                 minWidth: 1,
                 maxWidth: 3,
                 dotSize: 1,
-                penColor: '#000000'
+                penColor: '#000000',
+                onEnd: function () {
+                    document.getElementById('submit-sign').classList.remove('disabled');
+                }
             });
 
             let cancelButton3 = document.querySelector('#clear3');
@@ -1152,7 +1162,7 @@ MY OWN FREE WILL`
                                     <img id="init-sign-img" className={this.state.initSign ? '' : 'hide'} src={this.state.initSign} width={400} height={200} style={{ zIndex: '0' }} />
                                 </div>
                                 <a id="clear3" className={(this.state.initSign ? 'hide' : '') + ' waves-effect waves-light btn blue'} >Clear</a>
-                                <a id="submit-sign" className={(this.state.initSign ? 'hide' : '') + ' waves-effect waves-light btn blue'} onClick={this.activateStart} >Submit</a>
+                                <a id="submit-sign" className={(this.state.initSign ? 'hide' : 'disabled') + ' waves-effect waves-light btn blue'} onClick={this.activateStart} >Submit</a>
                             </div>
                         </div>
                     </div>
