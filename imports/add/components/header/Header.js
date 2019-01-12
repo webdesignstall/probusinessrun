@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import Equipments from './Equipments';
 import Mover from '../mover/Mover';
 import MoverList from '../mover/MoverList';
-import TruckList from '../truck/TruckList';
 import SubMenu from './SubMenu';
-import OfficeEmployee from '../officeEployee/OfficeEmployee';
+import FlipMove from 'react-flip-move';
 
 export default class Header extends Component {
     constructor(props) {
@@ -33,18 +32,20 @@ export default class Header extends Component {
 
     render() {
         return (
-            <div>
-                <div className="card__ add-header">
+            <FlipMove>
+                <div key="main-menu" className="card__ add-header">
                     <Equipments setSubMenu={this.setSubMenu} />
                     <Mover setSubMenu={this.setSubMenu} />
                 </div>
-                <div className={this.state.subMenu.length > 0 ? 'card__ add-header' : 'hide'}>
-                    <SubMenu subMenu={this.state.subMenu} selectMenu={this.selectMenu} />
+                <div key="sub-menu" className={this.state.subMenu.length > 0 ? 'card__ add-header' : 'hide'}>
+                    <FlipMove>
+                        <SubMenu subMenu={this.state.subMenu} selectMenu={this.selectMenu} />
+                    </FlipMove>
                 </div>
-                <div className={this.state.subMenu.length > 0 ? '' : 'hide'} style={{ backgroundColor: '#FFFDF3', fontFamily: 'monospace' }}>
+                <div key="listing" className={this.state.subMenu.length > 0 ? '' : 'hide'} style={{ backgroundColor: '#FFFDF3', fontFamily: 'monospace' }}>
                     {this.state.selectedMenu !== '' ? <MoverList whatToDisplay={this.state.selectedMenu === 'movers' ? 'mover' : this.state.selectedMenu === 'office employees' ? 'officeEmployee' : 'tablet'} /> : null}
                 </div>
-            </div>
+            </FlipMove>
         );
     }
 }

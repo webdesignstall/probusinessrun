@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import AddButton from '../helpers/AddButton';
 import ListRender from '../helpers/ListRender';
 import MoverForm from './MoverForm';
+import TruckForm from './TruckForm';
 
 export default class MoverList extends Component {
     constructor(props) {
@@ -54,7 +55,7 @@ export default class MoverList extends Component {
                     {
                         (this.state.obj.rank === 'mover' || this.state.obj.rank === 'officeEmployee')
                             ? <MoverForm show={this.state.show} saveInfo={this.stateChanged} rank={this.state.obj.rank} />
-                            : null
+                            : <TruckForm show={this.state.show} />
                     }
                 </div>
                 <ListRender rank={this.state.obj.rank} />

@@ -25,7 +25,7 @@
         "push.js": "^1.0.9",
         "react": "^16.6.3",
         "react-dom": "^16.6.3",
-        "react-flip-toolkit": "^6.2.1",
+        "react-flip-move": "^3.0.3",
         "react-inline-css": "^2.3.1",
         "react-modal": "^1.6.5",
         "signature_pad": "^2.3.2",

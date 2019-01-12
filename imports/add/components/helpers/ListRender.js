@@ -3,6 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import DeleteButton from './DeleteButton';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import { Tracker } from 'meteor/tracker';
+import FlipMove from 'react-flip-move';
 
 export default class ListRender extends TrackerReact(Component) {
     constructor(props) {
@@ -31,17 +32,11 @@ export default class ListRender extends TrackerReact(Component) {
 
     componentDidMount() {
         this.getlistFromDatabase();
-        //     this.x = Tracker.autorun(() => {
-        //         // this.setState({
-        //         //     list: this.getlistFromDatabase(this.state.rank)
-        //         // });
-        //     });
     }
 
     UNSAFE_componentWillReceiveProps(nextProps) {
         this.setState({
             rank: nextProps.rank,
-            // list: this.getlistFromDatabase(nextProps.rank)
         }, () => this.getlistFromDatabase());
     }
 
@@ -62,9 +57,9 @@ export default class ListRender extends TrackerReact(Component) {
 
     render() {
         return (
-            <div>
+            <FlipMove>
                 {this.renderList()}
-            </div>
+            </FlipMove>
         );
     }
 }

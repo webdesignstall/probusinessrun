@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import FlipMove from 'react-flip-move';
 
 export default class SubMenu extends Component {
     constructor(props) {
@@ -31,9 +32,9 @@ export default class SubMenu extends Component {
 
     render() {
         return (
-            <div>
+            <FlipMove>
                 {this.renderSubMenu()}
-            </div>
+            </FlipMove>
         );
     }
 }
