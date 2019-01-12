@@ -55,7 +55,7 @@ export default class MoverList extends Component {
                     {
                         (this.state.obj.rank === 'mover' || this.state.obj.rank === 'officeEmployee')
                             ? <MoverForm show={this.state.show} saveInfo={this.stateChanged} rank={this.state.obj.rank} />
-                            : <TruckForm show={this.state.show} />
+                            : <TruckForm show={this.state.show} saveInfo={this.stateChanged} rank={this.state.obj.rank} />
                     }
                 </div>
                 <ListRender rank={this.state.obj.rank} />

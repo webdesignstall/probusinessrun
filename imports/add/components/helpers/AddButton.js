@@ -33,12 +33,10 @@ export default class AddButton extends Component {
                     address: this.props.obj && this.props.obj.address || '',
                     email: this.props.obj && this.props.obj.email || '',
                     ssn: this.props.obj && this.props.obj.ssn || '',
-                    truck: {
-                        number: this.props.obj && this.props.obj.truckNumber || '',
-                        plateNumber: this.props.obj && this.props.obj.truckPlateNumber || '',
-                        lenght: this.props.obj && this.props.obj.truckLenght || '',
-                        numberOfSeats: this.props.obj && this.props.obj.numberOfSeats || 0
-                    }
+                    number: this.props.obj && this.props.obj.truckNumber || '',
+                    plateNumber: this.props.obj && this.props.obj.truckPlateNumber || '',
+                    lenght: this.props.obj && this.props.obj.truckLenght || '',
+                    numberOfSeats: this.props.obj && this.props.obj.numberOfSeats || 0
                 }
             };
 
@@ -55,7 +53,8 @@ export default class AddButton extends Component {
                     )
                     : (
                         console.log(obj),
-                        document.getElementById('mover_form').reset(),
+                        (document.getElementById('mover_form') && document.getElementById('mover_form').reset()),
+                        (document.getElementById('truck_form') && document.getElementById('truck_form').reset()),
                         Bert.alert({
                             title: 'Success',
                             message: 'Account created successfully',
