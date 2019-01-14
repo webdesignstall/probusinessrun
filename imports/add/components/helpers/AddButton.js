@@ -33,12 +33,14 @@ export default class AddButton extends Component {
                     address: this.props.obj && this.props.obj.address || '',
                     email: this.props.obj && this.props.obj.email || '',
                     ssn: this.props.obj && this.props.obj.ssn || '',
-                    number: this.props.obj && this.props.obj.truckNumber || '',
-                    plateNumber: this.props.obj && this.props.obj.truckPlateNumber || '',
-                    lenght: this.props.obj && this.props.obj.truckLenght || '',
+                    number: this.props.obj && this.props.obj.number || '',
+                    plateNumber: this.props.obj && this.props.obj.plateNumber || '',
+                    lenght: this.props.obj && this.props.obj.lenght || '',
                     numberOfSeats: this.props.obj && this.props.obj.numberOfSeats || 0
                 }
             };
+
+            console.log(obj);
 
             Meteor.call('addUserOrTruck', obj, (err, res) => {
                 err

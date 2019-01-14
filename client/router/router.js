@@ -28,6 +28,11 @@ Router.route('/', {
         }
     }
 });
+Router.route('/add', {
+    onBeforeAction: function () {
+        this.render('add');
+    }
+});
 
 if (Meteor.userId()) {
     Router.route('/workers', {
@@ -35,11 +40,7 @@ if (Meteor.userId()) {
             this.render('workersList');
         }
     });
-    Router.route('/add', {
-        onBeforeAction: function () {
-            this.render('add');
-        }
-    });
+
     Router.route('/workers/addWorker', {
         onBeforeAction: function () {
             this.render('register');

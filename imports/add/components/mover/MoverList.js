@@ -17,9 +17,9 @@ export default class MoverList extends Component {
                 address: '',
                 email: '',
                 ssn: '',
-                truckNumber: '',
-                truckPlateNumber: '',
-                truckLenght: '',
+                number: '',
+                plateNumber: '',
+                lenght: '',
                 numberOfSeats: ''
             },
             show: false
@@ -38,7 +38,9 @@ export default class MoverList extends Component {
     }
 
     stateChanged(obj) {
-        this.setState({ obj });
+        this.setState({ obj }, (err) => {
+            err ? console.log(err) : 'Xeta tapilmadi';
+        });
     }
 
     show(res) {
@@ -55,10 +57,15 @@ export default class MoverList extends Component {
                     {
                         (this.state.obj.rank === 'mover' || this.state.obj.rank === 'officeEmployee')
                             ? <MoverForm show={this.state.show} saveInfo={this.stateChanged} rank={this.state.obj.rank} />
-                            : <TruckForm show={this.state.show} saveInfo={this.stateChanged} rank={this.state.obj.rank} />
+                            : null
+                    }
+                    {
+                        (this.state.obj.rank === 'tablet')
+                            ? <TruckForm show={this.state.show} saveInfo={this.stateChanged} rank={this.state.obj.rank} />
+                            : null
                     }
                 </div>
-                <ListRender rank={this.state.obj.rank} />
+                <ListRender saveInfo={this.stateChanged} rank={this.state.obj.rank} />
             </div>
         );
     }

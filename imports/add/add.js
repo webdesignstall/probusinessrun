@@ -9,3 +9,7 @@ Template.add.onRendered(function () {
     Meteor.subscribe('usersData');
     ReactDOM.render(<App />, document.getElementById('addComponent'));
 });
+
+Template.add.onDestroyed(function () {
+    ReactDOM.unmountComponentAtNode(document.getElementById('addComponent'));
+});

@@ -20,13 +20,14 @@ export default class Header extends Component {
 
     setSubMenu(menus) {
         this.setState({
-            subMenu: menus
+            subMenu: menus,
+            selectedMenu: ''
         });
     }
 
     selectMenu(menu) {
         this.setState({
-            selectedMenu: menu
+            selectedMenu: menu,
         });
     }
 
