@@ -14,8 +14,7 @@ export default class ListRender extends TrackerReact(Component) {
         this.state = {
             rank: this.props.rank,
             list: [],
-            displayInfo: false,
-            smc: 0
+            displayInfo: false
         };
 
         this.renderList = this.renderList.bind(this);
@@ -50,8 +49,8 @@ export default class ListRender extends TrackerReact(Component) {
     displayItemInfo(whatToShow) {
         this.setState((prevState) => {
             return (prevState.displayInfo === whatToShow
-                ? { displayInfo: '', smc: prevState.smc++ }
-                : { displayInfo: whatToShow, smc: prevState.smc++  });
+                ? { displayInfo: '' }
+                : { displayInfo: whatToShow });
         });
     }
 
@@ -77,8 +76,8 @@ export default class ListRender extends TrackerReact(Component) {
                             <div className="clear"></div>
                             {
                                 this.state.displayInfo && this.state.rank === 'mover' || this.state.rank === 'officeEmployee'
-                                    ? <MoverForm hide={this.displayItemInfo} rank={this.state.rank} saveInfo={this.props.saveInfo} show={this.state.displayInfo} id={list._id} somesingChanged={this.state.smc} />
-                                    : <TruckForm hide={this.displayItemInfo} rank={this.state.rank} saveInfo={this.props.saveInfo} show={this.state.displayInfo} id={list._id} somesingChanged={this.state.smc}/>
+                                    ? <MoverForm hide={this.displayItemInfo} rank={this.state.rank} show={this.state.displayInfo} id={list._id} />
+                                    : <TruckForm hide={this.displayItemInfo} rank={this.state.rank} show={this.state.displayInfo} id={list._id} />
                             }
                         </div>
 

@@ -93,7 +93,7 @@ export default class MoverForm extends Component {
     }
 
     UNSAFE_componentWillReceiveProps(nextProps) {
-        this.saveDataToState();
+        nextProps.show && this.state.update ? this.saveDataToState() : null;
         this.state.reset && !this.state.update ? this.resetForm() : null;
         let obj = this.state.obj;
 
@@ -112,7 +112,7 @@ export default class MoverForm extends Component {
         this.setState({
             obj
         }, (err) => {
-            err ? console.log(err) : !(this.state.update) ? this.props.saveInfo(obj) : null;
+            err ? console.log(err) : this.state.update ? null : this.props.saveInfo(obj);
         });
     }
 

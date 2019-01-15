@@ -95,37 +95,35 @@ export default class AddButton extends Component {
 
     render() {
         return (
-            <FlipMove>
-                <div key="add-button" className={this.state.saveOrAdd ? 'row' : ''}>
-                    {/* save or add new button */}
-                    <a key="save-or-add" href="#" onClick={this.add} style={{ marginRight: '10px' }} className={this.state.saveOrAdd ? 'waves-effect waves-light btn teal' : 'waves-effect waves-light btn cyan'}>
-                        {this.state.saveOrAdd ? 'Save' : 'Add New +'}
-                    </a>
-                    {/* cancel button */}
-                    <a key="close-form" href="#" onClick={this.cancel} className={this.state.saveOrAdd ? 'waves-effect waves-light btn deep-orange' : 'hide'}>
-                        close form
-                    </a>
-                    <span
-                        key="list-name"
-                        className="add--list-name waves-effect waves-light btn"
-                        style={{
-                            backgroundColor: 'rgb(255, 253, 244)',
-                            color: 'rgb(119, 119, 119)',
-                            boxShadow: 'none',
-                            border: '1px dashed dimgrey'
-                        }} >
-                        {
-                            this.props.obj.rank === 'mover'
-                                ? 'Movers'
-                                : this.props.obj.rank === 'officeEmployee'
-                                    ? 'Office Employees'
-                                    : this.props.obj.rank === 'tablet'
-                                        ? 'Tucks'
-                                        : null
-                        }
-                    </span>
-                </div>
-            </FlipMove >
+            <div key="add-button" className={this.state.saveOrAdd ? 'row' : ''}>
+                {/* save or add new button */}
+                <a key="save-or-add" href="#" onClick={this.add} style={{ marginRight: '10px' }} className={this.state.saveOrAdd ? 'waves-effect waves-light btn teal' : 'waves-effect waves-light btn cyan'}>
+                    {this.state.saveOrAdd ? 'Save' : 'Add New +'}
+                </a>
+                {/* cancel button */}
+                <a key="close-form" href="#" onClick={this.cancel} className={this.state.saveOrAdd ? 'waves-effect waves-light btn deep-orange' : 'hide'}>
+                    close form
+                </a>
+                <span
+                    key="list-name"
+                    className="add--list-name waves-effect waves-light btn"
+                    style={{
+                        backgroundColor: 'rgb(255, 253, 244)',
+                        color: 'rgb(119, 119, 119)',
+                        boxShadow: 'none',
+                        border: '1px dashed dimgrey'
+                    }} >
+                    {
+                        this.props.obj.rank === 'mover'
+                            ? 'Movers'
+                            : this.props.obj.rank === 'officeEmployee'
+                                ? 'Office Employees'
+                                : this.props.obj.rank === 'tablet'
+                                    ? 'Trucks'
+                                    : null
+                    }
+                </span>
+            </div>
         );
     }
 }

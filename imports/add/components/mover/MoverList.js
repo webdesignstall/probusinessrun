@@ -38,7 +38,9 @@ export default class MoverList extends Component {
     }
 
     stateChanged(obj) {
-        this.setState({ obj }, (err) => {
+        let _obj = obj;
+        _obj.rank = this.props.whatToDisplay;
+        this.setState({ obj: _obj }, (err) => {
             err ? console.log(err) : 'Xeta tapilmadi';
         });
     }

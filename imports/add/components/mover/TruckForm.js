@@ -29,7 +29,6 @@ export default class TruckForm extends Component {
     }
 
     fetchData() {
-        console.log('fetch basladi');
         let truck = [];
         this.props.id
             ? truck = Meteor.users.find({ _id: this.props.id }).fetch()[0]
@@ -37,11 +36,8 @@ export default class TruckForm extends Component {
 
         let obj = {};
 
-        console.log(truck);
-
         truck.profile && truck.profile.rank === 'tablet'
             ? (
-                console.log('fetch bazada melumat tapildi'),
                 obj = {
                     company: Meteor.userId(),
                     rank: 'tablet',
@@ -58,7 +54,6 @@ export default class TruckForm extends Component {
                 })
             )
             : null;
-        console.log('fetch yekunlasdi');
     }
 
     UNSAFE_componentWillMount() {
@@ -86,7 +81,6 @@ export default class TruckForm extends Component {
     }
 
     UNSAFE_componentWillReceiveProps(nextProps) {
-        console.log(new Date(), 'got props');
         this.fetchData();
         this.state.reset && !this.state.update ? this.resetForm() : null;
 
@@ -111,7 +105,9 @@ export default class TruckForm extends Component {
         this.setState({
             obj
         }, (err) => {
-            err ? console.log(err) : this.props.saveInfo(this.state.obj);
+            err
+                ? console.log(err)
+                : this.state.update ? null : this.props.saveInfo(obj);
         });
     }
 
