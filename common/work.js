@@ -476,5 +476,9 @@ Schemas.workSchema = new SimpleSchema({
     'discount.$.note': {
         type: String,
         optional: true
+    },
+    takenBy: {
+        type: String,
+        optional: false
     }
 }, { tracker: Tracker });

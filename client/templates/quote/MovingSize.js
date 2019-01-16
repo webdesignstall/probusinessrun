@@ -69,7 +69,7 @@ export default class MovingSize extends React.Component {
         this.renderSizes = this.renderSizes.bind(this);
     }
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         this.x = Tracker.autorun(() => {
             if (Session.get('is') !== '') {
                 const ish = WorkData.find({ _id: Session.get('is') }).fetch();
@@ -85,7 +85,7 @@ export default class MovingSize extends React.Component {
     }
 
     changeSelect() {
-        Session.set('movingSize', this.sizeSelected.current.value)
+        Session.set('movingSize', this.sizeSelected.current.value);
     }
 
     renderSizes() {
@@ -95,7 +95,7 @@ export default class MovingSize extends React.Component {
                     <option key={option.value + 'key'} value={option.value}>{option.name}</option>
                 );
             })
-        )
+        );
     }
 
     render() {

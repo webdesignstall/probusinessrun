@@ -14,6 +14,7 @@ import UpdateArrivalTime from './UpdateArrivalTime';
 import UpdateDoubleDrive from './UpdateDoubleDrive';
 import TempTruck from './TempTrucks';
 import Addresses from './Addresses';
+import TakenBy from './TakenBy';
 
 
 export default class QuoteTam extends React.Component {
@@ -46,8 +47,11 @@ export default class QuoteTam extends React.Component {
         ReactDOM.render(<MovingSize />, document.getElementById('moving-size'));
         ReactDOM.render(<UpdateDoubleDrive />, document.getElementById('double-drive-time-update'));
         ReactDOM.render(<RenderEmployees />, document.getElementById('iscilerinSiyahisiRender'));
-        ReactDOM.render(<TempTruck update={true} />, document.querySelector('#tempTruckUpdate'))
-        ReactDOM.render(<Addresses />, document.querySelector('#addressesIdUpdate'))
+        ReactDOM.render(<TempTruck update={true} />, document.querySelector('#tempTruckUpdate'));
+        ReactDOM.render(<Addresses />, document.querySelector('#addressesIdUpdate'));
+        let x = WorkData.findOne({ _id: Session.get('is') });
+        let takenById = x.takenBy;
+        ReactDOM.render(<TakenBy id={takenById} update={true} />, document.getElementById('takenBy--update'));
         $(document).ready(function () {
             $('select').material_select();
         });
