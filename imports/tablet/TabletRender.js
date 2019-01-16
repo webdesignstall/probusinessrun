@@ -897,6 +897,8 @@ MY OWN FREE WILL`
 
     render() {
         let is = this.state.vurulmusIs[0];
+        let takenById = is.takenBy;
+        let takenBy = Meteor.users.find({ _id: takenById });
         this.totalSaat = 0;
         this.cardRate = 0;
         this.cashRate = 0;
@@ -950,7 +952,7 @@ MY OWN FREE WILL`
                                         </tr>
                                         <tr>
                                             <td className="sag">Taken By:</td>
-                                            <td>&nbsp; {is.clientFirstName} {is.clientLastName}</td>
+                                            <td>&nbsp; {takenBy.profile.firstName}</td>
                                         </tr>
                                         <tr>
                                             <td className="sag">Job Number:</td>

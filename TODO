@@ -12,7 +12,8 @@ Todo:
   ✔ Discount caclculation functionality @done(18-11-30 16:29)
   ✔ On type number inside Discount call Calculation function. @done(18-11-30 16:29)
   ✔ Add customer sign place @done(18-11-30 16:29)
-  ☐ Check is the promo code added or not. If Added check is it correct or not. if correct automatically add Discoutn without waiting response from Admin panel
+  ✔ Check is the promo code added or not. If Added check is it correct or not. if correct automatically add Discoutn without waiting response from Admin panel @done(19-01-15 14:13)
   ✔ Depend on the input (time, percentage, moneyAmount) calcaulate discount @done(18-11-30 16:29)
-  ☐ On press ask discount chech is promo code added or not. If not send confirmation notification to admin panel about discount.
-  ☐ As soon as discount added (proofed by admin or promo code) to calculation add new line in the total section 'Discount: $50' or something like this.
+  ✔ On press ask discount chech is promo code added or not. If not send confirmation notification to admin panel about discount. @done(19-01-15 14:13)
+  ✔ As soon as discount added (proofed by admin or promo code) to calculation add new line in the total section 'Discount: $50' or something like this. @done(19-01-15 14:14);
+  ☐ 

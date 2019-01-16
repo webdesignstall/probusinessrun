@@ -81,7 +81,8 @@ if (Meteor.isServer) {
             flatRateCash,
             flatRateCard,
             comment,
-            deposit) {
+            deposit,
+            takenBy) {
             WorkData.insert({
                 quote: true,
                 clientFirstName: firstName,
@@ -115,7 +116,8 @@ if (Meteor.isServer) {
                     cardAmount: flatRateCard
                 }],
                 comment,
-                deposit
+                deposit,
+                takenBy
             });
         },
 

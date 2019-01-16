@@ -326,6 +326,7 @@ Template.preQuote.events({
         let flatRateCard = document.querySelector('#flatRateCash').value ? document.querySelector('#flatRateCard').value : 0;
         let comment = document.getElementById('textarea1').value;
         let deposit = document.getElementById('deposit').value;
+        let takenBy = document.getElementById('takenBy--value').value;
 
         function idniSec(soz) {
             var baslama = soz.indexOf(':');
@@ -404,6 +405,7 @@ Template.preQuote.events({
             flatRateCard,
             comment,
             deposit,
+            takenBy,
             function (err) {
                 if (err) {
                     Bert.alert({
@@ -496,6 +498,7 @@ Template.quoteTam.events({
         ReactDOM.unmountComponentAtNode(document.querySelector('#iscilerinSiyahisiRender'));
         ReactDOM.unmountComponentAtNode(document.querySelector('#tempTruckUpdate'));
         ReactDOM.unmountComponentAtNode(document.querySelector('#addressesIdUpdate'));
+        ReactDOM.unmountComponentAtNode(document.querySelector('#takenBy--update'));
         traker.stop();
         // ReactDOM.unmountComponentAtNode(document.querySelector('#tempTruck'));
 
@@ -514,6 +517,7 @@ Template.quoteTam.onDestroyed(function () {
     ReactDOM.unmountComponentAtNode(document.querySelector('#tempTruckUpdate'));
     ReactDOM.unmountComponentAtNode(document.querySelector('#quoteTam'));
     ReactDOM.unmountComponentAtNode(document.querySelector('#addressesIdUpdate'));
+    ReactDOM.unmountComponentAtNode(document.querySelector('#takenBy--update'));
 
     document.querySelector('#quoteTam').classList.remove('hide');
     document.querySelector('#updateQuote2').classList.add('hide');

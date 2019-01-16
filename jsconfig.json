@@ -1,6 +1,12 @@
 {
     "compilerOptions": {
-        "jsx": "react",
-        "baseUrl": "./"
+        "target": "ES6",
+        "module": "commonjs",
+        "allowSyntheticDefaultImports": true
+    },
+    "typeAcquisition": {
+        "include": [
+            "react"
+        ]
     }
 }
