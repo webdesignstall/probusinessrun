@@ -9,3 +9,4 @@ import './tablet/TabletRender';
 import './tablet/TabletIsList';
 import './add/add.html';
 import './add/add';
+import './timeSelector/TimeSelector';

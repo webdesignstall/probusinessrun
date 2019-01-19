@@ -11,7 +11,7 @@ import React from 'react';
 import UpdateAddTruck from './../../client/templates/quote/UpdateAddTruck';
 import AddTruck from './../../client/templates/quote/AddTruck';
 import ArrivalWindow from './../../client/templates/quote/ArrivalWindow';
-import UpdateArrivalTime from './../../client/templates/quote/UpdateArrivalTime';
+// import UpdateArrivalTime from './../../client/templates/quote/UpdateArrivalTime';
 import MovingSize from './../../client/templates/quote/MovingSize';
 import CompanySelector from './../../client/templates/quote/CompanySelector';
 import Addresses from './../../client/templates/quote/Addresses';
@@ -19,6 +19,7 @@ import RenderEmployees from './../../client/templates/quote/RenderEmployees';
 import UpdateDoubleDrive from './../../client/templates/quote/UpdateDoubleDrive';
 import TempTrucks from './../../client/templates/quote/TempTrucks';
 import NumberOfUsers from '../../client/templates/quote/NumberOfUsers';
+import TakenBy from '../../client/templates/quote/TakenBy';
 
 /*global moment */
 
@@ -369,6 +370,7 @@ Template.kalendar.events({
         ReactDOM.render(<ArrivalWindow />, document.getElementById('arrival-time'));
         ReactDOM.render(<CompanySelector />, document.getElementById('moving-company'));
         ReactDOM.render(<TempTrucks />, document.getElementById('tempTruck'));
+        ReactDOM.render(<TakenBy />, document.getElementById('takenBy'));
         window.addresses = ReactDOM.render(<Addresses />, document.getElementById('addressesId'), () => console.log('render olundu'));
         // console.log("​addressesRendered", addressesRendered)
         // window.addresses = addressesRendered;
@@ -388,6 +390,7 @@ Template.kalendar.events({
         ReactDOM.render(<ArrivalWindow />, document.getElementById('arrival-time'));
         ReactDOM.render(<CompanySelector />, document.getElementById('moving-company'));
         ReactDOM.render(<TempTrucks />, document.getElementById('tempTruck'));
+        ReactDOM.render(<TakenBy />, document.getElementById('takenBy'));
         // ReactDOM.render(<Addresses />, document.getElementById('addressesId'));
         window.addresses = ReactDOM.render(<Addresses />, document.getElementById('addressesId'), () => console.log('render olundu'));
         Session.set('is', '');
@@ -410,6 +413,7 @@ Template.kalendar.events({
         ReactDOM.unmountComponentAtNode(document.getElementById('moving-company'));
         ReactDOM.unmountComponentAtNode(document.getElementById('tempTruck'));
         ReactDOM.unmountComponentAtNode(document.getElementById('addressesId'));
+        ReactDOM.unmountComponentAtNode(document.getElementById('takenBy'));
         Session.set('secilmisIsciler', '');
         Session.set('is', '');
     },
@@ -421,13 +425,16 @@ Template.kalendar.events({
         ReactDOM.unmountComponentAtNode(document.getElementById('addTruck'));
         ReactDOM.render(<UpdateAddTruck />, document.querySelector('#truck-list-update'));
         ReactDOM.unmountComponentAtNode(document.getElementById('arrival-time'));
-        ReactDOM.render(<UpdateArrivalTime />, document.getElementById('update_time_window'));
+        ReactDOM.render(<ArrivalWindow update={true} />, document.getElementById('update_time_window'));
         ReactDOM.render(<MovingSize />, document.getElementById('moving-size'));
         ReactDOM.render(<RenderEmployees />, document.getElementById('iscilerinSiyahisiRender'));
         ReactDOM.render(<UpdateDoubleDrive />, document.getElementById('double-drive-time-update'));
         ReactDOM.render(<Addresses />, document.getElementById('addressesIdUpdate'));
         ReactDOM.render(<NumberOfUsers />, document.getElementById('number-of-movers2'));
         ReactDOM.render(<TempTrucks update={true} />, document.getElementById('tempTruckUpdate'));
+        let x = WorkData.findOne({ _id: Session.get('is') });
+        let takenById = x.takenBy;
+        ReactDOM.render(<TakenBy id={takenById} update={true} />, document.getElementById('takenBy--update'));
 
         $(document).ready(function () {
             $('select').material_select();

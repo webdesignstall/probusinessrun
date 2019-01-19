@@ -22,6 +22,10 @@ quote-content input {
     border: none !important;
 }
 
+#takenBy{
+    margin-top: 15px;
+}
+
 .delete-address{
     color: red;
     position: absolute;
@@ -155,8 +159,13 @@ hr {
     font-size: 18px;
 }
 
-#update_time_window {
-    border: 1px solid#bdc3c7;
+.custom--select-arrivalWindow{
+    width: 87%;
+    margin: 10px 5px 5px 30px;
+}
+
+.margin--bottom-10{
+    margin-bottom: 10px !important;
 }
 
 .zona {
@@ -214,4 +223,23 @@ hr {
 
 .relative {
     position: relative;
+}
+
+.arrivalWindow{
+    border: 1px dashed grey;
+    border-radius: 5px;
+    padding: 0 5px;
+    margin: 0;
+}
+
+.arrivalWindow .isare {
+    left: 0;
+}
+
+.parent{
+    position: relative;
+}
+
+.input-custom-time{
+    text-indent: 0 !important;
 }

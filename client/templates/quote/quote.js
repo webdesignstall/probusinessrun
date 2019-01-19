@@ -267,7 +267,6 @@ Template.preQuote.onRendered(function () {
 });
 
 
-//todo clickle informasiyani bazasa save etsin
 Template.preQuote.events({
     'click #work-request': function (e) {
         e.preventDefault();
@@ -308,16 +307,10 @@ Template.preQuote.events({
         if (isNaN(iscilerinSayi)) {
             iscilerinSayi = 0;
         }
-        let workMustBeginTime = (function () {
-            let birinci = document.getElementById('input-custom-time').value;
-            let ikinci = document.getElementById('select-arrive-time').value;
-
-            if (ikinci === 'Select moving time window' || ikinci === 'Custom') {
-                return birinci;
-            } else {
-                return ikinci;
-            }
-        })();
+        let workMustBeginTime = [
+            document.getElementById('customTime--1').value,
+            document.getElementById('customTime--2').value
+        ];
         let numberOfWorkers = document.getElementById('iscinin-sayi').value;
         let companyInfo = Session.get('companyInfo');
         let trucksTemp = Session.get('trucklar');
@@ -326,6 +319,7 @@ Template.preQuote.events({
         let flatRateCard = document.querySelector('#flatRateCash').value ? document.querySelector('#flatRateCard').value : 0;
         let comment = document.getElementById('textarea1').value;
         let deposit = document.getElementById('deposit').value;
+        let takenBy = document.getElementById('takenBy--value').value;
 
         function idniSec(soz) {
             var baslama = soz.indexOf(':');
@@ -404,6 +398,7 @@ Template.preQuote.events({
             flatRateCard,
             comment,
             deposit,
+            takenBy,
             function (err) {
                 if (err) {
                     Bert.alert({
@@ -496,6 +491,7 @@ Template.quoteTam.events({
         ReactDOM.unmountComponentAtNode(document.querySelector('#iscilerinSiyahisiRender'));
         ReactDOM.unmountComponentAtNode(document.querySelector('#tempTruckUpdate'));
         ReactDOM.unmountComponentAtNode(document.querySelector('#addressesIdUpdate'));
+        ReactDOM.unmountComponentAtNode(document.querySelector('#takenBy--update'));
         traker.stop();
         // ReactDOM.unmountComponentAtNode(document.querySelector('#tempTruck'));
 
@@ -514,6 +510,7 @@ Template.quoteTam.onDestroyed(function () {
     ReactDOM.unmountComponentAtNode(document.querySelector('#tempTruckUpdate'));
     ReactDOM.unmountComponentAtNode(document.querySelector('#quoteTam'));
     ReactDOM.unmountComponentAtNode(document.querySelector('#addressesIdUpdate'));
+    ReactDOM.unmountComponentAtNode(document.querySelector('#takenBy--update'));
 
     document.querySelector('#quoteTam').classList.remove('hide');
     document.querySelector('#updateQuote2').classList.add('hide');

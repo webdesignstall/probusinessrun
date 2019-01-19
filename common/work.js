@@ -12,7 +12,6 @@ export const Schemas = {};
 
 Meteor.isClient && Template.registerHelper('Schemas', Schemas);
 
-//todo isin bolmelerini doldur
 Schemas.workSchema = new SimpleSchema({
     clientFirstName: {
         type: String,
@@ -112,8 +111,11 @@ Schemas.workSchema = new SimpleSchema({
 
     // Isin baslama araliqi
     workMustBeginTime: {
-        type: String,
+        type: Array,
         label: 'Arriving time window',
+    },
+    'workMustBeginTime.$': {
+        type: String
     },
     //quote olduqunu tesdiqleyir
     quote: {
@@ -476,5 +478,9 @@ Schemas.workSchema = new SimpleSchema({
     'discount.$.note': {
         type: String,
         optional: true
+    },
+    takenBy: {
+        type: String,
+        optional: false
     }
 }, { tracker: Tracker });
