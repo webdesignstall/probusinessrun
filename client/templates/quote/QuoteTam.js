@@ -10,11 +10,14 @@ import MovingSize from './MovingSize';
 import NumberOfUsers from './NumberOfUsers';
 import RenderEmployees from './RenderEmployees';
 import UpdateAddTruck from './UpdateAddTruck';
-import UpdateArrivalTime from './UpdateArrivalTime';
+// import UpdateArrivalTime from './UpdateArrivalTime';
 import UpdateDoubleDrive from './UpdateDoubleDrive';
 import TempTruck from './TempTrucks';
 import Addresses from './Addresses';
 import TakenBy from './TakenBy';
+import ArrivalWindow from './ArrivalWindow';
+
+/*global $*/
 
 
 export default class QuoteTam extends React.Component {
@@ -33,7 +36,6 @@ export default class QuoteTam extends React.Component {
                 baza: melumatlar
             });
             console.log(melumatlar);
-
         });
     }
 
@@ -42,7 +44,7 @@ export default class QuoteTam extends React.Component {
         Session.set('is', id);
         document.querySelector('#updateQuote2').classList.remove('hide');
         ReactDOM.render(<UpdateAddTruck />, document.querySelector('#truck-list-update'));
-        ReactDOM.render(<UpdateArrivalTime />, document.getElementById('update_time_window'));
+        ReactDOM.render(<ArrivalWindow update={true} />, document.getElementById('update_time_window'));
         ReactDOM.render(<NumberOfUsers />, document.getElementById('number-of-movers2'));
         ReactDOM.render(<MovingSize />, document.getElementById('moving-size'));
         ReactDOM.render(<UpdateDoubleDrive />, document.getElementById('double-drive-time-update'));

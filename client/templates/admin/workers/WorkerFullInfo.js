@@ -74,7 +74,6 @@ class WorkerFullInfo extends React.Component {
                     }
                 });
 
-                //todo iscinin maasi deyisdirilmesi mumkun olsun ve save duymesi serverside islesin
                 return (
                     <div key={ish._id} className='iscilerSiyahi'>
                         {ish.workDate} {ish.clientFirstName} {ish.clientLastName}

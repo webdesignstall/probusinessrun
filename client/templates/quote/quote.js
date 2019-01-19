@@ -267,7 +267,6 @@ Template.preQuote.onRendered(function () {
 });
 
 
-//todo clickle informasiyani bazasa save etsin
 Template.preQuote.events({
     'click #work-request': function (e) {
         e.preventDefault();
@@ -308,16 +307,10 @@ Template.preQuote.events({
         if (isNaN(iscilerinSayi)) {
             iscilerinSayi = 0;
         }
-        let workMustBeginTime = (function () {
-            let birinci = document.getElementById('input-custom-time').value;
-            let ikinci = document.getElementById('select-arrive-time').value;
-
-            if (ikinci === 'Select moving time window' || ikinci === 'Custom') {
-                return birinci;
-            } else {
-                return ikinci;
-            }
-        })();
+        let workMustBeginTime = [
+            document.getElementById('customTime--1').value,
+            document.getElementById('customTime--2').value
+        ];
         let numberOfWorkers = document.getElementById('iscinin-sayi').value;
         let companyInfo = Session.get('companyInfo');
         let trucksTemp = Session.get('trucklar');

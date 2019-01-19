@@ -11,7 +11,7 @@ import React from 'react';
 import UpdateAddTruck from './../../client/templates/quote/UpdateAddTruck';
 import AddTruck from './../../client/templates/quote/AddTruck';
 import ArrivalWindow from './../../client/templates/quote/ArrivalWindow';
-import UpdateArrivalTime from './../../client/templates/quote/UpdateArrivalTime';
+// import UpdateArrivalTime from './../../client/templates/quote/UpdateArrivalTime';
 import MovingSize from './../../client/templates/quote/MovingSize';
 import CompanySelector from './../../client/templates/quote/CompanySelector';
 import Addresses from './../../client/templates/quote/Addresses';
@@ -425,7 +425,7 @@ Template.kalendar.events({
         ReactDOM.unmountComponentAtNode(document.getElementById('addTruck'));
         ReactDOM.render(<UpdateAddTruck />, document.querySelector('#truck-list-update'));
         ReactDOM.unmountComponentAtNode(document.getElementById('arrival-time'));
-        ReactDOM.render(<UpdateArrivalTime />, document.getElementById('update_time_window'));
+        ReactDOM.render(<ArrivalWindow update={true} />, document.getElementById('update_time_window'));
         ReactDOM.render(<MovingSize />, document.getElementById('moving-size'));
         ReactDOM.render(<RenderEmployees />, document.getElementById('iscilerinSiyahisiRender'));
         ReactDOM.render(<UpdateDoubleDrive />, document.getElementById('double-drive-time-update'));
