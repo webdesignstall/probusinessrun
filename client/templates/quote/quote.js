@@ -121,16 +121,10 @@ Template.updateQuote.events({
             email: document.getElementById('musteriEmail_2').value,
             addresses,
             workDate: moment(workDate).format('MM/DD/YYYY'),
-            workMustBeginTime: (function () {
-                let birinci = document.getElementById('update-input-custom-time').value;
-                let ikinci = document.getElementById('update-select-arrive-time').value;
-
-                if (ikinci === 'Select moving time window' || ikinci === 'Custom') {
-                    return birinci;
-                } else {
-                    return ikinci;
-                }
-            })(),
+            workMustBeginTime: [
+                document.getElementById('customTime--1').value,
+                document.getElementById('customTime--2').value
+            ],
             price: document.getElementById('quote_price_2').value,
             laborTime: document.getElementById('labor_time_2').value,
             hourlyRatesCash: document.getElementById('hourly_rates_cash_2').value,
@@ -196,16 +190,10 @@ Template.updateQuote.events({
             email: document.getElementById('musteriEmail_2').value,
             addresses,
             workDate: moment(workDate).format('MM/DD/YYYY'),
-            workMustBeginTime: (function () {
-                let birinci = document.getElementById('update-input-custom-time').value;
-                let ikinci = document.getElementById('update-select-arrive-time').value;
-
-                if (ikinci === 'Select moving time window' || ikinci === 'Custom') {
-                    return birinci;
-                } else {
-                    return ikinci;
-                }
-            })(),
+            workMustBeginTime: [
+                document.getElementById('customTime--1').value,
+                document.getElementById('customTime--2').value
+            ],
             price: document.getElementById('quote_price_2').value,
             laborTime: document.getElementById('labor_time_2').value,
             hourlyRatesCash: document.getElementById('hourly_rates_cash_2').value,

@@ -58,8 +58,8 @@ export default class ArrivalWindow extends React.Component {
                 {
                     name: 'Morning & Afternoon',
                     status: 1,
-                    value1: '12:00 am',
-                    value2: '12:00 am'
+                    value1: '04:00 am',
+                    value2: '04:00 am'
                 },
                 {
                     name: 'Custom',
@@ -82,31 +82,55 @@ export default class ArrivalWindow extends React.Component {
             let id = Session.get('is');
             let selected = [];
             let reset = Session.get('reset');
-            console.log(id);
-
-            if (id !== '') {
-                console.log('id bos deyilse');
-                selected = WorkData.find({ _id: id }).fetch();
-                selected = selected[0].workMustBeginTime;
-                this.setState((prevState) => {
-                    return {
-                        time1: selected[0],
-                        time2: selected[1],
-                        custom: true
-                    };
-                }, () => {
-                    document.getElementById('select-arrive-time').value = 'Custom';
-                    console.log(this.state.custom);
-                });
-            }
 
             reset
                 ? this.setState({
-                    custom: false
+                    custom: true
                 })
                 : this.setState({
-                    custom: true
+                    custom: false
                 });
+
+            if (id !== '') {
+                selected = WorkData.find({ _id: id }).fetch();
+                selected = selected[0].workMustBeginTime;
+                let isMorningAfternoon = (selected[0] === '04:00 am' && selected[1] === '04:00 am');
+                console.log("​ArrivalWindow -> componentDidMount -> isMorningAfternoon", isMorningAfternoon)
+                let isCustom = () => {
+                    let custom = false;
+                    this.state.options.map((option) => {
+                        option.value1 === selected[0] && option.value2 === selected[1]
+                            ? custom = true
+                            : null;
+                    });
+                    console.log(custom);
+                    return custom;
+                };
+                isCustom()
+                    ? (
+                        this.setState({
+                            time1: selected[0],
+                            time2: selected[1],
+                            custom: true
+                        }, (err) => {
+                            err ? console.log(err) : null;
+                            document.getElementById('select-arrive-time').value = 'Custom';
+                        })
+                    )
+                    : isMorningAfternoon
+                        ? (
+                            this.setState({
+                                time1: selected[0],
+                                time2: selected[1],
+                                custom: false
+                            }, (err) => {
+                                err ? console.log(err) : null;
+                                document.getElementById('select-arrive-time').value = 'Morning & Afternoon';
+                            })
+                        )
+                        : null;
+
+            }
 
             document.getElementById('select-arrive-time').onchange = () => {
                 let value = document.getElementById('select-arrive-time').value;
