@@ -18,11 +18,11 @@ export default class TabletIsList extends React.Component {
         this.isleriDuz = this.isleriDuz.bind(this);
     }
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         this.x = Tracker.autorun(() => {
             Meteor.subscribe('workSchema');
             // const isler = WorkData.find({ truckNumber: Meteor.user().profile.number, quote: false }).fetch();
-            const truckId = Meteor.user().profile.number;
+            const truckId = Number(Meteor.user().profile.number);
             const isler = WorkData.find(
                 {
                     trucks:
