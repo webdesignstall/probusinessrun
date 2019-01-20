@@ -95,7 +95,6 @@ export default class ArrivalWindow extends React.Component {
                 selected = WorkData.find({ _id: id }).fetch();
                 selected = selected[0].workMustBeginTime;
                 let isMorningAfternoon = (selected[0] === '04:00 am' && selected[1] === '04:00 am');
-                console.log("​ArrivalWindow -> componentDidMount -> isMorningAfternoon", isMorningAfternoon)
                 let isCustom = () => {
                     let custom = false;
                     this.state.options.map((option) => {
@@ -103,9 +102,9 @@ export default class ArrivalWindow extends React.Component {
                             ? custom = true
                             : null;
                     });
-                    console.log(custom);
                     return custom;
                 };
+
                 isCustom()
                     ? (
                         this.setState({

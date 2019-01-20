@@ -33,10 +33,11 @@
 }
 
 .dayData {
+    position: relative;
     height: 80px;
     color: #95a5a6;
     padding: 0;
-    font-size: 50px;
+    font-size: 22px;
     line-height: 120px;
     -webkit-transition: all 0.5s ease-out;
     -moz-transition: all 0.5s ease-out;
@@ -48,7 +49,7 @@
     height: 80px;
     color: #ecf0f1;
     padding: 0;
-    font-size: 50px;
+    font-size: 10px;
     line-height: 120px;
 }
 
