@@ -303,6 +303,16 @@ Template.kalendar.onRendered(
                     gunYerlesdirme(ay, il);
                     tarixiGoster(ay, il);
                     $('.dayInfo').hide();
+
+                    let gunler = Array.from(document.getElementsByClassName('dayData'));
+                    gunler.map((gun) => {
+                        let div = document.createElement('div');
+                        div.setAttribute('id', (gun.id + '_'));
+                        document.getElementById(gun.id).appendChild(div);
+                        if (gun.id.search('gunNomre') < 0) {
+                            ReactDOM.render(<DailyStats date={gun.id} />, document.getElementById(gun.id + '_'));
+                        }
+                    });
                 });
             }
 
