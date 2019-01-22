@@ -9,9 +9,7 @@ import React from 'react';
 
 //import componenets
 import UpdateAddTruck from './../../client/templates/quote/UpdateAddTruck';
-import AddTruck from './../../client/templates/quote/AddTruck';
 import ArrivalWindow from './../../client/templates/quote/ArrivalWindow';
-// import UpdateArrivalTime from './../../client/templates/quote/UpdateArrivalTime';
 import MovingSize from './../../client/templates/quote/MovingSize';
 import CompanySelector from './../../client/templates/quote/CompanySelector';
 import Addresses from './../../client/templates/quote/Addresses';
@@ -20,8 +18,9 @@ import UpdateDoubleDrive from './../../client/templates/quote/UpdateDoubleDrive'
 import TempTrucks from './../../client/templates/quote/TempTrucks';
 import NumberOfUsers from '../../client/templates/quote/NumberOfUsers';
 import TakenBy from '../../client/templates/quote/TakenBy';
+import DailyStats from './DailyStats';
 
-/*global moment */
+/*global moment $*/
 
 let infoDisplay;
 let ayDeqiq;
@@ -60,15 +59,6 @@ Template.kalendar.onCreated(function () {
 });
 
 Template.preQuote.onDestroyed(function () {
-    // ReactDOM.unmountComponentAtNode(document.querySelector('#truck-list-update'));
-    // ReactDOM.unmountComponentAtNode(document.querySelector('#update_time_window'));
-    // ReactDOM.unmountComponentAtNode(document.querySelector('#number-of-movers2'));
-    // ReactDOM.unmountComponentAtNode(document.querySelector('#moving-size'));
-    // ReactDOM.unmountComponentAtNode(document.querySelector('#double-drive-time-update'));
-    // ReactDOM.unmountComponentAtNode(document.querySelector('#iscilerinSiyahisiRender'));
-    // ReactDOM.unmountComponentAtNode(document.querySelector('#tempTruckUpdate'));
-    // ReactDOM.unmountComponentAtNode(document.querySelector('#quoteTam'));
-
     $('#add-schedule-page').hide();
     $('#edit-schedule-page').hide();
     ReactDOM.unmountComponentAtNode(document.getElementById('truck-list-update'));
@@ -79,7 +69,7 @@ Template.preQuote.onDestroyed(function () {
     ReactDOM.unmountComponentAtNode(document.getElementById('moving-company'));
     ReactDOM.unmountComponentAtNode(document.getElementById('tempTruck'));
     Session.set('secilmisIsciler', '');
-})
+});
 
 Template.kalendar.helpers({
     gununIsleri: function () {
@@ -241,6 +231,16 @@ Template.kalendar.onRendered(
             } catch (err) {
                 return true;
             }
+
+            let gunler = Array.from(document.getElementsByClassName('dayData'));
+            gunler.map((gun) => {
+                let div = document.createElement('div');
+                div.setAttribute('id', (gun.id + '_'));
+                document.getElementById(gun.id).appendChild(div);
+                if (gun.id.search('gunNomre') < 0) {
+                    ReactDOM.render(<DailyStats date={gun.id} />, document.getElementById(gun.id + '_'));
+                }
+            });
         }
 
         gunYerlesdirme(ay, il);
@@ -315,7 +315,9 @@ Template.kalendar.onRendered(
                     $('.dayData').removeClass('aktivGun');
                     secilmisGun.className += ' aktivGun';
                 } catch (err) {
-                    // custom console
+                    err
+                        ? console.log(err)
+                        : null;
                 }
 
                 // Islerin siyahisini cixardir
@@ -371,16 +373,14 @@ Template.kalendar.events({
         ReactDOM.render(<CompanySelector />, document.getElementById('moving-company'));
         ReactDOM.render(<TempTrucks />, document.getElementById('tempTruck'));
         ReactDOM.render(<TakenBy />, document.getElementById('takenBy'));
-        window.addresses = ReactDOM.render(<Addresses />, document.getElementById('addressesId'), () => console.log('render olundu'));
-        // console.log("​addressesRendered", addressesRendered)
-        // window.addresses = addressesRendered;
+        window.addresses = ReactDOM.render(<Addresses />, document.getElementById('addressesId'));
         Session.set('is', '');
 
         $(document).ready(function () {
             $('select').material_select();
         });
 
-        jobNumber_()
+        jobNumber_();
     },
     'click .add-moreschedule-button': function (event) {
         event.preventDefault();
@@ -391,15 +391,14 @@ Template.kalendar.events({
         ReactDOM.render(<CompanySelector />, document.getElementById('moving-company'));
         ReactDOM.render(<TempTrucks />, document.getElementById('tempTruck'));
         ReactDOM.render(<TakenBy />, document.getElementById('takenBy'));
-        // ReactDOM.render(<Addresses />, document.getElementById('addressesId'));
-        window.addresses = ReactDOM.render(<Addresses />, document.getElementById('addressesId'), () => console.log('render olundu'));
+        window.addresses = ReactDOM.render(<Addresses />, document.getElementById('addressesId'));
         Session.set('is', '');
 
         $(document).ready(function () {
             $('select').material_select();
         });
 
-        jobNumber_()
+        jobNumber_();
     },
     'click .baqla': function (event) {
         event.preventDefault();
@@ -491,8 +490,4 @@ WorkData.after.insert(function (user, doc) {
         let istifadeciId = userValue.substr(correctIndex, userValue.length);
         Meteor.users.update({ _id: istifadeciId }, { $push: { isler: { is: doc._id, payed: 0 } } });
     }
-    // isciler.map(function(isci) {
-    //     console.log(isci);
-    // });
-    //console.log(doc._id);
 });
