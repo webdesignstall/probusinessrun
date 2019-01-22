@@ -73,7 +73,15 @@ Template.preQuote.onDestroyed(function () {
 
 Template.kalendar.helpers({
     gununIsleri: function () {
-        return WorkData.find({ workDate: (Template.instance().secilenTarix2.get()).toString(), quote: false }, { sort: { workMustBeginTime: 1 } });
+        let baza = WorkData.find({ workDate: (Template.instance().secilenTarix2.get()).toString(), quote: false }).fetch();
+
+        baza.sort((a, b) => {
+            let first = Date.parse('11 Jan 2018 ' + a.workMustBeginTime[0]);
+            let second = Date.parse('11 Jan 2018 ' + b.workMustBeginTime[0]);
+            return (first - second);
+        });
+
+        return baza;
     },
     isGunMelumatVar: function () {
         if (WorkData.find({ workDate: (Template.instance().secilenTarix2.get()).toString() }).fetch().length) {
@@ -90,20 +98,7 @@ Template.kalendar.helpers({
         }
     },
     saatDeqiq: function (saat) {
-        if (Number(saat.substr(0, 2)) < 12) {
-            if (saat.substr(0, 2) === '00') {
-                return saat.replace('00', '12');
-            } else {
-                return saat;
-            }
-        }
-        if ((Number(saat.substr(0, 2)) > 12)) {
-            if ((Number(saat.substr(0, 2) - 12) < 10)) {
-                return saat.replace(saat.substr(0, 2), '0' + ((Number(saat.substr(0, 2)) - 12).toString()));
-            } else {
-                return saat.replace(saat.substr(0, 2), (Number(saat.substr(0, 2)) - 12).toString());
-            }
-        }
+        return (saat[0] + ' - ' + saat[1]);
     },
     buDocument: function () {
         return WorkData.findOne({ '_id': Template.instance().vurulanId.get() });

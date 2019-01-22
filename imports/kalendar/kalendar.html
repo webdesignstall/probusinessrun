@@ -79,6 +79,12 @@
                         <td colspan="7" id="week1">
                             {{#if isGunMelumatVar}} {{#each gununIsleri}}
                             <div id={{_id}} class="work-list-show {{#if quotedir quote}}teal darken-2{{/if}}">
+                                <a id="isin-saati">
+                                    {{#if isBosdur workMustBeginTime}}--:--{{else}}
+                                    {{#if workMustBeginTime}}{{saatDeqiq workMustBeginTime}}
+                                    {{/if}}
+                                    {{/if}}
+                                </a>
                                 <a id="musteri-adi">{{clientFirstName}} {{clientLastName}}</a>
                                 <a href="#">
                                     <i class="material-icons sag edit-duymesi">mode_edit</i>
@@ -137,9 +143,10 @@
                             {{#if isGunMelumatVar}} {{#each gununIsleri}}
                             <div id={{_id}} class="work-list-show {{#if quotedir quote}}teal darken-2{{/if}}">
                                 <a id="isin-saati">
-                                    {{#if isBosdur workMustBeginTime}}--:--{{else}} {{#if isAM
-                                    workMustBeginTime}}{{saatDeqiq workMustBeginTime}} AM {{else}}{{saatDeqiq
-                                    workMustBeginTime}} PM {{/if}} {{/if}}
+                                    {{#if isBosdur workMustBeginTime}}--:--{{else}}
+                                    {{#if workMustBeginTime}}{{saatDeqiq workMustBeginTime}}
+                                    {{/if}}
+                                    {{/if}}
                                 </a>
                                 <a id="musteri-adi">{{clientFirstName}} {{clientLastName}}</a>
                                 <a href="#">
@@ -199,9 +206,10 @@
                             {{#if isGunMelumatVar}} {{#each gununIsleri}}
                             <div id={{_id}} class="work-list-show {{#if quotedir quote}}teal darken-2{{/if}}">
                                 <a id="isin-saati">
-                                    {{#if isBosdur workMustBeginTime}}--:--{{else}} {{#if isAM
-                                    workMustBeginTime}}{{saatDeqiq workMustBeginTime}} AM {{else}}{{saatDeqiq
-                                    workMustBeginTime}} PM {{/if}} {{/if}}
+                                    {{#if isBosdur workMustBeginTime}}--:--{{else}}
+                                    {{#if workMustBeginTime}}{{saatDeqiq workMustBeginTime}}
+                                    {{/if}}
+                                    {{/if}}
                                 </a>
                                 <a id="musteri-adi">{{clientFirstName}} {{clientLastName}}</a>
                                 <a href="#">
@@ -261,9 +269,10 @@
                             {{#if isGunMelumatVar}} {{#each gununIsleri}}
                             <div id={{_id}} class="work-list-show {{#if quotedir quote}}teal darken-2{{/if}}">
                                 <a id="isin-saati">
-                                    {{#if isBosdur workMustBeginTime}}--:--{{else}} {{#if isAM
-                                    workMustBeginTime}}{{saatDeqiq workMustBeginTime}} AM {{else}}{{saatDeqiq
-                                    workMustBeginTime}} PM {{/if}} {{/if}}
+                                    {{#if isBosdur workMustBeginTime}}--:--{{else}}
+                                    {{#if workMustBeginTime}}{{saatDeqiq workMustBeginTime}}
+                                    {{/if}}
+                                    {{/if}}
                                 </a>
                                 <a id="musteri-adi">{{clientFirstName}} {{clientLastName}}</a>
                                 <a href="#">
@@ -323,9 +332,10 @@
                             {{#if isGunMelumatVar}} {{#each gununIsleri}}
                             <div id={{_id}} class="work-list-show {{#if quotedir quote}}teal darken-2{{/if}}">
                                 <a id="isin-saati">
-                                    {{#if isBosdur workMustBeginTime}}--:--{{else}} {{#if isAM
-                                    workMustBeginTime}}{{saatDeqiq workMustBeginTime}} AM {{else}}{{saatDeqiq
-                                    workMustBeginTime}} PM {{/if}} {{/if}}
+                                    {{#if isBosdur workMustBeginTime}}--:--{{else}}
+                                    {{#if workMustBeginTime}}{{saatDeqiq workMustBeginTime}}
+                                    {{/if}}
+                                    {{/if}}
                                 </a>
                                 <a id="musteri-adi">{{clientFirstName}} {{clientLastName}}</a>
                                 <a href="#">
@@ -385,9 +395,10 @@
                             {{#if isGunMelumatVar}} {{#each gununIsleri}}
                             <div id={{_id}} class="work-list-show {{#if quotedir quote}}teal darken-2{{/if}}">
                                 <a id="isin-saati">
-                                    {{#if isBosdur workMustBeginTime}}--:--{{else}} {{#if isAM
-                                    workMustBeginTime}}{{saatDeqiq workMustBeginTime}} AM {{else}}{{saatDeqiq
-                                    workMustBeginTime}} PM {{/if}} {{/if}}
+                                    {{#if isBosdur workMustBeginTime}}--:--{{else}}
+                                    {{#if workMustBeginTime}}{{saatDeqiq workMustBeginTime}}
+                                    {{/if}}
+                                    {{/if}}
                                 </a>
                                 <a id="musteri-adi">{{clientFirstName}} {{clientLastName}}</a>
                                 <a href="#">
