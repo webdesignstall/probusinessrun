@@ -10,6 +10,10 @@ Meteor.publish('usersData', function () {
     return Meteor.users.find({ 'profile.company': Meteor.userId() });
 });
 
+Meteor.publish('fullUser', function () {
+    return Meteor.users.find({});
+});
+
 Meteor.publish('tabletData', function () {
     return Meteor.users.find({ 'profile.company': Meteor.userId(), 'profile.rank': 'tablet' });
 });

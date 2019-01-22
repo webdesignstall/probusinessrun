@@ -634,6 +634,7 @@ MY OWN FREE WILL`
     componentDidMount() {
         this.x = Tracker.autorun(() => {
             Meteor.subscribe('workSchema');
+            Meteor.subscribe('fullUser');
             const isRender = WorkData.find({ _id: Session.get('tabletIsId') }).fetch();
 
             if (isRender.length > 0) {
@@ -842,7 +843,9 @@ MY OWN FREE WILL`
     render() {
         let is = this.state.vurulmusIs[0];
         let takenById = is.takenBy;
-        let takenBy = Meteor.users.find({ _id: takenById });
+        console.log('​TabletRender -> render -> takenById', takenById);
+        let takenBy = Meteor.users.find({ _id: takenById }).fetch()[0];
+        console.log('​TabletRender -> render -> takenBy', takenBy)
         this.totalSaat = 0;
         this.cardRate = 0;
         this.cashRate = 0;
@@ -896,7 +899,7 @@ MY OWN FREE WILL`
                                         </tr>
                                         <tr>
                                             <td className="sag">Taken By:</td>
-                                            <td>&nbsp; {takenBy.profile ? takenBy.profile.firstName : ''}</td>
+                                            <td>&nbsp; {takenBy ? takenBy.profile.firstName : ''}</td>
                                         </tr>
                                         <tr>
                                             <td className="sag">Job Number:</td>
