@@ -82,7 +82,7 @@ export default class UpdateAddTruck extends React.Component {
         return (
             this.state.truckList.map((truck) => {
                 return (
-                    <option key={truck._id} value={truck.profile.number}>#{truck.profile.number} - {truck.profile.size}</option>
+                    <option key={truck._id} value={truck.profile.number}>#{truck.profile.number} - {truck.profile.lenght}</option>
                 );
             })
         );
