@@ -363,7 +363,10 @@ MY OWN FREE WILL`
 
             // DDT olduqda ve isleme saati labor vaxtdan az olduqda ve ya eksi
             isDoubleDrive && (totalWorkedHours <= laborTime)
-                ? startToFinishTime = laborTime + (drivingTime * 2)
+                ? (
+                    startToFinishTime = laborTime + (drivingTime * 2),
+                    totalWorkedHours = laborTime
+                )
                 : startToFinishTime = totalWorkedHours + (drivingTime * 2);
 
             this.totalWorkLaborTime = startToFinishTime;
@@ -392,75 +395,10 @@ MY OWN FREE WILL`
 
     hesabla(inputType, e) {
         let workData = this.state.vurulmusIs.length > 0 ? this.state.vurulmusIs[0] : null;
-        // let percentDiscount = Number(this.totalDiscountPercent) || 0;
-        // let percentDiscountRate = 1 - (percentDiscount / 100);
-        // let cashDiscount = Number(this.totalDiscountAmount) || 0;
-        // let cashDiscountedPercent = cashDiscount * percentDiscountRate || 0;
-        // let timeDiscount = Number(this.totalDiscountTime) || 0;
-        // let flatRateIsTrue = workData.flatRate ? workData.flatRate[0].isTrue : false;
-        // let flatCashAmount = workData.flatRate ? Number(workData.flatRate[0].cashAmount) : 0;
-        // let flatCashAmountDiscounted = flatCashAmount * percentDiscountRate || 0;
-        // let flatCardAmount = workData.flatRate ? Number(workData.flatRate[0].cardAmount) : 0;
-        // let flatCardAmountDiscounted = flatCardAmount * percentDiscountRate || 0;
-        // let cashRate = Number(workData.hourlyRatesCash) || 0;
-        // let cardRate = Number(workData.hourlyRatesCard) || 0;
-        // let startToFinishTime = workData.totalWorkTime; //start to finish time included break and driving time
-        // let laborTime = Number(workData.laborTime) || 0; // minimum labor time
-        // let breakTimeTotal = Number(workData.totalBreakTime) || 0;
-        // let doubleDrive = workData.doubleDrive === 'yes' ? true : false;
-        // let drivingTime = Number(workData.totalDrivingTime) || 0;
-        // let workLaborTime = startToFinishTime - drivingTime - breakTimeTotal;
-        // let doubleDriveTime = doubleDrive ? drivingTime : 0;
-        // let doubleDriveCash = doubleDriveTime * cashRate;
-        // let doubleDriveCard = doubleDriveTime * cardRate;
-
-        // double drive olmadiqda
-        // startToFinishTime = workLaborTime + drivingTime;
-
-        // // flat rate olduqda
-        // this.lessThanLabor = false;
-        // flatRateIsTrue
-        //     ? startToFinishTime - laborTime - breakTimeTotal <= 0
-        //         ? (startToFinishTime = laborTime, this.lessThanLabor = true)
-        //         : startToFinishTime -= laborTime - breakTimeTotal
-        //     : null;
-
-        // // DDT olduqda ve isleme saati labor vaxtdan az olduqda
-        // doubleDrive && workLaborTime < laborTime
-        //     ? startToFinishTime = laborTime + (drivingTime * 2)
-        //     : null;
-
-        // // double drive time olduqda ve isleme saati labor timedan cox olduqda
-        // doubleDrive && workLaborTime > laborTime
-        //     ? startToFinishTime = workLaborTime + (drivingTime * 2)
-        //     : null;
-
-        // startToFinishTime = Math.ceil(startToFinishTime / 0.25) * 0.25;
-
-        // // time discount calculation
-        // timeDiscount > 0
-        //     ? startToFinishTime -= timeDiscount
-        //     : null;
-
-        // startToFinishTime = startToFinishTime * percentDiscountRate;
-        // let startToFinishCashAmountDiscounted = startToFinishTime * cashRate;
-        // let startToFinishCardAmountDiscounted = startToFinishTime * cardRate;
-        // let gasFee = Number(workData.gasFee) || 0;
-        // let extraLargeItemFee = Number(workData.largeItemFee) || 0;
-        // let smallItemPacking = Number(workData.smallItemPacking) || 0;
-        // let additionalCharges = Number(this.totalAdditionalCharge) || 0;
-        // let packingSupplies = this.state.totalPul;
         let inputAmount = Number(e.target.value);
         let typeOfPayment = inputType;
         let amountOf = 0;
         let deposit = workData.deposit;
-
-        // // total additional charges
-        // additionalCharges += (gasFee && gasFee > 0 ? gasFee : 0) + (extraLargeItemFee && extraLargeItemFee > 0 ? extraLargeItemFee : 0) + (smallItemPacking > 0 ? smallItemPacking : 0) + packingSupplies;
-
-        // // this.payCash ve this.payCard hesablanmasi
-        // this.payCash = (startToFinishCashAmountDiscounted + flatCashAmountDiscounted - cashDiscountedPercent + doubleDriveCash + additionalCharges).toFixed(2);
-        // this.payCard = (startToFinishCardAmountDiscounted + flatCardAmountDiscounted - cashDiscountedPercent + doubleDriveCard + additionalCharges).toFixed(2);
 
         if (typeOfPayment === 'cash') {
             if (inputAmount < 0 || inputAmount === '' || inputAmount === 0) {
@@ -1270,11 +1208,11 @@ MY OWN FREE WILL`
                                 </li>
                                 <li className="collection-item blue">
                                     Grand Total Cash:
-                                    <span className="sag">= ${this.payCash - is.deposit}</span>
+                                    <span className="sag">= ${(this.payCash - is.deposit).toFixed(2)}</span>
                                 </li>
                                 <li className="collection-item blue">
                                     Grand Total Card:
-                                    <span className="sag">= ${this.payCard - is.deposit}</span>
+                                    <span className="sag">= ${(this.payCard - is.deposit).toFixed(2)}</span>
                                 </li>
                             </ul>
                         </div>
