@@ -277,6 +277,12 @@ class ReserveQuote extends React.Component {
                             <p>
                                 **If you have any questions, please contact us soon as possible by phone, text, or e-mail 24/7**
                             </p>
+                            <p>
+                                Phone Number: {job.companyInfo.phoneNumber}
+                            </p>
+                            <p>
+                                Email: {job.companyInfo.email}
+                            </p>
                         </div>
                         {/* <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                             <input type="hidden" name="cmd" value="_s-xclick" />

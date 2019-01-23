@@ -239,8 +239,6 @@ export default function EmailContent(job) {
                 </div>
             </div>
             ${
-        console.log(job.doubleDrive),
-        console.log(job.gasFee),
         job.doubleDrive === 'notSure' || job.gasFee < 0
             ?
             `
@@ -262,7 +260,6 @@ export default function EmailContent(job) {
                 </div>
                 <div class="additional-charges--list" style="padding: 10px;">
                 ${
-        console.log(job.smallPackingItems),
         job.smallPackingItems === 0 || job.smallPackingItems === '' || job.smallPackingItems === undefined
             ? `
             <div style="margin-bottom: 5px;">
@@ -273,7 +270,6 @@ export default function EmailContent(job) {
             : ''
         }
                 ${
-        console.log(job.largeItemFee),
         job.largeItemFee === 0 || job.largeItemFee === '' || job.largeItemFee === undefined
             ? `
             <div style="margin-bottom: 5px;">
