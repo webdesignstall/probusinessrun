@@ -415,7 +415,7 @@ MY OWN FREE WILL`
                     document.getElementById('mark-as-payed').classList.remove('disabled');
                 });
             } else {
-                amountOf = ((this.payCash - 50 - inputAmount) / this.payCash) * this.payCard;
+                amountOf = ((this.payCash - deposit - inputAmount) / this.payCash - deposit) * (this.payCard - deposit);
                 amountOf = amountOf.toFixed(2);
                 document.getElementById('mark-as-payed').classList.add('disabled');
                 this.setState({
@@ -438,7 +438,7 @@ MY OWN FREE WILL`
                     document.getElementById('mark-as-payed').classList.remove('disabled');
                 });
             } else {
-                amountOf = ((this.payCard - 50 - inputAmount) / this.payCard) * this.payCash;
+                amountOf = ((this.payCard - deposit - inputAmount) / this.payCard - deposit) * (this.payCash - deposit);
                 amountOf = amountOf.toFixed(2);
                 document.getElementById('mark-as-payed').classList.add('disabled');
                 this.setState({
