@@ -417,7 +417,7 @@ MY OWN FREE WILL`
             } else {
                 console.log('​TabletRender -> hesabla -> inputAmount', inputAmount)
                 console.log('​TabletRender -> hesabla -> deposit', deposit)
-                console.log('​TabletRender -> hesabla -> his.payCash', his.payCash)
+                console.log('​TabletRender -> hesabla -> his.payCash', this.payCash)
                 amountOf = ((this.payCash - deposit - inputAmount) / this.payCash - deposit) * (this.payCard - deposit);
                 amountOf = amountOf.toFixed(2);
                 document.getElementById('mark-as-payed').classList.add('disabled');
