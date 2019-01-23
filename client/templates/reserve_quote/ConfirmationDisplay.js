@@ -80,14 +80,14 @@ export default class ConfirmationDisplay extends Component {
                 <div>
                     <div>
                         <span>Phone:&nbsp;
-                            <a style={colorStyle} href={'tel:' + this.state.company.phone} target="_blank" rel="noopener noreferrer">{this.state.company.phone}</a>&nbsp;<br />
+                            <a style={colorStyle} href={'tel:' + this.state.company.phoneNumber} target="_blank" rel="noopener noreferrer">{this.state.company.phoneNumber}</a>&nbsp;<br />
                             E-mail:&nbsp;
                             <a style={colorStyle} href={'mailto:' + this.state.company.email} target="_blank" rel="noopener noreferrer">{this.state.company.email}</a>
                         </span>
                     </div>
                     <div>
                         <span>Web:&nbsp;
-                            <a href={this.state.company.website} target="_blank" rel="noopener noreferrer">{this.state.company.website}</a>
+                            <a href={this.state.company.url} target="_blank" rel="noopener noreferrer">{this.state.company.url}</a>
                         </span>
                     </div>
                     <div>Powered by Movers Legion</div>
