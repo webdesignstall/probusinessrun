@@ -1174,7 +1174,7 @@ MY OWN FREE WILL`
                                     Gas Fee:
                                     <span className="sag">= ${is.gasFee > 0 ? is.gasFee : ''}</span>
                                 </li>
-                                <li className="collection-item blue">
+                                <li className={this.totalDiscountAmount > 0 && this.totalDiscountPercent > 0 && this.totalDiscountPercent > 0 ? 'collection-item blue' : 'hide'} >
                                     Discount:
                                     {this.totalDiscountAmount && this.totalDiscountAmount > 0
                                         ? <span className="sag discountYeri">${this.totalDiscountAmount}</span>
