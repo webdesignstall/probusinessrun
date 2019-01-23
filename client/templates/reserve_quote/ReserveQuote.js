@@ -21,6 +21,20 @@ class ReserveQuote extends React.Component {
         this.state = {
             is: [],
             selected: 0,
+            movingSizeCorrectNaming: {
+                'items': 'Items',
+                'studio': 'Studio',
+                '1_bedroom': '1 Bedroom',
+                '2_bedroom_small': '2 Bedroom (small size, few items)',
+                '2_bedroom_avg': '2 Bedroom (avg. size, avg. items)',
+                '2_bedroom_large': '2 Bedroom (large size, many items)',
+                '3_bedroom_avg': '3 Bedroom (avg. size, avg. items)',
+                '3_bedroom_large': '3 Bedroom (large size, many items)',
+                '4_bedrooom_avg': '4 Bedroom (avg. size, avg. items)',
+                '4_bedroom_large': '4 Bedroom (large size, many items)',
+                'commercial_avg': 'Commercial (avg. size, avg. items)',
+                'commercial_large': 'Commercial (large size, many items)'
+            }
         };
 
         this.checked = this.checked.bind(this);
@@ -147,7 +161,7 @@ class ReserveQuote extends React.Component {
                                 {/* moving size */}
                                 <tr>
                                     <td>Moving Size:</td>
-                                    <td>{job.movingSize}</td>
+                                    <td>{this.state.movingSizeCorrectNaming[job.movingSize]}</td>
                                 </tr>
                                 {/* # of movers */}
                                 <tr>
