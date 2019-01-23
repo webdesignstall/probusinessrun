@@ -2,6 +2,7 @@
     "Moving Company Los Angeles": {
         "name": "Moving Company Los Angeles",
         "phoneNumber": "(626) 600-4459",
+        "url": "www.movingcompanylosangeles.com",
         "email": "info@movingcompanylosangeles.com",
         "smtp": "mail.movingcompanylosangeles.com",
         "userName": "info@movingcompanylosangeles.com",
@@ -10,6 +11,7 @@
     "Cheap Movers Los Angeles": {
         "name": "Cheap Movers Los Angeles",
         "phoneNumber": "(213) 262-9440",
+        "url": "www.cheapmoverslosangeles.com",
         "email": "info@cheapmoverslosangeles.com",
         "smtp": "mail.cheapmoverslosangeles.com",
         "userName": "info@cheapmoverslosangeles.com",
@@ -18,6 +20,7 @@
     "Cheap Movers Riverside": {
         "name": "Cheap Movers Riverside",
         "phoneNumber": "(951) 900-4424",
+        "url": "www.cheapmoversriverside.com",
         "email": "info@cheapmoversriverside.com",
         "smtp": "mail.cheapmoversriverside.com",
         "userName": "info@cheapmoversriverside.com",
@@ -26,6 +29,7 @@
     "Orange County Moving Company": {
         "name": "Orange County Moving Company",
         "phoneNumber": "(657) 888-5956",
+        "url": "www.ocmovingandstorage.com",
         "email": "info@ocmovingandstorage.com",
         "smtp": "mail.ocmovingandstorage.com",
         "userName": "info@ocmovingandstorage.com",
@@ -34,6 +38,7 @@
     "Burbank Moving and Storage Company": {
         "name": "Burbank Moving and Storage Company",
         "phoneNumber": "(818) 639-9868",
+        "url": "www.burbankmovingandstoragecompany.com",
         "email": "info@burbankmovingandstoragecompany.com",
         "smtp": "mail.burbankmovingandstoragecompany.com",
         "userName": "info@burbankmovingandstoragecompany.com",
@@ -42,6 +47,7 @@
     "Sprint Mover": {
         "name": "Sprint Mover",
         "phoneNumber": "(888) 858 1511",
+        "url": "www.sprintmover.com",
         "email": "info@sprintmover.com",
         "smtp": "mail.sprintmover.com",
         "userName": "info@sprintmover.com",
@@ -50,6 +56,7 @@
     "Rapid Office Movers": {
         "name": "Rapid Office Movers",
         "phoneNumber": "(213) 805-6506",
+        "url": "www.rapidofficemovers.com",
         "email": "info@rapidofficemovers.com",
         "smtp": "mail.rapidofficemovers.com",
         "userName": "info@rapidofficemovers.com",
@@ -58,6 +65,7 @@
     "House Movers Riverside": {
         "name": "House Movers Riverside",
         "phoneNumber": "(951) 200-2092",
+        "url": "www.housemoversriverside.com",
         "email": "info@housemoversriverside.com",
         "smtp": "mail.housemoversriverside.com",
         "userName": "info@housemoversriverside.com",
@@ -66,6 +74,7 @@
     "Cheap Movers Irvine": {
         "name": "Cheap Movers Irvine",
         "phoneNumber": "(714) 786-6909",
+        "url": "www.cheapmoversinirvine.com",
         "email": "info@cheapmoversinirvine.com",
         "smtp": "mail.cheapmoversinirvine.com",
         "userName": "info@cheapmoversinirvine.com",
@@ -74,6 +83,7 @@
     "Movers Legion": {
         "name": "Movers Legion",
         "phoneNumber": "(844) 404-8404",
+        "url": "www.moverslegion.com",
         "email": "info@moverslegion.com",
         "smtp": "mail.moverslegion.com",
         "userName": "info@moverslegion.com",
@@ -82,6 +92,7 @@
     "Best Cheap Movers OC": {
         "name": "Best Cheap Movers OC",
         "phoneNumber": "(855) 422-3232",
+        "url": "www.bestcheapmoversorangecounty.com",
         "email": "info@bestcheapmoversorangecounty.com",
         "smtp": "mail.bestcheapmoversorangecounty.com",
         "userName": "info@bestcheapmoversorangecounty.com",
@@ -90,6 +101,7 @@
     "Cheap Movers Anaheim": {
         "name": "Cheap Movers Anaheim",
         "phoneNumber": "(714) 591-0303",
+        "url": "www.cheapmoversanaheim.com",
         "email": "info@cheapmoversanaheim.com",
         "smtp": "mail.cheapmoversanaheim.com",
         "userName": "info@cheapmoversanaheim.com",
@@ -98,6 +110,7 @@
     "Local VIP Movers": {
         "name": "Local VIP Movers",
         "phoneNumber": "(424) 355-8484",
+        "url": "www.localvipmovers.com",
         "email": "info@localvipmovers.com",
         "smtp": "mail.localvipmovers.com",
         "userName": "info@localvipmovers.com",
@@ -106,6 +119,7 @@
     "Pro Affordable Movers": {
         "name": "Pro Affordable Movers",
         "phoneNumber": "(888) 338-5878",
+        "url": "www.proaffordablemovers.com",
         "email": "info@proaffordablemovers.com",
         "smtp": "mail.proaffordablemovers.com",
         "userName": "info@proaffordablemovers.com",
@@ -114,6 +128,7 @@
     "Cheap Movers Costa Mesa": {
         "name": "Cheap Movers Costa Mesa",
         "phoneNumber": "(949) 629-4440",
+        "url": "www.cheapmoverscostamesa.com",
         "email": "info@cheapmoverscostamesa.com",
         "smtp": "mail.cheapmoverscostamesa.com",
         "userName": "info@cheapmoverscostamesa.com",
