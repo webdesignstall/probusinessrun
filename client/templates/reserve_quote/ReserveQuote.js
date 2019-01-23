@@ -9,7 +9,7 @@ import { Session } from 'meteor/session';
 import ConfirmationDisplay from './ConfirmationDisplay';
 
 // load companies info json
-const baza = require('./companies.json');
+const baza = require('../../../imports/helpers/companyInfos.json');
 
 /*global paypal, $, Bert*/
 
@@ -29,8 +29,6 @@ class ReserveQuote extends React.Component {
 
     componentDidMount() {
         this.x = Tracker.autorun(() => {
-
-            console.log(baza['Cheap Movers Costa Mesa'].email);
             Meteor.subscribe('workSchema');
             const tapilasiIs = WorkData.find({ jobNumber: Session.get('jobNumber') }).fetch();
             this.setState({
