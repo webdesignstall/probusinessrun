@@ -346,11 +346,21 @@ Schemas.workSchema = new SimpleSchema({
     'companyInfo.name': {
         type: String,
     },
+    'companyInfo.phoneNumber': {
+        type: String,
+    },
+    'companyInfo.url': {
+        type: String,
+    },
     'companyInfo.email': {
         type: String,
         optional: true
     },
     'companyInfo.smtp': {
+        type: String,
+        optional: true
+    },
+    'companyInfo.userName': {
         type: String,
         optional: true
     },
