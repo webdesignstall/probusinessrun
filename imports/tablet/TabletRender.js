@@ -1216,7 +1216,7 @@ MY OWN FREE WILL`
                                 </li>
                                 <li className="collection-item blue">
                                     {is.flatRate && is.flatRate[0].isTrue ? 'Total calculated hours after flat rate:' : 'Total calculated hours:'}
-                                    <span className="sag">= {this.totalWorkLaborTime} hours</span>
+                                    <span className="sag">= {this.totalWorkLaborTime.toFixed(2)} hours</span>
                                 </li>
                                 <li className="collection-item blue">
                                     Small Item Pck Supplies:
