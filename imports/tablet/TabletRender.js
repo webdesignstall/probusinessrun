@@ -415,6 +415,9 @@ MY OWN FREE WILL`
                     document.getElementById('mark-as-payed').classList.remove('disabled');
                 });
             } else {
+                console.log('​TabletRender -> hesabla -> inputAmount', inputAmount)
+                console.log('​TabletRender -> hesabla -> deposit', deposit)
+                console.log('​TabletRender -> hesabla -> his.payCash', his.payCash)
                 amountOf = ((this.payCash - deposit - inputAmount) / this.payCash - deposit) * (this.payCard - deposit);
                 amountOf = amountOf.toFixed(2);
                 document.getElementById('mark-as-payed').classList.add('disabled');
