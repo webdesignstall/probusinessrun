@@ -369,14 +369,14 @@ MY OWN FREE WILL`
                 )
                 : startToFinishTime = totalWorkedHours + (drivingTime * 2);
 
-            this.totalWorkLaborTime = startToFinishTime;
+            this.totalWorkLaborTime = (startToFinishTime).toFixed(2);
 
             // tabletde liste umumi islenmis saati ve ya flat rate olduqda elave hesablanan vaxti gosterir
             this.totalWorkLaborTime = (flatRateIsTrue
                 ? (startToFinishTime - laborTime) <= 0
                     ? 0
-                    : startToFinishTime - laborTime
-                : startToFinishTime);
+                    : (startToFinishTime - laborTime).toFixed(2)
+                : (startToFinishTime).toFixed(2));
 
             let gasFee = Number(workData.gasFee) || 0;
             let extraLargeItemFee = Number(workData.largeItemFee) || 0;
@@ -1154,7 +1154,7 @@ MY OWN FREE WILL`
                                 </li>
                                 <li className="collection-item blue">
                                     {is.flatRate && is.flatRate[0].isTrue ? 'Total calculated hours after flat rate:' : 'Total calculated hours:'}
-                                    <span className="sag">= {this.totalWorkLaborTime.toFixed(2)} hours</span>
+                                    <span className="sag">= {this.totalWorkLaborTime} hours</span>
                                 </li>
                                 <li className="collection-item blue">
                                     Small Item Pck Supplies:

@@ -1,0 +1,44 @@
+{
+    "Moving Company Los Angeles": {
+        "phoneNumber": "(626) 600-4459",
+        "email": "info@movingcompanylosangeles.com",
+        "smtp": "mail.movingcompanylosangeles.com",
+        "userName": "info@movingcompanylosangeles.com",
+        "password": "MCla7724!"
+    },
+    "Cheap Movers Los Angeles": {
+        "phoneNumber": "(213) 262-9440",
+        "email": "info@cheapmoverslosangeles.com",
+        "smtp": "mail.cheapmoverslosangeles.com",
+        "userName": "info@cheapmoverslosangeles.com",
+        "password": "MCla7724!"
+    },
+    "Cheap Movers Riverside": {
+        "phoneNumber": "(951) 900-4424",
+        "email": "info@cheapmoversriverside.com",
+        "smtp": "mail.cheapmoversriverside.com",
+        "userName": "info@cheapmoversriverside.com",
+        "password": "MCla7724!"
+    },
+    "Orange County Moving Company": {
+        "phoneNumber": "(657) 888-5956",
+        "email": "info@ocmovingandstorage.com",
+        "smtp": "mail.ocmovingandstorage.com",
+        "userName": "info@ocmovingandstorage.com",
+        "password": "MCla7724!"
+    },
+    "Burbank Moving and Storage Company": {
+        "phoneNumber": "(818) 639-9868",
+        "email": "info@burbankmovingandstoragecompany.com",
+        "smtp": "mail.burbankmovingandstoragecompany.com",
+        "userName": "info@burbankmovingandstoragecompany.com",
+        "password": "MCla7724!"
+    },
+    "Sprint Mover": {
+        "phoneNumber": "(818) 639-9868",
+        "email": "info@burbankmovingandstoragecompany.com",
+        "smtp": "mail.burbankmovingandstoragecompany.com",
+        "userName": "info@burbankmovingandstoragecompany.com",
+        "password": "MCla7724!"
+    }
+}
