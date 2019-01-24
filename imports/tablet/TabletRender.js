@@ -369,6 +369,13 @@ MY OWN FREE WILL`
                 )
                 : startToFinishTime = totalWorkedHours + (drivingTime * 2);
 
+            !isDoubleDrive && !flatRateIsTrue && (totalWorkedHours <= laborTime)
+                ? (
+                    totalWorkedHours = laborTime,
+                    drivingTime = 0
+                )
+                : null;
+
             this.totalWorkLaborTime = (startToFinishTime).toFixed(2);
 
             // tabletde liste umumi islenmis saati ve ya flat rate olduqda elave hesablanan vaxti gosterir
@@ -415,9 +422,6 @@ MY OWN FREE WILL`
                     document.getElementById('mark-as-payed').classList.remove('disabled');
                 });
             } else {
-                console.log('​TabletRender -> hesabla -> inputAmount', inputAmount)
-                console.log('​TabletRender -> hesabla -> deposit', deposit)
-                console.log('​TabletRender -> hesabla -> his.payCash', this.payCash)
                 amountOf = ((this.payCash - deposit - inputAmount) / (this.payCash - deposit)) * (this.payCard - deposit);
                 amountOf = amountOf.toFixed(2);
                 document.getElementById('mark-as-payed').classList.add('disabled');
@@ -1061,7 +1065,7 @@ MY OWN FREE WILL`
                     {/* start, stop, break driving buttons */}
                     <div id="secondStep" className={this.state.initSign ? 'card__' : 'hide card__'} >
                         <div className="card__ additionalSignature center-align">
-                            <a className="waves-effect waves-light btn" onClick={() => this.setState({ additionalSignatiure: !this.state.additionalSignatiure })} >{this.state.additionalSignatiure ? 'Need additonal signature HIDE' : 'Need additonal signature SHOW'} </a>
+                            <a className="waves-effect waves-light btn" onClick={() => this.setState({ additionalSignatiure: !this.state.additionalSignatiure })} >{this.state.additionalSignatiure ? 'Need additional signature HIDE' : 'Need additonal signature SHOW'} </a>
                             <AdditionalSignature clicked={this.state.additionalSignatiure} additionalSignatureList={this.state.additionalSignatureList} saveSignature={this.saveSignature} />
                         </div>
                         <AddedAdditionalSignaturesRender listOfAddedSignature={this.state.additionalSignature} listOfAdditionalSignature={this.state.additionalSignatureList} />

@@ -5,6 +5,8 @@ import { PromoCodes } from '../../common/collections_2';
 import { Tracker } from 'meteor/tracker';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 
+/*global Bert*/
+
 // componenets
 import Signature from './Signature';
 import { Meteor } from 'meteor/meteor';
@@ -117,7 +119,7 @@ export default class Discount extends TrackerReact(React.Component) {
                                         ? (
                                             Meteor.call('removeDiscount', this.state.discountId),
                                             Bert.alert({
-                                                title: `Discount doesn't accepted`,
+                                                title: 'Discount doesn\'t accepted',
                                                 message: 'For more info contact with the manager',
                                                 type: 'danger'
                                             }),
@@ -143,7 +145,7 @@ export default class Discount extends TrackerReact(React.Component) {
         Discounts.remove({ _id: this.state.discountId },
             (error) => {
                 error ? console.log(error) : null;
-            })
+            });
         Session.set('discountId', '');
         Session.set('discountAproved', false);
         this.setState({
@@ -155,9 +157,8 @@ export default class Discount extends TrackerReact(React.Component) {
             note: '',
             waiting: false,
             discountId: '',
-            discountApproved: false,
-            waiting: false
-        }, (error) => console.log(error))
+            discountApproved: false
+        }, (error) => console.log(error));
     }
 
     render() {

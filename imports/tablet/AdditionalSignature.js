@@ -17,7 +17,7 @@ export default class AdditionalSignature extends React.Component {
     componentWillReceiveProps(nextProps) {
         this.setState({
             clicked: nextProps.clicked
-        })
+        });
     }
 
     show(id) {

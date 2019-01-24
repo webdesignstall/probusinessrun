@@ -9,7 +9,7 @@ export default class Signature extends React.Component {
             signatureEmpty: false,
             time: new Date().getTime(),
             fullname: ''
-        }
+        };
 
         this.initialize = this.initialize.bind(this);
         this.saving = this.saving.bind(this);
@@ -17,11 +17,11 @@ export default class Signature extends React.Component {
     }
 
     componentDidMount() {
-        this.initialize()
+        this.initialize();
     }
 
-    componentWillReceiveProps() {
-        this.initialize()
+    UNSAFE_componentWillReceiveProps() {
+        this.initialize();
     }
 
     initialize() {
@@ -50,20 +50,16 @@ export default class Signature extends React.Component {
             typeId: this.props.id
         };
         this.props.extraInformation ? information = Object.assign({}, information, this.props.extraInformation) : null;
-        console.log("​Signature -> componentDidMount -> information", information)
-        console.log("​Signature -> componentDidMount -> his.props.extraInformation", this.props.extraInformation)
         this.props.saveSignature(this.props.which, information);
         let target_ = document.getElementById(this.props.id);
-        console.log("​Signature -> saving -> target_", target_)
         this.signaturePad.clear();
-        // target_.classList.add('hide');
         this.props.resetDiscount ? this.props.resetDiscount() : null;
     }
 
     fullNameChange(e) {
         this.setState({
             fullname: e.target.value
-        })
+        });
     }
 
     componentWillUnmount() {
