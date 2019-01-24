@@ -372,7 +372,8 @@ MY OWN FREE WILL`
             !isDoubleDrive && !flatRateIsTrue && (totalWorkedHours <= laborTime)
                 ? (
                     totalWorkedHours = laborTime,
-                    drivingTime = 0
+                    drivingTime = 0,
+                    startToFinishTime = laborTime
                 )
                 : null;
 
