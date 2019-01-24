@@ -399,6 +399,13 @@ MY OWN FREE WILL`
 
             // this.payCash ve this.payCard hesablanmasi
             this.payCash = ((flatCashAmount + (totalWorkedHours * cashRate) + (drivingTime * cashRate) - cashDiscount) * ((100 - percentDiscount) / 100) + (isDoubleDrive ? (drivingTime * cashRate) : 0) + additionalCharges - (timeDiscount * cashRate)).toFixed(2);
+            console.log('​TabletRender -> calculateAmount -> cashDiscount', cashDiscount)
+            console.log('​TabletRender -> calculateAmount -> timeDiscount', timeDiscount)
+            console.log('​TabletRender -> calculateAmount -> additionalCharges', additionalCharges)
+            console.log('​TabletRender -> calculateAmount -> isDoubleDrive', isDoubleDrive)
+            console.log('​TabletRender -> calculateAmount -> drivingTime', drivingTime)
+            console.log('​TabletRender -> calculateAmount -> totalWorkedHours', totalWorkedHours)
+            console.log('​TabletRender -> calculateAmount -> flatCashAmount', flatCashAmount)
             this.payCard = ((flatCardAmount + (totalWorkedHours * cardRate) + (drivingTime * cardRate) - cashDiscount) * ((100 - percentDiscount) / 100) + (isDoubleDrive ? (drivingTime * cardRate) : 0) + additionalCharges - (timeDiscount * cardRate)).toFixed(2);
         }
     }
