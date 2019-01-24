@@ -320,3 +320,12 @@
 .signature {
     border: 1px solid;
 }
+
+#additional-charge{
+    height: 130px;
+    min-height: 130px;
+    max-height: 130px;
+    border-radius: 5px;
+    border: 1px solid rgb(223, 223, 223);
+    overflow-y: scroll !important;
+}

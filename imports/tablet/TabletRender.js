@@ -11,6 +11,7 @@ import TabletIsList from './TabletIsList';
 import AdditionalSignature from './AdditionalSignature';
 import AddedAdditionalSignaturesRender from './AddedAdditionalSignaturesRender';
 import AddedDiscountRender from './AddedDiscountRender';
+import AdditionalCharge from './AdditionalCharge';
 
 /*global moment, paypal, $*/
 
@@ -334,6 +335,7 @@ MY OWN FREE WILL`
                     .filter((discount) => discount.type === 'percent')
                     .map((discount) => this.totalDiscountPercent += discount.amount)
                 : null;
+
             let workData = this.state.vurulmusIs.length > 0 ? this.state.vurulmusIs[0] : null; // melumatlar bazasi
             let percentDiscount = Number(this.totalDiscountPercent) || 0; // % discount
             let cashDiscount = Number(this.totalDiscountAmount) || 0; // $ amount discount
@@ -396,8 +398,8 @@ MY OWN FREE WILL`
             additionalCharges += (gasFee && gasFee > 0 ? gasFee : 0) + (extraLargeItemFee && extraLargeItemFee > 0 ? extraLargeItemFee : 0) + (smallItemPacking > 0 ? smallItemPacking : 0) + packingSupplies;
 
             // this.payCash ve this.payCard hesablanmasi
-            this.payCash = ((flatCashAmount + (totalWorkedHours * cashRate) + (drivingTime * cashRate) - cashDiscount) * ((100 - percentDiscount) / 100) + (drivingTime * cashRate) + additionalCharges - (timeDiscount * cashRate)).toFixed(2);
-            this.payCard = ((flatCardAmount + (totalWorkedHours * cardRate) + (drivingTime * cardRate) - cashDiscount) * ((100 - percentDiscount) / 100) + (drivingTime * cardRate) + additionalCharges - (timeDiscount * cardRate)).toFixed(2);
+            this.payCash = ((flatCashAmount + (totalWorkedHours * cashRate) + (drivingTime * cashRate) - cashDiscount) * ((100 - percentDiscount) / 100) + (isDoubleDrive ? (drivingTime * cashRate) : 0) + additionalCharges - (timeDiscount * cashRate)).toFixed(2);
+            this.payCard = ((flatCardAmount + (totalWorkedHours * cardRate) + (drivingTime * cardRate) - cashDiscount) * ((100 - percentDiscount) / 100) + (isDoubleDrive ? (drivingTime * cardRate) : 0) + additionalCharges - (timeDiscount * cardRate)).toFixed(2);
         }
     }
 

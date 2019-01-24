@@ -14,7 +14,8 @@ export default class AdditionalSignaturesRender extends React.Component {
             return (
                 <div key={Math.random()} className="card__">
                     <div onClick={() => this.show(additionalSignature.id)}>{additionalSignature.title}</div>
-                    <div id={additionalSignature.id} className="hide card__" >
+                    <div id={additionalSignature.id} className="hide" >
+                        <hr />
                         {additionalSignature.content}<br />
                         <hr />
                         <Signature

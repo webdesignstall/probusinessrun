@@ -1,4 +1,5 @@
 import React from 'react';
+import AdditionalCharge from './AdditionalCharge';
 
 // Components
 import Discount from './Discount';
@@ -11,10 +12,10 @@ export default class AdditionalSignature extends React.Component {
         this.state = {
             animate: false,
             clicked: props.clicked
-        }
+        };
     }
 
-    componentWillReceiveProps(nextProps) {
+    UNSAFE_componentWillReceiveProps(nextProps) {
         this.setState({
             clicked: nextProps.clicked
         });
@@ -26,8 +27,8 @@ export default class AdditionalSignature extends React.Component {
         this.setState((prevState) => {
             return ({
                 animate: !prevState.animate
-            })
-        })
+            });
+        });
     }
 
     render() {
@@ -36,6 +37,7 @@ export default class AdditionalSignature extends React.Component {
                 <div className="card__">
                     <AdditionalSignaturesRender listOfSignature={this.props.additionalSignatureList} saveSignature={this.props.saveSignature} />
                 </div>
+                <AdditionalCharge />
                 <div className="card__">
                     <div onClick={() => this.show('discount_')} >Discount</div>
                     <div id="discount_" className="hide" >
