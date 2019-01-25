@@ -78,7 +78,7 @@ export default function ConfirmationEmail(job) {
 						Arrival Window:
 					</td>
 					<td style="width: 49%;" width="49%">
-						${job.workMustBeginTime }
+						${job.workMustBeginTime[0] } - ${ job.workMustBeginTime[1] }
 					</td>
 				</tr>
 

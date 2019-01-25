@@ -154,7 +154,7 @@ class ReserveQuote extends React.Component {
                                 {/* arrival window */}
                                 <tr>
                                     <td>Arrival Window:</td>
-                                    <td>{job.workMustBeginTime}</td>
+                                    <td>{job.workMustBeginTime[0]} - {job.workMustBeginTime[1]}</td>
                                 </tr>
                                 {/* addresses */}
                                 {(() => this.addressesRender(job.addresses))()}
