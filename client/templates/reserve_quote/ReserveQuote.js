@@ -266,10 +266,10 @@ class ReserveQuote extends React.Component {
                         <div className="sola-cekme">
                             <p>
                                 {/* finish the on clikc pdf download */}
-                                <input className="secilib" onChange={() => this.checked()} type="checkbox" /> I have read, understand and agree to the contents of the <i><a href="http://www.moverslegion.com/wp-content/uploads/2018/12/included.pdf" download="http://www.moverslegion.com/wp-content/uploads/2018/12/included.pdf" target="_blank" rel="noopener noreferrer">&quot;What&apos;s Included&quot; Section.</a></i>
+                                <input className="secilib" onChange={() => this.checked()} type="checkbox" /> I have read, understand and agree to the contents of the <i><a href="http://www.moverslegion.com/wp-content/uploads/2019/01/included.pdf" download="http://www.moverslegion.com/wp-content/uploads/2019/01/included.pdf" target="_blank" rel="noopener noreferrer">&quot;What&apos;s Included&quot; Section.</a></i>
                             </p>
                             <p>
-                                <input className="secilib" onChange={() => this.checked()} type="checkbox" /> I have read, understand and agree to the contents of the <i><a href="http://www.moverslegion.com/wp-content/uploads/2018/12/not-included.pdf" download="http://www.moverslegion.com/wp-content/uploads/2018/12/not-included.pdf" target="_blank" rel="noopener noreferrer">&quot;What&apos;s Not Included&quot; Section.</a></i>
+                                <input className="secilib" onChange={() => this.checked()} type="checkbox" /> I have read, understand and agree to the contents of the <i><a href="http://www.moverslegion.com/wp-content/uploads/2019/01/not-included.pdf" download="http://www.moverslegion.com/wp-content/uploads/2019/01/not-included.pdf" target="_blank" rel="noopener noreferrer">&quot;What&apos;s Not Included&quot; Section.</a></i>
                             </p>
                             <p>
                                 <input className="secilib" onChange={() => this.checked()} type="checkbox" /> I have read, understand and agree to the contents of the <i><a href="http://www.moverslegion.com/wp-content/uploads/2018/12/for-you-1.pdf" download="http://www.moverslegion.com/wp-content/uploads/2018/12/for-you-1.pdf" target="_blank" rel="noopener noreferrer">&quot;For Your Information&quot; Section.</a></i>
