@@ -367,7 +367,7 @@ MY OWN FREE WILL`
             // flat rate olduqda zamanin hesablanmasi
             this.lessThanLabor = false;
             flatRateIsTrue
-                ? startToFinishTime - breakTimeTotal < laborTime
+                ? startToFinishTime < laborTime
                     ? (startToFinishTime = laborTime, this.lessThanLabor = true)
                     : (
                         totalWorkedHours = startToFinishTime - laborTime,
