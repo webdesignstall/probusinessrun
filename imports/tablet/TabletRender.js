@@ -12,6 +12,7 @@ import AdditionalSignature from './AdditionalSignature';
 import AddedAdditionalSignaturesRender from './AddedAdditionalSignaturesRender';
 import AddedDiscountRender from './AddedDiscountRender';
 import AdditionalCharge from './AdditionalCharge';
+import AdditionalChargesRender from './AdditionalChargesRender';
 
 /*global moment, paypal, $*/
 
@@ -50,6 +51,7 @@ export default class TabletRender extends React.Component {
             employeeSign: '',
             additionalSignatiure: false,
             discount: [],
+            additionalCharge: [],
             vurulmusIs: [
                 {
                     '_id': 'MKqnYLC8bHzNFsQBR',
@@ -266,6 +268,7 @@ MY OWN FREE WILL`
             _id: Session.get('tabletIsId'),
             [which]: newList, // save additional signature
         };
+
         Meteor.call('updateWork', doc);
     }
 
@@ -317,6 +320,7 @@ MY OWN FREE WILL`
             this.totalDiscountTime = 0;
             this.totalDiscountAmount = 0;
             this.totalDiscountPercent = 0;
+            this.totalAdditionalCharge = 0;
 
             this.state.discount && this.state.discount.length > -1 ?
                 this.state.discount
@@ -335,6 +339,11 @@ MY OWN FREE WILL`
                     .filter((discount) => discount.type === 'percent')
                     .map((discount) => this.totalDiscountPercent += discount.amount)
                 : null;
+
+            this.state.additionalCharge.map((charge) => {
+                let chargeAmount = charge.amount;
+                this.totalAdditionalCharge += chargeAmount;
+            });
 
             let workData = this.state.vurulmusIs.length > 0 ? this.state.vurulmusIs[0] : null; // melumatlar bazasi
             let percentDiscount = Number(this.totalDiscountPercent) || 0; // % discount
@@ -358,9 +367,12 @@ MY OWN FREE WILL`
             // flat rate olduqda zamanin hesablanmasi
             this.lessThanLabor = false;
             flatRateIsTrue
-                ? startToFinishTime - breakTimeTotal <= laborTime
+                ? startToFinishTime - breakTimeTotal < laborTime
                     ? (startToFinishTime = laborTime, this.lessThanLabor = true)
-                    : startToFinishTime -= laborTime - breakTimeTotal
+                    : (
+                        totalWorkedHours = startToFinishTime - laborTime,
+                        drivingTime = 0
+                    )
                 : null;
 
             // DDT olduqda ve isleme saati labor vaxtdan az olduqda ve ya eksi
@@ -388,7 +400,7 @@ MY OWN FREE WILL`
             let packingSupplies = this.state.totalPul;
 
             // total additional charges
-            additionalCharges += (gasFee && gasFee > 0 ? gasFee : 0) + (extraLargeItemFee && extraLargeItemFee > 0 ? extraLargeItemFee : 0) + (smallItemPacking > 0 ? smallItemPacking : 0) + packingSupplies;
+            additionalCharges += (gasFee && gasFee > 0 ? gasFee : 0) + (extraLargeItemFee && extraLargeItemFee > 0 ? extraLargeItemFee : 0) + (smallItemPacking > 0 ? smallItemPacking : 0) + packingSupplies + this.totalAdditionalCharge;
 
             // this.payCash ve this.payCard hesablanmasi
             this.payCash = ((flatCashAmount + (totalWorkedHours * cashRate) + (drivingTime * cashRate) - cashDiscount) * ((100 - percentDiscount) / 100) + (isDoubleDrive ? (drivingTime * cashRate) : 0) + additionalCharges - (timeDiscount * cashRate)).toFixed(2);
@@ -486,11 +498,13 @@ MY OWN FREE WILL`
             valueLargeBoxes: e.target.value,
             largeBoxes: 4 * e.target.value
         });
+
         function xuban() {
             this.setState({
                 totalPul: this.state.largeBoxes + this.state.smallBoxes + this.state.mediumBoxes + this.state.wrapRoll + this.state.movingBlankets + this.state.wardrobeBoxes + this.state.paperBundles
             });
         }
+
         setTimeout(xuban.bind(this), 500);
     }
 
@@ -596,7 +610,8 @@ MY OWN FREE WILL`
                         requirementEntirely: is.requirementEntirely,
                         threeDayPrior: is.threeDayPrior,
                         additionalSignature: is.additionalSignature && is.additionalSignature.length > 0 ? is.additionalSignature : [],
-                        discount: is.discount && is.discount.length > 0 ? is.discount : []
+                        discount: is.discount && is.discount.length > 0 ? is.discount : [],
+                        additionalCharge: is.additionalCharge && is.additionalCharge.length > 0 ? is.additionalCharge : []
                     });
                 });
             }
@@ -784,9 +799,7 @@ MY OWN FREE WILL`
     render() {
         let is = this.state.vurulmusIs[0];
         let takenById = is.takenBy;
-        console.log('​TabletRender -> render -> takenById', takenById);
         let takenBy = Meteor.users.find({ _id: takenById }).fetch()[0];
-        console.log('​TabletRender -> render -> takenBy', takenBy)
         this.totalSaat = 0;
         this.cardRate = 0;
         this.cashRate = 0;
@@ -1066,6 +1079,7 @@ MY OWN FREE WILL`
                         </div>
                         <AddedAdditionalSignaturesRender listOfAddedSignature={this.state.additionalSignature} listOfAdditionalSignature={this.state.additionalSignatureList} />
                         <AddedDiscountRender listOfDiscounts={this.state.discount} />
+                        <AdditionalChargesRender list={this.state.additionalCharge} />
                         {/* Finish rendering discounts */}
                         <div className="timeline">
                             <div className="center-align">
@@ -1173,9 +1187,13 @@ MY OWN FREE WILL`
                                     Extra Large/Heavy Item Fee:
                                     <span className="sag">= ${is.largeItemFee}</span>
                                 </li>
-                                <li className="collection-item blue">
+                                <li className={is.gasFee > 0 ? 'collection-item blue' : 'hide'}>
                                     Gas Fee:
-                                    <span className="sag">= ${is.gasFee > 0 ? is.gasFee : ''}</span>
+                                    <span className="sag">= ${is.gasFee}</span>
+                                </li>
+                                <li className={this.totalAdditionalCharge > 0 ? 'collection-item blue' : 'hide'}>
+                                    Additional Charge:
+                                    <span className="sag">= ${this.totalAdditionalCharge}</span>
                                 </li>
                                 <li className={this.totalDiscountAmount > 0 && this.totalDiscountPercent > 0 && this.totalDiscountPercent > 0 ? 'collection-item blue' : 'hide'} >
                                     Discount:

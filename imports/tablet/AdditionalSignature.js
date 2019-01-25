@@ -37,7 +37,7 @@ export default class AdditionalSignature extends React.Component {
                 <div className="card__">
                     <AdditionalSignaturesRender listOfSignature={this.props.additionalSignatureList} saveSignature={this.props.saveSignature} />
                 </div>
-                <AdditionalCharge />
+                <AdditionalCharge saveSignature={this.props.saveSignature} />
                 <div className="card__">
                     <div onClick={() => this.show('discount_')} >Discount</div>
                     <div id="discount_" className="hide" >

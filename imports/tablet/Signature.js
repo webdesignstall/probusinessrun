@@ -51,7 +51,7 @@ export default class Signature extends React.Component {
         };
         this.props.extraInformation ? information = Object.assign({}, information, this.props.extraInformation) : null;
         this.props.saveSignature(this.props.which, information);
-        let target_ = document.getElementById(this.props.id);
+        // let target_ = document.getElementById(this.props.id);
         this.signaturePad.clear();
         this.props.resetDiscount ? this.props.resetDiscount() : null;
     }

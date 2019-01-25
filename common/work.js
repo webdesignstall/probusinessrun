@@ -489,6 +489,34 @@ Schemas.workSchema = new SimpleSchema({
         type: String,
         optional: true
     },
+    additionalCharge: {
+        type: Array,
+        optional: true
+    },
+    'additionalCharge.$': {
+        type: Object,
+        optional: true
+    },
+    'additionalCharge.$.fullname': {
+        type: String,
+        optional: true
+    },
+    'additionalCharge.$.reason': {
+        type: String,
+        optional: true
+    },
+    'additionalCharge.$.signature': {
+        type: String,
+        optional: true
+    },
+    'additionalCharge.$.date': {
+        type: Date,
+        optional: true
+    },
+    'additionalCharge.$.amount': {
+        type: Number,
+        optional: true
+    },
     takenBy: {
         type: String,
         optional: false
