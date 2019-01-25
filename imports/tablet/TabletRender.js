@@ -11,7 +11,6 @@ import TabletIsList from './TabletIsList';
 import AdditionalSignature from './AdditionalSignature';
 import AddedAdditionalSignaturesRender from './AddedAdditionalSignaturesRender';
 import AddedDiscountRender from './AddedDiscountRender';
-import AdditionalCharge from './AdditionalCharge';
 import AdditionalChargesRender from './AdditionalChargesRender';
 
 /*global moment, paypal, $*/
@@ -839,7 +838,7 @@ MY OWN FREE WILL`
                                                 <div className="card__ blue-grey darken-2 white-text">
                                                     <div className="card-content">
                                                         {is.companyInfo === undefined ? '' : is.companyInfo.name}<br />
-                                                        <hr /> CAL PUC T-0191555<br />
+                                                        <hr /> BEARHFTI 0191555<br />
                                                         <hr /> PACK DATE: {is.workDate}<br />
                                                         <hr /> AGREEMENT FOR MOVING SERVICES FOR: {is.clientFirstName} {is.clientLastName}<br />
                                                         <hr /> DATE: {is.workDate}
