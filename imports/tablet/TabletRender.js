@@ -22,6 +22,20 @@ export default class TabletRender extends React.Component {
     constructor(props) {
         super(props);
         this.state = ({
+            movingSizeList: {
+                'items': 'Items',
+                'studio': 'Studio',
+                '1_bedroom': '1 Bedroom',
+                '2_bedroom_small': '2 Bedroom (small size, few items)',
+                '2_bedroom_avg': '2 Bedroom (avg. size, avg. items)',
+                '2_bedroom_large': '2 Bedroom (large size, many items)',
+                '3_bedroom_avg': '3 Bedroom (avg. size, avg. items)',
+                '3_bedroom_large': '3 Bedroom (large size, many items)',
+                '4_bedrooom_avg': '4 Bedroom (avg. size, avg. items)',
+                '4_bedroom_large': '4 Bedroom (large size, many items)',
+                'commercial_avg': 'Commercial (avg. size, avg. items)',
+                'commercial_large': 'Commercial (large size, many items)'
+            },
             valuePaperBundles: 0,
             paperBundles: 0,
             valueWardrobeBoxes: 0,
@@ -907,7 +921,7 @@ MY OWN FREE WILL`
                                         Your Flat Rates: {is.flatRate && is.flatRate[0].isTrue ? '$' + is.flatRate[0].cashAmount + '(cash)' + ' $' + is.flatRate[0].cardAmount + '(card)' : 'No'}<br />
                                         Your Hourly Rates: {is.hourlyRatesCash && is.hourlyRatesCard ? '$' + is.hourlyRatesCash + '(cash)' + ' $' + is.hourlyRatesCard + '(card)' : 'No'}<br />
                                         Minimum labor time: {is.laborTime} hour(s)<br />
-                                        Moving Size: {is.movingSize}<br />
+                                        Moving Size: {this.state.movingSizeList[is.movingSize]}<br />
                                     </div>
                                     <div className="col s6 m6 l6">
                                         Gas fee (one time): {is.gasFee && is.gasFee > 0 ? '$' + is.gasFee : 'Waived'}<br />
