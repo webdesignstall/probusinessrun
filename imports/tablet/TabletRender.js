@@ -240,7 +240,10 @@ MY OWN FREE WILL`
                 }
             ],
             additionalSignature: [],
-            totalAdditionalChargeAmount: 0
+            totalAdditionalChargeAmount: 0,
+            drivingClicked: false,
+            breakClicked: false,
+            started: false
         });
 
         this.requirementEntirely = this.requirementEntirely.bind(this);
@@ -334,6 +337,7 @@ MY OWN FREE WILL`
             this.totalDiscountTime = 0;
             this.totalDiscountAmount = 0;
             this.totalDiscountPercent = 0;
+            this.totalAdditionalChargeAmount = 0;
 
             this.state.discount && this.state.discount.length > -1 ?
                 this.state.discount
@@ -602,7 +606,6 @@ MY OWN FREE WILL`
             Meteor.subscribe('workSchema');
             Meteor.subscribe('fullUser');
             const isRender = WorkData.find({ _id: Session.get('tabletIsId') }).fetch();
-            this.totalAdditionalChargeAmount = 0;
 
             if (isRender.length > 0) {
                 let isFinished = isRender[0].finished;
@@ -616,7 +619,17 @@ MY OWN FREE WILL`
                 }, () => {
                     let is = this.state.vurulmusIs[0];
 
+
+
                     this.setState({
+                        drivingClicked: is.drivingClicked || false,
+                        breakClicked: is.breakClicked || false,
+                        started: (
+                            is.startTime &&
+                            is.startTime !== ''
+                        )
+                            ? true
+                            : false,
                         initSign: is.initSign,
                         initialSignAlphabet: is.initialSignAlphabet,
                         requirementEntirely: is.requirementEntirely,
@@ -1097,21 +1110,21 @@ MY OWN FREE WILL`
                         {/* Finish rendering discounts */}
                         <div className="timeline">
                             <div className="center-align">
-                                <a id="start-work" onClick={() => { this.vaxtiBaslat(is._id); }} className="waves-effect waves-light btn blue">Start Work time</a>
+                                <a id="start-work" onClick={() => { this.vaxtiBaslat(is._id); }} className={this.state.started ? 'waves-effect waves-light btn blue disabled' : 'waves-effect waves-light btn blue'}>Start Work time</a>
                                 <a className="waves-effect waves-light btn blue"></a>
                                 <a id="stop-work" onClick={() => { this.vaxtiDayandir(is._id); }} className="waves-effect waves-light btn red">Stop Work time</a>
                             </div>
                             <div className="center-align">
                                 <hr /> Driving time<br />
-                                <a id="driving-start" className="waves-effect waves-light btn blue" onClick={() => this.drivingTime(is._id)} >Start Driving time</a>
+                                <a id="driving-start" className={this.state.drivingClicked || this.state.breakClicked ? 'waves-effect waves-light btn blue disabled' : 'waves-effect waves-light btn blue'} onClick={() => this.drivingTime(is._id)} >Start Driving time</a>
                                 <a className="waves-effect waves-light btn deep-purple lighten-1"></a>
-                                <a id="driving-stop" className="waves-effect waves-light btn red" onClick={() => this.drivingTimeStop(is._id)}>Stop Driving time</a>
+                                <a id="driving-stop" className={this.state.drivingClicked ? 'waves-effect waves-light btn red' : 'waves-effect waves-light btn red disabled'} onClick={() => this.drivingTimeStop(is._id)}>Stop Driving time</a>
                             </div>
                             <div className="center-align">
                                 <hr />Break<br />
-                                <a id="break-start" className="waves-effect waves-light btn blue" onClick={() => this.breatTime(is._id)} >Start Break time</a>
+                                <a id="break-start" className={this.state.breakClicked || this.state.drivingClicked ? 'waves-effect waves-light btn blue disabled' : 'waves-effect waves-light btn blue'} onClick={() => this.breatTime(is._id)} >Start Break time</a>
                                 <a className="waves-effect waves-light btn pink"></a>
-                                <a id="break-stop" className="waves-effect waves-light btn red" onClick={() => this.breakTimeStop(is._id)} >Stop Break time</a>
+                                <a id="break-stop" className={this.state.breakClicked ? 'waves-effect waves-light btn red' : 'waves-effect waves-light btn red disabled'} onClick={() => this.breakTimeStop(is._id)} >Stop Break time</a>
                             </div>
                             {this.renderWorkTime()}
                             {this.renderDrivingTime()}
@@ -1220,7 +1233,7 @@ MY OWN FREE WILL`
                                         : ''
                                     }
                                     {this.totalDiscountPercent && this.totalDiscountPercent > 0
-                                        ? <span className="sag discountYeri">{this.originalPercentDiscount}%</span>
+                                        ? <span className="sag discountYeri">{this.totalDiscountPercent}%</span>
                                         : ''
                                     }
                                 </li>

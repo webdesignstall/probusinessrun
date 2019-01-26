@@ -520,5 +520,13 @@ Schemas.workSchema = new SimpleSchema({
     takenBy: {
         type: String,
         optional: false
+    },
+    drivingClicked: {
+        type: Boolean,
+        defaultValue: false
+    },
+    breakClicked: {
+        type: Boolean,
+        defaultValue: false
     }
 }, { tracker: Tracker });

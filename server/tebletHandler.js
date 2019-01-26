@@ -46,7 +46,8 @@ if (Meteor.isServer) {
                 { _id: id },
                 {
                     $set: {
-                        muveqqetiYaddas: new Date()
+                        muveqqetiYaddas: new Date(),
+                        drivingClicked: true
                     }
                 }
             );
@@ -86,7 +87,8 @@ if (Meteor.isServer) {
                 { _id: id },
                 {
                     $set: {
-                        totalDrivingTime: totalDrivingTime
+                        totalDrivingTime: totalDrivingTime,
+                        drivingClicked: false
                     }
                 }
             );
@@ -98,7 +100,8 @@ if (Meteor.isServer) {
                 { _id: id },
                 {
                     $set: {
-                        muveqqetiYaddas: new Date()
+                        muveqqetiYaddas: new Date(),
+                        breakClicked: true,
                     }
                 }
             );
@@ -137,7 +140,8 @@ if (Meteor.isServer) {
                 { _id: id },
                 {
                     $set: {
-                        totalBreakTime: totalBreakTime
+                        totalBreakTime: totalBreakTime,
+                        breakClicked: false,
                     }
                 }
             );
