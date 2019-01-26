@@ -414,7 +414,7 @@ MY OWN FREE WILL`
 
             // total additional charges
             additionalCharges += (gasFee && gasFee > 0 ? gasFee : 0) + (extraLargeItemFee && extraLargeItemFee > 0 ? extraLargeItemFee : 0) + (smallItemPacking > 0 ? smallItemPacking : 0) + packingSupplies + this.totalAdditionalCharge;
-            console.log('​TabletRender -> calculateAmount -> totalAdditionalCharge', totalAdditionalCharge)
+            console.log('​TabletRender -> calculateAmount -> totalAdditionalCharge', this.totalAdditionalCharge)
             console.log('​TabletRender -> calculateAmount -> packingSupplies', packingSupplies)
             console.log('​TabletRender -> calculateAmount -> smallItemPacking', smallItemPacking)
             console.log('​TabletRender -> calculateAmount -> extraLargeItemFee', extraLargeItemFee)
