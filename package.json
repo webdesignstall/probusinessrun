@@ -2,7 +2,7 @@
     "name": "mov",
     "private": true,
     "scripts": {
-        "start": "meteor run",
+        "start": "NODE_PATH=client:imports:server:common meteor run",
         "build": "babel src/ -d lib/",
         "prepublish": "npm run build",
         "flow": "flow"

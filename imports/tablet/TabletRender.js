@@ -239,7 +239,8 @@ I AM AWARE THAT THIS IS A RELEASE OF LIABILITY AND A CONTRACT AND I SIGN IT OF
 MY OWN FREE WILL`
                 }
             ],
-            additionalSignature: []
+            additionalSignature: [],
+            totalAdditionalChargeAmount: 0
         });
 
         this.requirementEntirely = this.requirementEntirely.bind(this);
@@ -333,7 +334,6 @@ MY OWN FREE WILL`
             this.totalDiscountTime = 0;
             this.totalDiscountAmount = 0;
             this.totalDiscountPercent = 0;
-            this.totalAdditionalCharge = 0;
 
             this.state.discount && this.state.discount.length > -1 ?
                 this.state.discount
@@ -354,7 +354,7 @@ MY OWN FREE WILL`
                 : null;
 
             this.state.additionalCharge.map((charge) => {
-                this.totalAdditionalCharge += charge.amount;
+                this.totalAdditionalChargeAmount += charge.amount;
             });
 
             let workData = this.state.vurulmusIs.length > 0 ? this.state.vurulmusIs[0] : null; // melumatlar bazasi
@@ -408,13 +408,13 @@ MY OWN FREE WILL`
             let gasFee = Number(workData.gasFee) || 0;
             let extraLargeItemFee = Number(workData.largeItemFee) || 0;
             let smallItemPacking = Number(workData.smallItemPacking) || 0;
-            let additionalCharges = Number(this.totalAdditionalCharge) || 0;
+            let additionalCharges = Number(this.totalAdditionalChargeAmount) || 0;
             console.log('​TabletRender -> calculateAmount -> additionalCharges', additionalCharges)
             let packingSupplies = this.state.totalPul;
 
             // total additional charges
             additionalCharges += (gasFee && gasFee > 0 ? gasFee : 0) + (extraLargeItemFee && extraLargeItemFee > 0 ? extraLargeItemFee : 0) + (smallItemPacking > 0 ? smallItemPacking : 0) + packingSupplies;
-            console.log('​TabletRender -> calculateAmount -> totalAdditionalCharge', this.totalAdditionalCharge)
+            console.log('​TabletRender -> calculateAmount -> totalAdditionalCharge', this.totalAdditionalChargeAmount)
             console.log('​TabletRender -> calculateAmount -> packingSupplies', packingSupplies)
             console.log('​TabletRender -> calculateAmount -> smallItemPacking', smallItemPacking)
             console.log('​TabletRender -> calculateAmount -> extraLargeItemFee', extraLargeItemFee)
@@ -611,6 +611,7 @@ MY OWN FREE WILL`
             Meteor.subscribe('workSchema');
             Meteor.subscribe('fullUser');
             const isRender = WorkData.find({ _id: Session.get('tabletIsId') }).fetch();
+            this.totalAdditionalChargeAmount = 0;
 
             if (isRender.length > 0) {
                 let isFinished = isRender[0].finished;
@@ -1211,9 +1212,10 @@ MY OWN FREE WILL`
                                     Gas Fee:
                                     <span className="sag">= ${is.gasFee}</span>
                                 </li>
-                                <li className={this.totalAdditionalCharge > 0 ? 'collection-item blue' : 'hide'}>
+                                {/* TODO: burani state ile hell et */}
+                                <li className={this.totalAdditionalChargeAmount > 0 ? 'collection-item blue' : 'collection-item blue'}>
                                     Additional Charge:
-                                    <span className="sag">= ${this.totalAdditionalCharge}</span>
+                                    <span className="sag">= ${this.totalAdditionalChargeAmount}</span>
                                 </li>
                                 <li className={this.totalDiscountAmount > 0 || this.totalDiscountPercent > 0 || this.totalDiscountPercent > 0 ? 'collection-item blue' : 'hide'} >
                                     Discount:
