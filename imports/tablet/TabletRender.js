@@ -409,19 +409,10 @@ MY OWN FREE WILL`
             let extraLargeItemFee = Number(workData.largeItemFee) || 0;
             let smallItemPacking = Number(workData.smallItemPacking) || 0;
             let additionalCharges = Number(this.totalAdditionalChargeAmount) || 0;
-            console.log('​TabletRender -> calculateAmount -> additionalCharges', additionalCharges)
             let packingSupplies = this.state.totalPul;
 
             // total additional charges
             additionalCharges += (gasFee && gasFee > 0 ? gasFee : 0) + (extraLargeItemFee && extraLargeItemFee > 0 ? extraLargeItemFee : 0) + (smallItemPacking > 0 ? smallItemPacking : 0) + packingSupplies;
-            console.log('​TabletRender -> calculateAmount -> totalAdditionalCharge', this.totalAdditionalChargeAmount)
-            console.log('​TabletRender -> calculateAmount -> packingSupplies', packingSupplies)
-            console.log('​TabletRender -> calculateAmount -> smallItemPacking', smallItemPacking)
-            console.log('​TabletRender -> calculateAmount -> extraLargeItemFee', extraLargeItemFee)
-            console.log('​TabletRender -> calculateAmount -> gasFee', gasFee)
-            console.log('​TabletRender -> calculateAmount -> additionalCharges', additionalCharges)
-            console.log('​TabletRender -> calculateAmount -> cashDiscount', cashDiscount)
-
             // this.payCash ve this.payCard hesablanmasi
             this.payCash = ((flatCashAmount + (totalWorkedHours * cashRate) + (drivingTime * cashRate) - cashDiscount) * ((100 - percentDiscount) / 100) + (isDoubleDrive ? (drivingTime * cashRate) : 0) + additionalCharges - (timeDiscount * cashRate)).toFixed(2);
             this.payCard = ((flatCardAmount + (totalWorkedHours * cardRate) + (drivingTime * cardRate) - cashDiscount) * ((100 - percentDiscount) / 100) + (isDoubleDrive ? (drivingTime * cardRate) : 0) + additionalCharges - (timeDiscount * cardRate)).toFixed(2);
@@ -830,6 +821,8 @@ MY OWN FREE WILL`
         this.totalAmountCash = 0;
         this.totalAmountCard = 0;
         this.totalAdditionalCharge = 0;
+        this.calculateAmount();
+
 
         return (
             <div className="tabletJobRendered">
@@ -1212,8 +1205,7 @@ MY OWN FREE WILL`
                                     Gas Fee:
                                     <span className="sag">= ${is.gasFee}</span>
                                 </li>
-                                {/* TODO: burani state ile hell et */}
-                                <li className={this.totalAdditionalChargeAmount > 0 ? 'collection-item blue' : 'collection-item blue'}>
+                                <li className={this.totalAdditionalChargeAmount > 0 ? 'collection-item blue' : 'hide'}>
                                     Additional Charge:
                                     <span className="sag">= ${this.totalAdditionalChargeAmount}</span>
                                 </li>
@@ -1235,7 +1227,6 @@ MY OWN FREE WILL`
                                 <li className="collection-item blue">
                                     Total amount cash:
                                     <span className="sag">= ${(() => {
-                                        this.calculateAmount();
                                         return this.payCash;
                                     })()}</span>
                                 </li>
