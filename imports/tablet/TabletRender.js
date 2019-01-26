@@ -414,6 +414,12 @@ MY OWN FREE WILL`
 
             // total additional charges
             additionalCharges += (gasFee && gasFee > 0 ? gasFee : 0) + (extraLargeItemFee && extraLargeItemFee > 0 ? extraLargeItemFee : 0) + (smallItemPacking > 0 ? smallItemPacking : 0) + packingSupplies + this.totalAdditionalCharge;
+            console.log('​TabletRender -> calculateAmount -> totalAdditionalCharge', totalAdditionalCharge)
+            console.log('​TabletRender -> calculateAmount -> packingSupplies', packingSupplies)
+            console.log('​TabletRender -> calculateAmount -> smallItemPacking', smallItemPacking)
+            console.log('​TabletRender -> calculateAmount -> extraLargeItemFee', extraLargeItemFee)
+            console.log('​TabletRender -> calculateAmount -> gasFee', gasFee)
+            console.log('​TabletRender -> calculateAmount -> additionalCharges', additionalCharges)
 
             // this.payCash ve this.payCard hesablanmasi
             this.payCash = ((flatCashAmount + (totalWorkedHours * cashRate) + (drivingTime * cashRate) - cashDiscount) * ((100 - percentDiscount) / 100) + (isDoubleDrive ? (drivingTime * cashRate) : 0) + additionalCharges - (timeDiscount * cashRate)).toFixed(2);
@@ -1208,7 +1214,7 @@ MY OWN FREE WILL`
                                     Additional Charge:
                                     <span className="sag">= ${this.totalAdditionalCharge}</span>
                                 </li>
-                                <li className={this.totalDiscountAmount > 0 && this.totalDiscountPercent > 0 && this.totalDiscountPercent > 0 ? 'collection-item blue' : 'hide'} >
+                                <li className={this.totalDiscountAmount > 0 || this.totalDiscountPercent > 0 || this.totalDiscountPercent > 0 ? 'collection-item blue' : 'hide'} >
                                     Discount:
                                     {this.totalDiscountAmount && this.totalDiscountAmount > 0
                                         ? <span className="sag discountYeri">${this.totalDiscountAmount}</span>

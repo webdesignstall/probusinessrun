@@ -1,5 +1,7 @@
 import React from 'react';
 
+/*global moment*/
+
 export default class AddedDiscountRender extends React.Component {
     constructor(props) {
         super(props);
@@ -10,14 +12,14 @@ export default class AddedDiscountRender extends React.Component {
             this.props.listOfDiscounts.map((discount) => {
                 return (
                     <div key={Math.random()} className="collection-item row">
-                        <span className="col s10 m10 l10">{moment(discount.date).format('hh:mm')}</span>
-                        <span className="col s2 m2 l2 blue white-text center-align">
-                            {discount.amount}
+                        <span className="col s10 m10 l10">{discount.amount}
                             {
                                 discount.type === 'amount' ? '$'
                                     : discount.type === 'time' ? 'minutes'
                                         : discount.type === 'percent' ? '%' : 'Not valid discount type'
-                            }
+                            }</span>
+                        <span className="col s2 m2 l2 blue white-text center-align">
+                            {moment(discount.date).format('hh:mm')}
                         </span>
                     </div>
                 );
