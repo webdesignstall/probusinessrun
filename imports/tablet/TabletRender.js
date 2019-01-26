@@ -354,8 +354,7 @@ MY OWN FREE WILL`
                 : null;
 
             this.state.additionalCharge.map((charge) => {
-                let chargeAmount = charge.amount;
-                this.totalAdditionalCharge += chargeAmount;
+                this.totalAdditionalCharge += charge.amount;
             });
 
             let workData = this.state.vurulmusIs.length > 0 ? this.state.vurulmusIs[0] : null; // melumatlar bazasi
@@ -410,16 +409,18 @@ MY OWN FREE WILL`
             let extraLargeItemFee = Number(workData.largeItemFee) || 0;
             let smallItemPacking = Number(workData.smallItemPacking) || 0;
             let additionalCharges = Number(this.totalAdditionalCharge) || 0;
+            console.log('​TabletRender -> calculateAmount -> additionalCharges', additionalCharges)
             let packingSupplies = this.state.totalPul;
 
             // total additional charges
-            additionalCharges += (gasFee && gasFee > 0 ? gasFee : 0) + (extraLargeItemFee && extraLargeItemFee > 0 ? extraLargeItemFee : 0) + (smallItemPacking > 0 ? smallItemPacking : 0) + packingSupplies + this.totalAdditionalCharge;
+            additionalCharges += (gasFee && gasFee > 0 ? gasFee : 0) + (extraLargeItemFee && extraLargeItemFee > 0 ? extraLargeItemFee : 0) + (smallItemPacking > 0 ? smallItemPacking : 0) + packingSupplies;
             console.log('​TabletRender -> calculateAmount -> totalAdditionalCharge', this.totalAdditionalCharge)
             console.log('​TabletRender -> calculateAmount -> packingSupplies', packingSupplies)
             console.log('​TabletRender -> calculateAmount -> smallItemPacking', smallItemPacking)
             console.log('​TabletRender -> calculateAmount -> extraLargeItemFee', extraLargeItemFee)
             console.log('​TabletRender -> calculateAmount -> gasFee', gasFee)
             console.log('​TabletRender -> calculateAmount -> additionalCharges', additionalCharges)
+            console.log('​TabletRender -> calculateAmount -> cashDiscount', cashDiscount)
 
             // this.payCash ve this.payCard hesablanmasi
             this.payCash = ((flatCashAmount + (totalWorkedHours * cashRate) + (drivingTime * cashRate) - cashDiscount) * ((100 - percentDiscount) / 100) + (isDoubleDrive ? (drivingTime * cashRate) : 0) + additionalCharges - (timeDiscount * cashRate)).toFixed(2);
