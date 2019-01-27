@@ -384,7 +384,7 @@ MY OWN FREE WILL`
             this.lessThanLabor = false;
             flatRateIsTrue
                 ? startToFinishTime < laborTime
-                    ? (startToFinishTime = laborTime, this.lessThanLabor = true)
+                    ? (startToFinishTime = laborTime, this.lessThanLabor = true, totalWorkedHours = 0, drivingTime = 0)
                     : (
                         totalWorkedHours = startToFinishTime - laborTime,
                         drivingTime = 0
@@ -1197,7 +1197,7 @@ MY OWN FREE WILL`
                                     })()} hours</span>
                                 </li>
                                 <li className="collection-item blue">
-                                    {is.flatRate && is.flatRate[0].isTrue ? 'Total calculated hours after flat rate:' : 'Total calculated hours:'}
+                                    Total calculated hours:
                                     <span className="sag">= {this.totalWorkLaborTime} hours</span>
                                 </li>
                                 <li className="collection-item blue">
