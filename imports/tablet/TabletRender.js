@@ -1112,7 +1112,7 @@ MY OWN FREE WILL`
                             <div className="center-align">
                                 <a id="start-work" onClick={() => { this.vaxtiBaslat(is._id); }} className={this.state.started ? 'waves-effect waves-light btn blue disabled' : 'waves-effect waves-light btn blue'}>Start Work time</a>
                                 <a className="waves-effect waves-light btn blue"></a>
-                                <a id="stop-work" onClick={() => { this.vaxtiDayandir(is._id); }} className="waves-effect waves-light btn red">Stop Work time</a>
+                                <a id="stop-work" onClick={() => { this.vaxtiDayandir(is._id); }} className={this.state.started ? 'waves-effect waves-light btn red' : 'waves-effect waves-light btn red disabled'}>Stop Work time</a>
                             </div>
                             <div className="center-align">
                                 <hr /> Driving time<br />
