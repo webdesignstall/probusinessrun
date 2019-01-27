@@ -292,11 +292,13 @@ export default function EmailContent(job) {
             <div class="reserve" style="padding: 5px; text-align: center;">
                 <a href="https://www.probusinessrun.com/reserve" style="padding: 15px 15px; background-color: #554b8c; color: white; font-size: 14px; border: none;"><b>RESERVE YOUR MOVE</b></a>
             </div>
+            <div style="clear: both; margin: 10px 0;"></div>
             <div style="text-align: center;">
-                With one click, we move it quick!
+                With one click, we move it quick!<br />
                 ${job.companyInfo.name } <br />
-                Phone: ${job.companyInfo.name } | E-mail: ${ job.companyInfo.email } <br />
-                Web: ${job.companyInfo.url }
+                Phone: ${job.companyInfo.phone }<br/>
+                E-mail: ${ job.companyInfo.email } <br />
+                Web: ${job.companyInfo.url }<br />
                 License # BEARHFTI 0191555
             </div>
             </div>
