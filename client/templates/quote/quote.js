@@ -417,49 +417,12 @@ Template.preQuote.events({
                             jobNumber_();
 
                             Session.set('reset', true);
-
-                            Session.get('flatRate')
-                                ? (
-                                    document.querySelector('#flatRate_').classList.remove('hide'),
-                                    document.querySelector('#paymentContent').classList.add('hide'),
-                                    document.querySelector('#flatRateCheck').checked = true
-                                )
-                                : (
-                                    document.querySelector('#flatRate_').classList.add('hide'),
-                                    document.querySelector('#paymentContent').classList.remove('hide'),
-                                    document.querySelector('#flatRateCheck').checked = false
-                                );
                         }
                     });
                 }
             }
         );
-    },
-    // 'click #quote-2nd-header': function () {
-    //     let tarix = document.getElementById('quote-date-picker').value;
-    //     let tarixC = new Date(tarix);
-    //     console.log(moment(tarixC).format('YYYY/MM/DD'));
-    // },
-    // 'click .add-truck': function () {
-    //     let addRoot = document.getElementsByClassName('add-truck-root');
-    //     let lastInlist = document.getElementsByClassName('add-truck-root')[addRoot.length - 1];
-    //     lastInlist.insertAdjacentHTML('afterend',
-    //         `<div class="input-field valideyn col s12 m6 l3 add-truck-root">
-    //         <i class="material-icons add-truck isare">add_circle</i>
-    //         <!-- <input id="quote-turck-number" class="xx" type="number" placeholder="Truck Number" /> -->
-    //         <div class="select-wrapper"><span class="caret">▼</span><input type="text" class="select-dropdown" readonly="true" data-activates="select-options-b5d6d601-2e7e-ceb2-3f55-7e62cb96d196" value="Select Truck Size"><ul id="select-options-b5d6d601-2e7e-ceb2-3f55-7e62cb96d196" class="dropdown-content select-dropdown "><li class="disabled "><span>Select Truck Size</span></li><li class=""><span>16ft box truck</span></li><li class=""><span>18ft box truck</span></li><li class=""><span>20ft box truck</span></li><li class=""><span>22ft box truck</span></li><li class=""><span>24ft box truck</span></li><li class=""><span>26ft box truck</span></li></ul><select title="moving_size" name="truck_size" class="initialized">
-    //             <option value="select_truck_size" selected="" disabled="">Select Truck Size</option>
-    //             <option value="16ft box truck">16ft box truck</option>
-    //             <option value="18ft box truck">18ft box truck</option>
-    //             <option value="20ft box truck">20ft box truck</option>
-    //             <option value="22ft box truck">22ft box truck</option>
-    //             <option value="24ft box truck">24ft box truck</option>
-    //             <option value="26ft box truck">26ft box truck</option>
-    //         </select></div>
-    //     </div>`
-    //     );
-    //     n += 1;
-    // }
+    }
 });
 
 Template.quoteTam.events({
