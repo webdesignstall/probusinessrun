@@ -38,7 +38,6 @@ Template.updateQuote.onRendered(function () {
                 : null;
             document.querySelector('#flatRateCashUpdate').defaultValue = ish.flatRate[0].cashAmount;
             document.querySelector('#flatRateCardUpdate').defaultValue = ish.flatRate[0].cardAmount;
-            console.log(ish.flatRate[0].isTrue);
             document.querySelector('#flatBoxUpdate').checked = ish.flatRate[0].isTrue;
             Session.set('flatRate', ish.flatRate[0].isTrue);
             ish.flatRate[0].isTrue
@@ -114,39 +113,38 @@ Template.updateQuote.events({
 
         let doc = {
             _id: Session.get('is'),
-            clientFirstName: document.getElementById('firstName_2').value,
-            clientLastName: document.getElementById('lastName_2').value,
-            phoneNumber: document.getElementById('phoneNumber_2').value,
+            firstName: document.getElementById('firstName_2').value,
+            lastName: document.getElementById('lastName_2').value,
+            phone: document.getElementById('phoneNumber_2').value,
             phoneAdditional: document.getElementById('phoneNumber_2_additional').value,
             email: document.getElementById('musteriEmail_2').value,
             addresses,
-            workDate: moment(workDate).format('MM/DD/YYYY'),
-            workMustBeginTime: [
-                document.getElementById('customTime--1').value,
-                document.getElementById('customTime--2').value
-            ],
+            movingDateConverted: moment(workDate).format('MM/DD/YYYY'),
+            workMustBeginTime: document.getElementById('customTime--1').value + ' - ' + document.getElementById('customTime--2').value,
             price: document.getElementById('quote_price_2').value,
-            laborTime: document.getElementById('labor_time_2').value,
+            minimumLaborTime: document.getElementById('labor_time_2').value,
             hourlyRatesCash: document.getElementById('hourly_rates_cash_2').value,
             hourlyRatesCard: document.getElementById('hourly_rates_card_2').value,
             trucks: trucksSelected,
             companyInfo,
             doubleDrive: document.getElementById('updated-double-drive-value').value,
             gasFee: document.getElementById('gas_fee_2').value,
-            smallItemPacking: document.getElementById('small_item_pack_2').value,
+            smallPackingItems: document.getElementById('small_item_pack_2').value,
             largeItemFee: document.getElementById('large_item_fee_2').value,
             movingSize: Session.get('movingSize'),
             workers: Session.get('secilmisIsciler'),
             note: document.getElementById('textarea2').value,
             trucksTemp: Session.get('trucklar'),
-            flatRate: [{
-                isTrue: Session.get('flatRate'),
-                cashAmount: !isNaN(document.querySelector('#flatRateCashUpdate').value) ? document.querySelector('#flatRateCashUpdate').value : 0,
-                cardAmount: !isNaN(document.querySelector('#flatRateCardUpdate').value) ? document.querySelector('#flatRateCardUpdate').value : 0
-            }],
+            flatRate: Session.get('flatRate'),
+            flatRateCash: !isNaN(document.querySelector('#flatRateCashUpdate').value) ? document.querySelector('#flatRateCashUpdate').value : 0,
+            flatRateCard: !isNaN(document.querySelector('#flatRateCardUpdate').value) ? document.querySelector('#flatRateCardUpdate').value : 0,
             comment: document.getElementById('textarea2').value,
-            deposit: document.getElementById('deposit-update').value
+            deposit: document.getElementById('deposit-update').value,
+            jobNumber: document.getElementById('quote-job-number_2').value,
+            numberOfWorkers: document.getElementById('iscinin-sayi').value
         };
+
+        console.log(doc);
 
         Meteor.call('emailGonder', doc, (err, res) => err ? console.log(err) : console.log(res));
     },

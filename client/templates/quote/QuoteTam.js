@@ -35,7 +35,6 @@ export default class QuoteTam extends React.Component {
             this.setState({
                 baza: melumatlar
             });
-            console.log(melumatlar);
         });
     }
 
