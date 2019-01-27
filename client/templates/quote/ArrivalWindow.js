@@ -26,15 +26,13 @@ export default class ArrivalWindow extends React.Component {
                     name: '08:00 am - 09:00 am',
                     status: 1,
                     value1: '08:00 am',
-                    value2: '09:00 am',
-                    time: 'am'
+                    value2: '09:00 am'
                 },
                 {
                     name: '09:00 am - 10:00 am',
                     status: 1,
                     value1: '09:00 am',
-                    value2: '10:00 am',
-                    time: 'am'
+                    value2: '10:00 am'
                 },
                 {
                     name: 'Afternoon',
@@ -44,16 +42,13 @@ export default class ArrivalWindow extends React.Component {
                     name: '01:00 pm - 04:00 pm',
                     status: 1,
                     value1: '01:00 pm',
-                    value2: '04:00 pm',
-                    time: '1:'
+                    value2: '04:00 pm'
                 },
                 {
                     name: '02:00 pm - 05:00 pm',
                     status: 1,
                     value1: '02:00 pm',
-                    value2: '05:00 pm',
-                    time: 'pm',
-
+                    value2: '05:00 pm'
                 },
                 {
                     name: 'Morning & Afternoon',
@@ -94,28 +89,44 @@ export default class ArrivalWindow extends React.Component {
             if (id !== '') {
                 selected = WorkData.find({ _id: id }).fetch();
                 selected = selected[0].workMustBeginTime;
-                let isMorningAfternoon = (selected[0] === '04:00 am' && selected[1] === '04:00 am');
-                let isCustom = () => {
-                    let custom = false;
-                    this.state.options.map((option) => {
-                        option.value1 === selected[0] && option.value2 === selected[1]
-                            ? custom = true
-                            : null;
-                    });
-                    return custom;
-                };
+                let isMorningAfternoon = (selected[0] === '04:00 am' && selected[1] === '04:00 am'); // is it Morning Afternoon aviability selected
+                let isCustom = false; // is custom time selected
+                let difValue = '';
 
-                isCustom()
-                    ? (
-                        this.setState({
-                            time1: selected[0],
-                            time2: selected[1],
-                            custom: true
-                        }, (err) => {
-                            err ? console.log(err) : null;
-                            document.getElementById('select-arrive-time').value = 'Custom';
-                        })
-                    )
+                this.state.options.map((option) => {
+                    selected[0] === option.value1 && selected[1] === option.value2 ? difValue = (selected[0] + ' - ' + selected[1]) : null;
+                });
+
+                // if the 1st and 2nd value are equal
+                selected[0] === selected[1]
+                    ? isCustom = false
+                    : null;
+
+                // if MorningAfternoon selected
+                isMorningAfternoon ? isCustom = false : null;
+
+                difValue !== ''
+                    ? !isCustom
+                        ? (
+                            this.setState({
+                                time1: selected[0],
+                                time2: selected[1],
+                                custom: false
+                            }, (err) => {
+                                err ? console.log(err) : null;
+                                document.getElementById('select-arrive-time').value = difValue;
+                            })
+                        )
+                        : (
+                            this.setState({
+                                time1: selected[0],
+                                time2: selected[1],
+                                custom: true
+                            }, (err) => {
+                                err ? console.log(err) : null;
+                                document.getElementById('select-arrive-time').value = 'Custom';
+                            })
+                        )
                     : isMorningAfternoon
                         ? (
                             this.setState({
@@ -161,36 +172,6 @@ export default class ArrivalWindow extends React.Component {
         this.x.stop();
     }
 
-    // secilmisiRenderEt() {
-    //     //isdeki zamanin siyahida olub olmamasi yoxlanilir
-    //     this.state.options.map((option) => {
-    //         if (option.name === this.state.selected) {
-    //             this.setState({
-    //                 defValue: this.state.selected
-    //             });
-    //         }
-    //     });
-
-    //     //isdeki zaman siyahida yoxdursa ve isdeki zaman bos deyilse
-    //     if (this.state.defValue === '' && this.state.selected !== '') {
-    //         this.setState({
-    //             defValue: 'Custom'
-    //         });
-
-    //         this.setState({
-    //             trueFalse: true,
-    //             custom: true,
-    //             valueOfInput: this.state.selected
-    //         });
-    //     }
-
-    //     if (this.state.selected === '') {
-    //         this.setState({
-    //             defValue: 'Select moving time window'
-    //         });
-    //     }
-    // }
-
     renderOptions() {
         return (
             this.state.options.map((option) => {
@@ -226,7 +207,7 @@ export default class ArrivalWindow extends React.Component {
             <div className="custom--input">
                 <hr />
                 <div className={this.state.custom ? 'col s12 m6 l6 margin--bottom-10' : 'hide'}>
-                    <TimeSelector id="customTime--1" defVal={this.state.time1} interval={60} />
+                    <TimeSelector id="customTime--1" defVal={this.state.time1} interval={30} />
                 </div>
                 <div className={this.state.custom ? 'col s12 m6 l6 margin--bottom-10' : 'hide'}>
                     <TimeSelector id="customTime--2" defVal={this.state.time2} interval={30} />
