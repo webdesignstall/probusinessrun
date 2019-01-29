@@ -84,8 +84,12 @@ export default class Discount extends TrackerReact(React.Component) {
             return code === promoCode;
         }) ?
             (
-                document.getElementById('signatureForDiscount').classList.remove('hide'),
-                document.getElementById('askDiscount').setAttribute('disabled', true)
+                this.setState({
+                    discountApproved: true,
+                    waiting: true
+                })
+                // document.getElementById('signatureForDiscount').classList.remove('hide'),
+                // document.getElementById('askDiscount').setAttribute('disabled', true)
             )
             : Bert.alert({
                 title: 'Wrong promo code',
@@ -96,10 +100,10 @@ export default class Discount extends TrackerReact(React.Component) {
 
     askDiscount() {
         let onlineStatus = window.navigator.onLine; // Is browser connected to internet?
-        this.promoCode.current.value !== '' && this.promoCode.current.value !== undefined && this.promoCode.current.value !== null ?
-            this.checkPromoCode(this.promoCode.current.value) :
-            onlineStatus ?
-                (
+        this.promoCode.current.value !== '' && this.promoCode.current.value !== undefined && this.promoCode.current.value !== null
+            ? this.checkPromoCode(this.promoCode.current.value)
+            : onlineStatus
+                ? (
                     Discounts.insert({
                         amount: this.state.valueOfSelected,
                         note: this.state.note,
@@ -114,16 +118,15 @@ export default class Discount extends TrackerReact(React.Component) {
                                 this.setState({ waiting: true }),
                                 Session.set('discountId', _id),
                                 setTimeout(() => {
-                                    console.log('SetTimeout isledi');
                                     !this.state.discountApproved
                                         ? (
-                                            Meteor.call('removeDiscount', this.state.discountId),
+                                            Meteor.call('removeDiscount', this.state.discountId, (err) => err ? console.log(err) : null),
                                             Bert.alert({
                                                 title: 'Discount doesn\'t accepted',
                                                 message: 'For more info contact with the manager',
                                                 type: 'danger'
                                             }),
-                                            this.setState({ waiting: false }),
+                                            this.setState({ waiting: false }, (err) => err ? console.log(err) : null),
                                             Session.set('discountId', ''),
                                             Session.set('discountAproved', false)
                                         )
@@ -158,7 +161,9 @@ export default class Discount extends TrackerReact(React.Component) {
             waiting: false,
             discountId: '',
             discountApproved: false
-        }, (error) => console.log(error));
+        }, (error) => {
+            error ? console.log(error) : this.props.unclick('discount_');
+        });
     }
 
     render() {

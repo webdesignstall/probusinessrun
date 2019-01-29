@@ -13,6 +13,8 @@ export default class AdditionalSignature extends React.Component {
             animate: false,
             clicked: props.clicked
         };
+
+        this.show = this.show.bind(this);
     }
 
     UNSAFE_componentWillReceiveProps(nextProps) {
@@ -42,6 +44,7 @@ export default class AdditionalSignature extends React.Component {
                     <div onClick={() => this.show('discount_')} >Discount</div>
                     <div id="discount_" className="hide" >
                         <Discount
+                            unclick={this.show}
                             saveSignature={this.props.saveSignature}
                             hesabla={this.props.hesabla}
                         />

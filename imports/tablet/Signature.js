@@ -54,6 +54,7 @@ export default class Signature extends React.Component {
         // let target_ = document.getElementById(this.props.id);
         this.signaturePad.clear();
         this.props.resetDiscount ? this.props.resetDiscount() : null;
+        this.props.reset ? this.props.reset() : null;
     }
 
     fullNameChange(e) {

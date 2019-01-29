@@ -13,6 +13,7 @@ export default class AdditionalCharge extends Component {
 
         this.setClick = this.setClick.bind(this);
         this.changeAmount = this.changeAmount.bind(this);
+        this.reset = this.reset.bind(this);
     }
 
     setClick() {
@@ -20,6 +21,14 @@ export default class AdditionalCharge extends Component {
             return {
                 clicked: !prevState.clicked
             };
+        });
+    }
+
+    reset() {
+        this.setState({
+            clicked: false,
+            reason: '',
+            amount: 0
         });
     }
 
@@ -59,6 +68,7 @@ export default class AdditionalCharge extends Component {
                 </div>
                 <hr />
                 <Signature
+                    reset={this.reset}
                     which="additionalCharge"
                     saveSignature={this.props.saveSignature}
                     extraInformation={{
