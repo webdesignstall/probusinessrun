@@ -205,6 +205,7 @@ Template.updateQuote.events({
             workers: Session.get('secilmisIsciler'),
             note: document.getElementById('textarea2').value,
             trucksTemp: Session.get('trucklar'),
+            numberOfWorkers: document.getElementById('iscinin-sayi').value,
             flatRate: [{
                 isTrue: Session.get('flatRate'),
                 cashAmount: !isNaN(document.querySelector('#flatRateCashUpdate').value) ? document.querySelector('#flatRateCashUpdate').value : 0,

@@ -65,10 +65,17 @@ export default class NumberOfUsers extends React.Component {
         }));
     }
 
+    changeValue(e){
+        this.setState({
+            oncedenSecilmis: e.target.value
+        })
+    }
+
     render() {
         return (
             <div>
-                <select id="iscinin-sayi" name="number of movers" value={((this.state.oncedenSecilmis) === 0) ? 'Select movers' : (this.state.oncedenSecilmis)} onChange={this.demo} >
+                {/* value deyisir amma seelect edende deyismir */}
+                <select id="iscinin-sayi" className="browser-default" name="number of movers" value={((this.state.oncedenSecilmis) === 0) ? 'Select movers' : (this.state.oncedenSecilmis)} onChange={(e) => this.changeValue(e)} >
                     {this.saylari()}
                 </select>
                 <label className="active" htmlFor="iscinin-sayi"># of movers</label>

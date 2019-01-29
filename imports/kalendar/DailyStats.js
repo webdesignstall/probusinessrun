@@ -25,7 +25,7 @@ export default class DailyStats extends TrackerReact(Component) {
         this.workDataList().map((work) => {
             Date.parse('1 Aug 2018 ' + work.workMustBeginTime[0]) < Date.parse('1 Aug 2018 01:00 pm')
                 ? (
-                    employees += work.workers.length,
+                    employees += work.numberOfWorkers,
                     jobs++
                 )
                 : null;
@@ -45,7 +45,7 @@ export default class DailyStats extends TrackerReact(Component) {
         this.workDataList().map((work) => {
             Date.parse('1 Aug 2018 ' + work.workMustBeginTime[0]) > Date.parse('1 Aug 2018 12:45 pm')
                 ? (
-                    employees += work.workers.length,
+                    employees += work.numberOfWorkers,
                     jobs++
                 )
                 : null;
