@@ -87,7 +87,7 @@ export default class ConfirmationDisplay extends Component {
                     </div>
                     <div>
                         <span>Web:&nbsp;
-                            <a href={this.state.company.url} target="_blank" rel="noopener noreferrer">{this.state.company.url}</a>
+                            <a href={'http://' + this.state.company.url} target="_blank" rel="noopener noreferrer">{'http://' + this.state.company.url}</a>
                         </span>
                     </div>
                     <div>Powered by Movers Legion</div>
