@@ -296,7 +296,7 @@ export default function EmailContent(job) {
             <div style="text-align: center;">
                 With one click, we move it quick!<br />
                 ${job.companyInfo.name } <br />
-                Phone: ${job.companyInfo.phone }<br/>
+                Phone: ${job.companyInfo.phoneNumber }<br/>
                 E-mail: ${ job.companyInfo.email } <br />
                 Web: ${job.companyInfo.url }<br />
                 License # BEARHFTI 0191555
