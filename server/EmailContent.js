@@ -69,7 +69,7 @@ export default function EmailContent(job) {
         `
         <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
             <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Minimum Labor Time:</td>
-            <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${job.minimumLaborTime }</td>
+            <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${job.minimumLaborTime } hour(s)</td>
         </tr>
         `
         : '';
@@ -220,7 +220,7 @@ export default function EmailContent(job) {
                     </tr>
                     <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
                         <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Number of Movers:</td>
-                        <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${job.numberOfWorkers }</td>
+                        <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${job.numberOfWorkers } movers</td>
                     </tr>
                     ${laborTime }
                     ${rateDisplay }
