@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Tracker } from 'meteor/tracker';
 import { Session } from 'meteor/session';
 import WorkData from '../../../common/collections_2';
 import TimeSelector from '../../../imports/timeSelector/TimeSelector';
+import TrackerReact from 'meteor/ultimatejs:tracker-react';
 
-export default class ArrivalWindow extends React.Component {
+export default class ArrivalWindow extends TrackerReact(Component) {
     constructor(props) {
         super(props);
         this.state = {
@@ -72,6 +73,10 @@ export default class ArrivalWindow extends React.Component {
         this.renderArrivalTime = this.renderArrivalTime.bind(this);
     }
 
+    finTheJob(id) {
+        return WorkData.find({ _id: id }).fetch();
+    }
+
     componentDidMount() {
         this.x = Tracker.autorun(() => {
             let id = Session.get('is');
@@ -87,8 +92,10 @@ export default class ArrivalWindow extends React.Component {
                 });
 
             if (id !== '') {
-                selected = WorkData.find({ _id: id }).fetch();
+                console.log('id tapildi', id);
+                selected = this.finTheJob(id);
                 selected = selected[0].workMustBeginTime;
+                console.log('Log Message: : ArrivalWindow -> componentDidMount -> selected', selected)
                 let isMorningAfternoon = (selected[0] === '04:00 am' && selected[1] === '04:00 am'); // is it Morning Afternoon aviability selected
                 let isCustom = false; // is custom time selected
                 let difValue = '';
@@ -96,37 +103,27 @@ export default class ArrivalWindow extends React.Component {
                 this.state.options.map((option) => {
                     selected[0] === option.value1 && selected[1] === option.value2 ? difValue = (selected[0] + ' - ' + selected[1]) : null;
                 });
+                console.log('Log Message: : ArrivalWindow -> componentDidMount -> difValue', difValue === '');
 
                 // if the 1st and 2nd value are equal
                 selected[0] === selected[1]
                     ? isCustom = false
-                    : null;
+                    : isCustom = true;
 
                 // if MorningAfternoon selected
                 isMorningAfternoon ? isCustom = false : null;
 
                 difValue !== ''
-                    ? !isCustom
-                        ? (
-                            this.setState({
-                                time1: selected[0],
-                                time2: selected[1],
-                                custom: false
-                            }, (err) => {
-                                err ? console.log(err) : null;
-                                document.getElementById('select-arrive-time').value = difValue;
-                            })
-                        )
-                        : (
-                            this.setState({
-                                time1: selected[0],
-                                time2: selected[1],
-                                custom: true
-                            }, (err) => {
-                                err ? console.log(err) : null;
-                                document.getElementById('select-arrive-time').value = 'Custom';
-                            })
-                        )
+                    ? (
+                        this.setState({
+                            time1: selected[0],
+                            time2: selected[1],
+                            custom: false
+                        }, (err) => {
+                            err ? console.log(err) : null;
+                            document.getElementById('select-arrive-time').value = difValue;
+                        })
+                    )
                     : isMorningAfternoon
                         ? (
                             this.setState({
@@ -138,7 +135,18 @@ export default class ArrivalWindow extends React.Component {
                                 document.getElementById('select-arrive-time').value = 'Morning & Afternoon';
                             })
                         )
-                        : null;
+                        : isCustom
+                            ? (
+                                this.setState({
+                                    time1: selected[0],
+                                    time2: selected[1],
+                                    custom: true
+                                }, (err) => {
+                                    err ? console.log(err) : null;
+                                    document.getElementById('select-arrive-time').value = 'Custom';
+                                })
+                            )
+                            : null;
 
             }
 
