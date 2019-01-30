@@ -136,11 +136,21 @@ class ReserveQuote extends React.Component {
                     <div key={index}>
                         <p>
                             Hello {job.clientFirstName}!<br />
-                            Thank you for confirming your move with chat Movers Los Angeles!<br />
+                            Thank you for confirming your move with {job.companyInfo.name}!<br />
                             Please review your Moving Confirmation below to ensure accuracy:
                         </p>
                         <table>
                             <tbody>
+                                {/* job number */}
+                                <tr>
+                                    <td>Customer name:</td>
+                                    <td>{job.clientFirstName} {job.clientLastName}</td>
+                                </tr>
+                                {/* job number */}
+                                <tr>
+                                    <td>Customer Phone Number:</td>
+                                    <td>{job.phoneNumber}</td>
+                                </tr>
                                 {/* job number */}
                                 <tr>
                                     <td>Your Job Number:</td>
