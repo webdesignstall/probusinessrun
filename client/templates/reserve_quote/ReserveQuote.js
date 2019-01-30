@@ -299,31 +299,20 @@ class ReserveQuote extends React.Component {
                                 I understand that this Deposit in non-refundable and non-transferrable if I reschedule or cancel this move.
                             </p>
                             <p>
-                                **If you have any questions, please contact us soon as possible by phone, text, or e-mail 24/7**
+                                **If you have any questions, please contact us as soon as possible by phone, text, or e-mail 24/7**
                             </p>
-                            <p>
-                                Phone Number: {job.companyInfo.phoneNumber}
-                            </p>
-                            <p>
-                                Email: {job.companyInfo.email}
-                            </p>
+                            <div style={{ textAlign: 'center' }}>
+                                <p>
+                                    Phone Number: {job.companyInfo.phoneNumber}
+                                </p>
+                                <p>
+                                    Email: {job.companyInfo.email}
+                                </p>
+                                <p>
+                                    Web: {job.companyInfo.url}
+                                </p>
+                            </div>
                         </div>
-                        {/* <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-                            <input type="hidden" name="cmd" value="_s-xclick" />
-                            <input type="hidden" name="hosted_button_id" value="4YHWGVJJ7YLES" />
-                            <table>
-                                <tr>
-                                    <td>
-                                        <input type="hidden" name="on0" value="In Order To Secure Moving Date" />In Order To Secure Moving Date
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><input type="text" name="os0"/></td>
-                                </tr>
-                            </table>
-                            <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_paynowCC_LG.gif" name="submit" alt="PayPal - The safer, easier way to pay online!" />
-                            <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1" />
-                        </form> */}
                     </div>
                 );
             })

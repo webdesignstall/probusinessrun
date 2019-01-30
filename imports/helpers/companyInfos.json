@@ -7,7 +7,6 @@
             "email": "info@movingcompanylosangeles.com",
             "smtp": "mail.movingcompanylosangeles.com",
             "userName": "info@movingcompanylosangeles.com",
-            "password": "MCla7724!",
             "key": 1001
         },
         {
@@ -17,7 +16,6 @@
             "email": "info@cheapmoverslosangeles.com",
             "smtp": "mail.cheapmoverslosangeles.com",
             "userName": "info@cheapmoverslosangeles.com",
-            "password": "MCla7724!",
             "key": 1002
         },
         {
@@ -27,7 +25,6 @@
             "email": "info@cheapmoversriverside.com",
             "smtp": "mail.cheapmoversriverside.com",
             "userName": "info@cheapmoversriverside.com",
-            "password": "MCla7724!",
             "key": 1003
         },
         {
@@ -37,7 +34,6 @@
             "email": "info@ocmovingandstorage.com",
             "smtp": "mail.ocmovingandstorage.com",
             "userName": "info@ocmovingandstorage.com",
-            "password": "MCla7724!",
             "key": 1004
         },
         {
@@ -47,7 +43,6 @@
             "email": "info@burbankmovingandstoragecompany.com",
             "smtp": "mail.burbankmovingandstoragecompany.com",
             "userName": "info@burbankmovingandstoragecompany.com",
-            "password": "MCla7724!",
             "key": 1005
         },
         {
@@ -57,7 +52,6 @@
             "email": "info@sprintmover.com",
             "smtp": "mail.sprintmover.com",
             "userName": "info@sprintmover.com",
-            "password": "MCla7724!",
             "key": 1006
         },
         {
@@ -67,7 +61,6 @@
             "email": "info@rapidofficemovers.com",
             "smtp": "mail.rapidofficemovers.com",
             "userName": "info@rapidofficemovers.com",
-            "password": "MCla7724!",
             "key": 1007
         },
         {
@@ -77,7 +70,6 @@
             "email": "info@housemoversriverside.com",
             "smtp": "mail.housemoversriverside.com",
             "userName": "info@housemoversriverside.com",
-            "password": "MCla7724!",
             "key": 1008
         },
         {
@@ -87,7 +79,6 @@
             "email": "info@cheapmoversinirvine.com",
             "smtp": "mail.cheapmoversinirvine.com",
             "userName": "info@cheapmoversinirvine.com",
-            "password": "MCla7724!",
             "key": 1009
         },
         {
@@ -97,7 +88,6 @@
             "email": "info@moverslegion.com",
             "smtp": "mail.moverslegion.com",
             "userName": "info@moverslegion.com",
-            "password": "MCla7724!",
             "key": 1010
         },
         {
@@ -107,7 +97,6 @@
             "email": "info@bestcheapmoversorangecounty.com",
             "smtp": "mail.bestcheapmoversorangecounty.com",
             "userName": "info@bestcheapmoversorangecounty.com",
-            "password": "MCla7724!",
             "key": 1011
         },
         {
@@ -117,7 +106,6 @@
             "email": "info@cheapmoversanaheim.com",
             "smtp": "mail.cheapmoversanaheim.com",
             "userName": "info@cheapmoversanaheim.com",
-            "password": "MCla7724!",
             "key": 1012
         },
         {
@@ -127,7 +115,6 @@
             "email": "info@localvipmovers.com",
             "smtp": "mail.localvipmovers.com",
             "userName": "info@localvipmovers.com",
-            "password": "MCla7724!",
             "key": 1013
         },
         {
@@ -137,7 +124,6 @@
             "email": "info@proaffordablemovers.com",
             "smtp": "mail.proaffordablemovers.com",
             "userName": "info@proaffordablemovers.com",
-            "password": "MCla7724!",
             "key": 1014
         },
         {
@@ -147,7 +133,6 @@
             "email": "info@cheapmoverscostamesa.com",
             "smtp": "mail.cheapmoverscostamesa.com",
             "userName": "info@cheapmoverscostamesa.com",
-            "password": "MCla7724!",
             "key": 1015
         }
     ]
