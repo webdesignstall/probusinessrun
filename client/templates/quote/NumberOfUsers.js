@@ -16,7 +16,7 @@ export default class NumberOfUsers extends React.Component {
 
         this.saylari = this.saylari.bind(this);
     }
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         this.x = Tracker.autorun(() => {
             const iscilerinSayi = WorkData.find({ _id: Session.get('is') }).fetch();
 
@@ -65,20 +65,32 @@ export default class NumberOfUsers extends React.Component {
         }));
     }
 
-    changeValue(e){
+    changeValue(e) {
         this.setState({
             oncedenSecilmis: e.target.value
-        })
+        });
     }
 
     render() {
         return (
-            <div>
+            <div className="number-of-users--main" style={{
+                position: 'relative'
+            }} >
                 {/* value deyisir amma seelect edende deyismir */}
                 <select id="iscinin-sayi" className="browser-default" name="number of movers" value={((this.state.oncedenSecilmis) === 0) ? 'Select movers' : (this.state.oncedenSecilmis)} onChange={(e) => this.changeValue(e)} >
                     {this.saylari()}
                 </select>
-                <label className="active" htmlFor="iscinin-sayi"># of movers</label>
+                <label
+                    className="active"
+                    style={{
+                        backgroundColor: 'rgb(237, 240, 241)',
+                        padding: '0px 5px',
+                        margin: ' -28px 15px',
+                        top: '-15px',
+                        left: '0',
+                        position: 'absolute'
+                    }}
+                    htmlFor="iscinin-sayi"># of movers</label>
             </div>
         );
     }

@@ -110,6 +110,8 @@ Template.kalendar.helpers({
 
 Template.kalendar.onRendered(
     function () {
+        ReactDOM.unmountComponentAtNode(document.getElementById('number-of-movers'));
+
         let sayi = 0;
         let clickOnDay = 0;
         let clickOnSelect = 0;
@@ -374,10 +376,12 @@ Template.kalendar.events({
         $('#add-schedule-page').show();
         ReactDOM.unmountComponentAtNode(document.getElementById('truck-list-update'));
         ReactDOM.unmountComponentAtNode(document.getElementById('update_time_window'));
+        ReactDOM.unmountComponentAtNode(document.getElementById('number-of-movers2'));
         ReactDOM.render(<ArrivalWindow />, document.getElementById('arrival-time'));
         ReactDOM.render(<CompanySelector />, document.getElementById('moving-company'));
         ReactDOM.render(<TempTrucks />, document.getElementById('tempTruck'));
         ReactDOM.render(<TakenBy />, document.getElementById('takenBy'));
+        ReactDOM.render(<NumberOfUsers />, document.getElementById('number-of-movers'));
         window.addresses = ReactDOM.render(<Addresses />, document.getElementById('addressesId'));
         Session.set('is', '');
 
@@ -392,10 +396,12 @@ Template.kalendar.events({
         $('#add-schedule-page').show();
         ReactDOM.unmountComponentAtNode(document.getElementById('truck-list-update'));
         ReactDOM.unmountComponentAtNode(document.getElementById('update_time_window'));
+        ReactDOM.unmountComponentAtNode(document.getElementById('number-of-movers2'));
         ReactDOM.render(<ArrivalWindow />, document.getElementById('arrival-time'));
         ReactDOM.render(<CompanySelector />, document.getElementById('moving-company'));
         ReactDOM.render(<TempTrucks />, document.getElementById('tempTruck'));
         ReactDOM.render(<TakenBy />, document.getElementById('takenBy'));
+        ReactDOM.render(<NumberOfUsers />, document.getElementById('number-of-movers'));
         window.addresses = ReactDOM.render(<Addresses />, document.getElementById('addressesId'));
         Session.set('is', '');
 
@@ -409,6 +415,7 @@ Template.kalendar.events({
         event.preventDefault();
         $('#add-schedule-page').hide();
         $('#edit-schedule-page').hide();
+        ReactDOM.unmountComponentAtNode(document.getElementById('number-of-movers'));
         ReactDOM.unmountComponentAtNode(document.getElementById('truck-list-update'));
         ReactDOM.unmountComponentAtNode(document.getElementById('update_time_window'));
         ReactDOM.unmountComponentAtNode(document.getElementById('arrival-time'));
