@@ -92,10 +92,8 @@ export default class ArrivalWindow extends TrackerReact(Component) {
                 });
 
             if (id !== '') {
-                console.log('id tapildi', id);
                 selected = this.finTheJob(id);
                 selected = selected[0].workMustBeginTime;
-                console.log('Log Message: : ArrivalWindow -> componentDidMount -> selected', selected)
                 let isMorningAfternoon = (selected[0] === '04:00 am' && selected[1] === '04:00 am'); // is it Morning Afternoon aviability selected
                 let isCustom = false; // is custom time selected
                 let difValue = '';
@@ -103,7 +101,6 @@ export default class ArrivalWindow extends TrackerReact(Component) {
                 this.state.options.map((option) => {
                     selected[0] === option.value1 && selected[1] === option.value2 ? difValue = (selected[0] + ' - ' + selected[1]) : null;
                 });
-                console.log('Log Message: : ArrivalWindow -> componentDidMount -> difValue', difValue === '');
 
                 // if the 1st and 2nd value are equal
                 selected[0] === selected[1]

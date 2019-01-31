@@ -22,6 +22,47 @@ import DailyStats from './DailyStats';
 
 /*global moment $*/
 
+
+function colorIndigator() {
+    let isler = document.getElementsByClassName('work-list-show');
+    let i = 0;
+
+    for (i; i < isler.length; i++) {
+        let moverIndigator = isler[i].getElementsByClassName('mover--status')[0];
+        let truckIndigator = isler[i].getElementsByClassName('truck--status')[0];
+        let id = isler[i].id;
+        let is = WorkData.findOne({ _id: id });
+        let shouldSelectMovers = is.numberOfWorkers;
+        let shouldSelectTrucks = is.trucksTemp.length;
+        console.log('Log Message: : colorIndigator -> shouldSelectTrucks', shouldSelectTrucks)
+        let selectedMovers = is.workers.length;
+        let selectedTruck = is.trucks.length;
+        console.log('Log Message: : colorIndigator -> selectedTruck', selectedTruck)
+
+        truckIndigator.classList.remove('sari');
+        truckIndigator.classList.remove('qirmizi');
+        truckIndigator.classList.remove('yasil');
+        moverIndigator.classList.remove('sari');
+        moverIndigator.classList.remove('qirmizi');
+        moverIndigator.classList.remove('yasil');
+
+        selectedMovers < shouldSelectMovers && selectedMovers > 0
+            ? moverIndigator.classList.add('sari')
+            : (selectedMovers === shouldSelectMovers && selectedMovers > 0)
+                ? moverIndigator.classList.add('yasil')
+                : (selectedMovers > shouldSelectMovers && shouldSelectMovers === 0)
+                    ? moverIndigator.classList.add('yasil')
+                    : null;
+        selectedTruck < shouldSelectTrucks && selectedTruck > 0
+            ? truckIndigator.classList.add('sari')
+            : (selectedTruck === shouldSelectTrucks && selectedTruck > 0)
+                ? truckIndigator.classList.add('yasil')
+                : (selectedTruck > shouldSelectTrucks && shouldSelectTrucks === 0)
+                    ? truckIndigator.classList.add('yasil')
+                    : null;
+    }
+}
+
 let infoDisplay;
 let ayDeqiq;
 let ayin1ciGunu;
@@ -370,6 +411,10 @@ Template.kalendar.events({
     'click .dayData': function (event) {
         event.preventDefault();
         Template.instance().secilenTarix2.set(event.target.id);
+
+
+
+        setTimeout(colorIndigator, 900);
     },
     'click .add-schedule-button': function (event) {
         event.preventDefault();
@@ -413,6 +458,7 @@ Template.kalendar.events({
     },
     'click .baqla': function (event) {
         event.preventDefault();
+        colorIndigator();
         $('#add-schedule-page').hide();
         $('#edit-schedule-page').hide();
         ReactDOM.unmountComponentAtNode(document.getElementById('number-of-movers'));
