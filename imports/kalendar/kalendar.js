@@ -34,10 +34,8 @@ function colorIndigator() {
         let is = WorkData.findOne({ _id: id });
         let shouldSelectMovers = is.numberOfWorkers;
         let shouldSelectTrucks = is.trucksTemp.length;
-        console.log('Log Message: : colorIndigator -> shouldSelectTrucks', shouldSelectTrucks)
         let selectedMovers = is.workers.length;
         let selectedTruck = is.trucks.length;
-        console.log('Log Message: : colorIndigator -> selectedTruck', selectedTruck)
 
         truckIndigator.classList.remove('sari');
         truckIndigator.classList.remove('qirmizi');
