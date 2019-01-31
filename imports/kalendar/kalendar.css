@@ -338,3 +338,15 @@ fieldset div {
     margin: 5px 2px 2px 5px;
     display: inline;
 }
+
+.truck--status , .mover--status {
+    color: red;
+}
+
+.sari{
+    color: rgb(241, 219, 90) !important;
+}
+
+.yasil{
+    color: rgb(64, 212, 101) !important;
+}
