@@ -139,6 +139,21 @@ export default function EmailContent(job) {
         `
         : '';
 
+    let additionalContacts = job.additionalContacts && job.additionalContacts.lenght > 0
+        ? job.additionalContacts.map((contact) => {
+            return (
+                `<tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
+                    <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Additional Contact Name:</td>
+                    <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${contact.firstName } ${ contact.lastName }</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
+                    <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Contact Phone Number:</td>
+                    <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${contact.phoneNumber }</td>
+                </tr>`
+            );
+        })
+        : '';
+
     return (
         `
         <!DOCTYPE html>
@@ -201,6 +216,7 @@ export default function EmailContent(job) {
                         <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${job.phone }</td>
                     </tr>
                     ${ additionalPhoneNumber }
+                    ${ additionalContacts }
                     <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
                         <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Job Number:</td>
                         <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${job.jobNumber }</td>

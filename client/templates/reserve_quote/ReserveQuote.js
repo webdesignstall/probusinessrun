@@ -317,15 +317,9 @@ class ReserveQuote extends React.Component {
                                 **If you have any questions, please contact us as soon as possible by phone, text, or e-mail 24/7**
                             </p>
                             <div style={{ textAlign: 'center' }}>
-                                <p>
-                                    Phone Number: {job.companyInfo.phoneNumber}
-                                </p>
-                                <p>
-                                    Email: {job.companyInfo.email}
-                                </p>
-                                <p>
-                                    Web: {job.companyInfo.url}
-                                </p>
+                                Phone Number: {job.companyInfo.phoneNumber} <br />
+                                Email: {job.companyInfo.email} <br />
+                                Web: {job.companyInfo.url} <br />
                             </div>
                         </div>
                     </div>
