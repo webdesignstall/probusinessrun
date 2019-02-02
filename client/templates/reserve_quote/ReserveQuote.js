@@ -7,6 +7,7 @@ import { Tracker } from 'meteor/tracker';
 import { Session } from 'meteor/session';
 
 import ConfirmationDisplay from './ConfirmationDisplay';
+import { Fragment } from 'react';
 
 // load companies info json
 const baza = require('../../../imports/helpers/companyInfos.json');
@@ -39,6 +40,7 @@ class ReserveQuote extends React.Component {
 
         this.checked = this.checked.bind(this);
         this.jobNumber = this.jobNumber.bind(this);
+        this.renderAdditionalContacts = this.renderAdditionalContacts.bind(this);
     }
 
     componentDidMount() {
@@ -111,7 +113,7 @@ class ReserveQuote extends React.Component {
 
     renderSmallitemPacking(job) {
         return (
-            <tr>
+            <React.Fragment>
                 <td>Small Item Packing:</td>
                 <td>
                     {
@@ -123,7 +125,28 @@ class ReserveQuote extends React.Component {
                             : '$' + job.smallItemPacking
                     }
                 </td>
-            </tr>
+            </React.Fragment>
+        );
+    }
+
+    renderAdditionalContacts(addContacts) {
+        return (
+            addContacts
+                ? addContacts.map((value, index) => {
+                    return (
+                        <React.Fragment key={index + 'addContact'}>
+                            <tr>
+                                <td>Additional contact name:</td>
+                                <td>{value.firstName} {value.lastName}</td>
+                            </tr>
+                            <tr>
+                                <td>Contact Phone Number:</td>
+                                <td>{value.phoneNumber}</td>
+                            </tr>
+                        </React.Fragment>
+                    );
+                })
+                : null
         );
     }
 
@@ -141,44 +164,36 @@ class ReserveQuote extends React.Component {
                         </p>
                         <table>
                             <tbody>
-                                {/* job number */}
                                 <tr>
                                     <td>Customer name:</td>
                                     <td>{job.clientFirstName} {job.clientLastName}</td>
                                 </tr>
-                                {/* job number */}
                                 <tr>
                                     <td>Customer Phone Number:</td>
                                     <td>{job.phoneNumber}</td>
                                 </tr>
-                                {/* job number */}
+                                {this.renderAdditionalContacts(job.additionalContacts || null)}
                                 <tr>
                                     <td>Your Job Number:</td>
                                     <td>{job.jobNumber}</td>
                                 </tr>
-                                {/* moving date */}
                                 <tr>
                                     <td>Moving Date:</td>
                                     <td>{job.workDate}</td>
                                 </tr>
-                                {/* arrival window */}
                                 <tr>
                                     <td>Arrival Window:</td>
                                     <td>{job.workMustBeginTime[0]} - {job.workMustBeginTime[1]}</td>
                                 </tr>
-                                {/* addresses */}
                                 {(() => this.addressesRender(job.addresses))()}
-                                {/* moving size */}
                                 <tr>
                                     <td>Moving Size:</td>
                                     <td>{this.state.movingSizeCorrectNaming[job.movingSize]}</td>
                                 </tr>
-                                {/* # of movers */}
                                 <tr>
                                     <td>Number of Movers:</td>
                                     <td>{job.numberOfWorkers} movers</td>
                                 </tr>
-                                {/* labor time */}
                                 {
                                     job.laborTime
                                         ?
