@@ -19,6 +19,7 @@ import TempTrucks from './../../client/templates/quote/TempTrucks';
 import NumberOfUsers from '../../client/templates/quote/NumberOfUsers';
 import TakenBy from '../../client/templates/quote/TakenBy';
 import DailyStats from './DailyStats';
+import AdditionalContact from '../../client/templates/quote/AdditionalContact';
 
 /*global moment $*/
 
@@ -31,33 +32,35 @@ function colorIndigator() {
         let moverIndigator = isler[i].getElementsByClassName('mover--status')[0];
         let truckIndigator = isler[i].getElementsByClassName('truck--status')[0];
         let id = isler[i].id;
-        let is = WorkData.findOne({ _id: id });
-        let shouldSelectMovers = is.numberOfWorkers;
-        let shouldSelectTrucks = is.trucksTemp.length;
-        let selectedMovers = is.workers.length;
-        let selectedTruck = is.trucks.length;
+        if (id !== '' && id !== null && id !== undefined) {
+            let is = WorkData.findOne({ _id: id });
+            let shouldSelectMovers = is.numberOfWorkers;
+            let shouldSelectTrucks = is.trucksTemp.length;
+            let selectedMovers = is.workers.length;
+            let selectedTruck = is.trucks.length;
 
-        truckIndigator.classList.remove('sari');
-        truckIndigator.classList.remove('qirmizi');
-        truckIndigator.classList.remove('yasil');
-        moverIndigator.classList.remove('sari');
-        moverIndigator.classList.remove('qirmizi');
-        moverIndigator.classList.remove('yasil');
+            truckIndigator.classList.remove('sari');
+            truckIndigator.classList.remove('qirmizi');
+            truckIndigator.classList.remove('yasil');
+            moverIndigator.classList.remove('sari');
+            moverIndigator.classList.remove('qirmizi');
+            moverIndigator.classList.remove('yasil');
 
-        selectedMovers < shouldSelectMovers && selectedMovers > 0
-            ? moverIndigator.classList.add('sari')
-            : (selectedMovers === shouldSelectMovers && selectedMovers > 0)
-                ? moverIndigator.classList.add('yasil')
-                : (selectedMovers > shouldSelectMovers && shouldSelectMovers === 0)
+            selectedMovers < shouldSelectMovers && selectedMovers > 0
+                ? moverIndigator.classList.add('sari')
+                : (selectedMovers === shouldSelectMovers && selectedMovers > 0)
                     ? moverIndigator.classList.add('yasil')
-                    : null;
-        selectedTruck < shouldSelectTrucks && selectedTruck > 0
-            ? truckIndigator.classList.add('sari')
-            : (selectedTruck === shouldSelectTrucks && selectedTruck > 0)
-                ? truckIndigator.classList.add('yasil')
-                : (selectedTruck > shouldSelectTrucks && shouldSelectTrucks === 0)
+                    : (selectedMovers > shouldSelectMovers && shouldSelectMovers === 0)
+                        ? moverIndigator.classList.add('yasil')
+                        : null;
+            selectedTruck < shouldSelectTrucks && selectedTruck > 0
+                ? truckIndigator.classList.add('sari')
+                : (selectedTruck === shouldSelectTrucks && selectedTruck > 0)
                     ? truckIndigator.classList.add('yasil')
-                    : null;
+                    : (selectedTruck > shouldSelectTrucks && shouldSelectTrucks === 0)
+                        ? truckIndigator.classList.add('yasil')
+                        : null;
+        }
     }
 }
 
@@ -74,6 +77,7 @@ let arrayToObject = function () {
         usersBazaObject[ad] = null;
     }
 };
+
 
 function jobNumber_() {
     document.getElementById('quote-job-number').value = Math.random().toString(36).substr(2, 5);
@@ -425,6 +429,7 @@ Template.kalendar.events({
         ReactDOM.render(<TempTrucks />, document.getElementById('tempTruck'));
         ReactDOM.render(<TakenBy />, document.getElementById('takenBy'));
         ReactDOM.render(<NumberOfUsers />, document.getElementById('number-of-movers'));
+        ReactDOM.render(<AdditionalContact />, document.getElementById('additional-contact'));
         window.addresses = ReactDOM.render(<Addresses />, document.getElementById('addressesId'));
         Session.set('is', '');
 
@@ -445,6 +450,7 @@ Template.kalendar.events({
         ReactDOM.render(<TempTrucks />, document.getElementById('tempTruck'));
         ReactDOM.render(<TakenBy />, document.getElementById('takenBy'));
         ReactDOM.render(<NumberOfUsers />, document.getElementById('number-of-movers'));
+        ReactDOM.render(<AdditionalContact />, document.getElementById('additional-contact'));
         window.addresses = ReactDOM.render(<Addresses />, document.getElementById('addressesId'));
         Session.set('is', '');
 
@@ -469,6 +475,7 @@ Template.kalendar.events({
         ReactDOM.unmountComponentAtNode(document.getElementById('tempTruck'));
         ReactDOM.unmountComponentAtNode(document.getElementById('addressesId'));
         ReactDOM.unmountComponentAtNode(document.getElementById('takenBy'));
+        ReactDOM.unmountComponentAtNode(document.getElementById('additional-contact-update'));
         Session.set('secilmisIsciler', '');
         Session.set('is', '');
     },
@@ -477,6 +484,7 @@ Template.kalendar.events({
         Template.instance().vurulanId.set(this._id);
         $('#edit-schedule-page').show();
         Session.set('is', this._id);
+        let job = WorkData.findOne({ _id: Session.get('is') });
         ReactDOM.unmountComponentAtNode(document.getElementById('addTruck'));
         ReactDOM.render(<UpdateAddTruck />, document.querySelector('#truck-list-update'));
         ReactDOM.unmountComponentAtNode(document.getElementById('arrival-time'));
@@ -487,6 +495,8 @@ Template.kalendar.events({
         ReactDOM.render(<Addresses />, document.getElementById('addressesIdUpdate'));
         ReactDOM.render(<NumberOfUsers />, document.getElementById('number-of-movers2'));
         ReactDOM.render(<TempTrucks update={true} />, document.getElementById('tempTruckUpdate'));
+        ReactDOM.render(<AdditionalContact contacts={job ? job.additionalContacts : []} />, document.getElementById('additional-contact-update'));
+
         let x = WorkData.findOne({ _id: Session.get('is') });
         let takenById = x.takenBy;
         ReactDOM.render(<TakenBy id={takenById} update={true} />, document.getElementById('takenBy--update'));

@@ -72,7 +72,6 @@ export default class DiscountAdminRender extends TrackerReact(React.Component) {
                     </div>
                     <div className="col s3 m3 l3"></div>
                     <div className="col s4 m4 l4 cardBorder noPadding">
-                        {/* TODO: bunlar clikc olduqda respond etsin bazaya */}
                         <div className=" click col s6 m6 l6 center-align white-text" style={{ 'backgroundColor': '#e74c3c' }} onClick={() => this.deny(discount)}>
                             <i className="material-icons padding5z">
                                 cancel

@@ -3,7 +3,6 @@ import { Tracker } from 'meteor/tracker';
 import { Session } from 'meteor/session';
 import WorkData from './../../../common/collections_2';
 
-//TODO: custom vurulduqda add schedulede true false olmur
 export default class UpdateArrivalWindow extends React.Component {
     constructor(props) {
         super(props);

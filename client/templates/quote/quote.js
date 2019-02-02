@@ -141,10 +141,9 @@ Template.updateQuote.events({
             comment: document.getElementById('textarea2').value,
             deposit: document.getElementById('deposit-update').value,
             jobNumber: document.getElementById('quote-job-number_2').value,
-            numberOfWorkers: document.getElementById('iscinin-sayi').value
+            numberOfWorkers: document.getElementById('iscinin-sayi').value,
+            additionalContacts: Session.get('additionalContacts')
         };
-
-        console.log(doc);
 
         Meteor.call('emailGonder', doc, (err, res) => err ? console.log(err) : console.log(res));
     },
@@ -212,7 +211,8 @@ Template.updateQuote.events({
                 cardAmount: !isNaN(document.querySelector('#flatRateCardUpdate').value) ? document.querySelector('#flatRateCardUpdate').value : 0
             }],
             comment: document.getElementById('textarea2').value,
-            deposit: document.getElementById('deposit-update').value
+            deposit: document.getElementById('deposit-update').value,
+            additionalContacts: Session.get('additionalContacts')
         };
 
         Meteor.call('updateWork', doc, function (err) {
@@ -307,6 +307,8 @@ Template.preQuote.events({
         let comment = document.getElementById('textarea1').value;
         let deposit = document.getElementById('deposit').value;
         let takenBy = document.getElementById('takenBy--value').value;
+        let additionalContacts = Session.get('additionalContacts');
+
 
         function idniSec(soz) {
             var baslama = soz.indexOf(':');
@@ -351,7 +353,8 @@ Template.preQuote.events({
             companyInfo,
             flatRate,
             flatRateCash,
-            flatRateCard
+            flatRateCard,
+            additionalContacts
         };
 
 
@@ -386,6 +389,7 @@ Template.preQuote.events({
             comment,
             deposit,
             takenBy,
+            additionalContacts,
             function (err) {
                 if (err) {
                     Bert.alert({
@@ -442,6 +446,7 @@ Template.quoteTam.events({
         ReactDOM.unmountComponentAtNode(document.querySelector('#tempTruckUpdate'));
         ReactDOM.unmountComponentAtNode(document.querySelector('#addressesIdUpdate'));
         ReactDOM.unmountComponentAtNode(document.querySelector('#takenBy--update'));
+        ReactDOM.unmountComponentAtNode(document.querySelector('#additional-contact-update'));
         traker.stop();
         // ReactDOM.unmountComponentAtNode(document.querySelector('#tempTruck'));
 
@@ -461,14 +466,13 @@ Template.quoteTam.onDestroyed(function () {
     ReactDOM.unmountComponentAtNode(document.querySelector('#quoteTam'));
     ReactDOM.unmountComponentAtNode(document.querySelector('#addressesIdUpdate'));
     ReactDOM.unmountComponentAtNode(document.querySelector('#takenBy--update'));
+    ReactDOM.unmountComponentAtNode(document.querySelector('#additional-contact-update'));
 
     document.querySelector('#quoteTam').classList.remove('hide');
     document.querySelector('#updateQuote2').classList.add('hide');
 
     traker.stop();
-
-    console.log('Quote tam onDestroyed');
-})
+});
 
 Template.preQuote.onRendered(function () {
     let checked = document.querySelector('#flatRateCheck');

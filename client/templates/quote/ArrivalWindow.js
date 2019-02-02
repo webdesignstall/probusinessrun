@@ -209,7 +209,7 @@ export default class ArrivalWindow extends TrackerReact(Component) {
 
     custom() {
         return (
-            <div className="custom--input">
+            <div className={this.state.custom ? 'custom--input' : 'hide'}>
                 <hr />
                 <div className={this.state.custom ? 'col s12 m6 l6 margin--bottom-10' : 'hide'}>
                     <TimeSelector id="customTime--1" defVal={this.state.time1} interval={30} />

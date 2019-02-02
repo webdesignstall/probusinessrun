@@ -63,6 +63,7 @@ Meteor.startup(() => {
     Session.set('movingSize', 'select_moving_size');
     Session.set('job', {});
     Session.set('reset', false);
+    Session.set('additionalContacts', []);
 
     Bert.defaults = {
         hideDelay: 6000,

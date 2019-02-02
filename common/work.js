@@ -528,5 +528,29 @@ Schemas.workSchema = new SimpleSchema({
     breakClicked: {
         type: Boolean,
         defaultValue: false
+    },
+    additionalContacts: {
+        type: Array,
+        optional: true
+    },
+    'additionalContacts.$': {
+        type: Object,
+        optional: true
+    },
+    'additionalContacts.$.firstName': {
+        type: String,
+        optional: true
+    },
+    'additionalContacts.$.lastName': {
+        type: String,
+        optional: true
+    },
+    'additionalContacts.$.phoneNumber': {
+        type: Number,
+        optional: true
+    },
+    'additionalContacts.$.additionalPhoneNumber': {
+        type: Number,
+        optional: true
     }
 }, { tracker: Tracker });

@@ -16,6 +16,7 @@ import TempTruck from './TempTrucks';
 import Addresses from './Addresses';
 import TakenBy from './TakenBy';
 import ArrivalWindow from './ArrivalWindow';
+import AdditionalContact from './AdditionalContact';
 
 /*global $*/
 
@@ -41,6 +42,7 @@ export default class QuoteTam extends React.Component {
     setWorkId(id) {
         document.querySelector('#quoteTam').classList.add('hide');
         Session.set('is', id);
+        let x = WorkData.findOne({ _id: Session.get('is') });
         document.querySelector('#updateQuote2').classList.remove('hide');
         ReactDOM.render(<UpdateAddTruck />, document.querySelector('#truck-list-update'));
         ReactDOM.render(<ArrivalWindow update={true} />, document.getElementById('update_time_window'));
@@ -50,7 +52,7 @@ export default class QuoteTam extends React.Component {
         ReactDOM.render(<RenderEmployees />, document.getElementById('iscilerinSiyahisiRender'));
         ReactDOM.render(<TempTruck update={true} />, document.querySelector('#tempTruckUpdate'));
         ReactDOM.render(<Addresses />, document.querySelector('#addressesIdUpdate'));
-        let x = WorkData.findOne({ _id: Session.get('is') });
+        ReactDOM.render(<AdditionalContact contacts={x.additionalContacts} />, document.querySelector('#additional-contact-update'));
         let takenById = x.takenBy;
         ReactDOM.render(<TakenBy id={takenById} update={true} />, document.getElementById('takenBy--update'));
         $(document).ready(function () {

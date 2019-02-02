@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import WorkData from '../../common/collections_2';
-import { Meteor } from 'meteor/meteor';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import MorningJobs from './MorningJobs';
 import AfternoonJobs from './AfternoonJobs';
