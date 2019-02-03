@@ -32,10 +32,64 @@ export default function ConfirmationEmail(job) {
             '4_bedroom_large': '4 Bedroom (large size, many items)',
             'commercial_avg': 'Commercial (avg. size, avg. items)',
             'commercial_large': 'Commercial (large size, many items)'
-        }
+        };
 
         return movingSizeList[job.movingSize];
-    }
+    };
+
+    let additionalContacts = job.additionalContacts && job.additionalContacts.lenght > 0
+        ? job.additionalContacts.map((contact) => {
+            return (
+                `<tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
+                    <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Additional Contact Name:</td>
+                    <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${contact.firstName } ${ contact.lastName }</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
+                    <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Contact Phone Number:</td>
+                    <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${contact.phoneNumber }</td>
+                </tr>
+                <tr>
+					<td style="width: 49%;" width="49%">
+						Contact Full Name:
+					</td>
+					<td style="width: 49%;" width="49%">
+						${contact.firstName } ${ contact.lastName }
+					</td>
+				</tr>
+				<tr>
+					<td style="width: 49%;" width="49%">
+						Contact Phone No:
+					</td>
+					<td style="width: 49%;" width="49%">
+						${contact.phoneNumber || '-' }
+					</td>
+                </tr>
+                ${contact.additionalPhoneNumber
+                    ? `
+                    <tr>
+                        <td style="width: 49%;" width="49%">
+                            Additional Phone No:
+                        </td>
+                        <td style="width: 49%;" width="49%">
+                            ${contact.additionalPhoneNumber }
+                        </td>
+                    </tr>`
+                    : '' }
+				`
+            );
+        })
+        : '';
+
+    let additionalPhoneNumber = job.phoneAdditional
+        ? `<tr>
+            <td style="width: 49%;" width="49%">
+                Additional Phone No:
+            </td>
+            <td style="width: 49%;" width="49%">
+                ${job.phoneAdditional }
+            </td>
+        </tr>`
+        : '';
 
     return (
         `
@@ -49,12 +103,30 @@ export default function ConfirmationEmail(job) {
 <body style="background-color: #d3d9e0; max-width: 550px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; padding: 5px;">
 	<div class="email-content" style="max-width: 550px; margin: 0 auto;">
 		<p class="head" style="text-align: center;"><b>Hello ${job.clientFirstName }!</b><br>
-			<b>Thank you for confirming your move with chat Movers Los Angeles!</b><br>
+			<b>Thank you for confirming your move with ${job.companyInfo.name }!</b><br>
 			<b>Please review your Moving Confirmation below to ensure accuracy:</b>
 		</p>
 		<p></p>
 		<table class="info-table" style="width: 100%;" width="100%">
 			<tbody>
+				<tr>
+					<td style="width: 49%;" width="49%">
+						Customer Name:
+					</td>
+					<td style="width: 49%;" width="49%">
+						${job.clientFirstName } ${ job.clientLastName }
+					</td>
+				</tr>
+				<tr>
+					<td style="width: 49%;" width="49%">
+						Customer Phone No:
+					</td>
+					<td style="width: 49%;" width="49%">
+						${job.phoneNumber }
+					</td>
+                </tr>
+                ${additionalPhoneNumber }
+                ${additionalContacts }
 				<tr>
 					<td style="width: 49%;" width="49%">
 						Your Job Number:

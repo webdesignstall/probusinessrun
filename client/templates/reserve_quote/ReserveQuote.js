@@ -143,6 +143,16 @@ class ReserveQuote extends React.Component {
                                 <td>Contact Phone Number:</td>
                                 <td>{value.phoneNumber}</td>
                             </tr>
+                            {
+                                value.additionalPhoneNumber
+                                    ? (
+                                        <tr>
+                                            <td>Contact Additional Phone Number:</td>
+                                            <td>{value.additionalPhoneNumber}</td>
+                                        </tr>
+                                    )
+                                    : ''
+                            }
                         </React.Fragment>
                     );
                 })

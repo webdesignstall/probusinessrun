@@ -149,7 +149,14 @@ export default function EmailContent(job) {
                 <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
                     <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Contact Phone Number:</td>
                     <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${contact.phoneNumber }</td>
-                </tr>`
+                </tr>
+                ${contact.additionalPhoneNumber
+                    ? `
+                    <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
+                        <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Additional Phone No:</td>
+                        <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${contact.additionalPhoneNumber }</td>
+                    </tr>`
+                    : '' }`
             );
         })
         : '';
