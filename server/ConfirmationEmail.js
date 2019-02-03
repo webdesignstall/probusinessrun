@@ -282,8 +282,11 @@ export default function ConfirmationEmail(job) {
                     I understand that this Deposit in non-refundable and non-transferrable if I reschedule or cancel this move.
                                     </p>
                 <p>
-                    **If you have any questions, please contact us soon as possible by phone, text, or e-mail 24/7**
-                                    </p>
+                    **If you have any questions, please contact us as soon as possible by phone, text, or e-mail 24/7**
+                </p>
+                Phone Number: ${job.companyInfo.phoneNumber } <br />
+                Email: ${job.companyInfo.email } <br />
+                Web: ${job.companyInfo.url } <br />
             </div>
         </div>
     </body>
