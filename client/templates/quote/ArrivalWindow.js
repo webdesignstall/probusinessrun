@@ -84,12 +84,11 @@ export default class ArrivalWindow extends TrackerReact(Component) {
             let reset = Session.get('reset');
 
             reset
-                ? this.setState({
-                    custom: true
-                })
-                : this.setState({
-                    custom: false
-                });
+                ? (
+                    document.getElementById('select-arrive-time').value = 'Select moving time window',
+                    this.setState({ custom: false })
+                )
+                : null;
 
             if (id !== '') {
                 selected = this.finTheJob(id);

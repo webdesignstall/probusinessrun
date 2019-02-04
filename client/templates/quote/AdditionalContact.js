@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import { Session } from 'meteor/session';
+import { Tracker } from 'meteor/tracker';
 
 export default class AdditionalContact extends TrackerReact(Component) {
     constructor(props) {
@@ -16,9 +17,19 @@ export default class AdditionalContact extends TrackerReact(Component) {
     }
 
     componentDidMount() {
-        this.setState({
-            contacts: this.props.contacts || []
+        this.x = Tracker.autorun(() => {
+            let reset = Session.get('reset');
+
+            reset ? this.setState({ contacts: [] }) : null;
+
+            this.setState({
+                contacts: this.props.contacts || []
+            });
         });
+    }
+
+    componentWillUnmount() {
+        this.x.stop();
     }
 
     deleteAddContacnt(index) {

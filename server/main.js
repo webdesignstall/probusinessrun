@@ -154,7 +154,7 @@ if (Meteor.isServer) {
             this.x = false;
 
             server.send(message, function (err) {
-                console.log(err);
+                err ? console.log(err) : console.log('Email succesfully sent to: ' + job.email);
             });
 
             // WorkData.update(
@@ -202,7 +202,7 @@ if (Meteor.isServer) {
             };
 
             server.send(message, function (err) {
-                console.log(err);
+                err ? console.log(err) : console.log('Email succesfully sent to: ' + job.email);
             });
         },
 

@@ -422,6 +422,7 @@ Template.preQuote.events({
                             jobNumber_();
 
                             Session.set('reset', true);
+                            setTimeout(() => Session.set('reset', false), 3000);
                         }
                     });
                 }
