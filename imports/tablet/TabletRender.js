@@ -12,6 +12,7 @@ import AdditionalSignature from './AdditionalSignature';
 import AddedAdditionalSignaturesRender from './AddedAdditionalSignaturesRender';
 import AddedDiscountRender from './AddedDiscountRender';
 import AdditionalChargesRender from './AdditionalChargesRender';
+import AdditionalContactsRender from './AdditionalContactsRender';
 
 /*global moment, paypal, $*/
 
@@ -927,7 +928,7 @@ MY OWN FREE WILL`
                                 <div className="col s6 m6 l6">
                                     <div className="card__">
                                         <div>
-                                            <div className="cardTitle">Customer contact:</div>
+                                            <div className="cardTitle">Customer Main Number:</div>
                                             <div className="cardInner">{is.phoneNumber}</div>
                                         </div>
                                     </div>
@@ -935,11 +936,12 @@ MY OWN FREE WILL`
                                 <div className="col s6 m6 l6">
                                     <div className="card__">
                                         <div>
-                                            <div className="cardTitle">Additional contact:</div>
+                                            <div className="cardTitle">Customer Secondary Number:</div>
                                             <div className="cardInner">{is.phoneAdditional}</div>
                                         </div>
                                     </div>
                                 </div>
+                                <AdditionalContactsRender contacts={is.additionalContacts || []} />
                             </div>
                         </div>
                         <div className="row from-to">
