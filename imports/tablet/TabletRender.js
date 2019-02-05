@@ -243,7 +243,10 @@ MY OWN FREE WILL`
             totalAdditionalChargeAmount: 0,
             drivingClicked: false,
             breakClicked: false,
-            started: false
+            started: false,
+            startFullName: '',
+            initSignature: false,
+            initSignDate: new Date()
         });
 
         this.requirementEntirely = this.requirementEntirely.bind(this);
@@ -261,6 +264,7 @@ MY OWN FREE WILL`
         this.paperBundles = this.paperBundles.bind(this);
         this.saveSignature = this.saveSignature.bind(this);
         this.renderAddresses = this.renderAddresses.bind(this);
+        this.startFullName = this.startFullName.bind(this);
     }
 
     requirementEntirely(param, whichState) {
@@ -327,7 +331,9 @@ MY OWN FREE WILL`
             initialSignAlphabet: this.state.initialSignAlphabet,
             initSign: sign,
             requirementEntirely: this.state.requirementEntirely,
-            threeDayPrior: this.state.threeDayPrior
+            threeDayPrior: this.state.threeDayPrior,
+            initFullName: this.state.startFullName,
+            initSignDate: new Date()
         };
         Meteor.call('updateWork', doc);
     }
@@ -609,13 +615,18 @@ MY OWN FREE WILL`
 
             if (isRender.length > 0) {
                 let isFinished = isRender[0].finished;
+                let startFullName = isRender[0].initFullName;
+                let initSignDate = isRender[0].initSignDate || new Date();
                 if (isFinished) {
                     this.setState({
                         finished: true
                     });
                 }
+
                 this.setState({
-                    vurulmusIs: isRender
+                    vurulmusIs: isRender,
+                    startFullName,
+                    initSignDate
                 }, () => {
                     let is = this.state.vurulmusIs[0];
 
@@ -649,14 +660,19 @@ MY OWN FREE WILL`
                 maxWidth: 3,
                 dotSize: 1,
                 penColor: '#000000',
-                onEnd: function () {
-                    document.getElementById('submit-sign').classList.remove('disabled');
+                onEnd: () => {
+                    this.setState({
+                        initSignature: true
+                    });
                 }
             });
 
             let cancelButton3 = document.querySelector('#clear3');
             cancelButton3.addEventListener('click', () => {
                 this.signaturePad3.clear();
+                this.setState({
+                    initSignature: false
+                });
             });
 
             // in the end sign
@@ -819,6 +835,12 @@ MY OWN FREE WILL`
                 </div>
             );
         }));
+    }
+
+    startFullName(e) {
+        this.setState({
+            startFullName: e.target.value
+        });
     }
 
     render() {
@@ -1083,16 +1105,25 @@ MY OWN FREE WILL`
                             <p className="cardTitle">
                                 BY SIGNING BELOW, I {is.clientFirstName} {is.clientLastName}, CONFIRM THAT THE INFORMATION ABOVE IS TRUE AND CORRECT TO THE BEST OF MY KNOWLEDGE. <br />
                                 SHIPPER’S (CUSTOMER’S) SIGNATURE:<br />
-                                DATE: {Date()}
+                                DATE: {this.state.initSign ? (this.state.initSignDate).toString() : Date()}
                             </p>
                             <div className="col s12 m12 l12" >
                                 <p>Customer Sign below</p>
+                                <div className="col s12 m6 l6">
+                                    <label htmlFor="customer-firts-sign" className="active">Full Name</label>
+                                    <input id="customer-firts-sign" type="text" disabled={this.state.initSign ? true : false} onChange={(e) => this.startFullName(e)} value={this.state.startFullName} className="validate" placeholder="Type full name here" />
+                                </div>
+                                <div className="clear"></div>
                                 <div className="wrapper">
                                     <canvas id="signature-pad-before-start" className={(this.state.initSign ? 'hide' : '') + ' signature-pad'} width={400} height={200}></canvas>
                                     <img id="init-sign-img" className={this.state.initSign ? '' : 'hide'} src={this.state.initSign} width={400} height={200} style={{ zIndex: '0' }} />
                                 </div>
                                 <a id="clear3" className={(this.state.initSign ? 'hide' : '') + ' waves-effect waves-light btn blue'} >Clear</a>
-                                <a id="submit-sign" className={(this.state.initSign ? 'hide' : 'disabled') + ' waves-effect waves-light btn blue'} onClick={this.activateStart} >Submit</a>
+                                <a id="submit-sign"
+                                    className={
+                                        (this.state.initSign ? 'hide' : this.state.initSignature && this.state.startFullName !== '' ? '' : 'disabled') + ' waves-effect waves-light btn blue'
+                                    }
+                                    onClick={this.activateStart} >Submit</a>
                             </div>
                         </div>
                     </div>

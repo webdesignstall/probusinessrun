@@ -234,6 +234,14 @@ Schemas.workSchema = new SimpleSchema({
         type: String,
         optional: true
     },
+    initFullName: {
+        type: String,
+        optional: true
+    },
+    initSignDate: {
+        type: Date,
+        optional: true
+    },
     finalSign: {
         type: String,
         optional: true
