@@ -965,7 +965,15 @@ MY OWN FREE WILL`
                                         Gas fee (one time): {is.gasFee && is.gasFee > 0 ? '$' + is.gasFee : 'Waived'}<br />
                                         Double Drive Time: {is.doubleDrive === 'yes' ? 'Yes' : 'Waived'}<br />
                                         Extra Large/Heavy Item Fee: {is.largeItemFee > 0 ? '$' + is.largeItemFee : 'No'}<br />
-                                        Small Item Packing: {is.smallItemPacking < 0 ? 'Yes' : is.smallItemPacking > 0 ? '$' + is.smallItemPacking : 'No'}<br />
+                                        Small Item Packing: {
+                                            is.smallItemPacking < 0
+                                                ? this.state.totalPul > 0
+                                                    ? this.state.totalPul
+                                                    : 'Yes'
+                                                : is.smallItemPacking > 0
+                                                    ? '$' + is.smallItemPacking
+                                                    : 'No'
+                                        }<br />
                                         Not to Exceed Price: ${is.price}<br />
                                     </div>
                                     <div className="clear"></div>

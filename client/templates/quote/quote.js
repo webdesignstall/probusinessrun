@@ -145,7 +145,21 @@ Template.updateQuote.events({
             additionalContacts: Session.get('additionalContacts')
         };
 
-        Meteor.call('emailGonder', doc, (err, res) => err ? console.log(err) : console.log(res));
+        Meteor.call('emailGonder', doc, (err, res) => {
+            err
+                ? (
+                    console.log(err),
+                    Bert.alert({
+                        title: 'There is problem while sending email contact administration',
+                        message: err.reason,
+                        type: 'danger',
+                    })
+                )
+                : Bert.alert({
+                    title: 'Email sent succesfully',
+                    type: 'success',
+                });
+        });
     },
     'click #work-update': function (e) {
         e.preventDefault;

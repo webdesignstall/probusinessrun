@@ -156,19 +156,13 @@ if (Meteor.isServer) {
             this.x = false;
 
             server.send(message, function (err) {
-                err ? console.log(err) : console.log('Email succesfully sent to: ' + job.email);
+                if (err) {
+                    console.log(err);
+                    throw new Meteor.Error('Can\'t send email', 'Impossible send email. Contact system administration');
+                } else {
+                    console.log('Email succesfully sent to: ' + job.email);
+                }
             });
-
-            // WorkData.update(
-            //     {
-            //         jobNumber: jobNumber
-            //     },
-            //     {
-            //         $set: {
-            //             emailSent: true
-            //         }
-            //     }
-            // );
         },
 
         confirmationGonder: function (job) {
