@@ -98,12 +98,12 @@ export default class AdditionalContact extends TrackerReact(Component) {
                         <div className="input-field valideyn col s12 m6 l3">
                             <i className="material-icons isare">phone</i>
                             <input onChange={(event) => this.changeInput(index, 'phoneNumber', event)} id={index + 'phoneNumberAdditionalContact'} value={contact.phoneNumber} type="number" placeholder="" required />
-                            <label className="active" htmlFor={index + 'phoneNumberAdditionalContact'}>Phone Number</label>
+                            <label className="active" htmlFor={index + 'phoneNumberAdditionalContact'}>Main Phone Number</label>
                         </div>
                         <div className="input-field valideyn col s12 m5 l2">
                             <i className="material-icons isare">phone</i>
                             <input onChange={(event) => this.changeInput(index, 'additionalPhoneNumber', event)} id={index + 'phoneNumberAddAdditionalContact'} value={contact.additionalPhoneNumber} type="number" placeholder="" />
-                            <label className="active" htmlFor={index + 'phoneNumberAddAdditionalContact'}>Additional Phone Number</label>
+                            <label className="active" htmlFor={index + 'phoneNumberAddAdditionalContact'}>Secondary Phone Number</label>
                         </div>
                         <div className="input-field valideyn col s12 m1 l1">
                             <i
