@@ -136,18 +136,18 @@ class ReserveQuote extends React.Component {
                     return (
                         <React.Fragment key={index + 'addContact'}>
                             <tr>
-                                <td>Additional contact name:</td>
+                                <td>Contact name:</td>
                                 <td>{value.firstName} {value.lastName}</td>
                             </tr>
                             <tr>
-                                <td>Contact Phone Number:</td>
+                                <td>Contact Main Number:</td>
                                 <td>{value.phoneNumber}</td>
                             </tr>
                             {
-                                value.additionalPhoneNumber
+                                value.additionalPhoneNumber !== null && value.additionalPhoneNumber !== undefined && value.additionalPhoneNumber !== ''
                                     ? (
                                         <tr>
-                                            <td>Contact Additional Phone Number:</td>
+                                            <td>Contact Secondary Number:</td>
                                             <td>{value.additionalPhoneNumber}</td>
                                         </tr>
                                     )
@@ -175,11 +175,15 @@ class ReserveQuote extends React.Component {
                         <table>
                             <tbody>
                                 <tr>
-                                    <td>Customer name:</td>
+                                    <td>Customer Name:</td>
                                     <td>{job.clientFirstName} {job.clientLastName}</td>
                                 </tr>
                                 <tr>
-                                    <td>Customer Phone Number:</td>
+                                    <td>Customer Main Number:</td>
+                                    <td>{job.phoneNumber}</td>
+                                </tr>
+                                <tr className={job.phoneAdditional === '' || job.phoneAdditional === undefined || job.phoneAdditional === null ? 'hide' : ''}>
+                                    <td>Customer Secondary Number:</td>
                                     <td>{job.phoneNumber}</td>
                                 </tr>
                                 {this.renderAdditionalContacts(job.additionalContacts || null)}

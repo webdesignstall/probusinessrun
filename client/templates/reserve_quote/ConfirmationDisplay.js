@@ -11,7 +11,7 @@ export default class ConfirmationDisplay extends Component {
     }
     render() {
         const colorStyle = {
-            color: '#daf2ff'
+            color: '#fff'
         };
         return (
             <div className="center-text">
