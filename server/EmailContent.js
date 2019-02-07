@@ -3,8 +3,8 @@ export default function EmailContent(job) {
 
     let additionalPhoneNumber = job.phoneAdditional
         ? `<tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
-                <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Additional Phone Number:</td>
-                <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${job.phoneAdditional }</td>
+                <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Customer Secondary No:</td>
+                <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${job.phoneAdditional}</td>
             </tr>`
         : '';
 
@@ -33,8 +33,8 @@ export default function EmailContent(job) {
         movingAddresesRenderHTML += (
             `
             <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
-                <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Address #${ index + 1 }:</td>
-                <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${ address }</td>
+                <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Address #${ index + 1}:</td>
+                <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${ address}</td>
             </tr>
             `
         );
@@ -45,11 +45,11 @@ export default function EmailContent(job) {
         `
         <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
             <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Cash Discounted Rate p/hour:</td>
-            <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">$${job.hourlyRatesCash }</td>
+            <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">$${job.hourlyRatesCash}</td>
         </tr>
         <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
             <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Card Regular Rate p/hour:</td>
-            <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">$${job.hourlyRatesCard }</td>
+            <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">$${job.hourlyRatesCard}</td>
         </tr>
         `
         : '';
@@ -58,11 +58,11 @@ export default function EmailContent(job) {
         ? `
         <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
             <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Flat Rate Cash:</td>
-            <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">$${job.flatRateCash }</td>
+            <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">$${job.flatRateCash}</td>
         </tr>
         <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
             <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Flat Rate Card:</td>
-            <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">$${job.flatRateCard }</td>
+            <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">$${job.flatRateCard}</td>
         </tr>
         `
         : '';
@@ -71,7 +71,7 @@ export default function EmailContent(job) {
         `
         <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
             <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Minimum Labor Time:</td>
-            <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${job.minimumLaborTime } hour(s)</td>
+            <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${job.minimumLaborTime} hour(s)</td>
         </tr>
         `
         : '';
@@ -80,7 +80,7 @@ export default function EmailContent(job) {
         ? `
         <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
             <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Gas Fee (one time fee):</td>
-            <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">$${job.gasFee }</td>
+            <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">$${job.gasFee}</td>
         </tr>
         `
         : job.gasFee === '' || job.gasFee === 0 || job.gasFee === undefined
@@ -112,7 +112,7 @@ export default function EmailContent(job) {
         ? `
         <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
             <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Small Item Packing:</td>
-            <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%"> ${job.smallPackingItems < 0 ? 'Yes, <a href="http://www.moverslegion.com/wp-content/uploads/2018/12/small-item-pricing.pdf">learn more</a>' : '$' + job.smallPackingItems }</td>
+            <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%"> ${job.smallPackingItems < 0 ? 'Yes, <a href="http://www.moverslegion.com/wp-content/uploads/2018/12/small-item-pricing.pdf">learn more</a>' : '$' + job.smallPackingItems}</td>
         </tr>
         `
         : '';
@@ -136,7 +136,7 @@ export default function EmailContent(job) {
         `
         <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
             <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Extra-Large Item Handling Fee</td>
-            <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">$${job.largeItemFee }</td>
+            <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">$${job.largeItemFee}</td>
         </tr>
         `
         : '';
@@ -146,19 +146,19 @@ export default function EmailContent(job) {
             return (
                 `<tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
                     <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Additional Contact Name:</td>
-                    <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${contact.firstName } ${ contact.lastName }</td>
+                    <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${contact.firstName} ${contact.lastName}</td>
                 </tr>
                 <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
-                    <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Contact Phone Number:</td>
-                    <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${contact.phoneNumber }</td>
+                    <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Contact Main No:</td>
+                    <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${contact.phoneNumber}</td>
                 </tr>
                 ${contact.additionalPhoneNumber
                     ? `
                     <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
-                        <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Additional Phone No:</td>
-                        <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${contact.additionalPhoneNumber }</td>
+                        <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Contact Secondary No:</td>
+                        <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${contact.additionalPhoneNumber}</td>
                     </tr>`
-                    : '' }`
+                    : ''}`
             );
         })
         : '';
@@ -176,7 +176,7 @@ export default function EmailContent(job) {
             <div class="container" style="max-width: 560px; background-color: #f3f2f2; width: 100%; margin: 0 auto;">
             <div class="header" style="background-color: #554b8c; color: white; padding: 20px; font-size: 16px; line-height: 25px; text-align: center;">
                 <b>
-                Hello ${job.firstName } ${ job.lastName }!<br>
+                Hello ${job.firstName} ${job.lastName}!<br>
                 Thank you for requesting your moving quote! Your quote includes:
                 </b>
             </div>
@@ -218,48 +218,48 @@ export default function EmailContent(job) {
                 <table style="width: 100%;" width="100%">
                     <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
                         <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Customer Name:</td>
-                        <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${job.firstName } ${ job.lastName }</td>
+                        <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${job.firstName} ${job.lastName}</td>
                     </tr>
                     <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
-                        <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Phone Number:</td>
-                        <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${job.phone }</td>
+                        <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Customer Main No:</td>
+                        <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${job.phone}</td>
                     </tr>
-                    ${ additionalPhoneNumber }
-                    ${ additionalContacts }
+                    ${ additionalPhoneNumber}
+                    ${ additionalContacts}
                     <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
                         <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Job Number:</td>
-                        <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${job.jobNumber }</td>
+                        <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${job.jobNumber}</td>
                     </tr>
                     <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
                         <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Moving Date:</td>
-                        <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${job.movingDateConverted }</td>
+                        <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${job.movingDateConverted}</td>
                     </tr>
                     <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
                         <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Arrival Window:</td>
-                        <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${job.workMustBeginTime }</td>
+                        <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${job.workMustBeginTime}</td>
                     </tr>
-                    ${movingAddresesRenderHTML }
+                    ${movingAddresesRenderHTML}
                     <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
                         <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Moving Size:</td>
-                        <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${movingSize() }</td>
+                        <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${movingSize()}</td>
                     </tr>
                     <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
                         <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Number of Movers:</td>
-                        <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${job.numberOfWorkers } movers</td>
+                        <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${job.numberOfWorkers} movers</td>
                     </tr>
-                    ${laborTime }
-                    ${rateDisplay }
-                    ${flatRate }
+                    ${laborTime}
+                    ${rateDisplay}
+                    ${flatRate}
                 </table>
             </div>
             <div class="additional-charges">
                 <div class="additional-charges--header" style="text-align: center; color: white; background-color: #495572; padding: 5px;">ADDITIONAL CHARGES</div>
                 <div class="additional-charges--list" style="padding: 10px;">
                 <table style="width: 100%;" width="100%">
-                    ${gasFee }
-                    ${doubleDrive }
-                    ${smallItemPacking }
-                    ${extraLargeItemPacking }
+                    ${gasFee}
+                    ${doubleDrive}
+                    ${smallItemPacking}
+                    ${extraLargeItemPacking}
                 </table>
                 </div>
             </div>
@@ -272,8 +272,8 @@ export default function EmailContent(job) {
                 POSSIBLE ADDITIONAL CHARGES
                 </div>
                 <div class="additional-charges--list" style="padding: 10px;">
-                ${doubleDriveAdditional }
-                ${gasFeeAdditional }
+                ${doubleDriveAdditional}
+                ${gasFeeAdditional}
                 </div>
             </div>
             `
@@ -320,10 +320,10 @@ export default function EmailContent(job) {
             <div style="clear: both; margin: 10px 0;"></div>
             <div style="text-align: center;">
                 With one click, we move it quick!<br />
-                ${job.companyInfo.name } <br />
-                Phone: ${job.companyInfo.phoneNumber }<br/>
-                E-mail: ${ job.companyInfo.email } <br />
-                Web: ${job.companyInfo.url }<br />
+                ${job.companyInfo.name} <br />
+                Phone: ${job.companyInfo.phoneNumber}<br/>
+                E-mail: ${ job.companyInfo.email} <br />
+                Web: ${job.companyInfo.url}<br />
                 License # BEARHFTI 0191555
             </div>
             </div>
