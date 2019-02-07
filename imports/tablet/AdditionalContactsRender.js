@@ -27,7 +27,7 @@ export default class AdditionalContactsRender extends Component {
                     <div className="col s12 m4 l4">
                         <div className="card__">
                             <div>
-                                <div className="cardTitle">Additioal Contact Name:</div>
+                                <div className="cardTitle">Additional Contact Name:</div>
                                 <div className="cardInner">{contact.firstName} {contact.lastName}</div>
                             </div>
                         </div>
@@ -35,7 +35,7 @@ export default class AdditionalContactsRender extends Component {
                     <div className="col s12 m4 l4">
                         <div className="card__">
                             <div>
-                                <div className="cardTitle">Contact Main No:</div>
+                                <div className="cardTitle">Contact Main Number:</div>
                                 <div className="cardInner">{contact.phoneNumber}</div>
                             </div>
                         </div>
@@ -43,7 +43,7 @@ export default class AdditionalContactsRender extends Component {
                     <div className="col s12 m4 l4">
                         <div className="card__">
                             <div>
-                                <div className="cardTitle">Contact Secondary No:</div>
+                                <div className="cardTitle">Contact Secondary Number:</div>
                                 <div className="cardInner">{contact.phoneAdditional}</div>
                             </div>
                         </div>

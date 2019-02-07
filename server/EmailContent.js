@@ -152,7 +152,7 @@ export default function EmailContent(job) {
                     <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Contact Main No:</td>
                     <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${contact.phoneNumber}</td>
                 </tr>
-                ${contact.additionalPhoneNumber
+                ${contact.additionalPhoneNumber !== null && contact.additionalPhoneNumber !== undefined && contact.additionalPhoneNumber !== ''
                     ? `
                     <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
                         <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Contact Secondary No:</td>
