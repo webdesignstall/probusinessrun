@@ -941,6 +941,7 @@ MY OWN FREE WILL`
                                         </div>
                                     </div>
                                 </div>
+                                <hr />
                                 <AdditionalContactsRender contacts={is.additionalContacts || []} />
                             </div>
                         </div>

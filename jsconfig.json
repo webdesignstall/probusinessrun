@@ -1,12 +1,12 @@
-{
-    "compilerOptions": {
-        "target": "ES6",
-        "module": "commonjs",
-        "allowSyntheticDefaultImports": true
-    },
-    "typeAcquisition": {
-        "include": [
-            "react"
-        ]
-    }
-}
+// {
+//     "compilerOptions": {
+//         "target": "ES6",
+//         "module": "commonjs",
+//         "allowSyntheticDefaultImports": true
+//     },
+//     "typeAcquisition": {
+//         "include": [
+//             "react"
+//         ]
+//     }
+// }

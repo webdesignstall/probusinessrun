@@ -21,33 +21,45 @@ export default class AdditionalContactsRender extends Component {
     }
 
     renderContactList() {
-        this.state.contacts.map((contact, index) => {
-            return (<React.Fragment key={index + 'additionalContactRender'}>
-                <div className="col s6 m6 l6">
-                    <div className="card__">
-                        <div>
-                            <div className="cardTitle">Customer Main Number:</div>
-                            <div className="cardInner">{contact.phoneNumber}</div>
+        return (this.state.contacts.map((contact, index) => {
+            return (
+                <div key={index + 'additionalContactRender'}>
+                    <div className="col s12 m4 l4">
+                        <div className="card__">
+                            <div>
+                                <div className="cardTitle">Additioal Contact Name:</div>
+                                <div className="cardInner">{contact.firstName} {contact.lastName}</div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div className="col s6 m6 l6">
-                    <div className="card__">
-                        <div>
-                            <div className="cardTitle">Customer Secondary Number:</div>
-                            <div className="cardInner">{contact.phoneAdditional}</div>
+                    <div className="col s12 m4 l4">
+                        <div className="card__">
+                            <div>
+                                <div className="cardTitle">Contact Main No:</div>
+                                <div className="cardInner">{contact.phoneNumber}</div>
+                            </div>
                         </div>
                     </div>
+                    <div className="col s12 m4 l4">
+                        <div className="card__">
+                            <div>
+                                <div className="cardTitle">Contact Secondary No:</div>
+                                <div className="cardInner">{contact.phoneAdditional}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="clear"></div>
+                    <hr />
                 </div>
-            </React.Fragment>);
-        });
+            );
+        }));
     }
 
     render() {
         return (
-            <>
+            <React.Fragment>
                 {this.renderContactList()}
-            </>
+            </React.Fragment>
         );
     }
 }
