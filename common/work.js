@@ -560,5 +560,9 @@ Schemas.workSchema = new SimpleSchema({
     'additionalContacts.$.additionalPhoneNumber': {
         type: Number,
         optional: true
+    },
+    quoteDate: {
+        type: Date(),
+        optional: false
     }
 }, { tracker: Tracker });

@@ -83,7 +83,8 @@ if (Meteor.isServer) {
             comment,
             deposit,
             takenBy,
-            additionalContacts
+            additionalContacts,
+            quoteDate
         ) {
             WorkData.insert({
                 quote: true,
@@ -120,7 +121,8 @@ if (Meteor.isServer) {
                 comment,
                 deposit,
                 takenBy,
-                additionalContacts
+                additionalContacts,
+                quoteDate
             });
         },
 

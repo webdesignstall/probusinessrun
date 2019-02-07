@@ -308,6 +308,7 @@ Template.preQuote.events({
         let deposit = document.getElementById('deposit').value;
         let takenBy = document.getElementById('takenBy--value').value;
         let additionalContacts = Session.get('additionalContacts');
+        let quoteDate = new Date();
 
 
         function idniSec(soz) {
@@ -354,7 +355,8 @@ Template.preQuote.events({
             flatRate,
             flatRateCash,
             flatRateCard,
-            additionalContacts
+            additionalContacts,
+            quoteDate
         };
 
 
@@ -390,6 +392,7 @@ Template.preQuote.events({
             deposit,
             takenBy,
             additionalContacts,
+            quoteDate,
             function (err) {
                 if (err) {
                     Bert.alert({
