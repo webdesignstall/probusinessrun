@@ -25,15 +25,14 @@ export default class Signature extends React.Component {
     }
 
     initialize() {
-        let signaturePadElement = document.getElementById(this.state.id + 'canvas')
-        let saveButton = document.getElementById(this.state.id + 'save');
+        let signaturePadElement = document.getElementById(this.state.id + 'canvas');
         this.signaturePad = signaturePadElement ?
             new SignaturePad(signaturePadElement,
                 {
                     backgroundColor: 'rgba(255, 255, 255, 0)',
                     penColor: 'rgb(0, 0, 0)',
                     onBegin: () => {
-                        this.setState({ signatureEmpty: true })
+                        this.setState({ signatureEmpty: true });
                     }
                 }
             ) : null;
@@ -55,6 +54,12 @@ export default class Signature extends React.Component {
         this.signaturePad.clear();
         this.props.resetDiscount ? this.props.resetDiscount() : null;
         this.props.reset ? this.props.reset() : null;
+        this.setState({
+            id: (Math.random()).toString(),
+            signatureEmpty: false,
+            time: new Date().getTime(),
+            fullname: ''
+        });
     }
 
     fullNameChange(e) {
