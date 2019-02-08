@@ -79,6 +79,7 @@ export default class QuoteTam extends React.Component {
                         <span className="tarix-in-list">{quotes.workDate}</span>
                         <span className="tarix-in-list green">{quotes.jobNumber}</span>
                         <span>{quotes.clientFirstName} {quotes.clientLastName}</span>
+                        <span className="tarix-in-list sag deep-purple darken-1" style={{ padding: '3px 5px 2px', marginTop: '-2px' }} >{moment(quotes.quoteDate).format('MM/DD/YYYY hh:mm a')}</span>
                     </a>
                 );
             })

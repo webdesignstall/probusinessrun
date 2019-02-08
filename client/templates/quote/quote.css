@@ -49,6 +49,7 @@ quote-content input {
     padding: 5px;
     border-radius: 3px;
     margin: 0 10px 0 0;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 .list-ad {
