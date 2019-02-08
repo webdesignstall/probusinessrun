@@ -23,7 +23,7 @@ export default class AdditionalContactsRender extends Component {
     renderContactList() {
         return (this.state.contacts.map((contact, index) => {
             return (
-                <div key={index + 'additionalContactRender'}>
+                <div className="row" key={index + 'additionalContactRender'}>
                     <div className="col s12 m4 l4">
                         <div className="card__">
                             <div>
