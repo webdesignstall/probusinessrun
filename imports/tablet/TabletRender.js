@@ -1265,16 +1265,16 @@ MY OWN FREE WILL`
                                 </li>
                                 <li className={this.totalDiscountAmount > 0 || this.totalDiscountPercent > 0 || this.totalDiscountPercent > 0 ? 'collection-item blue' : 'hide'} >
                                     Discount:
-                                    {this.totalDiscountAmount && this.totalDiscountAmount > 0
-                                        ? <span className="sag discountYeri">${this.totalDiscountAmount}</span>
-                                        : ''
-                                    }
                                     {this.totalDiscountTime && this.totalDiscountTime > 0
                                         ? <span className="sag discountYeri">{this.totalDiscountTime} minutes</span>
                                         : ''
                                     }
                                     {this.totalDiscountPercent && this.totalDiscountPercent > 0
                                         ? <span className="sag discountYeri">{this.totalDiscountPercent}%</span>
+                                        : ''
+                                    }
+                                    {this.totalDiscountAmount && this.totalDiscountAmount > 0
+                                        ? <span className="sag discountYeri">${this.totalDiscountAmount}</span>
                                         : ''
                                     }
                                 </li>
