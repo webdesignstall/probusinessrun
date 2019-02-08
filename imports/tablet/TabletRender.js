@@ -1120,8 +1120,7 @@ MY OWN FREE WILL`
                             </p>
                             <div className="col s12 m12 l12" >
                                 <p>Customer Sign below</p>
-                                <div className="col s12 m6 l6">
-                                    <label htmlFor="customer-firts-sign" className="active">Full Name</label>
+                                <div className="col s12 m4 l4">
                                     <input id="customer-firts-sign" type="text" disabled={this.state.initSign ? true : false} onChange={(e) => this.startFullName(e)} value={this.state.startFullName} className="validate" placeholder="Type full name here" />
                                 </div>
                                 <div className="clear"></div>
