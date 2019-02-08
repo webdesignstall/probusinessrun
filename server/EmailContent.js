@@ -236,7 +236,7 @@ export default function EmailContent(job) {
                     </tr>
                     <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
                         <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Arrival Window:</td>
-                        <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${job.workMustBeginTime}</td>
+                        <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${job.workMustBeginTime[0]} - ${job.workMustBeginTime[1]}</td>
                     </tr>
                     ${movingAddresesRenderHTML}
                     <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
