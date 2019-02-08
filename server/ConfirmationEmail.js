@@ -226,7 +226,7 @@ export default function ConfirmationEmail(job) {
                         Double Drive Time:
                     </td>
                     <td style="width: 49%;" width="49%">
-                        Yes, <a href="http://cheapmoversanaheim.com/ProBusinessRun/6.pdf" download="http://cheapmoversanaheim.com/ProBusinessRun/6.pdf" target="_blank" style="color: #4698de; font-weight: 600;">learn more</a>
+                        Yes, <a href="http://www.moverslegion.com/wp-content/uploads/2018/12/DDT.pdf" download="http://www.moverslegion.com/wp-content/uploads/2018/12/DDT.pdf" target="_blank" rel="noopener noreferrer">learn more</a>
                     </td>
                 </tr>` ) : ''} 
                 ${ job.smallItemPacking < 0 || job.smallItemPacking > 0 ? (`
@@ -235,9 +235,14 @@ export default function ConfirmationEmail(job) {
                             Small Item Packing:
                         </td>
                         <td style="width: 49%;" width="49%">
-                            ${ job.smallItemPacking < 0 ? (
-                'Yes, <a href="http://cheapmoversanaheim.com/ProBusinessRun/6.pdf" download="http://cheapmoversanaheim.com/ProBusinessRun/6.pdf" target="_blank" style="color: #4698de; font-weight: 600;">learn more</a>') : '$' + job.smallItemPacking} </td>
-                    </tr>` ) : ''} 
+                            ${ job.smallItemPacking < 0
+                ? (
+                    'Yes, <a href="http://www.moverslegion.com/wp-content/uploads/2018/12/small-item-pricing.pdf" download="http://www.moverslegion.com/wp-content/uploads/2018/12/small-item-pricing.pdf" target="_blank" rel="noopener noreferrer">learn more</a>'
+                )
+                : '$' + job.smallItemPacking} 
+                                </td>
+                                    </tr>` )
+            : ''} 
                     ${ job.largeItemFee && job.largeItemFee > 0 ? `
                     <tr>
                         <td style="width: 49%;" width="49%">
@@ -251,10 +256,10 @@ export default function ConfirmationEmail(job) {
         </table>
         <div classname="sola-cekme">
             <p>
-                <input classname="secilib" checked disabled type="checkbox"> I have read, understand and agree to the contents of the <i><a href="http://www.moverslegion.com/wp-content/uploads/2018/12/included.pdf" download="http://www.moverslegion.com/wp-content/uploads/2018/12/included.pdf" target="_blank" style="color: #4698de; font-weight: 600;">&quot;What&apos;s Included&quot; Section.</a></i>
+                <input classname="secilib" checked disabled type="checkbox"> I have read, understand and agree to the contents of the <i><a href="https://www.moverslegion.com/wp-content/uploads/2019/01/included.pdf" download="https://www.moverslegion.com/wp-content/uploads/2019/01/included.pdf" target="_blank" style="color: #4698de; font-weight: 600;">&quot;What&apos;s Included&quot; Section.</a></i>
                 </p>
                 <p>
-                    <input classname="secilib" checked disabled type="checkbox"> I have read, understand and agree to the contents of the <i><a href="http://www.moverslegion.com/wp-content/uploads/2018/12/not-included.pdf" download="http://www.moverslegion.com/wp-content/uploads/2018/12/not-included.pdf" target="_blank" style="color: #4698de; font-weight: 600;">&quot;What&apos;s Not Included&quot; Section.</a></i>
+                    <input classname="secilib" checked disabled type="checkbox"> I have read, understand and agree to the contents of the <i><a href="http://www.moverslegion.com/wp-content/uploads/2019/01/not-included.pdf" download="http://www.moverslegion.com/wp-content/uploads/2019/01/not-included.pdf" target="_blank" style="color: #4698de; font-weight: 600;">&quot;What&apos;s Not Included&quot; Section.</a></i>
                 </p>
                 <p>
                     <input classname="secilib" checked disabled type="checkbox"> I have read, understand and agree to the contents of the <i><a href="http://www.moverslegion.com/wp-content/uploads/2018/12/for-you-1.pdf" download="http://www.moverslegion.com/wp-content/uploads/2018/12/for-you-1.pdf" target="_blank" style="color: #4698de; font-weight: 600;">&quot;For Your Information&quot; Section.</a></i>
