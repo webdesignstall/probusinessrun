@@ -967,13 +967,11 @@ MY OWN FREE WILL`
                                         Double Drive Time: {is.doubleDrive === 'yes' ? 'Yes' : 'Waived'}<br />
                                         Extra Large/Heavy Item Fee: {is.largeItemFee > 0 ? '$' + is.largeItemFee : 'No'}<br />
                                         Small Item Packing: {
-                                            is.smallItemPacking < 0
-                                                ? this.state.totalPul > 0
-                                                    ? this.state.totalPul
-                                                    : 'Yes'
-                                                : is.smallItemPacking > 0
+                                            is.smallItemPacking && is.smallItemPacking < 0
+                                                ? 'Yes'
+                                                : is.smallItemPacking && is.smallItemPacking > 0
                                                     ? '$' + is.smallItemPacking
-                                                    : 'No'
+                                                    : 'Waived'
                                         }<br />
                                         Not to Exceed Price: ${is.price}<br />
                                     </div>
@@ -1246,8 +1244,10 @@ MY OWN FREE WILL`
                                     Small Item Pck Supplies:
                                     <span className="sag">= {
                                         is.smallItemPacking && is.smallItemPacking < 0
-                                            ? 'Yes'
-                                            : is.smallItemPacking && is.smallItemPacking > 0
+                                            ? this.state.totalPul > 0
+                                                ? this.state.totalPul
+                                                : 'Yes'
+                                            : is.smallItemPacking > 0
                                                 ? '$' + is.smallItemPacking
                                                 : 'Waived'
                                     }</span>
