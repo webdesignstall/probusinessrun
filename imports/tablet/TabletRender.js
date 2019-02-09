@@ -1245,7 +1245,7 @@ MY OWN FREE WILL`
                                     <span className="sag">= {
                                         is.smallItemPacking && is.smallItemPacking < 0
                                             ? this.state.totalPul > 0
-                                                ? this.state.totalPul
+                                                ? '$' + this.state.totalPul
                                                 : 'Yes'
                                             : is.smallItemPacking > 0
                                                 ? '$' + is.smallItemPacking
