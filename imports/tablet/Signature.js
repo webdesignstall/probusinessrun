@@ -76,7 +76,7 @@ export default class Signature extends React.Component {
         return (
             <div className="row">
                 <div className="col s12 m4 l4" style={{ marginTop: '60px' }}>
-                    <input type="text" id={this.state.id} placeholder="Enter Full Name" onChange={this.fullNameChange} />
+                    <input type="text" id={this.state.id} placeholder="Enter Full Name" onChange={this.fullNameChange} value={this.state.fullname} />
                     <div className="clear margin-top"></div>
                     <span id={this.state.id + 'date'} className="cercive indigo lighten-5">{Date()}</span>
                 </div>

@@ -4,10 +4,12 @@ import { Session } from 'meteor/session';
 import { PromoCodes } from '../../common/collections_2';
 import { Tracker } from 'meteor/tracker';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
+import swal from 'sweetalert';
+
 
 /*global Bert*/
 
-// componenets
+// components
 import Signature from './Signature';
 import { Meteor } from 'meteor/meteor';
 
@@ -167,6 +169,10 @@ export default class Discount extends TrackerReact(React.Component) {
     }
 
     render() {
+        this.state.discountApproved
+            ? swal('Success', 'Discount approved!', 'success')
+            : null;
+
         return (
             <div id={this.state.id} className="card__ discount row">
                 <div className="cardTitle">
@@ -185,13 +191,16 @@ export default class Discount extends TrackerReact(React.Component) {
                             <button
                                 id="askDiscount"
                                 className="btn"
+                                style={{
+                                    width: '200px'
+                                }}
                                 onClick={this.askDiscount}
                                 disabled={this.state.waiting || this.state.note === ''}
                             >
                                 <svg className={this.state.waiting && !this.state.discountApproved ? 'spinner2' : 'hide'} width="100%" height="28px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
                                     <circle className="path" fill="none" strokeWidth="6" strokeLinecap="round" cx="33" cy="33" r="30"></circle>
                                 </svg>
-                                <span style={{color: 'green'}} className={this.state.discountApproved ? 'hide' : ''}>✓</span>
+                                <span style={{ color: 'green', width: '50px', fontSize: '30px' }} className={this.state.discountApproved ? '' : 'hide'}>✓</span>
                                 <span className={this.state.waiting ? 'hide' : ''}>Ask Discount</span>
                             </button>
                             <div className="borderRight"></div>

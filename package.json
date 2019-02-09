@@ -32,6 +32,7 @@
         "simpl-schema": "^0.3.2",
         "square-connect": "^2.20180918.1",
         "string": "^3.3.3",
+        "sweetalert": "^2.1.2",
         "typescript": "^3.3.0-dev.20190115"
     },
     "devDependencies": {
