@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Signature from './Signature';
+import PropTypes from 'prop-types';
 
 export default class AdditionalCharge extends Component {
     constructor(props) {
@@ -89,3 +90,7 @@ export default class AdditionalCharge extends Component {
         );
     }
 }
+
+AdditionalCharge.propTypes = {
+    saveSignature: PropTypes.function
+};
