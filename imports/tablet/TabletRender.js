@@ -247,7 +247,13 @@ MY OWN FREE WILL`
             started: false,
             startFullName: '',
             initSignature: false,
-            initSignDate: new Date()
+            initSignDate: new Date(),
+            checks: {
+                packMater: false,
+                cargoIsSubject: false,
+                myResponsibility: false
+            },
+            initialized: false
         });
 
         this.requirementEntirely = this.requirementEntirely.bind(this);
@@ -334,7 +340,8 @@ MY OWN FREE WILL`
             requirementEntirely: this.state.requirementEntirely,
             threeDayPrior: this.state.threeDayPrior,
             initFullName: this.state.startFullName,
-            initSignDate: new Date()
+            initSignDate: new Date(),
+            initialized: true
         };
         Meteor.call('updateWork', doc);
     }
@@ -488,26 +495,33 @@ MY OWN FREE WILL`
 
 
 
-    check() {
-        let select = document.querySelectorAll('.checked');
-        let i = 0;
-        let total = 0;
+    check(which) {
+        let doc = {};
 
-        for (i = 0; i < select.length; i++) {
-            if (select[i].checked) {
-                total = total + 1;
-            }
-        }
+        this.setState((prevState) => {
+            return {
+                [which]: !(prevState[which])
+            };
+        }, () => {
+            this.state.packMater && this.state.cargoIsSubject && this.state.myResponsibility
+                ? this.setState({
+                    goster: true
+                })
+                : this.setState({
+                    goster: false
+                });
 
-        if (total === 3) {
-            this.setState({
-                goster: true
-            });
-        } else {
-            this.setState({
-                goster: false
-            });
-        }
+            doc = {
+                _id: Session.get('tabletIsId'),
+                checks: {
+                    packMater: this.state.packMater,
+                    cargoIsSubject: this.state.cargoIsSubject,
+                    myResponsibility: this.state.myResponsibility
+                }
+            };
+
+            Meteor.call('updateWork', doc); // Update information in the database
+        });
     }
 
     markPayed() {
@@ -618,6 +632,7 @@ MY OWN FREE WILL`
                 let isFinished = isRender[0].finished;
                 let startFullName = isRender[0].initFullName;
                 let initSignDate = isRender[0].initSignDate || new Date();
+                let checks = isRender[0].checks;
                 if (isFinished) {
                     this.setState({
                         finished: true
@@ -627,7 +642,11 @@ MY OWN FREE WILL`
                 this.setState({
                     vurulmusIs: isRender,
                     startFullName,
-                    initSignDate
+                    initSignDate,
+                    packMater: checks.packMater,
+                    cargoIsSubject: checks.cargoIsSubject,
+                    myResponsibility: checks.myResponsibility,
+                    initialized: isRender[0].initialized
                 }, () => {
                     let is = this.state.vurulmusIs[0];
 
@@ -1093,21 +1112,21 @@ MY OWN FREE WILL`
                                 OF SUCH PROPERTY TO THE CUSTOMER BY CARRIER. THIS ALSO MEANS THAT ANY PACKING MATERIALS OR TRASH/DONATION ITEMS
                                 ARE YOUR OWN PROPERTY AND, AS SUCH, CARRIER IS NOT RESPONSIBLE FOR THE DISPOSAL AND/OR REMOVAL OF THESE ITEMS.<br />
                                 Read and Agree
-                                <input type="checkbox" onChange={this.check} className="checked" />
+                                <input type="checkbox" onChange={() => this.check('packMater')} disabled={this.state.initialized} checked={this.state.packMater} className="checked" />
                             </div>
                             <div className="card__ warning">
                                 NOTE: All cargo is subject to a Mover’s Lien as described by the CPUC until entire amount due is paid IN FULL. Any loss/damage
                                 claims must be received in writing AFTER your move and DO NOT exempt you from paying the total amount due as
                                 outlined above.<br />
                                 Read and Agree
-                                <input type="checkbox" onChange={this.check} className="checked" />
+                                <input type="checkbox" onChange={() => this.check('cargoIsSubject')} disabled={this.state.initialized} checked={this.state.cargoIsSubject} className="checked" />
                             </div>
                             <div className="card__ warning">
                                 I understand that it’s my responsibility to hold a parking space for the moving truck at each location. Failure to do so
                                 will result in my being held responsible to pay for any, and all, parking tickets/fines resulting from my negligence
                                 to do so.<br />
                                 Read and Agree
-                                <input type="checkbox" onChange={this.check} className="checked" />
+                                <input type="checkbox" onChange={() => this.check('myResponsibility')} disabled={this.state.initialized} checked={this.state.myResponsibility} className="checked" />
                             </div>
                         </div>
                         {/* ise baslamamisdan qabaq ki sign */}
@@ -1130,7 +1149,7 @@ MY OWN FREE WILL`
                                 <a id="clear3" className={(this.state.initSign ? 'hide' : '') + ' waves-effect waves-light btn blue'} >Clear</a>
                                 <a id="submit-sign"
                                     className={
-                                        (this.state.initSign ? 'hide' : this.state.initSignature && this.state.startFullName !== '' ? '' : 'disabled') + ' waves-effect waves-light btn blue'
+                                        (this.state.initSign ? 'hide' : this.state.initSignature && this.state.startFullName !== '' && this.state.goster ? '' : 'disabled') + ' waves-effect waves-light btn blue'
                                     }
                                     onClick={this.activateStart} >Submit</a>
                             </div>

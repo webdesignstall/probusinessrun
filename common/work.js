@@ -564,5 +564,25 @@ Schemas.workSchema = new SimpleSchema({
     quoteDate: {
         type: Date(),
         optional: false
+    },
+    checks: {
+        type: Object,
+        optional: true
+    },
+    'checks.packMater': {
+        type: Boolean,
+        optional: true
+    },
+    'checks.cargoIsSubject': {
+        type: Boolean,
+        optional: true
+    },
+    'checks.myResponsibility': {
+        type: Boolean,
+        optional: true
+    },
+    initialized: {
+        type: Boolean,
+        optional: true
     }
 }, { tracker: Tracker });
