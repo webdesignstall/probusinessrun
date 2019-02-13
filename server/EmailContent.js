@@ -183,34 +183,34 @@ export default function EmailContent(job) {
             <div class="included-list" style="padding: 10px;">
                 <div>
                 <div class="half" style="width: 49%; display: inline-block; line-height: 13px; margin-bottom: 5px; min-width: 250px;">
-                    <img src="http://wonder56.com/static/img/index/cg.png" height="13px" style="margin-right: 5px;">Professional, Full Time Movers
+                    <span style="font-size: 20px; color: green">✓</span> Professional, Full Time Movers
                 </div>
                 <div class="half" style="width: 49%; display: inline-block; line-height: 13px; margin-bottom: 5px; min-width: 250px;">
-                    <img src="http://wonder56.com/static/img/index/cg.png" height="13px" style="margin-right: 5px;">No Hidden Fees
+                    <span style="font-size: 20px; color: green">✓</span> No Hidden Fees
                 </div>
                 <div class="half" style="width: 49%; display: inline-block; line-height: 13px; margin-bottom: 5px; min-width: 250px;">
-                    <img src="http://wonder56.com/static/img/index/cg.png" height="13px" style="margin-right: 5px;">Use of Wardrobe Boxes
+                    <span style="font-size: 20px; color: green">✓</span> Use of Wardrobe Boxes
                 </div>
                 <div class="half" style="width: 49%; display: inline-block; line-height: 13px; margin-bottom: 5px; min-width: 250px;">
-                    <img src="http://wonder56.com/static/img/index/cg.png" height="13px" style="margin-right: 5px;">Disassembling & Reassembling
+                    <span style="font-size: 20px; color: green">✓</span> Disassembling & Reassembling
                 </div>
                 <div class="half" style="width: 49%; display: inline-block; line-height: 13px; margin-bottom: 5px; min-width: 250px;">
-                    <img src="http://wonder56.com/static/img/index/cg.png" height="13px" style="margin-right: 5px;">Large Item Packing Supplies
+                    <span style="font-size: 20px; color: green">✓</span> Large Item Packing Supplies
                 </div>
                 <div class="half" style="width: 49%; display: inline-block; line-height: 13px; margin-bottom: 5px; min-width: 250px;">
-                    <img src="http://wonder56.com/static/img/index/cg.png" height="13px" style="margin-right: 5px;">Tax Included
+                    <span style="font-size: 20px; color: green">✓</span> Tax Included
                 </div>
                 <div class="half" style="width: 49%; display: inline-block; line-height: 13px; margin-bottom: 5px; min-width: 250px;">
-                    <img src="http://wonder56.com/static/img/index/cg.png" height="13px" style="margin-right: 5px;">Moving Trucks & Movers
+                    <span style="font-size: 20px; color: green">✓</span> Moving Trucks & Movers
                 </div>
                 <div class="half" style="width: 49%; display: inline-block; line-height: 13px; margin-bottom: 5px; min-width: 250px;">
-                    <img src="http://wonder56.com/static/img/index/cg.png" height="13px" style="margin-right: 5px;">24/7 Local Support Team
+                    <span style="font-size: 20px; color: green">✓</span> 24/7 Local Support Team
                 </div>
                 <div class="half" style="width: 49%; display: inline-block; line-height: 13px; margin-bottom: 5px; min-width: 250px;">
-                    <img src="http://wonder56.com/static/img/index/cg.png" height="13px" style="margin-right: 5px;">BEARHFTI Licensed & Insured
+                    <span style="font-size: 20px; color: green">✓</span> BEARHFTI Licensed & Insured
                 </div>
                 <div class="half" style="width: 49%; display: inline-block; line-height: 13px; margin-bottom: 5px; min-width: 250px;">
-                    <img src="http://wonder56.com/static/img/index/cg.png" height="13px" style="margin-right: 5px;">Cash Discount Per Hour
+                    <span style="font-size: 20px; color: green">✓</span> Cash Discount Per Hour
                 </div>
                 </div>
             </div>
@@ -288,7 +288,7 @@ export default function EmailContent(job) {
         job.smallPackingItems === 0 || job.smallPackingItems === '' || job.smallPackingItems === undefined
             ? `
             <div style="margin-bottom: 5px;">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/White_X_in_red_background.svg/2000px-White_X_in_red_background.svg.png" height="13px" style="margin-right: 5px;">Small Item Packing Materials: (boxes, packing papers,bubble wrap.
+                <span style="font-size: 20px; color: red">✘</span> Small Item Packing Materials: (boxes, packing papers,bubble wrap.
                 etc.) <a href="http://www.moverslegion.com/wp-content/uploads/2018/12/small-item-pricing.pdf">Require, if needed</a>
             </div>
             `
@@ -298,7 +298,7 @@ export default function EmailContent(job) {
         job.largeItemFee === 0 || job.largeItemFee === '' || job.largeItemFee === undefined
             ? `
             <div style="margin-bottom: 5px;">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/White_X_in_red_background.svg/2000px-White_X_in_red_background.svg.png" height="13px" style="margin-right: 5px;">Extra-Large Item Packing and Transportation: for example, pool
+                <span style="font-size: 20px; color: red">✘</span> Extra-Large Item Packing and Transportation: for example, pool
                 tables, pianos, etc. (Please ask if you need Extra-Large Item
                 Packing and Moving).
             </div>
@@ -306,11 +306,11 @@ export default function EmailContent(job) {
             : ''
         }
                 <div style="margin-bottom: 5px;">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/White_X_in_red_background.svg/2000px-White_X_in_red_background.svg.png" height="13px" style="margin-right: 5px;">Customer responsible to hold the space for moving truck (if there
+                    <span style="font-size: 20px; color: red">✘</span> Customer responsible to hold the space for moving truck (if there
                     is any parking ticket, Customer is responsible to pay for it).
                 </div>
                 <div style="margin-bottom: 5px;">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/White_X_in_red_background.svg/2000px-White_X_in_red_background.svg.png" height="13px" style="margin-right: 5px;">Full-coverage Insurance. <a href="http://www.moverslegion.com/wp-content/uploads/2018/12/Full-Insurance.pdf" >Require, if needed</a>
+                    <span style="font-size: 20px; color: red">✘</span> Full-coverage Insurance. <a href="http://www.moverslegion.com/wp-content/uploads/2018/12/Full-Insurance.pdf" >Require, if needed</a>
                 </div>
                 </div>
             </div>
