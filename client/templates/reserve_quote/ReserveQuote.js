@@ -325,7 +325,7 @@ class ReserveQuote extends React.Component {
                             </p>
                             <p>
                                 <input className="secilib" onChange={() => this.checked()} type="checkbox" /> Yes! I have read the information above and wish to pay my Moving Deposit to book this move.<br />
-                                I understand that this Deposit in non-refundable and non-transferrable if I reschedule or cancel this move.
+                                I understand that this Deposit is non-refundable and non-transferrable if I reschedule or cancel this move.
                             </p>
                             <p>
                                 **If you have any questions, please contact us as soon as possible by phone, text, or e-mail 24/7**
