@@ -884,6 +884,9 @@ MY OWN FREE WILL`
                 <a href="#" id="close-duymesi-id" className="close-duymesi" >CLICK HERE TO CLOSE THIS PAGE</a>
                 <div className={this.state.finished ? '' : 'hide'}><h2>This job is finished</h2></div>
                 <div className={this.state.finished ? 'hide' : ''}>
+                    <p style={{ textAlign: 'center' }}>
+                        <h5>Combined Agreement for Moving Services and Freight Bill</h5>
+                    </p>
                     <div id="tabler-yuxari">
                         <table>
                             <tbody>
@@ -893,11 +896,9 @@ MY OWN FREE WILL`
                                             <div className="col s8 m8 l8">
                                                 <div className="card__ blue-grey darken-2 white-text">
                                                     <div className="card-content">
-                                                        {is.companyInfo === undefined ? '' : is.companyInfo.name}<br />
-                                                        <hr /> BEARHFTI 0191555<br />
-                                                        <hr /> PACK DATE: {is.workDate}<br />
-                                                        <hr /> AGREEMENT FOR MOVING SERVICES FOR: {is.clientFirstName} {is.clientLastName}<br />
-                                                        <hr /> DATE: {is.workDate}
+                                                        Company Name: {is.companyInfo === undefined ? '' : is.companyInfo.name}<br />
+                                                        <hr /> License Number: BEARHFTI 0191555<br />
+                                                        <hr /> Customer Name: {is.clientFirstName} {is.clientLastName}<br />
                                                     </div>
                                                 </div>
                                             </div>
@@ -933,9 +934,9 @@ MY OWN FREE WILL`
                             </tbody>
                         </table>
                         <div className="clear"></div>
-                        <div className="card__ warning" >
+                        <div style={{ textTransform: 'uppercase' }} className="card__ warning" >
                             SHIPPER (CUSTOMER) IS REQUESTED TO READ THIS DOCUMENT CAREFULLY, INCLUDING TERMS AND CONDITIONS, BEFORE SIGNING. BY SIGNING
-                            THIS CONTRACT, THIS WILL CONFIRM INSTRUCTIONS AND AUTHORIZE [COMPANY NAME HERE] TO MOVE, SHIP, PACK, STORE, AND/OR
+                            THIS CONTRACT, THIS WILL CONFIRM INSTRUCTIONS AND AUTHORIZE {is.companyInfo === undefined ? '' : is.companyInfo.name} TO MOVE, SHIP, PACK, STORE, AND/OR
                             PERFORM THE SERVICES HEREIN.
                         </div>
                         <div className="clear"></div>
