@@ -28,7 +28,6 @@ aldeed:collection2-core@2.0.0
 momentjs:moment
 mrt:flash-messages
 matb33:collection-hooks
-daviz:start-loader
 email
 themeteorchef:bert
 ultimatejs:tracker-react

@@ -1,12 +1,14 @@
 <template name="layout">
-    <div class="row">
-        {{#if currentUser}}
-            <div class="col m2 dib">
+    <div>
+        <div class="row">
+            {{#if currentUser}}
+            <div class="dib">
                 {{> navBar}}
             </div>
-        {{/if}}
-        <div class="col m9">
-            {{> yield}}
+            {{/if}}
+            <div class="col s12 m12 l12 container-man">
+                {{> yield}}
+            </div>
         </div>
     </div>
 </template>
