@@ -16,7 +16,8 @@ export default class TruckForm extends Component {
                 lastName: '',
                 plateNumber: '',
                 lenght: '',
-                numberOfSeats: 0
+                numberOfSeats: 0,
+                specification: ''
             },
             update: false,
             show: props.show,
@@ -46,7 +47,8 @@ export default class TruckForm extends Component {
                     lastName: truck.profile.lastName || '',
                     plateNumber: truck.profile.plateNumber || '',
                     lenght: truck.profile.lenght || '',
-                    numberOfSeats: Number(truck.profile.numberOfSeats) || ''
+                    numberOfSeats: Number(truck.profile.numberOfSeats) || '',
+                    specification: truck.profile.specification || ''
                 },
                 this.setState({
                     obj,
@@ -56,7 +58,7 @@ export default class TruckForm extends Component {
             : null;
     }
 
-    UNSAFE_componentWillMount() {
+    componentDidMount() {
         this.fetchData();
     }
 
@@ -68,7 +70,8 @@ export default class TruckForm extends Component {
             lastName: '',
             plateNumber: '',
             lenght: '',
-            numberOfSeats: 0
+            numberOfSeats: 0,
+            specification: ''
         };
 
         this.setState({ obj });
@@ -116,17 +119,19 @@ export default class TruckForm extends Component {
             err
                 ? (
                     console.log(err),
-                    Bert.alert({
-                        title: 'Error',
-                        message: 'Cant update account, please contact help desk',
-                        type: 'danger',
+                    swal({
+                        title: 'Error!',
+                        text: 'Reason: ' + err.message,
+                        icon: 'error',
+                        button: 'OK',
                     })
                 )
                 : (
-                    Bert.alert({
-                        title: 'Success',
-                        message: 'Account updated successfully',
-                        type: 'success',
+                    swal({
+                        title: 'Success!',
+                        text: 'Profile updated successfully',
+                        icon: 'success',
+                        button: 'OK',
                     })
                 );
         });
@@ -154,10 +159,20 @@ export default class TruckForm extends Component {
                 }
                 <hr />
                 <form key={this.props.id + 'form'} id="truck_form" >
-                    <div key='keyTruckNumber' className="input-field valideyn col s12 m6 l3">
+                    <div key='keyTruckNumber' className="input-field valideyn col s12 m6 l2">
                         <i className="material-icons isare">format_list_numbered</i>
                         <input key={this.props.id + 'truckNumber'} onChange={(e) => this.inputChange('number', e)} value={this.state.obj.number !== 0 ? this.state.obj.number : ''} placeholder="# Truck Number" id="truck_number" type="number" className="validate" />
                         <label className="active" htmlFor="truck_number"># Truck Number</label>
+                    </div>
+                    <div className="input-field valideyn col s12 m6 l2">
+                        <i className="material-icons isare">keyboard_tab</i>
+                        <input key={this.props.id + 'truckLength'} onChange={(e) => this.inputChange('lenght', e)} value={this.state.obj.lenght !== '' ? this.state.obj.lenght : ''} placeholder="Truck Length" id="truck_length" type="text" className="validate" />
+                        <label className="active" htmlFor="truck_length">Truck Length</label>
+                    </div>
+                    <div className="input-field valideyn col s12 m6 l2">
+                        <i className="material-icons isare">people</i>
+                        <input key={this.props.id + 'numberOfSeats'} onChange={(e) => this.inputChange('numberOfSeats', e)} value={this.state.obj.numberOfSeats !== 0 ? this.state.obj.numberOfSeats : ''} placeholder="Number of seats" id="number_of_seats" type="number" className="validate" />
+                        <label className="active" htmlFor="number_of_seats">Number of Seats</label>
                     </div>
                     <div className="input-field valideyn col s12 m6 l3">
                         <i className="material-icons isare">text_format</i>
@@ -165,14 +180,9 @@ export default class TruckForm extends Component {
                         <label className="active" htmlFor="plate_number"># Plate Number</label>
                     </div>
                     <div className="input-field valideyn col s12 m6 l3">
-                        <i className="material-icons isare">keyboard_tab</i>
-                        <input key={this.props.id + 'truckLength'} onChange={(e) => this.inputChange('lenght', e)} value={this.state.obj.lenght !== '' ? this.state.obj.lenght : ''} placeholder="Truck Length" id="truck_length" type="text" className="validate" />
-                        <label className="active" htmlFor="truck_length">Truck Length</label>
-                    </div>
-                    <div className="input-field valideyn col s12 m6 l3">
-                        <i className="material-icons isare">people</i>
-                        <input key={this.props.id + 'numberOfSeats'} onChange={(e) => this.inputChange('numberOfSeats', e)} value={this.state.obj.numberOfSeats !== 0 ? this.state.obj.numberOfSeats : ''} placeholder="Number of seats" id="number_of_seats" type="number" className="validate" />
-                        <label className="active" htmlFor="number_of_seats">Number of Seats</label>
+                        <i className="material-icons isare">settings</i>
+                        <input key={this.props.id + 'specification'} onChange={(e) => this.inputChange('specification', e)} value={this.state.obj.specification !== 0 ? this.state.obj.specification : ''} placeholder="Specification" id="truck_specification" type="text" className="validate" />
+                        <label className="active" htmlFor="specification">Specification</label>
                     </div>
                 </form>
             </div>

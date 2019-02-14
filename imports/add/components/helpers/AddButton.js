@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
-import FlipMove from 'react-flip-move';
 /*global Bert*/
 
 export default class AddButton extends Component {
@@ -36,32 +35,32 @@ export default class AddButton extends Component {
                     number: this.props.obj && this.props.obj.number || '',
                     plateNumber: this.props.obj && this.props.obj.plateNumber || '',
                     lenght: this.props.obj && this.props.obj.lenght || '',
-                    numberOfSeats: this.props.obj && this.props.obj.numberOfSeats || 0
+                    numberOfSeats: this.props.obj && this.props.obj.numberOfSeats || 0,
+                    specification: this.props.obj && this.props.obj.specification || ''
                 }
             };
-
-            console.log(obj);
 
             Meteor.call('addUserOrTruck', obj, (err, res) => {
                 err
                     ? (
                         console.log(err),
                         console.log(obj),
-                        Bert.alert({
-                            title: 'Error',
-                            message: 'Cant create new account, please contact help desk',
-                            type: 'danger',
+                        swal({
+                            title: 'Error!',
+                            text: 'Reason: ' + err.message,
+                            icon: 'error',
+                            button: 'OK',
                         })
                     )
                     : (
-                        console.log(obj),
+                        swal({
+                            title: 'Success!',
+                            text: 'Profile created successfully',
+                            icon: 'success',
+                            button: 'OK',
+                        }),
                         (document.getElementById('mover_form') && document.getElementById('mover_form').reset()),
-                        (document.getElementById('truck_form') && document.getElementById('truck_form').reset()),
-                        Bert.alert({
-                            title: 'Success',
-                            message: 'Account created successfully',
-                            type: 'success',
-                        })
+                        (document.getElementById('truck_form') && document.getElementById('truck_form').reset())
                     );
             });
         } else {

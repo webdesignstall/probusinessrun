@@ -28,13 +28,15 @@ Router.route('/', {
         }
     }
 });
-Router.route('/add', {
-    onBeforeAction: function () {
-        this.render('add');
-    }
-});
 
 if (Meteor.userId()) {
+
+    Router.route('/add', {
+        onBeforeAction: function () {
+            this.render('add');
+        }
+    });
+
     Router.route('/workers', {
         onBeforeAction: function () {
             this.render('workersList');
@@ -60,7 +62,7 @@ if (Meteor.userId()) {
         onBeforeAction: function () {
             this.render('discountAdmin');
         }
-    })
+    });
 }
 
 Router.route('/reserve', {
