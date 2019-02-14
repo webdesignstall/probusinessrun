@@ -244,3 +244,12 @@ hr {
 .input-custom-time{
     text-indent: 0 !important;
 }
+
+.swal-button{
+    background-color: rgb(24, 107, 216);
+    width: 100%;
+}
+
+.swal-button-container{
+    display: block;
+}
