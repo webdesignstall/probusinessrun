@@ -213,7 +213,13 @@ if (Meteor.isServer) {
             WorkData.update({ _id: doc._id }, {
                 $set: doc
             }, function (error, result) {
-                error ? console.log(error) : console.log(result);
+
+                if (error) {
+                    console.log(error);
+                    throw new Meteor.Error('Error updating', 'Reason: ' + error.message);
+                } else {
+                    console.log(result);
+                }
             });
         },
         updateDiscount: function (doc, id) {

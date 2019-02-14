@@ -163,6 +163,19 @@ export default function EmailContent(job) {
         })
         : '';
 
+    let arrivalWindow = (job.workMustBeginTime[0] === '04:00 am' && job.workMustBeginTime[0] === '04:00 am')
+        ? `
+            <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
+                <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Arrival Window:</td>
+                <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Morning & Afternoon</td>
+            </tr>
+        `
+        : `
+            <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
+                <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Arrival Window:</td>
+                <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${job.workMustBeginTime[0]} - ${job.workMustBeginTime[1]}</td>
+            </tr>`;
+
     return (
         `
         <!DOCTYPE html>
@@ -234,10 +247,7 @@ export default function EmailContent(job) {
                         <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Moving Date:</td>
                         <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${job.movingDateConverted}</td>
                     </tr>
-                    <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
-                        <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Arrival Window:</td>
-                        <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${job.workMustBeginTime[0]} - ${job.workMustBeginTime[1]}</td>
-                    </tr>
+                    ${arrivalWindow}
                     ${movingAddresesRenderHTML}
                     <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
                         <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Moving Size:</td>

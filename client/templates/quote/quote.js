@@ -5,6 +5,7 @@ import { Template } from 'meteor/templating';
 import ReactDOM from 'react-dom';
 import WorkData from './../../../common/collections_2';
 import { Tracker } from 'meteor/tracker';
+import swal from 'sweetalert';
 
 /*global Bert, $*/
 
@@ -110,7 +111,6 @@ Template.updateQuote.events({
             addresses.push(address.value);
         });
 
-
         let doc = {
             _id: Session.get('is'),
             firstName: document.getElementById('firstName_2').value,
@@ -120,7 +120,10 @@ Template.updateQuote.events({
             email: document.getElementById('musteriEmail_2').value,
             addresses,
             movingDateConverted: moment(workDate).format('MM/DD/YYYY'),
-            workMustBeginTime: document.getElementById('customTime--1').value + ' - ' + document.getElementById('customTime--2').value,
+            workMustBeginTime: [
+                document.getElementById('customTime--1').value,
+                document.getElementById('customTime--2').value
+            ],
             price: document.getElementById('quote_price_2').value,
             minimumLaborTime: document.getElementById('labor_time_2').value,
             hourlyRatesCash: document.getElementById('hourly_rates_cash_2').value,
@@ -231,15 +234,18 @@ Template.updateQuote.events({
 
         Meteor.call('updateWork', doc, function (err) {
             if (err) {
-                Bert.alert({
-                    title: 'There is problem while updating job informtion',
-                    message: err.reason,
-                    type: 'danger',
+                swal({
+                    title: 'Error!',
+                    text: err.reason,
+                    icon: 'error',
+                    button: 'OK',
                 });
             } else {
-                Bert.alert({
-                    title: 'Information saved succesfully',
-                    type: 'success',
+                swal({
+                    title: 'Success!',
+                    text: 'Information saved successfully',
+                    icon: 'success',
+                    button: 'OK',
                 });
             }
         });
