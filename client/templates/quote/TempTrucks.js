@@ -9,14 +9,29 @@ export default class TempTrucks extends React.Component {
         super(props);
         this.state = {
             update: this.props.update,
-            tracks: [],
+            trucks: [
+                {
+                    size: 'Select Trucks Size',
+                    qty: 1
+                }
+            ],
+            trucksList: [
+                '16 foot',
+                '18 foot',
+                '20 foot',
+                '22 foot',
+                '24 foot',
+                '26 foot',
+            ],
             clicked: []
         };
 
-        this.addClicked = this.addClicked.bind(this);
+        this.deleteTempTruck = this.deleteTempTruck.bind(this);
+        this.addMore = this.addMore.bind(this);
+        this.changeHandler = this.changeHandler.bind(this);
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.x = Tracker.autorun(() => {
             Meteor.subscribe('tabletData');
             const tablets = Meteor.users.find({ 'profile.company': Meteor.userId(), 'profile.rank': 'tablet' }).fetch();
@@ -44,38 +59,127 @@ export default class TempTrucks extends React.Component {
         this.x.stop();
     }
 
-    addClicked(melumat) {
-        let baza = this.state.clicked;
-        let indexi = baza.indexOf(melumat);
-        if (indexi === -1) {
-            baza.push(melumat);
-            this.setState({
-                clicked: baza
-            }, () => {
-                Session.set('trucklar', baza);
-            });
-        } else {
-            baza.splice(indexi, 1);
-            this.setState({
-                clicked: baza
-            }, () => {
-                Session.set('trucklar', baza);
-            });
-        }
-    }
-
-    renderTrauckNames() {
+    renderTuckSizes(upIndex) {
         return (
-            this.state.tracks.map((truck) => {
-                return (<a className={this.state.clicked.indexOf(truck._id) > -1 ? 'goy' : ''} key={truck._id} href="#" onClick={() => this.addClicked(truck._id)} >Truck #{truck.profile.number} {truck.profile.size}</a>);
+            this.state.trucksList.map((size, index) => {
+                return (
+                    <option key={upIndex + size + index} value={size} >
+                        {size}
+                    </option>
+                );
             })
         );
     }
 
+    deleteTempTruck(index) {
+        this.setState((prevState) => {
+            prevState.trucks.splice(index, 1);
+            return { trucks: prevState.trucks };
+        });
+    }
+
+    changeHandler(type, index, e) {
+        let value = e.target.value;
+        this.setState((prevState) => {
+            let old = prevState.trucks;
+            old[index][type] = value;
+
+            return ({
+                trucks: old
+            });
+        });
+    }
+
+    addTruckList() {
+        return (
+            this.state.trucks.map((truck, index) => {
+                return (
+                    <div className="col s12 m6 l6" style={{ margin: '10px 0' }} key={index + 'tempTruckList'}>
+                        <div className="col s8 m8 l8">
+                            <label htmlFor={'temp-trucks-sizes-list' + index}>Truck Size</label>
+                            <select onChange={(e) => this.changeHandler('size', index, e)} className="browser-default" name={'truck-sizes' + index} id={'temp-trucks-sizes-list' + index} defaultValue={truck.size} value={truck.size} >
+                                <option value="Select Trucks Size" disabled={true} >Select Trucks Size</option>
+                                {this.renderTuckSizes(index)}
+                            </select>
+                        </div>
+                        <div className="col s3 m3 l3">
+                            <label htmlFor={'temp-trucks-quantity' + index}>Quantity</label>
+                            <select onChange={(e) => this.changeHandler('qty', index, e)} className="browser-default" name={'truck-quantity' + index} id={'temp-trucks-quantity' + index} defaultValue='1' value={truck.qty}>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                            </select>
+                        </div>
+                        <div className="col s1 m1 l1">
+                            <i
+                                onClick={() => this.deleteTempTruck(index)}
+                                className="material-icons qirmizi"
+                                style={{
+                                    margin: '0px auto',
+                                    padding: '28px 0',
+                                    marginLeft: '-10px',
+                                    cursor: 'pointer'
+                                }}>
+                                delete_forever
+                            </i>
+                        </div>
+                    </div>
+                );
+            })
+        );
+    }
+
+    addMore() {
+        this.setState((prevState) => {
+            return ({
+                trucks: [...prevState.trucks, {
+                    size: 'Select Trucks Size',
+                    qty: 1
+                }]
+            });
+        });
+    }
+
     render() {
         return (
-            <div>
-                {this.renderTrauckNames()}
+            <div
+                className="row"
+                style={{
+                    border: '1px dashed #D55B26',
+                    margin: '10px 0 0 0'
+                }}
+            >
+                <span
+                    style={{
+                        display: 'block',
+                        width: '100%',
+                        padding: '8px 10px',
+                        backgroundColor: '#D55B26',
+                        color: 'white',
+                        margin: '0 4px 0 0',
+                        position: 'relative'
+                    }}
+                >Temporary Trucks
+                    <i
+                        className="material-icons"
+                        onClick={this.addMore}
+                        style={{
+                            position: 'absolute',
+                            margin: '5px 0 0 15px',
+                            color: '#4EDB9E',
+                            top: '0',
+                            cursor: 'pointer'
+                        }}
+                    >add_circle</i>
+                </span>
+                {this.addTruckList()}
             </div>
         );
     }

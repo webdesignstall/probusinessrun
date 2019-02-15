@@ -75,7 +75,7 @@ export default class Addresses extends React.Component {
             <div>
                 <div>
                     Addresses
-                    <div className="addMoreAddress cardBorder" onClick={this.addMore}>
+                    <div className="addMoreAddress-button addMoreAddress" onClick={this.addMore}>
                         <div className="relative">
                             <span>Add More</span>
                             <i className="ikonka material-icons">

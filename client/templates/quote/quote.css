@@ -123,6 +123,14 @@ quote-content input {
     border-radius: 10px;
 }
 
+.addMoreAddress-button {
+    border-radius: 5px !important;
+    border: 1px solid rgb(207, 207, 207);
+    margin: 5px 0 !important;
+    padding: 5px 10px !important;
+    overflow: hidden !important;
+}
+
 .merkez {
     text-align: center;
 }
@@ -198,7 +206,7 @@ hr {
 
 .addMoreAddress {
     position: absolute;
-    background-color: green !important;
+    background-color: rgb(20, 134, 64) !important;
     color: rgb(231, 248, 231) !important;
     height: 35px;
     width: 105px;
@@ -252,4 +260,8 @@ hr {
 
 .swal-button-container{
     display: block;
+}
+
+.temp-trucks--header{
+    color: rgb(255, 255, 255);
 }
