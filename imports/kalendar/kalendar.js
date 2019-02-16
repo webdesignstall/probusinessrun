@@ -421,6 +421,7 @@ Template.kalendar.events({
     'click .add-schedule-button': function (event) {
         event.preventDefault();
         $('#add-schedule-page').show();
+        $('#kalendar').hide();
         ReactDOM.unmountComponentAtNode(document.getElementById('truck-list-update'));
         ReactDOM.unmountComponentAtNode(document.getElementById('update_time_window'));
         ReactDOM.unmountComponentAtNode(document.getElementById('number-of-movers2'));
@@ -442,6 +443,7 @@ Template.kalendar.events({
     'click .add-moreschedule-button': function (event) {
         event.preventDefault();
         $('#add-schedule-page').show();
+        $('#kalendar').hide();
         ReactDOM.unmountComponentAtNode(document.getElementById('truck-list-update'));
         ReactDOM.unmountComponentAtNode(document.getElementById('update_time_window'));
         ReactDOM.unmountComponentAtNode(document.getElementById('number-of-movers2'));
@@ -465,6 +467,7 @@ Template.kalendar.events({
         colorIndigator();
         $('#add-schedule-page').hide();
         $('#edit-schedule-page').hide();
+        $('#kalendar').show();
         ReactDOM.unmountComponentAtNode(document.getElementById('number-of-movers'));
         ReactDOM.unmountComponentAtNode(document.getElementById('truck-list-update'));
         ReactDOM.unmountComponentAtNode(document.getElementById('update_time_window'));

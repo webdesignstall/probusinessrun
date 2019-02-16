@@ -112,7 +112,7 @@ export default class UpdateAddTruck extends React.Component {
         return (
             <div id="xumba" className="input-field valideyn col s12 m12 l12 add-truck-root">
                 <div className="merkez">
-                    <a className="waves-effect waves-light btn" onClick={this.addTruckC.bind(this)}>Add more truck +</a>
+                    <a className="waves-effect waves-light btn" onClick={this.addTruckC.bind(this)}>Assign Trucks +</a>
                     <hr />
                 </div>
                 <div className="clear"></div>

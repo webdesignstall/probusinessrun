@@ -9,12 +9,7 @@ export default class TempTrucks extends React.Component {
         super(props);
         this.state = {
             update: this.props.update,
-            trucks: [
-                {
-                    size: 'Select Trucks Size',
-                    qty: 1
-                }
-            ],
+            trucks: [],
             trucksList: [
                 '16 foot',
                 '18 foot',
@@ -22,8 +17,7 @@ export default class TempTrucks extends React.Component {
                 '22 foot',
                 '24 foot',
                 '26 foot',
-            ],
-            clicked: []
+            ]
         };
 
         this.deleteTempTruck = this.deleteTempTruck.bind(this);
@@ -33,25 +27,19 @@ export default class TempTrucks extends React.Component {
 
     componentDidMount() {
         this.x = Tracker.autorun(() => {
-            Meteor.subscribe('tabletData');
-            const tablets = Meteor.users.find({ 'profile.company': Meteor.userId(), 'profile.rank': 'tablet' }).fetch();
-            let secilmisIs = null;
+            let selectedJob = null;
 
             if (this.state.update) {
                 let isinOzu = Session.get('is');
-                secilmisIs = WorkData.findOne({ _id: isinOzu });
+                selectedJob = WorkData.findOne({ _id: isinOzu });
             }
 
-            if (secilmisIs) {
-                Session.set('trucklar', secilmisIs.trucksTemp)
+            if (selectedJob) {
+                Session.set('trucklar', selectedJob.trucksTemp);
                 this.setState({
-                    clicked: secilmisIs.trucksTemp
+                    trucks: selectedJob.trucksTemp
                 });
             }
-
-            this.setState({
-                tracks: tablets
-            });
         });
     }
 
@@ -75,11 +63,15 @@ export default class TempTrucks extends React.Component {
         this.setState((prevState) => {
             prevState.trucks.splice(index, 1);
             return { trucks: prevState.trucks };
+        }, (err) => {
+            err
+                ? console.log(err)
+                : Session.set('trucklar', this.state.trucks);
         });
     }
 
-    changeHandler(type, index, e) {
-        let value = e.target.value;
+    changeHandler(type, numberOrString, index, e) {
+        let value = numberOrString === 'number' ? parseInt(e.target.value) : e.target.value;
         this.setState((prevState) => {
             let old = prevState.trucks;
             old[index][type] = value;
@@ -87,6 +79,10 @@ export default class TempTrucks extends React.Component {
             return ({
                 trucks: old
             });
+        }, (err) => {
+            err
+                ? console.log(err)
+                : Session.set('trucklar', this.state.trucks);
         });
     }
 
@@ -97,24 +93,24 @@ export default class TempTrucks extends React.Component {
                     <div className="col s12 m6 l6" style={{ margin: '10px 0' }} key={index + 'tempTruckList'}>
                         <div className="col s8 m8 l8">
                             <label htmlFor={'temp-trucks-sizes-list' + index}>Truck Size</label>
-                            <select onChange={(e) => this.changeHandler('size', index, e)} className="browser-default" name={'truck-sizes' + index} id={'temp-trucks-sizes-list' + index} defaultValue={truck.size} value={truck.size} >
+                            <select onChange={(e) => this.changeHandler('size', 'string', index, e)} className="browser-default" name={'truck-sizes' + index} id={'temp-trucks-sizes-list' + index} defaultValue={truck.size} value={truck.size} >
                                 <option value="Select Trucks Size" disabled={true} >Select Trucks Size</option>
                                 {this.renderTuckSizes(index)}
                             </select>
                         </div>
                         <div className="col s3 m3 l3">
                             <label htmlFor={'temp-trucks-quantity' + index}>Quantity</label>
-                            <select onChange={(e) => this.changeHandler('qty', index, e)} className="browser-default" name={'truck-quantity' + index} id={'temp-trucks-quantity' + index} defaultValue='1' value={truck.qty}>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
-                                <option value="10">10</option>
+                            <select onChange={(e) => this.changeHandler('qty', 'number', index, e)} className="browser-default" name={'truck-quantity' + index} id={'temp-trucks-quantity' + index} defaultValue='1' value={truck.qty}>
+                                <option value={1}>1</option>
+                                <option value={2}>2</option>
+                                <option value={3}>3</option>
+                                <option value={4}>4</option>
+                                <option value={5}>5</option>
+                                <option value={6}>6</option>
+                                <option value={7}>7</option>
+                                <option value={8}>8</option>
+                                <option value={9}>9</option>
+                                <option value={10}>10</option>
                             </select>
                         </div>
                         <div className="col s1 m1 l1">
@@ -144,6 +140,10 @@ export default class TempTrucks extends React.Component {
                     qty: 1
                 }]
             });
+        }, (err) => {
+            err
+                ? console.log(err)
+                : Session.set('trucklar', this.state.trucks);
         });
     }
 

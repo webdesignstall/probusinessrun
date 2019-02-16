@@ -417,7 +417,15 @@ Schemas.workSchema = new SimpleSchema({
         optional: true
     },
     'trucksTemp.$': {
+        type: Object,
+        optional: true
+    },
+    'trucksTemp.$.size': {
         type: String,
+        optional: true
+    },
+    'trucksTemp.$.qty': {
+        type: Number,
         optional: true
     },
     flatRate: {
