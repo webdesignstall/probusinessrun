@@ -152,15 +152,16 @@ Template.updateQuote.events({
             err
                 ? (
                     console.log(err),
-                    Bert.alert({
-                        title: 'There is problem while sending email contact administration',
-                        message: err.reason,
-                        type: 'danger',
+                    swal({
+                        title: 'Error while sending email',
+                        text: err.message,
+                        icon: 'error'
                     })
                 )
-                : Bert.alert({
-                    title: 'Email sent succesfully',
-                    type: 'success',
+                : swal({
+                    title: 'Success',
+                    text: 'Email sent successfully',
+                    icon: 'success'
                 });
         });
     },
@@ -415,16 +416,16 @@ Template.preQuote.events({
             quoteDate,
             function (err) {
                 if (err) {
-                    Bert.alert({
-                        title: 'Imposible add quote to database',
-                        message: err.reason,
-                        type: 'danger',
+                    swal({
+                        title: 'Impossible add quote to database',
+                        text: err.message,
+                        icon: 'error'
                     });
                 } else {
-                    Bert.alert({
+                    swal({
                         title: 'Success',
-                        message: 'Information added to database successfully',
-                        type: 'success'
+                        text: 'Quote added to database successfully',
+                        icon: 'success'
                     });
 
                     Meteor.call('emailGonder', jobInfo, (err) => {

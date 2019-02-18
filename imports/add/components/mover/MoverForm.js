@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
+import swal from 'sweetalert';
 
 export default class MoverForm extends Component {
     constructor(props) {
@@ -121,17 +122,17 @@ export default class MoverForm extends Component {
             err
                 ? (
                     console.log(err),
-                    Bert.alert({
-                        title: 'Error',
-                        message: 'Cant update account, please contact help desk',
-                        type: 'danger',
+                    swal({
+                        title: 'Error! Can\'t update account, please contact help desk',
+                        text: 'Reason: ' + err.message,
+                        icon: 'error'
                     })
                 )
                 : (
-                    Bert.alert({
+                    swal({
                         title: 'Success',
-                        message: 'Account updated successfully',
-                        type: 'success',
+                        text: 'Account updated successfully',
+                        icon: 'success'
                     })
                 );
         });

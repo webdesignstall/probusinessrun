@@ -6,8 +6,6 @@ import Discounts from '../common/discountData';
 import PromoCodes from '../common/collections_2';
 import EmailContent from './EmailContent';
 import ConfirmationEmail from './ConfirmationEmail';
-// import ReactDOMServer from 'react-dom/server';
-// import EmailContent from './EmailContent';
 
 Meteor.startup(() => {
     // prepare mailing server
@@ -127,7 +125,7 @@ if (Meteor.isServer) {
         },
 
         emailGonder: function (job) {
-            // servere qosulma
+            // server connection
             let server = email.server.connect({
                 user: job.companyInfo.email,
                 password: 'MCla7724!',
@@ -136,10 +134,7 @@ if (Meteor.isServer) {
                 // ssl: true,
             });
 
-            // let data = ReactDOMServer.renderToString(<EmailContent job={job} />)
-
-
-            //mesaji gonderme
+            //sending email
             let message = {
                 text: ' ',
                 from: job.companyInfo.name + ' ' + job.companyInfo.email,
@@ -160,7 +155,7 @@ if (Meteor.isServer) {
                     console.log(err);
                     throw new Meteor.Error('Can\'t send email', 'Impossible send email. Contact system administration');
                 } else {
-                    console.log('Email succesfully sent to: ' + job.email);
+                    console.log('Email successfully sent to: ' + job.email);
                 }
             });
         },
@@ -180,8 +175,6 @@ if (Meteor.isServer) {
                 host: job.companyInfo.smtp,
                 // ssl: true
             });
-
-            // let data = ReactDOMServer.renderToString(<EmailContent job={job} />)
 
             let message = {
                 text: ' ',

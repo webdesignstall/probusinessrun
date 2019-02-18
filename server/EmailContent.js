@@ -1,6 +1,4 @@
 export default function EmailContent(job) {
-    console.log('email hazilanir');
-
     let additionalPhoneNumber = job.phoneAdditional
         ? `<tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
                 <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Customer Secondary No:</td>
@@ -38,7 +36,7 @@ export default function EmailContent(job) {
             </tr>
             `
         );
-    });
+    }).join('');
 
     let rateDisplay = job.hourlyRatesCash > 0 && job.hourlyRatesCard
         ?
@@ -160,7 +158,7 @@ export default function EmailContent(job) {
                     </tr>`
                     : ''}`
             );
-        })
+        }).join('')
         : '';
 
     let arrivalWindow = (job.workMustBeginTime[0] === '04:00 am' && job.workMustBeginTime[0] === '04:00 am')
@@ -175,6 +173,38 @@ export default function EmailContent(job) {
                 <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Arrival Window:</td>
                 <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${job.workMustBeginTime[0]} - ${job.workMustBeginTime[1]}</td>
             </tr>`;
+
+    let totalTrucks = 0;
+    job.trucksTemp && job.trucksTemp.length > 0
+        ? job.trucksTemp.map((truck) => {
+            totalTrucks += Number(truck.qty);
+        }).join('')
+        : '';
+
+    let numberOfTrucks = job.trucksTemp && job.trucksTemp.length > 0
+        ? `
+            <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
+                <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%"># of trucks:</td>
+                <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${totalTrucks}</td>
+            </tr>
+            `
+        : '';
+
+    let trucksList = job.trucksTemp && job.trucksTemp.length > 0
+        ? job.trucksTemp.map((truck) => {
+            let render = '';
+            let i = 0;
+            for (i = 0; i < Number(truck.qty); i++) {
+                render += `
+                            <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
+                                <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Truck Size:</td>
+                                <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${truck.size}</td>
+                            </tr>
+                            `;
+            }
+            return render;
+        }).join('')
+        : '';
 
     return (
         `
@@ -257,6 +287,8 @@ export default function EmailContent(job) {
                         <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Number of Movers:</td>
                         <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${job.numberOfWorkers} movers</td>
                     </tr>
+                    ${numberOfTrucks}
+                    ${trucksList}
                     ${laborTime}
                     ${rateDisplay}
                     ${flatRate}
@@ -325,17 +357,13 @@ export default function EmailContent(job) {
                 </div>
             </div>
             <div class="reserve" style="padding: 5px; text-align: center;">
-                <a href="https://www.probusinessrun.com/reserve" style="padding: 15px 15px; background-color: #554b8c; color: white; font-size: 14px; border: none;"><b>RESERVE YOUR MOVE</b></a>
-            </div>
-            <div style="clear: both; margin: 10px 0;"></div>
-            <div style="text-align: center;">
+                <button href="https://www.probusinessrun.com/reserve" style="padding: 15px 15px; background-color: #554b8c; color: white; font-size: 14px; border: none;"><b>RESERVE YOUR MOVE</b></button><br/>
                 With one click, we move it quick!<br />
                 ${job.companyInfo.name} <br />
                 Phone: ${job.companyInfo.phoneNumber}<br/>
                 E-mail: ${ job.companyInfo.email} <br />
                 Web: ${job.companyInfo.url}<br />
                 License # BEARHFTI 0191555
-            </div>
             </div>
         </body>
         </html>

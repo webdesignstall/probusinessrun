@@ -59,10 +59,10 @@ export default class Discount extends TrackerReact(React.Component) {
 
     componentDidUpdate() {
         this.state.discountApproved
-            ? Bert.alert({
-                title: 'Discount accepted',
-                message: 'Discount accepted',
-                type: 'success'
+            ? swal({
+                title: 'Success',
+                text: 'Discount accepted',
+                icon: 'success'
             })
             : null;
     }
@@ -93,11 +93,13 @@ export default class Discount extends TrackerReact(React.Component) {
                 // document.getElementById('signatureForDiscount').classList.remove('hide'),
                 // document.getElementById('askDiscount').setAttribute('disabled', true)
             )
-            : Bert.alert({
+            : swal({
                 title: 'Wrong promo code',
-                message: 'You entered wrong Promo Code',
-                type: 'danger',
+                text: 'You entered wrong Promo Code',
+                icon: 'error'
             });
+
+
     }
 
     askDiscount() {
@@ -123,10 +125,10 @@ export default class Discount extends TrackerReact(React.Component) {
                                     !this.state.discountApproved
                                         ? (
                                             Meteor.call('removeDiscount', this.state.discountId, (err) => err ? console.log(err) : null),
-                                            Bert.alert({
+                                            swal({
                                                 title: 'Discount doesn\'t accepted',
-                                                message: 'For more info contact with the manager',
-                                                type: 'danger'
+                                                text: 'For more info contact with the manager',
+                                                icon: 'error'
                                             }),
                                             this.setState({ waiting: false }, (err) => err ? console.log(err) : null),
                                             Session.set('discountId', ''),

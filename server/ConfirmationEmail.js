@@ -83,6 +83,46 @@ export default function ConfirmationEmail(job) {
         </tr>`
         : '';
 
+    let totalTrucks = 0;
+    job.trucksTemp && job.trucksTemp.length > 0
+        ? job.trucksTemp.map((truck) => {
+            totalTrucks += Number(truck.qty);
+        }).join('')
+        : '';
+
+    let numberOfTrucks = job.trucksTemp && job.trucksTemp.length > 0
+        ? `
+            <tr>
+                <td style="width: 49%;" width="49%">
+                    # of trucks:
+                </td>
+                <td style="width: 49%;" width="49%">
+                    ${totalTrucks}
+                </td>
+            </tr>
+            `
+        : '';
+
+    let trucksList = job.trucksTemp && job.trucksTemp.length > 0
+        ? job.trucksTemp.map((truck) => {
+            let render = '';
+            let i = 0;
+            for (i = 0; i < Number(truck.qty); i++) {
+                render += `
+                <tr>
+                    <td style="width: 49%;" width="49%">
+                        Truck Size:
+                    </td>
+                    <td style="width: 49%;" width="49%">
+                        ${truck.size}
+                    </td>
+                </tr>
+                `;
+            }
+            return render;
+        }).join('')
+        : '';
+
     return (
         `
         <!DOCTYPE html>
@@ -165,7 +205,8 @@ export default function ConfirmationEmail(job) {
                         ${job.numberOfWorkers} movers
                     </td>
                 </tr>
-
+                ${numberOfTrucks}
+                ${trucksList}
                 ${ job.laborTime ? `
                 <tr>
                     <td style="width: 49%;" width="49%">
@@ -254,28 +295,28 @@ export default function ConfirmationEmail(job) {
                     </tr>` : ''}
             </tbody>
         </table>
-        <div classname="sola-cekme">
+        <div className="sola-cekme">
             <p>
-                <input classname="secilib" checked disabled type="checkbox"> I have read, understand and agree to the contents of the <i><a href="https://www.moverslegion.com/wp-content/uploads/2019/01/included.pdf" download="https://www.moverslegion.com/wp-content/uploads/2019/01/included.pdf" target="_blank" style="color: #4698de; font-weight: 600;">&quot;What&apos;s Included&quot; Section.</a></i>
+                <input className="secilib" checked disabled type="checkbox"> I have read, understand and agree to the contents of the <i><a href="https://www.moverslegion.com/wp-content/uploads/2019/01/included.pdf" download="https://www.moverslegion.com/wp-content/uploads/2019/01/included.pdf" target="_blank" style="color: #4698de; font-weight: 600;">&quot;What&apos;s Included&quot; Section.</a></i>
                 </p>
                 <p>
-                    <input classname="secilib" checked disabled type="checkbox"> I have read, understand and agree to the contents of the <i><a href="http://www.moverslegion.com/wp-content/uploads/2019/01/not-included.pdf" download="http://www.moverslegion.com/wp-content/uploads/2019/01/not-included.pdf" target="_blank" style="color: #4698de; font-weight: 600;">&quot;What&apos;s Not Included&quot; Section.</a></i>
+                    <input className="secilib" checked disabled type="checkbox"> I have read, understand and agree to the contents of the <i><a href="http://www.moverslegion.com/wp-content/uploads/2019/01/not-included.pdf" download="http://www.moverslegion.com/wp-content/uploads/2019/01/not-included.pdf" target="_blank" style="color: #4698de; font-weight: 600;">&quot;What&apos;s Not Included&quot; Section.</a></i>
                 </p>
                 <p>
-                    <input classname="secilib" checked disabled type="checkbox"> I have read, understand and agree to the contents of the <i><a href="http://www.moverslegion.com/wp-content/uploads/2018/12/for-you-1.pdf" download="http://www.moverslegion.com/wp-content/uploads/2018/12/for-you-1.pdf" target="_blank" style="color: #4698de; font-weight: 600;">&quot;For Your Information&quot; Section.</a></i>
+                    <input className="secilib" checked disabled type="checkbox"> I have read, understand and agree to the contents of the <i><a href="http://www.moverslegion.com/wp-content/uploads/2018/12/for-you-1.pdf" download="http://www.moverslegion.com/wp-content/uploads/2018/12/for-you-1.pdf" target="_blank" style="color: #4698de; font-weight: 600;">&quot;For Your Information&quot; Section.</a></i>
                 </p>
                 <p>
-                    <input classname="secilib" checked disabled type="checkbox"> I have recieved a copy of the <i><a href="http://www.moverslegion.com/wp-content/uploads/2018/12/important.pdf" download="http://www.moverslegion.com/wp-content/uploads/2018/12/important.pdf" target="_blank" style="color: #4698de; font-weight: 600;">CPUC &quot;Important Information About Your Move&quot; booklet.</a></i>
+                    <input className="secilib" checked disabled type="checkbox"> I have recieved a copy of the <i><a href="http://www.moverslegion.com/wp-content/uploads/2018/12/important.pdf" download="http://www.moverslegion.com/wp-content/uploads/2018/12/important.pdf" target="_blank" style="color: #4698de; font-weight: 600;">CPUC &quot;Important Information About Your Move&quot; booklet.</a></i>
                 </p>
                 <p>
-                    <input classname="secilib" checked disabled type="checkbox"> I have recieved a copy of the <i><a href="http://www.moverslegion.com/wp-content/uploads/2018/12/Hazard.pdf" download="http://www.moverslegion.com/wp-content/uploads/2018/12/Hazard.pdf" target="_blank" style="color: #4698de; font-weight: 600;">CPUC Hazardous Material List</a></i> and I agree not to pack any of the<br>
+                    <input className="secilib" checked disabled type="checkbox"> I have recieved a copy of the <i><a href="http://www.moverslegion.com/wp-content/uploads/2018/12/Hazard.pdf" download="http://www.moverslegion.com/wp-content/uploads/2018/12/Hazard.pdf" target="_blank" style="color: #4698de; font-weight: 600;">CPUC Hazardous Material List</a></i> and I agree not to pack any of the<br>
                     items listed for transportation by Cheap Movers Los Angeles.
                                     </p>
                 <p>
-                    <input classname="secilib" checked disabled type="checkbox"> I understand and agree that I will have Cash or Card Payment ready on the day of my move.
+                    <input className="secilib" checked disabled type="checkbox"> I understand and agree that I will have Cash or Card Payment ready on the day of my move.
                                     </p>
                 <p>
-                    <input classname="secilib" checked disabled type="checkbox"> Yes! I have read the information above and wish to pay my Moving Deposit to book this move.<br>
+                    <input className="secilib" checked disabled type="checkbox"> Yes! I have read the information above and wish to pay my Moving Deposit to book this move.<br>
                     I understand that this Deposit in non-refundable and non-transferrable if I reschedule or cancel this move.
                                     </p>
                 <p>
