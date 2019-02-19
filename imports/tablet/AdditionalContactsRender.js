@@ -24,7 +24,12 @@ export default class AdditionalContactsRender extends Component {
         return (this.state.contacts.map((contact, index) => {
             return (
                 <div className="row" key={index + 'additionalContactRender'}>
-                    <div className="col s12 m4 l4">
+                    <div
+                        className={
+                            contact.phoneAdditional !== '' && contact.phoneAdditional !== null && contact.phoneAdditional !== undefined
+                                ? 'col s12 m4 l4'
+                                : 'col s12 m6 l6'
+                        }>
                         <div className="card__">
                             <div>
                                 <div className="cardTitle">Additional Contact Name:</div>
@@ -32,15 +37,24 @@ export default class AdditionalContactsRender extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className="col s12 m4 l4">
+                    <div
+                        className={
+                            contact.phoneAdditional !== '' && contact.phoneAdditional !== null && contact.phoneAdditional !== undefined
+                                ? 'col s12 m4 l4'
+                                : 'col s12 m6 l6'
+                        } >
                         <div className="card__">
                             <div>
                                 <div className="cardTitle">Contact Main Number:</div>
                                 <div className="cardInner">{contact.phoneNumber}</div>
                             </div>
                         </div>
-                    </div>
-                    <div className="col s12 m4 l4">
+                    </div >
+                    <div className={
+                        contact.phoneAdditional !== '' && contact.phoneAdditional !== null && contact.phoneAdditional !== undefined
+                            ? 'col s12 m4 l4'
+                            : 'hide'
+                    }>
                         <div className="card__">
                             <div>
                                 <div className="cardTitle">Contact Secondary Number:</div>
@@ -50,7 +64,7 @@ export default class AdditionalContactsRender extends Component {
                     </div>
                     <div className="clear"></div>
                     <hr />
-                </div>
+                </div >
             );
         }));
     }
