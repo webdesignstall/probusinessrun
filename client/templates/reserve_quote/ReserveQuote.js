@@ -160,6 +160,16 @@ class ReserveQuote extends React.Component {
         );
     }
 
+    arrivalWindowRender() {
+        let job = Session.get('job');
+        return (
+            <tr>
+                <td>Arrival Window:</td>
+                <td>{job.workMustBeginTime[0] === '04:00 am' && job.workMustBeginTime[0] === '04:00 am' ? 'Morning & Afternoon' : `${job.workMustBeginTime[0]} - ${job.workMustBeginTime[1]}`}</td>
+            </tr>
+        );
+    }
+
     axtarisinNeticesi() {
         return (
             this.state.is.map((job, index) => {
@@ -195,10 +205,7 @@ class ReserveQuote extends React.Component {
                                     <td>Moving Date:</td>
                                     <td>{job.workDate}</td>
                                 </tr>
-                                <tr>
-                                    <td>Arrival Window:</td>
-                                    <td>{job.workMustBeginTime[0]} - {job.workMustBeginTime[1]}</td>
-                                </tr>
+                                {this.arrivalWindowRender()}
                                 {(() => this.addressesRender(job.addresses))()}
                                 <tr>
                                     <td>Moving Size:</td>

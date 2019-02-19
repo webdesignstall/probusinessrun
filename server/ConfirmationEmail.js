@@ -123,6 +123,27 @@ export default function ConfirmationEmail(job) {
         }).join('')
         : '';
 
+    let arrivalWindow = (job.workMustBeginTime[0] === '04:00 am' && job.workMustBeginTime[0] === '04:00 am')
+        ? `
+            <tr>
+                <td style="width: 49%;" width="49%">
+                    Arrival Window:
+                </td>
+                <td style="width: 49%;" width="49%">
+                    Morning & Afternoon
+                </td>
+            </tr>
+        `
+        : `
+            <tr>
+                <td style="width: 49%;" width="49%">
+                    Arrival Window:
+                </td>
+                <td style="width: 49%;" width="49%">
+                    ${job.workMustBeginTime[0]} - ${job.workMustBeginTime[1]}
+                </td>
+            </tr>`;
+
     return (
         `
         <!DOCTYPE html>
@@ -176,18 +197,8 @@ export default function ConfirmationEmail(job) {
                         ${job.workDate}
                     </td>
                 </tr>
-
-                <tr>
-                    <td style="width: 49%;" width="49%">
-                        Arrival Window:
-                    </td>
-                    <td style="width: 49%;" width="49%">
-                        ${job.workMustBeginTime[0]} - ${job.workMustBeginTime[1]}
-                    </td>
-                </tr>
-
+                ${arrivalWindow}
                 ${addressesRender(job.addresses)}
-
                 <tr>
                     <td style="width: 49%;" width="49%">
                         Moving Size:
@@ -317,7 +328,7 @@ export default function ConfirmationEmail(job) {
                                     </p>
                 <p>
                     <input className="secilib" checked disabled type="checkbox"> Yes! I have read the information above and wish to pay my Moving Deposit to book this move.<br>
-                    I understand that this Deposit in non-refundable and non-transferrable if I reschedule or cancel this move.
+                    I understand that this Deposit is non-refundable and non-transferrable if I reschedule or cancel this move.
                                     </p>
                 <p>
                     **If you have any questions, please contact us as soon as possible by phone, text, or e-mail 24/7**
