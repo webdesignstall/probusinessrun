@@ -227,7 +227,11 @@
                     </div>
                     <div class="center-align quote-submit">
                         <a id="resend-email" class="waves-effect waves-light btn" style="background-color: #E9A226">
-                            Resend Quote email
+                            {{#if isConfirmed}}
+                            Resend Confirmation Email
+                            {{else}}
+                            Resend Quote Email
+                            {{/if}}
                         </a>
                     </div>
                 </div>

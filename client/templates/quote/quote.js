@@ -74,6 +74,11 @@ Template.updateQuote.helpers({
         return WorkData.findOne({ _id: Session.get('is') })
             ? WorkData.findOne({ _id: Session.get('is') }).flatRate.isTrue
             : false;
+    },
+    isConfirmed: () => {
+        return WorkData.findOne({ _id: Session.get('is') })
+            ? !WorkData.findOne({ _id: Session.get('is') }).quote
+            : false;
     }
 });
 
