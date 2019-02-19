@@ -52,6 +52,7 @@ export default class RenderEmployees extends React.Component {
 
     employeeClick(id) {
         let arr = Session.get('secilmisIsciler');
+        let maxWorkers = WorkData.findOne({ _id: Session.get('is') }).numberOfWorkers
         let isId = arr.findIndex(function (element) {
             return element.id === id;
         });
@@ -62,9 +63,11 @@ export default class RenderEmployees extends React.Component {
             document.getElementById(id).classList.remove('green');
             document.getElementById(id).classList.add('iscilerin-adlari');
         } else {
-            document.getElementById(id).classList.remove('iscilerin-adlari');
-            document.getElementById(id).classList.add('green');
-            arr.push({ 'id': id });
+            if (arr.length < maxWorkers) {
+                document.getElementById(id).classList.remove('iscilerin-adlari');
+                document.getElementById(id).classList.add('green');
+                arr.push({ 'id': id });
+            }
         }
 
         Session.set('secilmisIsciler', arr);
@@ -74,15 +77,18 @@ export default class RenderEmployees extends React.Component {
         return (
             this.state.isciler.map(isci => {
                 return (
-                    <a id={isci._id} key={isci._id} className={this.check(isci._id) ? 'green' : ''} onClick={() => this.employeeClick(isci._id)} >{isci.profile.firstName} {isci.profile.lastName} </a>
+                    <a
+                        id={isci._id}
+                        key={isci._id}
+                        className={this.check(isci._id) ? 'green' : ''}
+                        onClick={() => this.employeeClick(isci._id)}
+                    >
+                        {isci.profile.firstName} {isci.profile.lastName}
+                    </a>
                 );
             })
         );
     }
-
-    // renderSelected() {
-
-    // }
 
     render() {
         return (
