@@ -1,10 +1,11 @@
 import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
 import { Tracker } from 'meteor/tracker';
-import React from 'react';
+import React, { Component } from 'react';
 import WorkData from '../../../common/collections_2';
+import TrackerReact from 'meteor/ultimatejs:tracker-react';
 
-export default class RenderEmployees extends React.Component {
+export default class RenderEmployees extends TrackerReact(Component) {
     constructor(props) {
         super(props);
         this.state = {
@@ -50,9 +51,13 @@ export default class RenderEmployees extends React.Component {
         this.x.stop();
     }
 
+    workData() {
+        return WorkData.find({ _id: Session.get('is') }).fetch();
+    }
+
     employeeClick(id) {
         let arr = Session.get('secilmisIsciler');
-        let maxWorkers = WorkData.findOne({ _id: Session.get('is') }).numberOfWorkers
+        let maxWorkers = this.workData()[0].numberOfWorkers;
         let isId = arr.findIndex(function (element) {
             return element.id === id;
         });
