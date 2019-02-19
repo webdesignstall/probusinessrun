@@ -286,7 +286,7 @@ class ReserveQuote extends React.Component {
                                         ? (
                                             <tr>
                                                 <td>Double Drive Time:</td>
-                                                <td>Yes, <a href="http://www.moverslegion.com/wp-content/uploads/2018/12/DDT.pdf" download="http://www.moverslegion.com/wp-content/uploads/2018/12/DDT.pdf" target="_blank" rel="noopener noreferrer">learn more</a></td>
+                                                <td>Yes, <a href="http://www.moverslegion.com/wp-content/uploads/2019/02/DDT.pdf" download="http://www.moverslegion.com/wp-content/uploads/2019/02/DDT.pdf" target="_blank" rel="noopener noreferrer">learn more</a></td>
                                             </tr>
                                         )
                                         : ''

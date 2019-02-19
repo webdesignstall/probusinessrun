@@ -94,7 +94,7 @@ export default function EmailContent(job) {
         ? `
         <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
             <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Double Drive Time</td>
-            <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Yes, <a href="http://www.moverslegion.com/wp-content/uploads/2018/12/DDT.pdf">learn more</a></td>
+            <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Yes, <a href="http://www.moverslegion.com/wp-content/uploads/2019/02/DDT.pdf">learn more</a></td>
         </tr>
         `
         : job.doubleDrive && job.doubleDrive === 'waived'
@@ -118,7 +118,7 @@ export default function EmailContent(job) {
     let doubleDriveAdditional = job.doubleDrive && job.doubleDrive === 'notSure'
         ?
         `
-        <div style="margin-bottom: 5px;">Double Drive Time, <a href="http://www.moverslegion.com/wp-content/uploads/2018/12/DDT.pdf">learn more</a></div>
+        <div style="margin-bottom: 5px;">Double Drive Time, <a href="http://www.moverslegion.com/wp-content/uploads/2019/02/DDT.pdf">learn more</a></div>
         `
         : '';
 
