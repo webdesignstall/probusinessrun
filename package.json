@@ -25,6 +25,7 @@
         "prop-types": "^15.7.1",
         "push.js": "^1.0.9",
         "react": "^16.8.1",
+        "react-animated-weather": "^2.0.0",
         "react-dom": "^16.8.1",
         "react-flip-move": "^3.0.3",
         "react-inline-css": "^2.3.1",

@@ -37,6 +37,12 @@ if (Meteor.userId()) {
         }
     });
 
+    Router.route('/followup', {
+        onBeforeAction: function () {
+            this.render('followUp');
+        }
+    });
+
     Router.route('/workers', {
         onBeforeAction: function () {
             this.render('workersList');

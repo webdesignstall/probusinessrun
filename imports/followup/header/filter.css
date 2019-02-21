@@ -1,0 +1,36 @@
+.filter--list li{
+    list-style: none;
+    float: left;
+    cursor: pointer;
+    padding: 0 15px;
+
+}
+
+.filter--list li:nth-child(1):hover{
+    list-style: none;
+    float: left;
+    cursor: pointer;
+    padding: 0 15px;
+    background-color: #1EBE78;
+    color: white;
+}
+.filter--list li:nth-child(2):hover{
+    list-style: none;
+    float: left;
+    cursor: pointer;
+    padding: 0 15px;
+    background-color: #F17721;
+    color: white;
+}
+.filter--list li:nth-child(3):hover{
+    list-style: none;
+    float: left;
+    cursor: pointer;
+    padding: 0 15px;
+    background-color: #25B7D9;
+    color: white;
+}
+
+.filter--list{
+    margin: 0 15px 0 0;
+}

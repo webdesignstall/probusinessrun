@@ -1,0 +1,26 @@
+.followup-search{
+    position: relative;
+}
+
+.followup-search input{
+    position: absolute;
+    border-bottom: 2px dashed #394040;
+    height: 19px;
+    width: 350px;
+    top: 0;
+    right: 20px;
+    margin-top: 2px !important;
+    padding: 0 10px 5px 30px; 
+    font-size: 16px;
+}
+
+.followup-search input::placeholder{
+    font-size: 16px;
+}
+.followup-search i{
+    position: absolute;
+    top: 4px;
+    float: left;
+    left: -405px;
+    font-size: 18px;
+}

@@ -3,7 +3,7 @@ import WorkData from './../common/collections_2';
 import Discounts from '../common/discountData';
 
 Meteor.publish('workSchema', function () {
-    return WorkData.find({});
+    return WorkData.find();
 });
 
 Meteor.publish('usersData', function () {

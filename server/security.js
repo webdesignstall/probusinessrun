@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import Discounts from '../common/discountData';
 import { PromoCodes } from '../common/collections_2';
+import WorkData from '../common/collections_2';
 
 WorkData.allow({
     insert(userId, doc) {
@@ -26,7 +27,7 @@ Discounts.allow({
     remove(userId, doc) {
         return userId === userId;
     }
-})
+});
 
 PromoCodes.allow({
     insert(userId, doc) {
