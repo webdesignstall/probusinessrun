@@ -90,6 +90,6 @@ Template.navBar.onRendered(() => {
     let address = window.location.href;
     let path = url.parse(address, true).path;
 
-    document.getElementsByClassName('menyuElement active')[0].classList.remove('active');
-    document.querySelectorAll(`[href="${path}"]`)[0].classList.add('active');
+    document.getElementsByClassName('menyuElement active').length > 0 ? document.getElementsByClassName('menyuElement active')[0].classList.remove('active') : null;
+    document.querySelectorAll(`[href="${path}"]`).length > 0 ? document.querySelectorAll(`[href="${path}"]`)[0].classList.add('active') : null;
 });

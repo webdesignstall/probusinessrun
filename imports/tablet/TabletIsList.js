@@ -57,7 +57,7 @@ export default class TabletIsList extends React.Component {
 
                         }
                     }>
-                        {is.clientFirstName} {is.clientLastName}
+                        {is.clientFirstName} {is.clientLastName} {is.jobNumber}
                     </a>
                 );
             })

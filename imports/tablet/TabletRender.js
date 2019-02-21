@@ -626,13 +626,14 @@ MY OWN FREE WILL`
         this.x = Tracker.autorun(() => {
             Meteor.subscribe('workSchema');
             Meteor.subscribe('fullUser');
+            console.log(Session.get('tabletIsId'));
             const isRender = WorkData.find({ _id: Session.get('tabletIsId') }).fetch();
 
             if (isRender.length > 0) {
                 let isFinished = isRender[0].finished;
                 let startFullName = isRender[0].initFullName;
                 let initSignDate = isRender[0].initSignDate || new Date();
-                let checks = isRender[0].checks;
+                let checks = isRender[0].checks || { packMater: false, cargoIsSubject: false, myResponsibility: false };
                 if (isFinished) {
                     this.setState({
                         finished: true
