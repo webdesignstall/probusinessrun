@@ -321,3 +321,22 @@ td, th {
         transform: rotate(450deg);
     }
 }
+
+.sari{
+    background-color: #F17721;
+}
+.goy{
+    background-color: #24B5D6;
+}
+.yasil{
+    background-color: #1EBE78;
+}
+.sari-text{
+    color: #F17721;
+}
+.goy-text{
+    color: #24B5D6;
+}
+.yasil-text{
+    color: #1EBE78;
+}

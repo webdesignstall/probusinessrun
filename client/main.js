@@ -4,6 +4,8 @@ import './templates/admin/calendar.html';
 import '../imports/imports';
 import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
+import LogRocket from 'logrocket';
+
 
 /*global $, Bert*/ //defined globals
 
@@ -47,6 +49,8 @@ $(document).ready(function () {
 });
 
 Meteor.startup(() => {
+    LogRocket.init('whbg5b/probussines');
+
     Session.set('isciId', '');
     Session.set('jobNumber', '');
     Session.set('tabletIsId', '');

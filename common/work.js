@@ -592,5 +592,32 @@ Schemas.workSchema = new SimpleSchema({
     initialized: {
         type: Boolean,
         optional: true
+    },
+    sourceOfLeads: {
+        type: String,
+        optional: true
+    },
+    status: {
+        type: String,
+        optional: true
+    },
+    followUp: {
+        type: Array,
+        optional: true
+    },
+    'followUp.$': {
+        type: Object,
+        optional: true
+    },
+    'followUp.$.note': {
+        type: Object
+    },
+    finalNote: {
+        type: String,
+        optional: true
+    },
+    totalDistance: {
+        type: Number,
+        optional: true
     }
 }, { tracker: Tracker });
