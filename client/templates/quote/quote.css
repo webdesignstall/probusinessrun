@@ -195,10 +195,10 @@ hr {
     padding: 5px 20px;
 }
 
-.input-field label {
+/* .input-field label {
     color: black !important;
     margin-top: 5px;
-}
+} */
 
 .borderRed {
     border-left: 2px solid red !important;

@@ -93,14 +93,14 @@ export default class TempTrucks extends React.Component {
                     <div className="col s12 m6 l6" style={{ margin: '10px 0' }} key={index + 'tempTruckList'}>
                         <div className="col s8 m8 l8">
                             <label htmlFor={'temp-trucks-sizes-list' + index}>Truck Size</label>
-                            <select onChange={(e) => this.changeHandler('size', 'string', index, e)} className="browser-default" name={'truck-sizes' + index} id={'temp-trucks-sizes-list' + index} defaultValue={truck.size} value={truck.size} >
+                            <select onChange={(e) => this.changeHandler('size', 'string', index, e)} className="browser-default" name={'truck-sizes' + index} id={'temp-trucks-sizes-list' + index} value={truck.size} >
                                 <option value="Select Trucks Size" disabled={true} >Select Trucks Size</option>
                                 {this.renderTuckSizes(index)}
                             </select>
                         </div>
                         <div className="col s3 m3 l3">
                             <label htmlFor={'temp-trucks-quantity' + index}>Quantity</label>
-                            <select onChange={(e) => this.changeHandler('qty', 'number', index, e)} className="browser-default" name={'truck-quantity' + index} id={'temp-trucks-quantity' + index} defaultValue='1' value={truck.qty}>
+                            <select onChange={(e) => this.changeHandler('qty', 'number', index, e)} className="browser-default" name={'truck-quantity' + index} id={'temp-trucks-quantity' + index} value={truck.qty || 1}>
                                 <option value={1}>1</option>
                                 <option value={2}>2</option>
                                 <option value={3}>3</option>

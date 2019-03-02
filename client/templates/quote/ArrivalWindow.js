@@ -14,6 +14,7 @@ export default class ArrivalWindow extends TrackerReact(Component) {
             valueOfInput: '',
             time1: '',
             time2: '',
+            randomNumber: (Math.random()).toString(),
             options: [
                 {
                     name: 'Select moving time window',
@@ -85,7 +86,7 @@ export default class ArrivalWindow extends TrackerReact(Component) {
 
             reset
                 ? (
-                    document.getElementById('select-arrive-time').value = 'Select moving time window',
+                    document.getElementById('select-arrive-time' + this.state.randomNumber).value = 'Select moving time window',
                     this.setState({ custom: false })
                 )
                 : null;
@@ -94,7 +95,6 @@ export default class ArrivalWindow extends TrackerReact(Component) {
                 selected = this.finTheJob(id);
                 selected = selected[0].workMustBeginTime;
                 let isMorningAfternoon = (selected[0] === '04:00 am' && selected[1] === '04:00 am'); // is it Morning Afternoon aviability selected
-                console.log('TCL: ArrivalWindow -> componentDidMount -> isMorningAfternoon', isMorningAfternoon)
                 let isCustom = false; // is custom time selected
                 let difValue = '';
 
@@ -118,7 +118,7 @@ export default class ArrivalWindow extends TrackerReact(Component) {
                             custom: false
                         }, (err) => {
                             err ? console.log(err) : null;
-                            document.getElementById('select-arrive-time').value = difValue;
+                            document.getElementById('select-arrive-time' + this.state.randomNumber).value = difValue;
                         })
                     )
                     : isMorningAfternoon
@@ -129,7 +129,7 @@ export default class ArrivalWindow extends TrackerReact(Component) {
                                 custom: false
                             }, (err) => {
                                 err ? console.log(err) : null;
-                                document.getElementById('select-arrive-time').value = 'Morning & Afternoon';
+                                document.getElementById('select-arrive-time' + this.state.randomNumber).value = 'Morning & Afternoon';
                             })
                         )
                         : isCustom
@@ -140,15 +140,15 @@ export default class ArrivalWindow extends TrackerReact(Component) {
                                     custom: true
                                 }, (err) => {
                                     err ? console.log(err) : null;
-                                    document.getElementById('select-arrive-time').value = 'Custom';
+                                    document.getElementById('select-arrive-time' + this.state.randomNumber).value = 'Custom';
                                 })
                             )
                             : null;
 
             }
 
-            document.getElementById('select-arrive-time').onchange = () => {
-                let value = document.getElementById('select-arrive-time').value;
+            document.getElementById('select-arrive-time' + this.state.randomNumber).onchange = () => {
+                let value = document.getElementById('select-arrive-time' + this.state.randomNumber).value;
                 if (value === 'Custom') {
                     this.setState({
                         custom: true
@@ -195,7 +195,7 @@ export default class ArrivalWindow extends TrackerReact(Component) {
 
     renderArrivalTime() {
         return (
-            <select onChange={this.setTimes} ref={this.arrivalTime} className="browser-default custom--select-arrivalWindow" name="select-arrive-time" id="select-arrive-time">
+            <select onChange={this.setTimes} ref={this.arrivalTime} className="browser-default custom--select-arrivalWindow" name={'select-arrive-time' + this.state.randomNumber} id={'select-arrive-time' + this.state.randomNumber}>
                 {this.renderOptions()}
             </select>
         );

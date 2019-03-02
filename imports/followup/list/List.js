@@ -28,10 +28,14 @@ export default class List extends TrackerReact(Component) {
     componentDidMount() {
         this.x = Tracker.autorun(() => {
             const jobs = this.workData();
-            Session.set('searchResult', jobs);
-            this.setState({
-                jobs
-            });
+            Session.get('searchResult').length > 0
+                ? null
+                : (
+                    Session.set('searchResult', jobs),
+                    this.setState({
+                        jobs
+                    })
+                );
         });
     }
 
@@ -46,12 +50,7 @@ export default class List extends TrackerReact(Component) {
                     return (
                         <div
                             key={job._id + 'followUpList'}
-                            className="followup-list--elements"
-                            style={{
-                                border: '2px solid #2A3131',
-                                padding: '5px 15px 5px',
-                                margin: '15px 0'
-                            }}
+                            className="collection-item"
                         >
                             <ListInnerDisplay job={job} />
                         </div>
@@ -63,7 +62,9 @@ export default class List extends TrackerReact(Component) {
 
     render() {
         return (
-            <div>
+            <div
+                className="collection"
+            >
                 <FlipMove>
                     {this.renderList()}
                 </FlipMove>

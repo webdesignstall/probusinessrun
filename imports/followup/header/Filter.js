@@ -23,8 +23,8 @@ export default class Filter extends Component {
                 </span>
                 <ul className="filter--list sag">
                     <li className={this.state.clicked === 'inProgress' ? 'in-progress' : ''} onClick={() => this.filter('inProgress')} >IN PROGRESS</li>
-                    <li className={this.state.clicked === 'inProgress' ? 'lost' : ''} onClick={() => this.filter('lost')}>LOST</li>
-                    <li className={this.state.clicked === 'inProgress' ? 'won' : ''} onClick={() => this.filter('won')}>WON</li>
+                    <li className={this.state.clicked === 'lost' ? 'lost' : ''} onClick={() => this.filter('lost')}>LOST</li>
+                    <li className={this.state.clicked === 'won' ? 'won' : ''} onClick={() => this.filter('won')}>WON</li>
                 </ul>
             </div>
         );

@@ -60,10 +60,11 @@ export default class Search extends TrackerReact(Component) {
                         });
                     });
                     let resultConverted = Array.from(result);
-                    resultConverted.length > 0 ? null : (resultConverted = this.workData());
+                    arrayOfWords.length > 0 ? null : (resultConverted = this.workData());
                     resultConverted.sort((a, b) => {
                         return (new Date(b.workDate).getTime()) - (new Date(a.workDate).getTime());
                     });
+                    resultConverted.length > 0 ? null : (resultConverted = [{}]);
                     Session.set('searchResult', resultConverted);
                 }
 

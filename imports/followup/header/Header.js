@@ -9,7 +9,7 @@ export default class Header extends Component {
                 className="followup--header"
                 style={{
                     padding: '10px 0',
-                    borderBottom: '2px solid #3E3E3E'
+                    borderBottom: '1px solid #3E3E3E'
                 }}
             >
                 <span style={{ color: '#707070' }}>JOB LIST</span>

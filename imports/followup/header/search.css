@@ -1,23 +1,23 @@
-.followup-search{
+.followup-search {
     position: relative;
 }
 
-.followup-search input{
+.followup-search input {
     position: absolute;
-    border-bottom: 2px dashed #394040;
+    border-bottom: 1px dashed #394040;
     height: 19px;
     width: 350px;
     top: 0;
     right: 20px;
     margin-top: 2px !important;
-    padding: 0 10px 5px 30px; 
-    font-size: 16px;
+    padding: 0 10px 5px 30px;
+    font-size: 14px;
 }
 
-.followup-search input::placeholder{
-    font-size: 16px;
+.followup-search input::placeholder {
+    font-size: 14px;
 }
-.followup-search i{
+.followup-search i {
     position: absolute;
     top: 4px;
     float: left;

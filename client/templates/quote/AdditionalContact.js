@@ -44,7 +44,7 @@ export default class AdditionalContact extends TrackerReact(Component) {
     }
 
     componentWillReceiveProps(nextProps) {
-        Array.isArray(nextProps.contacts) && nextProps.contacts.lenght > 0
+        Array.isArray(nextProps.contacts) && nextProps.contacts.length > 0
             ? this.setState({
                 contacts: nextProps.contacts
             })

@@ -11,8 +11,8 @@
     float: left;
     cursor: pointer;
     padding: 0 15px;
-    background-color: #1EBE78;
-    color: white;
+    background-color: #F6C344;
+    color: black;
 }
 .filter--list li:nth-child(2):hover{
     list-style: none;
@@ -27,7 +27,7 @@
     float: left;
     cursor: pointer;
     padding: 0 15px;
-    background-color: #25B7D9;
+    background-color: #5ABB7E;
     color: white;
 }
 
