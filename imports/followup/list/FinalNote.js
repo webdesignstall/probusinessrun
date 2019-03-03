@@ -9,6 +9,7 @@ export default class FinalNote extends Component {
             finalNote: {
                 reason: '',
                 other: false,
+                otherNote: '',
             },
         };
 
@@ -17,7 +18,7 @@ export default class FinalNote extends Component {
 
     componentDidMount() {
         this.setState({
-            finalNote: this.props.finalNote
+            finalNote: this.props.finalNote,
         });
     }
 
@@ -27,19 +28,21 @@ export default class FinalNote extends Component {
         });
     }
 
-    changeSelect(e) {
+    changeSelect(e, what) {
         let finalNote = this.state.finalNote;
-        console.log('TCL: FinalNote -> changeSelect -> finalNote', finalNote);
-        let other = false;
-        console.log('TCL: FinalNote -> changeSelect -> other', other);
-        e.target.value === 'Other' ? (other = true) : null;
-        console.log('TCL: FinalNote -> changeSelect -> other', other);
+        let other = finalNote.other;
+        what === 'reason' && e.target.value === 'Other'
+            ? (other = true)
+            : what === 'reason' && e.target.value !== 'Other'
+                ? (other = false)
+                : null;
+        other ? (finalNote.reason = 'Other') : null;
         let value = e.target.value;
-        console.log('TCL: FinalNote -> changeSelect -> value', value);
         finalNote.other = other;
-        finalNote.reason = value;
-        console.log('TCL: FinalNote -> changeSelect -> finalNote', finalNote);
-        this.setState({ finalNote });
+        finalNote[what] = value;
+        this.setState({ finalNote }, () => {
+            this.props.updateJob(this.state);
+        });
     }
 
     render() {
@@ -48,7 +51,7 @@ export default class FinalNote extends Component {
                 <select
                     className="browser-default"
                     name="select_finalNote"
-                    onChange={e => this.changeSelect(e)}
+                    onChange={e => this.changeSelect(e, 'reason')}
                     value={this.state.finalNote.reason}
                     id="select_finalNote">
                     <option value="Time Expired">Time Expired</option>
@@ -67,14 +70,23 @@ export default class FinalNote extends Component {
                 </select>
                 {this.state.finalNote.other ? (
                     <textarea
+                        onChange={e => this.changeSelect(e, 'otherNote')}
+                        value={this.state.finalNote.otherNote}
+                        style={{
+                            height: '100px',
+                            padding: '10px',
+                            marginTop: '5px',
+                            borderRadius: '5px',
+                            borderColor: '#CECECE',
+                            outline: 'none',
+                        }}
                         name="select_finalNote_other"
                         id="select_finalNote_other"
-                        cols="30"
-                        rows="10"
+                        placeholder="type note here..."
                     />
                 ) : (
-                        ''
-                    )}
+                    ''
+                )}
             </div>
         );
     }
@@ -82,4 +94,5 @@ export default class FinalNote extends Component {
 
 FinalNote.propTypes = {
     finalNote: PropTypes.string.isRequired,
+    updateJob: PropTypes.func.isRequired,
 };

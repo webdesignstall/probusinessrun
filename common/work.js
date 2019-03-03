@@ -624,6 +624,10 @@ Schemas.workSchema = new SimpleSchema(
             type: Boolean,
             optional: true,
         },
+        'finalNote.otherNote': {
+            type: String,
+            optional: true,
+        },
         totalDistance: {
             type: Number,
             optional: true,

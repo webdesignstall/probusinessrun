@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import { Session } from 'meteor/session';
 import { Tracker } from 'meteor/tracker';
+import PropTypes from 'prop-types';
 
 export default class AdditionalContact extends TrackerReact(Component) {
     constructor(props) {
         super(props);
 
         this.state = {
-            contacts: []
+            additionalContacts: [],
         };
 
         this.addMore = this.addMore.bind(this);
@@ -20,10 +21,10 @@ export default class AdditionalContact extends TrackerReact(Component) {
         this.x = Tracker.autorun(() => {
             let reset = Session.get('reset');
 
-            reset ? this.setState({ contacts: [] }) : null;
+            reset ? this.setState({ additionalContacts: [] }) : null;
 
             this.setState({
-                contacts: this.props.contacts || []
+                additionalContacts: this.props.contacts || [],
             });
         });
     }
@@ -33,92 +34,135 @@ export default class AdditionalContact extends TrackerReact(Component) {
     }
 
     deleteAddContacnt(index) {
-        this.setState((prevState) => {
-            let newArr = prevState.contacts;
+        this.setState(prevState => {
+            let newArr = prevState.additionalContacts;
             newArr.splice(index, 1);
 
-            return ({
-                contacts: newArr
-            });
+            return {
+                additionalContacts: newArr,
+            };
         });
     }
 
     componentWillReceiveProps(nextProps) {
         Array.isArray(nextProps.contacts) && nextProps.contacts.length > 0
             ? this.setState({
-                contacts: nextProps.contacts
+                additionalContacts: nextProps.contacts,
             })
             : null;
     }
 
     changeInput(index, targ, event) {
         let yazi = event.target.value;
-        this.setState((prevState) => {
-            let info = prevState.contacts;
-            info[index][targ] = yazi;
+        this.setState(
+            prevState => {
+                let info = prevState.additionalContacts;
+                info[index][targ] = yazi;
 
-            return ({
-                contacts: info
-            });
-        }, () => {
-            Session.set('additionalContacts', this.state.contacts);
-        });
+                return {
+                    additionalContacts: info,
+                };
+            },
+            () => {
+                Session.set('additionalContacts', this.state.additionalContacts);
+                this.props.updateJob(this.state);
+            },
+        );
     }
 
     addMore() {
-        this.setState((prevState) => {
-            let arr = prevState.contacts.concat({
+        this.setState(prevState => {
+            let arr = prevState.additionalContacts.concat({
                 firstName: '',
                 lastName: '',
                 phoneNumber: '',
-                additionalPhoneNumber: ''
+                additionalPhoneNumber: '',
             });
 
-            return ({
-                contacts: arr
-            });
+            return {
+                additionalContacts: arr,
+            };
         });
     }
 
     renderAdditional() {
-        return (
-            this.state.contacts.map((contact, index) => {
-                return (
-                    <div key={index + 'additionalContact'} className="card__ brown lighten-5">
-                        <div className="input-field valideyn col s12 m6 l3">
-                            <i className="material-icons isare">account_box</i>
-                            <input onChange={(event) => this.changeInput(index, 'firstName', event)} id={index + 'firstNameAdditionalContact'} value={contact.firstName} type="text" placeholder="" required />
-                            <label className="active" htmlFor={index + 'firstNameAdditionalContact'}>First Name</label>
-                        </div>
-                        <div className="input-field valideyn col s12 m6 l3">
-                            <i className="material-icons isare">account_box</i>
-                            <input onChange={(event) => this.changeInput(index, 'lastName', event)} id={index + 'lastNameAdditionalContact'} value={contact.lastName} type="text" placeholder="" required />
-                            <label className="active" htmlFor={index + 'lastNameAdditionalContact'}>Last Name</label>
-                        </div>
-                        <div className="input-field valideyn col s12 m6 l3">
-                            <i className="material-icons isare">phone</i>
-                            <input onChange={(event) => this.changeInput(index, 'phoneNumber', event)} id={index + 'phoneNumberAdditionalContact'} value={contact.phoneNumber} type="number" placeholder="" required />
-                            <label className="active" htmlFor={index + 'phoneNumberAdditionalContact'}>Main Phone Number</label>
-                        </div>
-                        <div className="input-field valideyn col s12 m5 l2">
-                            <i className="material-icons isare">phone</i>
-                            <input onChange={(event) => this.changeInput(index, 'additionalPhoneNumber', event)} id={index + 'phoneNumberAddAdditionalContact'} value={contact.additionalPhoneNumber} type="number" placeholder="" />
-                            <label className="active" htmlFor={index + 'phoneNumberAddAdditionalContact'}>Secondary Phone Number</label>
-                        </div>
-                        <div className="input-field valideyn col s12 m1 l1">
-                            <i
-                                className="material-icons isare"
-                                onClick={() => this.deleteAddContacnt(index)}
-                                style={{
-                                    color: 'red',
-                                    cursor: 'pointer',
-                                    marginLeft: '10px'
-                                }}>delete_forever</i>
-                        </div>
+        return this.state.additionalContacts.map((contact, index) => {
+            return (
+                <div key={index + 'additionalContact'} className="card__ brown lighten-5">
+                    <div className="input-field valideyn col s12 m6 l3">
+                        <i className="material-icons isare">account_box</i>
+                        <input
+                            onChange={event => this.changeInput(index, 'firstName', event)}
+                            id={index + 'firstNameAdditionalContact'}
+                            value={contact.firstName}
+                            type="text"
+                            placeholder=""
+                            required
+                        />
+                        <label className="active" htmlFor={index + 'firstNameAdditionalContact'}>
+                            First Name
+                        </label>
                     </div>
-                );
-            })
-        );
+                    <div className="input-field valideyn col s12 m6 l3">
+                        <i className="material-icons isare">account_box</i>
+                        <input
+                            onChange={event => this.changeInput(index, 'lastName', event)}
+                            id={index + 'lastNameAdditionalContact'}
+                            value={contact.lastName}
+                            type="text"
+                            placeholder=""
+                            required
+                        />
+                        <label className="active" htmlFor={index + 'lastNameAdditionalContact'}>
+                            Last Name
+                        </label>
+                    </div>
+                    <div className="input-field valideyn col s12 m6 l3">
+                        <i className="material-icons isare">phone</i>
+                        <input
+                            onChange={event => this.changeInput(index, 'phoneNumber', event)}
+                            id={index + 'phoneNumberAdditionalContact'}
+                            value={contact.phoneNumber}
+                            type="number"
+                            placeholder=""
+                            required
+                        />
+                        <label className="active" htmlFor={index + 'phoneNumberAdditionalContact'}>
+                            Main Phone Number
+                        </label>
+                    </div>
+                    <div className="input-field valideyn col s12 m5 l2">
+                        <i className="material-icons isare">phone</i>
+                        <input
+                            onChange={event =>
+                                this.changeInput(index, 'additionalPhoneNumber', event)
+                            }
+                            id={index + 'phoneNumberAddAdditionalContact'}
+                            value={contact.additionalPhoneNumber}
+                            type="number"
+                            placeholder=""
+                        />
+                        <label
+                            className="active"
+                            htmlFor={index + 'phoneNumberAddAdditionalContact'}>
+                            Secondary Phone Number
+                        </label>
+                    </div>
+                    <div className="input-field valideyn col s12 m1 l1">
+                        <i
+                            className="material-icons isare"
+                            onClick={() => this.deleteAddContacnt(index)}
+                            style={{
+                                color: 'red',
+                                cursor: 'pointer',
+                                marginLeft: '10px',
+                            }}>
+                            delete_forever
+                        </i>
+                    </div>
+                </div>
+            );
+        });
     }
 
     render() {
@@ -127,9 +171,8 @@ export default class AdditionalContact extends TrackerReact(Component) {
                 className="row"
                 style={{
                     border: '1px dashed #D55B26',
-                    margin: '10px 0 0 0'
-                }}
-            >
+                    margin: '10px 0 0 0',
+                }}>
                 <span
                     style={{
                         display: 'block',
@@ -138,9 +181,9 @@ export default class AdditionalContact extends TrackerReact(Component) {
                         backgroundColor: '#D55B26',
                         color: 'white',
                         margin: '0 4px 0 0',
-                        position: 'relative'
-                    }}
-                >Additional Contact
+                        position: 'relative',
+                    }}>
+                    Additional Contact
                     <i
                         className="material-icons"
                         onClick={this.addMore}
@@ -149,12 +192,18 @@ export default class AdditionalContact extends TrackerReact(Component) {
                             margin: '5px 0 0 15px',
                             color: '#4EDB9E',
                             top: '0',
-                            cursor: 'pointer'
-                        }}
-                    >add_circle</i>
+                            cursor: 'pointer',
+                        }}>
+                        add_circle
+                    </i>
                 </span>
                 {this.renderAdditional()}
             </div>
         );
     }
 }
+
+AdditionalContact.propTypes = {
+    updateJob: PropTypes.func.isRequired,
+    contacts: PropTypes.array.isRequired,
+};

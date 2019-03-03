@@ -3,13 +3,14 @@ import { Tracker } from 'meteor/tracker';
 import WorkData from '../../../common/collections_2';
 import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
+import PropTypes from 'prop-types';
 
 export default class Addresses extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            arrayOfvalue: ['', '']
+            arrayOfvalue: ['', ''],
         };
 
         this.renderAddressFields = this.renderAddressFields.bind(this);
@@ -25,15 +26,26 @@ export default class Addresses extends React.Component {
             let isInfo = WorkData.findOne(isId);
 
             isInfo && isInfo.addresses.length > 0
-                ? this.setState({ arrayOfvalue: isInfo.addresses })
+                ? this.setState({ arrayOfvalue: isInfo.addresses }, () => {
+                    this.props.updateJob({
+                        addresses: this.state.arrayOfvalue,
+                    });
+                })
                 : null;
         });
     }
 
     resetComponent() {
-        this.setState({
-            arrayOfvalue: ['', '']
-        });
+        this.setState(
+            {
+                arrayOfvalue: ['', ''],
+            },
+            () => {
+                this.props.updateJob({
+                    addresses: this.state.arrayOfvalue,
+                });
+            },
+        );
         // this.forceUpdate();
     }
 
@@ -44,7 +56,11 @@ export default class Addresses extends React.Component {
     inputChangeHandler(i) {
         let arrayOfvalue = [...this.state.arrayOfvalue];
         arrayOfvalue[i] = event.target.value;
-        this.setState({ arrayOfvalue });
+        this.setState({ arrayOfvalue }, () => {
+            this.props.updateJob({
+                addresses: this.state.arrayOfvalue,
+            });
+        });
     }
 
     deleteAddress(id) {
@@ -52,22 +68,40 @@ export default class Addresses extends React.Component {
     }
 
     renderAddressFields() {
-        return (
-            this.state.arrayOfvalue.map((el, i) =>
-                <div key={i} id={i + '_id'} className="input-field valideyn col s12 m6 l6">
-                    <i className="material-icons isare">location_on</i>
-                    <input key={i} className="addresses" type="text" placeholder="" value={this.state.arrayOfvalue[i]} onChange={this.inputChangeHandler.bind(this, i)} />
-                    <i className="material-icons sag delete-address animated" onClick={() => this.deleteAddress(i + '_id')}>delete_forever</i>
-                    <label className="active" htmlFor="movingFrom">{'Address #' + (i + 1)}</label>
-                </div>
-            )
-        );
+        return this.state.arrayOfvalue.map((el, i) => (
+            <div key={i} id={i + '_id'} className="input-field valideyn col s12 m6 l6">
+                <i className="material-icons isare">location_on</i>
+                <input
+                    key={i}
+                    className="addresses"
+                    type="text"
+                    placeholder=""
+                    value={this.state.arrayOfvalue[i]}
+                    onChange={this.inputChangeHandler.bind(this, i)}
+                />
+                <i
+                    className="material-icons sag delete-address animated"
+                    onClick={() => this.deleteAddress(i + '_id')}>
+                    delete_forever
+                </i>
+                <label className="active" htmlFor="movingFrom">
+                    {'Address #' + (i + 1)}
+                </label>
+            </div>
+        ));
     }
-    // add functionality to the multi address 
+    // add functionality to the multi address
     addMore() {
-        this.setState(prevState => ({
-            arrayOfvalue: [...prevState.arrayOfvalue, '']
-        }));
+        this.setState(
+            prevState => ({
+                arrayOfvalue: [...prevState.arrayOfvalue, ''],
+            }),
+            () => {
+                this.props.updateJob({
+                    addresses: this.state.arrayOfvalue,
+                });
+            },
+        );
     }
 
     render() {
@@ -78,9 +112,7 @@ export default class Addresses extends React.Component {
                     <div className="addMoreAddress-button addMoreAddress" onClick={this.addMore}>
                         <div className="relative">
                             <span>Add More</span>
-                            <i className="ikonka material-icons">
-                                add_circle
-                            </i>
+                            <i className="ikonka material-icons">add_circle</i>
                         </div>
                     </div>
                 </div>
@@ -90,3 +122,7 @@ export default class Addresses extends React.Component {
         );
     }
 }
+
+Addresses.propTypes = {
+    updateJob: PropTypes.func.isRequired,
+};

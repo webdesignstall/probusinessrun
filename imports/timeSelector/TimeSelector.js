@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import PropTypes from 'prop-types';
 /*global moment*/
 
 export default class TimeSelector extends Component {
@@ -20,7 +20,11 @@ export default class TimeSelector extends Component {
     }
 
     UNSAFE_componentWillReceiveProps(nextProps) {
-        nextProps.defVal !== '' ? this.select.current.value = nextProps.defVal : null;
+        nextProps.defVal !== '' ? (this.select.current.value = nextProps.defVal) : null;
+    }
+
+    onChangeHandler(e) {
+        this.props.timeReturn(e.target.value, this.props.index);
     }
 
     timeList() {
@@ -30,26 +34,41 @@ export default class TimeSelector extends Component {
         let arrayOfTime = [];
         for (i = 0; i < this.state.hours; i++) {
             for (z = 0; z < this.state.minutes; z += this.state.interval) {
-                stringOfTime = moment().set({ 'hour': i, 'minutes': z }).format('hh:mm a');
+                stringOfTime = moment()
+                    .set({ hour: i, minutes: z })
+                    .format('hh:mm a');
 
                 arrayOfTime.push(stringOfTime);
             }
         }
 
-        return (arrayOfTime.map((time, index) => {
+        return arrayOfTime.map((time, index) => {
             return (
-                <option key={index + 'timeKey'} value={time} >
+                <option key={index + 'timeKey'} value={time}>
                     {time}
                 </option>
             );
-        }));
+        });
     }
 
     render() {
         return (
-            <select ref={this.select} className="browser-default" id={this.props.id} defaultValue="12:00 am">
+            <select
+                onChange={e => this.onChangeHandler(e)}
+                ref={this.select}
+                className="browser-default"
+                id={this.props.id}
+                defaultValue="12:00 am">
                 {this.timeList()}
             </select>
         );
     }
 }
+
+TimeSelector.propTypes = {
+    timeReturn: PropTypes.func.isRequired,
+    siAm: PropTypes.bool.isRequired,
+    interval: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
+    index: PropTypes.number.isRequired,
+};

@@ -35,8 +35,7 @@
                 </div>
                 <div class="clear"></div>
                 <!-- Additional Contact -->
-                <div id="additional-contact" class="row">
-                </div>
+                <div id="additional-contact" class="row"></div>
                 <!-- Moving Date -->
                 <div class="input-field valideyn col s12 m6 l3">
                     <i class="material-icons isare">date_range</i>
@@ -44,8 +43,7 @@
                     <label class="active" for="quote-date-picker">Moving Date</label>
                 </div>
                 <!-- Moving time window -->
-                <div id="arrival-time" class="input-field valideyn col s12 m6 l6">
-                </div>
+                <div id="arrival-time" class="input-field valideyn col s12 m6 l6"></div>
                 <!-- Taken By -->
                 <div id="takenBy" class="col s12 m3 l3"></div>
                 <div class="clear"></div>
@@ -60,11 +58,15 @@
                     <input id="small_item_pack" class="xx" type="number" placeholder="0" />
                     <label class="active" for="small_item_pack">
                         Small item packing
-                        <input id="smallItemPackInit" type="checkbox" onclick="(() => {
+                        <input
+                            id="smallItemPackInit"
+                            type="checkbox"
+                            onclick="(() => {
                             let element = document.getElementById('small_item_pack')
                             element.value == -1 ? element.value = '' : element.value = -1;
                             element.disabled = !element.disabled;
-                            })()" />
+                            })()"
+                        />
                     </label>
                 </div>
                 <!-- Large Item fee -->
@@ -80,7 +82,7 @@
                     <label class="active" for="gas_fee">
                         Gas Fee
                         <i class="lime-text lighten-5 black">
-                            [ Not sure? <input type="checkbox" onclick="gasFeeNotSure()">]
+                            [ Not sure? <input type="checkbox" onclick="gasFeeNotSure()" />]
                         </i>
                     </label>
                 </div>
@@ -94,66 +96,111 @@
                 <div class="clear"></div>
                 <div class="row chargingPanel">
                     <div class="col s12 m12 l12 orange darken-4 payment-header">
-                        Payment options <i class="lime-text lighten-5 black">[ Flat Rate <input id="flatRateCheck"
-                                type="checkbox" onchange="showFlatRate()">
-                            ]</i>
+                        Payment options
+                        <i class="lime-text lighten-5 black"
+                            >[ Flat Rate
+                            <input id="flatRateCheck" type="checkbox" onchange="showFlatRate()" />
+                            ]</i
+                        >
                     </div>
                     <div id="paymentContent">
                         <!-- Minimum labor time -->
                         <div class="input-field valideyn col s12 m6 l3">
                             <i class="material-icons isare">timer</i>
-                            <input id="labor_time" class="xx" type="number" placeholder="0" onchange="(() => {
-                                                                    if (this.value < 0) { 
-                                                                        this.value=0; 
-                                                                    } 
-                                                                })()" />
-                            <label class="active" for="labor_time">Minimum labor time (hours)</label>
+                            <input
+                                id="labor_time"
+                                class="xx"
+                                type="number"
+                                placeholder="0"
+                                onchange="(() => {
+                                    if (this.value < 0) { 
+                                        this.value=0; 
+                                    } 
+                                })()"
+                            />
+                            <label class="active" for="labor_time"
+                                >Minimum labor time (hours)</label
+                            >
                         </div>
                         <!-- Hourly rates cash -->
                         <div class="input-field valideyn col s12 m6 l3">
                             <i class="material-icons isare">attach_money</i>
-                            <input id="hourly_rates_cash" class="xx" type="number" placeholder="0" onchange="(() => {
+                            <input
+                                id="hourly_rates_cash"
+                                class="xx"
+                                type="number"
+                                placeholder="0"
+                                onchange="(() => {
                                                                     if (this.value < 0) {
                                                                         this.value = 0;
                                                                     }
-                                                                })()" />
-                            <label class="active" for="hourly_rates_cash">Hourly rates (cash)</label>
+                                                                })()"
+                            />
+                            <label class="active" for="hourly_rates_cash"
+                                >Hourly rates (cash)</label
+                            >
                         </div>
                         <!-- Hourly rates card -->
                         <div class="input-field valideyn col s12 m6 l3">
                             <i class="material-icons isare">attach_money</i>
-                            <input id="hourly_rates_card" class="xx" type="number" placeholder="0" onchange="(() => {
+                            <input
+                                id="hourly_rates_card"
+                                class="xx"
+                                type="number"
+                                placeholder="0"
+                                onchange="(() => {
                                                                     if (this.value < 0) {
                                                                         this.value = 0;
                                                                     }
-                                                                })()" />
-                            <label class="active" for="hourly_rates_card">Hourly rates (card)</label>
+                                                                })()"
+                            />
+                            <label class="active" for="hourly_rates_card"
+                                >Hourly rates (card)</label
+                            >
                         </div>
                         <!-- NOt to exceed Price -->
                         <div class="input-field valideyn col s12 m6 l3">
                             <i class="material-icons isare">attach_money</i>
-                            <input id="quote_price" class="xx" type="number" placeholder="0" onchange="(() => {
+                            <input
+                                id="quote_price"
+                                class="xx"
+                                type="number"
+                                placeholder="0"
+                                onchange="(() => {
                                                                     if (this.value < 0) {
                                                                         this.value = 0;
                                                                     }
-                                                                })()" />
+                                                                })()"
+                            />
                             <label class="active" for="quote_price">Not Exceed Price</label>
                         </div>
                     </div>
                     <div id="flatRate_" class="input-field valideyn col s12 m12 l12 flatRate hide">
                         <div class="input-field valideyn col s12 m6 l3">
                             <i class="material-icons isare">attach_money</i>
-                            <input id="flatRateCash" class="xx" type="number" placeholder="0" onchange="(() => {
+                            <input
+                                id="flatRateCash"
+                                class="xx"
+                                type="number"
+                                placeholder="0"
+                                onchange="(() => {
                             if (this.value< 0) {
                                  this.value=0; 
-                                 } })()" />
+                                 } })()"
+                            />
                             <label class="active" for="flatRateCash">Flat rate cash</label>
                         </div>
                         <!-- Large Item fee -->
                         <div class="input-field valideyn col s12 m6 l3">
                             <i class="material-icons isare">attach_money</i>
-                            <input id="flatRateCard" class="xx" type="number" placeholder="0" onchange="(() => {
-                            if (this.value < 0) { this.value=0; } })()" />
+                            <input
+                                id="flatRateCard"
+                                class="xx"
+                                type="number"
+                                placeholder="0"
+                                onchange="(() => {
+                            if (this.value < 0) { this.value=0; } })()"
+                            />
                             <label class="active" for="flatRateCard">Flat rate card</label>
                         </div>
                     </div>
@@ -175,7 +222,9 @@
                 <!-- Select moving size -->
                 <div id="moving-size-main" class="input-field col s12 m6 l6 azMargin">
                     <select title="moving_size" name="moving_size" id="moving_size_2">
-                        <option value="select_moving_size" selected disabled>Select Moving Size</option>
+                        <option value="select_moving_size" selected disabled
+                            >Select Moving Size</option
+                        >
                         <option value="items">Items</option>
                         <option value="studio">Studio</option>
                         <option value="1_bedroom">1 Bedroom</option>
@@ -187,26 +236,34 @@
                         <option value="4_bedrooom_avg">4 Bedroom (avg. size, avg. items)</option>
                         <option value="4_bedroom_large">4 Bedroom (large size, many items)</option>
                         <option value="commercial_avg">Commercial (avg. size, avg. items)</option>
-                        <option value="commercial_large">Commercial (large size, many items)</option>
+                        <option value="commercial_large"
+                            >Commercial (large size, many items)</option
+                        >
                     </select>
                     <label class="active" for="moving_size_2">Moving Size</label>
                 </div>
                 <!-- Moving company -->
-                <div id="moving-company" class="input-field valideyn col s12 m6 l6">
-                </div>
+                <div id="moving-company" class="input-field valideyn col s12 m6 l6"></div>
                 <!-- Job ID -->
                 <div class="input-field valideyn col s12 m3 l3">
                     <i class="material-icons isare">local_offer</i>
-                    <input id="quote-job-number" class="xx" type="text" placeholder="Job ID" disabled />
+                    <input
+                        id="quote-job-number"
+                        class="xx"
+                        type="text"
+                        placeholder="Job ID"
+                        disabled
+                    />
                     <label class="active" for="quote-job-number">Job Number</label>
                 </div>
                 <div class="clear"></div>
                 <!-- TempTruck -->
-                <div id="tempTruck" class="row">
-                </div>
+                <div id="tempTruck" class="row"></div>
                 <!-- Add Truck -->
-                <div id="addTruck" class="input-field valideyn col s12 m12 l12 add-truck-root">
-                </div>
+                <div
+                    id="addTruck"
+                    class="input-field valideyn col s12 m12 l12 add-truck-root"
+                ></div>
                 <div class="clear"></div>
                 <!-- Comment -->
                 <div class="input-field col s12">
@@ -215,8 +272,12 @@
                 </div>
                 <div class="clear"></div>
                 <div class="center-align">
-                    <a id="work-request-reset" class="waves-effect waves-light btn amber darken-2"
-                        onclick="resetForm()">Reset</a>
+                    <a
+                        id="work-request-reset"
+                        class="waves-effect waves-light btn amber darken-2"
+                        onclick="resetForm()"
+                        >Reset</a
+                    >
                     <a id="work-request" class="waves-effect waves-light btn">Submit</a>
                 </div>
             </form>
@@ -230,7 +291,9 @@
 
         // declare job number
         function jobNumber() {
-            document.getElementById('quote-job-number').value = Math.random().toString(36).substr(2, 5);
+            document.getElementById('quote-job-number').value = Math.random()
+                .toString(36)
+                .substr(2, 5);
         }
 
         // run job number
