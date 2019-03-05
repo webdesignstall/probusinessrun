@@ -93,6 +93,6 @@ export default class FinalNote extends Component {
 }
 
 FinalNote.propTypes = {
-    finalNote: PropTypes.string.isRequired,
+    finalNote: PropTypes.object.isRequired,
     updateJob: PropTypes.func.isRequired,
 };

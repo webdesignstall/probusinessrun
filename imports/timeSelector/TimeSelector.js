@@ -9,7 +9,7 @@ export default class TimeSelector extends Component {
         this.state = {
             hours: 24,
             minutes: 60,
-            isAm: this.props.siAm || false,
+            isAm: this.props.isAm || false,
             interval: this.props.interval || 15,
         };
 
@@ -67,7 +67,7 @@ export default class TimeSelector extends Component {
 
 TimeSelector.propTypes = {
     timeReturn: PropTypes.func.isRequired,
-    siAm: PropTypes.bool.isRequired,
+    isAm: PropTypes.bool,
     interval: PropTypes.number.isRequired,
     id: PropTypes.string.isRequired,
     index: PropTypes.number.isRequired,

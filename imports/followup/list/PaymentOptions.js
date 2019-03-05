@@ -39,9 +39,14 @@ export default class PaymentOptions extends Component {
         let valueOf = e.target.value;
         let oldInfo = this.state.job;
         oldInfo[target_] = valueOf;
-        this.setState({
-            job: oldInfo,
-        });
+        this.setState(
+            {
+                job: oldInfo,
+            },
+            () => {
+                this.props.updateJob(this.state.job);
+            },
+        );
     }
 
     flatRateHandler(e, target_) {
@@ -50,13 +55,14 @@ export default class PaymentOptions extends Component {
         let baza = oldInfo.flatRate[0];
         baza[target_] = valueOf;
         oldInfo.flatRate[0] = baza;
-        console.log(
-            'TCL: PaymentOptions -> flatRateHandler -> oldInfo.flatRate[target_]',
-            oldInfo.flatRate,
+        this.setState(
+            {
+                job: oldInfo,
+            },
+            () => {
+                this.props.updateJob(this.state.job);
+            },
         );
-        this.setState({
-            job: oldInfo,
-        });
     }
 
     render() {
@@ -117,8 +123,8 @@ export default class PaymentOptions extends Component {
                             className="xx"
                             type="number"
                             placeholder="0"
-                            value={this.state.job.hourlyRatesCash}
-                            onChange={e => this.changeHandler(e, 'hourlyRatesCash')}
+                            value={this.state.job.hourlyRatesCard}
+                            onChange={e => this.changeHandler(e, 'hourlyRatesCard')}
                         />
                         <label className="active" htmlFor="hourly_rates_card">
                             Hourly rates (card)

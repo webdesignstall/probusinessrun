@@ -10,6 +10,8 @@ import PaymentOptions from './PaymentOptions';
 import TempTrucks from '../../../client/templates/quote/TempTrucks';
 import FollowUps from './FollowUps';
 import FinalNote from './FinalNote';
+import { Meteor } from 'meteor/meteor';
+import swal from 'sweetalert';
 
 /*global $ moment*/
 
@@ -25,6 +27,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
 
         this.onChangeHandler = this.onChangeHandler.bind(this);
         this.updateJob = this.updateJob.bind(this);
+        this.saveJob = this.saveJob.bind(this);
     }
 
     workData(id) {
@@ -32,7 +35,6 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
     }
 
     updateJob(obj) {
-        console.log('TCL: ExtendedJobInformation -> updateJob -> obj', obj);
         let oldInfo = this.state.job;
         let job = Object.assign(oldInfo, obj);
         this.setState({
@@ -177,20 +179,26 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
     }
 
     saveJob() {
-        let workDate = document.getElementById('quote-date-picker-followup');
-        // let doc = {
-        //     clientFirstName,
-        //     clientLastName,
-        //     phoneNumber,
-        //     phoneAdditional,
-        //     addresses: [],
-        //     numberOfWorkers,
-        //     comment,
-        //     price,
-        //     workMustBeginTime: [],
-        //     quote,
-        //     company,
-        // };
+        let workDate = document.getElementById('quote-date-picker-followup').value;
+        let doc = this.state.job;
+        doc.workDate = workDate;
+
+        Meteor.call('updateWork', doc, err => {
+            err
+                ? (console.log(err),
+                swal({
+                    title: 'Error!',
+                    text: 'Reason: ' + err.message,
+                    icon: 'error',
+                    button: 'OK',
+                }))
+                : swal({
+                    title: 'Success!',
+                    text: 'Information updated successfully',
+                    icon: 'success',
+                    button: 'OK',
+                });
+        });
     }
 
     render() {
@@ -209,7 +217,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                         onChange={e => this.onChangeHandler(e, 'clientFirstName')}
                         type="text"
                         id="first_name_followUp"
-                        value={this.state.job.clientFirstName}
+                        value={this.state.job.clientFirstName || ''}
                     />
                 </div>
                 <div className="col s12 m2 l2">
@@ -220,7 +228,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                         onChange={e => this.onChangeHandler(e, 'clientLastName')}
                         type="text"
                         id="last_name_followUp"
-                        value={this.state.job.clientLastName}
+                        value={this.state.job.clientLastName || ''}
                     />
                 </div>
                 <div className="col s12 m2 l2">
@@ -231,7 +239,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                         onChange={e => this.onChangeHandler(e, 'phoneNumber')}
                         type="number"
                         id="phone_number_followUp"
-                        value={this.state.job.phoneNumber}
+                        value={this.state.job.phoneNumber || ''}
                     />
                 </div>
                 <div className="col s12 m2 l2">
@@ -242,7 +250,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                         onChange={e => this.onChangeHandler(e, 'phoneAdditional')}
                         type="number"
                         id="additional_phone_number_followUp"
-                        value={this.state.job.phoneAdditional}
+                        value={this.state.job.phoneAdditional || ''}
                     />
                 </div>
                 <div className="col s12 m4 l4">
@@ -253,13 +261,13 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                         onChange={e => this.onChangeHandler(e, 'email')}
                         type="email"
                         id="email_followUp"
-                        value={this.state.job.email}
+                        value={this.state.job.email || ''}
                     />
                 </div>
                 <div className="col s12 m12 l12">
                     <AdditionalContacts
                         updateJob={this.updateJob}
-                        contacts={this.state.job.additionalContacts}
+                        contacts={this.state.job.additionalContacts || []}
                     />
                 </div>
                 <div className="clear padding5px" />
@@ -273,11 +281,12 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                             Moving Date
                         </label>
                         <input
+                            onChange={() => console.log('date selected')}
                             id="quote-date-picker-followup"
                             className="xx"
                             type="text"
                             placeholder=""
-                            value={this.state.job.workDate}
+                            value={this.state.job.workDate || ''}
                         />
                     </div>
                     <div className="col s12 m3 l3">
@@ -290,7 +299,9 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                             type="text"
                             id={'first_contact_date_followup' + Session.get('is')}
                             disabled={true}
-                            value={moment(this.state.job.quoteDate).format('d MMMM YYYY hh:mm a')}
+                            value={
+                                moment(this.state.job.quoteDate).format('d MMMM YYYY hh:mm a') || ''
+                            }
                         />
                     </div>
                     <div className="col s12 m3 l2">
@@ -303,7 +314,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                             disabled={true}
                             type="text"
                             id={'job_number_followup' + Session.get('is')}
-                            value={this.state.job.jobNumber}
+                            value={this.state.job.jobNumber || ''}
                         />
                     </div>
                     <div className="col s12 m3 l2">
@@ -366,7 +377,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                                 id={'small_item_pack_followup' + this.state.job._id}
                                 className="xx"
                                 type="number"
-                                value={this.state.job.smallItemPacking}
+                                value={this.state.job.smallItemPacking || ''}
                                 placeholder="0"
                             />
                         </div>
@@ -378,9 +389,9 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                             </label>
                             <input
                                 onChange={e => this.onChangeHandler(e, 'largeItemFee')}
-                                type="text"
+                                type="number"
                                 id={'large_item_fee_followup' + Session.get('is')}
-                                value={this.state.job.largeItemFee}
+                                value={this.state.job.largeItemFee || ''}
                             />
                         </div>
                         <div className="col s12 m6 l2">
@@ -429,7 +440,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                             <input
                                 onChange={e => this.onChangeHandler(e, 'gasFee')}
                                 id={'gas_fee_followup' + this.state.job._id}
-                                value={this.state.job.gasFee}
+                                value={this.state.job.gasFee || ''}
                                 className="xx"
                                 type="number"
                                 placeholder="0"
@@ -443,9 +454,9 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                             </label>
                             <input
                                 onChange={e => this.onChangeHandler(e, 'deposit')}
-                                type="text"
+                                type="number"
                                 id={'deposit_followup' + this.state.job._id}
-                                value={this.state.job.deposit}
+                                value={this.state.job.deposit || ''}
                             />
                         </div>
                         <div className="col s12 m6 l2">
@@ -485,7 +496,10 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                         </div>
                     </div>
                     <div className="row">
-                        <FollowUps followUpList={this.state.job.followUp} />
+                        <FollowUps
+                            followUpList={this.state.job.followUp || [{}]}
+                            updateJob={this.updateJob}
+                        />
                     </div>
                 </div>
                 <div className="clear" />
