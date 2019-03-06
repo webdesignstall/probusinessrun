@@ -214,6 +214,43 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
         });
     }
 
+    sendQuote() {
+        let workDate = document.getElementById('quote-date-picker-followup').value;
+        let doc = this.state.job;
+        doc.workDate = workDate;
+
+        Meteor.call('updateWork', doc, err => {
+            if (err) {
+                swal({
+                    title: 'Error!',
+                    text: 'Something went wrong. Can\'t send quote email. Reason: ' + err.message,
+                    icon: 'error',
+                    button: 'OK',
+                });
+            } else {
+                // TODO: fix this part
+                Meteor.call('emailGonder', doc, err => {
+                    err
+                        ? (console.log(err),
+                        swal({
+                            title: 'Error!',
+                            text:
+                                  'Something went wrong. Can\'t send quote email. Reason: ' +
+                                  err.message,
+                            icon: 'error',
+                            button: 'OK',
+                        }))
+                        : swal({
+                            title: 'Success!',
+                            text: 'Quote sent successfully',
+                            icon: 'success',
+                            button: 'OK',
+                        });
+                });
+            }
+        });
+    }
+
     render() {
         return (
             <div
@@ -294,7 +331,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                             Moving Date
                         </label>
                         <input
-                            onChange={() => console.log('date selected')}
+                            onChange={() => 1 + 1}
                             id="quote-date-picker-followup"
                             className="xx"
                             type="text"
@@ -481,7 +518,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                         <PaymentOptions job={this.state.job} updateJob={this.updateJob} />
                     </div>
                     <div className="row">
-                        <TempTrucks update={true} />
+                        <TempTrucks update={true} updateJob={this.updateJob} />
                     </div>
                     <div className="row">
                         <div className="col s12 m6 l6">
@@ -524,7 +561,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                         <i className="material-icons left">update</i>
                         Update / Save
                     </a>
-                    <a className="waves-effect waves-light btn teal">
+                    <a onClick={this.sendQuote} className="waves-effect waves-light btn teal">
                         <i className="material-icons left">send</i>
                         Send Quote
                     </a>

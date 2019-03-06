@@ -91,15 +91,6 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
                 </g>
             </svg>
         );
-        let goyFollowUp = (
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 22 22">
-                <circle cx="11" cy="11" r="11" fill="#25B7D9" />
-                <g transform="translate(3.667 3.667)" fill="#25B7D9" stroke="#fff" strokeWidth="1">
-                    <circle cx="7.333" cy="7.333" r="7.333" stroke="none" />
-                    <circle cx="7.333" cy="7.333" r="6.833" fill="none" />
-                </g>
-            </svg>
-        );
         let redFollowUp = (
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 22 22">
                 <circle cx="11" cy="11" r="11" fill="#f8731b" />
