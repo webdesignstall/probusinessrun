@@ -28,6 +28,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
         this.onChangeHandler = this.onChangeHandler.bind(this);
         this.updateJob = this.updateJob.bind(this);
         this.saveJob = this.saveJob.bind(this);
+        this.sendQuote = this.sendQuote.bind(this);
     }
 
     workData(id) {
@@ -219,6 +220,35 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
         let doc = this.state.job;
         doc.workDate = workDate;
 
+        let objNew = {
+            _id: doc._id,
+            firstName: doc.clientFirstName,
+            lastName: doc.clientLastName,
+            phone: doc.phoneNumber,
+            phoneAdditional: doc.phoneAdditional,
+            email: doc.email,
+            addresses: doc.addresses,
+            movingDateConverted: moment(doc.workDate).format('MM/DD/YYYY'),
+            workMustBeginTime: doc.workMustBeginTime,
+            price: doc.price,
+            minimumLaborTime: doc.laborTime,
+            hourlyRatesCash: doc.hourlyRatesCash,
+            hourlyRatesCard: doc.hourlyRatesCard,
+            companyInfo: doc.companyInfo,
+            doubleDrive: doc.doubleDrive,
+            gasFee: doc.gasFee,
+            smallPackingItems: doc.smallItemPacking,
+            largeItemFee: doc.largeItemFee,
+            movingSize: doc.movingSize,
+            trucksTemp: doc.trucksTemp,
+            flatRate: doc.flatRate[0].isTrue,
+            flatRateCash: doc.flatRate[0].cashAmount,
+            flatRateCard: doc.flatRate[0].cardAmount,
+            jobNumber: doc.jobNumber,
+            numberOfWorkers: doc.numberOfWorkers,
+            additionalContacts: doc.additionalContacts,
+        };
+
         Meteor.call('updateWork', doc, err => {
             if (err) {
                 swal({
@@ -228,8 +258,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                     button: 'OK',
                 });
             } else {
-                // TODO: fix this part
-                Meteor.call('emailGonder', doc, err => {
+                Meteor.call('emailGonder', objNew, err => {
                     err
                         ? (console.log(err),
                         swal({
