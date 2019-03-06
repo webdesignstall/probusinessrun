@@ -44,7 +44,7 @@ export default class PaymentOptions extends Component {
                 job: oldInfo,
             },
             () => {
-                this.props.updateJob(this.state.job);
+                this.props.updateJob && this.props.updateJob(this.state.job);
             },
         );
     }
@@ -60,7 +60,7 @@ export default class PaymentOptions extends Component {
                 job: oldInfo,
             },
             () => {
-                this.props.updateJob(this.state.job);
+                this.props.updateJob && this.props.updateJob(this.state.job);
             },
         );
     }
@@ -123,7 +123,7 @@ export default class PaymentOptions extends Component {
                             className="xx"
                             type="number"
                             placeholder="0"
-                            value={this.state.job.hourlyRatesCard}
+                            value={this.state.job.hourlyRatesCard || ''}
                             onChange={e => this.changeHandler(e, 'hourlyRatesCard')}
                         />
                         <label className="active" htmlFor="hourly_rates_card">
@@ -196,5 +196,5 @@ export default class PaymentOptions extends Component {
 
 PaymentOptions.propTypes = {
     job: PropTypes.object.isRequired,
-    updateJob: PropTypes.func.isRequired,
+    updateJob: PropTypes.func,
 };

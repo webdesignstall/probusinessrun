@@ -52,21 +52,26 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
 
         // small item packing
         let element = document.getElementById('small_item_pack_followup' + this.state.job._id);
-        this.state.job.smallItemPacking == -1
-            ? ((document.getElementById(
-                'small_item_pack_followup_check' + this.state.job._id,
-            ).checked = true),
-            (element.disabled = true))
-            : ((document.getElementById(
-                'small_item_pack_followup_check' + this.state.job._id,
-            ).checked = false),
-            (element.disabled = false));
+        element
+            ? this.state.job.smallItemPacking == -1
+                ? ((document.getElementById(
+                    'small_item_pack_followup_check' + this.state.job._id,
+                ).checked = true),
+                (element.disabled = true))
+                : ((document.getElementById(
+                    'small_item_pack_followup_check' + this.state.job._id,
+                ).checked = false),
+                (element.disabled = false))
+            : null;
 
         // gas fee
         if (this.state.job.gasFee == -0.01) {
             document.getElementById('gas_fee_check_followup').checked = true;
             document.getElementById('gas_fee_followup' + this.state.job._id).disabled = true;
-        } else {
+        } else if (
+            document.getElementById('gas_fee_followup' + this.state.job._id) &&
+            document.getElementById('gas_fee_check_followup')
+        ) {
             document.getElementById('gas_fee_followup' + this.state.job._id).disabled = false;
             document.getElementById('gas_fee_check_followup').checked = false;
             document.getElementById('gas_fee_followup' + this.state.job._id).value = 0;
@@ -78,21 +83,29 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
         // small item packing
 
         let element = document.getElementById('small_item_pack_followup' + this.state.job._id);
-        this.state.job.smallItemPacking == -1
-            ? ((document.getElementById(
-                'small_item_pack_followup_check' + this.state.job._id,
-            ).checked = true),
-            (element.disabled = true))
-            : ((document.getElementById(
-                'small_item_pack_followup_check' + this.state.job._id,
-            ).checked = false),
-            (element.disabled = false));
-
+        document.getElementById('small_item_pack_followup_check' + this.state.job._id)
+            ? this.state.job.smallItemPacking == -1
+                ? ((document.getElementById(
+                    'small_item_pack_followup_check' + this.state.job._id,
+                ).checked = true),
+                (element.disabled = true))
+                : ((document.getElementById(
+                    'small_item_pack_followup_check' + this.state.job._id,
+                ).checked = false),
+                (element.disabled = false))
+            : null;
         // gas fee
-        if (this.state.job.gasFee == -0.01) {
+        if (
+            this.state.job.gasFee == -0.01 &&
+            document.getElementById('gas_fee_check_followup') &&
+            document.getElementById('gas_fee_followup' + this.state.job._id)
+        ) {
             document.getElementById('gas_fee_check_followup').checked = true;
             document.getElementById('gas_fee_followup' + this.state.job._id).disabled = true;
-        } else {
+        } else if (
+            document.getElementById('gas_fee_check_followup') &&
+            document.getElementById('gas_fee_followup' + this.state.job._id)
+        ) {
             document.getElementById('gas_fee_followup' + this.state.job._id).disabled = false;
             document.getElementById('gas_fee_check_followup').checked = false;
             document.getElementById('gas_fee_followup' + this.state.job._id).value = 0;

@@ -122,10 +122,14 @@ export default class ArrivalWindow extends TrackerReact(Component) {
                             err ? console.log(err) : null;
                             document.getElementById(
                                 'select-arrive-time' + this.state.randomNumber,
-                            ).value = difValue;
+                            )
+                                ? (document.getElementById(
+                                    'select-arrive-time' + this.state.randomNumber,
+                                ).value = difValue)
+                                : null;
                             let workMustBeginTime = [this.state.time1, this.state.time2];
 
-                            this.props.updateJob({ workMustBeginTime });
+                            this.props.updateJob && this.props.updateJob({ workMustBeginTime });
                         },
                     )
                     : isMorningAfternoon
@@ -139,10 +143,14 @@ export default class ArrivalWindow extends TrackerReact(Component) {
                                 err ? console.log(err) : null;
                                 document.getElementById(
                                     'select-arrive-time' + this.state.randomNumber,
-                                ).value = 'Morning & Afternoon';
+                                )
+                                    ? (document.getElementById(
+                                        'select-arrive-time' + this.state.randomNumber,
+                                    ).value = 'Morning & Afternoon')
+                                    : null;
                                 let workMustBeginTime = [this.state.time1, this.state.time2];
 
-                                this.props.updateJob({ workMustBeginTime });
+                                this.props.updateJob && this.props.updateJob({ workMustBeginTime });
                             },
                         )
                         : isCustom
@@ -156,52 +164,61 @@ export default class ArrivalWindow extends TrackerReact(Component) {
                                     err ? console.log(err) : null;
                                     document.getElementById(
                                         'select-arrive-time' + this.state.randomNumber,
-                                    ).value = 'Custom';
+                                    )
+                                        ? (document.getElementById(
+                                            'select-arrive-time' + this.state.randomNumber,
+                                        ).value = 'Custom')
+                                        : null;
                                     let workMustBeginTime = [this.state.time1, this.state.time2];
 
-                                    this.props.updateJob({ workMustBeginTime });
+                                    this.props.updateJob && this.props.updateJob({ workMustBeginTime });
                                 },
                             )
                             : null;
             }
+            let arrTime = document.getElementById('select-arrive-time' + this.state.randomNumber);
 
-            document.getElementById(
-                'select-arrive-time' + this.state.randomNumber,
-            ).onchange = () => {
-                let value = document.getElementById('select-arrive-time' + this.state.randomNumber)
-                    .value;
-                if (value === 'Custom') {
-                    this.setState({
-                        custom: true,
+            arrTime
+                ? (document.getElementById(
+                    'select-arrive-time' + this.state.randomNumber,
+                ).onchange = () => {
+                    let value = document.getElementById(
+                        'select-arrive-time' + this.state.randomNumber,
+                    ).value;
+                    if (value === 'Custom') {
+                        this.setState({
+                            custom: true,
+                        });
+                    } else {
+                        this.setState({
+                            custom: false,
+                        });
+                    }
+
+                    let selectedOption = '';
+
+                    Array.from(document.getElementsByTagName('option')).map(option => {
+                        option.value === this.arrivalTime.current.value
+                            ? (selectedOption = option)
+                            : null;
                     });
-                } else {
-                    this.setState({
-                        custom: false,
-                    });
-                }
 
-                let selectedOption = '';
+                    selectedOption !== ''
+                        ? this.setState(
+                            {
+                                time1: selectedOption.getAttribute('data-time1'),
+                                time2: selectedOption.getAttribute('data-time2'),
+                            },
+                            () => {
+                                let workMustBeginTime = [this.state.time1, this.state.time2];
 
-                Array.from(document.getElementsByTagName('option')).map(option => {
-                    option.value === this.arrivalTime.current.value
-                        ? (selectedOption = option)
+                                this.props.updateJob &&
+                                        this.props.updateJob({ workMustBeginTime });
+                            },
+                        )
                         : null;
-                });
-
-                selectedOption !== ''
-                    ? this.setState(
-                        {
-                            time1: selectedOption.getAttribute('data-time1'),
-                            time2: selectedOption.getAttribute('data-time2'),
-                        },
-                        () => {
-                            let workMustBeginTime = [this.state.time1, this.state.time2];
-
-                            this.props.updateJob({ workMustBeginTime });
-                        },
-                    )
-                    : null;
-            };
+                })
+                : null;
         });
     }
 
@@ -256,7 +273,7 @@ export default class ArrivalWindow extends TrackerReact(Component) {
             () => {
                 let workMustBeginTime = [this.state.time1, this.state.time2];
 
-                this.props.updateJob({ workMustBeginTime });
+                this.props.updateJob && this.props.updateJob({ workMustBeginTime });
             },
         );
     }
@@ -308,5 +325,5 @@ export default class ArrivalWindow extends TrackerReact(Component) {
 }
 
 ArrivalWindow.propTypes = {
-    updateJob: PropTypes.func.isRequired,
+    updateJob: PropTypes.func,
 };

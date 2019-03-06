@@ -11,31 +11,28 @@ export default class List extends TrackerReact(Component) {
         super(props);
 
         this.state = {
-            jobs: []
+            jobs: [],
         };
 
         this.renderList = this.renderList.bind(this);
     }
 
     workData() {
-        let jobs = WorkData.find({}).fetch();
-        jobs.sort((a, b) => {
-            return (new Date(b.workDate).getTime()) - (new Date(a.workDate).getTime());
-        });
-        return jobs;
+        return WorkData.find({}).fetch();
     }
 
     componentDidMount() {
         this.x = Tracker.autorun(() => {
-            const jobs = this.workData();
+            const jobs = this.workData().sort((a, b) => {
+                return new Date(b.workDate).getTime() - new Date(a.workDate).getTime();
+            });
+
             Session.get('searchResult').length > 0
                 ? null
-                : (
-                    Session.set('searchResult', jobs),
-                    this.setState({
-                        jobs
-                    })
-                );
+                : (Session.set('searchResult', jobs),
+                this.setState({
+                    jobs,
+                }));
         });
     }
 
@@ -44,30 +41,21 @@ export default class List extends TrackerReact(Component) {
     }
 
     renderList() {
-        return (
-            Session.get('searchResult') && Session.get('searchResult').length > 0
-                ? Session.get('searchResult').map((job) => {
-                    return (
-                        <div
-                            key={job._id + 'followUpList'}
-                            className="collection-item"
-                        >
-                            <ListInnerDisplay job={job} />
-                        </div>
-                    );
-                })
-                : null
-        );
+        return Session.get('searchResult') && Session.get('searchResult').length > 0
+            ? Session.get('searchResult').map(job => {
+                return (
+                    <div key={job._id + 'followUpList'} className="collection-item">
+                        <ListInnerDisplay job={job} />
+                    </div>
+                );
+            })
+            : null;
     }
 
     render() {
         return (
-            <div
-                className="collection"
-            >
-                <FlipMove>
-                    {this.renderList()}
-                </FlipMove>
+            <div className="collection">
+                <FlipMove>{this.renderList()}</FlipMove>
             </div>
         );
     }

@@ -5,12 +5,9 @@ import '../imports/imports';
 import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
 
+/*global $, Bert*/ window.jQuery = window.$ = $;
 
-/*global $, Bert*/ //defined globals
-
-window.jQuery = window.$ = $;
-
-$(document).ready(function () {
+$(document).ready(function() {
     $('select').material_select();
 
     // $('#quote-date-picker').pickadate({
@@ -34,17 +31,15 @@ $(document).ready(function () {
     // Time picker
     $('#quote-time-picker-from, #quote-time-picker-to').pickatime({
         default: '9:00AM', // Set default time: 'now', '1:30AM', '16:30'
-        fromnow: 0,       // set default time to * milliseconds from now (using with default = 'now')
+        fromnow: 0, // set default time to * milliseconds from now (using with default = 'now')
         twelvehour: true, // Use AM/PM or 24-hour format
         donetext: 'SELECT', // text for done-button
         cleartext: 'Clear', // text for clear-button
         canceltext: 'Cancel', // Text for cancel-button
         autoclose: false, // automatic close timepicker
         ampmclickable: true, // make AM PM clickable
-        aftershow: function () { } //Function for after opening timepicker
+        aftershow: function() {}, //Function for after opening timepicker
     });
-
-
 });
 
 Meteor.startup(() => {
@@ -74,7 +69,7 @@ Meteor.startup(() => {
         style: 'fixed-top',
         // Accepts: fixed-top, fixed-bottom, growl-top-left,   growl-top-right,
         // growl-bottom-left, growl-bottom-right.
-        type: 'default'
+        type: 'default',
         // Accepts: default, success, info, warning, danger.
     };
 });

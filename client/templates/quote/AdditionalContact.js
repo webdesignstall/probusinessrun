@@ -65,7 +65,7 @@ export default class AdditionalContact extends TrackerReact(Component) {
             },
             () => {
                 Session.set('additionalContacts', this.state.additionalContacts);
-                this.props.updateJob(this.state);
+                this.props.updateJob && this.props.updateJob(this.state);
             },
         );
     }
@@ -204,6 +204,6 @@ export default class AdditionalContact extends TrackerReact(Component) {
 }
 
 AdditionalContact.propTypes = {
-    updateJob: PropTypes.func.isRequired,
-    contacts: PropTypes.array.isRequired,
+    updateJob: PropTypes.func,
+    contacts: PropTypes.array,
 };

@@ -27,9 +27,10 @@ export default class Addresses extends React.Component {
 
             isInfo && isInfo.addresses.length > 0
                 ? this.setState({ arrayOfvalue: isInfo.addresses }, () => {
-                    this.props.updateJob({
-                        addresses: this.state.arrayOfvalue,
-                    });
+                    this.props.updateJob &&
+                          this.props.updateJob({
+                              addresses: this.state.arrayOfvalue,
+                          });
                 })
                 : null;
         });
@@ -41,9 +42,10 @@ export default class Addresses extends React.Component {
                 arrayOfvalue: ['', ''],
             },
             () => {
-                this.props.updateJob({
-                    addresses: this.state.arrayOfvalue,
-                });
+                this.props.updateJob &&
+                    this.props.updateJob({
+                        addresses: this.state.arrayOfvalue,
+                    });
             },
         );
         // this.forceUpdate();
@@ -57,9 +59,10 @@ export default class Addresses extends React.Component {
         let arrayOfvalue = [...this.state.arrayOfvalue];
         arrayOfvalue[i] = event.target.value;
         this.setState({ arrayOfvalue }, () => {
-            this.props.updateJob({
-                addresses: this.state.arrayOfvalue,
-            });
+            this.props.updateJob &&
+                this.props.updateJob({
+                    addresses: this.state.arrayOfvalue,
+                });
         });
     }
 
@@ -97,9 +100,10 @@ export default class Addresses extends React.Component {
                 arrayOfvalue: [...prevState.arrayOfvalue, ''],
             }),
             () => {
-                this.props.updateJob({
-                    addresses: this.state.arrayOfvalue,
-                });
+                this.props.updateJob &&
+                    this.props.updateJob({
+                        addresses: this.state.arrayOfvalue,
+                    });
             },
         );
     }
@@ -124,5 +128,5 @@ export default class Addresses extends React.Component {
 }
 
 Addresses.propTypes = {
-    updateJob: PropTypes.func.isRequired,
+    updateJob: PropTypes.func,
 };

@@ -41,7 +41,7 @@ export default class FinalNote extends Component {
         finalNote.other = other;
         finalNote[what] = value;
         this.setState({ finalNote }, () => {
-            this.props.updateJob(this.state);
+            this.props.updateJob && this.props.updateJob(this.state);
         });
     }
 
@@ -94,5 +94,5 @@ export default class FinalNote extends Component {
 
 FinalNote.propTypes = {
     finalNote: PropTypes.object.isRequired,
-    updateJob: PropTypes.func.isRequired,
+    updateJob: PropTypes.func,
 };

@@ -2,24 +2,45 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Session } from 'meteor/session';
 import ExtendedJobInformation from './ExtendedJobInformation';
+import TrackerReact from 'meteor/ultimatejs:tracker-react';
+import WorkData from '../../../common/collections_2';
+import { Tracker } from 'meteor/tracker';
 
-export default class ListInnerDisplay extends Component {
+export default class ListInnerDisplay extends TrackerReact(Component) {
     constructor(props) {
         super(props);
 
         this.state = {
             show: '',
+            job: {},
         };
 
         this.showMore = this.showMore.bind(this);
+        this.displayInfo = this.displayInfo.bind(this);
+    }
+
+    UNSAFE_componentWillReceiveProps(nextProps) {
+        this.setState({
+            job: this.workData(nextProps.job._id)[0],
+        });
+    }
+
+    workData(_id) {
+        return WorkData.find({ _id }).fetch();
     }
 
     componentDidMount() {
-        Session.set('ExtendedJobInformation', '');
+        this.x = Tracker.autorun(() => {
+            this.setState({
+                job: this.workData(this.props.job._id)[0],
+            });
+            Session.set('ExtendedJobInformation', '');
+        });
     }
 
     componentWillUnmount() {
         Session.set('ExtendedJobInformation', '');
+        this.x.stop();
     }
 
     statusOfJob() {
@@ -28,11 +49,11 @@ export default class ListInnerDisplay extends Component {
                 <span>
                     <i
                         className={
-                            this.props.job.status === 'inProgress'
+                            this.state.job.status === 'inProgress'
                                 ? 'material-icons sari-text'
-                                : this.props.job.status === 'won'
+                                : this.state.job.status === 'won'
                                     ? 'material-icons yasil-text'
-                                    : this.props.job.status === 'lost'
+                                    : this.state.job.status === 'lost'
                                         ? 'material-icons narinci-text'
                                         : 'material-icons'
                         }
@@ -46,11 +67,11 @@ export default class ListInnerDisplay extends Component {
                     </i>
                 </span>
                 <span style={{ marginRight: '10px' }}>
-                    {this.props.job.status === 'inProgress'
+                    {this.state.job.status === 'inProgress'
                         ? 'IN PROGRESS'
-                        : this.props.job.status === 'won'
+                        : this.state.job.status === 'won'
                             ? 'WON'
-                            : this.props.job.status === 'lost'
+                            : this.state.job.status === 'lost'
                                 ? 'LOST'
                                 : 'STATUS UNDEFINED'}
                 </span>
@@ -62,85 +83,45 @@ export default class ListInnerDisplay extends Component {
         let status = [{}, {}, {}, {}, {}];
 
         let greenFollowUp = (
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 22 22">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 22 22">
                 <circle cx="11" cy="11" r="11" fill="#5ABB7E" />
-                <g
-                    transform="translate(3.667 3.667)"
-                    fill="#5ABB7E"
-                    stroke="#fff"
-                    strokeWidth="1">
+                <g transform="translate(3.667 3.667)" fill="#5ABB7E" stroke="#fff" strokeWidth="1">
                     <circle cx="7.333" cy="7.333" r="7.333" stroke="none" />
                     <circle cx="7.333" cy="7.333" r="6.833" fill="none" />
                 </g>
             </svg>
         );
         let goyFollowUp = (
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 22 22">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 22 22">
                 <circle cx="11" cy="11" r="11" fill="#25B7D9" />
-                <g
-                    transform="translate(3.667 3.667)"
-                    fill="#25B7D9"
-                    stroke="#fff"
-                    strokeWidth="1">
+                <g transform="translate(3.667 3.667)" fill="#25B7D9" stroke="#fff" strokeWidth="1">
                     <circle cx="7.333" cy="7.333" r="7.333" stroke="none" />
                     <circle cx="7.333" cy="7.333" r="6.833" fill="none" />
                 </g>
             </svg>
         );
         let redFollowUp = (
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 22 22">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 22 22">
                 <circle cx="11" cy="11" r="11" fill="#f8731b" />
-                <g
-                    transform="translate(3.667 3.667)"
-                    fill="#f8731b"
-                    stroke="#fff"
-                    strokeWidth="1">
+                <g transform="translate(3.667 3.667)" fill="#f8731b" stroke="#fff" strokeWidth="1">
                     <circle cx="7.333" cy="7.333" r="7.333" stroke="none" />
                     <circle cx="7.333" cy="7.333" r="6.833" fill="none" />
                 </g>
             </svg>
         );
         let greyFollowUp = (
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 22 22">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 22 22">
                 <circle cx="11" cy="11" r="11" fill="#a0a7a7" />
-                <g
-                    transform="translate(3.667 3.667)"
-                    fill="#a0a7a7"
-                    stroke="#fff"
-                    strokeWidth="1">
+                <g transform="translate(3.667 3.667)" fill="#a0a7a7" stroke="#fff" strokeWidth="1">
                     <circle cx="7.333" cy="7.333" r="7.333" stroke="none" />
                     <circle cx="7.333" cy="7.333" r="6.833" fill="none" />
                 </g>
             </svg>
         );
         let sariFollowUp = (
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 22 22">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 22 22">
                 <circle cx="11" cy="11" r="11" fill="#EEC55C" />
-                <g
-                    transform="translate(3.667 3.667)"
-                    fill="#EEC55C"
-                    stroke="#fff"
-                    strokeWidth="1">
+                <g transform="translate(3.667 3.667)" fill="#EEC55C" stroke="#fff" strokeWidth="1">
                     <circle cx="7.333" cy="7.333" r="7.333" stroke="none" />
                     <circle cx="7.333" cy="7.333" r="6.833" fill="none" />
                 </g>
@@ -155,16 +136,10 @@ export default class ListInnerDisplay extends Component {
                             position: 'relative',
                             top: '3px',
                         }}>
-                        {index <
-                        (this.props.job.followUp
-                            ? this.props.job.followUp.length
-                            : -1)
+                        {index < (this.state.job.followUp ? this.state.job.followUp.length : -1)
                             ? index ===
-                              (this.props.job.followUp
-                                  ? this.props.job.followUp.length - 1
-                                  : -1)
-                                ? this.props.job.status &&
-                                  this.props.job.status === 'lost'
+                              (this.state.job.followUp ? this.state.job.followUp.length - 1 : -1)
+                                ? this.state.job.status && this.state.job.status === 'lost'
                                     ? redFollowUp
                                     : greenFollowUp
                                 : sariFollowUp
@@ -188,8 +163,8 @@ export default class ListInnerDisplay extends Component {
                                 fill="none"
                                 stroke={
                                     index <
-                                    (this.props.job.followUp
-                                        ? this.props.job.followUp.length - 1
+                                    (this.state.job.followUp
+                                        ? this.state.job.followUp.length - 1
                                         : 0)
                                         ? '#EEC55C'
                                         : '#98ABAB'
@@ -204,93 +179,97 @@ export default class ListInnerDisplay extends Component {
     }
 
     reason() {
-        return <span>{this.props.job.reason}</span>;
+        return <span>{this.state.job.reason}</span>;
     }
 
     showMore(e) {
         e.preventDefault();
         let session = Session.get('ExtendedJobInformation');
-        this.props.job._id === session
+        this.state.job._id === session
             ? (Session.set('ExtendedJobInformation', ''),
             Session.set('is', ''),
             this.setState({ show: '' }))
-            : (Session.set('ExtendedJobInformation', this.props.job._id),
-            Session.set('is', this.props.job._id),
-            this.setState({ show: this.props.job._id }));
+            : (Session.set('ExtendedJobInformation', this.state.job._id),
+            Session.set('is', this.state.job._id),
+            this.setState({ show: this.state.job._id }));
+    }
+
+    displayInfo() {
+        return (
+            <div className={this.state.job._id ? '' : 'hide'}>
+                <span
+                    style={{
+                        marginRight: '8px',
+                    }}>
+                    {this.state.job ? this.state.job.clientFirstName : ''}
+                </span>
+                <span
+                    style={{
+                        marginRight: '8px',
+                    }}>
+                    {this.state.job ? this.state.job.clientLastName : ''}
+                </span>
+                <span
+                    style={{
+                        marginRight: '8px',
+                        backgroundColor: '#3D587E',
+                        borderRadius: '5px',
+                        color: 'white',
+                        padding: '5px 10px',
+                    }}>
+                    {this.state.job ? this.state.job.workDate : ''}
+                </span>
+                <span
+                    style={{
+                        marginRight: '8px',
+                        borderRadius: '5px',
+                        backgroundColor: '#67AD5B',
+                        color: 'white',
+                        padding: '5px 10px',
+                    }}>
+                    {this.state.job ? this.state.job.jobNumber : ''}
+                </span>
+                {this.statusOfJob()}
+                {this.followUpStatus()}
+                <span
+                    style={{
+                        marginRight: '8px',
+                        borderRadius: '5px',
+                        color: '#50325C',
+                        padding: '5px 10px',
+                    }}>
+                    {this.state.job.companyInfo ? this.state.job.companyInfo.name || '' : ''}
+                </span>
+                {this.reason()}
+                {this.state.job._id === this.state.show ? (
+                    <i
+                        style={{ top: '-5px', cursor: 'pointer' }}
+                        className="material-icons right"
+                        onClick={e => this.showMore(e)}>
+                        close
+                    </i>
+                ) : (
+                    <i
+                        style={{ top: '-5px', cursor: 'pointer' }}
+                        className="material-icons right"
+                        onClick={e => this.showMore(e)}>
+                        edit
+                    </i>
+                )}
+                {Session.get('ExtendedJobInformation') !== '' ? (
+                    <ExtendedJobInformation job={this.state.job} />
+                ) : (
+                    ''
+                )}
+            </div>
+        );
     }
 
     render() {
         return (
             <React.Fragment>
-                <div className={this.props.job._id ? '' : 'hide'}>
-                    <span
-                        style={{
-                            marginRight: '8px',
-                        }}>
-                        {this.props.job ? this.props.job.clientFirstName : ''}
-                    </span>
-                    <span
-                        style={{
-                            marginRight: '8px',
-                        }}>
-                        {this.props.job ? this.props.job.clientLastName : ''}
-                    </span>
-                    <span
-                        style={{
-                            marginRight: '8px',
-                            backgroundColor: '#3D587E',
-                            borderRadius: '5px',
-                            color: 'white',
-                            padding: '5px 10px',
-                        }}>
-                        {this.props.job ? this.props.job.workDate : ''}
-                    </span>
-                    <span
-                        style={{
-                            marginRight: '8px',
-                            borderRadius: '5px',
-                            backgroundColor: '#67AD5B',
-                            color: 'white',
-                            padding: '5px 10px',
-                        }}>
-                        {this.props.job ? this.props.job.jobNumber : ''}
-                    </span>
-                    {this.statusOfJob()}
-                    {this.followUpStatus()}
-                    <span
-                        style={{
-                            marginRight: '8px',
-                            borderRadius: '5px',
-                            color: '#50325C',
-                            padding: '5px 10px',
-                        }}>
-                        {this.props.job.companyInfo
-                            ? this.props.job.companyInfo.name || ''
-                            : ''}
-                    </span>
-                    {this.reason()}
-                    {this.props.job._id === this.state.show ? (
-                        <i
-                            style={{ top: '-5px', cursor: 'pointer' }}
-                            className="material-icons right"
-                            onClick={e => this.showMore(e)}>
-                            close
-                        </i>
-                    ) : (
-                        <i
-                            style={{ top: '-5px', cursor: 'pointer' }}
-                            className="material-icons right"
-                            onClick={e => this.showMore(e)}>
-                            edit
-                        </i>
-                    )}
-                    {Session.get('ExtendedJobInformation') !== '' ? (
-                        <ExtendedJobInformation job={this.props.job} />
-                    ) : (
-                        ''
-                    )}
-                </div>
-                {this.props.job._id ? '' : 'NO RESULT'}
+                {this.state.job && this.state.job._id ? this.displayInfo() : ''}
+                {this.state.job && this.state.job._id ? '' : 'NO RESULT'}
             </React.Fragment>
         );
     }

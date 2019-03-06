@@ -22,9 +22,7 @@ export default class FollowUps extends Component {
     }
 
     onChangeHandler(e, index) {
-        console.log('TCL: FollowUps -> onChangeHandler -> index', index);
         let followUp = this.state.followUp;
-        console.log('TCL: FollowUps -> onChangeHandler -> followUp', followUp);
         followUp[index] = { note: e.target.value };
         this.setState(
             {
@@ -35,7 +33,7 @@ export default class FollowUps extends Component {
                     console.log(err);
                 } else {
                     let followUp = this.state.followUp;
-                    this.props.updateJob({ followUp });
+                    this.props.updateJob && this.props.updateJob({ followUp });
                 }
             },
         );

@@ -12,6 +12,7 @@
     },
     "dependencies": {
         "@babel/runtime": "^7.1.5",
+        "@sentry/browser": "^4.6.4",
         "@types/react": "^16.8.2",
         "babel-runtime": "^6.26.0",
         "bcrypt": "^1.0.3",
