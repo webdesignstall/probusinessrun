@@ -8,32 +8,27 @@ export default class DailyStats extends TrackerReact(Component) {
     constructor(props) {
         super(props);
 
-        this.state = {
-
-        };
+        this.state = {};
     }
 
     workDataList() {
-        return WorkData.find({ 'workDate': this.props.date, 'quote': false }).fetch();
+        return WorkData.find({ workDate: this.props.date, quote: false, confirmed: true }).fetch();
     }
 
     morningJobs() {
         let jobs = 0;
         let employees = 0;
 
-        this.workDataList().map((work) => {
-            Date.parse('1 Aug 2018 ' + work.workMustBeginTime[0]) < Date.parse('1 Aug 2018 01:00 pm')
-                ? (
-                    employees += work.numberOfWorkers,
-                    jobs++
-                )
+        this.workDataList().map(work => {
+            Date.parse('1 Aug 2018 ' + work.workMustBeginTime[0]) <
+            Date.parse('1 Aug 2018 01:00 pm')
+                ? ((employees += work.numberOfWorkers), jobs++)
                 : null;
-
         });
 
         return {
             jobs,
-            employees
+            employees,
         };
     }
 
@@ -41,26 +36,30 @@ export default class DailyStats extends TrackerReact(Component) {
         let jobs = 0;
         let employees = 0;
 
-        this.workDataList().map((work) => {
-            Date.parse('1 Aug 2018 ' + work.workMustBeginTime[0]) > Date.parse('1 Aug 2018 12:45 pm')
-                ? (
-                    employees += work.numberOfWorkers,
-                    jobs++
-                )
+        this.workDataList().map(work => {
+            Date.parse('1 Aug 2018 ' + work.workMustBeginTime[0]) >
+            Date.parse('1 Aug 2018 12:45 pm')
+                ? ((employees += work.numberOfWorkers), jobs++)
                 : null;
         });
 
         return {
             jobs,
-            employees
+            employees,
         };
     }
 
     render() {
         return (
-            <div className="dailystat--main" >
-                <MorningJobs jobsNumber={this.morningJobs().jobs} employeeNumber={this.morningJobs().employees} />
-                <AfternoonJobs jobsNumber={this.afterNoonJobs().jobs} employeeNumber={this.afterNoonJobs().employees} />
+            <div className="dailystat--main">
+                <MorningJobs
+                    jobsNumber={this.morningJobs().jobs}
+                    employeeNumber={this.morningJobs().employees}
+                />
+                <AfternoonJobs
+                    jobsNumber={this.afterNoonJobs().jobs}
+                    employeeNumber={this.afterNoonJobs().employees}
+                />
             </div>
         );
     }

@@ -117,8 +117,20 @@ Schemas.workSchema = new SimpleSchema(
         'workMustBeginTime.$': {
             type: String,
         },
-        //quote olduqunu tesdiqleyir
+        // should it display in quote menu
         quote: {
+            type: Boolean,
+            optional: true,
+        },
+        // is the job confirmed
+        confirmed: {
+            type: Boolean,
+            autoform: {
+                type: 'hidden',
+                display: 'none',
+            },
+        },
+        isFollowUp: {
             type: Boolean,
             optional: true,
         },
@@ -158,15 +170,6 @@ Schemas.workSchema = new SimpleSchema(
         note: {
             type: String,
             optional: true,
-        },
-        //quote edildikden sonra bunun true olmasi gerekir ve confirmationu gozlemek qalir
-        //confirmationdan sonra
-        confirmed: {
-            type: Boolean,
-            autoform: {
-                type: 'hidden',
-                display: 'none',
-            },
         },
         startTime: {
             type: Date,

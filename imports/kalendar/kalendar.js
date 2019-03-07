@@ -131,6 +131,7 @@ Template.kalendar.helpers({
                 .secilenTarix2.get()
                 .toString(),
             quote: false,
+            confirmed: true,
         }).fetch();
 
         baza.sort((a, b) => {
@@ -144,6 +145,7 @@ Template.kalendar.helpers({
     isGunMelumatVar: function() {
         if (
             WorkData.find({
+                confirmed: true,
                 workDate: Template.instance()
                     .secilenTarix2.get()
                     .toString(),

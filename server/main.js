@@ -9,18 +9,25 @@ import ConfirmationEmail from './ConfirmationEmail';
 
 Meteor.startup(() => {
     // prepare mailing server
-    process.env.MAIL_URL = 'smtp://postmaster%40probusinessrun.com:6d0eb775d8a76c5f1efd0b02030ea3fa-e89319ab-67f4f8af@smtp.mailgun.org:587';
+    process.env.MAIL_URL =
+        'smtp://postmaster%40probusinessrun.com:6d0eb775d8a76c5f1efd0b02030ea3fa-e89319ab-67f4f8af@smtp.mailgun.org:587';
     // code to run on server at startup
-    Meteor.publish('userData', function () {
+    Meteor.publish('userData', function() {
         if (this.userId && Meteor.user().profile.rank === 'admin') {
-            return Meteor.users.find({ 'profile.company': Meteor.userId(), 'profile.rank': 'mover' });
+            return Meteor.users.find({
+                'profile.company': Meteor.userId(),
+                'profile.rank': 'mover',
+            });
         } else {
             this.ready();
         }
     });
-    Meteor.publish('tabletData', function () {
+    Meteor.publish('tabletData', function() {
         if (this.userId && Meteor.user().profile.rank === 'admin') {
-            return Meteor.users.find({ 'profile.company': Meteor.userId(), 'profile.rank': 'tablet' });
+            return Meteor.users.find({
+                'profile.company': Meteor.userId(),
+                'profile.rank': 'tablet',
+            });
         } else {
             this.ready();
         }
@@ -34,23 +41,23 @@ Meteor.startup(() => {
 
 if (Meteor.isServer) {
     Meteor.methods({
-        duymeniVurma: function (id) {
+        duymeniVurma: function(id) {
             WorkData.update(id, {
                 $set: {
-                    clientName: Math.random()
-                }
+                    clientName: Math.random(),
+                },
             });
         },
 
-        isiSilmek: function (id) {
+        isiSilmek: function(id) {
             WorkData.remove(id);
         },
 
-        isciniSilmek: function (id) {
+        isciniSilmek: function(id) {
             Meteor.users.remove(id);
         },
 
-        quotaniBazayaElaveEt: function (
+        quotaniBazayaElaveEt: function(
             firstName,
             lastName,
             phone,
@@ -82,10 +89,16 @@ if (Meteor.isServer) {
             deposit,
             takenBy,
             additionalContacts,
-            quoteDate
+            quoteDate,
+            quote,
+            confirmed,
+            isFollowUp,
         ) {
             WorkData.insert({
-                quote: true,
+                quote,
+                isFollowUp,
+                confirmed,
+                status: 'inProgress',
                 clientFirstName: firstName,
                 clientLastName: lastName,
                 phoneNumber: phone,
@@ -95,8 +108,8 @@ if (Meteor.isServer) {
                 workDate: movingDateConverted,
                 movingSize: movingSize,
                 note: note,
+                followUp: [{}],
                 workers: baza,
-                confirmed: false,
                 trucks: trucks,
                 price: price,
                 jobNumber: jobNumber,
@@ -111,20 +124,22 @@ if (Meteor.isServer) {
                 numberOfWorkers: numberOfWorkers,
                 trucksTemp: trucksTemp,
                 companyInfo: companyInfo,
-                flatRate: [{
-                    isTrue: flatRate,
-                    cashAmount: flatRateCash,
-                    cardAmount: flatRateCard
-                }],
+                flatRate: [
+                    {
+                        isTrue: flatRate,
+                        cashAmount: flatRateCash,
+                        cardAmount: flatRateCard,
+                    },
+                ],
                 comment,
                 deposit,
                 takenBy,
                 additionalContacts,
-                quoteDate
+                quoteDate,
             });
         },
 
-        emailGonder: function (job) {
+        emailGonder: function(job) {
             // server connection
             let server = email.server.connect({
                 user: job.companyInfo.email,
@@ -140,32 +155,36 @@ if (Meteor.isServer) {
                 from: job.companyInfo.name + ' ' + job.companyInfo.email,
                 to: job.email,
                 subject: 'Free Moving Quote for ' + job.firstName + ' ' + job.lastName,
-                attachment:
-                    [
-                        {
-                            data: EmailContent(job),
-                            alternative: true
-                        }
-                    ]
+                attachment: [
+                    {
+                        data: EmailContent(job),
+                        alternative: true,
+                    },
+                ],
             };
             this.x = false;
 
-            server.send(message, function (err) {
+            server.send(message, function(err) {
                 if (err) {
                     console.log(err);
-                    throw new Meteor.Error('Can\'t send email', 'Impossible send email. Contact system administration');
+                    throw new Meteor.Error(
+                        'Can\'t send email',
+                        'Impossible send email. Contact system administration',
+                    );
                 } else {
                     console.log('Email successfully sent to: ' + job.email);
                 }
             });
         },
 
-        confirmationGonder: function (job) {
+        confirmationGonder: function(job) {
             WorkData.update(job._id, {
                 $set: {
                     clientFirstName: job.clientFirstName,
-                    quote: false
-                }
+                    quote: false,
+                    isFollowUp: false,
+                    confirmed: true,
+                },
             });
 
             let server = email.server.connect({
@@ -181,52 +200,56 @@ if (Meteor.isServer) {
                 from: job.companyInfo.name + ' ' + job.companyInfo.email,
                 to: job.email,
                 subject: 'Confirmation email',
-                attachment:
-                    [
-                        {
-                            data: ConfirmationEmail(job),
-                            alternative: true
-                        }
-                    ]
+                attachment: [
+                    {
+                        data: ConfirmationEmail(job),
+                        alternative: true,
+                    },
+                ],
             };
 
-            server.send(message, function (err) {
+            server.send(message, function(err) {
                 err ? console.log(err) : console.log('Email succesfully sent to: ' + job.email);
             });
         },
 
-        saveEmployeeInfo: function (isinIdsi, value, iscininIdsi) {
+        saveEmployeeInfo: function(isinIdsi, value, iscininIdsi) {
             WorkData.update(
                 { _id: isinIdsi, 'workers.id': iscininIdsi },
-                { $set: { 'workers.$.payed': value } }
+                { $set: { 'workers.$.payed': value } },
             );
         },
 
-        updateWork: function (doc) {
-            WorkData.update({ _id: doc._id }, {
-                $set: doc
-            }, function (error, result) {
-
-                if (error) {
-                    console.log(error);
-                    throw new Meteor.Error('Error updating', 'Reason: ' + error.message);
-                } else {
-                    console.log(result);
-                }
-            });
-        },
-        updateDiscount: function (doc, id) {
-            Discounts.update(
-                { _id: id }, {
-                    $set: doc
+        updateWork: function(doc) {
+            WorkData.update(
+                { _id: doc._id },
+                {
+                    $set: doc,
                 },
-                function (error, result) {
-                    error ? console.log(error) : console.log(result);
-                });
+                function(error, result) {
+                    if (error) {
+                        console.log(error);
+                        throw new Meteor.Error('Error updating', 'Reason: ' + error.message);
+                    } else {
+                        console.log(result);
+                    }
+                },
+            );
         },
-        removeDiscount: function (id) {
+        updateDiscount: function(doc, id) {
+            Discounts.update(
+                { _id: id },
+                {
+                    $set: doc,
+                },
+                function(error, result) {
+                    error ? console.log(error) : console.log(result);
+                },
+            );
+        },
+        removeDiscount: function(id) {
             Discounts.remove(id);
-        }
+        },
     });
 }
 

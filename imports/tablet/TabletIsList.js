@@ -12,7 +12,7 @@ export default class TabletIsList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            tabletIsler: []
+            tabletIsler: [],
         };
 
         this.isleriDuz = this.isleriDuz.bind(this);
@@ -23,20 +23,17 @@ export default class TabletIsList extends React.Component {
             Meteor.subscribe('workSchema');
             // const isler = WorkData.find({ truckNumber: Meteor.user().profile.number, quote: false }).fetch();
             const truckId = Number(Meteor.user().profile.number);
-            const isler = WorkData.find(
-                {
-                    trucks:
-                    {
-                        $elemMatch:
-                        {
-                            truck: truckId
-                        }
+            const isler = WorkData.find({
+                trucks: {
+                    $elemMatch: {
+                        truck: truckId,
                     },
-                    'quote': false
-                }
-            ).fetch();
+                },
+                quote: false,
+                confirmed: true,
+            }).fetch();
             this.setState({
-                tabletIsler: isler
+                tabletIsler: isler,
             });
         });
     }
@@ -46,33 +43,29 @@ export default class TabletIsList extends React.Component {
     }
 
     isleriDuz() {
-        return (
-            this.state.tabletIsler.map((is) => {
-                return (
-                    <a href="#" id={is._id} key={Math.random()} className="collection-item" onClick={
-                        () => {
-                            Session.set('tabletIsId', is._id);
-                            $('#tebler-render').show();
-                            $('#tablet-is-siyahi').hide();
-
-                        }
-                    }>
-                        {is.clientFirstName} {is.clientLastName} {is.jobNumber}
-                    </a>
-                );
-            })
-        );
+        return this.state.tabletIsler.map(is => {
+            return (
+                <a
+                    href="#"
+                    id={is._id}
+                    key={Math.random()}
+                    className="collection-item"
+                    onClick={() => {
+                        Session.set('tabletIsId', is._id);
+                        $('#tebler-render').show();
+                        $('#tablet-is-siyahi').hide();
+                    }}>
+                    {is.clientFirstName} {is.clientLastName} {is.jobNumber}
+                </a>
+            );
+        });
     }
 
     render() {
-        return (
-            <div className="collection">
-                {this.isleriDuz()}
-            </div>
-        );
+        return <div className="collection">{this.isleriDuz()}</div>;
     }
 }
 
-Template.tablet.onRendered(function () {
+Template.tablet.onRendered(function() {
     ReactDOM.render(<TabletIsList />, document.getElementById('tablet-is-siyahi'));
 });

@@ -20,21 +20,20 @@ import AdditionalContact from './AdditionalContact';
 
 /*global $*/
 
-
 export default class QuoteTam extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            baza: []
+            baza: [],
         };
     }
 
     componentDidMount() {
         this.x = Tracker.autorun(() => {
             Meteor.subscribe('workSchema');
-            const melumatlar = WorkData.find({ quote: true }).fetch();
+            const melumatlar = WorkData.find({ quote: true, isFollowUp: true }).fetch();
             this.setState({
-                baza: melumatlar
+                baza: melumatlar,
             });
         });
     }
@@ -45,26 +44,33 @@ export default class QuoteTam extends React.Component {
         let x = WorkData.findOne({ _id: Session.get('is') });
         document.querySelector('#updateQuote2').classList.remove('hide');
         ReactDOM.render(<UpdateAddTruck />, document.querySelector('#truck-list-update'));
-        ReactDOM.render(<ArrivalWindow update={true} />, document.getElementById('update_time_window'));
+        ReactDOM.render(
+            <ArrivalWindow update={true} />,
+            document.getElementById('update_time_window'),
+        );
         ReactDOM.render(<NumberOfUsers />, document.getElementById('number-of-movers2'));
         ReactDOM.render(<MovingSize />, document.getElementById('moving-size'));
         ReactDOM.render(<UpdateDoubleDrive />, document.getElementById('double-drive-time-update'));
         ReactDOM.render(<RenderEmployees />, document.getElementById('iscilerinSiyahisiRender'));
         ReactDOM.render(<TempTruck update={true} />, document.querySelector('#tempTruckUpdate'));
         ReactDOM.render(<Addresses />, document.querySelector('#addressesIdUpdate'));
-        ReactDOM.render(<AdditionalContact contacts={x.additionalContacts} />, document.querySelector('#additional-contact-update'));
+        ReactDOM.render(
+            <AdditionalContact contacts={x.additionalContacts} />,
+            document.querySelector('#additional-contact-update'),
+        );
         let takenById = x.takenBy;
-        ReactDOM.render(<TakenBy id={takenById} update={true} />, document.getElementById('takenBy--update'));
-        $(document).ready(function () {
+        ReactDOM.render(
+            <TakenBy id={takenById} update={true} />,
+            document.getElementById('takenBy--update'),
+        );
+        $(document).ready(function() {
             $('select').material_select();
         });
         let jobSmallItemPacking = WorkData.findOne({ _id: Session.get('is') }).smallItemPacking;
         jobSmallItemPacking == -1
-            ? (
-                document.getElementById('smallItemPackUpdate').checked = true,
-                document.getElementById('small_item_pack_2').disabled = true
-            )
-            : document.getElementById('smallItemPackUpdate').checked = false;
+            ? ((document.getElementById('smallItemPackUpdate').checked = true),
+            (document.getElementById('small_item_pack_2').disabled = true))
+            : (document.getElementById('smallItemPackUpdate').checked = false);
     }
 
     componentWillUnmount() {
@@ -72,31 +78,37 @@ export default class QuoteTam extends React.Component {
     }
 
     renderQuotes() {
-        return (
-            this.state.baza.map((quotes) => {
-                return (
-                    <a key={quotes._id} href="#" className="collection-item" onClick={() => this.setWorkId(quotes._id)}>
-                        <span className="tarix-in-list">{quotes.workDate}</span>
-                        <span className="tarix-in-list green">{quotes.jobNumber}</span>
-                        <span>{quotes.clientFirstName} {quotes.clientLastName}</span>
-                        <span className="tarix-in-list sag deep-purple darken-1" style={{ padding: '3px 5px 2px', marginTop: '-2px' }} >{moment(quotes.quoteDate).format('MM/DD/YYYY hh:mm a')}</span>
-                    </a>
-                );
-            })
-        );
+        return this.state.baza.map(quotes => {
+            return (
+                <a
+                    key={quotes._id}
+                    href="#"
+                    className="collection-item"
+                    onClick={() => this.setWorkId(quotes._id)}>
+                    <span className="tarix-in-list">{quotes.workDate}</span>
+                    <span className="tarix-in-list green">{quotes.jobNumber}</span>
+                    <span>
+                        {quotes.clientFirstName} {quotes.clientLastName}
+                    </span>
+                    <span
+                        className="tarix-in-list sag deep-purple darken-1"
+                        style={{ padding: '3px 5px 2px', marginTop: '-2px' }}>
+                        {moment(quotes.quoteDate).format('MM/DD/YYYY hh:mm a')}
+                    </span>
+                </a>
+            );
+        });
     }
 
     render() {
         return (
             <div>
-                <div className="collection">
-                    {this.renderQuotes()}
-                </div>
+                <div className="collection">{this.renderQuotes()}</div>
             </div>
         );
     }
 }
 
-Template.quoteTam.onRendered(function () {
+Template.quoteTam.onRendered(function() {
     ReactDOM.render(<QuoteTam />, document.getElementById('quoteTam'));
 });

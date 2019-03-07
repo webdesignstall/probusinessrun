@@ -220,6 +220,9 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
         let workDate = document.getElementById('quote-date-picker-followup').value;
         let doc = this.state.job;
         doc.workDate = workDate;
+        doc.quote = true;
+        doc.isFollowUp = true;
+        doc.confirmed = false;
 
         let objNew = {
             _id: doc._id,

@@ -18,7 +18,7 @@ export default class List extends TrackerReact(Component) {
     }
 
     workData() {
-        return WorkData.find({}).fetch();
+        return WorkData.find({ isFollowUp: true }).fetch();
     }
 
     componentDidMount() {
@@ -27,7 +27,7 @@ export default class List extends TrackerReact(Component) {
                 return new Date(b.workDate).getTime() - new Date(a.workDate).getTime();
             });
 
-            Session.get('searchResult').length > 0
+            Session.get('isSearch')
                 ? null
                 : (Session.set('searchResult', jobs),
                 this.setState({

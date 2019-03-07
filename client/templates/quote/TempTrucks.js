@@ -35,7 +35,8 @@ export default class TempTrucks extends Component {
                         trucks: selectedJob.trucksTemp,
                     },
                     () => {
-                        this.props.updateJob({ trucksTemp: this.state.trucks });
+                        this.props.updateJob &&
+                            this.props.updateJob({ trucksTemp: this.state.trucks });
                     },
                 );
             }
@@ -66,7 +67,8 @@ export default class TempTrucks extends Component {
                 err
                     ? console.log(err)
                     : (Session.set('trucklar', this.state.trucks),
-                    this.props.updateJob({ trucksTemp: this.state.trucks }));
+                    this.props.updateJob &&
+                          this.props.updateJob({ trucksTemp: this.state.trucks }));
             },
         );
     }
@@ -86,7 +88,8 @@ export default class TempTrucks extends Component {
                 err
                     ? console.log(err)
                     : (Session.set('trucklar', this.state.trucks),
-                    this.props.updateJob({ trucksTemp: this.state.trucks }));
+                    this.props.updateJob &&
+                          this.props.updateJob({ trucksTemp: this.state.trucks }));
             },
         );
     }
@@ -167,7 +170,8 @@ export default class TempTrucks extends Component {
                 err
                     ? console.log(err)
                     : (Session.set('trucklar', this.state.trucks),
-                    this.props.updateJob({ trucksTemp: this.state.trucks }));
+                    this.props.updateJob &&
+                          this.props.updateJob({ trucksTemp: this.state.trucks }));
             },
         );
     }

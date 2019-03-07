@@ -166,7 +166,7 @@ Template.updateQuote.events({
             additionalContacts: Session.get('additionalContacts'),
         };
 
-        Meteor.call('emailGonder', doc, (err, res) => {
+        Meteor.call('emailGonder', doc, err => {
             err
                 ? (console.log(err),
                 swal({
@@ -354,6 +354,9 @@ Template.preQuote.events({
         let takenBy = document.getElementById('takenBy--value').value;
         let additionalContacts = Session.get('additionalContacts');
         let quoteDate = new Date();
+        let quote = true;
+        let confirmed = false;
+        let isFollowUp = true;
 
         function idniSec(soz) {
             var baslama = soz.indexOf(':');
@@ -439,6 +442,197 @@ Template.preQuote.events({
             takenBy,
             additionalContacts,
             quoteDate,
+            quote,
+            confirmed,
+            isFollowUp,
+            function(err) {
+                if (err) {
+                    swal({
+                        title: 'Impossible add quote to database',
+                        text: err.message,
+                        icon: 'error',
+                    });
+                } else {
+                    swal({
+                        title: 'Success',
+                        text: 'Quote added to database successfully',
+                        icon: 'success',
+                    });
+
+                    Meteor.call('emailGonder', jobInfo, err => {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            document.querySelector('#flatRateCheck').checked = false;
+                            document.getElementById('gas_fee').disabled = false;
+
+                            document.querySelector('#paymentContent').classList.remove('hide');
+                            document.querySelector('#flatRate_').classList.add('hide');
+
+                            window.addresses.resetComponent();
+
+                            document.getElementById('quote-request').reset();
+
+                            // run job number
+                            jobNumber_();
+
+                            Session.set('reset', true);
+                            setTimeout(() => Session.set('reset', false), 3000);
+                        }
+                    });
+                }
+            },
+        );
+    },
+    'click #followup': function(e) {
+        e.preventDefault();
+        let firstName = document.getElementById('firstName').value;
+        let lastName = document.getElementById('lastName').value;
+        let phone = document.getElementById('phoneNumber').value;
+        let phoneAdditional = document.getElementById('phoneNumberAdditional').value;
+        let email = document.getElementById('musteriEmail').value;
+        let addressesArray = Array.from(document.getElementsByClassName('addresses'));
+        let addresses = [];
+        addressesArray.map(address => {
+            addresses.push(address.value);
+        });
+        let movingDate = document.getElementById('quote-date-picker').value;
+        let movingDateConverted = moment(movingDate, 'DD MMMM,YYYY').format('MM/DD/YYYY');
+        let price = document.getElementById('quote_price').value;
+        let minimumLaborTime = document.getElementById('labor_time').value;
+        let hourlyRatesCash = document.getElementById('hourly_rates_cash').value;
+        let hourlyRatesCard = document.getElementById('hourly_rates_card').value;
+        let trucksArray = document.getElementsByClassName('truck-select');
+        //trucks loop ele array yarat
+        let trucks = [];
+        let i = 0;
+        for (i = 0; i < trucksArray.length; i++) {
+            trucks.push({
+                truck: Number(trucksArray[i].value),
+            });
+        }
+        let doubleDrive = document.getElementById('double_drive').value;
+        let gasFee = document.getElementById('gas_fee').value;
+        let smallPackingItems = document.getElementById('small_item_pack').value;
+        let largeItemFee = document.getElementById('large_item_fee').value;
+        let jobNumber = document.getElementById('quote-job-number').value;
+        let movingSize = document.getElementById('moving_size_2').value;
+        let note = document.getElementById('textarea1').value;
+        let secilmisIsci = document.getElementsByClassName('secilmisIsci');
+        let iscilerinSayi = document.getElementById('iscinin-sayi').value;
+        if (isNaN(iscilerinSayi)) {
+            iscilerinSayi = 0;
+        }
+        let workMustBeginTime = [
+            document.getElementById('customTime--1').value,
+            document.getElementById('customTime--2').value,
+        ];
+        let numberOfWorkers = document.getElementById('iscinin-sayi').value;
+        let companyInfo = Session.get('companyInfo');
+        let trucksTemp = Session.get('trucklar');
+        let flatRate = document.getElementById('flatRateCheck').checked;
+        let flatRateCash = document.querySelector('#flatRateCash').value
+            ? document.querySelector('#flatRateCash').value
+            : 0;
+        let flatRateCard = document.querySelector('#flatRateCash').value
+            ? document.querySelector('#flatRateCard').value
+            : 0;
+        let comment = document.getElementById('textarea1').value;
+        let deposit = document.getElementById('deposit').value;
+        let takenBy = document.getElementById('takenBy--value').value;
+        let additionalContacts = Session.get('additionalContacts');
+        let quoteDate = new Date();
+        let quote = false;
+        let confirmed = false;
+        let isFollowUp = true;
+
+        function idniSec(soz) {
+            var baslama = soz.indexOf(':');
+            var secme = soz.substr(baslama + 1, soz.lenght);
+            return secme;
+        }
+
+        let baza = [];
+        for (let i = 0; i < secilmisIsci.length; i++) {
+            baza.push({ id: idniSec(secilmisIsci[i].value) });
+        }
+
+        // declare job number
+        function jobNumber_() {
+            document.getElementById('quote-job-number').value = Math.random()
+                .toString(36)
+                .substr(2, 5);
+        }
+
+        let jobInfo = {
+            firstName,
+            lastName,
+            phone,
+            phoneAdditional,
+            email,
+            addresses,
+            movingDateConverted,
+            price,
+            minimumLaborTime,
+            hourlyRatesCash,
+            hourlyRatesCard,
+            trucks,
+            doubleDrive,
+            gasFee,
+            smallPackingItems,
+            largeItemFee,
+            jobNumber,
+            movingSize,
+            note,
+            baza,
+            workMustBeginTime,
+            numberOfWorkers,
+            trucksTemp,
+            companyInfo,
+            flatRate,
+            flatRateCash,
+            flatRateCard,
+            additionalContacts,
+            quoteDate,
+        };
+
+        Meteor.call(
+            'quotaniBazayaElaveEt',
+            firstName,
+            lastName,
+            phone,
+            phoneAdditional,
+            email,
+            addresses,
+            movingDateConverted,
+            price,
+            minimumLaborTime,
+            hourlyRatesCash,
+            hourlyRatesCard,
+            trucks,
+            doubleDrive,
+            gasFee,
+            smallPackingItems,
+            largeItemFee,
+            jobNumber,
+            movingSize,
+            note,
+            baza,
+            workMustBeginTime,
+            numberOfWorkers,
+            trucksTemp,
+            companyInfo,
+            flatRate,
+            flatRateCash,
+            flatRateCard,
+            comment,
+            deposit,
+            takenBy,
+            additionalContacts,
+            quoteDate,
+            quote,
+            confirmed,
+            isFollowUp,
             function(err) {
                 if (err) {
                     swal({
