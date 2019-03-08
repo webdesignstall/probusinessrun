@@ -357,7 +357,7 @@ export default function EmailContent(job) {
                 </div>
             </div>
             <div class="reserve" style="padding: 5px; text-align: center;">
-                <button href="https://www.probusinessrun.com/reserve" style="padding: 15px 15px; background-color: #554b8c; color: white; font-size: 14px; border: none;"><b>RESERVE YOUR MOVE</b></button><br/>
+                <a href="https://www.probusinessrun.com/reserve" style="padding: 15px 15px; background-color: #554b8c; color: white; font-size: 14px; border: none;"><b>RESERVE YOUR MOVE</b></a><br/>
                 With one click, we move it quick!<br />
                 ${job.companyInfo.name} <br />
                 Phone: ${job.companyInfo.phoneNumber}<br/>

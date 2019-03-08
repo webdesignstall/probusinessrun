@@ -614,6 +614,7 @@ Schemas.workSchema = new SimpleSchema(
         },
         'followUp.$.note': {
             type: String,
+            optional: true,
         },
         finalNote: {
             type: Object,

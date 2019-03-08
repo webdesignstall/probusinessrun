@@ -8,8 +8,8 @@ export default class FollowUps extends Component {
         super(props);
 
         this.state = {
-            followUp: this.props.followUpList || [{}],
-            followUpOriginal: WorkData.findOne({ _id: Session.get('is') }).followUp,
+            followUp: this.props.followUpList || [{ note: '' }],
+            followUpOriginal: WorkData.findOne({ _id: Session.get('is') }).followUp || [],
         };
 
         this.onChangeHandler = this.onChangeHandler.bind(this);
@@ -17,7 +17,7 @@ export default class FollowUps extends Component {
 
     UNSAFE_componentWillReceiveProps(nextProps) {
         this.setState({
-            followUp: nextProps.followUpList || [{}],
+            followUp: nextProps.followUpList || [{ note: '' }],
         });
     }
 
@@ -41,9 +41,9 @@ export default class FollowUps extends Component {
 
     renderList() {
         return (
-            this.state.followUpOriginal &&
-            this.state.followUpOriginal.map((note, index) => {
-                return this.state.followUpOriginal.length !== 1 &&
+            this.state.followUp &&
+            this.state.followUp.map((note, index) => {
+                return this.state.followUpOriginal.length !== 0 &&
                     this.state.followUpOriginal.length === index + 1 &&
                     index !== 4 ? (
                         <React.Fragment key={'followup_note_fragment' + index}>
@@ -94,7 +94,7 @@ export default class FollowUps extends Component {
                             </label>
                             <textarea
                                 onChange={e => this.onChangeHandler(e, 0)}
-                                disabled={this.state.followUp.length !== 1 ? true : false}
+                                disabled={this.state.followUpOriginal.length !== 0 ? true : false}
                                 style={{
                                     borderRadius: '5px',
                                     height: '130px',

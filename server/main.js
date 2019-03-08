@@ -108,7 +108,6 @@ if (Meteor.isServer) {
                 workDate: movingDateConverted,
                 movingSize: movingSize,
                 note: note,
-                followUp: [{ note: 'Follow up 1' }],
                 workers: baza,
                 trucks: trucks,
                 price: price,
