@@ -234,7 +234,7 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
                     {this.state.job.companyInfo ? this.state.job.companyInfo.name || '' : ''}
                 </span>
                 {this.reason()}
-                {this.state.job._id === this.state.show ? (
+                {Session.get('is') !== '' && Session.get('is') === this.state.show ? (
                     <i
                         style={{ top: '-5px', cursor: 'pointer' }}
                         className="material-icons right"
