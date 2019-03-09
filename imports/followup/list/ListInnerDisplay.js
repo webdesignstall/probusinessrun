@@ -84,8 +84,8 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
 
         let greenFollowUp = (
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 22 22">
-                <circle cx="11" cy="11" r="11" fill="#5ABB7E" />
-                <g transform="translate(3.667 3.667)" fill="#5ABB7E" stroke="#fff" strokeWidth="1">
+                <circle cx="11" cy="11" r="11" fill="#4cd137" />
+                <g transform="translate(3.667 3.667)" fill="#4cd137" stroke="#fff" strokeWidth="1">
                     <circle cx="7.333" cy="7.333" r="7.333" stroke="none" />
                     <circle cx="7.333" cy="7.333" r="6.833" fill="none" />
                 </g>
@@ -93,8 +93,8 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
         );
         let redFollowUp = (
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 22 22">
-                <circle cx="11" cy="11" r="11" fill="#f8731b" />
-                <g transform="translate(3.667 3.667)" fill="#f8731b" stroke="#fff" strokeWidth="1">
+                <circle cx="11" cy="11" r="11" fill="#e84118" />
+                <g transform="translate(3.667 3.667)" fill="#e84118" stroke="#fff" strokeWidth="1">
                     <circle cx="7.333" cy="7.333" r="7.333" stroke="none" />
                     <circle cx="7.333" cy="7.333" r="6.833" fill="none" />
                 </g>
@@ -111,8 +111,8 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
         );
         let sariFollowUp = (
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 22 22">
-                <circle cx="11" cy="11" r="11" fill="#EEC55C" />
-                <g transform="translate(3.667 3.667)" fill="#EEC55C" stroke="#fff" strokeWidth="1">
+                <circle cx="11" cy="11" r="11" fill="#ffd32a" />
+                <g transform="translate(3.667 3.667)" fill="#ffd32a" stroke="#fff" strokeWidth="1">
                     <circle cx="7.333" cy="7.333" r="7.333" stroke="none" />
                     <circle cx="7.333" cy="7.333" r="6.833" fill="none" />
                 </g>
@@ -132,7 +132,9 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
                               (this.state.job.followUp ? this.state.job.followUp.length - 1 : -1)
                                 ? this.state.job.status && this.state.job.status === 'lost'
                                     ? redFollowUp
-                                    : greenFollowUp
+                                    : this.state.job.status && this.state.job.status === 'won'
+                                        ? greenFollowUp
+                                        : sariFollowUp
                                 : sariFollowUp
                             : greyFollowUp}
                     </span>
@@ -157,7 +159,7 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
                                     (this.state.job.followUp
                                         ? this.state.job.followUp.length - 1
                                         : 0)
-                                        ? '#EEC55C'
+                                        ? '#ffd32a'
                                         : '#98ABAB'
                                 }
                                 strokeWidth="2"

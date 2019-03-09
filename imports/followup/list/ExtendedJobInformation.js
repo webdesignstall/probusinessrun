@@ -134,13 +134,13 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
 
         switch (this.state.job.status) {
         case 'inProgress':
-            color = '#F6C344';
+            color = '#ffd32a';
             break;
         case 'won':
-            color = '#1EBE78';
+            color = '#4cd137';
             break;
         case 'lost':
-            color = '#F17721';
+            color = '#e84118';
             break;
         default:
             color = '#F17721';

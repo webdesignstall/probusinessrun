@@ -1,7 +1,7 @@
 /* CSS declarations go here */
 @import url('https://fonts.googleapis.com/css?family=Titillium+Web');
 
-*{
+* {
     font-family: 'Titillium Web', sans-serif;
 }
 
@@ -13,7 +13,8 @@ input {
     color: rgb(9, 133, 19) !important;
 }
 
-td, th {
+td,
+th {
     padding: 0 !important;
 }
 
@@ -69,7 +70,9 @@ td, th {
     font-weight: normal;
 }
 
-.ui-widget-header, .ui-datepicker-div, .ui-datepicker-header {
+.ui-widget-header,
+.ui-datepicker-div,
+.ui-datepicker-header {
     background-color: white !important;
 }
 
@@ -77,7 +80,8 @@ td, th {
     padding: 0 !important;
 }
 
-[type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+[type='checkbox']:not(:checked),
+[type='checkbox']:checked {
     opacity: 1 !important;
     position: static !important;
 }
@@ -160,7 +164,8 @@ td, th {
     font-weight: bold;
 }
 
-.close:hover, .close:focus {
+.close:hover,
+.close:focus {
     color: #000;
     text-decoration: none;
     cursor: pointer;
@@ -256,37 +261,37 @@ td, th {
 
 @-webkit-keyframes colors {
     0% {
-        stroke: #4285F4;
+        stroke: #4285f4;
     }
     25% {
-        stroke: #DE3E35;
+        stroke: #de3e35;
     }
     50% {
-        stroke: #F7C223;
+        stroke: #f7c223;
     }
     75% {
-        stroke: #1B9A59;
+        stroke: #1b9a59;
     }
     100% {
-        stroke: #4285F4;
+        stroke: #4285f4;
     }
 }
 
 @keyframes colors {
     0% {
-        stroke: #4285F4;
+        stroke: #4285f4;
     }
     25% {
-        stroke: #DE3E35;
+        stroke: #de3e35;
     }
     50% {
-        stroke: #F7C223;
+        stroke: #f7c223;
     }
     75% {
-        stroke: #1B9A59;
+        stroke: #1b9a59;
     }
     100% {
-        stroke: #4285F4;
+        stroke: #4285f4;
     }
 }
 
@@ -322,26 +327,26 @@ td, th {
     }
 }
 
-.sari{
-    background-color: #F6C344;
+.sari {
+    background-color: #ffd32a;
 }
-.goy{
-    background-color: #24B5D6;
+.goy {
+    background-color: #24b5d6;
 }
-.yasil{
-    background-color: #5ABB7E;
+.yasil {
+    background-color: #4cd137;
 }
-.sari-text{
-    color: #F6C344;
+.sari-text {
+    color: #ffd32a;
 }
-.goy-text{
-    color: #24B5D6;
+.goy-text {
+    color: #24b5d6;
 }
-.yasil-text{
-    color: #5ABB7E;
+.yasil-text {
+    color: #4cd137;
 }
-.narinci-text{
-    color: #E87B37;
+.narinci-text {
+    color: #e84118;
 }
 
 .padding5px {
