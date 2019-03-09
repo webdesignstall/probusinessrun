@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import WorkData from '../../../common/collections_2';
 import { Session } from 'meteor/session';
+import TrackerReact from 'meteor/ultimatejs:tracker-react';
 
-export default class FollowUps extends Component {
+export default class FollowUps extends TrackerReact(Component) {
     constructor(props) {
         super(props);
 
@@ -18,7 +19,18 @@ export default class FollowUps extends Component {
     UNSAFE_componentWillReceiveProps(nextProps) {
         this.setState({
             followUp: nextProps.followUpList || [{ note: '' }],
+            followUpOriginal: this.workData()[0].followUp,
         });
+    }
+
+    componentDidMount() {
+        this.setState({
+            followUpOriginal: this.workData()[0].followUp,
+        });
+    }
+
+    workData() {
+        return WorkData.find({ _id: Session.get('is') }).fetch();
     }
 
     onChangeHandler(e, index) {
@@ -41,8 +53,8 @@ export default class FollowUps extends Component {
 
     renderList() {
         return (
-            this.state.followUp &&
-            this.state.followUp.map((note, index) => {
+            this.state.followUpOriginal &&
+            this.state.followUpOriginal.map((note, index) => {
                 return this.state.followUpOriginal.length !== 0 &&
                     this.state.followUpOriginal.length === index + 1 &&
                     index !== 4 ? (
