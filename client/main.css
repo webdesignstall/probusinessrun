@@ -327,14 +327,17 @@ th {
     }
 }
 
-.sari {
+.sari_ {
     background-color: #ffd32a;
+    color: black;
 }
 .goy {
     background-color: #24b5d6;
+    color: white;
 }
-.yasil {
+.yasil_ {
     background-color: #4cd137;
+    color: white;
 }
 .sari-text {
     color: #ffd32a;
@@ -347,6 +350,11 @@ th {
 }
 .narinci-text {
     color: #e84118;
+}
+
+.qirmizi_ {
+    background-color: #e84118;
+    color: white;
 }
 
 .padding5px {
