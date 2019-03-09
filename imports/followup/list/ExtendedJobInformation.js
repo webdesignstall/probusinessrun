@@ -30,6 +30,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
         this.updateJob = this.updateJob.bind(this);
         this.saveJob = this.saveJob.bind(this);
         this.sendQuote = this.sendQuote.bind(this);
+        this.gasFeeClickHandler = this.gasFeeClickHandler.bind(this);
     }
 
     workData(id) {
@@ -65,19 +66,6 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                 ).checked = false),
                 (element.disabled = false))
             : null;
-
-        // gas fee
-        if (this.state.job.gasFee == -0.01) {
-            document.getElementById('gas_fee_check_followup').checked = true;
-            document.getElementById('gas_fee_followup' + this.state.job._id).disabled = true;
-        } else if (
-            document.getElementById('gas_fee_followup' + this.state.job._id) &&
-            document.getElementById('gas_fee_check_followup')
-        ) {
-            document.getElementById('gas_fee_followup' + this.state.job._id).disabled = false;
-            document.getElementById('gas_fee_check_followup').checked = false;
-            document.getElementById('gas_fee_followup' + this.state.job._id).value = 0;
-        }
     }
 
     componentDidUpdate() {
@@ -96,22 +84,6 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                 ).checked = false),
                 (element.disabled = false))
             : null;
-        // gas fee
-        if (
-            this.state.job.gasFee == -0.01 &&
-            document.getElementById('gas_fee_check_followup') &&
-            document.getElementById('gas_fee_followup' + this.state.job._id)
-        ) {
-            document.getElementById('gas_fee_check_followup').checked = true;
-            document.getElementById('gas_fee_followup' + this.state.job._id).disabled = true;
-        } else if (
-            document.getElementById('gas_fee_check_followup') &&
-            document.getElementById('gas_fee_followup' + this.state.job._id)
-        ) {
-            document.getElementById('gas_fee_followup' + this.state.job._id).disabled = false;
-            document.getElementById('gas_fee_check_followup').checked = false;
-            document.getElementById('gas_fee_followup' + this.state.job._id).value = 0;
-        }
     }
 
     doubleDrive(value) {
@@ -191,6 +163,15 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                 </select>
             </React.Fragment>
         );
+    }
+
+    gasFeeClickHandler() {
+        let job = this.state.job;
+        job.gasFee = job.gasFee < 0 ? 0 : -0.01;
+
+        this.setState({
+            job,
+        });
     }
 
     saveJob() {
@@ -480,48 +461,22 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                         <div className="col s12 m6 l2">
                             <label
                                 className="active"
-                                htmlFor={'gas_fee_followup' + this.state.job.gasFee}>
+                                htmlFor={'gas_fee_followup' + this.state.job._id}>
                                 Gas Fee
                                 <i className="lime-text lighten-5 black">
                                     [ Not sure?{' '}
                                     <input
                                         id="gas_fee_check_followup"
                                         type="checkbox"
-                                        onClick={() => {
-                                            if (
-                                                !document.getElementById(
-                                                    'gas_fee_followup' + this.state.job._id,
-                                                ).disabled
-                                            ) {
-                                                document.getElementById(
-                                                    'gas_fee_followup' + this.state.job._id,
-                                                ).value = -0.01;
-                                                document.getElementById(
-                                                    'gas_fee_followup' + this.state.job._id,
-                                                ).disabled = true;
-                                            } else {
-                                                document.getElementById(
-                                                    'gas_fee_followup' + this.state.job._id,
-                                                ).disabled = false;
-                                                document.getElementById(
-                                                    'gas_fee_followup' + this.state.job._id,
-                                                ).value = 0;
-                                            }
-
-                                            let job = this.state.job;
-                                            job.gasFee = document.getElementById(
-                                                'gas_fee_followup' + this.state.job._id,
-                                            ).value;
-                                            this.setState({
-                                                job,
-                                            });
-                                        }}
+                                        checked={this.state.job.gasFee == -0.01}
+                                        onChange={this.gasFeeClickHandler}
                                     />
                                     ]
                                 </i>
                             </label>
                             <input
                                 onChange={e => this.onChangeHandler(e, 'gasFee')}
+                                disabled={this.state.job.gasFee == -0.01}
                                 id={'gas_fee_followup' + this.state.job._id}
                                 value={this.state.job.gasFee || ''}
                                 className="xx"
