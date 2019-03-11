@@ -518,17 +518,28 @@ Template.reserveQuote.onRendered(function() {
                 },
 
                 onAuthorize: function(data, actions) {
-                    return actions.payment.execute().then(function(payment) {
-                        document.getElementById('jobInfoMain').classList.add('hide');
-                        document.getElementById('son-mesaj').classList.remove('hide');
-                        Meteor.call('confirmationGonder', jobIs);
-                        ReactDOM.render(
-                            <ConfirmationDisplay />,
-                            document.getElementById('son-mesaj'),
-                        );
-                        // The payment is complete!
-                        // You can now show a confirmation message to the customer
-                    });
+                    return actions.payment
+                        .execute()
+                        .then(function(payment) {
+                            document.getElementById('jobInfoMain').classList.add('hide');
+                            document.getElementById('son-mesaj').classList.remove('hide');
+                            Meteor.call('confirmationGonder', jobIs);
+                            ReactDOM.render(
+                                <ConfirmationDisplay />,
+                                document.getElementById('son-mesaj'),
+                            );
+                            let job = Session.get('job');
+                            job.quote = false;
+                            job.confirmed = true;
+                            job.isFollowUp = false;
+
+                            Meteor.call('updateWork', job);
+                            // The payment is complete!
+                            // You can now show a confirmation message to the customer
+                        })
+                        .catch(err => {
+                            err ? console.log(err) : null;
+                        });
                 },
             },
             '#paypal-button',

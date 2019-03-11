@@ -360,3 +360,26 @@ th {
 .padding5px {
     padding: 5px;
 }
+
+.swal-footer {
+    padding: 13px 0 0 0 !important;
+    overflow: hidden;
+}
+
+.swal-button-container {
+    margin: 0 !important;
+}
+
+.swal-button {
+    border-radius: 0 !important;
+}
+
+.swal-button:hover {
+    background-color: #3498db !important;
+}
+
+.swal-button:focus {
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
