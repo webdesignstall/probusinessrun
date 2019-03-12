@@ -540,7 +540,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                     </div>
                     <div className="row">
                         <FollowUps
-                            followUpList={this.state.job.followUp || [{}]}
+                            followUpList={this.state.job.followUp}
                             updateJob={this.updateJob}
                         />
                     </div>
