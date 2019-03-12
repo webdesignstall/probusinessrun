@@ -532,6 +532,7 @@ Template.reserveQuote.onRendered(function() {
                             job.quote = false;
                             job.confirmed = true;
                             job.isFollowUp = false;
+                            console.log('TCL: job', job);
 
                             Meteor.call('updateWork', job);
                             // The payment is complete!

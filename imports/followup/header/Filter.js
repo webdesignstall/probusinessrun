@@ -37,16 +37,14 @@ export default class Filter extends TrackerReact(Component) {
     }
 
     workData(status) {
-        return status === '' ? WorkData.find({}).fetch() : WorkData.find({ status }).fetch();
+        return status === ''
+            ? WorkData.find({ confirmed: false }).fetch()
+            : WorkData.find({ confirmed: false, status }).fetch();
     }
 
     render() {
         return (
             <div className="sag">
-                <span className="sag">FILTER</span>
-                <span className="sag">
-                    <i className="material-icons">filter_list</i>
-                </span>
                 <ul className="filter--list sag">
                     <li
                         className={this.state.clicked === 'inProgress' ? 'sari_' : ''}
@@ -64,6 +62,9 @@ export default class Filter extends TrackerReact(Component) {
                         WON
                     </li>
                 </ul>
+                <span className="sag">
+                    <i className="material-icons">filter_list</i>
+                </span>
             </div>
         );
     }
