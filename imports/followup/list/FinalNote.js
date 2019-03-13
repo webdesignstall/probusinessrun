@@ -52,8 +52,11 @@ export default class FinalNote extends Component {
                     className="browser-default"
                     name="select_finalNote"
                     onChange={e => this.changeSelect(e, 'reason')}
-                    value={this.state.finalNote.reason}
+                    value={this.state.finalNote.reason || 'none'}
                     id="select_finalNote">
+                    <option value="none" disabled={true}>
+                        Select Final Note
+                    </option>
                     <option value="Time Expired">Time Expired</option>
                     <option value="No respond from customer">No respond from customer</option>
                     <option value="Could not reach customer">Could not reach customer</option>

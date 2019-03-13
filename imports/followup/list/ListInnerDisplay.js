@@ -182,8 +182,10 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
             ? (Session.set('ExtendedJobInformation', ''),
             Session.set('is', ''),
             this.setState({ show: '' }))
-            : (Session.set('ExtendedJobInformation', this.state.job._id),
-            Session.set('is', this.state.job._id),
+            : (Session.set('is', this.state.job._id),
+            Session.set('searchResult_', Session.get('searchResult')),
+            Session.set('searchResult', [this.state.job]),
+            Session.set('ExtendedJobInformation', this.state.job._id),
             this.setState({ show: this.state.job._id }));
     }
 
@@ -254,6 +256,16 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
                 ) : (
                     ''
                 )}
+                <span
+                    style={{
+                        marginRight: '8px',
+                        borderRadius: '5px',
+                        backgroundColor: this.state.job.quote ? '#77AB64' : '#D64F2D',
+                        color: 'white',
+                        padding: '5px 10px',
+                    }}>
+                    Quote
+                </span>
             </div>
         );
     }

@@ -176,8 +176,10 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
 
     saveJob() {
         let workDate = document.getElementById('quote-date-picker-followup').value;
+        workDate = moment(workDate).format('MM/DD/YYYY');
         let doc = this.state.job;
         doc.workDate = workDate;
+        doc.followUp && doc.followUp[doc.followUp.length - 1].note === '' && doc.followUp.pop();
 
         Meteor.call('updateWork', doc, err => {
             err
@@ -188,12 +190,14 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                     icon: 'error',
                     button: 'OK',
                 }))
-                : swal({
+                : (swal({
                     title: 'Success!',
                     text: 'Information updated successfully',
                     icon: 'success',
                     button: 'OK',
-                });
+                }),
+                Session.set('is', ''),
+                Session.set('ExtendedJobInformation', ''));
         });
     }
 
@@ -204,6 +208,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
         doc.quote = true;
         doc.isFollowUp = true;
         doc.confirmed = false;
+        doc.followUp && doc.followUp[doc.followUp.length - 1].note === '' && doc.followUp.pop();
 
         let objNew = {
             _id: doc._id,
@@ -254,12 +259,14 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                             icon: 'error',
                             button: 'OK',
                         }))
-                        : swal({
+                        : (swal({
                             title: 'Success!',
                             text: 'Quote sent successfully',
                             icon: 'success',
                             button: 'OK',
-                        });
+                        }),
+                        Session.set('is', ''),
+                        Session.set('ExtendedJobInformation', ''));
                 });
             }
         });
@@ -548,14 +555,23 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                 <div className="clear" />
                 <div className="row center-align" style={{ paddingTop: '20px' }}>
                     <a
-                        className="waves-effect waves-light btn amber"
+                        className="waves-effect waves-light btn blue"
                         onClick={this.saveJob}
                         style={{ marginRight: '10px', color: 'black' }}>
                         <i className="material-icons left">update</i>
                         Update / Save
                     </a>
-                    <a onClick={this.sendQuote} className="waves-effect waves-light btn teal">
-                        <i className="material-icons left">send</i>
+                    <a
+                        onClick={this.sendQuote}
+                        className="waves-effect waves-light btn amber"
+                        style={{ color: 'black' }}>
+                        <i
+                            style={{
+                                color: this.state.job.quote ? '#77AB64' : '#D64F2D',
+                            }}
+                            className="material-icons left">
+                            send
+                        </i>
                         Send Quote
                     </a>
                 </div>

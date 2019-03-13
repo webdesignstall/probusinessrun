@@ -104,7 +104,6 @@ if (Meteor.isServer) {
                 phoneNumber: phone,
                 phoneAdditional: phoneAdditional,
                 email: email,
-                followUp: [{ note: '' }],
                 addresses: addressesArray,
                 workDate: movingDateConverted,
                 movingSize: movingSize,

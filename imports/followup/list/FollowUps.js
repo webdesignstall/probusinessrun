@@ -18,6 +18,7 @@ export default class FollowUps extends TrackerReact(Component) {
 
     UNSAFE_componentWillReceiveProps(nextProps) {
         let list = nextProps.followUpList || [];
+        this.workData()[0] &&
         this.workData()[0].followUp &&
         this.workData()[0].followUp.length > 0 &&
         list.length <= this.workData()[0].followUp.length
@@ -28,13 +29,23 @@ export default class FollowUps extends TrackerReact(Component) {
 
         this.setState({
             followUp: list,
-            followUpOriginal: this.workData()[0].followUp || [{ note: '' }],
+            followUpOriginal:
+                this.workData()[0] &&
+                this.workData()[0].followUp &&
+                this.workData()[0].followUp.length > 0
+                    ? this.workData()[0].followUp
+                    : [{ note: '' }],
         });
     }
 
     componentDidMount() {
         this.setState({
-            followUpOriginal: this.workData()[0].followUp || [{ note: '' }],
+            followUpOriginal:
+                this.workData()[0] &&
+                this.workData()[0].followUp &&
+                this.workData()[0].followUp.length > 0
+                    ? this.workData()[0].followUp
+                    : [{ note: '' }],
         });
     }
 
