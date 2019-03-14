@@ -6,7 +6,7 @@ if (Meteor.isServer) {
         addUserToBase: function (obj) {
             Accounts.createUser(obj);
         },
-        addTrack: function(obj){
+        addTrack: function (obj) {
             Accounts.createUser(obj);
         }
     });

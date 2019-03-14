@@ -22,11 +22,8 @@ quote-content input {
     border: none !important;
 }
 
-#takenBy{
-    margin-top: 15px;
-}
 
-.delete-address{
+.delete-address {
     color: red;
     position: absolute;
     right: 10px;
@@ -168,12 +165,12 @@ hr {
     font-size: 18px;
 }
 
-.custom--select-arrivalWindow{
+.custom--select-arrivalWindow {
     width: 87%;
     margin: 10px 5px 5px 30px;
 }
 
-.margin--bottom-10{
+.margin--bottom-10 {
     margin-bottom: 10px !important;
 }
 
@@ -234,7 +231,7 @@ hr {
     position: relative;
 }
 
-.arrivalWindow{
+.arrivalWindow {
     border: 1px dashed grey;
     border-radius: 5px;
     padding: 0 5px;
@@ -245,23 +242,23 @@ hr {
     left: 0;
 }
 
-.parent{
+.parent {
     position: relative;
 }
 
-.input-custom-time{
+.input-custom-time {
     text-indent: 0 !important;
 }
 
-.swal-button{
+.swal-button {
     background-color: rgb(24, 107, 216);
     width: 100%;
 }
 
-.swal-button-container{
+.swal-button-container {
     display: block;
 }
 
-.temp-trucks--header{
+.temp-trucks--header {
     color: rgb(255, 255, 255);
 }

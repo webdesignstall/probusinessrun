@@ -251,11 +251,6 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
                         edit
                     </i>
                 )}
-                {Session.get('ExtendedJobInformation') !== '' ? (
-                    <ExtendedJobInformation job={this.state.job} />
-                ) : (
-                    ''
-                )}
                 <span
                     style={{
                         marginRight: '8px',
@@ -266,6 +261,11 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
                     }}>
                     Quote
                 </span>
+                {Session.get('ExtendedJobInformation') !== '' ? (
+                    <ExtendedJobInformation job={this.state.job} />
+                ) : (
+                    ''
+                )}
             </div>
         );
     }

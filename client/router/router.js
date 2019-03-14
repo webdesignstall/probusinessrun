@@ -29,13 +29,15 @@ Router.route('/', {
     }
 });
 
+Router.route('/add', {
+    onBeforeAction: function () {
+        this.render('add');
+    }
+});
+
 if (Meteor.userId()) {
 
-    Router.route('/add', {
-        onBeforeAction: function () {
-            this.render('add');
-        }
-    });
+    
 
     Router.route('/followup', {
         onBeforeAction: function () {

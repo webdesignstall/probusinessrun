@@ -51,10 +51,13 @@ export default class TakenBy extends TrackerReact(Component) {
 
     render() {
         return (
-            <select id="takenBy--value" ref={this.selectRef} disabled={this.state.id ? true : false} defaultValue="_" className="browser-default" >
-                <option value="_" disabled>Taken by</option>
-                {this.renderList()}
-            </select>
+            <React.Fragment>
+                <label htmlFor="taken_by_add">Taken by</label>
+                <select id="takenBy--value" ref={this.selectRef} disabled={this.state.id ? true : false} defaultValue="_" className="browser-default" >
+                    <option id="taken_by_add" value="_" disabled>Taken by</option>
+                    {this.renderList()}
+                </select>
+            </React.Fragment>
         );
     }
 }

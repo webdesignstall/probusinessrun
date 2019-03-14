@@ -11,7 +11,7 @@ import swal from 'sweetalert';
 
 let tracker_ = null;
 
-Template.updateQuote.onRendered(function() {
+Template.updateQuote.onRendered(function () {
     Meteor.subscribe('workSchema');
     Meteor.subscribe('tabletData');
     Meteor.subscribe('usersData');
@@ -27,7 +27,7 @@ Template.updateQuote.onRendered(function() {
     let ishDeyisibdir = '';
     let checkedUpdate = document.querySelector('#flatBoxUpdate');
 
-    checkedUpdate.addEventListener('change', function() {
+    checkedUpdate.addEventListener('change', function () {
         Session.set('flatRate', !Session.get('flatRate'));
     });
     tracker_ = Tracker.autorun(() => {
@@ -37,7 +37,7 @@ Template.updateQuote.onRendered(function() {
             ish.smallItemPacking && ish.smallItemPacking == -1
                 ? document.querySelector('#smallItemPackUpdate')
                     ? ((document.querySelector('#smallItemPackUpdate').checked = true),
-                    (document.querySelector('#small_item_pack_2').disabled = true))
+                        (document.querySelector('#small_item_pack_2').disabled = true))
                     : null
                 : null;
             document.querySelector('#flatRateCashUpdate') &&
@@ -56,7 +56,7 @@ Template.updateQuote.onRendered(function() {
                 : null;
 
             document.querySelector('#flatBoxUpdate')
-                ? document.querySelector('#flatBoxUpdate').addEventListener('change', function() {
+                ? document.querySelector('#flatBoxUpdate').addEventListener('change', function () {
                     if (document.querySelector('#flatBoxUpdate').checked === false) {
                         document.querySelector('#flatRateUpdate_').classList.add('hide');
                     } else {
@@ -70,7 +70,7 @@ Template.updateQuote.onRendered(function() {
 });
 
 Template.updateQuote.helpers({
-    istifadechi: function() {
+    istifadechi: function () {
         return WorkData.findOne({ _id: Session.get('is') });
     },
     isGasFee: () => {
@@ -79,7 +79,7 @@ Template.updateQuote.helpers({
             ? true
             : false;
     },
-    isFlat: function() {
+    isFlat: function () {
         return WorkData.findOne({ _id: Session.get('is') })
             ? WorkData.findOne({ _id: Session.get('is') }).flatRate.isTrue
             : false;
@@ -92,14 +92,14 @@ Template.updateQuote.helpers({
 });
 
 Template.updateQuote.events({
-    'click #resend-email': function(e) {
+    'click #resend-email': function (e) {
         e.preventDefault();
 
         let job = WorkData.findOne({ _id: Session.get('is') });
         let companyInfo = job.companyInfo;
         let bazaIsci = [];
         let bazaIsciOb = document.getElementsByClassName('secilmisIsci');
-        let trucksSelected = (function() {
+        let trucksSelected = (function () {
             let massiv = document.getElementsByClassName('truck-select');
             let massivFilter = [];
             let i = 0;
@@ -169,11 +169,11 @@ Template.updateQuote.events({
         Meteor.call('emailGonder', doc, err => {
             err
                 ? (console.log(err),
-                swal({
-                    title: 'Error while sending email',
-                    text: err.message,
-                    icon: 'error',
-                }))
+                    swal({
+                        title: 'Error while sending email',
+                        text: err.message,
+                        icon: 'error',
+                    }))
                 : swal({
                     title: 'Success',
                     text: 'Email sent successfully',
@@ -181,11 +181,11 @@ Template.updateQuote.events({
                 });
         });
     },
-    'click #work-update': function(e) {
+    'click #work-update': function (e) {
         e.preventDefault;
         let bazaIsci = [];
         let bazaIsciOb = document.getElementsByClassName('secilmisIsci');
-        let trucksSelected = (function() {
+        let trucksSelected = (function () {
             let massiv = document.getElementsByClassName('truck-select');
             let massivFilter = [];
             let i = 0;
@@ -254,7 +254,7 @@ Template.updateQuote.events({
             additionalContacts: Session.get('additionalContacts'),
         };
 
-        Meteor.call('updateWork', doc, function(err) {
+        Meteor.call('updateWork', doc, function (err) {
             if (err) {
                 swal({
                     title: 'Error!',
@@ -272,14 +272,14 @@ Template.updateQuote.events({
             }
         });
     },
-    'click #hide-update-quote': function() {
+    'click #hide-update-quote': function () {
         document.querySelector('#updateQuote2').classList.add('hide');
         ReactDOM.unmountComponentAtNode('');
     },
 });
 
-Template.preQuote.onRendered(function() {
-    $(document).ready(function() {
+Template.preQuote.onRendered(function () {
+    $(document).ready(function () {
         $('select').material_select();
     });
     Meteor.subscribe('usersData');
@@ -296,7 +296,7 @@ Template.preQuote.onRendered(function() {
 });
 
 Template.preQuote.events({
-    'click #work-request': function(e) {
+    'click #work-request': function (e) {
         e.preventDefault();
         let firstName = document.getElementById('firstName').value;
         let lastName = document.getElementById('lastName').value;
@@ -357,6 +357,7 @@ Template.preQuote.events({
         let quote = true;
         let confirmed = false;
         let isFollowUp = true;
+        let sourceOfLeads = document.getElementById('source_of_leads_add').value;
 
         function idniSec(soz) {
             var baslama = soz.indexOf(':');
@@ -445,7 +446,8 @@ Template.preQuote.events({
             quote,
             confirmed,
             isFollowUp,
-            function(err) {
+            sourceOfLeads,
+            function (err) {
                 if (err) {
                     swal({
                         title: 'Impossible add quote to database',
@@ -484,7 +486,7 @@ Template.preQuote.events({
             },
         );
     },
-    'click #followup': function(e) {
+    'click #followup': function (e) {
         e.preventDefault();
         let firstName = document.getElementById('firstName').value;
         let lastName = document.getElementById('lastName').value;
@@ -545,6 +547,8 @@ Template.preQuote.events({
         let quote = false;
         let confirmed = false;
         let isFollowUp = true;
+        let sourceOfLeads = document.getElementById('source_of_leads_add').value;
+
 
         function idniSec(soz) {
             var baslama = soz.indexOf(':');
@@ -594,6 +598,7 @@ Template.preQuote.events({
             flatRateCard,
             additionalContacts,
             quoteDate,
+            sourceOfLeads,
         };
 
         Meteor.call(
@@ -633,7 +638,8 @@ Template.preQuote.events({
             quote,
             confirmed,
             isFollowUp,
-            function(err) {
+            sourceOfLeads,
+            function (err) {
                 if (err) {
                     swal({
                         title: 'Impossible add quote to database',
@@ -675,12 +681,12 @@ Template.preQuote.events({
 });
 
 Template.quoteTam.events({
-    'click #update-quote-open': function() {
-        $(document).ready(function() {
+    'click #update-quote-open': function () {
+        $(document).ready(function () {
             $('select').material_select();
         });
     },
-    'click #close-update-work': function() {
+    'click #close-update-work': function () {
         ReactDOM.unmountComponentAtNode(document.querySelector('#truck-list-update'));
         ReactDOM.unmountComponentAtNode(document.querySelector('#update_time_window'));
         ReactDOM.unmountComponentAtNode(document.querySelector('#number-of-movers2'));
@@ -699,7 +705,7 @@ Template.quoteTam.events({
     },
 });
 
-Template.quoteTam.onDestroyed(function() {
+Template.quoteTam.onDestroyed(function () {
     ReactDOM.unmountComponentAtNode(document.querySelector('#truck-list-update'));
     ReactDOM.unmountComponentAtNode(document.querySelector('#update_time_window'));
     ReactDOM.unmountComponentAtNode(document.querySelector('#number-of-movers2'));
@@ -718,15 +724,15 @@ Template.quoteTam.onDestroyed(function() {
     tracker_.stop();
 });
 
-Template.preQuote.onRendered(function() {
+Template.preQuote.onRendered(function () {
     let checked = document.querySelector('#flatRateCheck');
-    checked.addEventListener('change', function() {
+    checked.addEventListener('change', function () {
         Session.set('flatRate', !Session.get('flatRate'));
     });
 });
 
 Template.navBar.events({
-    'click .quoteDuymesi': function() {
+    'click .quoteDuymesi': function () {
         document.querySelector('#quoteTam')
             ? document.querySelector('#quoteTam').classList.remove('hide')
             : '';

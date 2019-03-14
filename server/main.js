@@ -12,7 +12,7 @@ Meteor.startup(() => {
     process.env.MAIL_URL =
         'smtp://postmaster%40probusinessrun.com:6d0eb775d8a76c5f1efd0b02030ea3fa-e89319ab-67f4f8af@smtp.mailgun.org:587';
     // code to run on server at startup
-    Meteor.publish('userData', function() {
+    Meteor.publish('userData', function () {
         if (this.userId && Meteor.user().profile.rank === 'admin') {
             return Meteor.users.find({
                 'profile.company': Meteor.userId(),
@@ -22,7 +22,7 @@ Meteor.startup(() => {
             this.ready();
         }
     });
-    Meteor.publish('tabletData', function() {
+    Meteor.publish('tabletData', function () {
         if (this.userId && Meteor.user().profile.rank === 'admin') {
             return Meteor.users.find({
                 'profile.company': Meteor.userId(),
@@ -41,7 +41,7 @@ Meteor.startup(() => {
 
 if (Meteor.isServer) {
     Meteor.methods({
-        duymeniVurma: function(id) {
+        duymeniVurma: function (id) {
             WorkData.update(id, {
                 $set: {
                     clientName: Math.random(),
@@ -49,15 +49,15 @@ if (Meteor.isServer) {
             });
         },
 
-        isiSilmek: function(id) {
+        isiSilmek: function (id) {
             WorkData.remove(id);
         },
 
-        isciniSilmek: function(id) {
+        isciniSilmek: function (id) {
             Meteor.users.remove(id);
         },
 
-        quotaniBazayaElaveEt: function(
+        quotaniBazayaElaveEt: function (
             firstName,
             lastName,
             phone,
@@ -93,6 +93,7 @@ if (Meteor.isServer) {
             quote,
             confirmed,
             isFollowUp,
+            sourceOfLeads
         ) {
             WorkData.insert({
                 quote,
@@ -135,10 +136,11 @@ if (Meteor.isServer) {
                 takenBy,
                 additionalContacts,
                 quoteDate,
+                sourceOfLeads
             });
         },
 
-        emailGonder: function(job) {
+        emailGonder: function (job) {
             // server connection
             let server = email.server.connect({
                 user: job.companyInfo.email,
@@ -163,7 +165,7 @@ if (Meteor.isServer) {
             };
             this.x = false;
 
-            server.send(message, function(err) {
+            server.send(message, function (err) {
                 if (err) {
                     console.log(err);
                     throw new Meteor.Error(
@@ -176,7 +178,7 @@ if (Meteor.isServer) {
             });
         },
 
-        confirmationGonder: function(job) {
+        confirmationGonder: function (job) {
             WorkData.update(job._id, {
                 $set: {
                     clientFirstName: job.clientFirstName,
@@ -207,25 +209,25 @@ if (Meteor.isServer) {
                 ],
             };
 
-            server.send(message, function(err) {
+            server.send(message, function (err) {
                 err ? console.log(err) : console.log('Email succesfully sent to: ' + job.email);
             });
         },
 
-        saveEmployeeInfo: function(isinIdsi, value, iscininIdsi) {
+        saveEmployeeInfo: function (isinIdsi, value, iscininIdsi) {
             WorkData.update(
                 { _id: isinIdsi, 'workers.id': iscininIdsi },
                 { $set: { 'workers.$.payed': value } },
             );
         },
 
-        updateWork: function(doc) {
+        updateWork: function (doc) {
             WorkData.update(
                 { _id: doc._id },
                 {
                     $set: doc,
                 },
-                function(error, result) {
+                function (error, result) {
                     if (error) {
                         console.log(error);
                         throw new Meteor.Error('Error updating', 'Reason: ' + error.message);
@@ -235,18 +237,18 @@ if (Meteor.isServer) {
                 },
             );
         },
-        updateDiscount: function(doc, id) {
+        updateDiscount: function (doc, id) {
             Discounts.update(
                 { _id: id },
                 {
                     $set: doc,
                 },
-                function(error, result) {
+                function (error, result) {
                     error ? console.log(error) : console.log(result);
                 },
             );
         },
-        removeDiscount: function(id) {
+        removeDiscount: function (id) {
             Discounts.remove(id);
         },
     });
