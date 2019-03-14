@@ -11,7 +11,7 @@ export default class List extends TrackerReact(Component) {
         super(props);
 
         this.state = {
-            jobs: [],
+            jobs: []
         };
 
         this.renderList = this.renderList.bind(this);
@@ -24,15 +24,17 @@ export default class List extends TrackerReact(Component) {
     componentDidMount() {
         this.x = Tracker.autorun(() => {
             const jobs = this.workData().sort((a, b) => {
-                return new Date(b.workDate).getTime() - new Date(a.workDate).getTime();
+                return (
+                    new Date(b.workDate).getTime() -
+                    new Date(a.workDate).getTime()
+                );
             });
 
             Session.get('isSearch')
                 ? null
-                : (Session.set('searchResult', jobs),
-                this.setState({
-                    jobs,
-                }));
+                : this.setState({
+                    jobs: Session.get('searchResult')
+                });
         });
     }
 
@@ -41,10 +43,13 @@ export default class List extends TrackerReact(Component) {
     }
 
     renderList() {
-        return Session.get('searchResult') && Session.get('searchResult').length > 0
-            ? Session.get('searchResult').map(job => {
+        return Session.get('searchResult') &&
+            Session.get('searchResult').length > 0
+            ? Session.get('searchResult').map((job) => {
                 return (
-                    <div key={job._id + 'followUpList'} className="collection-item">
+                    <div
+                        key={job._id + 'followUpList'}
+                        className="collection-item">
                         <ListInnerDisplay job={job} />
                     </div>
                 );

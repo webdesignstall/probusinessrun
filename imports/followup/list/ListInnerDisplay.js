@@ -12,7 +12,7 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
 
         this.state = {
             show: '',
-            job: {},
+            job: {}
         };
 
         this.showMore = this.showMore.bind(this);
@@ -21,7 +21,7 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
 
     UNSAFE_componentWillReceiveProps(nextProps) {
         this.setState({
-            job: this.workData(nextProps.job._id)[0],
+            job: this.workData(nextProps.job._id)[0]
         });
     }
 
@@ -32,14 +32,13 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
     componentDidMount() {
         this.x = Tracker.autorun(() => {
             this.setState({
-                job: this.workData(this.props.job._id)[0],
+                job: this.workData(this.props.job._id)[0]
             });
-            Session.set('ExtendedJobInformation', '');
+            Session.set('ExtendedJobInformation', '3');
         });
     }
 
     componentWillUnmount() {
-        Session.set('ExtendedJobInformation', '');
         this.x.stop();
     }
 
@@ -61,7 +60,7 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
                             position: 'relative',
                             top: '4px',
                             margin: '0 5px 0 10px',
-                            fontSize: '18px',
+                            fontSize: '18px'
                         }}>
                         fiber_manual_record
                     </i>
@@ -83,36 +82,68 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
         let status = [{}, {}, {}, {}, {}];
 
         let greenFollowUp = (
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 22 22">
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 22 22">
                 <circle cx="11" cy="11" r="11" fill="#4cd137" />
-                <g transform="translate(3.667 3.667)" fill="#4cd137" stroke="#fff" strokeWidth="1">
+                <g
+                    transform="translate(3.667 3.667)"
+                    fill="#4cd137"
+                    stroke="#fff"
+                    strokeWidth="1">
                     <circle cx="7.333" cy="7.333" r="7.333" stroke="none" />
                     <circle cx="7.333" cy="7.333" r="6.833" fill="none" />
                 </g>
             </svg>
         );
         let redFollowUp = (
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 22 22">
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 22 22">
                 <circle cx="11" cy="11" r="11" fill="#e84118" />
-                <g transform="translate(3.667 3.667)" fill="#e84118" stroke="#fff" strokeWidth="1">
+                <g
+                    transform="translate(3.667 3.667)"
+                    fill="#e84118"
+                    stroke="#fff"
+                    strokeWidth="1">
                     <circle cx="7.333" cy="7.333" r="7.333" stroke="none" />
                     <circle cx="7.333" cy="7.333" r="6.833" fill="none" />
                 </g>
             </svg>
         );
         let greyFollowUp = (
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 22 22">
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 22 22">
                 <circle cx="11" cy="11" r="11" fill="#a0a7a7" />
-                <g transform="translate(3.667 3.667)" fill="#a0a7a7" stroke="#fff" strokeWidth="1">
+                <g
+                    transform="translate(3.667 3.667)"
+                    fill="#a0a7a7"
+                    stroke="#fff"
+                    strokeWidth="1">
                     <circle cx="7.333" cy="7.333" r="7.333" stroke="none" />
                     <circle cx="7.333" cy="7.333" r="6.833" fill="none" />
                 </g>
             </svg>
         );
         let sariFollowUp = (
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 22 22">
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 22 22">
                 <circle cx="11" cy="11" r="11" fill="#ffd32a" />
-                <g transform="translate(3.667 3.667)" fill="#ffd32a" stroke="#fff" strokeWidth="1">
+                <g
+                    transform="translate(3.667 3.667)"
+                    fill="#ffd32a"
+                    stroke="#fff"
+                    strokeWidth="1">
                     <circle cx="7.333" cy="7.333" r="7.333" stroke="none" />
                     <circle cx="7.333" cy="7.333" r="6.833" fill="none" />
                 </g>
@@ -125,14 +156,21 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
                     <span
                         style={{
                             position: 'relative',
-                            top: '3px',
+                            top: '3px'
                         }}>
-                        {index < (this.state.job.followUp ? this.state.job.followUp.length : -1)
+                        {index <
+                        (this.state.job.followUp
+                            ? this.state.job.followUp.length
+                            : -1)
                             ? index ===
-                              (this.state.job.followUp ? this.state.job.followUp.length - 1 : -1)
-                                ? this.state.job.status && this.state.job.status === 'lost'
+                              (this.state.job.followUp
+                                  ? this.state.job.followUp.length - 1
+                                  : -1)
+                                ? this.state.job.status &&
+                                  this.state.job.status === 'lost'
                                     ? redFollowUp
-                                    : this.state.job.status && this.state.job.status === 'won'
+                                    : this.state.job.status &&
+                                      this.state.job.status === 'won'
                                         ? greenFollowUp
                                         : sariFollowUp
                                 : sariFollowUp
@@ -143,7 +181,7 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
                         style={{
                             position: 'relative',
                             top: '-4px',
-                            margin: '0 5px',
+                            margin: '0 5px'
                         }}>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -178,15 +216,22 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
     showMore(e) {
         e.preventDefault();
         let session = Session.get('ExtendedJobInformation');
-        this.state.job._id === session
-            ? (Session.set('ExtendedJobInformation', ''),
-            Session.set('is', ''),
-            this.setState({ show: '' }))
-            : (Session.set('is', this.state.job._id),
-            Session.set('searchResult_', Session.get('searchResult')),
-            Session.set('searchResult', [this.state.job]),
-            Session.set('ExtendedJobInformation', this.state.job._id),
-            this.setState({ show: this.state.job._id }));
+        if (this.state.job._id === session && session !== '') {
+            Session.set('ExtendedJobInformation', '');
+            Session.set('is', '');
+            this.setState({ show: '' });
+        } else {
+            console.log('show more');
+            Session.set('is', this.state.job._id);
+            Session.set('searchResult_', Session.get('searchResult'));
+            Session.set('searchResult', [this.state.job]);
+            console.log(
+                'TCL: ListInnerDisplay -> showMore -> [this.state.job]',
+                [this.state.job]
+            );
+            Session.set('ExtendedJobInformation', this.state.job._id);
+            this.setState({ show: this.state.job._id });
+        }
     }
 
     displayInfo() {
@@ -194,13 +239,13 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
             <div className={this.state.job._id ? '' : 'hide'}>
                 <span
                     style={{
-                        marginRight: '8px',
+                        marginRight: '8px'
                     }}>
                     {this.state.job ? this.state.job.clientFirstName : ''}
                 </span>
                 <span
                     style={{
-                        marginRight: '8px',
+                        marginRight: '8px'
                     }}>
                     {this.state.job ? this.state.job.clientLastName : ''}
                 </span>
@@ -210,7 +255,7 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
                         backgroundColor: '#3D587E',
                         borderRadius: '5px',
                         color: 'white',
-                        padding: '5px 10px',
+                        padding: '5px 10px'
                     }}>
                     {this.state.job ? this.state.job.workDate : ''}
                 </span>
@@ -220,7 +265,7 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
                         borderRadius: '5px',
                         backgroundColor: '#67AD5B',
                         color: 'white',
-                        padding: '5px 10px',
+                        padding: '5px 10px'
                     }}>
                     {this.state.job ? this.state.job.jobNumber : ''}
                 </span>
@@ -231,33 +276,38 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
                         marginRight: '8px',
                         borderRadius: '5px',
                         color: '#50325C',
-                        padding: '5px 10px',
+                        padding: '5px 10px'
                     }}>
-                    {this.state.job.companyInfo ? this.state.job.companyInfo.name || '' : ''}
+                    {this.state.job.companyInfo
+                        ? this.state.job.companyInfo.name || ''
+                        : ''}
                 </span>
                 {this.reason()}
-                {Session.get('is') !== '' && Session.get('is') === this.state.show ? (
-                    <i
-                        style={{ top: '-5px', cursor: 'pointer' }}
-                        className="material-icons right"
-                        onClick={e => this.showMore(e)}>
+                {Session.get('is') !== '' &&
+                Session.get('is') === this.state.show ? (
+                        <i
+                            style={{ top: '-5px', cursor: 'pointer' }}
+                            className="material-icons right"
+                            onClick={(e) => this.showMore(e)}>
                         close
-                    </i>
-                ) : (
-                    <i
-                        style={{ top: '-5px', cursor: 'pointer' }}
-                        className="material-icons right"
-                        onClick={e => this.showMore(e)}>
+                        </i>
+                    ) : (
+                        <i
+                            style={{ top: '-5px', cursor: 'pointer' }}
+                            className="material-icons right"
+                            onClick={(e) => this.showMore(e)}>
                         edit
-                    </i>
-                )}
+                        </i>
+                    )}
                 <span
                     style={{
                         marginRight: '8px',
                         borderRadius: '5px',
-                        backgroundColor: this.state.job.quote ? '#77AB64' : '#D64F2D',
+                        backgroundColor: this.state.job.quote
+                            ? '#77AB64'
+                            : '#D64F2D',
                         color: 'white',
-                        padding: '5px 10px',
+                        padding: '5px 10px'
                     }}>
                     Quote
                 </span>
@@ -281,5 +331,5 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
 }
 
 ListInnerDisplay.propTypes = {
-    job: PropTypes.object.isRequired,
+    job: PropTypes.object.isRequired
 };
