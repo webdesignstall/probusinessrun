@@ -17,7 +17,14 @@ export default class FollowUpMain extends TrackerReact(Component) {
 
     componentDidMount() {
         this.x = Tracker.autorun(() => {
-            const jobs = this.workData().sort((a, b) => {
+            let jobs = this.workData().sort((a, b) => {
+                return (
+                    new Date(b.quoteDate).getTime() -
+                    new Date(a.quoteDate).getTime()
+                );
+            });
+
+            jobs = jobs.sort((a, b) => {
                 return (
                     new Date(b.workDate).getTime() -
                     new Date(a.workDate).getTime()
