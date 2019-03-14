@@ -34,7 +34,7 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
             this.setState({
                 job: this.workData(this.props.job._id)[0]
             });
-            Session.set('ExtendedJobInformation', '3');
+            Session.set('ExtendedJobInformation', '');
         });
     }
 

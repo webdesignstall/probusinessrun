@@ -9,8 +9,8 @@ export default class FinalNote extends Component {
             finalNote: {
                 reason: '',
                 other: false,
-                otherNote: '',
-            },
+                otherNote: ''
+            }
         };
 
         this.changeSelect = this.changeSelect.bind(this);
@@ -18,13 +18,13 @@ export default class FinalNote extends Component {
 
     componentDidMount() {
         this.setState({
-            finalNote: this.props.finalNote,
+            finalNote: this.props.finalNote
         });
     }
 
     UNSAFE_componentWillReceiveProps(nextProps) {
         this.setState({
-            finalNote: nextProps.finalNote,
+            finalNote: nextProps.finalNote
         });
     }
 
@@ -51,15 +51,21 @@ export default class FinalNote extends Component {
                 <select
                     className="browser-default"
                     name="select_finalNote"
-                    onChange={e => this.changeSelect(e, 'reason')}
+                    onChange={(e) => this.changeSelect(e, 'reason')}
                     value={this.state.finalNote.reason || 'none'}
                     id="select_finalNote">
                     <option value="none" disabled={true}>
                         Select Final Note
                     </option>
-                    <option value="Time Expired">Time Expired</option>
-                    <option value="No respond from customer">No respond from customer</option>
-                    <option value="Could not reach customer">Could not reach customer</option>
+                    <option value="Time Expired" disabled={true}>
+                        Time Expired
+                    </option>
+                    <option value="No respond from customer">
+                        No respond from customer
+                    </option>
+                    <option value="Could not reach customer">
+                        Could not reach customer
+                    </option>
                     <option value="Does not accept Minimum Labor Hours">
                         Does not accept Minimum Labor Hours
                     </option>
@@ -67,13 +73,15 @@ export default class FinalNote extends Component {
                     <option value="No need moving service anymore">
                         No need moving service anymore
                     </option>
-                    <option value="Found another company">Found another company</option>
+                    <option value="Found another company">
+                        Found another company
+                    </option>
                     <option value="Found lower price">Found lower price</option>
                     <option value="Other">Other</option>
                 </select>
                 {this.state.finalNote.other ? (
                     <textarea
-                        onChange={e => this.changeSelect(e, 'otherNote')}
+                        onChange={(e) => this.changeSelect(e, 'otherNote')}
                         value={this.state.finalNote.otherNote}
                         style={{
                             height: '100px',
@@ -81,7 +89,7 @@ export default class FinalNote extends Component {
                             marginTop: '5px',
                             borderRadius: '5px',
                             borderColor: '#CECECE',
-                            outline: 'none',
+                            outline: 'none'
                         }}
                         name="select_finalNote_other"
                         id="select_finalNote_other"
@@ -97,5 +105,5 @@ export default class FinalNote extends Component {
 
 FinalNote.propTypes = {
     finalNote: PropTypes.object.isRequired,
-    updateJob: PropTypes.func,
+    updateJob: PropTypes.func
 };
