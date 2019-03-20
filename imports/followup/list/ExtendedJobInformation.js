@@ -103,7 +103,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                     className="browser-default"
                     name="double drive time"
                     id="double_drive_time_followup"
-                    value={value || false}>
+                    value={value || 'false'}>
                     <option value="false" disabled>
                         Select double drive
                     </option>
@@ -209,7 +209,8 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                     button: 'OK'
                 }),
                 Session.set('is', ''),
-                Session.set('ExtendedJobInformation', ''));
+                Session.set('ExtendedJobInformation', ''),
+                Session.set('searchResult', Session.get('searchResult_')));
         });
     }
 
@@ -283,7 +284,11 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                             button: 'OK'
                         }),
                         Session.set('is', ''),
-                        Session.set('ExtendedJobInformation', ''));
+                        Session.set('ExtendedJobInformation', ''),
+                        Session.set(
+                            'searchResult',
+                            Session.get('searchResult_')
+                        ));
                 });
             }
         });
@@ -579,7 +584,9 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                             />
                         </div>
                         <div className="col s12 m6 l2">
-                            {this.doubleDrive(this.state.job.doubleDrive)}
+                            {this.doubleDrive(
+                                this.state.job.doubleDrive || 'false'
+                            )}
                         </div>
                         <div className="col s12 m3 l2">
                             {this.jobStatus(this.state.job.status)}
