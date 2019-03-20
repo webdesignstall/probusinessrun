@@ -1597,12 +1597,6 @@ export default function EmailContent(job) {
                                 </div>
                               </div>
                             </div>
-                            <div style="margin-bottom: 5px;">
-                              <span style="font-size: 20px; color: red">✘</span>
-                              Extra-Large Item Packing and Transportation: for
-                              example, pool tables, pianos, etc. (Please ask if you
-                              need Extra-Large Item Packing and Moving).
-                            </div>
                             `
         : ''
 }
