@@ -344,7 +344,7 @@ export default function EmailContent(job) {
         job.doubleDrive && job.doubleDrive === 'notSure'
             ? `
             <div
-            style="font-size:16px;text-align:center;font-family:'Roboto', Tahoma, Verdana, Segoe, sans-serif"
+            style="padding: 3px 0 3px 10px;font-size:13px;text-align:left;font-family:'Roboto', Tahoma, Verdana, Segoe, sans-serif"
             >
             Double Drive Time, <a href="http://www.moverslegion.com/wp-content/uploads/2019/02/DDT.pdf">learn more</a>
             </div>
@@ -355,7 +355,7 @@ export default function EmailContent(job) {
         job.gasFee && job.gasFee < 0
             ? `
             <div
-            style="font-size:16px;text-align:center;font-family:'Roboto', Tahoma, Verdana, Segoe, sans-serif"
+            style="padding: 3px 0 3px 10px;font-size:13px;text-align:left;font-family:'Roboto', Tahoma, Verdana, Segoe, sans-serif"
             >
             Gas Fee (one time fee)
             </div>
@@ -366,7 +366,7 @@ export default function EmailContent(job) {
         job.largeItemFee && job.largeItemFee > 0
             ? `
             <div
-            style="font-size:16px;text-align:center;font-family:'Roboto', Tahoma, Verdana, Segoe, sans-serif"
+            style="font-size:13px;text-align:left;font-family:'Roboto', Tahoma, Verdana, Segoe, sans-serif"
             >
                 <table
                 style="width: 100%; text-align: left; font-size: 13px"
