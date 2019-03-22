@@ -21,7 +21,7 @@ export default class Filter extends TrackerReact(Component) {
             this.setState({ clicked: '' }, () => {
                 let list = this.workData('');
                 list.sort((a, b) => {
-                    return new Date(b.workDate).getTime() - new Date(a.workDate).getTime();
+                    return new Date(a.workDate).getTime() - new Date(b.workDate).getTime();
                 });
                 Session.set('searchResult', list);
             });
@@ -29,7 +29,7 @@ export default class Filter extends TrackerReact(Component) {
             this.setState({ clicked: type }, () => {
                 let list = this.workData(type);
                 list.sort((a, b) => {
-                    return new Date(b.workDate).getTime() - new Date(a.workDate).getTime();
+                    return new Date(a.workDate).getTime() - new Date(b.workDate).getTime();
                 });
                 Session.set('searchResult', list);
             });
@@ -47,7 +47,7 @@ export default class Filter extends TrackerReact(Component) {
             <div className="sag">
                 <ul className="filter--list sag">
                     <li
-                        className={this.state.clicked === 'inProgress' ? 'sari_' : ''}
+                        className={this.state.clicked === '' || this.state.clicked === 'inProgress' ? 'sari_' : ''}
                         onClick={() => this.filter('inProgress')}>
                         IN PROGRESS
                     </li>
