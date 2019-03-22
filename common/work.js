@@ -26,6 +26,7 @@ Schemas.workSchema = new SimpleSchema(
             type: String,
             label: 'Client Last Name',
             max: 200,
+            optional: true,
             autoform: {
                 class: '',
             },
