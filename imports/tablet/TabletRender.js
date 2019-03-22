@@ -1727,7 +1727,7 @@ MY OWN FREE WILL`,
                                                 value={this.state.payCard > 0 ? this.state.payCard : ''}
                                             />
                                         </div>
-                                        <div id="pay-card" className={this.state.goster ? '' : ' hide'} />
+                                        <div id="pay-card"/>
                                         <div className={this.state.goster ? 'hide' : ''}>
                                             Read and accept for making payment
                                         </div>
