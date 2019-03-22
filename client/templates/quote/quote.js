@@ -478,6 +478,7 @@ Template.preQuote.events({
                             jobNumber_();
 
                             Session.set('reset', true);
+                            Session.set('additionalContacts', []);
                             setTimeout(() => Session.set('reset', false), 3000);
                         }
                     });
@@ -619,6 +620,22 @@ Template.preQuote.events({
                         text: 'Quote added to database successfully',
                         icon: 'success',
                     });
+                    document.querySelector('#flatRateCheck').checked = false;
+                    document.getElementById('gas_fee').disabled = false;
+
+                    document.querySelector('#paymentContent').classList.remove('hide');
+                    document.querySelector('#flatRate_').classList.add('hide');
+
+                    window.addresses.resetComponent();
+
+                    document.getElementById('quote-request').reset();
+
+                    // run job number
+                    jobNumber_();
+
+                    Session.set('reset', true);
+                    Session.set('additionalContacts', []);
+                    setTimeout(() => Session.set('reset', false), 3000);
                 }
             },
         );
@@ -809,6 +826,7 @@ Template.preQuote.events({
                             jobNumber_();
 
                             Session.set('reset', true);
+                            Session.set('additionalContacts', []);
                             setTimeout(() => Session.set('reset', false), 3000);
                         }
                     });

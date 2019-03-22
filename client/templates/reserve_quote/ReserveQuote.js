@@ -133,6 +133,7 @@ class ReserveQuote extends React.Component {
     }
 
     renderAdditionalContacts(addContacts) {
+        console.log('TCL: renderAdditionalContacts -> addContacts', addContacts);
         return addContacts
             ? addContacts.map((value, index) => {
                 return (
@@ -169,8 +170,7 @@ class ReserveQuote extends React.Component {
             <tr>
                 <td>Arrival Window:</td>
                 <td>
-                    {job.workMustBeginTime[0] === '04:00 am' &&
-                    job.workMustBeginTime[0] === '04:00 am'
+                    {job.workMustBeginTime[0] === '04:00 am' && job.workMustBeginTime[0] === '04:00 am'
                         ? 'Morning & Afternoon'
                         : `${job.workMustBeginTime[0]} - ${job.workMustBeginTime[1]}`}
                 </td>
@@ -320,12 +320,8 @@ class ReserveQuote extends React.Component {
                     <div className="sola-cekme">
                         <p>
                             {/* finish the on clikc pdf download */}
-                            <input
-                                className="secilib"
-                                onChange={() => this.checked()}
-                                type="checkbox"
-                            />{' '}
-                            I have read, understand and agree to the contents of the{' '}
+                            <input className="secilib" onChange={() => this.checked()} type="checkbox" /> I have read,
+                            understand and agree to the contents of the{' '}
                             <i>
                                 <a
                                     href="http://www.moverslegion.com/wp-content/uploads/2019/01/included.pdf"
@@ -337,12 +333,8 @@ class ReserveQuote extends React.Component {
                             </i>
                         </p>
                         <p>
-                            <input
-                                className="secilib"
-                                onChange={() => this.checked()}
-                                type="checkbox"
-                            />{' '}
-                            I have read, understand and agree to the contents of the{' '}
+                            <input className="secilib" onChange={() => this.checked()} type="checkbox" /> I have read,
+                            understand and agree to the contents of the{' '}
                             <i>
                                 <a
                                     href="http://www.moverslegion.com/wp-content/uploads/2019/01/not-included.pdf"
@@ -354,12 +346,8 @@ class ReserveQuote extends React.Component {
                             </i>
                         </p>
                         <p>
-                            <input
-                                className="secilib"
-                                onChange={() => this.checked()}
-                                type="checkbox"
-                            />{' '}
-                            I have read, understand and agree to the contents of the{' '}
+                            <input className="secilib" onChange={() => this.checked()} type="checkbox" /> I have read,
+                            understand and agree to the contents of the{' '}
                             <i>
                                 <a
                                     href="http://www.moverslegion.com/wp-content/uploads/2018/12/for-you-1.pdf"
@@ -371,12 +359,8 @@ class ReserveQuote extends React.Component {
                             </i>
                         </p>
                         <p>
-                            <input
-                                className="secilib"
-                                onChange={() => this.checked()}
-                                type="checkbox"
-                            />{' '}
-                            I have recieved a copy of the{' '}
+                            <input className="secilib" onChange={() => this.checked()} type="checkbox" /> I have
+                            recieved a copy of the{' '}
                             <i>
                                 <a
                                     href="http://www.moverslegion.com/wp-content/uploads/2018/12/important.pdf"
@@ -388,12 +372,8 @@ class ReserveQuote extends React.Component {
                             </i>
                         </p>
                         <p>
-                            <input
-                                className="secilib"
-                                onChange={() => this.checked()}
-                                type="checkbox"
-                            />{' '}
-                            I have recieved a copy of the{' '}
+                            <input className="secilib" onChange={() => this.checked()} type="checkbox" /> I have
+                            recieved a copy of the{' '}
                             <i>
                                 <a
                                     href="http://www.moverslegion.com/wp-content/uploads/2018/12/Hazard.pdf"
@@ -408,28 +388,18 @@ class ReserveQuote extends React.Component {
                             items listed for transportation by Cheap Movers Los Angeles.
                         </p>
                         <p>
-                            <input
-                                className="secilib"
-                                onChange={() => this.checked()}
-                                type="checkbox"
-                            />{' '}
-                            I understand and agree that I will have Cash or Card Payment ready on
-                            the day of my move.
+                            <input className="secilib" onChange={() => this.checked()} type="checkbox" /> I understand
+                            and agree that I will have Cash or Card Payment ready on the day of my move.
                         </p>
                         <p>
-                            <input
-                                className="secilib"
-                                onChange={() => this.checked()}
-                                type="checkbox"
-                            />{' '}
-                            Yes! I have read the information above and wish to pay my Moving Deposit
-                            to book this move.
-                            <br />I understand that this Deposit is non-refundable and
-                            non-transferrable if I reschedule or cancel this move.
+                            <input className="secilib" onChange={() => this.checked()} type="checkbox" /> Yes! I have
+                            read the information above and wish to pay my Moving Deposit to book this move.
+                            <br />I understand that this Deposit is non-refundable and non-transferrable if I reschedule
+                            or cancel this move.
                         </p>
                         <p>
-                            **If you have any questions, please contact us as soon as possible by
-                            phone, text, or e-mail 24/7**
+                            **If you have any questions, please contact us as soon as possible by phone, text, or e-mail
+                            24/7**
                         </p>
                         <div style={{ textAlign: 'center' }}>
                             Phone Number: {job.companyInfo.phoneNumber} <br />
@@ -448,8 +418,8 @@ class ReserveQuote extends React.Component {
                 <div className="job-number-enter">
                     <div id="enter-number" className="enter-code">
                         <h6>
-                            Please call customer service to get custom code in order to confirm your
-                            move. <span>213-262-9440</span>
+                            Please call customer service to get custom code in order to confirm your move.{' '}
+                            <span>213-262-9440</span>
                         </h6>
                         <input
                             id="code"
@@ -497,10 +467,8 @@ Template.reserveQuote.onRendered(function() {
                 },
 
                 client: {
-                    sandbox:
-                        'ASree96P5IIPryoEkaURjZl_uCCGHLcso9ZNy6U_4vLFUnFc5qhU7hIP7KsLIfZoepVvPhxtdwvTsao5',
-                    production:
-                        'AeKzmDv5m4KcyrlQI7Y9qiyjYr5jyUYVKd1FsKrXF9Nce7qmfekBC35JIAFbV2am3TdVKhszmcOdFJhK',
+                    sandbox: 'ASree96P5IIPryoEkaURjZl_uCCGHLcso9ZNy6U_4vLFUnFc5qhU7hIP7KsLIfZoepVvPhxtdwvTsao5',
+                    production: 'AeKzmDv5m4KcyrlQI7Y9qiyjYr5jyUYVKd1FsKrXF9Nce7qmfekBC35JIAFbV2am3TdVKhszmcOdFJhK',
                 },
 
                 commit: true, // Show a 'Pay Now' button
@@ -524,10 +492,7 @@ Template.reserveQuote.onRendered(function() {
                             document.getElementById('jobInfoMain').classList.add('hide');
                             document.getElementById('son-mesaj').classList.remove('hide');
                             Meteor.call('confirmationGonder', jobIs);
-                            ReactDOM.render(
-                                <ConfirmationDisplay />,
-                                document.getElementById('son-mesaj'),
-                            );
+                            ReactDOM.render(<ConfirmationDisplay />, document.getElementById('son-mesaj'));
                             let job = Session.get('job');
                             job.quote = false;
                             job.confirmed = true;
