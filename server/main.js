@@ -16,7 +16,7 @@ Meteor.startup(() => {
         if (this.userId && Meteor.user().profile.rank === 'admin') {
             return Meteor.users.find({
                 'profile.company': Meteor.userId(),
-                'profile.rank': 'mover'
+                'profile.rank': 'mover',
             });
         } else {
             this.ready();
@@ -26,7 +26,7 @@ Meteor.startup(() => {
         if (this.userId && Meteor.user().profile.rank === 'admin') {
             return Meteor.users.find({
                 'profile.company': Meteor.userId(),
-                'profile.rank': 'tablet'
+                'profile.rank': 'tablet',
             });
         } else {
             this.ready();
@@ -44,8 +44,8 @@ if (Meteor.isServer) {
         duymeniVurma: function(id) {
             WorkData.update(id, {
                 $set: {
-                    clientName: Math.random()
-                }
+                    clientName: Math.random(),
+                },
             });
         },
 
@@ -93,13 +93,14 @@ if (Meteor.isServer) {
             quote,
             confirmed,
             isFollowUp,
-            sourceOfLeads
+            sourceOfLeads,
+            status,
         ) {
             WorkData.insert({
                 quote,
                 isFollowUp,
                 confirmed,
-                status: 'inProgress',
+                status,
                 clientFirstName: firstName,
                 clientLastName: lastName,
                 phoneNumber: phone,
@@ -128,15 +129,15 @@ if (Meteor.isServer) {
                     {
                         isTrue: flatRate,
                         cashAmount: flatRateCash,
-                        cardAmount: flatRateCard
-                    }
+                        cardAmount: flatRateCard,
+                    },
                 ],
                 comment,
                 deposit,
                 takenBy,
                 additionalContacts,
                 quoteDate,
-                sourceOfLeads
+                sourceOfLeads,
             });
         },
 
@@ -146,7 +147,7 @@ if (Meteor.isServer) {
                 user: job.companyInfo.email,
                 password: 'MCla7724!',
                 host: job.companyInfo.smtp,
-                timeout: 60000
+                timeout: 60000,
                 // ssl: true,
             });
 
@@ -155,27 +156,20 @@ if (Meteor.isServer) {
                 text: ' ',
                 from: job.companyInfo.name + ' ' + job.companyInfo.email,
                 to: job.email,
-                subject:
-                    'Free Moving Quote for ' +
-                    job.firstName +
-                    ' ' +
-                    job.lastName,
+                subject: 'Free Moving Quote for ' + job.firstName + ' ' + job.lastName,
                 attachment: [
                     {
                         data: EmailContent(job),
-                        alternative: true
-                    }
-                ]
+                        alternative: true,
+                    },
+                ],
             };
             this.x = false;
 
             server.send(message, function(err) {
                 if (err) {
                     console.log(err);
-                    throw new Meteor.Error(
-                        'Can\'t send email',
-                        'Impossible send email. Contact system administration'
-                    );
+                    throw new Meteor.Error('Can\'t send email', 'Impossible send email. Contact system administration');
                 } else {
                     console.log('Email successfully sent to: ' + job.email);
                 }
@@ -188,15 +182,15 @@ if (Meteor.isServer) {
                     clientFirstName: job.clientFirstName,
                     quote: false,
                     isFollowUp: false,
-                    confirmed: true
-                }
+                    confirmed: true,
+                },
             });
 
             let server = email.server.connect({
                 user: job.companyInfo.email,
                 password: 'MCla7724!',
                 timeout: 60000,
-                host: job.companyInfo.smtp
+                host: job.companyInfo.smtp,
                 // ssl: true
             });
 
@@ -208,64 +202,53 @@ if (Meteor.isServer) {
                 attachment: [
                     {
                         data: ConfirmationEmail(job),
-                        alternative: true
-                    }
-                ]
+                        alternative: true,
+                    },
+                ],
             };
 
             server.send(message, function(err) {
-                err
-                    ? console.log(err)
-                    : console.log('Email succesfully sent to: ' + job.email);
+                err ? console.log(err) : console.log('Email succesfully sent to: ' + job.email);
             });
         },
 
         saveEmployeeInfo: function(isinIdsi, value, iscininIdsi) {
-            WorkData.update(
-                { _id: isinIdsi, 'workers.id': iscininIdsi },
-                { $set: { 'workers.$.payed': value } }
-            );
+            WorkData.update({ _id: isinIdsi, 'workers.id': iscininIdsi }, { $set: { 'workers.$.payed': value } });
         },
 
         updateWork: function(doc) {
-            if (
-                doc.status === 'lost' &&
-                (doc.finalNote === 'none' || doc.finalNote === undefined)
-            ) {
+            if (doc.status === 'lost' && (doc.finalNote === 'none' || doc.finalNote === undefined)) {
                 throw new Meteor.Error('Please select final note for lost job');
             }
             WorkData.update(
                 { _id: doc._id },
                 {
-                    $set: doc
+                    $set: doc,
                 },
                 function(error, result) {
                     if (error) {
                         console.log(error);
-                        throw new Meteor.Error(
-                            'Error updating',
-                            'Reason: ' + error.message
-                        );
+                        throw new Meteor.Error('Error updating', 'Reason: ' + error.message);
                     } else {
                         console.log(result);
                     }
-                }
+                },
             );
         },
         updateDiscount: function(doc, id) {
             Discounts.update(
                 { _id: id },
                 {
-                    $set: doc
+                    $set: doc,
                 },
                 function(error, result) {
                     error ? console.log(error) : console.log(result);
-                }
+                },
             );
         },
         removeDiscount: function(id) {
             Discounts.remove(id);
-        }
+        },
     });
 }
 

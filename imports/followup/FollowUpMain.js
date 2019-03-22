@@ -30,32 +30,26 @@ export default class FollowUpMain extends TrackerReact(Component) {
                     job.status = 'lost';
                     let finalNote_ = {
                         reason: 'Time Expired',
-                        other: false
+                        other: false,
                     };
                     job.finalNote = finalNote_;
                     Meteor.call('updateWork', job);
                 }
             });
 
-            let jobs = this.workData().sort((a, b) => {
-                return (
-                    new Date(b.quoteDate).getTime() -
-                    new Date(a.quoteDate).getTime()
-                );
+            let jobs = this.workDataInProgress().sort((a, b) => {
+                return new Date(b.quoteDate).getTime() - new Date(a.quoteDate).getTime();
             });
 
             jobs = jobs.sort((a, b) => {
-                return (
-                    new Date(b.workDate).getTime() -
-                    new Date(a.workDate).getTime()
-                );
+                return new Date(a.workDate).getTime() - new Date(b.workDate).getTime();
             });
 
             Session.get('isSearch')
                 ? null
                 : (Session.set('searchResult', jobs),
                 this.setState({
-                    jobs
+                    jobs,
                 }));
         });
     }
