@@ -21,10 +21,10 @@ let odenilmelidir = 0;
 export default class TabletRender extends React.Component {
     constructor(props) {
         super(props);
-        this.state = ({
+        this.state = {
             movingSizeList: {
-                'items': 'Items',
-                'studio': 'Studio',
+                items: 'Items',
+                studio: 'Studio',
                 '1_bedroom': '1 Bedroom',
                 '2_bedroom_small': '2 Bedroom (small size, few items)',
                 '2_bedroom_avg': '2 Bedroom (avg. size, avg. items)',
@@ -33,8 +33,8 @@ export default class TabletRender extends React.Component {
                 '3_bedroom_large': '3 Bedroom (large size, many items)',
                 '4_bedrooom_avg': '4 Bedroom (avg. size, avg. items)',
                 '4_bedroom_large': '4 Bedroom (large size, many items)',
-                'commercial_avg': 'Commercial (avg. size, avg. items)',
-                'commercial_large': 'Commercial (large size, many items)'
+                commercial_avg: 'Commercial (avg. size, avg. items)',
+                commercial_large: 'Commercial (large size, many items)',
             },
             valuePaperBundles: 0,
             paperBundles: 0,
@@ -68,31 +68,26 @@ export default class TabletRender extends React.Component {
             additionalCharge: [],
             vurulmusIs: [
                 {
-                    '_id': 'MKqnYLC8bHzNFsQBR',
-                    'quote': true,
-                    'clientFirstName': 'Yusif',
-                    'clientLastName': 'Khalilov',
-                    'phoneNumber': [
-                        '9176079419'
-                    ],
-                    'email': 'admin@admin.az',
-                    'addresses': [
-                        'dashjjkhasdjahkd',
-                        'sadhkajdhsjkahda'
-                    ],
-                    'workers': [],
-                    'workDate': '03/23/2018',
-                    'movingSize': '2_bedroom_avg',
-                    'confirmed': false,
-                    'workMustBeginTime': '09:00',
-                    'truckNumber': 6,
-                    'price': 4500,
-                    'jobNumber': '0rryh',
-                    'hourlyRates': 45,
-                    'laborTime': 3,
-                    'gasFee': 60,
-                    'company': 'ukqBneo88GuHj3ETe'
-                }
+                    _id: 'MKqnYLC8bHzNFsQBR',
+                    quote: true,
+                    clientFirstName: 'Yusif',
+                    clientLastName: 'Khalilov',
+                    phoneNumber: ['9176079419'],
+                    email: 'admin@admin.az',
+                    addresses: ['dashjjkhasdjahkd', 'sadhkajdhsjkahda'],
+                    workers: [],
+                    workDate: '03/23/2018',
+                    movingSize: '2_bedroom_avg',
+                    confirmed: false,
+                    workMustBeginTime: '09:00',
+                    truckNumber: 6,
+                    price: 4500,
+                    jobNumber: '0rryh',
+                    hourlyRates: 45,
+                    laborTime: 3,
+                    gasFee: 60,
+                    company: 'ukqBneo88GuHj3ETe',
+                },
             ],
             additionalSignatureList: [
                 {
@@ -138,7 +133,7 @@ export default class TabletRender extends React.Component {
                         waiver to the maximum extent permissible under applicable law.
                         I CERTIFY THAT I HAVE READ THIS DOCUMENT AND I FULLY UNDERSTAND ITS CONTENT.
                         I AM AWARE THAT THIS IS A RELEASE OF LIABILITY AND A CONTRACT AND I SIGN IT OF
-                    MY OWN FREE WILL.`
+                    MY OWN FREE WILL.`,
                 },
                 {
                     id: '2additionalSignature',
@@ -171,7 +166,7 @@ The Accident Waiver and Release of Liability Form shall be construed broadly to 
 waiver to the maximum extent permissible under applicable law.
 I CERTIFY THAT I HAVE READ THIS DOCUMENT AND I FULLY UNDERSTAND ITS CONTENT.
 I AM AWARE THAT THIS IS A RELEASE OF LIABILITY AND A CONTRACT AND I SIGN IT OF
-MY OWN FREE WILL.`
+MY OWN FREE WILL.`,
                 },
                 {
                     id: '3additionalSignature',
@@ -204,7 +199,7 @@ The Accident Waiver and Release of Liability Form shall be construed broadly to 
 waiver to the maximum extent permissible under applicable law.
 I CERTIFY THAT I HAVE READ THIS DOCUMENT AND I FULLY UNDERSTAND ITS CONTENT.
 I AM AWARE THAT THIS IS A RELEASE OF LIABILITY AND A CONTRACT AND I SIGN IT OF
-MY OWN FREE WILL`
+MY OWN FREE WILL`,
                 },
                 {
                     id: '4additionalSignature',
@@ -237,8 +232,8 @@ The Accident Waiver and Release of Liability Form shall be construed broadly to 
 waiver to the maximum extent permissible under applicable law.
 I CERTIFY THAT I HAVE READ THIS DOCUMENT AND I FULLY UNDERSTAND ITS CONTENT.
 I AM AWARE THAT THIS IS A RELEASE OF LIABILITY AND A CONTRACT AND I SIGN IT OF
-MY OWN FREE WILL`
-                }
+MY OWN FREE WILL`,
+                },
             ],
             additionalSignature: [],
             totalAdditionalChargeAmount: 0,
@@ -251,10 +246,10 @@ MY OWN FREE WILL`
             checks: {
                 packMater: false,
                 cargoIsSubject: false,
-                myResponsibility: false
+                myResponsibility: false,
             },
-            initialized: false
-        });
+            initialized: false,
+        };
 
         this.requirementEntirely = this.requirementEntirely.bind(this);
         this.initialAlphabet = this.initialAlphabet.bind(this);
@@ -276,20 +271,20 @@ MY OWN FREE WILL`
 
     requirementEntirely(param, whichState) {
         this.setState({
-            [whichState]: param
+            [whichState]: param,
         });
     }
 
     initialAlphabet(e) {
         this.setState({
-            initialSignAlphabet: e.target.value
+            initialSignAlphabet: e.target.value,
         });
     }
 
     saveSignature(which, infromation) {
         let newList = this.state[which].concat(infromation);
         this.setState({
-            [which]: newList
+            [which]: newList,
         });
 
         let doc = {
@@ -318,7 +313,7 @@ MY OWN FREE WILL`
             bundleWrapRoll: this.state.valueWrapRoll,
             smallBoxes: this.state.valueSmallBoxes,
             mediumBoxes: this.state.valueMediumBoxes,
-            largeBoxes: this.state.valueLargeBoxes
+            largeBoxes: this.state.valueLargeBoxes,
         };
         Meteor.call('updateWork', doc);
     }
@@ -327,7 +322,7 @@ MY OWN FREE WILL`
         let sign = this.signaturePad3.toDataURL();
         if (!this.signaturePad3.isEmpty()) {
             this.setState({
-                initSign: sign
+                initSign: sign,
             });
         }
 
@@ -341,7 +336,7 @@ MY OWN FREE WILL`
             threeDayPrior: this.state.threeDayPrior,
             initFullName: this.state.startFullName,
             initSignDate: new Date(),
-            initialized: true
+            initialized: true,
         };
         Meteor.call('updateWork', doc);
     }
@@ -353,32 +348,32 @@ MY OWN FREE WILL`
             this.totalDiscountPercent = 0;
             this.totalAdditionalChargeAmount = 0;
 
-            this.state.discount && this.state.discount.length > -1 ?
-                this.state.discount
-                    .filter((discount) => discount.type === 'time')
-                    .map((discount) => this.totalDiscountTime += discount.amount)
+            this.state.discount && this.state.discount.length > -1
+                ? this.state.discount
+                    .filter(discount => discount.type === 'time')
+                    .map(discount => (this.totalDiscountTime += discount.amount))
                 : null;
 
-            this.state.discount && this.state.discount.length > -1 ?
-                this.state.discount
-                    .filter((discount) => discount.type === 'amount')
-                    .map((discount) => this.totalDiscountAmount += discount.amount)
+            this.state.discount && this.state.discount.length > -1
+                ? this.state.discount
+                    .filter(discount => discount.type === 'amount')
+                    .map(discount => (this.totalDiscountAmount += discount.amount))
                 : null;
 
-            this.state.discount && this.state.discount.length > -1 ?
-                this.state.discount
-                    .filter((discount) => discount.type === 'percent')
-                    .map((discount) => this.totalDiscountPercent += discount.amount)
+            this.state.discount && this.state.discount.length > -1
+                ? this.state.discount
+                    .filter(discount => discount.type === 'percent')
+                    .map(discount => (this.totalDiscountPercent += discount.amount))
                 : null;
 
-            this.state.additionalCharge.map((charge) => {
+            this.state.additionalCharge.map(charge => {
                 this.totalAdditionalChargeAmount += charge.amount;
             });
 
             let workData = this.state.vurulmusIs.length > 0 ? this.state.vurulmusIs[0] : null; // melumatlar bazasi
             let percentDiscount = Number(this.totalDiscountPercent) || 0; // % discount
             let cashDiscount = Number(this.totalDiscountAmount) || 0; // $ amount discount
-            let timeDiscount = (Number(this.totalDiscountTime) / 60) || 0; // time amount hours
+            let timeDiscount = Number(this.totalDiscountTime) / 60 || 0; // time amount hours
             let flatRateIsTrue = workData.flatRate ? workData.flatRate[0].isTrue : false; // flat rate var ?
             let flatCashAmount = workData.flatRate ? Number(workData.flatRate[0].cashAmount) : 0; // flat cash amount
             let flatCardAmount = workData.flatRate ? Number(workData.flatRate[0].cardAmount) : 0; // flat card amount
@@ -398,27 +393,20 @@ MY OWN FREE WILL`
             this.lessThanLabor = false;
             flatRateIsTrue
                 ? startToFinishTime < laborTime
-                    ? (startToFinishTime = laborTime, this.lessThanLabor = true, totalWorkedHours = 0, drivingTime = 0)
-                    : (
-                        totalWorkedHours = startToFinishTime - laborTime,
-                        drivingTime = 0
-                    )
+                    ? ((startToFinishTime = laborTime),
+                    (this.lessThanLabor = true),
+                    (totalWorkedHours = 0),
+                    (drivingTime = 0))
+                    : ((totalWorkedHours = startToFinishTime - laborTime), (drivingTime = 0))
                 : null;
 
             // DDT olduqda ve isleme saati labor vaxtdan az olduqda ve ya eksi
-            isDoubleDrive && (totalWorkedHours <= laborTime)
-                ? (
-                    startToFinishTime = laborTime + (drivingTime * 2),
-                    totalWorkedHours = laborTime
-                )
-                : startToFinishTime = totalWorkedHours + (drivingTime * 2);
+            isDoubleDrive && totalWorkedHours <= laborTime
+                ? ((startToFinishTime = laborTime + drivingTime * 2), (totalWorkedHours = laborTime))
+                : (startToFinishTime = totalWorkedHours + drivingTime * 2);
 
-            !isDoubleDrive && !flatRateIsTrue && (totalWorkedHours <= laborTime)
-                ? (
-                    totalWorkedHours = laborTime,
-                    drivingTime = 0,
-                    startToFinishTime = laborTime
-                )
+            !isDoubleDrive && !flatRateIsTrue && totalWorkedHours <= laborTime
+                ? ((totalWorkedHours = laborTime), (drivingTime = 0), (startToFinishTime = laborTime))
                 : null;
 
             this.totalWorkLaborTime = (totalWorkedHours + drivingTime + (isDoubleDrive ? drivingTime : 0)).toFixed(2);
@@ -430,10 +418,26 @@ MY OWN FREE WILL`
             let packingSupplies = this.state.totalPul;
 
             // total additional charges
-            additionalCharges += (gasFee && gasFee > 0 ? gasFee : 0) + (extraLargeItemFee && extraLargeItemFee > 0 ? extraLargeItemFee : 0) + (smallItemPacking > 0 ? smallItemPacking : 0) + packingSupplies;
+            additionalCharges +=
+                (gasFee && gasFee > 0 ? gasFee : 0) +
+                (extraLargeItemFee && extraLargeItemFee > 0 ? extraLargeItemFee : 0) +
+                (smallItemPacking > 0 ? smallItemPacking : 0) +
+                packingSupplies;
             // this.payCash ve this.payCard hesablanmasi
-            this.payCash = ((flatCashAmount + (totalWorkedHours * cashRate) + (drivingTime * cashRate) - cashDiscount) * ((100 - percentDiscount) / 100) + (isDoubleDrive ? (drivingTime * cashRate) : 0) + additionalCharges - (timeDiscount * cashRate)).toFixed(2);
-            this.payCard = ((flatCardAmount + (totalWorkedHours * cardRate) + (drivingTime * cardRate) - cashDiscount) * ((100 - percentDiscount) / 100) + (isDoubleDrive ? (drivingTime * cardRate) : 0) + additionalCharges - (timeDiscount * cardRate)).toFixed(2);
+            this.payCash = (
+                (flatCashAmount + totalWorkedHours * cashRate + drivingTime * cashRate - cashDiscount) *
+                    ((100 - percentDiscount) / 100) +
+                (isDoubleDrive ? drivingTime * cashRate : 0) +
+                additionalCharges -
+                timeDiscount * cashRate
+            ).toFixed(2);
+            this.payCard = (
+                (flatCardAmount + totalWorkedHours * cardRate + drivingTime * cardRate - cashDiscount) *
+                    ((100 - percentDiscount) / 100) +
+                (isDoubleDrive ? drivingTime * cardRate : 0) +
+                additionalCharges -
+                timeDiscount * cardRate
+            ).toFixed(2);
         }
     }
 
@@ -446,25 +450,31 @@ MY OWN FREE WILL`
 
         if (typeOfPayment === 'cash') {
             if (inputAmount < 0 || inputAmount === '' || inputAmount === 0) {
+                odenilmelidir = (this.payCard - deposit).toFixed(2);
                 this.setState({
                     payCard: this.payCard - deposit,
-                    payCash: 0
+                    payCash: 0,
                 });
-            } else if (inputAmount >= (this.payCash - deposit)) {
-                inputAmount = (this.payCash - deposit);
-                this.setState({
-                    payCard: 0,
-                    payCash: inputAmount
-                }, () => {
-                    document.getElementById('mark-as-payed').classList.remove('disabled');
-                });
+            } else if (inputAmount >= this.payCash - deposit) {
+                inputAmount = this.payCash - deposit;
+                this.setState(
+                    {
+                        payCard: 0,
+                        payCash: inputAmount,
+                    },
+                    () => {
+                        document.getElementById('mark-as-payed').classList.remove('disabled');
+                    },
+                );
             } else {
-                amountOf = ((this.payCash - deposit - inputAmount) / (this.payCash - deposit)) * (this.payCard - deposit);
+                amountOf =
+                    ((this.payCash - deposit - inputAmount) / (this.payCash - deposit)) * (this.payCard - deposit);
                 amountOf = amountOf.toFixed(2);
                 document.getElementById('mark-as-payed').classList.add('disabled');
+                odenilmelidir = amountOf.toFixed(2);
                 this.setState({
                     payCard: amountOf,
-                    payCash: inputAmount
+                    payCash: inputAmount,
                 });
             }
         } else {
@@ -473,55 +483,62 @@ MY OWN FREE WILL`
                     payCard: 0,
                     payCash: this.payCash - deposit,
                 });
-            } else if (inputAmount >= (this.payCard - deposit)) {
-                inputAmount = (this.payCard - deposit);
-                this.setState({
-                    payCard: inputAmount,
-                    payCash: 0
-                }, () => {
-                    document.getElementById('mark-as-payed').classList.remove('disabled');
-                });
+            } else if (inputAmount >= this.payCard - deposit) {
+                inputAmount = this.payCard - deposit;
+                odenilmelidir = inputAmount.toFixed(2);
+                this.setState(
+                    {
+                        payCard: inputAmount,
+                        payCash: 0,
+                    },
+                    () => {
+                        document.getElementById('mark-as-payed').classList.remove('disabled');
+                    },
+                );
             } else {
-                amountOf = ((this.payCard - deposit - inputAmount) / (this.payCard - deposit)) * (this.payCash - deposit);
+                amountOf =
+                    ((this.payCard - deposit - inputAmount) / (this.payCard - deposit)) * (this.payCash - deposit);
                 amountOf = amountOf.toFixed(2);
                 document.getElementById('mark-as-payed').classList.add('disabled');
+                odenilmelidir = inputAmount.toFixed(2);
                 this.setState({
                     payCard: inputAmount,
-                    payCash: amountOf
+                    payCash: amountOf,
                 });
             }
         }
     }
 
-
-
     check(which) {
         let doc = {};
 
-        this.setState((prevState) => {
-            return {
-                [which]: !(prevState[which])
-            };
-        }, () => {
-            this.state.packMater && this.state.cargoIsSubject && this.state.myResponsibility
-                ? this.setState({
-                    goster: true
-                })
-                : this.setState({
-                    goster: false
-                });
+        this.setState(
+            prevState => {
+                return {
+                    [which]: !prevState[which],
+                };
+            },
+            () => {
+                this.state.packMater && this.state.cargoIsSubject && this.state.myResponsibility
+                    ? this.setState({
+                        goster: true,
+                    })
+                    : this.setState({
+                        goster: false,
+                    });
 
-            doc = {
-                _id: Session.get('tabletIsId'),
-                checks: {
-                    packMater: this.state.packMater,
-                    cargoIsSubject: this.state.cargoIsSubject,
-                    myResponsibility: this.state.myResponsibility
-                }
-            };
+                doc = {
+                    _id: Session.get('tabletIsId'),
+                    checks: {
+                        packMater: this.state.packMater,
+                        cargoIsSubject: this.state.cargoIsSubject,
+                        myResponsibility: this.state.myResponsibility,
+                    },
+                };
 
-            Meteor.call('updateWork', doc); // Update information in the database
-        });
+                Meteor.call('updateWork', doc); // Update information in the database
+            },
+        );
     }
 
     markPayed() {
@@ -532,12 +549,19 @@ MY OWN FREE WILL`
     largeBoxes(e) {
         this.setState({
             valueLargeBoxes: e.target.value,
-            largeBoxes: 4 * e.target.value
+            largeBoxes: 4 * e.target.value,
         });
 
         function xuban() {
             this.setState({
-                totalPul: this.state.largeBoxes + this.state.smallBoxes + this.state.mediumBoxes + this.state.wrapRoll + this.state.movingBlankets + this.state.wardrobeBoxes + this.state.paperBundles
+                totalPul:
+                    this.state.largeBoxes +
+                    this.state.smallBoxes +
+                    this.state.mediumBoxes +
+                    this.state.wrapRoll +
+                    this.state.movingBlankets +
+                    this.state.wardrobeBoxes +
+                    this.state.paperBundles,
             });
         }
 
@@ -547,11 +571,18 @@ MY OWN FREE WILL`
     mediumBoxes(e) {
         this.setState({
             valueMediumBoxes: e.target.value,
-            mediumBoxes: 3 * e.target.value
+            mediumBoxes: 3 * e.target.value,
         });
         function xuban() {
             this.setState({
-                totalPul: this.state.largeBoxes + this.state.smallBoxes + this.state.mediumBoxes + this.state.wrapRoll + this.state.movingBlankets + this.state.wardrobeBoxes + this.state.paperBundles
+                totalPul:
+                    this.state.largeBoxes +
+                    this.state.smallBoxes +
+                    this.state.mediumBoxes +
+                    this.state.wrapRoll +
+                    this.state.movingBlankets +
+                    this.state.wardrobeBoxes +
+                    this.state.paperBundles,
             });
         }
         setTimeout(xuban.bind(this), 500);
@@ -560,11 +591,18 @@ MY OWN FREE WILL`
     smallBoxes(e) {
         this.setState({
             valueSmallBoxes: e.target.value,
-            smallBoxes: 2 * e.target.value
+            smallBoxes: 2 * e.target.value,
         });
         function xuban() {
             this.setState({
-                totalPul: this.state.largeBoxes + this.state.smallBoxes + this.state.mediumBoxes + this.state.wrapRoll + this.state.movingBlankets + this.state.wardrobeBoxes + this.state.paperBundles
+                totalPul:
+                    this.state.largeBoxes +
+                    this.state.smallBoxes +
+                    this.state.mediumBoxes +
+                    this.state.wrapRoll +
+                    this.state.movingBlankets +
+                    this.state.wardrobeBoxes +
+                    this.state.paperBundles,
             });
         }
         setTimeout(xuban.bind(this), 500);
@@ -573,11 +611,18 @@ MY OWN FREE WILL`
     wrapRoll(e) {
         this.setState({
             valueWrapRoll: e.target.value,
-            wrapRoll: 45 * e.target.value
+            wrapRoll: 45 * e.target.value,
         });
         function xuban() {
             this.setState({
-                totalPul: this.state.largeBoxes + this.state.smallBoxes + this.state.mediumBoxes + this.state.wrapRoll + this.state.movingBlankets + this.state.wardrobeBoxes + this.state.paperBundles
+                totalPul:
+                    this.state.largeBoxes +
+                    this.state.smallBoxes +
+                    this.state.mediumBoxes +
+                    this.state.wrapRoll +
+                    this.state.movingBlankets +
+                    this.state.wardrobeBoxes +
+                    this.state.paperBundles,
             });
         }
         setTimeout(xuban.bind(this), 500);
@@ -586,11 +631,18 @@ MY OWN FREE WILL`
     movingBlankets(e) {
         this.setState({
             valueMovingBlankets: e.target.value,
-            movingBlankets: 15 * e.target.value
+            movingBlankets: 15 * e.target.value,
         });
         function xuban() {
             this.setState({
-                totalPul: this.state.largeBoxes + this.state.smallBoxes + this.state.mediumBoxes + this.state.wrapRoll + this.state.movingBlankets + this.state.wardrobeBoxes + this.state.paperBundles
+                totalPul:
+                    this.state.largeBoxes +
+                    this.state.smallBoxes +
+                    this.state.mediumBoxes +
+                    this.state.wrapRoll +
+                    this.state.movingBlankets +
+                    this.state.wardrobeBoxes +
+                    this.state.paperBundles,
             });
         }
         setTimeout(xuban.bind(this), 500);
@@ -599,11 +651,18 @@ MY OWN FREE WILL`
     wardrobeBoxes(e) {
         this.setState({
             valueWardrobeBoxes: e.target.value,
-            wardrobeBoxes: 15 * e.target.value
+            wardrobeBoxes: 15 * e.target.value,
         });
         function xuban() {
             this.setState({
-                totalPul: this.state.largeBoxes + this.state.smallBoxes + this.state.mediumBoxes + this.state.wrapRoll + this.state.movingBlankets + this.state.wardrobeBoxes + this.state.paperBundles
+                totalPul:
+                    this.state.largeBoxes +
+                    this.state.smallBoxes +
+                    this.state.mediumBoxes +
+                    this.state.wrapRoll +
+                    this.state.movingBlankets +
+                    this.state.wardrobeBoxes +
+                    this.state.paperBundles,
             });
         }
         setTimeout(xuban.bind(this), 500);
@@ -612,11 +671,18 @@ MY OWN FREE WILL`
     paperBundles(event) {
         this.setState({
             valuePaperBundles: event.target.value,
-            paperBundles: 25 * event.target.value
+            paperBundles: 25 * event.target.value,
         });
         function xuban() {
             this.setState({
-                totalPul: this.state.largeBoxes + this.state.smallBoxes + this.state.mediumBoxes + this.state.wrapRoll + this.state.movingBlankets + this.state.wardrobeBoxes + this.state.paperBundles
+                totalPul:
+                    this.state.largeBoxes +
+                    this.state.smallBoxes +
+                    this.state.mediumBoxes +
+                    this.state.wrapRoll +
+                    this.state.movingBlankets +
+                    this.state.wardrobeBoxes +
+                    this.state.paperBundles,
             });
         }
         setTimeout(xuban.bind(this), 500);
@@ -636,41 +702,41 @@ MY OWN FREE WILL`
                 let checks = isRender[0].checks || { packMater: false, cargoIsSubject: false, myResponsibility: false };
                 if (isFinished) {
                     this.setState({
-                        finished: true
+                        finished: true,
                     });
                 }
 
-                this.setState({
-                    vurulmusIs: isRender,
-                    startFullName,
-                    initSignDate,
-                    packMater: checks.packMater,
-                    cargoIsSubject: checks.cargoIsSubject,
-                    myResponsibility: checks.myResponsibility,
-                    initialized: isRender[0].initialized
-                }, () => {
-                    let is = this.state.vurulmusIs[0];
+                this.setState(
+                    {
+                        vurulmusIs: isRender,
+                        startFullName,
+                        initSignDate,
+                        packMater: checks.packMater,
+                        cargoIsSubject: checks.cargoIsSubject,
+                        myResponsibility: checks.myResponsibility,
+                        initialized: isRender[0].initialized,
+                    },
+                    () => {
+                        let is = this.state.vurulmusIs[0];
 
-
-
-                    this.setState({
-                        drivingClicked: is.drivingClicked || false,
-                        breakClicked: is.breakClicked || false,
-                        started: (
-                            is.startTime &&
-                            is.startTime !== ''
-                        )
-                            ? true
-                            : false,
-                        initSign: is.initSign,
-                        initialSignAlphabet: is.initialSignAlphabet,
-                        requirementEntirely: is.requirementEntirely,
-                        threeDayPrior: is.threeDayPrior,
-                        additionalSignature: is.additionalSignature && is.additionalSignature.length > 0 ? is.additionalSignature : [],
-                        discount: is.discount && is.discount.length > 0 ? is.discount : [],
-                        additionalCharge: is.additionalCharge && is.additionalCharge.length > 0 ? is.additionalCharge : []
-                    });
-                });
+                        this.setState({
+                            drivingClicked: is.drivingClicked || false,
+                            breakClicked: is.breakClicked || false,
+                            started: is.startTime && is.startTime !== '' ? true : false,
+                            initSign: is.initSign,
+                            initialSignAlphabet: is.initialSignAlphabet,
+                            requirementEntirely: is.requirementEntirely,
+                            threeDayPrior: is.threeDayPrior,
+                            additionalSignature:
+                                is.additionalSignature && is.additionalSignature.length > 0
+                                    ? is.additionalSignature
+                                    : [],
+                            discount: is.discount && is.discount.length > 0 ? is.discount : [],
+                            additionalCharge:
+                                is.additionalCharge && is.additionalCharge.length > 0 ? is.additionalCharge : [],
+                        });
+                    },
+                );
             }
 
             //before beggining customer sign
@@ -683,16 +749,16 @@ MY OWN FREE WILL`
                 penColor: '#000000',
                 onEnd: () => {
                     this.setState({
-                        initSignature: true
+                        initSignature: true,
                     });
-                }
+                },
             });
 
             let cancelButton3 = document.querySelector('#clear3');
             cancelButton3.addEventListener('click', () => {
                 this.signaturePad3.clear();
                 this.setState({
-                    initSignature: false
+                    initSignature: false,
                 });
             });
 
@@ -703,9 +769,9 @@ MY OWN FREE WILL`
                 maxWidth: 3,
                 dotSize: 1,
                 penColor: '#000000',
-                onEnd: function () {
+                onEnd: function() {
                     // sing etdikden sonra
-                }
+                },
             });
 
             let cancelButton = document.querySelector('#clear');
@@ -720,9 +786,9 @@ MY OWN FREE WILL`
                 maxWidth: 3,
                 dotSize: 1,
                 penColor: '#000000',
-                onEnd: function () {
-                    // sign etdikden sonra 
-                }
+                onEnd: function() {
+                    // sign etdikden sonra
+                },
             });
 
             let cancelButton2 = document.querySelector('#clear2');
@@ -731,10 +797,8 @@ MY OWN FREE WILL`
             });
         });
 
-
-
         this.setState({
-            totalPul: this.state.largeBoxes
+            totalPul: this.state.largeBoxes,
         });
     }
 
@@ -771,43 +835,36 @@ MY OWN FREE WILL`
             document.getElementById('start-work').classList.add('disabled');
             let is = this.state.vurulmusIs[0];
 
-            return (
-                <div className="work-time-event">
-                    Time Starts: {moment(is.startTime).format('hh:mm A')}
-                </div>
-            );
+            return <div className="work-time-event">Time Starts: {moment(is.startTime).format('hh:mm A')}</div>;
         }
     }
 
     renderDrivingTime() {
         if (this.state.vurulmusIs[0].drivingTime) {
             let number = 2000;
-            return (
-                this.state.vurulmusIs[0].drivingTime.map(function (driving) {
-                    number = number + 1;
-                    return (
-                        <div key={number} className="driving-time-event">
-                            Driving: {moment(driving.startTime).format('hh:mm A')} - {moment(driving.endTime).format('hh:mm A')}
-                        </div>
-                    );
-                })
-            );
+            return this.state.vurulmusIs[0].drivingTime.map(function(driving) {
+                number = number + 1;
+                return (
+                    <div key={number} className="driving-time-event">
+                        Driving: {moment(driving.startTime).format('hh:mm A')} -{' '}
+                        {moment(driving.endTime).format('hh:mm A')}
+                    </div>
+                );
+            });
         }
     }
 
     renderBreakTime() {
         if (this.state.vurulmusIs[0].breakTime) {
             let number = 3000;
-            return (
-                this.state.vurulmusIs[0].breakTime.map(function (breaks) {
-                    number = number + 1;
-                    return (
-                        <div key={number} className="break-time-event">
-                            Break: {moment(breaks.startTime).format('hh:mm A')} - {moment(breaks.endTime).format('hh:mm A')}
-                        </div>
-                    );
-                })
-            );
+            return this.state.vurulmusIs[0].breakTime.map(function(breaks) {
+                number = number + 1;
+                return (
+                    <div key={number} className="break-time-event">
+                        Break: {moment(breaks.startTime).format('hh:mm A')} - {moment(breaks.endTime).format('hh:mm A')}
+                    </div>
+                );
+            });
         }
     }
 
@@ -820,21 +877,17 @@ MY OWN FREE WILL`
             document.getElementById('break-stop').classList.add('disabled');
 
             let is = this.state.vurulmusIs[0];
-            return (
-                <div className="work-time-event">
-                    Time Ends: {moment(is.finishTime).format('hh:mm A')}
-                </div>
-            );
+            return <div className="work-time-event">Time Ends: {moment(is.finishTime).format('hh:mm A')}</div>;
         }
     }
 
     round(number, precision) {
-        var shift = function (number, precision, reverseShift) {
+        var shift = function(number, precision, reverseShift) {
             if (reverseShift) {
                 precision = -precision;
             }
             var numArray = ('' + number).split('e');
-            return +(numArray[0] + 'e' + (numArray[1] ? (+numArray[1] + precision) : precision));
+            return +(numArray[0] + 'e' + (numArray[1] ? +numArray[1] + precision : precision));
         };
         return shift(Math.round(shift(number, precision, false)), precision, true);
     }
@@ -844,23 +897,23 @@ MY OWN FREE WILL`
     }
 
     renderAddresses() {
-        return (this.state.vurulmusIs[0].addresses.map((workAddress, index) => {
+        return this.state.vurulmusIs[0].addresses.map((workAddress, index) => {
             return (
                 <div key={index + 'address'} className="col s6 m6 l6">
                     <div className="card__">
-                        <div >
+                        <div>
                             <div className="cardTitle">Address #{index + 1}</div>
                             <div className="cardInner">{workAddress}</div>
                         </div>
                     </div>
                 </div>
             );
-        }));
+        });
     }
 
     startFullName(e) {
         this.setState({
-            startFullName: e.target.value
+            startFullName: e.target.value,
         });
     }
 
@@ -879,11 +932,14 @@ MY OWN FREE WILL`
         this.totalAdditionalCharge = 0;
         this.calculateAmount();
 
-
         return (
             <div className="tabletJobRendered">
-                <a href="#" id="close-duymesi-id" className="close-duymesi" >CLICK HERE TO CLOSE THIS PAGE</a>
-                <div className={this.state.finished ? '' : 'hide'}><h2>This job is finished</h2></div>
+                <a href="#" id="close-duymesi-id" className="close-duymesi">
+                    CLICK HERE TO CLOSE THIS PAGE
+                </a>
+                <div className={this.state.finished ? '' : 'hide'}>
+                    <h2>This job is finished</h2>
+                </div>
                 <div className={this.state.finished ? 'hide' : ''}>
                     <p style={{ textAlign: 'center' }}>
                         <h5>Combined Agreement for Moving Services and Freight Bill</h5>
@@ -897,15 +953,19 @@ MY OWN FREE WILL`
                                             <div className="col s8 m8 l8">
                                                 <div className="card__ blue-grey darken-2 white-text">
                                                     <div className="card-content">
-                                                        Company Name: {is.companyInfo === undefined ? '' : is.companyInfo.name}<br />
-                                                        <hr /> License Number: BEARHFTI 0191555<br />
-                                                        <hr /> Customer Name: {is.clientFirstName} {is.clientLastName}<br />
+                                                        Company Name:{' '}
+                                                        {is.companyInfo === undefined ? '' : is.companyInfo.name}
+                                                        <br />
+                                                        <hr /> License Number: BEARHFTI 0191555
+                                                        <br />
+                                                        <hr /> Customer Name: {is.clientFirstName} {is.clientLastName}
+                                                        <br />
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </td>
-                                    <td className="sag card__" style={{ 'marginRight': '20px' }} >
+                                    <td className="sag card__" style={{ marginRight: '20px' }}>
                                         <tr>
                                             <td className="sag">Order Date:</td>
                                             <td>&nbsp; {is.workDate}</td>
@@ -934,17 +994,18 @@ MY OWN FREE WILL`
                                 </tr>
                             </tbody>
                         </table>
-                        <div className="clear"></div>
-                        <div style={{ textTransform: 'uppercase' }} className="card__ warning" >
-                            SHIPPER (CUSTOMER) IS REQUESTED TO READ THIS DOCUMENT CAREFULLY, INCLUDING TERMS AND CONDITIONS, BEFORE SIGNING. BY SIGNING
-                            THIS CONTRACT, THIS WILL CONFIRM INSTRUCTIONS AND AUTHORIZE {is.companyInfo === undefined ? '' : is.companyInfo.name} TO MOVE, SHIP, PACK, STORE, AND/OR
-                            PERFORM THE SERVICES HEREIN.
+                        <div className="clear" />
+                        <div style={{ textTransform: 'uppercase' }} className="card__ warning">
+                            SHIPPER (CUSTOMER) IS REQUESTED TO READ THIS DOCUMENT CAREFULLY, INCLUDING TERMS AND
+                            CONDITIONS, BEFORE SIGNING. BY SIGNING THIS CONTRACT, THIS WILL CONFIRM INSTRUCTIONS AND
+                            AUTHORIZE {is.companyInfo === undefined ? '' : is.companyInfo.name} TO MOVE, SHIP, PACK,
+                            STORE, AND/OR PERFORM THE SERVICES HEREIN.
                         </div>
-                        <div className="clear"></div>
+                        <div className="clear" />
                         <div className="row from-to">
                             <div className="row">
                                 {this.renderAddresses()}
-                                <div className="clear"></div>
+                                <div className="clear" />
                                 <hr />
                                 <div className="col s6 m6 l6">
                                     <div className="card__">
@@ -963,40 +1024,61 @@ MY OWN FREE WILL`
                                     </div>
                                 </div>
                                 <hr />
-                                <div className="clear"></div>
+                                <div className="clear" />
                                 <AdditionalContactsRender contacts={is.additionalContacts || []} />
                             </div>
                         </div>
                         <div className="row from-to">
                             <div className="card__ warning">
-                                NOTE: Additional charges for storage, extra handling, and transportation will accrue if goods are not promptly accepted
+                                NOTE: Additional charges for storage, extra handling, and transportation will accrue if
+                                goods are not promptly accepted
                             </div>
-                            <div className="clear"></div>
+                            <div className="clear" />
                             <div className="card__ xxx">
                                 <div className="row">
-                                    <div className="cardTitle" >Pricing:</div>
-                                    <div className="clear margin-top"></div>
+                                    <div className="cardTitle">Pricing:</div>
+                                    <div className="clear margin-top" />
                                     <div className="col s6 m6 l6">
-                                        Number Of Movers: {is.workers.length}<br />
-                                        Your Flat Rates: {is.flatRate && is.flatRate[0].isTrue ? '$' + is.flatRate[0].cashAmount + '(cash)' + ' $' + is.flatRate[0].cardAmount + '(card)' : 'No'}<br />
-                                        Your Hourly Rates: {is.hourlyRatesCash && is.hourlyRatesCard ? '$' + is.hourlyRatesCash + '(cash)' + ' $' + is.hourlyRatesCard + '(card)' : 'No'}<br />
-                                        Minimum Labor Time: {is.laborTime} hour(s)<br />
-                                        Moving Size: {this.state.movingSizeList[is.movingSize]}<br />
+                                        Number Of Movers: {is.workers.length}
+                                        <br />
+                                        Your Flat Rates:{' '}
+                                        {is.flatRate && is.flatRate[0].isTrue
+                                            ? '$' +
+                                              is.flatRate[0].cashAmount +
+                                              '(cash)' +
+                                              ' $' +
+                                              is.flatRate[0].cardAmount +
+                                              '(card)'
+                                            : 'No'}
+                                        <br />
+                                        Your Hourly Rates:{' '}
+                                        {is.hourlyRatesCash && is.hourlyRatesCard
+                                            ? '$' + is.hourlyRatesCash + '(cash)' + ' $' + is.hourlyRatesCard + '(card)'
+                                            : 'No'}
+                                        <br />
+                                        Minimum Labor Time: {is.laborTime} hour(s)
+                                        <br />
+                                        Moving Size: {this.state.movingSizeList[is.movingSize]}
+                                        <br />
                                     </div>
                                     <div className="col s6 m6 l6">
-                                        Gas Fee (one time): {is.gasFee && is.gasFee > 0 ? '$' + is.gasFee : 'Waived'}<br />
-                                        Double Drive Time: {is.doubleDrive === 'yes' ? 'Yes' : 'Waived'}<br />
-                                        Extra Large/Heavy Item Fee: {is.largeItemFee > 0 ? '$' + is.largeItemFee : 'No'}<br />
-                                        Small Item Packing: {
-                                            is.smallItemPacking && is.smallItemPacking < 0
-                                                ? 'Yes'
-                                                : is.smallItemPacking && is.smallItemPacking > 0
-                                                    ? '$' + is.smallItemPacking
-                                                    : 'Waived'
-                                        }<br />
-                                        Not to Exceed Price: ${is.price}<br />
+                                        Gas Fee (one time): {is.gasFee && is.gasFee > 0 ? '$' + is.gasFee : 'Waived'}
+                                        <br />
+                                        Double Drive Time: {is.doubleDrive === 'yes' ? 'Yes' : 'Waived'}
+                                        <br />
+                                        Extra Large/Heavy Item Fee: {is.largeItemFee > 0 ? '$' + is.largeItemFee : 'No'}
+                                        <br />
+                                        Small Item Packing:{' '}
+                                        {is.smallItemPacking && is.smallItemPacking < 0
+                                            ? 'Yes'
+                                            : is.smallItemPacking && is.smallItemPacking > 0
+                                                ? '$' + is.smallItemPacking
+                                                : 'Waived'}
+                                        <br />
+                                        Not to Exceed Price: ${is.price}
+                                        <br />
                                     </div>
-                                    <div className="clear"></div>
+                                    <div className="clear" />
                                     <hr />
                                     <div className="card__ valign-wrapper">
                                         <div className="col s6 m6 l6">
@@ -1004,55 +1086,96 @@ MY OWN FREE WILL`
                                         </div>
                                         <div className="col s6 m6 l6">
                                             Initial:
-                                            <input id="initial_" type="text" onChange={this.initialAlphabet} value={this.state.initialSignAlphabet} placeholder="Write initial here please" /> <br />
+                                            <input
+                                                id="initial_"
+                                                type="text"
+                                                onChange={this.initialAlphabet}
+                                                value={this.state.initialSignAlphabet}
+                                                placeholder="Write initial here please"
+                                            />{' '}
+                                            <br />
                                             {Date()}
                                         </div>
                                     </div>
                                     <div className="card__ valign-wrapper">
-                                        <div className="col s6 m6 l6" >
+                                        <div className="col s6 m6 l6">
                                             Did you choose to waive this requirement entirely?
                                         </div>
                                         <div className="col s6 m6 l6 center-align">
-                                            <button className={(this.state.requirementEntirely ? '' : 'grey') + ' waves-effect waves-light btn'} onClick={() => this.requirementEntirely(true, 'requirementEntirely')} >Yes</button>
+                                            <button
+                                                className={
+                                                    (this.state.requirementEntirely ? '' : 'grey') +
+                                                    ' waves-effect waves-light btn'
+                                                }
+                                                onClick={() => this.requirementEntirely(true, 'requirementEntirely')}>
+                                                Yes
+                                            </button>
                                             &nbsp; &nbsp; &nbsp; &nbsp;
-                                            <button className={(this.state.requirementEntirely ? 'grey' : '') + ' waves-effect waves-light btn'} onClick={() => this.requirementEntirely(false, 'requirementEntirely')} >No</button>
+                                            <button
+                                                className={
+                                                    (this.state.requirementEntirely ? 'grey' : '') +
+                                                    ' waves-effect waves-light btn'
+                                                }
+                                                onClick={() => this.requirementEntirely(false, 'requirementEntirely')}>
+                                                No
+                                            </button>
                                         </div>
                                     </div>
                                     <div className="card__ valign-wrapper">
-                                        <div className="col s6 m6 l6" >
-                                            Was the moving date agreed to between you &amp; the carrier less than 3 days prior
-                                                to the day of your move?
+                                        <div className="col s6 m6 l6">
+                                            Was the moving date agreed to between you &amp; the carrier less than 3 days
+                                            prior to the day of your move?
                                         </div>
-                                        <div className="col s6 m6 l6 center-align" >
-                                            <button className={(this.state.threeDayPrior ? '' : 'grey') + ' waves-effect waves-light btn'} onClick={() => this.requirementEntirely(true, 'threeDayPrior')} >Yes</button>
+                                        <div className="col s6 m6 l6 center-align">
+                                            <button
+                                                className={
+                                                    (this.state.threeDayPrior ? '' : 'grey') +
+                                                    ' waves-effect waves-light btn'
+                                                }
+                                                onClick={() => this.requirementEntirely(true, 'threeDayPrior')}>
+                                                Yes
+                                            </button>
                                             &nbsp; &nbsp; &nbsp; &nbsp;
-                                            <button className={(this.state.threeDayPrior ? 'grey' : '') + ' waves-effect waves-light btn'} onClick={() => this.requirementEntirely(false, 'threeDayPrior')} >No</button>
+                                            <button
+                                                className={
+                                                    (this.state.threeDayPrior ? 'grey' : '') +
+                                                    ' waves-effect waves-light btn'
+                                                }
+                                                onClick={() => this.requirementEntirely(false, 'threeDayPrior')}>
+                                                No
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div className="card__">
-                                <div className="cardTitle">VALUATION OPTIONS: VALUATION DECLARATION &amp; DISCLAIMER</div>
+                                <div className="cardTitle">
+                                    VALUATION OPTIONS: VALUATION DECLARATION &amp; DISCLAIMER
+                                </div>
                                 <tbody>
                                     <tr>
-                                        <th></th>
+                                        <th />
                                         <th>Initial your choice</th>
                                         <th>
-                                            Transportation<br />
+                                            Transportation
+                                            <br />
                                             (No additional charge)
                                         </th>
                                         <th>
-                                            Maximum Rate<br />
+                                            Maximum Rate
+                                            <br />
                                             (No additional charge)
                                         </th>
                                         <th>
-                                            Storage-in-Transit<br />
+                                            Storage-in-Transit
+                                            <br />
                                             (No additional charge)
                                         </th>
                                     </tr>
                                     <tr>
                                         <td>Basic: $0.60 cents/lb./art.</td>
-                                        <td>Initial:
+                                        <td>
+                                            Initial:
                                             <input id="initial_x" type="text" />
                                             <input type="checkbox" />
                                         </td>
@@ -1062,7 +1185,8 @@ MY OWN FREE WILL`
                                     </tr>
                                     <tr>
                                         <td>Actual Cash Value</td>
-                                        <td>Initial:
+                                        <td>
+                                            Initial:
                                             <input id="initial_x" type="text" />
                                             <input type="checkbox" />
                                         </td>
@@ -1072,14 +1196,15 @@ MY OWN FREE WILL`
                                     </tr>
                                     <tr>
                                         <td>Full Value</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td />
+                                        <td />
+                                        <td />
+                                        <td />
                                     </tr>
                                     <tr>
                                         <td>No Deductible</td>
-                                        <td>Initial:
+                                        <td>
+                                            Initial:
                                             <input id="initial_x" type="text" />
                                             <input type="checkbox" />
                                         </td>
@@ -1089,7 +1214,8 @@ MY OWN FREE WILL`
                                     </tr>
                                     <tr>
                                         <td>Deductible of $250</td>
-                                        <td>Initial:
+                                        <td>
+                                            Initial:
                                             <input id="initial_x" type="text" />
                                             <input type="checkbox" />
                                         </td>
@@ -1099,7 +1225,8 @@ MY OWN FREE WILL`
                                     </tr>
                                     <tr>
                                         <td>Deductible of $500</td>
-                                        <td>Initial:
+                                        <td>
+                                            Initial:
                                             <input id="initial_x" type="text" />
                                             <input type="checkbox" />
                                         </td>
@@ -1110,82 +1237,219 @@ MY OWN FREE WILL`
                                 </tbody>
                             </div>
                             <div className="card__ warning">
-                                CUSTOMER AGREES THAT TITLE TO ALL PACKING MATERIALS AND OTHER PROPERTY SOLD TO CUSTOMER PASSES TO CUSTOMER PRIOR TO THE TRANSPORTATION
-                                OF SUCH PROPERTY TO THE CUSTOMER BY CARRIER. THIS ALSO MEANS THAT ANY PACKING MATERIALS OR TRASH/DONATION ITEMS
-                                ARE YOUR OWN PROPERTY AND, AS SUCH, CARRIER IS NOT RESPONSIBLE FOR THE DISPOSAL AND/OR REMOVAL OF THESE ITEMS.<br />
+                                CUSTOMER AGREES THAT TITLE TO ALL PACKING MATERIALS AND OTHER PROPERTY SOLD TO CUSTOMER
+                                PASSES TO CUSTOMER PRIOR TO THE TRANSPORTATION OF SUCH PROPERTY TO THE CUSTOMER BY
+                                CARRIER. THIS ALSO MEANS THAT ANY PACKING MATERIALS OR TRASH/DONATION ITEMS ARE YOUR OWN
+                                PROPERTY AND, AS SUCH, CARRIER IS NOT RESPONSIBLE FOR THE DISPOSAL AND/OR REMOVAL OF
+                                THESE ITEMS.
+                                <br />
                                 Read and Agree
-                                <input type="checkbox" onChange={() => this.check('packMater')} disabled={this.state.initialized} checked={this.state.packMater} className="checked" />
+                                <input
+                                    type="checkbox"
+                                    onChange={() => this.check('packMater')}
+                                    disabled={this.state.initialized}
+                                    checked={this.state.packMater}
+                                    className="checked"
+                                />
                             </div>
                             <div className="card__ warning">
-                                NOTE: All cargo is subject to a Mover’s Lien as described by the CPUC until entire amount due is paid IN FULL. Any loss/damage
-                                claims must be received in writing AFTER your move and DO NOT exempt you from paying the total amount due as
-                                outlined above.<br />
+                                NOTE: All cargo is subject to a Mover’s Lien as described by the CPUC until entire
+                                amount due is paid IN FULL. Any loss/damage claims must be received in writing AFTER
+                                your move and DO NOT exempt you from paying the total amount due as outlined above.
+                                <br />
                                 Read and Agree
-                                <input type="checkbox" onChange={() => this.check('cargoIsSubject')} disabled={this.state.initialized} checked={this.state.cargoIsSubject} className="checked" />
+                                <input
+                                    type="checkbox"
+                                    onChange={() => this.check('cargoIsSubject')}
+                                    disabled={this.state.initialized}
+                                    checked={this.state.cargoIsSubject}
+                                    className="checked"
+                                />
                             </div>
                             <div className="card__ warning">
-                                I understand that it’s my responsibility to hold a parking space for the moving truck at each location. Failure to do so
-                                will result in my being held responsible to pay for any, and all, parking tickets/fines resulting from my negligence
-                                to do so.<br />
+                                I understand that it’s my responsibility to hold a parking space for the moving truck at
+                                each location. Failure to do so will result in my being held responsible to pay for any,
+                                and all, parking tickets/fines resulting from my negligence to do so.
+                                <br />
                                 Read and Agree
-                                <input type="checkbox" onChange={() => this.check('myResponsibility')} disabled={this.state.initialized} checked={this.state.myResponsibility} className="checked" />
+                                <input
+                                    type="checkbox"
+                                    onChange={() => this.check('myResponsibility')}
+                                    disabled={this.state.initialized}
+                                    checked={this.state.myResponsibility}
+                                    className="checked"
+                                />
                             </div>
                         </div>
                         {/* ise baslamamisdan qabaq ki sign */}
-                        <div className="card__ margin-top" >
+                        <div className="card__ margin-top">
                             <p className="cardTitle">
-                                BY SIGNING BELOW, I {is.clientFirstName} {is.clientLastName}, CONFIRM THAT THE INFORMATION ABOVE IS TRUE AND CORRECT TO THE BEST OF MY KNOWLEDGE. <br />
-                                SHIPPER’S (CUSTOMER’S) SIGNATURE:<br />
-                                DATE: {this.state.initSign ? (this.state.initSignDate).toString() : Date()}
+                                BY SIGNING BELOW, I {is.clientFirstName} {is.clientLastName}, CONFIRM THAT THE
+                                INFORMATION ABOVE IS TRUE AND CORRECT TO THE BEST OF MY KNOWLEDGE. <br />
+                                SHIPPER’S (CUSTOMER’S) SIGNATURE:
+                                <br />
+                                DATE: {this.state.initSign ? this.state.initSignDate.toString() : Date()}
                             </p>
-                            <div className="col s12 m12 l12" >
+                            <div className="col s12 m12 l12">
                                 <p>Customer Sign below</p>
                                 <div className="col s12 m4 l4">
-                                    <input id="customer-firts-sign" type="text" disabled={this.state.initSign ? true : false} onChange={(e) => this.startFullName(e)} value={this.state.startFullName} className="validate" placeholder="Type full name here" />
+                                    <input
+                                        id="customer-firts-sign"
+                                        type="text"
+                                        disabled={this.state.initSign ? true : false}
+                                        onChange={e => this.startFullName(e)}
+                                        value={this.state.startFullName}
+                                        className="validate"
+                                        placeholder="Type full name here"
+                                    />
                                 </div>
-                                <div className="clear"></div>
+                                <div className="clear" />
                                 <div className="wrapper">
-                                    <canvas id="signature-pad-before-start" className={(this.state.initSign ? 'hide' : '') + ' signature-pad'} width={400} height={200}></canvas>
-                                    <img id="init-sign-img" className={this.state.initSign ? '' : 'hide'} src={this.state.initSign} width={400} height={200} style={{ zIndex: '0' }} />
+                                    <canvas
+                                        id="signature-pad-before-start"
+                                        className={(this.state.initSign ? 'hide' : '') + ' signature-pad'}
+                                        width={400}
+                                        height={200}
+                                    />
+                                    <img
+                                        id="init-sign-img"
+                                        className={this.state.initSign ? '' : 'hide'}
+                                        src={this.state.initSign}
+                                        width={400}
+                                        height={200}
+                                        style={{ zIndex: '0' }}
+                                    />
                                 </div>
-                                <a id="clear3" className={(this.state.initSign ? 'hide' : '') + ' waves-effect waves-light btn blue'} >Clear</a>
-                                <a id="submit-sign"
+                                <a
+                                    id="clear3"
                                     className={
-                                        (this.state.initSign ? 'hide' : this.state.initSignature && this.state.startFullName !== '' && this.state.goster ? '' : 'disabled') + ' waves-effect waves-light btn blue'
+                                        (this.state.initSign ? 'hide' : '') + ' waves-effect waves-light btn blue'
+                                    }>
+                                    Clear
+                                </a>
+                                <a
+                                    id="submit-sign"
+                                    className={
+                                        (this.state.initSign
+                                            ? 'hide'
+                                            : this.state.initSignature &&
+                                              this.state.startFullName !== '' &&
+                                              this.state.goster
+                                                ? ''
+                                                : 'disabled') + ' waves-effect waves-light btn blue'
                                     }
-                                    onClick={this.activateStart} >Submit</a>
+                                    onClick={this.activateStart}>
+                                    Submit
+                                </a>
                             </div>
                         </div>
                     </div>
-                    <div className="clear margin-top"></div>
+                    <div className="clear margin-top" />
 
                     {/* start, stop, break driving buttons */}
-                    <div id="secondStep" className={this.state.initSign ? 'card__' : 'hide card__'} >
+                    <div id="secondStep" className={this.state.initSign ? 'card__' : 'hide card__'}>
                         <div className="card__ additionalSignature center-align">
-                            <a className="waves-effect waves-light btn" onClick={() => this.setState({ additionalSignatiure: !this.state.additionalSignatiure })} >{this.state.additionalSignatiure ? 'Need additional signature HIDE' : 'Need additonal signature SHOW'} </a>
-                            <AdditionalSignature clicked={this.state.additionalSignatiure} additionalSignatureList={this.state.additionalSignatureList} saveSignature={this.saveSignature} />
+                            <a
+                                className="waves-effect waves-light btn"
+                                onClick={() =>
+                                    this.setState({ additionalSignatiure: !this.state.additionalSignatiure })
+                                }>
+                                {this.state.additionalSignatiure
+                                    ? 'Need additional signature HIDE'
+                                    : 'Need additonal signature SHOW'}{' '}
+                            </a>
+                            <AdditionalSignature
+                                clicked={this.state.additionalSignatiure}
+                                additionalSignatureList={this.state.additionalSignatureList}
+                                saveSignature={this.saveSignature}
+                            />
                         </div>
-                        <AddedAdditionalSignaturesRender listOfAddedSignature={this.state.additionalSignature} listOfAdditionalSignature={this.state.additionalSignatureList} />
+                        <AddedAdditionalSignaturesRender
+                            listOfAddedSignature={this.state.additionalSignature}
+                            listOfAdditionalSignature={this.state.additionalSignatureList}
+                        />
                         <AddedDiscountRender listOfDiscounts={this.state.discount} />
                         <AdditionalChargesRender list={this.state.additionalCharge} />
                         {/* Finish rendering discounts */}
                         <div className="timeline">
                             <div className="center-align">
-                                <a id="start-work" onClick={() => { this.vaxtiBaslat(is._id); }} className={this.state.started ? 'waves-effect waves-light btn blue disabled' : 'waves-effect waves-light btn blue'}>Start Work time</a>
-                                <a className="waves-effect waves-light btn blue"></a>
-                                <a id="stop-work" onClick={() => { this.vaxtiDayandir(is._id); }} className={this.state.started && (is.finishTime === undefined || is.finishTime === '' || is.finishTime === null) ? 'waves-effect waves-light btn red' : 'waves-effect waves-light btn red disabled'}>Stop Work time</a>
+                                <a
+                                    id="start-work"
+                                    onClick={() => {
+                                        this.vaxtiBaslat(is._id);
+                                    }}
+                                    className={
+                                        this.state.started
+                                            ? 'waves-effect waves-light btn blue disabled'
+                                            : 'waves-effect waves-light btn blue'
+                                    }>
+                                    Start Work time
+                                </a>
+                                <a className="waves-effect waves-light btn blue" />
+                                <a
+                                    id="stop-work"
+                                    onClick={() => {
+                                        this.vaxtiDayandir(is._id);
+                                    }}
+                                    className={
+                                        this.state.started &&
+                                        (is.finishTime === undefined || is.finishTime === '' || is.finishTime === null)
+                                            ? 'waves-effect waves-light btn red'
+                                            : 'waves-effect waves-light btn red disabled'
+                                    }>
+                                    Stop Work time
+                                </a>
                             </div>
                             <div className="center-align">
-                                <hr /> Driving time<br />
-                                <a id="driving-start" className={this.state.drivingClicked || this.state.breakClicked ? 'waves-effect waves-light btn blue disabled' : 'waves-effect waves-light btn blue'} onClick={() => this.drivingTime(is._id)} >Start Driving time</a>
-                                <a className="waves-effect waves-light btn deep-purple lighten-1"></a>
-                                <a id="driving-stop" className={this.state.drivingClicked ? 'waves-effect waves-light btn red' : 'waves-effect waves-light btn red disabled'} onClick={() => this.drivingTimeStop(is._id)}>Stop Driving time</a>
+                                <hr /> Driving time
+                                <br />
+                                <a
+                                    id="driving-start"
+                                    className={
+                                        this.state.drivingClicked || this.state.breakClicked
+                                            ? 'waves-effect waves-light btn blue disabled'
+                                            : 'waves-effect waves-light btn blue'
+                                    }
+                                    onClick={() => this.drivingTime(is._id)}>
+                                    Start Driving time
+                                </a>
+                                <a className="waves-effect waves-light btn deep-purple lighten-1" />
+                                <a
+                                    id="driving-stop"
+                                    className={
+                                        this.state.drivingClicked
+                                            ? 'waves-effect waves-light btn red'
+                                            : 'waves-effect waves-light btn red disabled'
+                                    }
+                                    onClick={() => this.drivingTimeStop(is._id)}>
+                                    Stop Driving time
+                                </a>
                             </div>
                             <div className="center-align">
-                                <hr />Break<br />
-                                <a id="break-start" className={this.state.breakClicked || this.state.drivingClicked ? 'waves-effect waves-light btn blue disabled' : 'waves-effect waves-light btn blue'} onClick={() => this.breatTime(is._id)} >Start Break time</a>
-                                <a className="waves-effect waves-light btn pink"></a>
-                                <a id="break-stop" className={this.state.breakClicked ? 'waves-effect waves-light btn red' : 'waves-effect waves-light btn red disabled'} onClick={() => this.breakTimeStop(is._id)} >Stop Break time</a>
+                                <hr />
+                                Break
+                                <br />
+                                <a
+                                    id="break-start"
+                                    className={
+                                        this.state.breakClicked || this.state.drivingClicked
+                                            ? 'waves-effect waves-light btn blue disabled'
+                                            : 'waves-effect waves-light btn blue'
+                                    }
+                                    onClick={() => this.breatTime(is._id)}>
+                                    Start Break time
+                                </a>
+                                <a className="waves-effect waves-light btn pink" />
+                                <a
+                                    id="break-stop"
+                                    className={
+                                        this.state.breakClicked
+                                            ? 'waves-effect waves-light btn red'
+                                            : 'waves-effect waves-light btn red disabled'
+                                    }
+                                    onClick={() => this.breakTimeStop(is._id)}>
+                                    Stop Break time
+                                </a>
                             </div>
                             {this.renderWorkTime()}
                             {this.renderDrivingTime()}
@@ -1194,26 +1458,96 @@ MY OWN FREE WILL`
                         </div>
                         <div>
                             <ul className="collection elaveler">
-                                <li className="collection-item">Wardrobe Boxes:
-                                    <span className="sag">$15 x <input id="wardrobe-boxes" type="number" value={this.state.valueWardrobeBoxes} onChange={this.wardrobeBoxes} /> = ${this.state.wardrobeBoxes}</span>
+                                <li className="collection-item">
+                                    Wardrobe Boxes:
+                                    <span className="sag">
+                                        $15 x{' '}
+                                        <input
+                                            id="wardrobe-boxes"
+                                            type="number"
+                                            value={this.state.valueWardrobeBoxes}
+                                            onChange={this.wardrobeBoxes}
+                                        />{' '}
+                                        = ${this.state.wardrobeBoxes}
+                                    </span>
                                 </li>
-                                <li className="collection-item">Moving Blankets:
-                                    <span className="sag">$15 x <input id="moving-blankets" type="number" value={this.state.valueMovingBlankets} onChange={this.movingBlankets} /> = ${this.state.movingBlankets}</span>
+                                <li className="collection-item">
+                                    Moving Blankets:
+                                    <span className="sag">
+                                        $15 x{' '}
+                                        <input
+                                            id="moving-blankets"
+                                            type="number"
+                                            value={this.state.valueMovingBlankets}
+                                            onChange={this.movingBlankets}
+                                        />{' '}
+                                        = ${this.state.movingBlankets}
+                                    </span>
                                 </li>
-                                <li className="collection-item">Packing Paper Bundles:
-                                    <span className="sag">$25 x <input id="packing-paper-bundles" type="number" value={this.state.valuePaperBundles} onChange={this.paperBundles} /> = ${this.state.paperBundles}</span>
+                                <li className="collection-item">
+                                    Packing Paper Bundles:
+                                    <span className="sag">
+                                        $25 x{' '}
+                                        <input
+                                            id="packing-paper-bundles"
+                                            type="number"
+                                            value={this.state.valuePaperBundles}
+                                            onChange={this.paperBundles}
+                                        />{' '}
+                                        = ${this.state.paperBundles}
+                                    </span>
                                 </li>
-                                <li className="collection-item">Bubble Wrap Roll:
-                                    <span className="sag">$45 x <input id="buuble-wrap-roll" type="number" value={this.state.valueWrapRoll} onChange={this.wrapRoll} /> = ${this.state.wrapRoll}</span>
+                                <li className="collection-item">
+                                    Bubble Wrap Roll:
+                                    <span className="sag">
+                                        $45 x{' '}
+                                        <input
+                                            id="buuble-wrap-roll"
+                                            type="number"
+                                            value={this.state.valueWrapRoll}
+                                            onChange={this.wrapRoll}
+                                        />{' '}
+                                        = ${this.state.wrapRoll}
+                                    </span>
                                 </li>
-                                <li className="collection-item">Small Boxes:
-                                    <span className="sag">$2 x <input id="small-boxes" type="number" value={this.state.valueSmallBoxes} onChange={this.smallBoxes} /> = ${this.state.smallBoxes}</span>
+                                <li className="collection-item">
+                                    Small Boxes:
+                                    <span className="sag">
+                                        $2 x{' '}
+                                        <input
+                                            id="small-boxes"
+                                            type="number"
+                                            value={this.state.valueSmallBoxes}
+                                            onChange={this.smallBoxes}
+                                        />{' '}
+                                        = ${this.state.smallBoxes}
+                                    </span>
                                 </li>
-                                <li className="collection-item">Medium Boxes:
-                                    <span className="sag">$3 x <input id="medium-boxes" type="number" value={this.state.valueMediumBoxes} onChange={this.mediumBoxes} /> = ${this.state.mediumBoxes}</span>
+                                <li className="collection-item">
+                                    Medium Boxes:
+                                    <span className="sag">
+                                        $3 x{' '}
+                                        <input
+                                            id="medium-boxes"
+                                            type="number"
+                                            value={this.state.valueMediumBoxes}
+                                            onChange={this.mediumBoxes}
+                                        />{' '}
+                                        = ${this.state.mediumBoxes}
+                                    </span>
                                 </li>
-                                <li className="collection-item">Large Boxes:
-                                    <span className="sag">$4 x <input id="large-boxes" type="number" value={this.state.valueLargeBoxes} onChange={this.largeBoxes} /> = ${this.state.largeBoxes}</span>
+                                <li className="collection-item">
+                                    Large Boxes:
+                                    <span className="sag">
+                                        $4 x{' '}
+                                        <input
+                                            id="large-boxes"
+                                            type="number"
+                                            value={this.state.valueLargeBoxes}
+                                            onChange={this.largeBoxes}
+                                        />{' '}
+                                        = ${this.state.largeBoxes}
+                                    </span>
                                 </li>
                             </ul>
                         </div>
@@ -1221,41 +1555,55 @@ MY OWN FREE WILL`
                             <ul className="collection kolleksiya">
                                 <li className="collection-item blue">
                                     Start to Finish:
-                                    <span className="sag">= {is.totalWorkTime ? is.totalWorkTime.toFixed(2) : null} hours</span>
+                                    <span className="sag">
+                                        = {is.totalWorkTime ? is.totalWorkTime.toFixed(2) : null} hours
+                                    </span>
                                 </li>
                                 <li className="collection-item blue">
                                     Driving Time:
-                                    <span className="sag">= {(() => {
-                                        if (isNaN(this.round(is.totalDrivingTime, 2))) {
-                                            return 0;
-                                        } else {
-                                            return this.round(is.totalDrivingTime, 2);
-                                        }
-                                    })()} hours</span>
-                                </li>
-                                <li className="collection-item blue">
-                                    Double Drive Time:
-                                    <span className="sag">= {(() => {
-                                        if (is.doubleDrive === 'yes') {
+                                    <span className="sag">
+                                        ={' '}
+                                        {(() => {
                                             if (isNaN(this.round(is.totalDrivingTime, 2))) {
                                                 return 0;
                                             } else {
                                                 return this.round(is.totalDrivingTime, 2);
                                             }
-                                        } else {
-                                            return 0;
-                                        }
-                                    })()} hours</span>
+                                        })()}{' '}
+                                        hours
+                                    </span>
+                                </li>
+                                <li className="collection-item blue">
+                                    Double Drive Time:
+                                    <span className="sag">
+                                        ={' '}
+                                        {(() => {
+                                            if (is.doubleDrive === 'yes') {
+                                                if (isNaN(this.round(is.totalDrivingTime, 2))) {
+                                                    return 0;
+                                                } else {
+                                                    return this.round(is.totalDrivingTime, 2);
+                                                }
+                                            } else {
+                                                return 0;
+                                            }
+                                        })()}{' '}
+                                        hours
+                                    </span>
                                 </li>
                                 <li className="collection-item qrm">
                                     Total Breaks Taken:
-                                    <span className="sag">= {(() => {
-                                        if (isNaN(this.round(is.totalBreakTime, 2))) {
-                                            return 0;
-                                        } else {
-                                            return this.round(is.totalBreakTime, 2);
-                                        }
-                                    })()} hours</span>
+                                    <span className="sag">
+                                        ={' '}
+                                        {(() => {
+                                            if (isNaN(this.round(is.totalBreakTime, 2))) {
+                                                return 0;
+                                            } else {
+                                                return this.round(is.totalBreakTime, 2);
+                                            }
+                                        })()}{' '}
+                                        hours
+                                    </span>
                                 </li>
                                 <li className="collection-item blue">
                                     Total calculated hours:
@@ -1263,15 +1611,16 @@ MY OWN FREE WILL`
                                 </li>
                                 <li className="collection-item blue">
                                     Small Item Pck Supplies:
-                                    <span className="sag">= {
-                                        is.smallItemPacking && is.smallItemPacking < 0
+                                    <span className="sag">
+                                        ={' '}
+                                        {is.smallItemPacking && is.smallItemPacking < 0
                                             ? this.state.totalPul > 0
                                                 ? '$' + this.state.totalPul
                                                 : 'Yes'
                                             : is.smallItemPacking > 0
                                                 ? '$' + is.smallItemPacking
-                                                : 'Waived'
-                                    }</span>
+                                                : 'Waived'}
+                                    </span>
                                 </li>
                                 <li className="collection-item blue">
                                     Extra Large/Heavy Item Fee:
@@ -1285,32 +1634,48 @@ MY OWN FREE WILL`
                                     Additional Charge:
                                     <span className="sag">= ${this.totalAdditionalChargeAmount}</span>
                                 </li>
-                                <li className={this.totalDiscountAmount > 0 || this.totalDiscountPercent > 0 || this.totalDiscountPercent > 0 ? 'collection-item blue' : 'hide'} >
+                                <li
+                                    className={
+                                        this.totalDiscountAmount > 0 ||
+                                        this.totalDiscountPercent > 0 ||
+                                        this.totalDiscountPercent > 0
+                                            ? 'collection-item blue'
+                                            : 'hide'
+                                    }>
                                     Discount:
-                                    {this.totalDiscountTime && this.totalDiscountTime > 0
-                                        ? <span className="sag discountYeri">{this.totalDiscountTime} minutes</span>
-                                        : ''
-                                    }
-                                    {this.totalDiscountPercent && this.totalDiscountPercent > 0
-                                        ? <span className="sag discountYeri">{this.totalDiscountPercent}%</span>
-                                        : ''
-                                    }
-                                    {this.totalDiscountAmount && this.totalDiscountAmount > 0
-                                        ? <span className="sag discountYeri">${this.totalDiscountAmount}</span>
-                                        : ''
-                                    }
+                                    {this.totalDiscountTime && this.totalDiscountTime > 0 ? (
+                                        <span className="sag discountYeri">{this.totalDiscountTime} minutes</span>
+                                    ) : (
+                                        ''
+                                    )}
+                                    {this.totalDiscountPercent && this.totalDiscountPercent > 0 ? (
+                                        <span className="sag discountYeri">{this.totalDiscountPercent}%</span>
+                                    ) : (
+                                        ''
+                                    )}
+                                    {this.totalDiscountAmount && this.totalDiscountAmount > 0 ? (
+                                        <span className="sag discountYeri">${this.totalDiscountAmount}</span>
+                                    ) : (
+                                        ''
+                                    )}
                                 </li>
                                 <li className="collection-item blue">
                                     Total amount cash:
-                                    <span className="sag">= ${(() => {
-                                        return this.payCash;
-                                    })()}</span>
+                                    <span className="sag">
+                                        = $
+                                        {(() => {
+                                            return this.payCash;
+                                        })()}
+                                    </span>
                                 </li>
                                 <li className="collection-item blue">
                                     Total amount card:
-                                    <span className="sag">= ${(() => {
-                                        return this.payCard;
-                                    })()}</span>
+                                    <span className="sag">
+                                        = $
+                                        {(() => {
+                                            return this.payCard;
+                                        })()}
+                                    </span>
                                 </li>
                                 <li className="collection-item blue">
                                     Deposit Paid:
@@ -1329,24 +1694,43 @@ MY OWN FREE WILL`
                         <div id="make-payment" className="card__">
                             <div className="cardTitle">Make the payment</div>
                             <div id="odenis-yeri">
-
                                 <div id="make-a-payment" className="row center-align">
                                     <div className="card_ col s12 m6 l6 center-align">
                                         <a className="enter">enter cash amount</a>
                                         {/* cash payment */}
                                         <div className="input-field">
-                                            <input id="cash" type="number" className="" placeholder="enter cash amount" onChange={(e) => this.hesabla('cash', e)} value={this.state.payCash > 0 ? this.state.payCash : ''} />
+                                            <input
+                                                id="cash"
+                                                type="number"
+                                                className=""
+                                                placeholder="enter cash amount"
+                                                onChange={e => this.hesabla('cash', e)}
+                                                value={this.state.payCash > 0 ? this.state.payCash : ''}
+                                            />
                                         </div>
-                                        <a id="mark-as-payed" className="waves-effect waves-light btn disabled" onClick={this.markPayed} >Mark as fully payed</a>
+                                        <a
+                                            id="mark-as-payed"
+                                            className="waves-effect waves-light btn disabled"
+                                            onClick={this.markPayed}>
+                                            Mark as fully payed
+                                        </a>
                                     </div>
                                     <div className="card_ col s6 m6 l6 center-align">
                                         <a className="enter">enter card amount</a>
                                         {/* card payemnt */}
                                         <div className="input-field">
-                                            <input id="card" type="number" placeholder="enter card amount" onChange={(e) => this.hesabla('card', e)} value={this.state.payCard > 0 ? this.state.payCard : ''} />
+                                            <input
+                                                id="card"
+                                                type="number"
+                                                placeholder="enter card amount"
+                                                onChange={e => this.hesabla('card', e)}
+                                                value={this.state.payCard > 0 ? this.state.payCard : ''}
+                                            />
                                         </div>
-                                        <div id="pay-card" className={(this.state.goster ? '' : ' hide')}></div>
-                                        <div className={(this.state.goster ? 'hide' : '')}>Read and accept for making payment</div>
+                                        <div id="pay-card" className={this.state.goster ? '' : ' hide'} />
+                                        <div className={this.state.goster ? 'hide' : ''}>
+                                            Read and accept for making payment
+                                        </div>
                                     </div>
                                 </div>
                                 {/* <div id="make-a-payment" className="row center-align">
@@ -1364,90 +1748,100 @@ MY OWN FREE WILL`
                                 <h5>Fully paid!</h5>
                             </div>
                         </div>
-                        <div className="clear margin-top"></div>
+                        <div className="clear margin-top" />
                         <div className="card__ center-align darken-2-text">
-                            <div className="cardTitle red darken-3">I agree that this move was completed to my satisfaction and that none of my items were damaged or broken.</div>
+                            <div className="cardTitle red darken-3">
+                                I agree that this move was completed to my satisfaction and that none of my items were
+                                damaged or broken.
+                            </div>
                             {/* musteri signature */}
-                            <div className="col s12 m6 l6" >
+                            <div className="col s12 m6 l6">
                                 <p>Customer Sign below</p>
                                 <div className="wrapper">
-                                    <canvas id="signature-pad1" className="signature-pad" width={400} height={200}></canvas>
+                                    <canvas id="signature-pad1" className="signature-pad" width={400} height={200} />
                                 </div>
-                                <a id="clear" className="waves-effect waves-light btn clearing" >Clear</a>
+                                <a id="clear" className="waves-effect waves-light btn clearing">
+                                    Clear
+                                </a>
                             </div>
                             {/* isi goturenin signature */}
                             <div className="col s12 m6 l6">
                                 <p>Employee Sign below</p>
                                 <div className="wrapper">
-                                    <canvas id="signature-pad" className="signature-pad" width={400} height={200}></canvas>
+                                    <canvas id="signature-pad" className="signature-pad" width={400} height={200} />
                                 </div>
-                                <a id="clear2" className="waves-effect waves-light btn clearing" >Clear</a>
+                                <a id="clear2" className="waves-effect waves-light btn clearing">
+                                    Clear
+                                </a>
                             </div>
-                            <p></p>
-                            <div className="col s12 m12 l12 margin-top" >
-                                <a className="waves-effect waves-light btn blue" onClick={this.finishJob} >Finish the Job</a>
+                            <p />
+                            <div className="col s12 m12 l12 margin-top">
+                                <a className="waves-effect waves-light btn blue" onClick={this.finishJob}>
+                                    Finish the Job
+                                </a>
                             </div>
                             <div className="clear margin-top">.</div>
                         </div>
                     </div>
                     {/* son */}
                 </div>
-            </div >
+            </div>
         );
     }
 }
 
 Template.tablet.events({
-    'click #close-duymesi-id': function () {
+    'click #close-duymesi-id': function() {
         ReactDOM.render(<TabletIsList />, document.getElementById('tablet-is-siyahi'));
 
         $('#tablet-is-siyahi').show();
         $('#tebler-render').hide();
-    }
+    },
 });
 
-Template.tablet.onRendered(function () {
+Template.tablet.onRendered(function() {
     ReactDOM.render(<TabletRender />, document.getElementById('tebler-render'));
 
-    paypal.Button.render({
+    paypal.Button.render(
+        {
+            env: 'production', // Or 'sandbox'
 
-        env: 'production', // Or 'sandbox'
+            style: {
+                label: 'pay',
+                size: 'small', // small | medium | large | responsive
+                shape: 'rect', // pill | rect
+                color: 'blue', // gold | blue | silver | black
+            },
 
-        style: {
-            label: 'pay',
-            size: 'small', // small | medium | large | responsive
-            shape: 'rect',   // pill | rect
-            color: 'blue'   // gold | blue | silver | black
+            client: {
+                sandbox: 'ASree96P5IIPryoEkaURjZl_uCCGHLcso9ZNy6U_4vLFUnFc5qhU7hIP7KsLIfZoepVvPhxtdwvTsao5',
+                production: 'AeKzmDv5m4KcyrlQI7Y9qiyjYr5jyUYVKd1FsKrXF9Nce7qmfekBC35JIAFbV2am3TdVKhszmcOdFJhK',
+            },
+
+            commit: true, // Show a 'Pay Now' button
+
+            payment: function(data, actions) {
+                return actions.payment.create({
+                    payment: {
+                        transactions: [
+                            {
+                                amount: { total: odenilmelidir, currency: 'USD' },
+                            },
+                        ],
+                    },
+                });
+            },
+
+            onAuthorize: function(data, actions) {
+                return actions.payment.execute().then(function(payment) {
+                    document.getElementById('odenis-yeri').classList.add('hide');
+                    Session.set('payed', true);
+                    console.log(payment);
+                    // The payment is complete!
+                    // You can now show a confirmation message to the customer
+                });
+            },
         },
-
-        client: {
-            sandbox: 'ASree96P5IIPryoEkaURjZl_uCCGHLcso9ZNy6U_4vLFUnFc5qhU7hIP7KsLIfZoepVvPhxtdwvTsao5',
-            production: 'AeKzmDv5m4KcyrlQI7Y9qiyjYr5jyUYVKd1FsKrXF9Nce7qmfekBC35JIAFbV2am3TdVKhszmcOdFJhK'
-        },
-
-        commit: true, // Show a 'Pay Now' button
-
-        payment: function (data, actions) {
-            return actions.payment.create({
-                payment: {
-                    transactions: [
-                        {
-                            amount: { total: odenilmelidir, currency: 'USD' }
-                        }
-                    ]
-                }
-            });
-        },
-
-        onAuthorize: function (data, actions) {
-            return actions.payment.execute().then(function (payment) {
-                document.getElementById('odenis-yeri').classList.add('hide');
-                Session.set('payed', true);
-                console.log(payment);
-                // The payment is complete!
-                // You can now show a confirmation message to the customer
-            });
-        }
-
-    }, '#pay-card');
+        '#pay-card',
+    );
 });
