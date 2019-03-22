@@ -6,34 +6,51 @@
                 <!-- First Name -->
                 <div class="input-field valideyn col s12 m6 l2">
                     <i class="material-icons isare">account_box</i>
-                    <input id="firstName_2" type="text" value={{istifadechi.clientFirstName}}
-                        placeholder="First Name" />
+                    <input
+                        id="firstName_2"
+                        type="text"
+                        value="{{ istifadechi.clientFirstName }}"
+                        placeholder="First Name"
+                    />
                     <label class="active" for="firstName_2">First Name</label>
                 </div>
                 <!-- Last Name -->
                 <div class="input-field valideyn col s12 m6 l2">
                     <i class="material-icons isare">account_box</i>
-                    <input id="lastName_2" type="text" value={{istifadechi.clientLastName}} placeholder="Last Name" />
+                    <input
+                        id="lastName_2"
+                        type="text"
+                        value="{{ istifadechi.clientLastName }}"
+                        placeholder="Last Name"
+                    />
                     <label class="active" for="lastName_2">Last Name</label>
                 </div>
                 <!-- phone number -->
                 <div class="input-field valideyn col s12 m6 l2">
                     <i class="material-icons isare">phone</i>
-                    <input id="phoneNumber_2" type="number" value={{istifadechi.phoneNumber}}
-                        placeholder="Phone Number" />
+                    <input
+                        id="phoneNumber_2"
+                        type="number"
+                        value="{{ istifadechi.phoneNumber }}"
+                        placeholder="Phone Number"
+                    />
                     <label class="active" for="phoneNumber_2">Phone Number</label>
                 </div>
                 <!-- Additional phone number -->
                 <div class="input-field valideyn col s12 m6 l2">
                     <i class="material-icons isare">phone</i>
-                    <input id="phoneNumber_2_additional" type="number" value={{istifadechi.phoneAdditional}}
-                        placeholder="Additional Phone Number" />
+                    <input
+                        id="phoneNumber_2_additional"
+                        type="number"
+                        value="{{ istifadechi.phoneAdditional }}"
+                        placeholder="Additional Phone Number"
+                    />
                     <label class="active" for="phoneNumber_2">Additional Phone Number</label>
                 </div>
                 <!-- email -->
                 <div class="input-field valideyn col s12 m6 l4">
                     <i class="material-icons isare">email</i>
-                    <input id="musteriEmail_2" type="email" value={{istifadechi.email}} placeholder="E-mail" />
+                    <input id="musteriEmail_2" type="email" value="{{ istifadechi.email }}" placeholder="E-mail" />
                     <label class="active" for="musteriEmail_2">E-mail</label>
                 </div>
                 <div class="clear"></div>
@@ -42,8 +59,13 @@
                 <!-- moving date -->
                 <div class="input-field valideyn col s12 m6 l3">
                     <i class="material-icons isare">date_range</i>
-                    <input id="quote-date-picker_2" class="xx" value={{istifadechi.workDate}} type="text"
-                        placeholder="Moving Date" />
+                    <input
+                        id="quote-date-picker_2"
+                        class="xx"
+                        value="{{ istifadechi.workDate }}"
+                        type="text"
+                        placeholder="Moving Date"
+                    />
                     <label class="active" for="quote-date-picker_2">Moving Date</label>
                 </div>
                 <!-- Taken By -->
@@ -54,37 +76,59 @@
                     <div id="addressesIdUpdate" class="input-field valideyn"></div>
                 </div>
                 <!-- moving time window -->
-                <div id="update_time_window" class="input-field valideyn col s12 m6 l6">
-                </div>
+                <div id="update_time_window" class="input-field valideyn col s12 m6 l6"></div>
                 <!-- small item pack -->
                 <div class="input-field valideyn col s12 m6 l3">
                     <i class="material-icons isare">view_array</i>
-                    <input id="small_item_pack_2" class="xx" type="number" value={{istifadechi.smallItemPacking}}
-                        placeholder="Small item packing" />
+                    <input
+                        id="small_item_pack_2"
+                        class="xx"
+                        type="number"
+                        value="{{ istifadechi.smallItemPacking }}"
+                        placeholder="Small item packing"
+                    />
                     <label class="active" for="small_item_pack_2">
                         Small item packing
-                        <input id="smallItemPackUpdate" type="checkbox" onclick="(() => {
+                        <input
+                            id="smallItemPackUpdate"
+                            type="checkbox"
+                            onclick="(() => {
                                                     let element = document.getElementById('small_item_pack_2')
                                                     element.value == -1 ? element.value = 0 : element.value = -1;
                                                     element.disabled = !element.disabled;
-                                                    })()" />
+                                                    })()"
+                        />
                     </label>
                 </div>
                 <!-- large item fee -->
                 <div class="input-field valideyn col s12 m6 l3">
                     <i class="material-icons isare">view_carousel</i>
-                    <input id="large_item_fee_2" class="xx" type="number" value={{istifadechi.largeItemFee}}
-                        placeholder="Large item fee" />
+                    <input
+                        id="large_item_fee_2"
+                        class="xx"
+                        type="number"
+                        value="{{ istifadechi.largeItemFee }}"
+                        placeholder="Large item fee"
+                    />
                     <label class="active" for="large_item_fee_2">Large item fee</label>
                 </div>
                 <!-- gas fee -->
                 <div class="input-field valideyn col s12 m3 l3">
                     <i class="material-icons isare">attach_money</i>
-                    <input id="gas_fee_2" class="xx" type="number" value={{istifadechi.gasFee}} placeholder="Gas fee" />
+                    <input
+                        id="gas_fee_2"
+                        class="xx"
+                        type="number"
+                        value="{{ istifadechi.gasFee }}"
+                        placeholder="Gas fee"
+                    />
                     <label class="active" for="gas_fee_2">
                         Gas fee
                         <i class="lime-text lighten-5 black">
-                            [ Not sure? <input type="checkbox" onchange="(function hello(){
+                            [ Not sure?
+                            <input
+                                type="checkbox"
+                                onchange="(function hello(){
                                                 document.getElementById('gas_fee_2').value < 0
                                                     ? (document.getElementById('gas_fee_2').disabled = false,
                                                     document.getElementById('gas_fee_2').value = 0)
@@ -92,52 +136,80 @@
                                                     document.getElementById('gas_fee_2').value = -0.01);
                 
                                                     console.log('Hello');
-                                            })()" checked={{isGasFee}}>]
+                                            })()"
+                                checked="{{ isGasFee }}"
+                            />]
                         </i>
                     </label>
                 </div>
                 <!-- deposit -->
                 <div class="input-field valideyn col s12 m6 l3">
                     <i class="material-icons isare">view_carousel</i>
-                    <input id="deposit-update" class="xx" type="number" value={{istifadechi.deposit}}
-                        placeholder="deposit $" />
+                    <input
+                        id="deposit-update"
+                        class="xx"
+                        type="number"
+                        value="{{ istifadechi.deposit }}"
+                        placeholder="deposit $"
+                    />
                     <label class="active" for="deposit-update">Deposit</label>
                 </div>
                 <div class="clear"></div>
                 <!-- Payment types -->
                 <div class="row chargingPanel">
                     <div class="col s12 m12 l12 orange darken-4 payment-header">
-                        Payment options <i class="lime-text lighten-5 black">[ Flat Rate <input id="flatBoxUpdate"
-                                type="checkbox" checked={{isFlat}} />
-                            ]</i>
+                        Payment options
+                        <i class="lime-text lighten-5 black"
+                            >[ Flat Rate <input id="flatBoxUpdate" type="checkbox" checked="{{ isFlat }}" /> ]</i
+                        >
                     </div>
                     <div id="paymentContentUpdate">
                         <!-- labor time -->
                         <div class="input-field valideyn col s12 m6 l3">
                             <i class="material-icons isare">timer</i>
-                            <input id="labor_time_2" class="xx" type="number" value={{istifadechi.laborTime}}
-                                placeholder="0" />
+                            <input
+                                id="labor_time_2"
+                                class="xx"
+                                type="number"
+                                value="{{ istifadechi.laborTime }}"
+                                placeholder="0"
+                            />
                             <label class="active" for="labor_time_2">Minimum labor time</label>
                         </div>
                         <!-- rates cash -->
                         <div class="input-field valideyn col s12 m6 l3">
                             <i class="material-icons isare">attach_money</i>
-                            <input id="hourly_rates_cash_2" class="xx" type="number"
-                                value={{istifadechi.hourlyRatesCash}} placeholder="0" />
+                            <input
+                                id="hourly_rates_cash_2"
+                                class="xx"
+                                type="number"
+                                value="{{ istifadechi.hourlyRatesCash }}"
+                                placeholder="0"
+                            />
                             <label class="active" for="hourly_rates_cash_2">Hourly rate (cash)</label>
                         </div>
                         <!-- rates card -->
                         <div class="input-field valideyn col s12 m6 l3">
                             <i class="material-icons isare">attach_money</i>
-                            <input id="hourly_rates_card_2" class="xx" type="number"
-                                value={{istifadechi.hourlyRatesCard}} placeholder="0" />
+                            <input
+                                id="hourly_rates_card_2"
+                                class="xx"
+                                type="number"
+                                value="{{ istifadechi.hourlyRatesCard }}"
+                                placeholder="0"
+                            />
                             <label class="active" for="hourly_rates_card_2">Hourly rate (card)</label>
                         </div>
                         <!-- not exceed price -->
                         <div class="input-field valideyn col s12 m6 l3">
                             <i class="material-icons isare">attach_money</i>
-                            <input id="quote_price_2" class="xx" type="number" value={{istifadechi.price}}
-                                placeholder="0" />
+                            <input
+                                id="quote_price_2"
+                                class="xx"
+                                type="number"
+                                value="{{ istifadechi.price }}"
+                                placeholder="0"
+                            />
                             <label class="active" for="quote_price_2">Not exceed price</label>
                         </div>
                     </div>
@@ -146,17 +218,29 @@
                         <!-- flat rate cash -->
                         <div class="input-field valideyn col s12 m6 l3">
                             <i class="material-icons isare">attach_money</i>
-                            <input id="flatRateCashUpdate" class="xx" type="number" placeholder="0" onchange="(() => {
+                            <input
+                                id="flatRateCashUpdate"
+                                class="xx"
+                                type="number"
+                                placeholder="0"
+                                onchange="(() => {
                                                     if (this.value< 0) {
                                                          this.value=0; 
-                                                         } })()" />
+                                                         } })()"
+                            />
                             <label class="active" for="flatRateCashUpdate">Flat rate cash</label>
                         </div>
                         <!-- flat rate card -->
                         <div class="input-field valideyn col s12 m6 l3">
                             <i class="material-icons isare">attach_money</i>
-                            <input id="flatRateCardUpdate" class="xx" type="number" placeholder="0" onchange="(() => {
-                                                    if (this.value < 0) { this.value=0; } })()" />
+                            <input
+                                id="flatRateCardUpdate"
+                                class="xx"
+                                type="number"
+                                placeholder="0"
+                                onchange="(() => {
+                                                    if (this.value < 0) { this.value=0; } })()"
+                            />
                             <label class="active" for="flatRateCardUpdate">Flat rate card</label>
                         </div>
                     </div>
@@ -164,58 +248,77 @@
                 <!-- gas fee -->
                 <div class="input-field valideyn col s12 m6 l6">
                     <i class="material-icons isare">attach_money</i>
-                    <input id="company-name-update" class="xx" type="text" value={{istifadechi.companyInfo.name}}
-                        disabled />
+                    <input
+                        id="company-name-update"
+                        class="xx"
+                        type="text"
+                        value="{{ istifadechi.companyInfo.name }}"
+                        disabled
+                    />
                     <label class="active" for="company-name-update">Company</label>
                 </div>
                 <!-- double drive time -->
-                <div id="double-drive-time-update" class="input-field col s12 m3 l3 azMargin">
-                </div>
+                <div id="double-drive-time-update" class="input-field col s12 m3 l3 azMargin"></div>
                 <!-- Number of movers -->
                 <div id="number-of-movers2" class="input-field valideyn col s12 m3 l3 azMargin">
                     <!-- <i class="material-icons isare">person</i> -->
                 </div>
                 <!-- moving size -->
-                <div id="moving-size" class="input-field col s12 m6 l6 azMargin">
-                </div>
+                <div id="moving-size" class="input-field col s12 m6 l6 azMargin"></div>
                 <div class="clear"></div>
                 <!-- job number -->
                 <div class="input-field valideyn col s12 m3 l3">
                     <i class="material-icons isare">local_offer</i>
-                    <input id="quote-job-number_2" class="xx" type="text" value={{istifadechi.jobNumber}}
-                        placeholder="Job ID" disabled />
+                    <input
+                        id="quote-job-number_2"
+                        class="xx"
+                        type="text"
+                        value="{{ istifadechi.jobNumber }}"
+                        placeholder="Job ID"
+                        disabled
+                    />
                     <label class="active" for="quote-job-number_2">Job number</label>
                 </div>
                 <!-- Quote taken date -->
                 <div class="input-field valideyn col s12 m6 l6">
                     <i class="material-icons isare">access_time</i>
-                    <input id="quote-quote-date" class="xx" type="text" value={{istifadechi.quoteDate}}
-                        placeholder="Quote taken Date" disabled />
+                    <input
+                        id="quote-quote-date"
+                        class="xx"
+                        type="text"
+                        value="{{ istifadechi.quoteDate }}"
+                        placeholder="Quote taken Date"
+                        disabled
+                    />
                     <label class="active" for="quote-quote-date">Quote Taken Date</label>
-                </div>
-                <!-- movers list -->
-                <div class="iscilerin-siyahisi col s12 m12 l12">
-                    <div class="basliq">Please select movers</div>
-                    <div id="iscilerinSiyahisiRender"></div>
                 </div>
                 <div class="clear"></div>
                 <!-- selected movers -->
-                <div id="secilmisIscilerinSiyahisi col s12 m12 l12">
-                </div>
+                <div id="secilmisIscilerinSiyahisi col s12 m12 l12"></div>
                 <!-- TempTruck -->
                 <div class="col s12 m12 l12">
                     <div id="tempTruckUpdate" class="iscilerinSiyahisiRender"></div>
                 </div>
+                <!-- movers list -->
+                <div class="iscilerin-siyahisi col s12 m12 l12">
+                    <div class="basliq">Assign movers</div>
+                    <div id="iscilerinSiyahisiRender"></div>
+                </div>
                 <!-- truck number -->
                 <div id="truck-list-update" class="input-field valideyn col s12 m12 l12">
                     <i class="material-icons isare">local_shipping</i>
-                    <input id="quote-turck-number_2" class="xx" type="number" value={{istifadechi.truckNumber}}
-                        placeholder="Truck Number" />
+                    <input
+                        id="quote-turck-number_2"
+                        class="xx"
+                        type="number"
+                        value="{{ istifadechi.truckNumber }}"
+                        placeholder="Truck Number"
+                    />
                 </div>
                 <!-- comment -->
                 <div class="input-field col s12">
                     <textarea id="textarea2" class="materialize-textarea">
-                        {{istifadechi.comment}}
+                        {{ istifadechi.comment }}
                     </textarea>
                     <label class="active" for="textarea2">Comments</label>
                 </div>
