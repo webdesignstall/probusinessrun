@@ -38,16 +38,14 @@ export default class QuoteTam extends React.Component {
         });
     }
 
-    setWorkId(id) {
+    setWorkId(id, additionalContacts) {
         document.querySelector('#quoteTam').classList.add('hide');
         Session.set('is', id);
+        Session.set('additionalContacts', additionalContacts);
         let x = WorkData.findOne({ _id: Session.get('is') });
         document.querySelector('#updateQuote2').classList.remove('hide');
         ReactDOM.render(<UpdateAddTruck />, document.querySelector('#truck-list-update'));
-        ReactDOM.render(
-            <ArrivalWindow update={true} />,
-            document.getElementById('update_time_window'),
-        );
+        ReactDOM.render(<ArrivalWindow update={true} />, document.getElementById('update_time_window'));
         ReactDOM.render(<NumberOfUsers />, document.getElementById('number-of-movers2'));
         ReactDOM.render(<MovingSize />, document.getElementById('moving-size'));
         ReactDOM.render(<UpdateDoubleDrive />, document.getElementById('double-drive-time-update'));
@@ -59,10 +57,7 @@ export default class QuoteTam extends React.Component {
             document.querySelector('#additional-contact-update'),
         );
         let takenById = x.takenBy;
-        ReactDOM.render(
-            <TakenBy id={takenById} update={true} />,
-            document.getElementById('takenBy--update'),
-        );
+        ReactDOM.render(<TakenBy id={takenById} update={true} />, document.getElementById('takenBy--update'));
         $(document).ready(function() {
             $('select').material_select();
         });
@@ -84,7 +79,7 @@ export default class QuoteTam extends React.Component {
                     key={quotes._id}
                     href="#"
                     className="collection-item"
-                    onClick={() => this.setWorkId(quotes._id)}>
+                    onClick={() => this.setWorkId(quotes._id, quotes.additionalContacts)}>
                     <span className="tarix-in-list">{quotes.workDate}</span>
                     <span className="tarix-in-list green">{quotes.jobNumber}</span>
                     <span>

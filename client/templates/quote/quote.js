@@ -858,6 +858,7 @@ Template.quoteTam.events({
 
         document.querySelector('#quoteTam').classList.remove('hide');
         document.querySelector('#updateQuote2').classList.add('hide');
+        Session.set('additionalContacts', []);
     },
 });
 
