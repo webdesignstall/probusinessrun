@@ -15,41 +15,41 @@ export default class UpdateArrivalWindow extends React.Component {
             options: [
                 {
                     name: 'Select moving time window',
-                    status: 1
+                    status: 1,
                 },
                 {
                     name: 'Morning',
-                    status: 0
+                    status: 0,
                 },
                 {
                     name: 'Between 8-9am',
-                    status: 1
+                    status: 1,
                 },
                 {
                     name: 'Between 9-10am',
-                    status: 1
+                    status: 1,
                 },
                 {
                     name: 'Afternoon',
-                    status: 0
+                    status: 0,
                 },
                 {
                     name: 'Between 1-4pm',
-                    status: 1
+                    status: 1,
                 },
                 {
                     name: 'Between 2-5pm',
-                    status: 1
+                    status: 1,
                 },
                 {
                     name: 'Morning & Afternoon',
-                    status: 1
+                    status: 1,
                 },
                 {
                     name: 'Custom',
-                    status: 1
-                }
-            ]
+                    status: 1,
+                },
+            ],
         };
 
         this.onChangeInput = this.onChangeInput.bind(this);
@@ -69,23 +69,26 @@ export default class UpdateArrivalWindow extends React.Component {
                 selected = selected[0].workMustBeginTime;
             }
 
-            this.setState({
-                selected: selected
-            }, () => {
-                this.secilmisiRenderEt();
-            });
+            this.setState(
+                {
+                    selected: selected,
+                },
+                () => {
+                    this.secilmisiRenderEt();
+                },
+            );
 
             let that = this;
-            document.getElementById('update-select-arrive-time').onchange = function () {
+            document.getElementById('update-select-arrive-time').onchange = function() {
                 let value = document.getElementById('update-select-arrive-time').value;
                 if (value === 'Custom') {
                     // document.getElementsByClassName('select-wrapper')[0].classList.add('hide');
                     that.setState({
-                        custom: true
+                        custom: true,
                     });
                 } else {
                     that.setState({
-                        custom: false
+                        custom: false,
                     });
                 }
             };
@@ -98,10 +101,10 @@ export default class UpdateArrivalWindow extends React.Component {
 
     secilmisiRenderEt() {
         //isdeki zamanin siyahida olub olmamasi yoxlanilir
-        this.state.options.map((option) => {
+        this.state.options.map(option => {
             if (option.name === this.state.selected) {
                 this.setState({
-                    defValue: this.state.selected
+                    defValue: this.state.selected,
                 });
             }
         });
@@ -109,42 +112,40 @@ export default class UpdateArrivalWindow extends React.Component {
         //isdeki zaman siyahida yoxdursa ve isdeki zaman bos deyilse
         if (this.state.defValue === '' && this.state.selected != '') {
             this.setState({
-                defValue: 'Custom'
+                defValue: 'Custom',
             });
 
             this.setState({
                 trueFalse: true,
                 custom: true,
-                valueOfInput: this.state.selected
+                valueOfInput: this.state.selected,
             });
         }
 
         if (this.state.selected === '') {
             this.setState({
-                defValue: 'Select moving time window'
+                defValue: 'Select moving time window',
             });
         }
     }
 
     renderOptions() {
-        return (
-            this.state.options.map((option) => {
-                return (
-                    <option
-                        key={option.name}
-                        value={option.name}
-                        disabled={option.status === 0 ? true : false}
-                    >
-                        {option.name}
-                    </option>
-                );
-            })
-        );
+        return this.state.options.map(option => {
+            return (
+                <option key={option.name} value={option.name} disabled={option.status === 0 ? true : false}>
+                    {option.name}
+                </option>
+            );
+        });
     }
 
     renderArrivalTime() {
         return (
-            <select name="select-arrive-time" id="update-select-arrive-time" defaultValue={this.state.defValue} >
+            <select
+                name="select-arrive-time"
+                className="browser-default"
+                id="update-select-arrive-time"
+                defaultValue={this.state.defValue}>
                 {this.renderOptions()}
             </select>
         );
@@ -152,7 +153,7 @@ export default class UpdateArrivalWindow extends React.Component {
 
     onChangeInput(e) {
         this.setState({
-            valueOfInput: e.target.value
+            valueOfInput: e.target.value,
         });
     }
 
@@ -161,7 +162,8 @@ export default class UpdateArrivalWindow extends React.Component {
             <input
                 id="update-input-custom-time"
                 className={this.state.custom ? '' : 'hide'}
-                type="text" value={this.state.valueOfInput}
+                type="text"
+                value={this.state.valueOfInput}
                 onChange={this.onChangeInput}
                 placeholder="Input the arrival time window manually"
             />

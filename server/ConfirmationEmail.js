@@ -1,27 +1,24 @@
 export default function ConfirmationEmail(job) {
-
     function addressesRender(addressler) {
-        let addreslerHTML = ''
+        let addreslerHTML = '';
         addressler.map((address, index) => {
-            addreslerHTML += (
-                `<tr>
+            addreslerHTML += `<tr>
                     <td>
                         Address#${index + 1}:
                 </td>
                     <td>
                         ${address}
                     </td>
-                </tr>`
-            );
+                </tr>`;
         });
 
         return addreslerHTML;
     }
 
-    let movingSize = function () {
+    let movingSize = function() {
         let movingSizeList = {
-            'items': 'Items',
-            'studio': 'Studio',
+            items: 'Items',
+            studio: 'Studio',
             '1_bedroom': '1 Bedroom',
             '2_bedroom_small': '2 Bedroom (small size, few items)',
             '2_bedroom_avg': '2 Bedroom (avg. size, avg. items)',
@@ -30,17 +27,17 @@ export default function ConfirmationEmail(job) {
             '3_bedroom_large': '3 Bedroom (large size, many items)',
             '4_bedrooom_avg': '4 Bedroom (avg. size, avg. items)',
             '4_bedroom_large': '4 Bedroom (large size, many items)',
-            'commercial_avg': 'Commercial (avg. size, avg. items)',
-            'commercial_large': 'Commercial (large size, many items)'
+            commercial_avg: 'Commercial (avg. size, avg. items)',
+            commercial_large: 'Commercial (large size, many items)',
         };
 
         return movingSizeList[job.movingSize];
     };
 
-    let additionalContacts = job.additionalContacts && job.additionalContacts.lenght > 0
-        ? job.additionalContacts.map((contact) => {
-            return (
-                `<tr>
+    let additionalContacts =
+        job.additionalContacts && job.additionalContacts.length > 0
+            ? job.additionalContacts.map(contact => {
+                return `<tr>
                     <td style="width: 49%;" width="49%">
                         Additional Contact Name:
                     </td>
@@ -56,8 +53,11 @@ export default function ConfirmationEmail(job) {
                         ${contact.phoneNumber || '-'}
                     </td>
                 </tr>
-                ${contact.additionalPhoneNumber !== null && contact.additionalPhoneNumber !== undefined && contact.additionalPhoneNumber !== ''
-                    ? `
+                ${
+    contact.additionalPhoneNumber !== null &&
+                    contact.additionalPhoneNumber !== undefined &&
+                    contact.additionalPhoneNumber !== ''
+        ? `
                     <tr>
                         <td style="width: 49%;" width="49%">
                             Contact Secondary No:
@@ -66,14 +66,15 @@ export default function ConfirmationEmail(job) {
                             ${contact.additionalPhoneNumber}
                         </td>
                     </tr>`
-                    : ''}
-                `
-            );
-        })
-        : '';
+        : ''
+}
+                `;
+            })
+            : '';
 
-    let additionalPhoneNumber = job.phoneAdditional !== null && job.phoneAdditional !== undefined && job.phoneAdditional !== 'null'
-        ? `<tr>
+    let additionalPhoneNumber =
+        job.phoneAdditional !== null && job.phoneAdditional !== undefined && job.phoneAdditional !== 'null'
+            ? `<tr>
             <td style="width: 49%;" width="49%">
                 Customer Secondary No:
             </td>
@@ -81,17 +82,20 @@ export default function ConfirmationEmail(job) {
                 ${job.phoneAdditional}
             </td>
         </tr>`
-        : '';
+            : '';
 
     let totalTrucks = 0;
     job.trucksTemp && job.trucksTemp.length > 0
-        ? job.trucksTemp.map((truck) => {
-            totalTrucks += Number(truck.qty);
-        }).join('')
+        ? job.trucksTemp
+            .map(truck => {
+                totalTrucks += Number(truck.qty);
+            })
+            .join('')
         : '';
 
-    let numberOfTrucks = job.trucksTemp && job.trucksTemp.length > 0
-        ? `
+    let numberOfTrucks =
+        job.trucksTemp && job.trucksTemp.length > 0
+            ? `
             <tr>
                 <td style="width: 49%;" width="49%">
                     # of trucks:
@@ -101,14 +105,16 @@ export default function ConfirmationEmail(job) {
                 </td>
             </tr>
             `
-        : '';
+            : '';
 
-    let trucksList = job.trucksTemp && job.trucksTemp.length > 0
-        ? job.trucksTemp.map((truck) => {
-            let render = '';
-            let i = 0;
-            for (i = 0; i < Number(truck.qty); i++) {
-                render += `
+    let trucksList =
+        job.trucksTemp && job.trucksTemp.length > 0
+            ? job.trucksTemp
+                .map(truck => {
+                    let render = '';
+                    let i = 0;
+                    for (i = 0; i < Number(truck.qty); i++) {
+                        render += `
                 <tr>
                     <td style="width: 49%;" width="49%">
                         Truck Size:
@@ -118,13 +124,15 @@ export default function ConfirmationEmail(job) {
                     </td>
                 </tr>
                 `;
-            }
-            return render;
-        }).join('')
-        : '';
+                    }
+                    return render;
+                })
+                .join('')
+            : '';
 
-    let arrivalWindow = (job.workMustBeginTime[0] === '04:00 am' && job.workMustBeginTime[0] === '04:00 am')
-        ? `
+    let arrivalWindow =
+        job.workMustBeginTime[0] === '04:00 am' && job.workMustBeginTime[0] === '04:00 am'
+            ? `
             <tr>
                 <td style="width: 49%;" width="49%">
                     Arrival Window:
@@ -134,7 +142,7 @@ export default function ConfirmationEmail(job) {
                 </td>
             </tr>
         `
-        : `
+            : `
             <tr>
                 <td style="width: 49%;" width="49%">
                     Arrival Window:
@@ -144,8 +152,7 @@ export default function ConfirmationEmail(job) {
                 </td>
             </tr>`;
 
-    return (
-        `
+    return `
         <!DOCTYPE html>
 
 <head>
@@ -218,7 +225,9 @@ export default function ConfirmationEmail(job) {
                 </tr>
                 ${numberOfTrucks}
                 ${trucksList}
-                ${ job.laborTime ? `
+                ${
+    job.laborTime
+        ? `
                 <tr>
                     <td style="width: 49%;" width="49%">
                         Minimum Labor Time:
@@ -226,8 +235,12 @@ export default function ConfirmationEmail(job) {
                     <td style="width: 49%;" width="49%">
                         ${job.laborTime} hours
                     </td>
-                </tr>` : ''} 
-                ${ job.flatRate && job.flatRate[0].isTrue ? `
+                </tr>`
+        : ''
+} 
+                ${
+    job.flatRate && job.flatRate[0].isTrue
+        ? `
                 <tr>
                     <td style="width: 49%;" width="49%">
                         Cash Discount Flat Rate:
@@ -243,8 +256,12 @@ export default function ConfirmationEmail(job) {
                     <td style="width: 49%;" width="49%">
                         $${job.flatRate[0].cardAmount}
                     </td>
-                </tr>` : ''} 
-                ${ job.hourlyRatesCash && job.hourlyRatesCash > 0 ? `
+                </tr>`
+        : ''
+} 
+                ${
+    job.hourlyRatesCash && job.hourlyRatesCash > 0
+        ? `
                 <tr>
                     <td style="width: 49%;" width="49%">
                         Cash Discount Rate p/hour:
@@ -253,8 +270,12 @@ export default function ConfirmationEmail(job) {
                         $${job.hourlyRatesCash}
                     </td>
                 </tr>
-                ` : ''} 
-                ${ job.hourlyRatesCard && job.hourlyRatesCard > 0 ? `
+                `
+        : ''
+} 
+                ${
+    job.hourlyRatesCard && job.hourlyRatesCard > 0
+        ? `
                 <tr>
                     <td style="width: 49%;" width="49%">
                         Card Regular Rate p/hour:
@@ -262,8 +283,12 @@ export default function ConfirmationEmail(job) {
                     <td style="width: 49%;" width="49%">
                         $${job.hourlyRatesCard}
                     </td>
-                </tr>` : ''} 
-                ${ !isNaN(Number(job.gasFee)) && Number(job.gasFee) > 0 ? (`
+                </tr>`
+        : ''
+} 
+                ${
+    !isNaN(Number(job.gasFee)) && Number(job.gasFee) > 0
+        ? `
                 <tr>
                     <td style="width: 49%;" width="49%">
                         Gas Fee (one time):
@@ -271,8 +296,12 @@ export default function ConfirmationEmail(job) {
                     <td style="width: 49%;" width="49%">
                         ${job.gasFee < 0 ? 'Not Sure' : '$' + job.gasFee}
                     </td>
-                </tr>` ) : ''} 
-                ${ job.doubleDrive === 'yes' ? (`
+                </tr>`
+        : ''
+} 
+                ${
+    job.doubleDrive === 'yes'
+        ? `
                 <tr>
                     <td style="width: 49%;" width="49%">
                         Double Drive Time:
@@ -280,22 +309,29 @@ export default function ConfirmationEmail(job) {
                     <td style="width: 49%;" width="49%">
                         Yes, <a href="http://www.moverslegion.com/wp-content/uploads/2019/02/DDT.pdf" download="http://www.moverslegion.com/wp-content/uploads/2019/02/DDT.pdf" target="_blank" rel="noopener noreferrer">learn more</a>
                     </td>
-                </tr>` ) : ''} 
-                ${ job.smallItemPacking < 0 || job.smallItemPacking > 0 ? (`
+                </tr>`
+        : ''
+} 
+                ${
+    job.smallItemPacking < 0 || job.smallItemPacking > 0
+        ? `
                     <tr>
                         <td style="width: 49%;" width="49%">
                             Small Item Packing:
                         </td>
                         <td style="width: 49%;" width="49%">
-                            ${ job.smallItemPacking < 0
-                ? (
-                    'Yes, <a href="http://www.moverslegion.com/wp-content/uploads/2018/12/small-item-pricing.pdf" download="http://www.moverslegion.com/wp-content/uploads/2018/12/small-item-pricing.pdf" target="_blank" rel="noopener noreferrer">learn more</a>'
-                )
-                : '$' + job.smallItemPacking} 
+                            ${
+    job.smallItemPacking < 0
+        ? 'Yes, <a href="http://www.moverslegion.com/wp-content/uploads/2018/12/small-item-pricing.pdf" download="http://www.moverslegion.com/wp-content/uploads/2018/12/small-item-pricing.pdf" target="_blank" rel="noopener noreferrer">learn more</a>'
+        : '$' + job.smallItemPacking
+} 
                                 </td>
-                                    </tr>` )
-            : ''} 
-                    ${ job.largeItemFee && job.largeItemFee > 0 ? `
+                                    </tr>`
+        : ''
+} 
+                    ${
+    job.largeItemFee && job.largeItemFee > 0
+        ? `
                     <tr>
                         <td style="width: 49%;" width="49%">
                             Extra Large Item Handling:
@@ -303,7 +339,9 @@ export default function ConfirmationEmail(job) {
                         <td style="width: 49%;" width="49%">
                             $${job.largeItemFee}
                         </td>
-                    </tr>` : ''}
+                    </tr>`
+        : ''
+}
             </tbody>
         </table>
         <div className="sola-cekme">
@@ -339,6 +377,5 @@ export default function ConfirmationEmail(job) {
             </div>
         </div>
     </body>
-    `
-    );
+    `;
 }

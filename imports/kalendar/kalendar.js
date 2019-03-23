@@ -186,20 +186,7 @@ Template.kalendar.onRendered(function() {
     const ayOriginiali = moment().month();
     let il = moment().year();
     const ilOriginal = moment().year();
-    let aylarSiyahi = [
-        'Jan',
-        'Feb',
-        'Mar',
-        'Apr',
-        'May',
-        'Jun',
-        'Jul',
-        'Aug',
-        'Sep',
-        'Oct',
-        'Nov',
-        'Dec',
-    ];
+    let aylarSiyahi = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     let dateChanged = 0;
     let classAdi = '';
 
@@ -217,8 +204,7 @@ Template.kalendar.onRendered(function() {
                 '<a href="#" id="ay" class="tarixSecim"></a><a href="#" id="il" class="tarixSecim"></a><a href="#" id="goToday" class="tarixSecimGoToday"></a>';
         } else {
             tarixIn.innerHTML =
-                gun +
-                '<a href="#" id="ay" class="tarixSecim"></a><a href="#" id="il" class="tarixSecim"></a>';
+                gun + '<a href="#" id="ay" class="tarixSecim"></a><a href="#" id="il" class="tarixSecim"></a>';
         }
         let ayHedef = document.getElementById('ay');
         let ilHedef = document.getElementById('il');
@@ -321,10 +307,7 @@ Template.kalendar.onRendered(function() {
             div.setAttribute('id', gun.id + '_');
             document.getElementById(gun.id).appendChild(div);
             if (gun.id.search('gunNomre') < 0) {
-                ReactDOM.render(
-                    <DailyStats date={gun.id} />,
-                    document.getElementById(gun.id + '_'),
-                );
+                ReactDOM.render(<DailyStats date={gun.id} />, document.getElementById(gun.id + '_'));
             }
         });
     }
@@ -352,11 +335,7 @@ Template.kalendar.onRendered(function() {
                 let ayAdlarSiyahi = '';
                 for (z = 0; z < aylarSiyahi.length; z++) {
                     ayAdlarSiyahi +=
-                        '<a href="#" name="' +
-                        z +
-                        '" class="tarixSecim tarixSecimay">' +
-                        aylarSiyahi[z] +
-                        '</a>';
+                        '<a href="#" name="' + z + '" class="tarixSecim tarixSecimay">' + aylarSiyahi[z] + '</a>';
                 }
                 hedefInsert.innerHTML = ayAdlarSiyahi;
             }
@@ -367,11 +346,7 @@ Template.kalendar.onRendered(function() {
                 for (z = -3; z < 2; z++) {
                     ilHesab = il + z;
                     ilSiyahi +=
-                        '<a href="#" name="' +
-                        ilHesab +
-                        '" class="tarixSecim tarixSecimay">' +
-                        ilHesab +
-                        '</a>';
+                        '<a href="#" name="' + ilHesab + '" class="tarixSecim tarixSecimay">' + ilHesab + '</a>';
                 }
                 hedefInsert.innerHTML = ilSiyahi;
             }
@@ -410,20 +385,14 @@ Template.kalendar.onRendered(function() {
                     div.setAttribute('id', gun.id + '_');
                     document.getElementById(gun.id).appendChild(div);
                     if (gun.id.search('gunNomre') < 0) {
-                        ReactDOM.render(
-                            <DailyStats date={gun.id} />,
-                            document.getElementById(gun.id + '_'),
-                        );
+                        ReactDOM.render(<DailyStats date={gun.id} />, document.getElementById(gun.id + '_'));
                     }
                 });
             });
         }
 
         // islerin siyahisini cixartma
-        if (
-            event.target.className.search('dayData') > -1 &&
-            event.target.id.search('gunNomre') === -1
-        ) {
+        if (event.target.className.search('dayData') > -1 && event.target.id.search('gunNomre') === -1) {
             Meteor.subscribe('workSchema');
 
             try {
@@ -552,10 +521,7 @@ Template.kalendar.events({
         ReactDOM.unmountComponentAtNode(document.getElementById('addTruck'));
         ReactDOM.render(<UpdateAddTruck />, document.querySelector('#truck-list-update'));
         ReactDOM.unmountComponentAtNode(document.getElementById('arrival-time'));
-        ReactDOM.render(
-            <ArrivalWindow update={true} />,
-            document.getElementById('update_time_window'),
-        );
+        ReactDOM.render(<ArrivalWindow update={true} />, document.getElementById('update_time_window'));
         ReactDOM.render(<MovingSize />, document.getElementById('moving-size'));
         ReactDOM.render(<RenderEmployees />, document.getElementById('iscilerinSiyahisiRender'));
         ReactDOM.render(<UpdateDoubleDrive />, document.getElementById('double-drive-time-update'));
@@ -569,10 +535,11 @@ Template.kalendar.events({
 
         let x = WorkData.findOne({ _id: Session.get('is') });
         let takenById = x.takenBy;
-        ReactDOM.render(
-            <TakenBy id={takenById} update={true} />,
-            document.getElementById('takenBy--update'),
-        );
+        ReactDOM.render(<TakenBy id={takenById} update={true} />, document.getElementById('takenBy--update'));
+        $('#quote-date-picker_2').datepicker();
+        $(function() {
+            $('#quote-date-picker_2').datepicker('setDate', new Date(x.workDate));
+        });
 
         $(document).ready(function() {
             $('select').material_select();

@@ -7,7 +7,7 @@ import WorkData from './../../../common/collections_2';
 import { Tracker } from 'meteor/tracker';
 import swal from 'sweetalert';
 
-/*global Bert, $*/
+/*global $*/
 
 let tracker_ = null;
 
@@ -16,14 +16,14 @@ Template.updateQuote.onRendered(function() {
     Meteor.subscribe('tabletData');
     Meteor.subscribe('usersData');
 
-    $('#quote-date-picker_2').pickadate({
-        selectMonths: true, // Creates a dropdown to control month
-        selectYears: 15, // Creates a dropdown of 15 years to control year,
-        today: 'Today',
-        clear: 'Clear',
-        close: 'Ok',
-        closeOnSelect: false, // Close upon selecting a date,
-    });
+    // $('#quote-date-picker_2').pickadate({
+    //     selectMonths: true, // Creates a dropdown to control month
+    //     selectYears: 15, // Creates a dropdown of 15 years to control year,
+    //     today: 'Today',
+    //     clear: 'Clear',
+    //     close: 'Ok',
+    //     closeOnSelect: false, // Close upon selecting a date,
+    // });
     let ishDeyisibdir = '';
     let checkedUpdate = document.querySelector('#flatBoxUpdate');
 
@@ -34,6 +34,7 @@ Template.updateQuote.onRendered(function() {
         if (Session.get('is') !== '' && Session.get('is') !== ishDeyisibdir) {
             Session.set('flatRate', false);
             const ish = WorkData.findOne({ _id: Session.get('is') });
+
             ish.smallItemPacking && ish.smallItemPacking == -1
                 ? document.querySelector('#smallItemPackUpdate')
                     ? ((document.querySelector('#smallItemPackUpdate').checked = true),
@@ -282,13 +283,9 @@ Template.preQuote.onRendered(function() {
     Meteor.subscribe('usersData');
     Meteor.subscribe('workSchema');
 
-    $('#quote-date-picker').pickadate({
-        selectMonths: true, // Creates a dropdown to control month
-        selectYears: 15, // Creates a dropdown of 15 years to control year,
-        today: 'Today',
-        clear: 'Clear',
-        close: 'Ok',
-        closeOnSelect: false, // Close upon selecting a date,
+    $('#quote-date-picker').datepicker();
+    $(function() {
+        $('#quote-date-picker').datepicker('setDate', new Date());
     });
 });
 

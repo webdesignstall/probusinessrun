@@ -66,6 +66,11 @@ export default class QuoteTam extends React.Component {
             ? ((document.getElementById('smallItemPackUpdate').checked = true),
             (document.getElementById('small_item_pack_2').disabled = true))
             : (document.getElementById('smallItemPackUpdate').checked = false);
+
+        $('#quote-date-picker_2').datepicker();
+        $(function() {
+            $('#quote-date-picker_2').datepicker('setDate', x.workDate);
+        });
     }
 
     componentWillUnmount() {
@@ -87,7 +92,7 @@ export default class QuoteTam extends React.Component {
                     </span>
                     <span
                         className="tarix-in-list sag deep-purple darken-1"
-                        style={{ padding: '3px 5px 2px', marginTop: '-2px' }}>
+                        style={{ padding: '3px 10px 2px', marginTop: '-2px', borderRadius: '15px' }}>
                         {moment(quotes.quoteDate).format('MM/DD/YYYY hh:mm a')}
                     </span>
                 </a>

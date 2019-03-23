@@ -1153,7 +1153,7 @@ MY OWN FREE WILL`,
                                     VALUATION OPTIONS: VALUATION DECLARATION &amp; DISCLAIMER
                                 </div>
                                 <tbody>
-                                    <tr>
+                                    <tr style={{ backgroundColor: '#C3D6FF' }}>
                                         <th />
                                         <th>Initial your choice</th>
                                         <th>
@@ -1171,8 +1171,9 @@ MY OWN FREE WILL`,
                                             <br />
                                             (No additional charge)
                                         </th>
+                                        <th>Deductible</th>
                                     </tr>
-                                    <tr>
+                                    <tr style={{ backgroundColor: '#E6EEFF' }}>
                                         <td>Basic: $0.60 cents/lb./art.</td>
                                         <td>
                                             Initial:
@@ -1182,8 +1183,9 @@ MY OWN FREE WILL`,
                                         <td>$_________ per$100</td>
                                         <td>$_________</td>
                                         <td>$_________ per$100</td>
+                                        <td>No Deductible</td>
                                     </tr>
-                                    <tr>
+                                    <tr style={{ backgroundColor: '#C3D6FF' }}>
                                         <td>Actual Cash Value</td>
                                         <td>
                                             Initial:
@@ -1193,46 +1195,19 @@ MY OWN FREE WILL`,
                                         <td>$_________ per$100</td>
                                         <td>$_________</td>
                                         <td>$_________ per$100</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Full Value</td>
-                                        <td />
-                                        <td />
-                                        <td />
-                                        <td />
-                                    </tr>
-                                    <tr>
-                                        <td>No Deductible</td>
-                                        <td>
-                                            Initial:
-                                            <input id="initial_x" type="text" />
-                                            <input type="checkbox" />
-                                        </td>
-                                        <td>$_________ per$100</td>
-                                        <td>$___________</td>
-                                        <td>$_________ per$100</td>
-                                    </tr>
-                                    <tr>
                                         <td>Deductible of $250</td>
-                                        <td>
-                                            Initial:
-                                            <input id="initial_x" type="text" />
-                                            <input type="checkbox" />
-                                        </td>
-                                        <td>$_________ per$100</td>
-                                        <td>$___________</td>
-                                        <td>$_________ per$100</td>
                                     </tr>
-                                    <tr>
-                                        <td>Deductible of $500</td>
+                                    <tr style={{ backgroundColor: '#E6EEFF' }}>
+                                        <td>Full Value</td>
                                         <td>
                                             Initial:
                                             <input id="initial_x" type="text" />
                                             <input type="checkbox" />
                                         </td>
                                         <td>$_________ per$100</td>
-                                        <td>$___________</td>
+                                        <td>$_________</td>
                                         <td>$_________ per$100</td>
+                                        <td>Deductible of $250</td>
                                     </tr>
                                 </tbody>
                             </div>
@@ -1727,7 +1702,7 @@ MY OWN FREE WILL`,
                                                 value={this.state.payCard > 0 ? this.state.payCard : ''}
                                             />
                                         </div>
-                                        <div id="pay-card"/>
+                                        <div id="pay-card" />
                                         <div className={this.state.goster ? 'hide' : ''}>
                                             Read and accept for making payment
                                         </div>

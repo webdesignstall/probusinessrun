@@ -1,7 +1,6 @@
 /* CSS declarations go here */
 @import url('https://fonts.googleapis.com/css?family=Titillium+Web');
 
-
 * {
     font-family: 'Titillium Web', sans-serif;
 }
@@ -12,6 +11,15 @@ input::placeholder {
 
 input {
     color: rgb(9, 133, 19) !important;
+}
+
+.labelForInput {
+    background-color: rgb(237, 240, 241);
+    padding: 0px 5px;
+    margin: -28px 15px;
+    top: -15px;
+    left: 0;
+    position: absolute;
 }
 
 td,

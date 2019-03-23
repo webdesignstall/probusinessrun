@@ -215,13 +215,20 @@
                 </div>
                 <!-- Double drive -->
                 <div class="input-field col s12 m3 l3 azMargin">
-                    <select title="Double drive" name="double_drive" id="double_drive">
+                    <select class="browser-default" title="Double drive" name="double_drive" id="double_drive">
                         <option value="false" disabled>Select double drive</option>
                         <option value="waived" selected>No</option>
                         <option value="yes">Yes</option>
                         <option value="notSure">Not Sure</option>
                     </select>
-                    <label class="active" for="double_drive">Double Drive Time</label>
+                    <label
+                        class="active"
+                        style="
+                        background-color: rgb(237, 240, 241); padding: 0px 5px; margin: -28px 15px; top: -15px; left: 0; position: absolute;
+                        "
+                        for="double_drive"
+                        >Double Drive Time</label
+                    >
                 </div>
                 <!-- Number of movers -->
                 <div id="number-of-movers" class="input-field valideyn col s12 m3 l3 azMargin">
@@ -229,7 +236,15 @@
                 </div>
                 <!-- Select moving size -->
                 <div id="moving-size-main" class="input-field col s12 m6 l6 azMargin">
-                    <select title="moving_size" name="moving_size" id="moving_size_2">
+                    <label
+                        class="active"
+                        style="
+                        background-color: rgb(237, 240, 241); padding: 0px 5px; margin: -28px 15px; top: -15px; left: 0; position: absolute;
+                        "
+                        for="moving_size_2"
+                        >Moving Size</label
+                    >
+                    <select class="browser-default" title="moving_size" name="moving_size" id="moving_size_2">
                         <option value="select_moving_size" selected disabled>Select Moving Size</option>
                         <option value="items">Items</option>
                         <option value="studio">Studio</option>
@@ -244,7 +259,6 @@
                         <option value="commercial_avg">Commercial (avg. size, avg. items)</option>
                         <option value="commercial_large">Commercial (large size, many items)</option>
                     </select>
-                    <label class="active" for="moving_size_2">Moving Size</label>
                 </div>
                 <!-- Moving company -->
                 <div id="moving-company" class="input-field valideyn col s12 m6 l6"></div>

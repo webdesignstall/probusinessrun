@@ -38,7 +38,7 @@ export default function EmailContent(job) {
             '4_bedrooom_avg': '4 Bedroom (avg. size, avg. items)',
             '4_bedroom_large': '4 Bedroom (large size, many items)',
             commercial_avg: 'Commercial (avg. size, avg. items)',
-            commercial_large: 'Commercial (large size, many items)'
+            commercial_large: 'Commercial (large size, many items)',
         };
 
         return movingSizeList[job.movingSize];
@@ -393,7 +393,7 @@ export default function EmailContent(job) {
     let additionalContacts =
         job.additionalContacts && job.additionalContacts.length > 0
             ? job.additionalContacts
-                .map((contact) => {
+                .map(contact => {
                     return `
                     <div
             style="font-size:16px;text-align:center;font-family:'Roboto', Tahoma, Verdana, Segoe, sans-serif"
@@ -473,8 +473,7 @@ export default function EmailContent(job) {
             : '';
 
     let arrivalWindow =
-        job.workMustBeginTime[0] === '04:00 am' &&
-        job.workMustBeginTime[0] === '04:00 am'
+        job.workMustBeginTime[0] === '04:00 am' && job.workMustBeginTime[0] === '04:00 am'
             ? `
             <div
             style="font-size:16px;text-align:center;font-family:'Roboto', Tahoma, Verdana, Segoe, sans-serif"
@@ -526,7 +525,7 @@ export default function EmailContent(job) {
     let totalTrucks = 0;
     job.trucksTemp && job.trucksTemp.length > 0
         ? job.trucksTemp
-            .map((truck) => {
+            .map(truck => {
                 totalTrucks += Number(truck.qty);
             })
             .join('')
@@ -563,7 +562,7 @@ export default function EmailContent(job) {
     let trucksList =
         job.trucksTemp && job.trucksTemp.length > 0
             ? job.trucksTemp
-                .map((truck) => {
+                .map(truck => {
                     let render = '';
                     let i = 0;
                     for (i = 0; i < Number(truck.qty); i++) {
@@ -979,9 +978,7 @@ export default function EmailContent(job) {
                               >
                                 <p style="font-size: 14px; line-height: 16px; text-align: center; margin: 0;">
                                   <span style="font-size: 14px; line-height: 16px;">
-                                  <strong> Hello ${job.firstName} ${
-    job.lastName
-}!</strong>
+                                  <strong> Hello ${job.firstName} ${job.lastName}!</strong>
                                 </span><br />
                                 <span style="font-size: 14px; line-height: 16px;" >
                                 <strong>
@@ -1580,9 +1577,7 @@ export default function EmailContent(job) {
         : ''
 } 
                             ${
-    job.largeItemFee === 0 ||
-                                job.largeItemFee === '' ||
-                                job.largeItemFee === undefined
+    job.largeItemFee === 0 || job.largeItemFee === '' || job.largeItemFee === undefined
         ? `
                             <div
                               style="font-size:16px;text-align:center;font-family:'Roboto', Tahoma, Verdana, Segoe, sans-serif"
