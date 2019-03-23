@@ -338,7 +338,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                             Moving Date
                         </label>
                         <input
-                            onChange={() => 1 + 1}
+                            onChange={e => this.onChangeHandler(e, 'workDate')}
                             id="quote-date-picker-followup"
                             className="xx"
                             type="text"
