@@ -32,7 +32,9 @@ export default class Addresses extends React.Component {
                               addresses: this.state.arrayOfvalue,
                           });
                 })
-                : null;
+                : this.setState({
+                    arrayOfvalue: ['', ''],
+                });
         });
     }
 
@@ -82,9 +84,7 @@ export default class Addresses extends React.Component {
                     value={this.state.arrayOfvalue[i]}
                     onChange={this.inputChangeHandler.bind(this, i)}
                 />
-                <i
-                    className="material-icons sag delete-address animated"
-                    onClick={() => this.deleteAddress(i + '_id')}>
+                <i className="material-icons sag delete-address animated" onClick={() => this.deleteAddress(i + '_id')}>
                     delete_forever
                 </i>
                 <label className="active" htmlFor="movingFrom">
