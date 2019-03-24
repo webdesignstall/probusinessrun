@@ -202,6 +202,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
         doc.isFollowUp = true;
         doc.confirmed = false;
         doc.followUp && doc.followUp[doc.followUp.length - 1].note === '' && doc.followUp.pop();
+        doc.emailSent = true;
 
         let objNew = {
             _id: doc._id,
@@ -230,6 +231,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
             jobNumber: doc.jobNumber,
             numberOfWorkers: doc.numberOfWorkers,
             additionalContacts: doc.additionalContacts,
+            emailSent: true,
         };
 
         Meteor.call('updateWork', doc, err => {
@@ -258,8 +260,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                         }),
                         Session.set('is', ''),
                         Session.set('ExtendedJobInformation', ''),
-                        Session.set('searchResult', Session.get('searchResult_')),
-                        Meteor.call('updateWork', { _id: Session.get('is'), emailSent: true }));
+                        Session.set('searchResult', Session.get('searchResult_')));
                 });
             }
         });
