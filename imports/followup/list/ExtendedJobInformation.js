@@ -258,7 +258,8 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                         }),
                         Session.set('is', ''),
                         Session.set('ExtendedJobInformation', ''),
-                        Session.set('searchResult', Session.get('searchResult_')));
+                        Session.set('searchResult', Session.get('searchResult_')),
+                        Meteor.call('updateWork', { _id: Session.get('is'), emailSent: true }));
                 });
             }
         });

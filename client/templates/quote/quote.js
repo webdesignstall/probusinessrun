@@ -172,11 +172,12 @@ Template.updateQuote.events({
                     text: err.message,
                     icon: 'error',
                 }))
-                : swal({
+                : (swal({
                     title: 'Success',
                     text: 'Email sent successfully',
                     icon: 'success',
-                });
+                }),
+                Meteor.call('updateWork', { _id: Session.get('is'), emailSent: true }));
         });
     },
     'click #work-update': function(e) {
@@ -353,6 +354,7 @@ Template.preQuote.events({
         let isFollowUp = true;
         let sourceOfLeads = document.getElementById('source_of_leads_add').value;
         let status = 'inProgress';
+        let emailSent = true;
 
         function idniSec(soz) {
             var baslama = soz.indexOf(':');
@@ -408,6 +410,7 @@ Template.preQuote.events({
             'quotaniBazayaElaveEt',
             firstName,
             lastName,
+            emailSent,
             phone,
             phoneAdditional,
             email,
@@ -794,38 +797,15 @@ Template.preQuote.events({
             function(err) {
                 if (err) {
                     swal({
-                        title: 'Impossible add quote to database',
+                        title: 'Impossible add job to database',
                         text: err.message,
                         icon: 'error',
                     });
                 } else {
                     swal({
                         title: 'Success',
-                        text: 'Quote added to database successfully',
+                        text: 'Job added to database successfully',
                         icon: 'success',
-                    });
-
-                    Meteor.call('emailGonder', jobInfo, err => {
-                        if (err) {
-                            console.log(err);
-                        } else {
-                            document.querySelector('#flatRateCheck').checked = false;
-                            document.getElementById('gas_fee').disabled = false;
-
-                            document.querySelector('#paymentContent').classList.remove('hide');
-                            document.querySelector('#flatRate_').classList.add('hide');
-
-                            window.addresses.resetComponent();
-
-                            document.getElementById('quote-request').reset();
-
-                            // run job number
-                            jobNumber_();
-
-                            Session.set('reset', true);
-                            Session.set('additionalContacts', []);
-                            setTimeout(() => Session.set('reset', false), 3000);
-                        }
                     });
                 }
             },
