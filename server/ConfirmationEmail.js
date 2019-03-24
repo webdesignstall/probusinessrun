@@ -98,10 +98,10 @@ export default function ConfirmationEmail(job) {
             ? `
             <tr>
                 <td style="width: 49%;" width="49%">
-                    # of trucks:
+                    Number of trucks:
                 </td>
                 <td style="width: 49%;" width="49%">
-                    ${totalTrucks}
+                    ${totalTrucks} fully equipped
                 </td>
             </tr>
             `
@@ -220,7 +220,7 @@ export default function ConfirmationEmail(job) {
                         Number of Movers:
                     </td>
                     <td style="width: 49%;" width="49%">
-                        ${job.numberOfWorkers} movers
+                        ${job.numberOfWorkers} men crew
                     </td>
                 </tr>
                 ${numberOfTrucks}
