@@ -1373,7 +1373,14 @@ export default function EmailContent(job) {
                     </div>
                   </div>
                 </div>
-                <div style="background-color:transparent;">
+                ${
+    job.gasFee < 0 &&
+                    job.doubleDrive === 'notSure' &&
+                    job.smallPackingItems < 0 &&
+                    job.largeItemFee === 'notSure'
+        ? ''
+        : `
+      <div style="background-color:transparent;">
                   <div
                     class="block-grid"
                     style="Margin: 0 auto; min-width: 320px; max-width: 500px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #F3F2F2;"
@@ -1405,6 +1412,9 @@ export default function EmailContent(job) {
                     </div>
                   </div>
                 </div>
+      `
+}
+                
                 ${
     job.doubleDrive === 'notSure' || job.gasFee < 0
         ? `
