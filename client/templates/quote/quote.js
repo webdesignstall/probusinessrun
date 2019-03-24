@@ -549,6 +549,7 @@ Template.preQuote.events({
         let isFollowUp = false;
         let sourceOfLeads = document.getElementById('source_of_leads_add').value;
         let status = 'won';
+        let emailSent = true;
 
         function idniSec(soz) {
             var baslama = soz.indexOf(':');
@@ -607,6 +608,7 @@ Template.preQuote.events({
             isFollowUp,
             sourceOfLeads,
             status,
+            emailSent,
             function(err) {
                 if (err) {
                     swal({
