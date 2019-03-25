@@ -551,7 +551,7 @@ export default function EmailContent(job) {
                     <td
                     style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px 0 3px 10px; width: 50%;"
                     >
-                    ${totalTrucks}
+                    ${totalTrucks} fully equipped
                     </td>
                 </tr>
                 </table>
@@ -1305,7 +1305,7 @@ export default function EmailContent(job) {
                                   <td
                                     style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px 0 3px 10px; width: 50%;"
                                   >
-                                    ${job.numberOfWorkers}
+                                    ${job.numberOfWorkers} men crew
                                   </td>
                                 </tr>
                               </table>
