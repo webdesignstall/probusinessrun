@@ -250,8 +250,8 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
                     style={{
                         marginRight: '8px',
                         borderRadius: '10px',
-                        backgroundColor: this.state.job.quoteSent ? '#CBEEDD' : '#EEB5BC',
-                        color: this.state.job.quoteSent ? '#2AC852' : '#D21324',
+                        backgroundColor: this.state.job.emailSent ? '#CBEEDD' : '#EEB5BC',
+                        color: this.state.job.emailSent ? '#2AC852' : '#D21324',
                         padding: '0px 10px',
                         fontWeight: 'bold',
                     }}>
