@@ -58,7 +58,7 @@ export default class TimeSelector extends Component {
                 ref={this.select}
                 className="browser-default"
                 id={this.props.id}
-                defaultValue="12:00 am">
+                defaultValue={this.props.default || '12:00 am'}>
                 {this.timeList()}
             </select>
         );
@@ -71,4 +71,5 @@ TimeSelector.propTypes = {
     interval: PropTypes.number.isRequired,
     id: PropTypes.string.isRequired,
     index: PropTypes.number.isRequired,
+    default: PropTypes.string,
 };
