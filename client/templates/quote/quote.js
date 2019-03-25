@@ -131,7 +131,7 @@ Template.updateQuote.events({
             phoneAdditional: document.getElementById('phoneNumber_2_additional').value,
             email: document.getElementById('musteriEmail_2').value,
             addresses,
-            movingDateConverted: moment(workDate).format('MM/DD/YYYY'),
+            movingDateConverted: workDate,
             workMustBeginTime: [
                 document.getElementById('customTime--1').value,
                 document.getElementById('customTime--2').value,
@@ -218,7 +218,7 @@ Template.updateQuote.events({
             phoneAdditional: document.getElementById('phoneNumber_2_additional').value,
             email: document.getElementById('musteriEmail_2').value,
             addresses,
-            workDate: moment(workDate).format('MM/DD/YYYY'),
+            workDate,
             workMustBeginTime: [
                 document.getElementById('customTime--1').value,
                 document.getElementById('customTime--2').value,
@@ -304,7 +304,7 @@ Template.preQuote.events({
             addresses.push(address.value);
         });
         let movingDate = document.getElementById('quote-date-picker').value;
-        let movingDateConverted = moment(movingDate, 'DD MMMM,YYYY').format('MM/DD/YYYY');
+        let movingDateConverted = movingDate;
         let price = document.getElementById('quote_price').value;
         let minimumLaborTime = document.getElementById('labor_time').value;
         let hourlyRatesCash = document.getElementById('hourly_rates_cash').value;
@@ -406,18 +406,17 @@ Template.preQuote.events({
             quoteDate,
         };
 
-        Meteor.call(
-            'quotaniBazayaElaveEt',
-            firstName,
-            lastName,
+        let doc = {
+            clientFirstName: firstName,
+            clientLastName: lastName,
             emailSent,
-            phone,
-            phoneAdditional,
+            phoneNumber: phone,
+            phoneAdditional: phoneAdditional,
             email,
             addresses,
-            movingDateConverted,
+            workDate: movingDateConverted,
             price,
-            minimumLaborTime,
+            laborTime: minimumLaborTime,
             hourlyRatesCash,
             hourlyRatesCard,
             trucks,
@@ -427,16 +426,19 @@ Template.preQuote.events({
             largeItemFee,
             jobNumber,
             movingSize,
-            note,
-            baza,
+            comment,
+            workers: baza,
             workMustBeginTime,
             numberOfWorkers,
             trucksTemp,
             companyInfo,
-            flatRate,
-            flatRateCash,
-            flatRateCard,
-            comment,
+            flatRate: [
+                {
+                    isTrue: flatRate,
+                    cashAmount: flatRateCash,
+                    cardAmount: flatRateCard,
+                },
+            ],
             deposit,
             takenBy,
             additionalContacts,
@@ -446,45 +448,46 @@ Template.preQuote.events({
             isFollowUp,
             sourceOfLeads,
             status,
-            function(err) {
-                if (err) {
-                    swal({
-                        title: 'Impossible add quote to database',
-                        text: err.message,
-                        icon: 'error',
-                    });
-                } else {
-                    swal({
-                        title: 'Success',
-                        text: 'Quote added to database successfully',
-                        icon: 'success',
-                    });
+        };
 
-                    Meteor.call('emailGonder', jobInfo, err => {
-                        if (err) {
-                            console.log(err);
-                        } else {
-                            document.querySelector('#flatRateCheck').checked = false;
-                            document.getElementById('gas_fee').disabled = false;
+        Meteor.call('quotaniBazayaElaveEt', doc, function(err) {
+            if (err) {
+                swal({
+                    title: 'Impossible add quote to database',
+                    text: err.message,
+                    icon: 'error',
+                });
+            } else {
+                swal({
+                    title: 'Success',
+                    text: 'Quote added to database successfully',
+                    icon: 'success',
+                });
 
-                            document.querySelector('#paymentContent').classList.remove('hide');
-                            document.querySelector('#flatRate_').classList.add('hide');
+                Meteor.call('emailGonder', jobInfo, err => {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        document.querySelector('#flatRateCheck').checked = false;
+                        document.getElementById('gas_fee').disabled = false;
 
-                            window.addresses.resetComponent();
+                        document.querySelector('#paymentContent').classList.remove('hide');
+                        document.querySelector('#flatRate_').classList.add('hide');
 
-                            document.getElementById('quote-request').reset();
+                        window.addresses.resetComponent();
 
-                            // run job number
-                            jobNumber_();
+                        document.getElementById('quote-request').reset();
 
-                            Session.set('reset', true);
-                            Session.set('additionalContacts', []);
-                            setTimeout(() => Session.set('reset', false), 3000);
-                        }
-                    });
-                }
-            },
-        );
+                        // run job number
+                        jobNumber_();
+
+                        Session.set('reset', true);
+                        Session.set('additionalContacts', []);
+                        setTimeout(() => Session.set('reset', false), 3000);
+                    }
+                });
+            }
+        });
     },
     'click #confirmed_job': function(e) {
         e.preventDefault();
@@ -569,17 +572,17 @@ Template.preQuote.events({
                 .substr(2, 5);
         }
 
-        Meteor.call(
-            'quotaniBazayaElaveEt',
-            firstName,
-            lastName,
-            phone,
-            phoneAdditional,
+        let doc = {
+            clientFirstName: firstName,
+            clientLastName: lastName,
+            emailSent,
+            phoneNumber: phone,
+            phoneAdditional: phoneAdditional,
             email,
             addresses,
-            movingDateConverted,
+            workDate: movingDateConverted,
             price,
-            minimumLaborTime,
+            laborTime: minimumLaborTime,
             hourlyRatesCash,
             hourlyRatesCard,
             trucks,
@@ -589,16 +592,19 @@ Template.preQuote.events({
             largeItemFee,
             jobNumber,
             movingSize,
-            note,
-            baza,
+            comment,
+            workers: baza,
             workMustBeginTime,
             numberOfWorkers,
             trucksTemp,
             companyInfo,
-            flatRate,
-            flatRateCash,
-            flatRateCard,
-            comment,
+            flatRate: [
+                {
+                    isTrue: flatRate,
+                    cashAmount: flatRateCash,
+                    cardAmount: flatRateCard,
+                },
+            ],
             deposit,
             takenBy,
             additionalContacts,
@@ -608,39 +614,39 @@ Template.preQuote.events({
             isFollowUp,
             sourceOfLeads,
             status,
-            emailSent,
-            function(err) {
-                if (err) {
-                    swal({
-                        title: 'Impossible add quote to database',
-                        text: err.message,
-                        icon: 'error',
-                    });
-                } else {
-                    swal({
-                        title: 'Success',
-                        text: 'Quote added to database successfully',
-                        icon: 'success',
-                    });
-                    document.querySelector('#flatRateCheck').checked = false;
-                    document.getElementById('gas_fee').disabled = false;
+        };
 
-                    document.querySelector('#paymentContent').classList.remove('hide');
-                    document.querySelector('#flatRate_').classList.add('hide');
+        Meteor.call('quotaniBazayaElaveEt', doc, function(err) {
+            if (err) {
+                swal({
+                    title: 'Impossible add quote to database',
+                    text: err.message,
+                    icon: 'error',
+                });
+            } else {
+                swal({
+                    title: 'Success',
+                    text: 'Quote added to database successfully',
+                    icon: 'success',
+                });
+                document.querySelector('#flatRateCheck').checked = false;
+                document.getElementById('gas_fee').disabled = false;
 
-                    window.addresses.resetComponent();
+                document.querySelector('#paymentContent').classList.remove('hide');
+                document.querySelector('#flatRate_').classList.add('hide');
 
-                    document.getElementById('quote-request').reset();
+                window.addresses.resetComponent();
 
-                    // run job number
-                    jobNumber_();
+                document.getElementById('quote-request').reset();
 
-                    Session.set('reset', true);
-                    Session.set('additionalContacts', []);
-                    setTimeout(() => Session.set('reset', false), 3000);
-                }
-            },
-        );
+                // run job number
+                jobNumber_();
+
+                Session.set('reset', true);
+                Session.set('additionalContacts', []);
+                setTimeout(() => Session.set('reset', false), 3000);
+            }
+        });
     },
     'click #followup': function(e) {
         e.preventDefault();
@@ -724,16 +730,17 @@ Template.preQuote.events({
                 .substr(2, 5);
         }
 
-        let jobInfo = {
-            firstName,
-            lastName,
-            phone,
-            phoneAdditional,
+        let doc = {
+            clientFirstName: firstName,
+            clientLastName: lastName,
+            emailSent: false,
+            phoneNumber: phone,
+            phoneAdditional: phoneAdditional,
             email,
             addresses,
-            movingDateConverted,
+            workDate: movingDateConverted,
             price,
-            minimumLaborTime,
+            laborTime: minimumLaborTime,
             hourlyRatesCash,
             hourlyRatesCard,
             trucks,
@@ -743,50 +750,19 @@ Template.preQuote.events({
             largeItemFee,
             jobNumber,
             movingSize,
-            note,
-            baza,
-            workMustBeginTime,
-            numberOfWorkers,
-            trucksTemp,
-            companyInfo,
-            flatRate,
-            flatRateCash,
-            flatRateCard,
-            additionalContacts,
-            quoteDate,
-            sourceOfLeads,
-        };
-
-        Meteor.call(
-            'quotaniBazayaElaveEt',
-            firstName,
-            lastName,
-            phone,
-            phoneAdditional,
-            email,
-            addresses,
-            movingDateConverted,
-            price,
-            minimumLaborTime,
-            hourlyRatesCash,
-            hourlyRatesCard,
-            trucks,
-            doubleDrive,
-            gasFee,
-            smallPackingItems,
-            largeItemFee,
-            jobNumber,
-            movingSize,
-            note,
-            baza,
-            workMustBeginTime,
-            numberOfWorkers,
-            trucksTemp,
-            companyInfo,
-            flatRate,
-            flatRateCash,
-            flatRateCard,
             comment,
+            workers: baza,
+            workMustBeginTime,
+            numberOfWorkers,
+            trucksTemp,
+            companyInfo,
+            flatRate: [
+                {
+                    isTrue: flatRate,
+                    cashAmount: flatRateCash,
+                    cardAmount: flatRateCard,
+                },
+            ],
             deposit,
             takenBy,
             additionalContacts,
@@ -796,22 +772,24 @@ Template.preQuote.events({
             isFollowUp,
             sourceOfLeads,
             status,
-            function(err) {
-                if (err) {
-                    swal({
-                        title: 'Impossible add job to database',
-                        text: err.message,
-                        icon: 'error',
-                    });
-                } else {
-                    swal({
-                        title: 'Success',
-                        text: 'Job added to database successfully',
-                        icon: 'success',
-                    });
-                }
-            },
-        );
+        };
+
+        Meteor.call('quotaniBazayaElaveEt', doc, function(err) {
+            if (err) {
+                swal({
+                    title: 'Impossible add job to database',
+                    text: err.message,
+                    icon: 'error',
+                });
+            } else {
+                swal({
+                    title: 'Success',
+                    text: 'Job added to database successfully',
+                    icon: 'success',
+                });
+                jobNumber_();
+            }
+        });
     },
 });
 
