@@ -839,6 +839,20 @@ MY OWN FREE WILL`,
         }
     }
 
+    deactivateAll() {
+        let inputs = document.getElementsByTagName('input');
+        let buttons = document.getElementsByClassName('btn');
+        console.log('TCL: deactivateAll -> buttons', buttons);
+
+        for (let i = 0; i < inputs.length; i++) {
+            inputs[i].disabled = true;
+        }
+
+        for (let i = 0; i < buttons.length; i++) {
+            buttons[i].classList.add('disabled');
+        }
+    }
+
     renderDrivingTime() {
         if (this.state.vurulmusIs[0].drivingTime) {
             let number = 2000;
@@ -937,10 +951,7 @@ MY OWN FREE WILL`,
                 <a href="#" id="close-duymesi-id" className="close-duymesi">
                     CLICK HERE TO CLOSE THIS PAGE
                 </a>
-                <div className={this.state.finished ? '' : 'hide'}>
-                    <h2>This job is finished</h2>
-                </div>
-                <div className={this.state.finished ? 'hide' : ''}>
+                <div>
                     <p style={{ textAlign: 'center' }}>
                         <h5>Combined Agreement for Moving Services and Freight Bill</h5>
                     </p>
@@ -1702,22 +1713,9 @@ MY OWN FREE WILL`,
                                                 value={this.state.payCard > 0 ? this.state.payCard : ''}
                                             />
                                         </div>
-                                        <div id="pay-card" />
-                                        <div className={this.state.goster ? 'hide' : ''}>
-                                            Read and accept for making payment
-                                        </div>
+                                        <div id="pay-card" className={is.finished && 'hide'} />
                                     </div>
                                 </div>
-                                {/* <div id="make-a-payment" className="row center-align">
-
-
-                                </div>
-                                <div className="row center-align">
-                                    <div className="col s6 m6 l6">
-
-                                    </div>
-
-                                </div> */}
                             </div>
                             <div id="payed-full" className="center-align gizlet">
                                 <h5>Fully paid!</h5>
@@ -1758,6 +1756,7 @@ MY OWN FREE WILL`,
                             <div className="clear margin-top">.</div>
                         </div>
                     </div>
+                    {this.state.finished && this.deactivateAll()}
                     {/* son */}
                 </div>
             </div>

@@ -55,7 +55,58 @@ export default class TabletIsList extends React.Component {
                         $('#tebler-render').show();
                         $('#tablet-is-siyahi').hide();
                     }}>
-                    {is.clientFirstName} {is.clientLastName} {is.jobNumber}
+                    <span
+                        style={{
+                            borderRadius: '10px',
+                            letterSpacing: '1px',
+                            textTransform: 'uppercase',
+                            fontWeight: 'bold',
+                            color: '#52A39A',
+                            margin: '0 5px',
+                            padding: '0 10px',
+                        }}>
+                        {is.clientFirstName} {is.clientLastName}
+                    </span>
+                    <span
+                        style={{
+                            borderRadius: '10px',
+                            letterSpacing: '1px',
+                            textTransform: 'uppercase',
+                            fontWeight: 'bold',
+                            color: 'black',
+                            padding: '0 10px',
+                        }}>
+                        |
+                    </span>
+
+                    <span
+                        style={{
+                            borderRadius: '10px',
+                            letterSpacing: '1px',
+                            textTransform: 'uppercase',
+                            fontWeight: 'bold',
+                            color: '#78ab64',
+                            padding: '0 10px',
+                            margin: '0 5px',
+                        }}>
+                        {is.jobNumber}
+                    </span>
+                    {is.finished && (
+                        <span
+                            style={{
+                                borderRadius: '10px',
+                                letterSpacing: '1px',
+                                textTransform: 'uppercase',
+                                backgroundColor: '#ED383D',
+                                fontWeight: 'bold',
+                                color: 'white',
+                                padding: '0 10px',
+                                margin: '0 5px',
+                                textShadow: '1px 1px black',
+                            }}>
+                            CLOSED
+                        </span>
+                    )}
                 </a>
             );
         });
