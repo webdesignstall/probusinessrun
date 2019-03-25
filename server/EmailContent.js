@@ -1325,6 +1325,13 @@ export default function EmailContent(job) {
                     </div>
                   </div>
                 </div>
+                ${
+    job.gasFee < 0 &&
+                    job.doubleDrive === 'notSure' &&
+                    job.smallPackingItems < 0 &&
+                    job.largeItemFee === 'notSure'
+        ? ''
+        : `
                 <div style="background-color:transparent;">
                   <div
                     class="block-grid"
@@ -1373,13 +1380,6 @@ export default function EmailContent(job) {
                     </div>
                   </div>
                 </div>
-                ${
-    job.gasFee < 0 &&
-                    job.doubleDrive === 'notSure' &&
-                    job.smallPackingItems < 0 &&
-                    job.largeItemFee === 'notSure'
-        ? ''
-        : `
       <div style="background-color:transparent;">
                   <div
                     class="block-grid"
