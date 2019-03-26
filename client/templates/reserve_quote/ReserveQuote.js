@@ -441,8 +441,10 @@ class ReserveQuote extends React.Component {
                         </p>
                         <div style={{ textAlign: 'center' }}>
                             Phone Number: {job.companyInfo.phoneNumber} <br />
-                            Email: {job.companyInfo.email} <br />
-                            Web: {job.companyInfo.url} <br />
+                            Email: <a href={'mailto:' + job.companyInfo.email}>{job.companyInfo.email}</a>
+                            <br />
+                            Web: <a href={job.companyInfo.url}>{job.companyInfo.url}</a>
+                            <br />
                         </div>
                     </div>
                 </div>
