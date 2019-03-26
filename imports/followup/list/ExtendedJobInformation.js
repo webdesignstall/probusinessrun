@@ -212,7 +212,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
             phoneAdditional: doc.phoneAdditional,
             email: doc.email,
             addresses: doc.addresses,
-            movingDateConverted: moment(doc.workDate).format('MM/DD/YYYY'),
+            movingDateConverted: doc.workDate,
             workMustBeginTime: doc.workMustBeginTime,
             price: doc.price,
             minimumLaborTime: doc.laborTime,

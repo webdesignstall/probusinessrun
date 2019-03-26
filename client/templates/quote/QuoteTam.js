@@ -18,7 +18,7 @@ import TakenBy from './TakenBy';
 import ArrivalWindow from './ArrivalWindow';
 import AdditionalContact from './AdditionalContact';
 
-/*global $*/
+/*global $, moment*/
 
 export default class QuoteTam extends React.Component {
     constructor(props) {

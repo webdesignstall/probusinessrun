@@ -504,8 +504,7 @@ Template.preQuote.events({
         addressesArray.map(address => {
             addresses.push(address.value);
         });
-        let movingDate = document.getElementById('quote-date-picker').value;
-        let movingDateConverted = moment(movingDate, 'DD MMMM,YYYY').format('MM/DD/YYYY');
+        let movingDateConverted = document.getElementById('quote-date-picker').value;
         let price = document.getElementById('quote_price').value;
         let minimumLaborTime = document.getElementById('labor_time').value;
         let hourlyRatesCash = document.getElementById('hourly_rates_cash').value;
@@ -663,8 +662,7 @@ Template.preQuote.events({
         addressesArray.map(address => {
             addresses.push(address.value);
         });
-        let movingDate = document.getElementById('quote-date-picker').value;
-        let movingDateConverted = moment(movingDate, 'DD MMMM,YYYY').format('MM/DD/YYYY');
+        let movingDateConverted = document.getElementById('quote-date-picker').value;
         let price = document.getElementById('quote_price').value;
         let minimumLaborTime = document.getElementById('labor_time').value;
         let hourlyRatesCash = document.getElementById('hourly_rates_cash').value;
@@ -790,7 +788,22 @@ Template.preQuote.events({
                     text: 'Job added to database successfully',
                     icon: 'success',
                 });
+                document.querySelector('#flatRateCheck').checked = false;
+                document.getElementById('gas_fee').disabled = false;
+
+                document.querySelector('#paymentContent').classList.remove('hide');
+                document.querySelector('#flatRate_').classList.add('hide');
+
+                window.addresses.resetComponent();
+
+                document.getElementById('quote-request').reset();
+
+                // run job number
                 jobNumber_();
+
+                Session.set('reset', true);
+                Session.set('additionalContacts', []);
+                setTimeout(() => Session.set('reset', false), 3000);
             }
         });
     },
