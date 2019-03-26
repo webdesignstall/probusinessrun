@@ -359,7 +359,7 @@ export default function ConfirmationEmail(job) {
                 </p>
                 <p>
                     <input className="secilib" checked disabled type="checkbox"> I have recieved a copy of the <i><a href="http://www.moverslegion.com/wp-content/uploads/2018/12/Hazard.pdf" download="http://www.moverslegion.com/wp-content/uploads/2018/12/Hazard.pdf" target="_blank" style="color: #4698de; font-weight: 600;">CPUC Hazardous Material List</a></i> and I agree not to pack any of the<br>
-                    items listed for transportation by Cheap Movers Los Angeles.
+                    items listed for transportation by the moving company.
                                     </p>
                 <p>
                     <input className="secilib" checked disabled type="checkbox"> I understand and agree that I will have Cash or Card Payment ready on the day of my move.

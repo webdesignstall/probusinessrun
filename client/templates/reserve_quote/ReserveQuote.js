@@ -139,7 +139,7 @@ class ReserveQuote extends React.Component {
                 return (
                     <React.Fragment key={index + 'addContact'}>
                         <tr>
-                            <td>Contact name:</td>
+                            <td>Additional Contact name:</td>
                             <td>
                                 {value.firstName} {value.lastName}
                             </td>
@@ -266,7 +266,7 @@ class ReserveQuote extends React.Component {
                             </tr>
                             <tr>
                                 <td>Number of Movers:</td>
-                                <td>{job.numberOfWorkers} movers</td>
+                                <td>{job.numberOfWorkers} men crew</td>
                             </tr>
                             {this.numberOfTrucks(jobIs)}
                             {this.trucksRender(jobIs)}
@@ -423,7 +423,7 @@ class ReserveQuote extends React.Component {
                             </i>{' '}
                             and I agree not to pack any of the
                             <br />
-                            items listed for transportation by Cheap Movers Los Angeles.
+                            items listed for transportation by the moving company.
                         </p>
                         <p>
                             <input className="secilib" onChange={() => this.checked()} type="checkbox" /> I understand

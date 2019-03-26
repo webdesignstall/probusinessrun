@@ -19,9 +19,7 @@ export default class AdditionalContact extends TrackerReact(Component) {
 
     componentDidMount() {
         this.x = Tracker.autorun(() => {
-            let reset = Session.get('reset');
-
-            reset ? this.setState({ additionalContacts: [] }) : null;
+            Session.get('reset') ? this.setState({ additionalContacts: [] }) : null;
 
             this.setState({
                 additionalContacts: this.props.contacts || [],
@@ -134,17 +132,13 @@ export default class AdditionalContact extends TrackerReact(Component) {
                     <div className="input-field valideyn col s12 m5 l2">
                         <i className="material-icons isare">phone</i>
                         <input
-                            onChange={event =>
-                                this.changeInput(index, 'additionalPhoneNumber', event)
-                            }
+                            onChange={event => this.changeInput(index, 'additionalPhoneNumber', event)}
                             id={index + 'phoneNumberAddAdditionalContact'}
                             value={contact.additionalPhoneNumber}
                             type="number"
                             placeholder=""
                         />
-                        <label
-                            className="active"
-                            htmlFor={index + 'phoneNumberAddAdditionalContact'}>
+                        <label className="active" htmlFor={index + 'phoneNumberAddAdditionalContact'}>
                             Secondary Phone Number
                         </label>
                     </div>

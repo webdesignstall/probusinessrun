@@ -25,6 +25,8 @@ export default class Addresses extends React.Component {
             let isId = Session.get('is');
             let isInfo = WorkData.findOne(isId);
 
+            Session.get('reset') ? this.resetComponent() : null;
+
             isInfo && isInfo.addresses.length > 0
                 ? this.setState({ arrayOfvalue: isInfo.addresses }, () => {
                     this.props.updateJob &&

@@ -489,6 +489,9 @@ Template.preQuote.events({
             }
         });
     },
+    'click #work-request-reset': function() {
+        Session.set('reset', true);
+    },
     'click #confirmed_job': function(e) {
         e.preventDefault();
         let firstName = document.getElementById('firstName').value;
