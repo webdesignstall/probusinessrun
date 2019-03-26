@@ -163,6 +163,43 @@ class ReserveQuote extends React.Component {
             })
             : null;
     }
+    renderTrucks(truck) {
+        let x = Array(truck.qty).fill(1);
+        return x.map((x, index) => {
+            return (
+                <tr key={index + 'trucksListConfirmation'}>
+                    <td>Truck Size:</td>
+                    <td>{truck.size}</td>
+                </tr>
+            );
+        });
+    }
+
+    trucksRender(job) {
+        return job.trucksTemp.map((truck, index) => {
+            return <React.Fragment key={index + 'trucksRenderConfirm'}>{this.renderTrucks(truck)}</React.Fragment>;
+        });
+    }
+
+    numberOfTrucks(job) {
+        let totalTrucks = 0;
+        job.trucksTemp && job.trucksTemp.length > 0
+            ? job.trucksTemp
+                .map(truck => {
+                    totalTrucks += Number(truck.qty);
+                })
+                .join('')
+            : '';
+
+        return job.trucksTemp && job.trucksTemp.length > 0 ? (
+            <tr>
+                <td>Number of trucks:</td>
+                <td>{totalTrucks} fully equipped</td>
+            </tr>
+        ) : (
+            ''
+        );
+    }
 
     arrivalWindowRender() {
         let job = Session.get('job');
@@ -231,6 +268,8 @@ class ReserveQuote extends React.Component {
                                 <td>Number of Movers:</td>
                                 <td>{job.numberOfWorkers} movers</td>
                             </tr>
+                            {this.numberOfTrucks(jobIs)}
+                            {this.trucksRender(jobIs)}
                             {job.laborTime ? (
                                 <tr>
                                     <td>Minimum Labor Time:</td>
@@ -265,7 +304,6 @@ class ReserveQuote extends React.Component {
                             ) : (
                                 ''
                             )}
-
                             {/* hourly rates card*/}
                             {job.hourlyRatesCard && job.hourlyRatesCard > 0 ? (
                                 <tr>
