@@ -1326,9 +1326,9 @@ export default function EmailContent(job) {
                   </div>
                 </div>
                 ${
-    job.gasFee >= 0 &&
-                    job.doubleDrive !== 'notSure' &&
-                    (job.smallPackingItems >= 0 || job.smallItemPacking < 0) &&
+    job.gasFee >= 0 ||
+                    job.doubleDrive !== 'notSure' ||
+                    (job.smallPackingItems > 0 || job.smallItemPacking < 0) ||
                     job.largeItemFee > 0
         ? `
                 <div style="background-color:transparent;">
