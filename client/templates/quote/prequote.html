@@ -72,15 +72,19 @@
                     <input id="small_item_pack" class="xx" type="number" placeholder="0" />
                     <label class="active" for="small_item_pack">
                         Small item packing
-                        <input
-                            id="smallItemPackInit"
-                            type="checkbox"
-                            onclick="(() => {
+                        <i class="lime-text lighten-5 black">
+                            [ Yes
+                            <input
+                                id="smallItemPackInit"
+                                type="checkbox"
+                                onclick="(() => {
                             let element = document.getElementById('small_item_pack')
                             element.value == -1 ? element.value = '' : element.value = -1;
                             element.disabled = !element.disabled;
                             })()"
-                        />
+                            />
+                            ]
+                        </i>
                     </label>
                 </div>
                 <!-- Large Item fee -->

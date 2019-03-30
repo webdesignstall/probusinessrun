@@ -1,63 +1,61 @@
 <template name="navBar">
     <div id="menuSide">
         <div class="ui vertical labeled icon menu gFont">
-
             <ul class="collection with-header menuList">
                 {{#if adminIs}}
                 <a href="/" class="collection-item menyuElement active">
                     <li>
                         <a class="item menyu">
                             <i class="material-icons">date_range</i>
-                            <br />Calendar</a>
-                    </li>
-                </a>
-                <a href="/quote" class="collection-item menyuElement quoteDuymesi">
-                    <li>
-                        <a class="item menyu">
-                            <i class="material-icons">format_quote</i>
-                            <br />Quote</a>
+                            <br />Calendar</a
+                        >
                     </li>
                 </a>
                 <a href="/add" class="collection-item menyuElement">
                     <li>
                         <a class="item menyu">
                             <i class="material-icons">add_circle</i>
-                            <br />Add</a>
+                            <br />Add</a
+                        >
                     </li>
                 </a>
                 <a href="/discount" class="collection-item menyuElement">
                     <li>
                         <a class="item menyu">
                             <i class="material-icons">money_off</i>
-                            <br />Discount</a>
+                            <br />Discount</a
+                        >
                     </li>
                 </a>
                 <a href="/followup" class="collection-item menyuElement">
                     <li>
                         <a class="item menyu">
                             <i class="material-icons">track_changes</i>
-                            <br />Follow Up</a>
+                            <br />Follow Up</a
+                        >
                     </li>
                 </a>
                 <a class="collection-item menyuElement">
                     <li>
                         <a class="item menyu">
                             <i class="material-icons">insert_chart</i>
-                            <br />Statistic</a>
+                            <br />Statistic</a
+                        >
                     </li>
                 </a>
                 {{/if}}
                 <li id="logout" class="collection-item">
                     <a href="/" class="item menyu">
                         <i class="material-icons">exit_to_app</i>
-                        <br />Log Out</a>
+                        <br />Log Out</a
+                    >
                 </li>
             </ul>
         </div>
     </div>
     <script>
-        $(function () {
-            $('.menyuElement').on('click', function () {
+        $(function() {
+            $('.menyuElement').on('click', function() {
                 $('.menyuElement').removeClass(' active animated bounceIn');
                 $(this).addClass(' active animated bounceIn');
             });
