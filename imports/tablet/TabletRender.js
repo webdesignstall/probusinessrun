@@ -62,7 +62,6 @@ export default class TabletRender extends React.Component {
             requirementEntirely: false,
             threeDayPrior: true,
             initialSignAlphabet: '',
-            employeeSign: '',
             additionalSignatiure: false,
             discount: [],
             additionalCharge: [],
@@ -249,6 +248,14 @@ MY OWN FREE WILL`,
                 myResponsibility: false,
             },
             initialized: false,
+            valuationOption: {
+                initial: '',
+                typeNumber: 0,
+            },
+            isPayed: false,
+            finishJobButton: false,
+            showFinish1: false,
+            showFinish2: false,
         };
 
         this.requirementEntirely = this.requirementEntirely.bind(this);
@@ -267,6 +274,8 @@ MY OWN FREE WILL`,
         this.saveSignature = this.saveSignature.bind(this);
         this.renderAddresses = this.renderAddresses.bind(this);
         this.startFullName = this.startFullName.bind(this);
+        this.changeBasicValuation = this.changeBasicValuation.bind(this);
+        this.markPayed = this.markPayed.bind(this);
     }
 
     requirementEntirely(param, whichState) {
@@ -281,8 +290,8 @@ MY OWN FREE WILL`,
         });
     }
 
-    saveSignature(which, infromation) {
-        let newList = this.state[which].concat(infromation);
+    saveSignature(which, information) {
+        let newList = this.state[which].concat(information);
         this.setState({
             [which]: newList,
         });
@@ -298,10 +307,6 @@ MY OWN FREE WILL`,
     finishJob() {
         let doc = {
             _id: Session.get('tabletIsId'),
-            initialSignAlphabet: this.state.initialSignAlphabet,
-            initSign: this.state.initSign,
-            requirementEntirely: this.state.requirementEntirely,
-            threeDayPrior: this.state.threeDayPrior,
             cardPayed: this.state.payCard,
             cashPayed: this.state.payCash,
             lastSignCustomer: this.signaturePad.toDataURL(),
@@ -332,11 +337,17 @@ MY OWN FREE WILL`,
             _id: Session.get('tabletIsId'),
             initialSignAlphabet: this.state.initialSignAlphabet,
             initSign: sign,
-            requirementEntirely: this.state.requirementEntirely,
-            threeDayPrior: this.state.threeDayPrior,
+            requirementEntirely: this.state.requirementEntirely || false,
+            threeDayPrior: this.state.threeDayPrior || false,
             initFullName: this.state.startFullName,
             initSignDate: new Date(),
             initialized: true,
+            valuationOption: this.state.valuationOption,
+            checks: {
+                packMater: this.state.packMater,
+                cargoIsSubject: this.state.cargoIsSubject,
+                myResponsibility: this.state.myResponsibility,
+            },
         };
         Meteor.call('updateWork', doc);
     }
@@ -470,8 +481,8 @@ MY OWN FREE WILL`,
                 amountOf =
                     ((this.payCash - deposit - inputAmount) / (this.payCash - deposit)) * (this.payCard - deposit);
                 amountOf = amountOf.toFixed(2);
-                document.getElementById('mark-as-payed').classList.add('disabled');
-                odenilmelidir = amountOf.toFixed(2);
+                // document.getElementById('mark-as-payed').classList.add('disabled');
+                odenilmelidir = amountOf;
                 this.setState({
                     payCard: amountOf,
                     payCash: inputAmount,
@@ -499,7 +510,7 @@ MY OWN FREE WILL`,
                 amountOf =
                     ((this.payCard - deposit - inputAmount) / (this.payCard - deposit)) * (this.payCash - deposit);
                 amountOf = amountOf.toFixed(2);
-                document.getElementById('mark-as-payed').classList.add('disabled');
+                // document.getElementById('mark-as-payed').classList.add('disabled');
                 odenilmelidir = inputAmount.toFixed(2);
                 this.setState({
                     payCard: inputAmount,
@@ -525,25 +536,32 @@ MY OWN FREE WILL`,
                     })
                     : this.setState({
                         goster: false,
-                    });
-
-                doc = {
-                    _id: Session.get('tabletIsId'),
-                    checks: {
-                        packMater: this.state.packMater,
-                        cargoIsSubject: this.state.cargoIsSubject,
-                        myResponsibility: this.state.myResponsibility,
-                    },
-                };
-
-                Meteor.call('updateWork', doc); // Update information in the database
+                    }); // Update information in the database
             },
         );
     }
 
     markPayed() {
-        document.getElementById('odenis-yeri').classList.add('gizlet');
-        document.getElementById('payed-full').classList.remove('gizlet');
+        if (confirm('Are you sure that everything is calculated right and Fully payed?')) {
+            document.getElementById('odenis-yeri').classList.add('gizlet');
+            document.getElementById('payed-full').classList.remove('gizlet');
+            document.querySelector('#finel_step').classList.remove('hide');
+            let doc = {
+                _id: Session.get('tabletIsId'),
+                cardPayed: this.state.payCard,
+                cashPayed: this.state.payCash,
+                wardrobeBoxes: this.state.valueWardrobeBoxes,
+                movingBlankets: this.state.valueMovingBlankets,
+                packingPaperBundles: this.state.valuePaperBundles,
+                bundleWrapRoll: this.state.valueWrapRoll,
+                smallBoxes: this.state.valueSmallBoxes,
+                mediumBoxes: this.state.valueMediumBoxes,
+                largeBoxes: this.state.valueLargeBoxes,
+                isPayed: true,
+            };
+
+            Meteor.call('updateWork', doc);
+        }
     }
 
     largeBoxes(e) {
@@ -692,7 +710,6 @@ MY OWN FREE WILL`,
         this.x = Tracker.autorun(() => {
             Meteor.subscribe('workSchema');
             Meteor.subscribe('fullUser');
-            console.log(Session.get('tabletIsId'));
             const isRender = WorkData.find({ _id: Session.get('tabletIsId') }).fetch();
 
             if (isRender.length > 0) {
@@ -715,11 +732,34 @@ MY OWN FREE WILL`,
                         cargoIsSubject: checks.cargoIsSubject,
                         myResponsibility: checks.myResponsibility,
                         initialized: isRender[0].initialized,
+                        valueWardrobeBoxes: isRender[0].wardrobeBoxes || 0,
+                        wardrobeBoxes: isRender[0].wardrobeBoxes * 15 || 0,
+                        valueMovingBlankets: isRender[0].movingBlankets || 0,
+                        movingBlankets: isRender[0].movingBlankets * 15 || 0,
+                        valuePaperBundles: isRender[0].packingPaperBundles || 0,
+                        paperBundles: isRender[0].packingPaperBundles * 25 || 0,
+                        valueWrapRoll: isRender[0].bundleWrapRoll || 0,
+                        wrapRoll: isRender[0].bundleWrapRoll * 45 || 0,
+                        valueSmallBoxes: isRender[0].smallBoxes || 0,
+                        smallBoxes: isRender[0].smallBoxes * 2 || 0,
+                        valueMediumBoxes: isRender[0].mediumBoxes || 0,
+                        mediumBoxes: isRender[0].mediumBoxes * 3 || 0,
+                        valueLargeBoxes: isRender[0].largeBoxes || 0,
+                        largeBoxes: isRender[0].largeBoxes * 4 || 0,
                     },
+
                     () => {
                         let is = this.state.vurulmusIs[0];
 
                         this.setState({
+                            totalPul:
+                                this.state.largeBoxes +
+                                this.state.smallBoxes +
+                                this.state.mediumBoxes +
+                                this.state.wrapRoll +
+                                this.state.movingBlankets +
+                                this.state.wardrobeBoxes +
+                                this.state.paperBundles,
                             drivingClicked: is.drivingClicked || false,
                             breakClicked: is.breakClicked || false,
                             started: is.startTime && is.startTime !== '' ? true : false,
@@ -769,14 +809,19 @@ MY OWN FREE WILL`,
                 maxWidth: 3,
                 dotSize: 1,
                 penColor: '#000000',
-                onEnd: function() {
-                    // sing etdikden sonra
+                onEnd: () => {
+                    this.setState({
+                        showFinish1: true,
+                    });
                 },
             });
 
             let cancelButton = document.querySelector('#clear');
             cancelButton.addEventListener('click', () => {
                 this.signaturePad.clear();
+                this.setState({
+                    showFinish1: false,
+                });
             });
 
             // in the end sign
@@ -786,14 +831,20 @@ MY OWN FREE WILL`,
                 maxWidth: 3,
                 dotSize: 1,
                 penColor: '#000000',
-                onEnd: function() {
-                    // sign etdikden sonra
+                onEnd: () => {
+                    this.setState({
+                        showFinish2: true,
+                    });
                 },
             });
 
             let cancelButton2 = document.querySelector('#clear2');
             cancelButton2.addEventListener('click', () => {
                 this.signaturePad2.clear();
+
+                this.setState({
+                    showFinish2: false,
+                });
             });
         });
 
@@ -842,7 +893,6 @@ MY OWN FREE WILL`,
     deactivateAll() {
         let inputs = document.getElementsByTagName('input');
         let buttons = document.getElementsByClassName('btn');
-        console.log('TCL: deactivateAll -> buttons', buttons);
 
         for (let i = 0; i < inputs.length; i++) {
             inputs[i].disabled = true;
@@ -928,6 +978,16 @@ MY OWN FREE WILL`,
     startFullName(e) {
         this.setState({
             startFullName: e.target.value,
+        });
+    }
+
+    changeBasicValuation(index, e) {
+        let value = e.target.value;
+        this.setState({
+            valuationOption: {
+                initial: value,
+                typeNumber: index,
+            },
         });
     }
 
@@ -1100,12 +1160,21 @@ MY OWN FREE WILL`,
                                             <input
                                                 id="initial_"
                                                 type="text"
+                                                disabled={
+                                                    typeof is.initialSignAlphabet === 'string' &&
+                                                    is.initialSignAlphabet !== ''
+                                                }
                                                 onChange={this.initialAlphabet}
                                                 value={this.state.initialSignAlphabet}
                                                 placeholder="Write initial here please"
-                                            />{' '}
-                                            <br />
-                                            {Date()}
+                                            />
+                                            <span id="importantInformationBooklet_date">
+                                                {moment(
+                                                    (is.importantInformationBooklet &&
+                                                        is.importantInformationBooklet.date) ||
+                                                        new Date(),
+                                                ).format('MM/DD/YYYY hh:mm a')}
+                                            </span>
                                         </div>
                                     </div>
                                     <div className="card__ valign-wrapper">
@@ -1115,8 +1184,19 @@ MY OWN FREE WILL`,
                                         <div className="col s6 m6 l6 center-align">
                                             <button
                                                 className={
-                                                    (this.state.requirementEntirely ? '' : 'grey') +
-                                                    ' waves-effect waves-light btn'
+                                                    this.state.requirementEntirely
+                                                        ? 'waves-effect waves-light btn'
+                                                        : 'waves-effect waves-light btn grey'
+                                                }
+                                                style={
+                                                    is.requirementEntirely === true
+                                                        ? { border: '2px solid blue' }
+                                                        : null
+                                                }
+                                                disabled={
+                                                    is.requirementEntirely === true || is.requirementEntirely === false
+                                                        ? true
+                                                        : false
                                                 }
                                                 onClick={() => this.requirementEntirely(true, 'requirementEntirely')}>
                                                 Yes
@@ -1124,8 +1204,19 @@ MY OWN FREE WILL`,
                                             &nbsp; &nbsp; &nbsp; &nbsp;
                                             <button
                                                 className={
-                                                    (this.state.requirementEntirely ? 'grey' : '') +
-                                                    ' waves-effect waves-light btn'
+                                                    this.state.requirementEntirely
+                                                        ? 'waves-effect waves-light btn grey'
+                                                        : 'waves-effect waves-light btn'
+                                                }
+                                                disabled={
+                                                    is.requirementEntirely === true || is.requirementEntirely === false
+                                                        ? true
+                                                        : false
+                                                }
+                                                style={
+                                                    is.requirementEntirely === false
+                                                        ? { border: '2px solid blue' }
+                                                        : null
                                                 }
                                                 onClick={() => this.requirementEntirely(false, 'requirementEntirely')}>
                                                 No
@@ -1143,6 +1234,12 @@ MY OWN FREE WILL`,
                                                     (this.state.threeDayPrior ? '' : 'grey') +
                                                     ' waves-effect waves-light btn'
                                                 }
+                                                disabled={
+                                                    is.threeDayPrior === true || is.threeDayPrior === false
+                                                        ? true
+                                                        : false
+                                                }
+                                                style={is.threeDayPrior === true ? { border: '2px solid blue' } : null}
                                                 onClick={() => this.requirementEntirely(true, 'threeDayPrior')}>
                                                 Yes
                                             </button>
@@ -1152,6 +1249,12 @@ MY OWN FREE WILL`,
                                                     (this.state.threeDayPrior ? 'grey' : '') +
                                                     ' waves-effect waves-light btn'
                                                 }
+                                                disabled={
+                                                    is.threeDayPrior === true || is.threeDayPrior === false
+                                                        ? true
+                                                        : false
+                                                }
+                                                style={is.threeDayPrior === false ? { border: '2px solid blue' } : null}
                                                 onClick={() => this.requirementEntirely(false, 'threeDayPrior')}>
                                                 No
                                             </button>
@@ -1166,58 +1269,118 @@ MY OWN FREE WILL`,
                                 <tbody>
                                     <tr style={{ backgroundColor: '#C3D6FF' }}>
                                         <th />
-                                        <th>Initial your choice</th>
-                                        <th>
+                                        <th style={{ textAlign: 'center', padding: '5px !important' }}>
+                                            Initial your choice
+                                        </th>
+                                        <th style={{ textAlign: 'center', padding: '5px !important' }}>
                                             Transportation
-                                            <br />
-                                            (No additional charge)
                                         </th>
-                                        <th>
-                                            Maximum Rate
-                                            <br />
-                                            (No additional charge)
-                                        </th>
-                                        <th>
+                                        <th style={{ textAlign: 'center', padding: '5px !important' }}>Maximum Rate</th>
+                                        <th style={{ textAlign: 'center', padding: '5px !important' }}>
                                             Storage-in-Transit
-                                            <br />
-                                            (No additional charge)
                                         </th>
-                                        <th>Deductible</th>
+                                        <th style={{ textAlign: 'center', padding: '5px !important' }}>Deductible</th>
                                     </tr>
                                     <tr style={{ backgroundColor: '#E6EEFF' }}>
                                         <td>Basic: $0.60 cents/lb./art.</td>
                                         <td>
                                             Initial:
-                                            <input id="initial_x" type="text" />
-                                            <input type="checkbox" />
+                                            <input
+                                                onChange={e => this.changeBasicValuation(0, e)}
+                                                className="initial_x"
+                                                type="text"
+                                                disabled={
+                                                    is.valuationOption &&
+                                                    typeof is.valuationOption.initial === 'string' &&
+                                                    is.valuationOption.initial !== ''
+                                                }
+                                                value={
+                                                    is.valuationOption &&
+                                                    typeof is.valuationOption.initial === 'string' &&
+                                                    is.valuationOption.initial !== '' &&
+                                                    is.valuationOption.typeNumber === 0
+                                                        ? is.valuationOption.initial
+                                                        : this.state.valuationOption.typeNumber === 0
+                                                            ? this.state.valuationOption.initial
+                                                            : ''
+                                                }
+                                            />
                                         </td>
-                                        <td>$_________ per$100</td>
-                                        <td>$_________</td>
-                                        <td>$_________ per$100</td>
+                                        <td>No Additional Charge</td>
+                                        <td>No Additional Charge</td>
+                                        <td>No Additional Charge</td>
                                         <td>No Deductible</td>
                                     </tr>
                                     <tr style={{ backgroundColor: '#C3D6FF' }}>
                                         <td>Actual Cash Value</td>
                                         <td>
                                             Initial:
-                                            <input id="initial_x" type="text" />
-                                            <input type="checkbox" />
+                                            <input
+                                                className="initial_x"
+                                                type="text"
+                                                onChange={e => this.changeBasicValuation(1, e)}
+                                                disabled={
+                                                    is.valuationOption &&
+                                                    typeof is.valuationOption.initial === 'string' &&
+                                                    is.valuationOption.initial !== ''
+                                                }
+                                                value={
+                                                    is.valuationOption &&
+                                                    typeof is.valuationOption.initial === 'string' &&
+                                                    is.valuationOption.initial !== '' &&
+                                                    is.valuationOption.typeNumber === 1
+                                                        ? is.valuationOption.initial
+                                                        : this.state.valuationOption.typeNumber === 1
+                                                            ? this.state.valuationOption.initial
+                                                            : ''
+                                                }
+                                            />
                                         </td>
-                                        <td>$_________ per$100</td>
-                                        <td>$_________</td>
-                                        <td>$_________ per$100</td>
+                                        <td>
+                                            $<input id="basic_initial" className="initial_x" type="text" /> per $100
+                                        </td>
+                                        <td>
+                                            $<input id="basic_initial" className="initial_x" type="text" />
+                                        </td>
+                                        <td>
+                                            $<input id="basic_initial" className="initial_x" type="text" /> per $100
+                                        </td>
                                         <td>Deductible of $250</td>
                                     </tr>
                                     <tr style={{ backgroundColor: '#E6EEFF' }}>
                                         <td>Full Value</td>
                                         <td>
                                             Initial:
-                                            <input id="initial_x" type="text" />
-                                            <input type="checkbox" />
+                                            <input
+                                                className="initial_x"
+                                                type="text"
+                                                onChange={e => this.changeBasicValuation(2, e)}
+                                                disabled={
+                                                    is.valuationOption &&
+                                                    typeof is.valuationOption.initial === 'string' &&
+                                                    is.valuationOption.initial !== ''
+                                                }
+                                                value={
+                                                    is.valuationOption &&
+                                                    typeof is.valuationOption.initial === 'string' &&
+                                                    is.valuationOption.initial !== '' &&
+                                                    is.valuationOption.typeNumber === 2
+                                                        ? is.valuationOption.initial
+                                                        : this.state.valuationOption.typeNumber === 2
+                                                            ? this.state.valuationOption.initial
+                                                            : ''
+                                                }
+                                            />
                                         </td>
-                                        <td>$_________ per$100</td>
-                                        <td>$_________</td>
-                                        <td>$_________ per$100</td>
+                                        <td>
+                                            $<input id="basic_initial" className="initial_x" type="text" /> per $100
+                                        </td>
+                                        <td>
+                                            $<input id="basic_initial" className="initial_x" type="text" />
+                                        </td>
+                                        <td>
+                                            $<input id="basic_initial" className="initial_x" type="text" /> per $100
+                                        </td>
                                         <td>Deductible of $250</td>
                                     </tr>
                                 </tbody>
@@ -1274,7 +1437,10 @@ MY OWN FREE WILL`,
                                 INFORMATION ABOVE IS TRUE AND CORRECT TO THE BEST OF MY KNOWLEDGE. <br />
                                 SHIPPER’S (CUSTOMER’S) SIGNATURE:
                                 <br />
-                                DATE: {this.state.initSign ? this.state.initSignDate.toString() : Date()}
+                                DATE:{' '}
+                                {this.state.initSign
+                                    ? moment(this.state.initSignDate).format('MM/DD/YYYY hh:mm a')
+                                    : moment(Date()).format('MM/DD/YYYY hh:mm a')}
                             </p>
                             <div className="col s12 m12 l12">
                                 <p>Customer Sign below</p>
@@ -1318,8 +1484,10 @@ MY OWN FREE WILL`,
                                     className={
                                         (this.state.initSign
                                             ? 'hide'
-                                            : this.state.initSignature &&
-                                              this.state.startFullName !== '' &&
+                                            : this.state.initialSignAlphabet !== '' &&
+                                              this.state.valuationOption.initial !== '' &&
+                                              this.state.initSignature &&
+                                              (this.state.startFullName && this.state.startFullName !== '') &&
                                               this.state.goster
                                                 ? ''
                                                 : 'disabled') + ' waves-effect waves-light btn blue'
@@ -1334,7 +1502,12 @@ MY OWN FREE WILL`,
 
                     {/* start, stop, break driving buttons */}
                     <div id="secondStep" className={this.state.initSign ? 'card__' : 'hide card__'}>
-                        <div className="card__ additionalSignature center-align">
+                        <div
+                            className={
+                                is.isPayed
+                                    ? 'card__ additionalSignature center-align hide'
+                                    : 'card__ additionalSignature center-align'
+                            }>
                             <a
                                 className="waves-effect waves-light btn"
                                 onClick={() =>
@@ -1358,84 +1531,88 @@ MY OWN FREE WILL`,
                         <AdditionalChargesRender list={this.state.additionalCharge} />
                         {/* Finish rendering discounts */}
                         <div className="timeline">
-                            <div className="center-align">
-                                <a
-                                    id="start-work"
-                                    onClick={() => {
-                                        this.vaxtiBaslat(is._id);
-                                    }}
-                                    className={
-                                        this.state.started
-                                            ? 'waves-effect waves-light btn blue disabled'
-                                            : 'waves-effect waves-light btn blue'
-                                    }>
-                                    Start Work time
-                                </a>
-                                <a className="waves-effect waves-light btn blue" />
-                                <a
-                                    id="stop-work"
-                                    onClick={() => {
-                                        this.vaxtiDayandir(is._id);
-                                    }}
-                                    className={
-                                        this.state.started &&
-                                        (is.finishTime === undefined || is.finishTime === '' || is.finishTime === null)
-                                            ? 'waves-effect waves-light btn red'
-                                            : 'waves-effect waves-light btn red disabled'
-                                    }>
-                                    Stop Work time
-                                </a>
-                            </div>
-                            <div className="center-align">
-                                <hr /> Driving time
-                                <br />
-                                <a
-                                    id="driving-start"
-                                    className={
-                                        this.state.drivingClicked || this.state.breakClicked
-                                            ? 'waves-effect waves-light btn blue disabled'
-                                            : 'waves-effect waves-light btn blue'
-                                    }
-                                    onClick={() => this.drivingTime(is._id)}>
-                                    Start Driving time
-                                </a>
-                                <a className="waves-effect waves-light btn deep-purple lighten-1" />
-                                <a
-                                    id="driving-stop"
-                                    className={
-                                        this.state.drivingClicked
-                                            ? 'waves-effect waves-light btn red'
-                                            : 'waves-effect waves-light btn red disabled'
-                                    }
-                                    onClick={() => this.drivingTimeStop(is._id)}>
-                                    Stop Driving time
-                                </a>
-                            </div>
-                            <div className="center-align">
-                                <hr />
-                                Break
-                                <br />
-                                <a
-                                    id="break-start"
-                                    className={
-                                        this.state.breakClicked || this.state.drivingClicked
-                                            ? 'waves-effect waves-light btn blue disabled'
-                                            : 'waves-effect waves-light btn blue'
-                                    }
-                                    onClick={() => this.breatTime(is._id)}>
-                                    Start Break time
-                                </a>
-                                <a className="waves-effect waves-light btn pink" />
-                                <a
-                                    id="break-stop"
-                                    className={
-                                        this.state.breakClicked
-                                            ? 'waves-effect waves-light btn red'
-                                            : 'waves-effect waves-light btn red disabled'
-                                    }
-                                    onClick={() => this.breakTimeStop(is._id)}>
-                                    Stop Break time
-                                </a>
+                            <div className={is.isPayed ? 'hide' : ''}>
+                                <div className="center-align">
+                                    <a
+                                        id="start-work"
+                                        onClick={() => {
+                                            this.vaxtiBaslat(is._id);
+                                        }}
+                                        className={
+                                            this.state.started
+                                                ? 'waves-effect waves-light btn blue disabled'
+                                                : 'waves-effect waves-light btn blue'
+                                        }>
+                                        Start Work time
+                                    </a>
+                                    <a className="waves-effect waves-light btn blue" />
+                                    <a
+                                        id="stop-work"
+                                        onClick={() => {
+                                            this.vaxtiDayandir(is._id);
+                                        }}
+                                        className={
+                                            this.state.started &&
+                                            (is.finishTime === undefined ||
+                                                is.finishTime === '' ||
+                                                is.finishTime === null)
+                                                ? 'waves-effect waves-light btn red'
+                                                : 'waves-effect waves-light btn red disabled'
+                                        }>
+                                        Stop Work time
+                                    </a>
+                                </div>
+                                <div className="center-align">
+                                    <hr /> Driving time
+                                    <br />
+                                    <a
+                                        id="driving-start"
+                                        className={
+                                            this.state.drivingClicked || this.state.breakClicked
+                                                ? 'waves-effect waves-light btn blue disabled'
+                                                : 'waves-effect waves-light btn blue'
+                                        }
+                                        onClick={() => this.drivingTime(is._id)}>
+                                        Start Driving time
+                                    </a>
+                                    <a className="waves-effect waves-light btn deep-purple lighten-1" />
+                                    <a
+                                        id="driving-stop"
+                                        className={
+                                            this.state.drivingClicked
+                                                ? 'waves-effect waves-light btn red'
+                                                : 'waves-effect waves-light btn red disabled'
+                                        }
+                                        onClick={() => this.drivingTimeStop(is._id)}>
+                                        Stop Driving time
+                                    </a>
+                                </div>
+                                <div className="center-align">
+                                    <hr />
+                                    Break
+                                    <br />
+                                    <a
+                                        id="break-start"
+                                        className={
+                                            this.state.breakClicked || this.state.drivingClicked
+                                                ? 'waves-effect waves-light btn blue disabled'
+                                                : 'waves-effect waves-light btn blue'
+                                        }
+                                        onClick={() => this.breatTime(is._id)}>
+                                        Start Break time
+                                    </a>
+                                    <a className="waves-effect waves-light btn pink" />
+                                    <a
+                                        id="break-stop"
+                                        className={
+                                            this.state.breakClicked
+                                                ? 'waves-effect waves-light btn red'
+                                                : 'waves-effect waves-light btn red disabled'
+                                        }
+                                        onClick={() => this.breakTimeStop(is._id)}>
+                                        Stop Break time
+                                    </a>
+                                </div>
                             </div>
                             {this.renderWorkTime()}
                             {this.renderDrivingTime()}
@@ -1449,6 +1626,7 @@ MY OWN FREE WILL`,
                                     <span className="sag">
                                         $15 x{' '}
                                         <input
+                                            disabled={is.isPayed}
                                             id="wardrobe-boxes"
                                             type="number"
                                             value={this.state.valueWardrobeBoxes}
@@ -1462,6 +1640,7 @@ MY OWN FREE WILL`,
                                     <span className="sag">
                                         $15 x{' '}
                                         <input
+                                            disabled={is.isPayed}
                                             id="moving-blankets"
                                             type="number"
                                             value={this.state.valueMovingBlankets}
@@ -1475,6 +1654,7 @@ MY OWN FREE WILL`,
                                     <span className="sag">
                                         $25 x{' '}
                                         <input
+                                            disabled={is.isPayed}
                                             id="packing-paper-bundles"
                                             type="number"
                                             value={this.state.valuePaperBundles}
@@ -1488,6 +1668,7 @@ MY OWN FREE WILL`,
                                     <span className="sag">
                                         $45 x{' '}
                                         <input
+                                            disabled={is.isPayed}
                                             id="buuble-wrap-roll"
                                             type="number"
                                             value={this.state.valueWrapRoll}
@@ -1501,6 +1682,7 @@ MY OWN FREE WILL`,
                                     <span className="sag">
                                         $2 x{' '}
                                         <input
+                                            disabled={is.isPayed}
                                             id="small-boxes"
                                             type="number"
                                             value={this.state.valueSmallBoxes}
@@ -1514,6 +1696,7 @@ MY OWN FREE WILL`,
                                     <span className="sag">
                                         $3 x{' '}
                                         <input
+                                            disabled={is.isPayed}
                                             id="medium-boxes"
                                             type="number"
                                             value={this.state.valueMediumBoxes}
@@ -1527,6 +1710,7 @@ MY OWN FREE WILL`,
                                     <span className="sag">
                                         $4 x{' '}
                                         <input
+                                            disabled={is.isPayed}
                                             id="large-boxes"
                                             type="number"
                                             value={this.state.valueLargeBoxes}
@@ -1681,39 +1865,52 @@ MY OWN FREE WILL`,
                             <div className="cardTitle">Make the payment</div>
                             <div id="odenis-yeri">
                                 <div id="make-a-payment" className="row center-align">
-                                    <div className="card_ col s12 m6 l6 center-align">
-                                        <a className="enter">enter cash amount</a>
+                                    <div className="card_ col s12 m6 l6 center-align" style={{ height: '144px' }}>
+                                        <a className="enter">Enter cash amount</a>
                                         {/* cash payment */}
                                         <div className="input-field">
                                             <input
                                                 id="cash"
                                                 type="number"
                                                 className=""
+                                                disabled={is.isPayed}
                                                 placeholder="enter cash amount"
                                                 onChange={e => this.hesabla('cash', e)}
-                                                value={this.state.payCash > 0 ? this.state.payCash : ''}
+                                                value={
+                                                    is.cashPayed || (this.state.payCash > 0 ? this.state.payCash : '')
+                                                }
                                             />
                                         </div>
-                                        <a
-                                            id="mark-as-payed"
-                                            className="waves-effect waves-light btn disabled"
-                                            onClick={this.markPayed}>
-                                            Mark as fully payed
-                                        </a>
                                     </div>
-                                    <div className="card_ col s6 m6 l6 center-align">
-                                        <a className="enter">enter card amount</a>
+                                    <div className="card_ col s6 m6 l6 center-align" style={{ height: '144px' }}>
+                                        <a className="enter">Enter card amount</a>
                                         {/* card payemnt */}
                                         <div className="input-field">
                                             <input
                                                 id="card"
                                                 type="number"
+                                                disabled={is.isPayed}
                                                 placeholder="enter card amount"
                                                 onChange={e => this.hesabla('card', e)}
-                                                value={this.state.payCard > 0 ? this.state.payCard : ''}
+                                                value={
+                                                    is.cardPayed || (this.state.payCard > 0 ? this.state.payCard : '')
+                                                }
                                             />
                                         </div>
-                                        <div id="pay-card" className={is.finished && 'hide'} />
+                                        <div id="pay-card" className={is.isPayed && 'hide'} />
+                                    </div>
+                                    <div className="clear" />
+                                    <div className="row" style={{ margin: '15px 0 0' }}>
+                                        <a
+                                            id="mark-as-payed"
+                                            className={
+                                                is.isPayed
+                                                    ? 'waves-effect waves-light btn disabled'
+                                                    : 'waves-effect waves-light btn'
+                                            }
+                                            onClick={this.markPayed}>
+                                            Mark as fully payed
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -1722,7 +1919,13 @@ MY OWN FREE WILL`,
                             </div>
                         </div>
                         <div className="clear margin-top" />
-                        <div className="card__ center-align darken-2-text">
+                        <div
+                            id="finel_step"
+                            className={
+                                is.isPayed
+                                    ? 'card__ center-align darken-2-text'
+                                    : 'card__ center-align darken-2-text hide'
+                            }>
                             <div className="cardTitle red darken-3">
                                 I agree that this move was completed to my satisfaction and that none of my items were
                                 damaged or broken.
@@ -1748,12 +1951,19 @@ MY OWN FREE WILL`,
                                 </a>
                             </div>
                             <p />
-                            <div className="col s12 m12 l12 margin-top">
-                                <a className="waves-effect waves-light btn blue" onClick={this.finishJob}>
+                            <div
+                                className={is.finished ? 'hide' : ' col s12 m12 l12 margin-top'}
+                                style={{ marginBottom: '20px' }}>
+                                <a
+                                    className={
+                                        this.state.showFinish1 && this.state.showFinish2
+                                            ? 'waves-effect waves-light btn blue'
+                                            : 'waves-effect waves-light btn blue disabled'
+                                    }
+                                    onClick={this.finishJob}>
                                     Finish the Job
                                 </a>
                             </div>
-                            <div className="clear margin-top">.</div>
                         </div>
                     </div>
                     {this.state.finished && this.deactivateAll()}
@@ -1810,7 +2020,6 @@ Template.tablet.onRendered(function() {
                 return actions.payment.execute().then(function(payment) {
                     document.getElementById('odenis-yeri').classList.add('hide');
                     Session.set('payed', true);
-                    console.log(payment);
                     // The payment is complete!
                     // You can now show a confirmation message to the customer
                 });

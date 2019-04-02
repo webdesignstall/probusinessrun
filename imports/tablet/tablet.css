@@ -1,8 +1,8 @@
 .warning {
-    background-color: #FCF6F5;
+    background-color: #fcf6f5;
     padding: 10px;
     margin-top: 10px;
-    color: #B04332 !important;
+    color: #b04332 !important;
     line-height: 25px;
     text-align: center;
     border-color: #ef5350 !important;
@@ -29,7 +29,7 @@
     padding-left: 10px;
 }
 
-#initial_x {
+.initial_x {
     width: 25% !important;
     margin-left: 10px;
 }
@@ -304,7 +304,7 @@
 
 .activeDiscount {
     background-color: white;
-    color: #3170C5;
+    color: #3170c5;
     border: none;
     top: 0;
 }
@@ -321,7 +321,7 @@
     border: 1px solid;
 }
 
-#additional-charge{
+#additional-charge {
     height: 130px;
     min-height: 130px;
     max-height: 130px;

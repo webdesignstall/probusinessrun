@@ -637,6 +637,22 @@ Schemas.workSchema = new SimpleSchema(
             type: Number,
             optional: true,
         },
+        valuationOption: {
+            type: Object,
+            optional: true,
+        },
+        'valuationOption.initial': {
+            type: String,
+            optional: true,
+        },
+        'valuationOption.typeNumber': {
+            type: Number,
+            optional: true,
+        },
+        isPayed: {
+            type: Boolean,
+            optional: true,
+        },
     },
     { tracker: Tracker },
 );

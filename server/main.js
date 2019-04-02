@@ -58,7 +58,6 @@ if (Meteor.isServer) {
         },
 
         quotaniBazayaElaveEt: function(doc) {
-            console.log('TCL: doc', doc);
             WorkData.insert(doc);
         },
 
