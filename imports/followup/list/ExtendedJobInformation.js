@@ -203,6 +203,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
         doc.confirmed = false;
         doc.followUp && doc.followUp[doc.followUp.length - 1].note === '' && doc.followUp.pop();
         doc.emailSent = true;
+        doc.emailSentDate = new Date();
 
         let objNew = {
             _id: doc._id,

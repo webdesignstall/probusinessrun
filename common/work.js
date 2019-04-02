@@ -428,6 +428,10 @@ Schemas.workSchema = new SimpleSchema(
             type: Boolean,
             optional: true,
         },
+        emailSentDate: {
+            type: Date,
+            optional: true,
+        },
         trucksTemp: {
             type: Array,
             optional: true,

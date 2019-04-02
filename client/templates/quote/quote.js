@@ -355,6 +355,7 @@ Template.preQuote.events({
         let sourceOfLeads = document.getElementById('source_of_leads_add').value;
         let status = 'inProgress';
         let emailSent = true;
+        let emailSentDate = new Date();
 
         function idniSec(soz) {
             var baslama = soz.indexOf(':');
@@ -448,6 +449,7 @@ Template.preQuote.events({
             isFollowUp,
             sourceOfLeads,
             status,
+            emailSentDate,
         };
 
         Meteor.call('quotaniBazayaElaveEt', doc, function(err) {

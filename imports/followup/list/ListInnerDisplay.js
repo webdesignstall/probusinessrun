@@ -6,6 +6,8 @@ import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import WorkData from '../../../common/collections_2';
 import { Tracker } from 'meteor/tracker';
 
+/*global moment*/
+
 export default class ListInnerDisplay extends TrackerReact(Component) {
     constructor(props) {
         super(props);
@@ -255,7 +257,14 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
                         padding: '0px 10px',
                         fontWeight: 'bold',
                     }}>
-                    QUOTE
+                    QUOTE{' '}
+                    <span style={{ color: 'black' }}>
+                        {this.state.job.emailSent
+                            ? this.state.job.emailSentDate
+                                ? '- ' + moment(this.state.job.emailSentDate).format('MM/DD/YYYY hh:mm a')
+                                : 'DATE INFORMATION NOT AVIABLE'
+                            : ''}
+                    </span>
                 </span>
                 {Session.get('ExtendedJobInformation') !== '' ? <ExtendedJobInformation job={this.state.job} /> : ''}
             </div>
