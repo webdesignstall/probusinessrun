@@ -18,6 +18,7 @@ Schemas.workSchema = new SimpleSchema(
             type: String,
             label: 'Client First Name',
             max: 200,
+            optional: true,
             autoform: {
                 class: '',
             },
@@ -34,7 +35,7 @@ Schemas.workSchema = new SimpleSchema(
         workDate: {
             type: String,
             label: 'Moving Date',
-            // optional: true,
+            optional: true,
             autoform: {
                 class: '',
                 placeholder: 'Click and select date',
@@ -42,6 +43,7 @@ Schemas.workSchema = new SimpleSchema(
         },
         phoneNumber: {
             type: Number,
+            optional: true,
         },
         phoneAdditional: {
             type: Number,
@@ -53,6 +55,7 @@ Schemas.workSchema = new SimpleSchema(
         },
         'addresses.$': {
             type: String,
+            optional: true,
             label: 'Addresses',
             minCount: 1,
         },
@@ -67,6 +70,7 @@ Schemas.workSchema = new SimpleSchema(
         'workers.$.id': {
             type: String,
             label: 'Worker ID',
+            optional: true,
             minCount: 1,
             autoValue: function() {
                 let iscilerinBazasi = this.value;
@@ -82,6 +86,7 @@ Schemas.workSchema = new SimpleSchema(
         },
         numberOfWorkers: {
             type: Number,
+            optional: true,
         },
         comment: {
             type: String,
@@ -113,6 +118,7 @@ Schemas.workSchema = new SimpleSchema(
         // Isin baslama araliqi
         workMustBeginTime: {
             type: Array,
+            optional: true,
             label: 'Arriving time window',
         },
         'workMustBeginTime.$': {
@@ -126,6 +132,7 @@ Schemas.workSchema = new SimpleSchema(
         // is the job confirmed
         confirmed: {
             type: Boolean,
+            optional: true,
             autoform: {
                 type: 'hidden',
                 display: 'none',
@@ -158,10 +165,12 @@ Schemas.workSchema = new SimpleSchema(
         email: {
             type: String,
             label: 'Email',
+            optional: true,
         },
         movingSize: {
             type: String,
             label: 'Moving size',
+            optional: true,
         },
         numberOfTheCompanyMovers: {
             type: Number,
@@ -357,12 +366,15 @@ Schemas.workSchema = new SimpleSchema(
         },
         'companyInfo.name': {
             type: String,
+            optional: true,
         },
         'companyInfo.phoneNumber': {
             type: String,
+            optional: true,
         },
         'companyInfo.url': {
             type: String,
+            optional: true,
         },
         'companyInfo.email': {
             type: String,
