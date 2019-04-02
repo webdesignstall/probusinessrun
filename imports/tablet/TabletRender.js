@@ -543,8 +543,6 @@ MY OWN FREE WILL`,
 
     markPayed() {
         if (confirm('Are you sure that everything is calculated right and Fully payed?')) {
-            document.getElementById('odenis-yeri').classList.add('gizlet');
-            document.getElementById('payed-full').classList.remove('gizlet');
             document.querySelector('#finel_step').classList.remove('hide');
             let doc = {
                 _id: Session.get('tabletIsId'),
@@ -1934,7 +1932,20 @@ MY OWN FREE WILL`,
                             <div className="col s12 m6 l6">
                                 <p>Customer Sign below</p>
                                 <div className="wrapper">
-                                    <canvas id="signature-pad1" className="signature-pad" width={400} height={200} />
+                                    <canvas
+                                        id="signature-pad1"
+                                        className={is.lastSignCustomer ? 'hide' : 'signature-pad'}
+                                        width={400}
+                                        height={200}
+                                    />
+                                    <img
+                                        id="last-sign-customer-img"
+                                        className={is.lastSignCustomer ? '' : 'hide'}
+                                        src={is.lastSignCustomer}
+                                        width={400}
+                                        height={200}
+                                        style={{ zIndex: '0' }}
+                                    />
                                 </div>
                                 <a id="clear" className="waves-effect waves-light btn clearing">
                                     Clear
@@ -1944,7 +1955,20 @@ MY OWN FREE WILL`,
                             <div className="col s12 m6 l6">
                                 <p>Employee Sign below</p>
                                 <div className="wrapper">
-                                    <canvas id="signature-pad" className="signature-pad" width={400} height={200} />
+                                    <canvas
+                                        id="signature-pad"
+                                        className={is.lastSignEmployee ? 'hide' : 'signature-pad'}
+                                        width={400}
+                                        height={200}
+                                    />
+                                    <img
+                                        id="last-sign-employee-img"
+                                        className={is.lastSignEmployee ? '' : 'hide'}
+                                        src={is.lastSignEmployee}
+                                        width={400}
+                                        height={200}
+                                        style={{ zIndex: '0' }}
+                                    />
                                 </div>
                                 <a id="clear2" className="waves-effect waves-light btn clearing">
                                     Clear
