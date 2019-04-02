@@ -459,7 +459,7 @@ class ReserveQuote extends React.Component {
                     <div id="enter-number" className="enter-code">
                         <h6>
                             Please call customer service to get custom code in order to confirm your move.{' '}
-                            <span>213-262-9440</span>
+                            <span>(844) 404-8404</span>
                         </h6>
                         <input
                             id="code"
