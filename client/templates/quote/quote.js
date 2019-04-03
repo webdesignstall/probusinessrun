@@ -95,7 +95,20 @@ Template.updateQuote.events({
 
         let job = WorkData.findOne({ _id: Session.get('is') });
 
-        Meteor.call('supervisorEmail', job);
+        Meteor.call('supervisorEmail', job, err => {
+            err
+                ? (console.log(err),
+                swal({
+                    title: 'Error! Can\'t send email to supervisor pls contact help desk',
+                    text: 'Reason: ' + err.message,
+                    icon: 'error',
+                }))
+                : swal({
+                    title: 'Success',
+                    text: 'Email sent successfully',
+                    icon: 'success',
+                });
+        });
     },
     'click #resend-email': function(e) {
         e.preventDefault();

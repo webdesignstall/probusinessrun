@@ -2,9 +2,9 @@ import { Meteor } from 'meteor/meteor';
 
 export default function supervisorEmailContent(job) {
     let addresses = function() {
-        return job.addresses.map((address, index) => {
+        return job.addresses.map(address => {
             return `
-            <p style="font-size: 14px; line-height: 16px; margin: 0;">Address #${index + 1}: ${address}</p>
+            <p style="font-size: 14px; line-height: 16px; margin: 0;">${address}</p>
             `;
         });
     };
@@ -29,6 +29,43 @@ export default function supervisorEmailContent(job) {
 }</p>            
             `;
         });
+    };
+
+    let takenBy = function() {
+        let workerInfo = Meteor.users.find({ _id: job.takenBy }).fetch();
+
+        return 'Taken By: ' + workerInfo.profile.firstName;
+    };
+
+    let notes = function() {
+        return job.comment
+            ? `
+					<p style="font-size: 14px; line-height: 16px; margin: 0;">Notes: ${job.comment}</p>
+					`
+            : '';
+    };
+
+    let nte = function() {
+        return job.price
+            ? `
+<p style="font-size: 14px; line-height: 16px; margin: 0;">NTE ${job.price}</p>
+			`
+            : '';
+    };
+
+    let largeItemFee = function() {
+        return job.largeItemFee
+            ? `
+		<p style="font-size: 14px; line-height: 16px; margin: 0;">Large I.F: ${job.largeItemFee}</p>`
+            : '';
+    };
+
+    let flatRate = function() {
+        return job.flatRate.isTrue
+            ? `
+<p style="font-size: 14px; line-height: 16px; margin: 0;">${job.flatRate.cashAmount} / ${job.flatRate.cardAmount}</p>
+		`
+            : '';
     };
 
     return `
@@ -367,39 +404,30 @@ export default function supervisorEmailContent(job) {
 <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top: 10px; padding-bottom: 10px; font-family: Arial, sans-serif"><![endif]-->
 <div style="color:#555555;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif;line-height:120%;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;">
 <div style="font-size: 12px; line-height: 14px; color: #555555; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;">
-<p style="font-size: 14px; line-height: 16px; margin: 0;">Company Name: ${job.companyInfo.name}</p>
-<p style="font-size: 14px; line-height: 16px; margin: 0;">Client Name: ${job.clientFirstName} ${job.clientLastName}</p>
-<p style="font-size: 14px; line-height: 16px; margin: 0;">Phone Number: ${job.phoneNumber}</p>
-<p style="font-size: 14px; line-height: 16px; margin: 0;">Start Time: ${job.workMustBeginTime[0]} - ${
-    job.workMustBeginTime[1]
-}</p>
-<p style="font-size: 14px; line-height: 16px; margin: 0;">Moving Size: ${job.movingSize}</p>
+<p style="font-size: 14px; line-height: 16px; margin: 0;">${job.companyInfo.name}</p>
+<p style="font-size: 14px; line-height: 16px; margin: 0;">${job.clientFirstName || ''} ${job.clientLastName || ''}</p>
+<p style="font-size: 14px; line-height: 16px; margin: 0;">${job.phoneNumber || ''}</p>
+<p style="font-size: 14px; line-height: 16px; margin: 0;">${job.workMustBeginTime[0]} - ${job.workMustBeginTime[1]}</p>
+<p style="font-size: 14px; line-height: 16px; margin: 0;">${job.movingSize || ''}</p>
 ${addresses()}
-<p style="font-size: 14px; line-height: 16px; margin: 0;">Hourly Rate: cash ${job.hourlyRatesCash} card ${
-    job.hourlyRatesCard
-}</p>
-<p style="font-size: 14px; line-height: 16px; margin: 0;">Flat Rate: cash ${job.flatRate.cashAmount} card ${
-    job.flatRate.cardAmount
-}</p>
-<p style="font-size: 14px; line-height: 16px; margin: 0;">Minimum Labor Time: ${job.laborTime}</p>
-<p style="font-size: 14px; line-height: 16px; margin: 0;">Paid Deposit: ${job.deposit}</p>
-<p style="font-size: 14px; line-height: 16px; margin: 0;">Double Drive Time: ${job.doubleDrive}</p>
-<p style="font-size: 14px; line-height: 16px; margin: 0;">Gas Fee: ${
+<p style="font-size: 14px; line-height: 16px; margin: 0;">${job.hourlyRatesCash} / ${job.hourlyRatesCard}</p>
+${flatRate()}
+<p style="font-size: 14px; line-height: 16px; margin: 0;">${job.laborTime}hr</p>
+<p style="font-size: 14px; line-height: 16px; margin: 0;">${job.deposit}$</p>
+<p style="font-size: 14px; line-height: 16px; margin: 0;">DDT: ${job.doubleDrive}</p>
+<p style="font-size: 14px; line-height: 16px; margin: 0;">Gas: ${
     job.gasFee > 0 ? job.gasFee : job.gasFee < 0 ? 'Yes' : 'No'
 }</p>
-<p style="font-size: 14px; line-height: 16px; margin: 0;">Small Item Packing: ${
+<p style="font-size: 14px; line-height: 16px; margin: 0;">Small T.P.S: ${
     job.smallItemPacking > 0 ? job.smallItemPacking : job.smallItemPacking < 0 ? 'Yes' : 'No'
 }</p>
-<p style="font-size: 14px; line-height: 16px; margin: 0;">Large Item Fee: ${job.largeItemFee}</p>
-<p style="font-size: 14px; line-height: 16px; margin: 0;">Not Exceed Price: ${job.price}</p>
+${largeItemFee()}
+${nte()}
 ${trucks()}
-<p style="font-size: 14px; line-height: 16px; margin: 0;">-------------</p>
 Employees:
 ${employees()}
-<p style="font-size: 14px; line-height: 16px; margin: 0;">-------------</p>
-<p style="font-size: 14px; line-height: 16px; margin: 0;">Taken By: ${job.takenBy}</p>
-<p style="font-size: 14px; line-height: 16px; margin: 0;">-------------</p>
-<p style="font-size: 14px; line-height: 16px; margin: 0;">Taken Notes: ${job.comment}</p>
+${takenBy()}
+${notes()}
 </div>
 </div>
 <!--[if mso]></td></tr></table><![endif]-->
