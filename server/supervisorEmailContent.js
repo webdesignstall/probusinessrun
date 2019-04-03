@@ -2,37 +2,43 @@ import { Meteor } from 'meteor/meteor';
 
 export default function supervisorEmailContent(job) {
     let addresses = function() {
-        return job.addresses.map(address => {
-            return `
+        return job.addresses
+            .map(address => {
+                return `
             <p style="font-size: 14px; line-height: 16px; margin: 0;">${address}</p>
             `;
-        });
+            })
+            .join('');
     };
 
     let trucks = function() {
-        return job.trucks.map(truck => {
-            return `
+        return job.trucks
+            .map(truck => {
+                return `
             <p style="font-size: 14px; line-height: 16px; margin: 0;">
                 Truck #${truck.truck}
             </p>
             `;
-        });
+            })
+            .join('');
     };
 
     let employees = function() {
-        return job.workers.map(worker => {
-            let workerInfo = Meteor.users.find({ _id: worker.id }).fetch();
+        return job.workers
+            .map(worker => {
+                let workerInfo = Meteor.users.find({ _id: worker.id }).fetch()[0];
 
-            return `
+                return `
             <p style="font-size: 14px; line-height: 16px; margin: 0;">${workerInfo.profile.firstName} ${
     workerInfo.profile.lastName
 }</p>            
             `;
-        });
+            })
+            .join('');
     };
 
     let takenBy = function() {
-        let workerInfo = Meteor.users.find({ _id: job.takenBy }).fetch();
+        let workerInfo = Meteor.users.find({ _id: job.takenBy }).fetch()[0];
 
         return 'Taken By: ' + workerInfo.profile.firstName;
     };
