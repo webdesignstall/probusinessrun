@@ -168,7 +168,7 @@ if (Meteor.isServer) {
             let message = {
                 text: ' ',
                 from: job.companyInfo.name + ' ' + job.companyInfo.email,
-                to: 'mark@moverslegion.com',
+                to: 'movinglosangeles111@gmail.com',
                 subject: 'Confirmation email',
                 attachment: [
                     {
@@ -178,12 +178,12 @@ if (Meteor.isServer) {
                 ],
             };
 
-            server.send(message, function(err) {
+            server.send(message, function(err, message) {
                 if (err) {
                     console.log(err);
                     throw new Meteor.Error('Imposible to send email to supervisor');
                 } else {
-                    console.log('Email succesfully sent to: ' + job.email);
+                    console.log('Email succesfully sent to supervisor');
                 }
             });
         },
