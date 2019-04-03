@@ -530,7 +530,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                     <a
                         onClick={this.sendQuote}
                         className="waves-effect waves-light btn amber"
-                        style={{ color: 'black' }}>
+                        style={{ marginRight: '10px', color: 'black' }}>
                         <i
                             style={{
                                 color: this.state.job.quote ? '#77AB64' : '#D64F2D',

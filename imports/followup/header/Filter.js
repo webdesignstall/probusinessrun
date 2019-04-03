@@ -37,9 +37,7 @@ export default class Filter extends TrackerReact(Component) {
     }
 
     workData(status) {
-        return status === ''
-            ? WorkData.find({ confirmed: false, status: 'inProgress' }).fetch()
-            : WorkData.find({ status }).fetch();
+        return status === '' ? WorkData.find({ status: 'inProgress' }).fetch() : WorkData.find({ status }).fetch();
     }
 
     render() {

@@ -6,6 +6,7 @@ import Discounts from '../common/discountData';
 import PromoCodes from '../common/collections_2';
 import EmailContent from './EmailContent';
 import ConfirmationEmail from './ConfirmationEmail';
+import supervisorEmailContent from './supervisorEmailContent';
 
 Meteor.startup(() => {
     // prepare mailing server
@@ -154,6 +155,37 @@ if (Meteor.isServer) {
                     }
                 },
             );
+        },
+        supervisorEmail: function(job) {
+            let server = email.server.connect({
+                user: job.companyInfo.email,
+                password: 'MCla7724!',
+                timeout: 60000,
+                host: job.companyInfo.smtp,
+                // ssl: true
+            });
+
+            let message = {
+                text: ' ',
+                from: job.companyInfo.name + ' ' + job.companyInfo.email,
+                to: 'mark@moverslegion.com',
+                subject: 'Confirmation email',
+                attachment: [
+                    {
+                        data: supervisorEmailContent(job),
+                        alternative: true,
+                    },
+                ],
+            };
+
+            server.send(message, function(err) {
+                if (err) {
+                    console.log(err);
+                    throw new Meteor.Error('Imposible to send email to supervisor');
+                } else {
+                    console.log('Email succesfully sent to: ' + job.email);
+                }
+            });
         },
         updateDiscount: function(doc, id) {
             Discounts.update(

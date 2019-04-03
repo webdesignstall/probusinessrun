@@ -90,6 +90,13 @@ Template.updateQuote.helpers({
 });
 
 Template.updateQuote.events({
+    'click #send-info-supervisior': function(e) {
+        e.preventDefault();
+
+        let job = WorkData.findOne({ _id: Session.get('is') });
+
+        Meteor.call('supervisorEmail', job);
+    },
     'click #resend-email': function(e) {
         e.preventDefault();
 

@@ -29,8 +29,7 @@ export default class TabletIsList extends React.Component {
                         truck: truckId,
                     },
                 },
-                quote: false,
-                confirmed: true,
+                status: 'won',
             }).fetch();
             this.setState({
                 tabletIsler: isler,

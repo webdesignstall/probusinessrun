@@ -24,9 +24,9 @@ export default class FollowUpMain extends TrackerReact(Component) {
         this.x = Tracker.autorun(() => {
             let progressJobs = this.workDataInProgress();
             let date = new Date().getTime();
-            progressJobs.map((job, index) => {
+            progressJobs.map(job => {
                 let jobDateTime = new Date(job.workDate).getTime();
-                if (jobDateTime <= date) {
+                if (jobDateTime + 86400000 <= date) {
                     job.status = 'lost';
                     let finalNote_ = {
                         reason: 'Time Expired',
