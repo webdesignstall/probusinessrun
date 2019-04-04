@@ -111,7 +111,7 @@ Template.updateQuote.events({
         });
     },
     'click #resend-confirmation': function(e) {
-        e.preventDefaul();
+        e.preventDefault();
         let job = WorkData.findOne({ _id: Session.get('is') });
 
         Meteor.call('confirmationGonder', job, err => {
