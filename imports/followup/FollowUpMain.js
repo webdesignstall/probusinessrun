@@ -6,10 +6,14 @@ import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import WorkData from '../../common/collections_2';
 import { Tracker } from 'meteor/tracker';
 import { Meteor } from 'meteor/meteor';
+import LoadingOverlay from 'react-loading-overlay';
+import RingLoader from 'react-spinners/RingLoader';
 
 export default class FollowUpMain extends TrackerReact(Component) {
     constructor(props) {
         super(props);
+
+        this.state = {};
     }
 
     workData() {
@@ -24,6 +28,9 @@ export default class FollowUpMain extends TrackerReact(Component) {
         this.x = Tracker.autorun(() => {
             let progressJobs = this.workDataInProgress();
             let date = new Date().getTime();
+            this.setState({
+                loading: Session.get('loading'),
+            });
             progressJobs.map(job => {
                 let jobDateTime = new Date(job.workDate).getTime();
                 if (jobDateTime + 86400000 <= date) {
@@ -60,10 +67,16 @@ export default class FollowUpMain extends TrackerReact(Component) {
 
     render() {
         return (
-            <div className="followup-header">
-                <Header />
-                <List />
-            </div>
+            <LoadingOverlay
+                text="Loading..."
+                className="loader"
+                active={this.state.loading}
+                spinner={<RingLoader color={'#6DD4B8'} />}>
+                <div className="followup-header">
+                    <Header />
+                    <List />
+                </div>
+            </LoadingOverlay>
         );
     }
 }
