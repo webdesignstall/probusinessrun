@@ -14,6 +14,7 @@ import { Meteor } from 'meteor/meteor';
 import swal from 'sweetalert';
 import MovingSize from '../../../client/templates/quote/MovingSize';
 import QuoteExpiration from '../../../client/templates/quote/QuoteExpariation';
+import TakenBy from '../../../client/templates/quote/TakenBy';
 
 /*global $ moment*/
 
@@ -486,7 +487,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                         <TempTrucks update={true} updateJob={this.updateJob} />
                     </div>
                     <div className="row">
-                        <div className="col s12 m4 l4">
+                        <div className="col s12 m3 l3">
                             <label className="active" htmlFor="textarea2_followup">
                                 Comment
                             </label>
@@ -497,7 +498,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                                 className="materialize-textarea"
                             />
                         </div>
-                        <div className="col s12 m4 l4">
+                        <div className="col s12 m3 l3">
                             <label className="active">Final Note</label>
                             <FinalNote
                                 finalNote={
@@ -510,9 +511,12 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                                 updateJob={this.updateJob}
                             />
                         </div>
-                        <div className="col s12 m4 l4">
+                        <div className="col s12 m3 l3">
                             <label className="active">Moving Size</label>
                             <MovingSize updateJob={this.updateJob} />
+                        </div>
+                        <div className="col s12 m3 l3">
+                            <TakenBy id={this.state.job.takenBy} update={true} />
                         </div>
                     </div>
                     <div className="row">

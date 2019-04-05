@@ -8,7 +8,7 @@ export default class TakenBy extends TrackerReact(Component) {
 
         this.state = {
             id: this.props.id,
-            usersList: []
+            usersList: [],
         };
 
         this.selectRef = React.createRef();
@@ -17,22 +17,24 @@ export default class TakenBy extends TrackerReact(Component) {
 
     fetchUsers(id) {
         let users = [];
-        users = id ? Meteor.users.find({ '_id': id }).fetch() : Meteor.users.find({ 'profile.rank': 'officeEmployee' }).fetch();
+        users = id
+            ? Meteor.users.find({ _id: id }).fetch()
+            : Meteor.users.find({ 'profile.rank': 'officeEmployee' }).fetch();
         return users;
     }
 
     componentDidMount() {
+        Meteor.subscribe('fullUser');
         this.setState({
-            usersList: this.fetchUsers(this.props.id)
+            usersList: this.fetchUsers(this.props.id),
         });
     }
 
     UNSAFE_componentWillReceiveProps(nextProps) {
         this.setState({
             usersList: this.fetchUsers(nextProps.id),
-            id: nextProps.id
+            id: nextProps.id,
         });
-
     }
 
     changeDefValue() {
@@ -44,17 +46,28 @@ export default class TakenBy extends TrackerReact(Component) {
     }
 
     renderList() {
-        return (this.state.usersList.map((user) => {
-            return (<option key={user._id + 'option'} value={user._id}>{user.profile.firstName} {user.profile.lastName}</option>);
-        }));
+        return this.state.usersList.map(user => {
+            return (
+                <option key={user._id + 'option'} value={user._id}>
+                    {user.profile.firstName} {user.profile.lastName}
+                </option>
+            );
+        });
     }
 
     render() {
         return (
             <React.Fragment>
                 <label htmlFor="taken_by_add">Taken by</label>
-                <select id="takenBy--value" ref={this.selectRef} disabled={this.state.id ? true : false} defaultValue="_" className="browser-default" >
-                    <option id="taken_by_add" value="_" disabled>Taken by</option>
+                <select
+                    id="takenBy--value"
+                    ref={this.selectRef}
+                    disabled={this.state.id ? true : false}
+                    defaultValue="_"
+                    className="browser-default">
+                    <option id="taken_by_add" value="_" disabled>
+                        Taken by
+                    </option>
                     {this.renderList()}
                 </select>
             </React.Fragment>
