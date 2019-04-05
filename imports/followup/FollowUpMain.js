@@ -12,10 +12,6 @@ export default class FollowUpMain extends TrackerReact(Component) {
         super(props);
     }
 
-    workData() {
-        return WorkData.find({ isFollowUp: true }).fetch();
-    }
-
     workDataInProgress() {
         return WorkData.find({ status: 'inProgress' }).fetch();
     }

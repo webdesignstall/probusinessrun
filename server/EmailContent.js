@@ -983,7 +983,12 @@ export default function EmailContent(job) {
                                 <span style="font-size: 14px; line-height: 16px;" >
                                 <strong>
                                       Thank you for requesting your moving quote!
-                                      Your quote includes:</strong></span>
+                                      Your quote includes:</strong></span><br/>
+                                      <span style="font-size: 14px; line-height: 16px;" >
+                                <strong>
+                                      Act now! This Promotional Rate expires ${
+    job.expireHour > 0 ? `in ${job.expireHour} hour(s)` : 'soon'
+}</strong></span>
                                 </p>
                               </div>
                             </div>

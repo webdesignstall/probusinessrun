@@ -452,15 +452,19 @@ class ReserveQuote extends React.Component {
         });
     }
 
+    compare() {
+        console.log(this.state.is.quoteExpirationDate);
+        return this.state.is[0] && this.state.is[0].quoteExpirationDate
+            ? this.state.is[0].quoteExpirationDate.getTime() < new Date()
+            : false;
+    }
+
     render() {
         return (
             <div id="jobInfoMain" className="jobMain">
                 <div className="job-number-enter">
                     <div id="enter-number" className="enter-code">
-                        <h6>
-                            Please call customer service to get custom code in order to confirm your move.{' '}
-                            <span>(844) 404-8404</span>
-                        </h6>
+                        <h6>By entering your job number above you will be able to confirm your moving details</h6>
                         <input
                             id="code"
                             key="jobNumber"
@@ -481,6 +485,17 @@ class ReserveQuote extends React.Component {
                 </div>
                 <div className="clear" />
                 <div id="axtarisin-neticesi">
+                    <div className={this.compare() ? 'coverDark' : 'hide'}>
+                        <div className="enter-code">
+                            <h6>
+                                Your offer has expired. Please contact customer service in order to access to your
+                                confirmation page. <span>(844) 404-8404</span>
+                                <br />
+                                Your job number is:{' '}
+                                <span>{(this.state.is[0] && this.state.is[0].jobNumber) || ''}</span>
+                            </h6>
+                        </div>
+                    </div>
                     {this.axtarisinNeticesi()}
                     <div className="note">
                         <h4>Please check all the boxes for next step</h4>
@@ -536,7 +551,7 @@ Template.reserveQuote.onRendered(function() {
                             let job = Session.get('job');
                             job.quote = false;
                             job.confirmed = true;
-                            job.isFollowUp = false;
+                            job.isFollowUp = true;
                             job.status = 'won';
 
                             Meteor.call('updateWork', job);

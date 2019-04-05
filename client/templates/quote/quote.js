@@ -395,6 +395,8 @@ Template.preQuote.events({
         let status = 'inProgress';
         let emailSent = true;
         let emailSentDate = new Date();
+        let expireHour = Number(document.getElementById('quoteExpirationDate').value);
+        let quoteExpirationDate = new Date(new Date().getTime() + expireHour * 3600000);
 
         function idniSec(soz) {
             var baslama = soz.indexOf(':');
@@ -444,6 +446,8 @@ Template.preQuote.events({
             flatRateCard,
             additionalContacts,
             quoteDate,
+            expireHour,
+            quoteExpirationDate,
         };
 
         let doc = {
@@ -489,6 +493,8 @@ Template.preQuote.events({
             sourceOfLeads,
             status,
             emailSentDate,
+            expireHour,
+            quoteExpirationDate,
         };
 
         Meteor.call('quotaniBazayaElaveEt', doc, function(err) {
@@ -592,7 +598,7 @@ Template.preQuote.events({
         let quoteDate = new Date();
         let quote = false;
         let confirmed = true;
-        let isFollowUp = false;
+        let isFollowUp = true;
         let sourceOfLeads = document.getElementById('source_of_leads_add').value;
         let status = 'won';
         let emailSent = true;

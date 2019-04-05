@@ -13,6 +13,7 @@ import FinalNote from './FinalNote';
 import { Meteor } from 'meteor/meteor';
 import swal from 'sweetalert';
 import MovingSize from '../../../client/templates/quote/MovingSize';
+import QuoteExpiration from '../../../client/templates/quote/QuoteExpariation';
 
 /*global $ moment*/
 
@@ -512,6 +513,11 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                         <div className="col s12 m4 l4">
                             <label className="active">Moving Size</label>
                             <MovingSize updateJob={this.updateJob} />
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col s12 m3 l3">
+                            <QuoteExpiration />
                         </div>
                     </div>
                     <div className="row">

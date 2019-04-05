@@ -17,6 +17,7 @@ import Addresses from './Addresses';
 import TakenBy from './TakenBy';
 import ArrivalWindow from './ArrivalWindow';
 import AdditionalContact from './AdditionalContact';
+import QuoteExpiration from './QuoteExpariation';
 
 /*global $, moment*/
 
@@ -39,6 +40,7 @@ export default class QuoteTam extends React.Component {
     }
 
     setWorkId(id, additionalContacts) {
+        console.log('Bura render oldu');
         document.querySelector('#quoteTam').classList.add('hide');
         Session.set('is', id);
         Session.set('additionalContacts', additionalContacts);
@@ -52,6 +54,7 @@ export default class QuoteTam extends React.Component {
         ReactDOM.render(<RenderEmployees />, document.getElementById('iscilerinSiyahisiRender'));
         ReactDOM.render(<TempTruck update={true} />, document.querySelector('#tempTruckUpdate'));
         ReactDOM.render(<Addresses />, document.querySelector('#addressesIdUpdate'));
+        ReactDOM.render(<QuoteExpiration />, document.querySelector('#quoteExpireDateUpdate'));
         ReactDOM.render(
             <AdditionalContact contacts={x.additionalContacts} />,
             document.querySelector('#additional-contact-update'),

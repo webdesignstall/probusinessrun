@@ -669,6 +669,14 @@ Schemas.workSchema = new SimpleSchema(
             type: Boolean,
             optional: true,
         },
+        quoteExpirationDate: {
+            type: Date,
+            optional: true,
+        },
+        expireHour: {
+            type: Number,
+            optional: true,
+        },
     },
     { tracker: Tracker },
 );

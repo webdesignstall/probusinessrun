@@ -102,7 +102,7 @@ if (Meteor.isServer) {
                 $set: {
                     clientFirstName: job.clientFirstName,
                     quote: false,
-                    isFollowUp: false,
+                    isFollowUp: true,
                     confirmed: true,
                 },
             });
