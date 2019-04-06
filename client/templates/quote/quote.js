@@ -359,7 +359,7 @@ Template.preQuote.events({
         }
         let doubleDrive = document.getElementById('double_drive').value;
         let gasFee = document.getElementById('gas_fee').value;
-        let smallPackingItems = document.getElementById('small_item_pack').value;
+        let smallItemPacking = document.getElementById('small_item_pack').value;
         let largeItemFee = document.getElementById('large_item_fee').value;
         let jobNumber = document.getElementById('quote-job-number').value;
         let movingSize = document.getElementById('moving_size_2').value;
@@ -431,7 +431,7 @@ Template.preQuote.events({
             trucks,
             doubleDrive,
             gasFee,
-            smallPackingItems,
+            smallPackingItems: smallItemPacking,
             largeItemFee,
             jobNumber,
             movingSize,
@@ -466,7 +466,7 @@ Template.preQuote.events({
             trucks,
             doubleDrive,
             gasFee,
-            smallPackingItems,
+            smallItemPacking,
             largeItemFee,
             jobNumber,
             movingSize,
@@ -498,6 +498,7 @@ Template.preQuote.events({
         };
 
         Meteor.call('quotaniBazayaElaveEt', doc, function(err) {
+            console.log('TCL: doc', doc);
             if (err) {
                 swal({
                     title: 'Impossible add quote to database',
@@ -637,7 +638,7 @@ Template.preQuote.events({
             trucks,
             doubleDrive,
             gasFee,
-            smallPackingItems,
+            smallItemPacking: smallPackingItems,
             largeItemFee,
             jobNumber,
             movingSize,
@@ -794,7 +795,7 @@ Template.preQuote.events({
             trucks,
             doubleDrive,
             gasFee,
-            smallPackingItems,
+            smallItemPacking: smallPackingItems,
             largeItemFee,
             jobNumber,
             movingSize,

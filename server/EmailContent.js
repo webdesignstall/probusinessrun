@@ -78,6 +78,34 @@ export default function EmailContent(job) {
     let rateDisplay =
         job.hourlyRatesCash > 0 && job.hourlyRatesCard
             ? `
+            ${
+    job.flatRate
+        ? `
+            <div
+            style="font-size:16px;text-align:center;font-family:'Roboto', Tahoma, Verdana, Segoe, sans-serif"
+          >
+            <table
+              style="width: 100%; text-align: left; font-size: 13px"
+            >
+              <tr
+                style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse;"
+              >
+                <td
+                  style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px 0 3px 10px; width: 50%;"
+                >
+                Hourly Rate
+                </td>
+                <td
+                  style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px 0 3px 10px; width: 50%;"
+                >
+                After ${job.minimumLaborTime} hours
+                </td>
+              </tr>
+            </table>
+          </div>
+          `
+        : ''
+}
             <div
             style="font-size:16px;text-align:center;font-family:'Roboto', Tahoma, Verdana, Segoe, sans-serif"
           >
@@ -128,6 +156,28 @@ export default function EmailContent(job) {
     let flatRate = job.flatRate
         ? `
         <div
+            style="font-size:16px;text-align:center;font-family:'Roboto', Tahoma, Verdana, Segoe, sans-serif"
+          >
+            <table
+              style="width: 100%; text-align: left; font-size: 13px"
+            >
+              <tr
+                style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse;"
+              >
+                <td
+                  style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px 0 3px 10px; width: 50%;"
+                >
+                Flat Rate:
+                </td>
+                <td
+                  style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px 0 3px 10px; width: 50%;"
+                >
+                up to ${job.minimumLaborTime} hours
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div
             style="font-size:16px;text-align:center;font-family:'Roboto', Tahoma, Verdana, Segoe, sans-serif"
           >
             <table
@@ -982,13 +1032,13 @@ export default function EmailContent(job) {
                                 </span><br />
                                 <span style="font-size: 14px; line-height: 16px;" >
                                 <strong>
-                                      Thank you for requesting your moving quote!
-                                      Your quote includes:</strong></span><br/>
-                                      <span style="font-size: 14px; line-height: 16px;" >
-                                <strong>
                                       Act now! This Promotional Rate expires ${
     job.expireHour > 0 ? `in ${job.expireHour} hour(s)` : 'soon'
-}</strong></span>
+}</strong></span></br>
+                                <span style="font-size: 14px; line-height: 16px;" >
+                                <strong>
+                                      Thank you for requesting your moving quote!
+                                      Your quote includes:</strong></span><br/>
                                 </p>
                               </div>
                             </div>
@@ -1318,8 +1368,8 @@ export default function EmailContent(job) {
                             ${numberOfTrucks} 
                             ${trucksList} 
                             ${laborTime}
-                            ${rateDisplay} 
                             ${flatRate}
+                            ${rateDisplay} 
                             <!--[if (!mso)&(!IE)]><!-->
                           </div>
                           <!--<![endif]-->
