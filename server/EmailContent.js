@@ -75,12 +75,9 @@ export default function EmailContent(job) {
         })
         .join('');
 
-    let rateDisplay =
-        job.hourlyRatesCash > 0 && job.hourlyRatesCard
+    function rateInFlatDisplay() {
+        return job.flatRate
             ? `
-            ${
-    job.flatRate
-        ? `
             <div
             style="font-size:16px;text-align:center;font-family:'Roboto', Tahoma, Verdana, Segoe, sans-serif"
           >
@@ -93,19 +90,23 @@ export default function EmailContent(job) {
                 <td
                   style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px 0 3px 10px; width: 50%;"
                 >
-                Hourly Rate
+                Hourly Rate After ${job.minimumLaborTime} hours
                 </td>
                 <td
                   style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px 0 3px 10px; width: 50%;"
                 >
-                After ${job.minimumLaborTime} hours
+                cash $${job.hourlyRatesCash}/hr, card $${job.hourlyRatesCard}/hr
                 </td>
               </tr>
             </table>
           </div>
           `
-        : ''
-}
+            : '';
+    }
+
+    let rateDisplay =
+        job.hourlyRatesCash > 0 && job.hourlyRatesCard > 0 && !job.flatRate
+            ? `
             <div
             style="font-size:16px;text-align:center;font-family:'Roboto', Tahoma, Verdana, Segoe, sans-serif"
           >
@@ -167,56 +168,12 @@ export default function EmailContent(job) {
                 <td
                   style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px 0 3px 10px; width: 50%;"
                 >
-                Flat Rate:
+                Flat Rate Up to ${job.minimumLaborTime} hours
                 </td>
                 <td
                   style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px 0 3px 10px; width: 50%;"
                 >
-                up to ${job.minimumLaborTime} hours
-                </td>
-              </tr>
-            </table>
-          </div>
-          <div
-            style="font-size:16px;text-align:center;font-family:'Roboto', Tahoma, Verdana, Segoe, sans-serif"
-          >
-            <table
-              style="width: 100%; text-align: left; font-size: 13px"
-            >
-              <tr
-                style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse;"
-              >
-                <td
-                  style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px 0 3px 10px; width: 50%;"
-                >
-                Flat Rate Cash:
-                </td>
-                <td
-                  style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px 0 3px 10px; width: 50%;"
-                >
-                $${job.flatRateCash}
-                </td>
-              </tr>
-            </table>
-          </div>
-          <div
-            style="font-size:16px;text-align:center;font-family:'Roboto', Tahoma, Verdana, Segoe, sans-serif"
-          >
-            <table
-              style="width: 100%; text-align: left; font-size: 13px"
-            >
-              <tr
-                style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse;"
-              >
-                <td
-                  style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px 0 3px 10px; width: 50%;"
-                >
-                Flat Rate Card:
-                </td>
-                <td
-                  style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px 0 3px 10px; width: 50%;"
-                >
-                $${job.flatRateCard}
+                cash $${job.flatRateCash}, card $${job.flatRateCard}
                 </td>
               </tr>
             </table>
@@ -1369,6 +1326,7 @@ export default function EmailContent(job) {
                             ${trucksList} 
                             ${laborTime}
                             ${flatRate}
+                            ${rateInFlatDisplay()}
                             ${rateDisplay} 
                             <!--[if (!mso)&(!IE)]><!-->
                           </div>

@@ -7,7 +7,6 @@ import { Tracker } from 'meteor/tracker';
 import { Session } from 'meteor/session';
 
 import ConfirmationDisplay from './ConfirmationDisplay';
-import { Fragment } from 'react';
 
 // load companies info json
 const baza = require('../../../imports/helpers/companyInfos.json');
@@ -281,22 +280,26 @@ class ReserveQuote extends React.Component {
                             {/* cash rate flat */}
                             {job.flatRate && job.flatRate[0].isTrue ? (
                                 <tr>
-                                    <td>Cash Discount Flat Rate:</td>
-                                    <td>${job.flatRate[0].cashAmount}</td>
+                                    <td>Flat Rate Up to {job.laborTime} hours</td>
+                                    <td>
+                                        cash ${job.flatRate[0].cashAmount}, card ${job.flatRate[0].cardAmount}
+                                    </td>
                                 </tr>
                             ) : (
                                 ''
                             )}
                             {job.flatRate && job.flatRate[0].isTrue ? (
                                 <tr>
-                                    <td>Card Flat Rate:</td>
-                                    <td>${job.flatRate[0].cardAmount}</td>
+                                    <td>Hourly Rate After {job.laborTime} hours</td>
+                                    <td>
+                                        cash ${job.hourlyRatesCash}/hr, card ${job.hourlyRatesCard}/hr
+                                    </td>
                                 </tr>
                             ) : (
                                 ''
                             )}
                             {/* hourly rates cash*/}
-                            {job.hourlyRatesCash && job.hourlyRatesCash > 0 ? (
+                            {job.hourlyRatesCash && job.hourlyRatesCash > 0 && !job.flatRate[0].isTrue ? (
                                 <tr>
                                     <td>Cash Discount Rate p/hour:</td>
                                     <td>${job.hourlyRatesCash}</td>
@@ -305,7 +308,7 @@ class ReserveQuote extends React.Component {
                                 ''
                             )}
                             {/* hourly rates card*/}
-                            {job.hourlyRatesCard && job.hourlyRatesCard > 0 ? (
+                            {job.hourlyRatesCard && job.hourlyRatesCard > 0 && !job.flatRate[0].isTrue ? (
                                 <tr>
                                     <td>Card Regular Rate p/hour:</td>
                                     <td>${job.hourlyRatesCard}</td>
@@ -431,7 +434,7 @@ class ReserveQuote extends React.Component {
                         </p>
                         <p>
                             <input className="secilib" onChange={() => this.checked()} type="checkbox" /> Yes! I have
-                            read the information above and wish to pay my Moving Deposit to book this move.
+                            read the information below and wish to pay my Moving Deposit to book this move.
                             <br />I understand that this Deposit is non-refundable and non-transferrable if I reschedule
                             or cancel this move.
                         </p>
