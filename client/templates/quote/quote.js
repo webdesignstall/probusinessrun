@@ -359,7 +359,7 @@ Template.preQuote.events({
         }
         let doubleDrive = document.getElementById('double_drive').value;
         let gasFee = document.getElementById('gas_fee').value;
-        let smallPackingItems = document.getElementById('small_item_pack').value;
+        let smallItemPacking = document.getElementById('small_item_pack').value;
         let largeItemFee = document.getElementById('large_item_fee').value;
         let jobNumber = document.getElementById('quote-job-number').value;
         let movingSize = document.getElementById('moving_size_2').value;
@@ -395,6 +395,8 @@ Template.preQuote.events({
         let status = 'inProgress';
         let emailSent = true;
         let emailSentDate = new Date();
+        let expireHour = Number(document.getElementById('quoteExpirationDate').value);
+        let quoteExpirationDate = new Date(new Date().getTime() + expireHour * 3600000);
 
         function idniSec(soz) {
             var baslama = soz.indexOf(':');
@@ -429,7 +431,7 @@ Template.preQuote.events({
             trucks,
             doubleDrive,
             gasFee,
-            smallPackingItems,
+            smallPackingItems: smallItemPacking,
             largeItemFee,
             jobNumber,
             movingSize,
@@ -444,6 +446,8 @@ Template.preQuote.events({
             flatRateCard,
             additionalContacts,
             quoteDate,
+            expireHour,
+            quoteExpirationDate,
         };
 
         let doc = {
@@ -462,7 +466,7 @@ Template.preQuote.events({
             trucks,
             doubleDrive,
             gasFee,
-            smallPackingItems,
+            smallItemPacking,
             largeItemFee,
             jobNumber,
             movingSize,
@@ -489,9 +493,12 @@ Template.preQuote.events({
             sourceOfLeads,
             status,
             emailSentDate,
+            expireHour,
+            quoteExpirationDate,
         };
 
         Meteor.call('quotaniBazayaElaveEt', doc, function(err) {
+            console.log('TCL: doc', doc);
             if (err) {
                 swal({
                     title: 'Impossible add quote to database',
@@ -592,7 +599,7 @@ Template.preQuote.events({
         let quoteDate = new Date();
         let quote = false;
         let confirmed = true;
-        let isFollowUp = false;
+        let isFollowUp = true;
         let sourceOfLeads = document.getElementById('source_of_leads_add').value;
         let status = 'won';
         let emailSent = true;
@@ -631,7 +638,7 @@ Template.preQuote.events({
             trucks,
             doubleDrive,
             gasFee,
-            smallPackingItems,
+            smallItemPacking: smallPackingItems,
             largeItemFee,
             jobNumber,
             movingSize,
@@ -788,7 +795,7 @@ Template.preQuote.events({
             trucks,
             doubleDrive,
             gasFee,
-            smallPackingItems,
+            smallItemPacking: smallPackingItems,
             largeItemFee,
             jobNumber,
             movingSize,

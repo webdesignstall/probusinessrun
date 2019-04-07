@@ -20,6 +20,7 @@ import NumberOfUsers from '../../client/templates/quote/NumberOfUsers';
 import TakenBy from '../../client/templates/quote/TakenBy';
 import DailyStats from './DailyStats';
 import AdditionalContact from '../../client/templates/quote/AdditionalContact';
+import QuoteExpiration from '../../client/templates/quote/QuoteExpariation';
 
 /*global moment $*/
 
@@ -117,11 +118,17 @@ Template.preQuote.onDestroyed(function() {
 Template.kalendar.onDestroyed(() => {
     ReactDOM.unmountComponentAtNode(document.getElementById('truck-list-update'));
     ReactDOM.unmountComponentAtNode(document.getElementById('update_time_window'));
+    ReactDOM.unmountComponentAtNode(document.getElementById('iscilerinSiyahisiRender'));
+    ReactDOM.unmountComponentAtNode(document.getElementById('number-of-movers'));
+    ReactDOM.unmountComponentAtNode(document.getElementById('update_time_window'));
     ReactDOM.unmountComponentAtNode(document.getElementById('arrival-time'));
     ReactDOM.unmountComponentAtNode(document.getElementById('moving-size'));
-    ReactDOM.unmountComponentAtNode(document.getElementById('iscilerinSiyahisiRender'));
     ReactDOM.unmountComponentAtNode(document.getElementById('moving-company'));
     ReactDOM.unmountComponentAtNode(document.getElementById('tempTruck'));
+    ReactDOM.unmountComponentAtNode(document.getElementById('addressesId'));
+    ReactDOM.unmountComponentAtNode(document.getElementById('takenBy'));
+    ReactDOM.unmountComponentAtNode(document.getElementById('additional-contact-update'));
+    ReactDOM.unmountComponentAtNode(document.getElementById('quote-date-expiration-add'));
 });
 
 Template.kalendar.helpers({
@@ -460,6 +467,7 @@ Template.kalendar.events({
         ReactDOM.render(<TakenBy />, document.getElementById('takenBy'));
         ReactDOM.render(<NumberOfUsers />, document.getElementById('number-of-movers'));
         ReactDOM.render(<AdditionalContact />, document.getElementById('additional-contact'));
+        ReactDOM.render(<QuoteExpiration />, document.getElementById('quote-date-expiration-add'));
         window.addresses = ReactDOM.render(<Addresses />, document.getElementById('addressesId'));
         Session.set('is', '');
 
@@ -482,6 +490,7 @@ Template.kalendar.events({
         ReactDOM.render(<TakenBy />, document.getElementById('takenBy'));
         ReactDOM.render(<NumberOfUsers />, document.getElementById('number-of-movers'));
         ReactDOM.render(<AdditionalContact />, document.getElementById('additional-contact'));
+        ReactDOM.render(<QuoteExpiration />, document.getElementById('quote-date-expiration-add'));
         window.addresses = ReactDOM.render(<Addresses />, document.getElementById('addressesId'));
         Session.set('is', '');
 
@@ -508,6 +517,7 @@ Template.kalendar.events({
         ReactDOM.unmountComponentAtNode(document.getElementById('addressesId'));
         ReactDOM.unmountComponentAtNode(document.getElementById('takenBy'));
         ReactDOM.unmountComponentAtNode(document.getElementById('additional-contact-update'));
+        ReactDOM.unmountComponentAtNode(document.getElementById('quote-date-expiration-add'));
         Session.set('secilmisIsciler', '');
         Session.set('is', '');
     },
@@ -527,6 +537,7 @@ Template.kalendar.events({
         ReactDOM.render(<Addresses />, document.getElementById('addressesIdUpdate'));
         ReactDOM.render(<NumberOfUsers />, document.getElementById('number-of-movers2'));
         ReactDOM.render(<TempTrucks update={true} />, document.getElementById('tempTruckUpdate'));
+        ReactDOM.render(<QuoteExpiration />, document.getElementById('quoteExpireDateUpdate'));
         ReactDOM.render(
             <AdditionalContact contacts={job ? job.additionalContacts : []} />,
             document.getElementById('additional-contact-update'),

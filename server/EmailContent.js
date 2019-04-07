@@ -75,8 +75,37 @@ export default function EmailContent(job) {
         })
         .join('');
 
+    function rateInFlatDisplay() {
+        return job.flatRate
+            ? `
+            <div
+            style="font-size:16px;text-align:center;font-family:'Roboto', Tahoma, Verdana, Segoe, sans-serif"
+          >
+            <table
+              style="width: 100%; text-align: left; font-size: 13px"
+            >
+              <tr
+                style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse;"
+              >
+                <td
+                  style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px 0 3px 10px; width: 50%;"
+                >
+                Hourly Rate After ${job.minimumLaborTime} hours
+                </td>
+                <td
+                  style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px 0 3px 10px; width: 50%;"
+                >
+                cash $${job.hourlyRatesCash}/hr, card $${job.hourlyRatesCard}/hr
+                </td>
+              </tr>
+            </table>
+          </div>
+          `
+            : '';
+    }
+
     let rateDisplay =
-        job.hourlyRatesCash > 0 && job.hourlyRatesCard
+        job.hourlyRatesCash > 0 && job.hourlyRatesCard > 0 && !job.flatRate
             ? `
             <div
             style="font-size:16px;text-align:center;font-family:'Roboto', Tahoma, Verdana, Segoe, sans-serif"
@@ -139,34 +168,12 @@ export default function EmailContent(job) {
                 <td
                   style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px 0 3px 10px; width: 50%;"
                 >
-                Flat Rate Cash:
+                Flat Rate Up to ${job.minimumLaborTime} hours
                 </td>
                 <td
                   style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px 0 3px 10px; width: 50%;"
                 >
-                $${job.flatRateCash}
-                </td>
-              </tr>
-            </table>
-          </div>
-          <div
-            style="font-size:16px;text-align:center;font-family:'Roboto', Tahoma, Verdana, Segoe, sans-serif"
-          >
-            <table
-              style="width: 100%; text-align: left; font-size: 13px"
-            >
-              <tr
-                style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse;"
-              >
-                <td
-                  style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px 0 3px 10px; width: 50%;"
-                >
-                Flat Rate Card:
-                </td>
-                <td
-                  style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px 0 3px 10px; width: 50%;"
-                >
-                $${job.flatRateCard}
+                cash $${job.flatRateCash}, card $${job.flatRateCard}
                 </td>
               </tr>
             </table>
@@ -982,8 +989,13 @@ export default function EmailContent(job) {
                                 </span><br />
                                 <span style="font-size: 14px; line-height: 16px;" >
                                 <strong>
+                                      Act now! This Promotional Rate expires ${
+    job.expireHour > 0 ? `in ${job.expireHour} hour(s)` : 'soon'
+}</strong></span></br>
+                                <span style="font-size: 14px; line-height: 16px;" >
+                                <strong>
                                       Thank you for requesting your moving quote!
-                                      Your quote includes:</strong></span>
+                                      Your quote includes:</strong></span><br/>
                                 </p>
                               </div>
                             </div>
@@ -1313,8 +1325,9 @@ export default function EmailContent(job) {
                             ${numberOfTrucks} 
                             ${trucksList} 
                             ${laborTime}
-                            ${rateDisplay} 
                             ${flatRate}
+                            ${rateInFlatDisplay()}
+                            ${rateDisplay} 
                             <!--[if (!mso)&(!IE)]><!-->
                           </div>
                           <!--<![endif]-->

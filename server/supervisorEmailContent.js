@@ -38,7 +38,7 @@ export default function supervisorEmailContent(job) {
     };
 
     let takenBy = function() {
-        let workerInfo = Meteor.users.find({ _id: job.takenBy }).fetch()[0];
+        let workerInfo = job.takenBy && Meteor.users.find({ _id: job.takenBy }).fetch()[0];
 
         return 'Taken By: ' + workerInfo.profile.firstName;
     };

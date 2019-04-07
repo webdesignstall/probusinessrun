@@ -555,7 +555,7 @@ Schemas.workSchema = new SimpleSchema(
         },
         takenBy: {
             type: String,
-            optional: false,
+            optional: true,
         },
         drivingClicked: {
             type: Boolean,
@@ -667,6 +667,14 @@ Schemas.workSchema = new SimpleSchema(
         },
         isPayed: {
             type: Boolean,
+            optional: true,
+        },
+        quoteExpirationDate: {
+            type: Date,
+            optional: true,
+        },
+        expireHour: {
+            type: Number,
             optional: true,
         },
     },

@@ -205,19 +205,21 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
                     style={{
                         marginRight: '8px',
                         backgroundColor: '#3D587E',
-                        borderRadius: '5px',
-                        color: 'white',
-                        padding: '5px 10px',
+                        borderRadius: '10px',
+                        color: '#D1E0FB',
+                        padding: '1px 10px',
+                        fontWeight: 'bold',
                     }}>
                     {this.state.job ? this.state.job.workDate : ''}
                 </span>
                 <span
                     style={{
                         marginRight: '8px',
-                        borderRadius: '5px',
+                        borderRadius: '10px',
                         backgroundColor: '#67AD5B',
-                        color: 'white',
-                        padding: '5px 10px',
+                        color: '#E6FDDF',
+                        padding: '1px 10px',
+                        fontWeight: 'bold',
                     }}>
                     {this.state.job ? this.state.job.jobNumber : ''}
                 </span>
@@ -254,7 +256,7 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
                         borderRadius: '10px',
                         backgroundColor: this.state.job.emailSent ? '#CBEEDD' : '#EEB5BC',
                         color: this.state.job.emailSent ? '#2AC852' : '#D21324',
-                        padding: '0px 10px',
+                        padding: '1px 10px',
                         fontWeight: 'bold',
                     }}>
                     QUOTE{' '}

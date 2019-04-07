@@ -39,7 +39,7 @@
                 <!-- Moving Date -->
                 <div class="input-field valideyn col s12 m6 l3">
                     <i class="material-icons isare">date_range</i>
-                    <input id="quote-date-picker" class="xx" type="text" placeholder="" />
+                    <input id="quote-date-picker" class="xx" autocomplete="off" type="text" placeholder="" />
                     <label class="active" for="quote-date-picker">Moving Date</label>
                 </div>
                 <!-- Moving time window -->
@@ -217,60 +217,67 @@
                         </div>
                     </div>
                 </div>
-                <!-- Double drive -->
-                <div class="input-field col s12 m3 l3 azMargin">
-                    <select class="browser-default" title="Double drive" name="double_drive" id="double_drive">
-                        <option value="false" disabled>Select double drive</option>
-                        <option value="waived" selected>No</option>
-                        <option value="yes">Yes</option>
-                        <option value="notSure">Not Sure</option>
-                    </select>
-                    <label
-                        class="active"
-                        style="
+                <div class="row">
+                    <!-- Double drive -->
+                    <div class="input-field col s12 m3 l3 azMargin">
+                        <select class="browser-default" title="Double drive" name="double_drive" id="double_drive">
+                            <option value="false" disabled>Select double drive</option>
+                            <option value="waived" selected>No</option>
+                            <option value="yes">Yes</option>
+                            <option value="notSure">Not Sure</option>
+                        </select>
+                        <label
+                            class="active"
+                            style="
                         background-color: rgb(237, 240, 241); padding: 0px 5px; margin: -28px 15px; top: -15px; left: 0; position: absolute;
                         "
-                        for="double_drive"
-                        >Double Drive Time</label
-                    >
-                </div>
-                <!-- Number of movers -->
-                <div id="number-of-movers" class="input-field valideyn col s12 m3 l3 azMargin">
-                    <!-- <i class="material-icons isare">person</i> -->
-                </div>
-                <!-- Select moving size -->
-                <div id="moving-size-main" class="input-field col s12 m6 l6 azMargin">
-                    <label
-                        class="active"
-                        style="
+                            for="double_drive"
+                            >Double Drive Time</label
+                        >
+                    </div>
+                    <!-- Number of movers -->
+                    <div id="number-of-movers" class="input-field valideyn col s12 m3 l3 azMargin">
+                        <!-- <i class="material-icons isare">person</i> -->
+                    </div>
+                    <!-- Select moving size -->
+                    <div id="moving-size-main" class="input-field col s12 m6 l6 azMargin">
+                        <label
+                            class="active"
+                            style="
                         background-color: rgb(237, 240, 241); padding: 0px 5px; margin: -28px 15px; top: -15px; left: 0; position: absolute;
                         "
-                        for="moving_size_2"
-                        >Moving Size</label
-                    >
-                    <select class="browser-default" title="moving_size" name="moving_size" id="moving_size_2">
-                        <option value="select_moving_size" selected disabled>Select Moving Size</option>
-                        <option value="items">Items</option>
-                        <option value="studio">Studio</option>
-                        <option value="1_bedroom">1 Bedroom</option>
-                        <option value="2_bedroom_small">2 Bedroom (small size, few items)</option>
-                        <option value="2_bedroom_avg">2 Bedroom (avg. size, avg. items)</option>
-                        <option value="2_bedroom_large">2 Bedroom (large size, many items)</option>
-                        <option value="3_bedroom_avg">3 Bedroom (avg. size, avg. items)</option>
-                        <option value="3_bedroom_large">3 Bedroom (large size, many items)</option>
-                        <option value="4_bedrooom_avg">4 Bedroom (avg. size, avg. items)</option>
-                        <option value="4_bedroom_large">4 Bedroom (large size, many items)</option>
-                        <option value="commercial_avg">Commercial (avg. size, avg. items)</option>
-                        <option value="commercial_large">Commercial (large size, many items)</option>
-                    </select>
+                            for="moving_size_2"
+                            >Moving Size</label
+                        >
+                        <select class="browser-default" title="moving_size" name="moving_size" id="moving_size_2">
+                            <option value="select_moving_size" selected disabled>Select Moving Size</option>
+                            <option value="items">Items</option>
+                            <option value="studio">Studio</option>
+                            <option value="1_bedroom">1 Bedroom</option>
+                            <option value="2_bedroom_small">2 Bedroom (small size, few items)</option>
+                            <option value="2_bedroom_avg">2 Bedroom (avg. size, avg. items)</option>
+                            <option value="2_bedroom_large">2 Bedroom (large size, many items)</option>
+                            <option value="3_bedroom_avg">3 Bedroom (avg. size, avg. items)</option>
+                            <option value="3_bedroom_large">3 Bedroom (large size, many items)</option>
+                            <option value="4_bedrooom_avg">4 Bedroom (avg. size, avg. items)</option>
+                            <option value="4_bedroom_large">4 Bedroom (large size, many items)</option>
+                            <option value="commercial_avg">Commercial (avg. size, avg. items)</option>
+                            <option value="commercial_large">Commercial (large size, many items)</option>
+                        </select>
+                    </div>
                 </div>
-                <!-- Moving company -->
-                <div id="moving-company" class="input-field valideyn col s12 m6 l6"></div>
-                <!-- Job ID -->
-                <div class="input-field valideyn col s12 m3 l3">
-                    <i class="material-icons isare">local_offer</i>
-                    <input id="quote-job-number" class="xx" type="text" placeholder="Job ID" disabled />
-                    <label class="active" for="quote-job-number">Job Number</label>
+                <div class="clear" style="margin-top: 5px;"></div>
+                <div class="row">
+                    <!-- Moving company -->
+                    <div id="moving-company" class="input-field valideyn col s12 m6 l6"></div>
+                    <!-- Job ID -->
+                    <div class="input-field valideyn col s12 m2 l2">
+                        <i class="material-icons isare">local_offer</i>
+                        <input id="quote-job-number" class="xx" type="text" placeholder="Job ID" disabled />
+                        <label class="active" for="quote-job-number">Job Number</label>
+                    </div>
+                    <!-- Quote date expiration -->
+                    <div class="input-field valideyn col s12 m4 l4" id="quote-date-expiration-add"></div>
                 </div>
                 <div class="clear"></div>
                 <!-- TempTruck -->
