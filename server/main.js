@@ -119,7 +119,7 @@ if (Meteor.isServer) {
                 text: ' ',
                 from: job.companyInfo.name + ' ' + job.companyInfo.email,
                 to: job.email,
-                subject: 'Confirmation email',
+                subject: `Moving Confirmation for ${job.clientFirstName} ${job.clientLastName}`,
                 attachment: [
                     {
                         data: ConfirmationEmail(job),
