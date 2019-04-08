@@ -174,13 +174,9 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
         if (this.state.job._id === session && session !== '') {
             Session.set('ExtendedJobInformation', '');
             Session.set('is', '');
-            // Session.set('searchResult', Session.get('searchResult_'));
             this.setState({ show: '' });
         } else {
             Session.set('is', this.state.job._id);
-            Session.set('searchResult_', Session.get('searchResult'));
-            // Session.get('searchResult').length > 1 ? Session.set('searchResult_', Session.get('searchResult')) : null;
-            // Session.set('searchResult', [this.state.job]);
             Session.set('ExtendedJobInformation', this.state.job._id);
             this.setState({ show: this.state.job._id });
         }

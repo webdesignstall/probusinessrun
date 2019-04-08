@@ -13,7 +13,9 @@ export default class FollowUpMain extends TrackerReact(Component) {
     constructor(props) {
         super(props);
 
-        this.state = {};
+        this.state = {
+            loading: false,
+        };
     }
 
     workDataInProgress() {
@@ -25,35 +27,23 @@ export default class FollowUpMain extends TrackerReact(Component) {
             let progressJobs = this.workDataInProgress();
             let date = new Date().getTime();
             this.setState({
-                loading: Session.get('loading'),
+                loading: true,
             });
-            // progressJobs.map(job => {
-            //     let jobDateTime = new Date(job.workDate).getTime();
-            //     if (jobDateTime + 86400000 <= date) {
-            //         job.status = 'lost';
-            //         let finalNote_ = {
-            //             reason: 'Time Expired',
-            //             other: false,
-            //         };
-            //         job.finalNote = finalNote_;
-            //         Meteor.call('updateWork', job);
-            //     }
-            // });
-
-            // let jobs = this.workDataInProgress().sort((a, b) => {
-            //     return new Date(b.quoteDate).getTime() - new Date(a.quoteDate).getTime();
-            // });
-
-            // jobs = jobs.sort((a, b) => {
-            //     return new Date(a.workDate).getTime() - new Date(b.workDate).getTime();
-            // });
-
-            // Session.get('isSearch')
-            //     ? null
-            //     : (Session.set('searchResult', jobs),
-            //     this.setState({
-            //         jobs,
-            //     }));
+            progressJobs.map(job => {
+                let jobDateTime = new Date(job.workDate).getTime();
+                if (jobDateTime + 86400000 <= date) {
+                    job.status = 'lost';
+                    let finalNote_ = {
+                        reason: 'Time Expired',
+                        other: false,
+                    };
+                    job.finalNote = finalNote_;
+                    Meteor.call('updateWork', job);
+                }
+            });
+            this.setState({
+                loading: false,
+            });
         });
     }
 

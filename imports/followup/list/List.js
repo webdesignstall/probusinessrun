@@ -4,9 +4,9 @@ import { Tracker } from 'meteor/tracker';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import { Session } from 'meteor/session';
 import ListInnerDisplay from './ListInnerDisplay';
-import FlipMove from 'react-flip-move';
 import LoadingOverlay from 'react-loading-overlay';
 import RingLoader from 'react-spinners/RingLoader';
+import { Meteor } from 'meteor/meteor';
 
 export default class List extends TrackerReact(Component) {
     constructor(props) {
@@ -15,38 +15,100 @@ export default class List extends TrackerReact(Component) {
         this.state = {
             jobs: [],
             loading: false,
+            searchWords: '',
         };
 
         this.renderList = this.renderList.bind(this);
         this.startStopLoading = this.startStopLoading.bind(this);
     }
 
-    workData() {
-        return WorkData.find({ status: 'inProgress' }).fetch();
+    workData(status) {
+        return WorkData.find(status !== '' && typeof status === 'string' ? { status: status } : {}).fetch();
     }
 
     componentDidMount() {
         this.x = Tracker.autorun(() => {
+            Meteor.subscribe('workSchema');
+
             this.setState({
                 loading: true,
             });
-            const jobs = this.workData().sort((a, b) => {
-                return new Date(a.workDate).getTime() - new Date(b.workDate).getTime();
-            });
-            this.setState({
-                loading: false,
-            });
 
-            Session.get('isSearch')
-                ? null
-                : this.setState({
-                    jobs: this.workData().sort((a, b) => {
-                        return (
-                            new Date(a.workDate || new Date()).getTime() -
-                              new Date(b.workDate || new Date()).getTime()
-                        );
-                    }),
-                });
+            let regEx = /^[a-zA-Z0-9 /\b]+$/;
+
+            if (Session.get('searchWords') !== '' || regEx.test(Session.get('searchWords'))) {
+                let value = Session.get('searchWords');
+                this.setState(
+                    {
+                        searchWords: value,
+                    },
+                    err => {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            let arrayOfWords = this.state.searchWords.split(' ');
+                            let indexOfEmpty = arrayOfWords.indexOf('');
+                            indexOfEmpty > -1 ? arrayOfWords.splice(indexOfEmpty, 1) : null;
+                            let result = new Set();
+                            arrayOfWords.map(word => {
+                                this.workData().map(work => {
+                                    work.clientFirstName &&
+                                    work.clientFirstName.toLowerCase().search(word.toLowerCase()) > -1
+                                        ? result.add(work)
+                                        : null;
+                                    work.clientLastName &&
+                                    work.clientLastName.toLowerCase().search(word.toLowerCase()) > -1
+                                        ? result.add(work)
+                                        : null;
+                                    work.jobNumber && work.jobNumber.toLowerCase().search(word.toLowerCase()) > -1
+                                        ? result.add(work)
+                                        : null;
+                                    work.phoneNumber &&
+                                    work.phoneNumber
+                                        .toString()
+                                        .toLowerCase()
+                                        .search(word.toLowerCase()) > -1
+                                        ? result.add(work)
+                                        : null;
+                                });
+                            });
+                            let resultConverted = Array.from(result);
+                            arrayOfWords.length > 0 ? null : (resultConverted = this.workData());
+                            resultConverted.sort((a, b) => {
+                                return new Date(b.workDate).getTime() - new Date(a.workDate).getTime();
+                            });
+                            resultConverted.length > 0 ? null : (resultConverted = [{}]);
+                            arrayOfWords.length > 0 ? Session.set('isSearch', true) : Session.set('isSearch', false);
+                            this.setState(
+                                {
+                                    jobs: resultConverted,
+                                },
+                                () => {
+                                    this.setState({
+                                        loading: false,
+                                    });
+                                },
+                            );
+                        }
+                    },
+                );
+            } else {
+                this.setState(
+                    {
+                        jobs: this.workData(Session.get('status')).sort((a, b) => {
+                            return (
+                                new Date(a.workDate || new Date()).getTime() -
+                                new Date(b.workDate || new Date()).getTime()
+                            );
+                        }),
+                    },
+                    () => {
+                        this.setState({
+                            loading: false,
+                        });
+                    },
+                );
+            }
         });
     }
 
@@ -79,15 +141,13 @@ export default class List extends TrackerReact(Component) {
     render() {
         return (
             <div className="collection">
-                <FlipMove>
-                    <LoadingOverlay
-                        text="Loading..."
-                        className="loader"
-                        active={this.state.loading}
-                        spinner={<RingLoader color={'#6DD4B8'} />}>
-                        {this.renderList()}
-                    </LoadingOverlay>
-                </FlipMove>
+                <LoadingOverlay
+                    text="Loading..."
+                    className="loader"
+                    active={this.state.loading}
+                    spinner={<RingLoader color={'#6DD4B8'} />}>
+                    {this.renderList()}
+                </LoadingOverlay>
             </div>
         );
     }

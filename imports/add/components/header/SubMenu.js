@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
-import FlipMove from 'react-flip-move';
 
 export default class SubMenu extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            subMenu: this.props.subMenu
+            subMenu: this.props.subMenu,
         };
     }
 
     renderSubMenu() {
-        return (this.state.subMenu.map((subMenu, index) => {
+        return this.state.subMenu.map((subMenu, index) => {
             return (
                 <a
                     key={index}
@@ -21,20 +20,16 @@ export default class SubMenu extends Component {
                     {subMenu}
                 </a>
             );
-        }));
+        });
     }
 
     UNSAFE_componentWillReceiveProps(nextProps) {
         this.setState({
-            subMenu: nextProps.subMenu
+            subMenu: nextProps.subMenu,
         });
     }
 
     render() {
-        return (
-            <FlipMove>
-                {this.renderSubMenu()}
-            </FlipMove>
-        );
+        return <React.Fragment>{this.renderSubMenu()}</React.Fragment>;
     }
 }

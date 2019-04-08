@@ -28,7 +28,6 @@
         "react": "^16.8.4",
         "react-animated-weather": "^2.0.0",
         "react-dom": "^16.8.4",
-        "react-flip-move": "^3.0.3",
         "react-inline-css": "^2.3.1",
         "react-loading-overlay": "^1.0.1",
         "react-modal": "^1.6.5",

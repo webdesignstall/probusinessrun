@@ -197,7 +197,6 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                 }),
                 Session.set('is', ''),
                 Session.set('ExtendedJobInformation', ''));
-            // Session.set('searchResult', Session.get('searchResult_')));
         });
     }
 
@@ -268,7 +267,6 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                         }),
                         Session.set('is', ''),
                         Session.set('ExtendedJobInformation', ''));
-                    // Session.set('searchResult', Session.get('searchResult_')));
                 });
             }
         });

@@ -61,10 +61,10 @@ Meteor.startup(() => {
     Session.set('reset', false);
     Session.set('additionalContacts', []);
     Session.set('ExtendedJobInformation', '');
-    Session.set('searchResult', []);
-    Session.set('searchResult_', []);
     Session.set('isSearch', false);
     Session.set('loading', false);
+    Session.set('status', 'inProgress');
+    Session.set('searchWords', '');
 
     Bert.defaults = {
         hideDelay: 6000,

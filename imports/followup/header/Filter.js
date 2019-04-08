@@ -16,24 +16,16 @@ export default class Filter extends TrackerReact(Component) {
         this.workData = this.workData.bind(this);
     }
 
-    filter(type) {
-        if (this.state.clicked === type) {
-            this.setState({ clicked: '' }, () => {
-                let list = this.workData('');
-                list.sort((a, b) => {
-                    return new Date(a.workDate).getTime() - new Date(b.workDate).getTime();
-                });
-                Session.set('searchResult', list);
-            });
-        } else {
-            this.setState({ clicked: type }, () => {
-                let list = this.workData(type);
-                list.sort((a, b) => {
-                    return new Date(a.workDate).getTime() - new Date(b.workDate).getTime();
-                });
-                Session.set('searchResult', list);
-            });
-        }
+    filter(status) {
+        this.setState(
+            {
+                clicked: status,
+            },
+            () => {
+                Session.set('status', status);
+                Session.set('searchWords', '');
+            },
+        );
     }
 
     workData(status) {
