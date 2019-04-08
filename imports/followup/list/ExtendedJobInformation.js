@@ -48,6 +48,10 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
         });
     }
 
+    UNSAFE_componentWillMount() {
+        this.props.loading();
+    }
+
     componentDidMount() {
         let job = this.workData(this.props.job._id)[0];
         this.setState(
@@ -66,6 +70,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                 : ((document.getElementById('small_item_pack_followup_check' + this.state.job._id).checked = false),
                 (element.disabled = false))
             : null;
+        this.props.loading();
     }
 
     componentDidUpdate() {
@@ -191,8 +196,8 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                     button: 'OK',
                 }),
                 Session.set('is', ''),
-                Session.set('ExtendedJobInformation', ''),
-                Session.set('searchResult', Session.get('searchResult_')));
+                Session.set('ExtendedJobInformation', ''));
+            // Session.set('searchResult', Session.get('searchResult_')));
         });
     }
 
@@ -262,8 +267,8 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                             button: 'OK',
                         }),
                         Session.set('is', ''),
-                        Session.set('ExtendedJobInformation', ''),
-                        Session.set('searchResult', Session.get('searchResult_')));
+                        Session.set('ExtendedJobInformation', ''));
+                    // Session.set('searchResult', Session.get('searchResult_')));
                 });
             }
         });
@@ -403,24 +408,28 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                         <div className="col s12 m6 l2">
                             <label className="active" htmlFor={'small_item_pack_followup_check' + this.state.job._id}>
                                 Small item packing
-                                <input
-                                    id={'small_item_pack_followup_check' + this.state.job._id}
-                                    type="checkbox"
-                                    ref={this.smallItemCheck}
-                                    onClick={() => {
-                                        let element = document.getElementById(
-                                            'small_item_pack_followup' + this.state.job._id,
-                                        );
-                                        element.value == -1 ? (element.value = '') : (element.value = -1);
-                                        element.disabled = !element.disabled;
+                                <i className="lime-text lighten-5 black">
+                                    [Yes
+                                    <input
+                                        id={'small_item_pack_followup_check' + this.state.job._id}
+                                        type="checkbox"
+                                        ref={this.smallItemCheck}
+                                        onClick={() => {
+                                            let element = document.getElementById(
+                                                'small_item_pack_followup' + this.state.job._id,
+                                            );
+                                            element.value == -1 ? (element.value = '') : (element.value = -1);
+                                            element.disabled = !element.disabled;
 
-                                        let job = this.state.job;
-                                        job.smallItemPacking = element.value;
-                                        this.setState({
-                                            job,
-                                        });
-                                    }}
-                                />
+                                            let job = this.state.job;
+                                            job.smallItemPacking = element.value;
+                                            this.setState({
+                                                job,
+                                            });
+                                        }}
+                                    />
+                                    ]
+                                </i>
                             </label>
                             <input
                                 onChange={e => this.onChangeHandler(e, 'smallItemPacking')}

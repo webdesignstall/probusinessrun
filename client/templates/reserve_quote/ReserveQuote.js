@@ -467,7 +467,7 @@ class ReserveQuote extends React.Component {
             <div id="jobInfoMain" className="jobMain">
                 <div className="job-number-enter">
                     <div id="enter-number" className="enter-code">
-                        <h6>By entering your job number above you will be able to confirm your moving details</h6>
+                        <h6>By entering your job number below you will be able to confirm your moving details</h6>
                         <input
                             id="code"
                             key="jobNumber"

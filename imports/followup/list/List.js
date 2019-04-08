@@ -5,6 +5,8 @@ import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import { Session } from 'meteor/session';
 import ListInnerDisplay from './ListInnerDisplay';
 import FlipMove from 'react-flip-move';
+import LoadingOverlay from 'react-loading-overlay';
+import RingLoader from 'react-spinners/RingLoader';
 
 export default class List extends TrackerReact(Component) {
     constructor(props) {
@@ -12,9 +14,11 @@ export default class List extends TrackerReact(Component) {
 
         this.state = {
             jobs: [],
+            loading: false,
         };
 
         this.renderList = this.renderList.bind(this);
+        this.startStopLoading = this.startStopLoading.bind(this);
     }
 
     workData() {
@@ -23,15 +27,34 @@ export default class List extends TrackerReact(Component) {
 
     componentDidMount() {
         this.x = Tracker.autorun(() => {
+            this.setState({
+                loading: true,
+            });
             const jobs = this.workData().sort((a, b) => {
-                return new Date(b.workDate).getTime() - new Date(a.workDate).getTime();
+                return new Date(a.workDate).getTime() - new Date(b.workDate).getTime();
+            });
+            this.setState({
+                loading: false,
             });
 
             Session.get('isSearch')
                 ? null
                 : this.setState({
-                    jobs: Session.get('searchResult'),
+                    jobs: this.workData().sort((a, b) => {
+                        return (
+                            new Date(a.workDate || new Date()).getTime() -
+                              new Date(b.workDate || new Date()).getTime()
+                        );
+                    }),
                 });
+        });
+    }
+
+    startStopLoading() {
+        this.setState(prevState => {
+            return {
+                loading: !prevState.loading,
+            };
         });
     }
 
@@ -40,21 +63,31 @@ export default class List extends TrackerReact(Component) {
     }
 
     renderList() {
-        return Session.get('searchResult') && Session.get('searchResult').length > 0
-            ? Session.get('searchResult').map(job => {
-                return (
-                    <div key={job._id + 'followUpList'} className="collection-item">
-                        <ListInnerDisplay job={job} />
-                    </div>
-                );
-            })
-            : null;
+        return this.state.jobs.map(job => {
+            return Session.get('is') === job._id ? (
+                <div key={job._id + 'followUpList'} className="collection-item">
+                    <ListInnerDisplay loading={this.startStopLoading} job={job} />
+                </div>
+            ) : Session.get('is') === '' ? (
+                <div key={job._id + 'followUpList'} className="collection-item">
+                    <ListInnerDisplay loading={this.startStopLoading} job={job} />
+                </div>
+            ) : null;
+        });
     }
 
     render() {
         return (
             <div className="collection">
-                <FlipMove>{this.renderList()}</FlipMove>
+                <FlipMove>
+                    <LoadingOverlay
+                        text="Loading..."
+                        className="loader"
+                        active={this.state.loading}
+                        spinner={<RingLoader color={'#6DD4B8'} />}>
+                        {this.renderList()}
+                    </LoadingOverlay>
+                </FlipMove>
             </div>
         );
     }

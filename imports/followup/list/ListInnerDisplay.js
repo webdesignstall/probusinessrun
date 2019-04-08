@@ -23,7 +23,7 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
 
     UNSAFE_componentWillReceiveProps(nextProps) {
         this.setState({
-            job: this.workData(nextProps.job._id)[0],
+            job: this.props.job,
         });
     }
 
@@ -34,7 +34,7 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
     componentDidMount() {
         this.x = Tracker.autorun(() => {
             this.setState({
-                job: this.workData(this.props.job._id)[0],
+                job: this.props.job,
             });
             Session.set('ExtendedJobInformation', '');
         });
@@ -168,22 +168,23 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
         return <span>{this.state.job.reason}</span>;
     }
 
-    showMore(e) {
-        e.preventDefault();
+    showMore() {
+        this.props.loading();
         let session = Session.get('ExtendedJobInformation');
         if (this.state.job._id === session && session !== '') {
             Session.set('ExtendedJobInformation', '');
             Session.set('is', '');
-            Session.set('searchResult', Session.get('searchResult_'));
+            // Session.set('searchResult', Session.get('searchResult_'));
             this.setState({ show: '' });
         } else {
             Session.set('is', this.state.job._id);
             Session.set('searchResult_', Session.get('searchResult'));
             // Session.get('searchResult').length > 1 ? Session.set('searchResult_', Session.get('searchResult')) : null;
-            Session.set('searchResult', [this.state.job]);
+            // Session.set('searchResult', [this.state.job]);
             Session.set('ExtendedJobInformation', this.state.job._id);
             this.setState({ show: this.state.job._id });
         }
+        this.props.loading();
     }
 
     displayInfo() {
@@ -246,7 +247,7 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
                     <i
                         style={{ top: '-5px', cursor: 'pointer' }}
                         className="material-icons right"
-                        onClick={e => this.showMore(e)}>
+                        onClick={() => this.showMore()}>
                         edit
                     </i>
                 )}
@@ -268,7 +269,11 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
                             : ''}
                     </span>
                 </span>
-                {Session.get('ExtendedJobInformation') !== '' ? <ExtendedJobInformation job={this.state.job} /> : ''}
+                {Session.get('ExtendedJobInformation') !== '' ? (
+                    <ExtendedJobInformation loading={this.props.loading} job={this.state.job} />
+                ) : (
+                    ''
+                )}
             </div>
         );
     }
