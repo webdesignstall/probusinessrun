@@ -633,6 +633,10 @@ Schemas.workSchema = new SimpleSchema(
             type: String,
             optional: true,
         },
+        'followUp.$.date': {
+            type: Date,
+            optional: true,
+        },
         finalNote: {
             type: Object,
             optional: true,

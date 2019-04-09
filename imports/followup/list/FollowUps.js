@@ -10,8 +10,7 @@ export default class FollowUps extends TrackerReact(Component) {
 
         this.state = {
             followUp: [{ note: '' }],
-            followUpOriginal: (this.workData()[0] &&
-                this.workData()[0].followUp) || [{ note: '' }]
+            followUpOriginal: (this.workData()[0] && this.workData()[0].followUp) || [{ note: '' }],
         };
 
         this.onChangeHandler = this.onChangeHandler.bind(this);
@@ -31,22 +30,18 @@ export default class FollowUps extends TrackerReact(Component) {
         this.setState({
             followUp: list,
             followUpOriginal:
-                this.workData()[0] &&
-                this.workData()[0].followUp &&
-                this.workData()[0].followUp.length > 0
+                this.workData()[0] && this.workData()[0].followUp && this.workData()[0].followUp.length > 0
                     ? this.workData()[0].followUp
-                    : [{ note: '' }]
+                    : [{ note: '' }],
         });
     }
 
     componentDidMount() {
         this.setState({
             followUpOriginal:
-                this.workData()[0] &&
-                this.workData()[0].followUp &&
-                this.workData()[0].followUp.length > 0
+                this.workData()[0] && this.workData()[0].followUp && this.workData()[0].followUp.length > 0
                     ? this.workData()[0].followUp
-                    : [{ note: '' }]
+                    : [{ note: '' }],
         });
     }
 
@@ -59,16 +54,18 @@ export default class FollowUps extends TrackerReact(Component) {
         followUp[index].note = e.target.value;
         this.setState(
             {
-                followUp
+                followUp,
             },
-            (err) => {
+            err => {
                 if (err) {
                     console.log(err);
                 } else {
                     let followUp = this.state.followUp;
+                    followUp[index].date = new Date();
+                    console.log('TCL: FollowUps -> onChangeHandler -> followUp', followUp);
                     this.props.updateJob && this.props.updateJob({ followUp });
                 }
-            }
+            },
         );
     }
 
@@ -76,19 +73,19 @@ export default class FollowUps extends TrackerReact(Component) {
         return this.state.followUp.map((note, index) => {
             return (
                 <React.Fragment key={'followup_note_fragment' + index}>
-                    <div
-                        key={'followup_note' + index}
-                        className="col s12 m6 l6">
-                        <label
-                            className="active"
-                            htmlFor="followup_note_list_item">
-                            Follow Up #{index + 1}:
+                    <div key={'followup_note' + index} className="col s12 m6 l6">
+                        <label className="active" htmlFor="followup_note_list_item">
+                            Follow Up #{index + 1}:{' '}
+                            <span style={{ color: '#4F4F4F' }}>
+                                {note.date
+                                    ? moment(note.date).format('MM/DD/YYYY hh:mm a')
+                                    : 'Date information is not aviable'}
+                            </span>
                         </label>
                         <textarea
-                            onChange={(e) => this.onChangeHandler(e, index)}
+                            onChange={e => this.onChangeHandler(e, index)}
                             disabled={
-                                this.state.followUpOriginal &&
-                                index === this.state.followUpOriginal.length
+                                this.state.followUpOriginal && index === this.state.followUpOriginal.length
                                     ? false
                                     : this.state.followUp.length === 1
                                         ? false
@@ -99,7 +96,7 @@ export default class FollowUps extends TrackerReact(Component) {
                                 height: '130px',
                                 maxHeight: '130px',
                                 borderColor: '#9E9E9E',
-                                padding: '10px'
+                                padding: '10px',
                             }}
                             value={note.note}
                             id={'followup_note_list_item' + index}
@@ -117,5 +114,5 @@ export default class FollowUps extends TrackerReact(Component) {
 
 FollowUps.propTypes = {
     followUpList: PropTypes.array,
-    updateJob: PropTypes.func
+    updateJob: PropTypes.func,
 };
