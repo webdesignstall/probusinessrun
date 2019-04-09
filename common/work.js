@@ -362,23 +362,23 @@ Schemas.workSchema = new SimpleSchema(
         },
         companyInfo: {
             type: Object,
-            optional: true,
+            optional: false,
         },
         'companyInfo.name': {
             type: String,
-            optional: true,
+            optional: false,
         },
         'companyInfo.phoneNumber': {
             type: String,
-            optional: true,
+            optional: false,
         },
         'companyInfo.url': {
             type: String,
-            optional: true,
+            optional: false,
         },
         'companyInfo.email': {
             type: String,
-            optional: true,
+            optional: false,
         },
         'companyInfo.smtp': {
             type: String,
