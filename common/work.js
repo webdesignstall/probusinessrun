@@ -555,7 +555,7 @@ Schemas.workSchema = new SimpleSchema(
         },
         takenBy: {
             type: String,
-            optional: true,
+            optional: false,
         },
         drivingClicked: {
             type: Boolean,

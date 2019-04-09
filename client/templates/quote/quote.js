@@ -385,7 +385,9 @@ Template.preQuote.events({
             : 0;
         let comment = document.getElementById('textarea1').value;
         let deposit = document.getElementById('deposit').value;
-        let takenBy = document.getElementById('takenBy--value').value;
+        let takenBy_ = document.getElementById('takenBy--value').value;
+        let takenBy =
+            takenBy_ !== '' && takenBy_ !== null && takenBy_ !== undefined && takenBy_ !== '_' ? takenBy_ : undefined;
         let additionalContacts = Session.get('additionalContacts');
         let quoteDate = new Date();
         let quote = true;
@@ -594,7 +596,9 @@ Template.preQuote.events({
             : 0;
         let comment = document.getElementById('textarea1').value;
         let deposit = document.getElementById('deposit').value;
-        let takenBy = document.getElementById('takenBy--value').value;
+        let takenBy_ = document.getElementById('takenBy--value').value;
+        let takenBy =
+            takenBy_ !== '' && takenBy_ !== null && takenBy_ !== undefined && takenBy_ !== '_' ? takenBy_ : undefined;
         let additionalContacts = Session.get('additionalContacts');
         let quoteDate = new Date();
         let quote = false;
@@ -752,7 +756,9 @@ Template.preQuote.events({
             : 0;
         let comment = document.getElementById('textarea1').value;
         let deposit = document.getElementById('deposit').value;
-        let takenBy = document.getElementById('takenBy--value').value;
+        let takenBy_ = document.getElementById('takenBy--value').value;
+        let takenBy =
+            takenBy_ !== '' && takenBy_ !== null && takenBy_ !== undefined && takenBy_ !== '_' ? takenBy_ : undefined;
         let additionalContacts = Session.get('additionalContacts');
         let quoteDate = new Date();
         let quote = false;
