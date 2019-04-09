@@ -8,7 +8,8 @@ export default class CompanySelector extends React.Component {
         super(props);
 
         this.state = {
-            companies: []
+            companies: [],
+            value: 'select-company',
         };
 
         this.renderCompanies = this.renderCompanies.bind(this);
@@ -17,28 +18,53 @@ export default class CompanySelector extends React.Component {
 
     componentDidMount() {
         this.setState({
-            companies: companies.companies
+            companies: companies.companies,
+            value: this.props.value || 'select-company',
+        });
+    }
+
+    UNSAFE_componentWillReceiveProps(nextProps) {
+        this.setState({
+            value: nextProps.value || 'select-company',
         });
     }
 
     renderCompanies() {
-        return (this.state.companies.map((company) => {
-            return (<option key={company.key} value={company.name}>{company.name}</option>);
-        }));
+        return this.state.companies.map(company => {
+            return (
+                <option key={company.key} value={company.name}>
+                    {company.name}
+                </option>
+            );
+        });
     }
 
     onChange() {
-        console.log('secildi');
-        let secilmisIs = this.state.companies.find((companies) => {
-            return companies.name === this.companyName.value;
-        });
-        Session.set('companyInfo', secilmisIs);
+        this.setState(
+            {
+                value: this.companyName.value,
+            },
+            () => {
+                let secilmisIs = this.state.companies.find(companies => {
+                    return companies.name === this.companyName.value;
+                });
+                Session.set('companyInfo', secilmisIs);
+            },
+        );
     }
 
     render() {
         return (
-            <select defaultValue="select-company" ref={company => this.companyName = company} name="select-company" id="select-company" className="browser-default" onChange={this.onChange}>
-                <option value="select-company" disabled>Select the Company</option>
+            <select
+                value={this.state.value}
+                ref={company => (this.companyName = company)}
+                name="select-company"
+                id="select-company"
+                className="browser-default"
+                onChange={this.onChange}>
+                <option value="select-company" disabled>
+                    Select the Company
+                </option>
                 {this.renderCompanies()}
             </select>
         );

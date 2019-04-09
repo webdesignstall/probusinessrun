@@ -15,6 +15,7 @@ import swal from 'sweetalert';
 import MovingSize from '../../../client/templates/quote/MovingSize';
 import QuoteExpiration from '../../../client/templates/quote/QuoteExpariation';
 import TakenBy from '../../../client/templates/quote/TakenBy';
+import CompanySelector from '../../../client/templates/quote/CompanySelector';
 
 /*global $ moment*/
 
@@ -179,6 +180,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
         let doc = this.state.job;
         doc.workDate = workDate;
         doc.followUp && doc.followUp[doc.followUp.length - 1].note === '' && doc.followUp.pop();
+        doc.companyInfo = Session.get('companyInfo');
 
         Meteor.call('updateWork', doc, err => {
             err
@@ -529,6 +531,10 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                     <div className="row">
                         <div className="col s12 m3 l3">
                             <QuoteExpiration />
+                        </div>
+                        <div className="col s12 m3 l3">
+                            <label htmlFor="select-company">Company</label>
+                            <CompanySelector value={this.state.job.companyInfo && this.state.job.companyInfo.name} />
                         </div>
                     </div>
                     <div className="row">
