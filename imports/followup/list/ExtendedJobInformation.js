@@ -16,6 +16,7 @@ import MovingSize from '../../../client/templates/quote/MovingSize';
 import QuoteExpiration from '../../../client/templates/quote/QuoteExpariation';
 import TakenBy from '../../../client/templates/quote/TakenBy';
 import CompanySelector from '../../../client/templates/quote/CompanySelector';
+import NumberOfUsers from '../../../client/templates/quote/NumberOfUsers';
 
 /*global $ moment*/
 
@@ -61,6 +62,8 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
             },
             () => this.datePicker(this.state.job.workDate),
         );
+
+        Session.set('companyInfo', job.companyInfo);
 
         // small item packing
         let element = document.getElementById('small_item_pack_followup' + this.state.job._id);
@@ -181,6 +184,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
         doc.workDate = workDate;
         doc.followUp && doc.followUp[doc.followUp.length - 1].note === '' && doc.followUp.pop();
         doc.companyInfo = Session.get('companyInfo');
+        doc.numberOfWorkers = Number(document.querySelector('#iscinin-sayi').value);
 
         Meteor.call('updateWork', doc, err => {
             err
@@ -535,6 +539,10 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                         <div className="col s12 m3 l3">
                             <label htmlFor="select-company">Company</label>
                             <CompanySelector value={this.state.job.companyInfo && this.state.job.companyInfo.name} />
+                        </div>
+                        <div className="col s12 m3 l3">
+                            <label htmlFor="select-company">Number of movers</label>
+                            <NumberOfUsers />
                         </div>
                     </div>
                     <div className="row">

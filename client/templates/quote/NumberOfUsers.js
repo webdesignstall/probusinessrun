@@ -11,7 +11,7 @@ export default class NumberOfUsers extends React.Component {
         super(props);
         this.state = {
             iscilerinSayi: 0,
-            oncedenSecilmis: 0
+            oncedenSecilmis: 0,
         };
 
         this.saylari = this.saylari.bind(this);
@@ -24,14 +24,14 @@ export default class NumberOfUsers extends React.Component {
                 const iscilerinSayiNumber = iscilerinSayi[0].numberOfWorkers;
                 if (!isNaN(iscilerinSayiNumber)) {
                     this.setState({
-                        oncedenSecilmis: iscilerinSayiNumber
+                        oncedenSecilmis: iscilerinSayiNumber,
                     });
                 }
             }
 
             let ishchilerSay = Meteor.users.find({ 'profile.rank': 'mover' }).fetch().length;
             this.setState({
-                iscilerinSayi: ishchilerSay
+                iscilerinSayi: ishchilerSay,
             });
         });
     }
@@ -47,37 +47,44 @@ export default class NumberOfUsers extends React.Component {
     saylari() {
         let xuban = [];
         let i = 0;
-        for (i = 0; i < (this.state.iscilerinSayi + 1); i++) {
+        for (i = 0; i < this.state.iscilerinSayi + 1; i++) {
             i === 0 ? xuban.push('Select movers') : xuban.push(i);
         }
 
-        return (xuban.map((number) => {
+        return xuban.map(number => {
             return (
                 <option
                     value={number}
                     key={number}
                     disabled={isNaN(number) ? true : false}
                     onChange={this.demo}
-                    defaultValue={(this.state.oncedenSecilmis) === 0 ? 'Select movers' : (this.state.oncedenSecilmis)}
-                >
+                    defaultValue={this.state.oncedenSecilmis === 0 ? 'Select movers' : this.state.oncedenSecilmis}>
                     {number}
-                </option>);
-        }));
+                </option>
+            );
+        });
     }
 
     changeValue(e) {
         this.setState({
-            oncedenSecilmis: e.target.value
+            oncedenSecilmis: e.target.value,
         });
     }
 
     render() {
         return (
-            <div className="number-of-users--main" style={{
-                position: 'relative'
-            }} >
+            <div
+                className="number-of-users--main"
+                style={{
+                    position: 'relative',
+                }}>
                 {/* value deyisir amma seelect edende deyismir */}
-                <select id="iscinin-sayi" className="browser-default" name="number of movers" value={((this.state.oncedenSecilmis) === 0) ? 'Select movers' : (this.state.oncedenSecilmis)} onChange={(e) => this.changeValue(e)} >
+                <select
+                    id="iscinin-sayi"
+                    className="browser-default"
+                    name="number of movers"
+                    value={this.state.oncedenSecilmis === 0 ? 'Select movers' : this.state.oncedenSecilmis}
+                    onChange={e => this.changeValue(e)}>
                     {this.saylari()}
                 </select>
                 <label
@@ -88,18 +95,20 @@ export default class NumberOfUsers extends React.Component {
                         margin: ' -28px 15px',
                         top: '-15px',
                         left: '0',
-                        position: 'absolute'
+                        position: 'absolute',
                     }}
-                    htmlFor="iscinin-sayi"># of movers</label>
+                    htmlFor="iscinin-sayi">
+                    # of movers
+                </label>
             </div>
         );
     }
 }
 
-Template.preQuote.onRendered(function () {
+Template.preQuote.onRendered(function() {
     ReactDOM.render(<NumberOfUsers />, document.getElementById('number-of-movers'));
 });
 
-Template.preQuote.onDestroyed(function () {
+Template.preQuote.onDestroyed(function() {
     ReactDOM.unmountComponentAtNode(document.getElementById('number-of-movers'));
 });
