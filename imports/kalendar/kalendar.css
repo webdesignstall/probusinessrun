@@ -20,7 +20,7 @@
 
 .td {
     overflow: hidden;
-    background-color: #ecf0f1;
+    background-color: #e0e0e0;
     color: #3498db;
     border: 1px solid white;
     -webkit-transition: all 0.5s ease-out;
@@ -30,7 +30,7 @@
 }
 
 .td:hover {
-    background-color: #2980b9;
+    /* background-color: #2980b9; */
     border: 1px solid white;
 }
 
@@ -39,7 +39,7 @@
     height: 80px;
     color: #3498db;
     padding: 0 0 0 15px;
-    font-size: 18px;
+    font-size: 16px;
     cursor: pointer;
     /* line-height: 120px; */
     -webkit-transition: all 0.5s ease-out;
@@ -58,18 +58,18 @@
 
 .dayData:hover {
     height: 80px;
-    color: black;
+    color: #616161;
     padding: 0 0 0 5px;
     font-size: 22px;
-    background-color: #98aef7;
+    background-color: #bedff5;
     /* line-height: 120px; */
 }
 
 .aktivGun {
     background-color: #86c8f5;
     border: 1px solid white;
-    color: black;
-    font-size: 20px;
+    color: rgb(70, 70, 70);
+    font-size: 16px;
 }
 
 .dayInfo {
@@ -332,16 +332,15 @@ fieldset div {
 /* daily stats */
 .dailystat--main {
     position: absolute;
-    border-left: 1px solid #e4e6e7;
+    border-left: 1px solid #b1b1b199;
     padding: 3px 5px;
     width: 50%;
     height: 100%;
     font-size: 15px;
-    color: rgb(124, 124, 124);
+    color: black;
     right: 0;
     top: 0;
     text-align: right;
-    background-color: #f1f2f6;
 }
 
 .dayData img {
