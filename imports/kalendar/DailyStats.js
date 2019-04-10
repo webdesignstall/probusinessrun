@@ -8,7 +8,16 @@ export default class DailyStats extends TrackerReact(Component) {
     constructor(props) {
         super(props);
 
-        this.state = {};
+        this.state = {
+            totalDaily: 0,
+        };
+
+        this.totalJobs = 0;
+    }
+
+    componentDidMount() {
+        this.jobsAfterNoon = 0;
+        this.jobsMorning = 0;
     }
 
     workDataList() {
@@ -24,6 +33,8 @@ export default class DailyStats extends TrackerReact(Component) {
                 ? ((employees += work.numberOfWorkers), jobs++)
                 : null;
         });
+
+        this.jobsMorning = jobs;
 
         return {
             jobs,
@@ -41,6 +52,8 @@ export default class DailyStats extends TrackerReact(Component) {
                 : null;
         });
 
+        this.jobsAfterNoon = jobs;
+
         return {
             jobs,
             employees,
@@ -52,6 +65,7 @@ export default class DailyStats extends TrackerReact(Component) {
             <div className="dailystat--main">
                 <MorningJobs jobsNumber={this.morningJobs().jobs} employeeNumber={this.morningJobs().employees} />
                 <AfternoonJobs jobsNumber={this.afterNoonJobs().jobs} employeeNumber={this.afterNoonJobs().employees} />
+                <span className="free">{this.jobsMorning + this.jobsAfterNoon}</span>
             </div>
         );
     }

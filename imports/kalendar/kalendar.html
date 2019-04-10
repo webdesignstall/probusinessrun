@@ -77,14 +77,18 @@
                     <tr class="dayInfo animated fadeIn weektr1">
                         <td colspan="7" id="week1">
                             {{#if isGunMelumatVar}} {{#each gununIsleri}}
-                            <div id={{_id}} class="work-list-show {{#if quotedir quote}}teal darken-2{{/if}}">
+                            <div id="{{ _id }}" class="work-list-show {{#if quotedir quote}}teal darken-2{{/if}}">
                                 <a id="isin-saati">
                                     {{#if isBosdur workMustBeginTime}}--:--{{else}}
-                                    {{#if workMustBeginTime}}{{saatDeqiq workMustBeginTime}}
+                                    {{#if workMustBeginTime
+
+
+
+                                    }}{{saatDeqiq workMustBeginTime}}
                                     {{/if}}
                                     {{/if}}
                                 </a>
-                                <a id="musteri-adi">{{clientFirstName}} {{clientLastName}}</a>
+                                <a id="musteri-adi">{{ clientFirstName }} {{ clientLastName }}</a>
                                 <a href="#">
                                     <i class="material-icons sag edit-duymesi">mode_edit</i>
                                 </a>
@@ -103,17 +107,22 @@
                                 <div class="add-moreschedule-button">Add more +</div>
                             </a>
                             <script>
-                                $('.delete-duymesi').mouseover(function () {
-                                    $(this).addClass("pulse");
-                                }).mouseleave(function () {
-                                    $(this).removeClass("pulse");
-                                });
-                                $('.edit-duymesi').mouseover(function () {
-                                    $(this).addClass("pulse");
-                                }).mouseleave(function () {
-                                    $(this).removeClass("pulse");
-                                });
-                            </script> {{else}}
+                                $('.delete-duymesi')
+                                    .mouseover(function() {
+                                        $(this).addClass('pulse');
+                                    })
+                                    .mouseleave(function() {
+                                        $(this).removeClass('pulse');
+                                    });
+                                $('.edit-duymesi')
+                                    .mouseover(function() {
+                                        $(this).addClass('pulse');
+                                    })
+                                    .mouseleave(function() {
+                                        $(this).removeClass('pulse');
+                                    });
+                            </script>
+                            {{else}}
                             <div class="work-list-show add-schedule-button">
                                 <a href="#">There is no schedule on this day. Click to add one!</a>
                             </div>
@@ -146,14 +155,18 @@
                     <tr class="dayInfo animated fadeIn weektr2" style="display: none;">
                         <td colspan="7" id="week2">
                             {{#if isGunMelumatVar}} {{#each gununIsleri}}
-                            <div id={{_id}} class="work-list-show {{#if quotedir quote}}teal darken-2{{/if}}">
+                            <div id="{{ _id }}" class="work-list-show {{#if quotedir quote}}teal darken-2{{/if}}">
                                 <a id="isin-saati">
                                     {{#if isBosdur workMustBeginTime}}--:--{{else}}
-                                    {{#if workMustBeginTime}}{{saatDeqiq workMustBeginTime}}
+                                    {{#if workMustBeginTime
+
+
+
+                                    }}{{saatDeqiq workMustBeginTime}}
                                     {{/if}}
                                     {{/if}}
                                 </a>
-                                <a id="musteri-adi">{{clientFirstName}} {{clientLastName}}</a>
+                                <a id="musteri-adi">{{ clientFirstName }} {{ clientLastName }}</a>
                                 <a href="#">
                                     <i class="material-icons sag edit-duymesi animated">mode_edit</i>
                                 </a>
@@ -172,17 +185,22 @@
                                 <div class="add-moreschedule-button">Add more +</div>
                             </a>
                             <script>
-                                $('.delete-duymesi').mouseover(function () {
-                                    $(this).addClass("pulse");
-                                }).mouseleave(function () {
-                                    $(this).removeClass("pulse");
-                                });
-                                $('.edit-duymesi').mouseover(function () {
-                                    $(this).addClass("pulse");
-                                }).mouseleave(function () {
-                                    $(this).removeClass("pulse");
-                                });
-                            </script> {{else}}
+                                $('.delete-duymesi')
+                                    .mouseover(function() {
+                                        $(this).addClass('pulse');
+                                    })
+                                    .mouseleave(function() {
+                                        $(this).removeClass('pulse');
+                                    });
+                                $('.edit-duymesi')
+                                    .mouseover(function() {
+                                        $(this).addClass('pulse');
+                                    })
+                                    .mouseleave(function() {
+                                        $(this).removeClass('pulse');
+                                    });
+                            </script>
+                            {{else}}
                             <div class="work-list-show add-schedule-button">
                                 <a href="#">There is no schedule on this day. Click to add one!</a>
                             </div>
@@ -215,14 +233,18 @@
                     <tr class="dayInfo animated fadeIn weektr3" style="display: none;">
                         <td colspan="7" id="week3">
                             {{#if isGunMelumatVar}} {{#each gununIsleri}}
-                            <div id={{_id}} class="work-list-show {{#if quotedir quote}}teal darken-2{{/if}}">
+                            <div id="{{ _id }}" class="work-list-show {{#if quotedir quote}}teal darken-2{{/if}}">
                                 <a id="isin-saati">
                                     {{#if isBosdur workMustBeginTime}}--:--{{else}}
-                                    {{#if workMustBeginTime}}{{saatDeqiq workMustBeginTime}}
+                                    {{#if workMustBeginTime
+
+
+
+                                    }}{{saatDeqiq workMustBeginTime}}
                                     {{/if}}
                                     {{/if}}
                                 </a>
-                                <a id="musteri-adi">{{clientFirstName}} {{clientLastName}}</a>
+                                <a id="musteri-adi">{{ clientFirstName }} {{ clientLastName }}</a>
                                 <a href="#">
                                     <i class="material-icons sag edit-duymesi animated">mode_edit</i>
                                 </a>
@@ -241,17 +263,22 @@
                                 <div class="add-moreschedule-button">Add more +</div>
                             </a>
                             <script>
-                                $('.delete-duymesi').mouseover(function () {
-                                    $(this).addClass("pulse");
-                                }).mouseleave(function () {
-                                    $(this).removeClass("pulse");
-                                });
-                                $('.edit-duymesi').mouseover(function () {
-                                    $(this).addClass("pulse");
-                                }).mouseleave(function () {
-                                    $(this).removeClass("pulse");
-                                });
-                            </script> {{else}}
+                                $('.delete-duymesi')
+                                    .mouseover(function() {
+                                        $(this).addClass('pulse');
+                                    })
+                                    .mouseleave(function() {
+                                        $(this).removeClass('pulse');
+                                    });
+                                $('.edit-duymesi')
+                                    .mouseover(function() {
+                                        $(this).addClass('pulse');
+                                    })
+                                    .mouseleave(function() {
+                                        $(this).removeClass('pulse');
+                                    });
+                            </script>
+                            {{else}}
                             <div class="work-list-show add-schedule-button">
                                 <a href="#">There is no schedule on this day. Click to add one!</a>
                             </div>
@@ -284,14 +311,18 @@
                     <tr class="dayInfo animated fadeIn weektr4" style="display: none;">
                         <td colspan="7" id="week4">
                             {{#if isGunMelumatVar}} {{#each gununIsleri}}
-                            <div id={{_id}} class="work-list-show {{#if quotedir quote}}teal darken-2{{/if}}">
+                            <div id="{{ _id }}" class="work-list-show {{#if quotedir quote}}teal darken-2{{/if}}">
                                 <a id="isin-saati">
                                     {{#if isBosdur workMustBeginTime}}--:--{{else}}
-                                    {{#if workMustBeginTime}}{{saatDeqiq workMustBeginTime}}
+                                    {{#if workMustBeginTime
+
+
+
+                                    }}{{saatDeqiq workMustBeginTime}}
                                     {{/if}}
                                     {{/if}}
                                 </a>
-                                <a id="musteri-adi">{{clientFirstName}} {{clientLastName}}</a>
+                                <a id="musteri-adi">{{ clientFirstName }} {{ clientLastName }}</a>
                                 <a href="#">
                                     <i class="material-icons sag edit-duymesi animated">mode_edit</i>
                                 </a>
@@ -310,17 +341,22 @@
                                 <div class="add-moreschedule-button">Add more +</div>
                             </a>
                             <script>
-                                $('.delete-duymesi').mouseover(function () {
-                                    $(this).addClass("pulse");
-                                }).mouseleave(function () {
-                                    $(this).removeClass("pulse");
-                                });
-                                $('.edit-duymesi').mouseover(function () {
-                                    $(this).addClass("pulse");
-                                }).mouseleave(function () {
-                                    $(this).removeClass("pulse");
-                                });
-                            </script> {{else}}
+                                $('.delete-duymesi')
+                                    .mouseover(function() {
+                                        $(this).addClass('pulse');
+                                    })
+                                    .mouseleave(function() {
+                                        $(this).removeClass('pulse');
+                                    });
+                                $('.edit-duymesi')
+                                    .mouseover(function() {
+                                        $(this).addClass('pulse');
+                                    })
+                                    .mouseleave(function() {
+                                        $(this).removeClass('pulse');
+                                    });
+                            </script>
+                            {{else}}
                             <div class="work-list-show add-schedule-button">
                                 <a href="#">There is no schedule on this day. Click to add one!</a>
                             </div>
@@ -353,14 +389,18 @@
                     <tr class="dayInfo animated fadeIn weektr5" style="display: none;">
                         <td colspan="7" id="week5">
                             {{#if isGunMelumatVar}} {{#each gununIsleri}}
-                            <div id={{_id}} class="work-list-show {{#if quotedir quote}}teal darken-2{{/if}}">
+                            <div id="{{ _id }}" class="work-list-show {{#if quotedir quote}}teal darken-2{{/if}}">
                                 <a id="isin-saati">
                                     {{#if isBosdur workMustBeginTime}}--:--{{else}}
-                                    {{#if workMustBeginTime}}{{saatDeqiq workMustBeginTime}}
+                                    {{#if workMustBeginTime
+
+
+
+                                    }}{{saatDeqiq workMustBeginTime}}
                                     {{/if}}
                                     {{/if}}
                                 </a>
-                                <a id="musteri-adi">{{clientFirstName}} {{clientLastName}}</a>
+                                <a id="musteri-adi">{{ clientFirstName }} {{ clientLastName }}</a>
                                 <a href="#">
                                     <i class="material-icons sag edit-duymesi animated">mode_edit</i>
                                 </a>
@@ -379,17 +419,22 @@
                                 <div class="add-moreschedule-button">Add more +</div>
                             </a>
                             <script>
-                                $('.delete-duymesi').mouseover(function () {
-                                    $(this).addClass("pulse");
-                                }).mouseleave(function () {
-                                    $(this).removeClass("pulse");
-                                });
-                                $('.edit-duymesi').mouseover(function () {
-                                    $(this).addClass("pulse");
-                                }).mouseleave(function () {
-                                    $(this).removeClass("pulse");
-                                });
-                            </script> {{else}}
+                                $('.delete-duymesi')
+                                    .mouseover(function() {
+                                        $(this).addClass('pulse');
+                                    })
+                                    .mouseleave(function() {
+                                        $(this).removeClass('pulse');
+                                    });
+                                $('.edit-duymesi')
+                                    .mouseover(function() {
+                                        $(this).addClass('pulse');
+                                    })
+                                    .mouseleave(function() {
+                                        $(this).removeClass('pulse');
+                                    });
+                            </script>
+                            {{else}}
                             <div class="work-list-show add-schedule-button">
                                 <a href="#">There is no schedule on this day. Click to add one!</a>
                             </div>
@@ -422,14 +467,18 @@
                     <tr class="dayInfo animated fadeIn weektr6" style="display: none;">
                         <td colspan="7" id="week6">
                             {{#if isGunMelumatVar}} {{#each gununIsleri}}
-                            <div id={{_id}} class="work-list-show {{#if quotedir quote}}teal darken-2{{/if}}">
+                            <div id="{{ _id }}" class="work-list-show {{#if quotedir quote}}teal darken-2{{/if}}">
                                 <a id="isin-saati">
                                     {{#if isBosdur workMustBeginTime}}--:--{{else}}
-                                    {{#if workMustBeginTime}}{{saatDeqiq workMustBeginTime}}
+                                    {{#if workMustBeginTime
+
+
+
+                                    }}{{saatDeqiq workMustBeginTime}}
                                     {{/if}}
                                     {{/if}}
                                 </a>
-                                <a id="musteri-adi">{{clientFirstName}} {{clientLastName}}</a>
+                                <a id="musteri-adi">{{ clientFirstName }} {{ clientLastName }}</a>
                                 <a href="#">
                                     <i class="material-icons sag edit-duymesi animated">mode_edit</i>
                                 </a>
@@ -448,17 +497,22 @@
                                 <div class="add-moreschedule-button">Add more +</div>
                             </a>
                             <script>
-                                $('.delete-duymesi').mouseover(function () {
-                                    $(this).addClass("pulse");
-                                }).mouseleave(function () {
-                                    $(this).removeClass("pulse");
-                                });
-                                $('.edit-duymesi').mouseover(function () {
-                                    $(this).addClass("pulse");
-                                }).mouseleave(function () {
-                                    $(this).removeClass("pulse");
-                                });
-                            </script> {{else}}
+                                $('.delete-duymesi')
+                                    .mouseover(function() {
+                                        $(this).addClass('pulse');
+                                    })
+                                    .mouseleave(function() {
+                                        $(this).removeClass('pulse');
+                                    });
+                                $('.edit-duymesi')
+                                    .mouseover(function() {
+                                        $(this).addClass('pulse');
+                                    })
+                                    .mouseleave(function() {
+                                        $(this).removeClass('pulse');
+                                    });
+                            </script>
+                            {{else}}
                             <div class="work-list-show add-schedule-button">
                                 <a href="#">There is no schedule on this day. Click to add one!</a>
                             </div>

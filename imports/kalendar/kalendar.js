@@ -6,6 +6,7 @@ import { modalMessage } from '../../client/templates/module_messages/moduleMessa
 import { Session } from 'meteor/session';
 import ReactDOM from 'react-dom';
 import React from 'react';
+import { Tracker } from 'meteor/tracker';
 
 //import componenets
 import UpdateAddTruck from './../../client/templates/quote/UpdateAddTruck';
@@ -202,27 +203,70 @@ Template.kalendar.onRendered(function() {
 
     // tarixi yuxari panelde gosteren funksiya
     function tarixiGoster(ayDaxil, ilDaxil) {
-        let ayAdi = moment.months(ayDaxil);
-        let tarixIn = document.getElementById('ayHaqqinda');
-        if (dateChanged === 1) {
-            tarixIn.innerHTML =
-                gun +
-                '<a href="#" id="ay" class="tarixSecim"></a><a href="#" id="il" class="tarixSecim"></a><a href="#" id="goToday" class="tarixSecimGoToday"></a>';
-        } else {
-            tarixIn.innerHTML =
-                gun + '<a href="#" id="ay" class="tarixSecim"></a><a href="#" id="il" class="tarixSecim"></a>';
-        }
-        let ayHedef = document.getElementById('ay');
-        let ilHedef = document.getElementById('il');
-        let goTodayHedef = document.getElementById('goToday');
-        ayHedef.innerText = ayAdi;
-        ilHedef.innerText = ilDaxil;
-        if (dateChanged !== 0) {
-            goTodayHedef.innerText = 'Go back today';
-        }
+        Tracker.autorun(() => {
+            Meteor.subscribe('workSchema', () => {
+                let totalJobs = new ReactiveVar(0);
+                let monthIndex = ayDaxil + 1;
+                let reg = (monthIndex < 10 ? '0' + monthIndex : monthIndex) + '/[0-9][0-9]/' + ilDaxil;
+                totalJobs.set(WorkData.find({ workDate: { $regex: reg }, status: 'won' }).count());
+                Session.set('totalJobs', totalJobs.get());
+
+                let ayAdi = moment.months(ayDaxil);
+                let tarixIn = document.getElementById('ayHaqqinda');
+
+                if (dateChanged === 1) {
+                    tarixIn.innerHTML =
+                        gun +
+                        `<a href="#" id="ay" class="tarixSecim"></a><a href="#" id="il" class="tarixSecim"></a><a href="#" id="goToday" class="tarixSecimGoToday"></a><a href="#" id="totalMonth">Total Jobs: ${totalJobs.get()}</a>`;
+                } else {
+                    tarixIn.innerHTML =
+                        gun +
+                        `<a href="#" id="ay" class="tarixSecim"></a><a href="#" id="il" class="tarixSecim"></a><a href="#" id="totalMonth">Total Jobs: ${totalJobs.get()}</a>`;
+                }
+                let ayHedef = document.getElementById('ay');
+                let ilHedef = document.getElementById('il');
+                let goTodayHedef = document.getElementById('goToday');
+                ayHedef.innerText = ayAdi;
+                ilHedef.innerText = ilDaxil;
+                if (dateChanged !== 0) {
+                    goTodayHedef.innerText = 'Go back today';
+                }
+            });
+        });
     }
 
-    tarixiGoster(ay, il);
+    // tarixiGoster(ay, il);
+
+    Meteor.subscribe('workSchema', () => {
+        Tracker.autorun(() => {
+            let totalJobs = new ReactiveVar(0);
+            let monthIndex = ay + 1;
+            let reg = (monthIndex < 10 ? '0' + monthIndex : monthIndex) + '/[0-9][0-9]/' + il;
+            totalJobs.set(WorkData.find({ workDate: { $regex: reg }, status: 'won' }).count());
+            Session.set('totalJobs', totalJobs.get());
+
+            let ayAdi = moment.months(ay);
+            let tarixIn = document.getElementById('ayHaqqinda');
+
+            if (dateChanged === 1) {
+                tarixIn.innerHTML =
+                    gun +
+                    `<a href="#" id="ay" class="tarixSecim"></a><a href="#" id="il" class="tarixSecim"></a><a href="#" id="goToday" class="tarixSecimGoToday"></a><a href="#" id="totalMonth">Total Jobs: ${totalJobs.get()}</a>`;
+            } else {
+                tarixIn.innerHTML =
+                    gun +
+                    `<a href="#" id="ay" class="tarixSecim"></a><a href="#" id="il" class="tarixSecim"></a><a href="#" id="totalMonth">Total Jobs: ${totalJobs.get()}</a>`;
+            }
+            let ayHedef = document.getElementById('ay');
+            let ilHedef = document.getElementById('il');
+            let goTodayHedef = document.getElementById('goToday');
+            ayHedef.innerText = ayAdi;
+            ilHedef.innerText = il;
+            if (dateChanged !== 0) {
+                goTodayHedef.innerText = 'Go back today';
+            }
+        });
+    });
 
     // gunleri cedvele yerlesiren funksiya
     function gunYerlesdirme(ayx, ilx) {
