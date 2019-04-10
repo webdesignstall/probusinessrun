@@ -499,45 +499,65 @@ Template.preQuote.events({
             quoteExpirationDate,
         };
 
-        Meteor.call('quotaniBazayaElaveEt', doc, function(err) {
-            console.log('TCL: doc', doc);
-            if (err) {
-                swal({
-                    title: 'Impossible add quote to database',
-                    text: err.message,
-                    icon: 'error',
-                });
-            } else {
-                swal({
-                    title: 'Success',
-                    text: 'Quote added to database successfully',
-                    icon: 'success',
-                });
+        let emailReg = new RegExp(
+            /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+        );
 
-                Meteor.call('emailGonder', jobInfo, err => {
-                    if (err) {
-                        console.log(err);
-                    } else {
-                        document.querySelector('#flatRateCheck').checked = false;
-                        document.getElementById('gas_fee').disabled = false;
+        typeof email === 'string' && email !== '' && emailReg.test(email)
+            ? Meteor.call('quotaniBazayaElaveEt', doc, function(err) {
+                if (err) {
+                    swal({
+                        title: 'Impossible add quote to database',
+                        text: err.message,
+                        icon: 'error',
+                    });
+                } else {
+                    swal({
+                        title: 'Success',
+                        text: 'Quote added to database successfully',
+                        icon: 'success',
+                    });
 
-                        document.querySelector('#paymentContent').classList.remove('hide');
-                        document.querySelector('#flatRate_').classList.add('hide');
+                    document.querySelector('#flatRateCheck').checked = false;
+                    document.getElementById('gas_fee').disabled = false;
 
-                        window.addresses.resetComponent();
+                    document.querySelector('#paymentContent').classList.remove('hide');
+                    document.querySelector('#flatRate_').classList.add('hide');
 
-                        document.getElementById('quote-request').reset();
+                    window.addresses.resetComponent();
 
-                        // run job number
-                        jobNumber_();
+                    document.getElementById('quote-request').reset();
 
-                        Session.set('reset', true);
-                        Session.set('additionalContacts', []);
-                        setTimeout(() => Session.set('reset', false), 3000);
-                    }
-                });
-            }
-        });
+                    // run job number
+                    jobNumber_();
+
+                    Session.set('reset', true);
+                    Session.set('additionalContacts', []);
+                    setTimeout(() => Session.set('reset', false), 3000);
+
+                    Meteor.call('emailGonder', jobInfo, err => {
+                        if (err) {
+                            swal({
+                                title: 'Impossible send email to customer',
+                                text: err.message,
+                                icon: 'error',
+                            });
+                            console.log(err);
+                        } else {
+                            swal({
+                                title: 'Success',
+                                text: 'Email successfully sent to customer',
+                                icon: 'success',
+                            });
+                        }
+                    });
+                }
+            })
+            : swal({
+                title: 'Impossible add quote to database',
+                text: 'Email field is empty or incorrect email',
+                icon: 'error',
+            });
     },
     'click #work-request-reset': function() {
         Session.set('reset', true);
