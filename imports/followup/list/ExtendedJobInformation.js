@@ -368,7 +368,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                             type="text"
                             id={'first_contact_date_followup' + Session.get('is')}
                             disabled={true}
-                            value={moment(this.state.job.quoteDate).format('d MMMM YYYY hh:mm a') || ''}
+                            value={moment(new Date(this.state.job.quoteDate)).format('D MMMM YYYY hh:mm a') || ''}
                         />
                     </div>
                     <div className="col s12 m3 l2">
