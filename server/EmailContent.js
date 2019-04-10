@@ -76,7 +76,7 @@ export default function EmailContent(job) {
         .join('');
 
     function rateInFlatDisplay() {
-        return job.flatRate
+        return job.flatRate && job.minimumLaborTime
             ? `
             <div
             style="font-size:16px;text-align:center;font-family:'Roboto', Tahoma, Verdana, Segoe, sans-serif"
@@ -95,7 +95,7 @@ export default function EmailContent(job) {
                 <td
                   style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px 0 3px 10px; width: 50%;"
                 >
-                cash $${job.hourlyRatesCash}/hr, card $${job.hourlyRatesCard}/hr
+                Cash $${job.hourlyRatesCash}/hr, Card $${job.hourlyRatesCard}/hr
                 </td>
               </tr>
             </table>
@@ -168,12 +168,14 @@ export default function EmailContent(job) {
                 <td
                   style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px 0 3px 10px; width: 50%;"
                 >
-                Flat Rate Up to ${job.minimumLaborTime} hours
+                Flat Rate ${
+    job.minimumLaborTime && job.minimumLaborTime > 0 ? `Up to ${job.minimumLaborTime} hours` : ''
+}
                 </td>
                 <td
                   style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px 0 3px 10px; width: 50%;"
                 >
-                cash $${job.flatRateCash}, card $${job.flatRateCard}
+                Cash $${job.flatRateCash}, Card $${job.flatRateCard}
                 </td>
               </tr>
             </table>
