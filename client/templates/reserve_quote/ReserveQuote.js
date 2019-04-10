@@ -132,7 +132,6 @@ class ReserveQuote extends React.Component {
     }
 
     renderAdditionalContacts(addContacts) {
-        console.log('TCL: renderAdditionalContacts -> addContacts', addContacts);
         return addContacts
             ? addContacts.map((value, index) => {
                 return (
@@ -456,9 +455,8 @@ class ReserveQuote extends React.Component {
     }
 
     compare() {
-        console.log(this.state.is.quoteExpirationDate);
         return this.state.is[0] && this.state.is[0].quoteExpirationDate
-            ? this.state.is[0].quoteExpirationDate.getTime() < new Date()
+            ? this.state.is[0].quoteExpirationDate.getTime() < new Date() || this.state.is[0].status === 'lost'
             : false;
     }
 
