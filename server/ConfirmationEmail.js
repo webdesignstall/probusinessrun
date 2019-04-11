@@ -259,6 +259,20 @@ export default function ConfirmationEmail(job) {
             : '';
     }
 
+    function deposit() {
+        return job.deposit && job.deposit > 0
+            ? `
+            <div style="font-size:16px;text-align:center;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif">
+<div  style="font-size: 13px; margin-bottom: 5px; border-bottom: 1px solid #BBBEC3">
+<div style="width: 49%; display: inline-block; text-align: left;">Deposit required to lock the spot:</div>
+<div style="width: 49%; display: inline-block; text-align: left;">+$${
+    job.deposit
+} (to be applied as a credit toward this move’s bill)</div>
+</div>
+</div>`
+            : '';
+    }
+
     return `
         <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -684,6 +698,7 @@ ${gasFee()}
 ${doubleDrive()}
 ${smallItemPacking()}
 ${largeItemFee()}
+${deposit()}
 <!--[if (!mso)&(!IE)]><!-->
 </div>
 <!--<![endif]-->

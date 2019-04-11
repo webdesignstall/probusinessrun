@@ -224,7 +224,7 @@ class ReserveQuote extends React.Component {
                         Thank you for confirming your move with {job.companyInfo.name}!<br />
                         Please review your Moving Confirmation below to ensure accuracy:
                     </p>
-                    <table>
+                    <table style={{ width: '100%' }}>
                         <tbody>
                             <tr>
                                 <td>Customer Name:</td>
@@ -351,6 +351,16 @@ class ReserveQuote extends React.Component {
                                 <tr>
                                     <td>Extra Large Item Handling:</td>
                                     <td>${job.largeItemFee}</td>
+                                </tr>
+                            ) : (
+                                ''
+                            )}
+                            {job.deposit && job.deposit > 0 ? (
+                                <tr>
+                                    <td style={{ width: '49%' }}>Deposit required to lock the spot:</td>
+                                    <td style={{ width: '49%' }}>
+                                        +${job.deposit} (to be applied as a credit toward this move’s bill)
+                                    </td>
                                 </tr>
                             ) : (
                                 ''
