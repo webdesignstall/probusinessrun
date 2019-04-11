@@ -29,6 +29,14 @@
     background-color: #4cd137;
     color: white;
 }
+.filter--list li:nth-child(4):hover {
+    list-style: none;
+    float: left;
+    cursor: pointer;
+    padding: 0 15px;
+    background-color: #bdc3c7;
+    color: black;
+}
 
 .filter--list {
     margin: 0 15px 0 0;

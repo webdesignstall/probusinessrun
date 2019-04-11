@@ -47,6 +47,11 @@ export default class Filter extends TrackerReact(Component) {
                     <li className={this.state.clicked === 'won' ? 'yasil_' : ''} onClick={() => this.filter('won')}>
                         WON
                     </li>
+                    <li
+                        className={this.state.clicked === 'cancelled' ? 'boz_' : ''}
+                        onClick={() => this.filter('cancelled')}>
+                        CANCELLED
+                    </li>
                 </ul>
                 <span className="sag">
                     <i className="material-icons">filter_list</i>

@@ -145,6 +145,9 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
         case 'lost':
             color = '#e84118';
             break;
+        case 'cancelled':
+            color = '#bdc3c7';
+            break;
         default:
             color = '#F17721';
         }
@@ -163,6 +166,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                     <option value="inProgress">In Progress</option>
                     <option value="won">Won</option>
                     <option value="lost">Lost</option>
+                    <option value="cancelled">Cancelled</option>
                 </select>
             </React.Fragment>
         );

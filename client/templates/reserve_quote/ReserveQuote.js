@@ -470,7 +470,8 @@ class ReserveQuote extends React.Component {
             (this.state.is[0] && this.state.is[0].status === 'won')
             ? this.state.is[0].quoteExpirationDate.getTime() < new Date() ||
                   this.state.is[0].status === 'lost' ||
-                  this.state.is[0].status === 'won'
+                  this.state.is[0].status === 'won' ||
+                  this.state.is[0].status === 'cancelled'
             : false;
     }
 
