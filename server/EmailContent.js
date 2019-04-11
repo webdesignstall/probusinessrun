@@ -605,6 +605,35 @@ export default function EmailContent(job) {
                 .join('')
             : '';
 
+    function timeDisplay() {
+        let time = 'hours(s)';
+        let amount = 0;
+
+        switch (job.expireHour) {
+        case 24:
+            (time = 'day'), (amount = 1);
+            break;
+
+        case 48:
+            (time = 'days'), (amount = 2);
+            break;
+
+        case 72:
+            (time = 'days'), (amount = 3);
+            break;
+
+        case 168:
+            (time = 'week'), (amount = 1);
+            break;
+
+        default:
+            (time = 'hour(s)'), (amount = job.expireHour);
+            break;
+        }
+
+        return job.expireHour > 0 ? `in ${amount} ${time}.` : 'soon.';
+    }
+
     return `
     <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -997,9 +1026,7 @@ export default function EmailContent(job) {
                                 <br/>
                                 <span style="font-size: 14px; line-height: 16px;" >
                                 <strong>
-                                  Act now! This Promotional Rate expires ${
-    job.expireHour > 0 ? `in ${job.expireHour} hour(s).` : 'soon.'
-}</strong></span><br />
+                                  Act now! This Promotional Rate expires ${timeDisplay()}</strong></span><br />
 <span style="font-size: 14px; line-height: 16px;" >
                                 <strong>
                                       Your quote includes:</strong></span><br/>
