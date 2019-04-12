@@ -346,6 +346,11 @@ input {
     background-color: #bdc3c7;
     color: black;
 }
+
+.boz-text {
+    color: #bdc3c7;
+}
+
 .sari-text {
     color: #ffd32a;
 }

@@ -681,6 +681,14 @@ Schemas.workSchema = new SimpleSchema(
             type: Number,
             optional: true,
         },
+        lastChange: {
+            type: Date,
+            optional: true,
+        },
+        statusChange: {
+            type: Date,
+            optional: true,
+        },
     },
     { tracker: Tracker },
 );

@@ -50,6 +50,8 @@ export default class List extends TrackerReact(Component) {
                             let indexOfEmpty = arrayOfWords.indexOf('');
                             indexOfEmpty > -1 ? arrayOfWords.splice(indexOfEmpty, 1) : null;
                             let result = new Set();
+                            let sort = Session.get('sort');
+
                             arrayOfWords.map(word => {
                                 this.workData().map(work => {
                                     work.clientFirstName &&
@@ -74,9 +76,7 @@ export default class List extends TrackerReact(Component) {
                             });
                             let resultConverted = Array.from(result);
                             arrayOfWords.length > 0 ? null : (resultConverted = this.workData());
-                            resultConverted.sort((a, b) => {
-                                return new Date(b.workDate).getTime() - new Date(a.workDate).getTime();
-                            });
+
                             resultConverted.length > 0 ? null : (resultConverted = [{}]);
                             arrayOfWords.length > 0 ? Session.set('isSearch', true) : Session.set('isSearch', false);
                             this.setState(
@@ -93,14 +93,31 @@ export default class List extends TrackerReact(Component) {
                     },
                 );
             } else {
+                let result = this.workData(Session.get('status')).sort((a, b) => {
+                    return new Date(a.workDate || new Date()).getTime() - new Date(b.workDate || new Date()).getTime();
+                });
+
+                result.sort((a, b) => {
+                    if (Session.get('sort') === 'default') {
+                        return new Date(b.statusChange).getTime() - new Date(a.statusChange).getTime();
+                    }
+
+                    if (Session.get('sort') === 'az') {
+                        return new Date(a.jobNumber).getTime() - new Date(b.workDate).getTime();
+                    }
+
+                    if (Session.get('sort') === 'za') {
+                        return new Date(b.workDate).getTime() - new Date(a.workDate).getTime();
+                    }
+
+                    if (Session.get('sort') === 'lc') {
+                        return new Date(b.lastChange).getTime() - new Date(a.lastChange).getTime();
+                    }
+                });
+
                 this.setState(
                     {
-                        jobs: this.workData(Session.get('status')).sort((a, b) => {
-                            return (
-                                new Date(a.workDate || new Date()).getTime() -
-                                new Date(b.workDate || new Date()).getTime()
-                            );
-                        }),
+                        jobs: result,
                     },
                     () => {
                         this.setState({

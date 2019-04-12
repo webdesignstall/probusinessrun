@@ -59,6 +59,7 @@ if (Meteor.isServer) {
         },
 
         quotaniBazayaElaveEt: function(doc) {
+            doc.statusChange = new Date();
             WorkData.insert(doc);
         },
 
@@ -141,6 +142,10 @@ if (Meteor.isServer) {
             if (doc.status === 'lost' && (doc.finalNote === 'none' || doc.finalNote === undefined)) {
                 throw new Meteor.Error('Please select final note for lost job');
             }
+
+            doc.status !== WorkData.findOne({ _id: doc._id }).status ? (doc.statusChange = new Date()) : null;
+            doc.lastChange = new Date();
+
             WorkData.update(
                 { _id: doc._id },
                 {

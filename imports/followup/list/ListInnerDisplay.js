@@ -56,7 +56,9 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
                                     ? 'material-icons yasil-text'
                                     : this.state.job.status === 'lost'
                                         ? 'material-icons narinci-text'
-                                        : 'material-icons'
+                                        : this.state.job.status === 'cancelled'
+                                            ? 'material-icons boz-text'
+                                            : 'material-icons'
                         }
                         style={{
                             position: 'relative',
@@ -74,7 +76,9 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
                             ? 'WON'
                             : this.state.job.status === 'lost'
                                 ? 'LOST'
-                                : 'STATUS UNDEFINED'}
+                                : this.state.job.status === 'cancelled'
+                                    ? 'CANCELLED'
+                                    : 'STATUS UNDEFINED'}
                 </span>
             </span>
         );
@@ -103,13 +107,24 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
         );
         let greyFollowUp = (
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 22 22">
-                <circle cx="11" cy="11" r="11" fill="#a0a7a7" />
-                <g transform="translate(3.667 3.667)" fill="#a0a7a7" stroke="#fff" strokeWidth="1">
+                <circle cx="11" cy="11" r="11" fill="#3D3F40" />
+                <g transform="translate(3.667 3.667)" fill="#3D3F40" stroke="#fff" strokeWidth="1">
                     <circle cx="7.333" cy="7.333" r="7.333" stroke="none" />
                     <circle cx="7.333" cy="7.333" r="6.833" fill="none" />
                 </g>
             </svg>
         );
+
+        let lightGreyFollowUp = (
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 22 22">
+                <circle cx="11" cy="11" r="11" fill="#BEC3C6" />
+                <g transform="translate(3.667 3.667)" fill="#BEC3C6" stroke="#fff" strokeWidth="1">
+                    <circle cx="7.333" cy="7.333" r="7.333" stroke="none" />
+                    <circle cx="7.333" cy="7.333" r="6.833" fill="none" />
+                </g>
+            </svg>
+        );
+
         let sariFollowUp = (
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 22 22">
                 <circle cx="11" cy="11" r="11" fill="#ffd32a" />
@@ -134,7 +149,9 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
                                     ? redFollowUp
                                     : this.state.job.status && this.state.job.status === 'won'
                                         ? greenFollowUp
-                                        : sariFollowUp
+                                        : this.state.job.status && this.state.job.status === 'cancelled'
+                                            ? lightGreyFollowUp
+                                            : sariFollowUp
                                 : sariFollowUp
                             : greyFollowUp}
                     </span>
