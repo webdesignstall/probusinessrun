@@ -217,11 +217,11 @@ Template.kalendar.onRendered(function() {
                 if (dateChanged === 1) {
                     tarixIn.innerHTML =
                         gun +
-                        `<a href="#" id="ay" class="tarixSecim"></a><a href="#" id="il" class="tarixSecim"></a><a href="#" id="goToday" class="tarixSecimGoToday"></a><a href="#" id="totalMonth">Total Jobs: ${totalJobs.get()}</a>`;
+                        `<a href="#" id="ay" class="tarixSecim"></a><a href="#" id="il" class="tarixSecim"></a><a href="#" id="goToday" class="tarixSecimGoToday"></a><a href="#" id="totalMonth">Total Jobs: ${totalJobs.get()}</a><div class="add-moreschedule-button">Create New Job + </div>`;
                 } else {
                     tarixIn.innerHTML =
                         gun +
-                        `<a href="#" id="ay" class="tarixSecim"></a><a href="#" id="il" class="tarixSecim"></a><a href="#" id="totalMonth">Total Jobs: ${totalJobs.get()}</a>`;
+                        `<a href="#" id="ay" class="tarixSecim"></a><a href="#" id="il" class="tarixSecim"></a><a href="#" id="totalMonth">Total Jobs: ${totalJobs.get()}</a><div class="add-moreschedule-button">Create New Job + </div>`;
                 }
                 let ayHedef = document.getElementById('ay');
                 let ilHedef = document.getElementById('il');
@@ -251,11 +251,11 @@ Template.kalendar.onRendered(function() {
             if (dateChanged === 1) {
                 tarixIn.innerHTML =
                     gun +
-                    `<a href="#" id="ay" class="tarixSecim"></a><a href="#" id="il" class="tarixSecim"></a><a href="#" id="goToday" class="tarixSecimGoToday"></a><a href="#" id="totalMonth">Total Jobs: ${totalJobs.get()}</a>`;
+                    `<a href="#" id="ay" class="tarixSecim"></a><a href="#" id="il" class="tarixSecim"></a><a href="#" id="goToday" class="tarixSecimGoToday"></a><a href="#" id="totalMonth">Total Jobs: ${totalJobs.get()}</a><div class="add-moreschedule-button">Create New Job + </div>`;
             } else {
                 tarixIn.innerHTML =
                     gun +
-                    `<a href="#" id="ay" class="tarixSecim"></a><a href="#" id="il" class="tarixSecim"></a><a href="#" id="totalMonth">Total Jobs: ${totalJobs.get()}</a>`;
+                    `<a href="#" id="ay" class="tarixSecim"></a><a href="#" id="il" class="tarixSecim"></a><a href="#" id="totalMonth">Total Jobs: ${totalJobs.get()}</a><div class="add-moreschedule-button">Create New Job + </div>`;
             }
             let ayHedef = document.getElementById('ay');
             let ilHedef = document.getElementById('il');

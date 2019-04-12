@@ -11,6 +11,7 @@
 }
 
 #ayHaqqinda {
+    position: relative;
     background-color: #8e44ad;
     color: white;
     padding: 1em;
@@ -309,10 +310,17 @@ fieldset div {
 }
 
 .add-moreschedule-button {
-    color: white !important;
+    display: inline-block;
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    color: white;
+    line-height: 20px;
     background-color: #16a085;
     text-align: center;
-    padding: 5px;
+    text-transform: uppercase;
+    padding: 0 10px;
+    border-radius: 10px;
     transition: ease all 0.5s;
     -webkit-transition: ease all 0.5s;
     -moz-transition: ease all 0.5s;
@@ -320,8 +328,8 @@ fieldset div {
 }
 
 .add-moreschedule-button:hover {
-    background-color: rgb(22, 109, 91);
-    color: white;
+    background-color: #35dbba;
+    color: black;
 }
 
 .elave-et,
