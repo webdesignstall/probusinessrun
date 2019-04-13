@@ -91,17 +91,18 @@ export default class List extends TrackerReact(Component) {
                     },
                 );
             } else {
-                let result = this.workData(Session.get('status')).sort((a, b) => {
-                    return new Date(a.workDate || new Date()).getTime() - new Date(b.workDate || new Date()).getTime();
-                });
+                let result = this.workData(Session.get('status'));
 
                 result.sort((a, b) => {
                     if (Session.get('sort') === 'default') {
-                        return new Date(b.statusChange).getTime() - new Date(a.statusChange).getTime();
+                        return (
+                            new Date(b.statusChange || '1 november 1989').getTime() -
+                            new Date(a.statusChange || '1 november 1989').getTime()
+                        );
                     }
 
                     if (Session.get('sort') === 'az') {
-                        return new Date(a.jobNumber).getTime() - new Date(b.workDate).getTime();
+                        return new Date(a.workDate).getTime() - new Date(b.workDate).getTime();
                     }
 
                     if (Session.get('sort') === 'za') {
