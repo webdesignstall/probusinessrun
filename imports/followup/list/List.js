@@ -84,9 +84,7 @@ export default class List extends TrackerReact(Component) {
                                     jobs: resultConverted,
                                 },
                                 () => {
-                                    this.setState({
-                                        loading: false,
-                                    });
+                                    Session.set('loading', false);
                                 },
                             );
                         }
@@ -120,9 +118,7 @@ export default class List extends TrackerReact(Component) {
                         jobs: result,
                     },
                     () => {
-                        this.setState({
-                            loading: false,
-                        });
+                        Session.set('loading', false);
                     },
                 );
             }
@@ -156,16 +152,6 @@ export default class List extends TrackerReact(Component) {
     }
 
     render() {
-        return (
-            <div className="collection">
-                <LoadingOverlay
-                    text="Loading..."
-                    className="loader"
-                    active={this.state.loading}
-                    spinner={<RingLoader color={'#6DD4B8'} />}>
-                    {this.renderList()}
-                </LoadingOverlay>
-            </div>
-        );
+        return <div className="collection">{this.renderList()}</div>;
     }
 }

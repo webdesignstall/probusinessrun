@@ -182,6 +182,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
     }
 
     saveJob() {
+        Session.set('loading', true);
         let workDate = document.getElementById('quote-date-picker-followup').value;
         workDate = moment(workDate).format('MM/DD/YYYY');
         let doc = this.state.job;
@@ -206,7 +207,8 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                     button: 'OK',
                 }),
                 Session.set('is', ''),
-                Session.set('ExtendedJobInformation', ''));
+                Session.set('ExtendedJobInformation', ''),
+                Session.set('loading', false));
         });
     }
 

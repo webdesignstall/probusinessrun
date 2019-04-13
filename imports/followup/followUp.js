@@ -9,6 +9,7 @@ Template.followUp.onRendered(() => {
 });
 
 Template.followUp.onDestroyed(() => {
+    ReactDOM.unmountComponentAtNode(document.getElementById('follow-up'));
     Session.set('isciId', '');
     Session.set('jobNumber', '');
     Session.set('tabletIsId', '');

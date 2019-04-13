@@ -97,6 +97,7 @@ function Xuban() {
 }
 
 Template.kalendar.onCreated(function() {
+    console.log('kalendar mounted');
     Template.instance().secilenTarix2 = new ReactiveVar('burger-form');
     Template.instance().vurulanId = new ReactiveVar('zulumbala');
     usersBaza = Meteor.users.find().fetch();
@@ -117,6 +118,7 @@ Template.preQuote.onDestroyed(function() {
 });
 
 Template.kalendar.onDestroyed(() => {
+    console.log('kalendar unmounted');
     ReactDOM.unmountComponentAtNode(document.getElementById('truck-list-update'));
     ReactDOM.unmountComponentAtNode(document.getElementById('update_time_window'));
     ReactDOM.unmountComponentAtNode(document.getElementById('iscilerinSiyahisiRender'));
@@ -130,6 +132,13 @@ Template.kalendar.onDestroyed(() => {
     ReactDOM.unmountComponentAtNode(document.getElementById('takenBy'));
     ReactDOM.unmountComponentAtNode(document.getElementById('additional-contact-update'));
     ReactDOM.unmountComponentAtNode(document.getElementById('quote-date-expiration-add'));
+    let dailyStatsList = document.getElementsByClassName('dailyStatsComponent');
+    console.log('TCL: dailyStatsList', dailyStatsList);
+    let i = 0;
+    for (i = 0; i < dailyStatsList.length; i++) {
+        console.log('TCL: dailyStatsList', dailyStatsList[i]);
+        ReactDOM.unmountComponentAtNode(dailyStatsList[i]);
+    }
 });
 
 Template.kalendar.helpers({
@@ -355,6 +364,7 @@ Template.kalendar.onRendered(function() {
         gunler.map(gun => {
             let div = document.createElement('div');
             div.setAttribute('id', gun.id + '_');
+            div.setAttribute('class', 'dailyStatsComponent');
             document.getElementById(gun.id).appendChild(div);
             if (gun.id.search('gunNomre') < 0) {
                 ReactDOM.render(<DailyStats date={gun.id} />, document.getElementById(gun.id + '_'));
@@ -433,6 +443,7 @@ Template.kalendar.onRendered(function() {
                 gunler.map(gun => {
                     let div = document.createElement('div');
                     div.setAttribute('id', gun.id + '_');
+                    div.setAttribute('className', 'dailyStatsComponent');
                     document.getElementById(gun.id).appendChild(div);
                     if (gun.id.search('gunNomre') < 0) {
                         ReactDOM.render(<DailyStats date={gun.id} />, document.getElementById(gun.id + '_'));
@@ -488,7 +499,7 @@ Template.kalendar.onRendered(function() {
 // kalendardaki eventler
 Template.kalendar.events({
     'click .delete-duymesi': function() {
-        if (confirm('Are you sure to delete this event?')) {
+        if (!Session.get('addingJob') && confirm('Are you sure to delete this event?')) {
             Meteor.call('isiSilmek', this._id);
         }
     },
@@ -524,7 +535,7 @@ Template.kalendar.events({
     'click .add-moreschedule-button': function(event) {
         event.preventDefault();
         $('#add-schedule-page').show();
-        $('#kalendar').hide();
+        // $('#kalendar').hide();
         ReactDOM.unmountComponentAtNode(document.getElementById('truck-list-update'));
         ReactDOM.unmountComponentAtNode(document.getElementById('update_time_window'));
         ReactDOM.unmountComponentAtNode(document.getElementById('number-of-movers2'));
@@ -543,6 +554,8 @@ Template.kalendar.events({
         });
 
         jobNumber_();
+        document.getElementById('add-schedule-page').scrollIntoView({ behavior: 'smooth' });
+        Session.set('addingJob', true);
     },
     'click .baqla': function(event) {
         event.preventDefault();
@@ -564,40 +577,45 @@ Template.kalendar.events({
         ReactDOM.unmountComponentAtNode(document.getElementById('quote-date-expiration-add'));
         Session.set('secilmisIsciler', '');
         Session.set('is', '');
+        Session.set('addingJob', false);
     },
     'click .edit-duymesi': function(event) {
-        event.preventDefault();
-        Template.instance().vurulanId.set(this._id);
-        $('#edit-schedule-page').show();
-        Session.set('is', this._id);
-        let job = WorkData.findOne({ _id: Session.get('is') });
-        ReactDOM.unmountComponentAtNode(document.getElementById('addTruck'));
-        ReactDOM.render(<UpdateAddTruck />, document.querySelector('#truck-list-update'));
-        ReactDOM.unmountComponentAtNode(document.getElementById('arrival-time'));
-        ReactDOM.render(<ArrivalWindow update={true} />, document.getElementById('update_time_window'));
-        ReactDOM.render(<MovingSize />, document.getElementById('moving-size'));
-        ReactDOM.render(<RenderEmployees />, document.getElementById('iscilerinSiyahisiRender'));
-        ReactDOM.render(<UpdateDoubleDrive />, document.getElementById('double-drive-time-update'));
-        ReactDOM.render(<Addresses />, document.getElementById('addressesIdUpdate'));
-        ReactDOM.render(<NumberOfUsers />, document.getElementById('number-of-movers2'));
-        ReactDOM.render(<TempTrucks update={true} />, document.getElementById('tempTruckUpdate'));
-        ReactDOM.render(<QuoteExpiration />, document.getElementById('quoteExpireDateUpdate'));
-        ReactDOM.render(
-            <AdditionalContact contacts={job ? job.additionalContacts : []} />,
-            document.getElementById('additional-contact-update'),
-        );
+        if (Session.get('addingJob') !== true) {
+            event.preventDefault();
+            Template.instance().vurulanId.set(this._id);
+            $('#edit-schedule-page').show();
+            Session.set('is', this._id);
+            let job = WorkData.findOne({ _id: Session.get('is') });
+            ReactDOM.unmountComponentAtNode(document.getElementById('addTruck'));
+            ReactDOM.render(<UpdateAddTruck />, document.querySelector('#truck-list-update'));
+            ReactDOM.unmountComponentAtNode(document.getElementById('arrival-time'));
+            ReactDOM.render(<ArrivalWindow update={true} />, document.getElementById('update_time_window'));
+            ReactDOM.render(<MovingSize />, document.getElementById('moving-size'));
+            ReactDOM.render(<RenderEmployees />, document.getElementById('iscilerinSiyahisiRender'));
+            ReactDOM.render(<UpdateDoubleDrive />, document.getElementById('double-drive-time-update'));
+            ReactDOM.render(<Addresses />, document.getElementById('addressesIdUpdate'));
+            ReactDOM.render(<NumberOfUsers />, document.getElementById('number-of-movers2'));
+            ReactDOM.render(<TempTrucks update={true} />, document.getElementById('tempTruckUpdate'));
+            ReactDOM.render(<QuoteExpiration />, document.getElementById('quoteExpireDateUpdate'));
+            ReactDOM.render(
+                <AdditionalContact contacts={job ? job.additionalContacts : []} />,
+                document.getElementById('additional-contact-update'),
+            );
 
-        let x = WorkData.findOne({ _id: Session.get('is') });
-        let takenById = x.takenBy;
-        ReactDOM.render(<TakenBy id={takenById} update={true} />, document.getElementById('takenBy--update'));
-        $('#quote-date-picker_2').datepicker();
-        $(function() {
-            $('#quote-date-picker_2').datepicker('setDate', new Date(x.workDate));
-        });
+            let x = WorkData.findOne({ _id: Session.get('is') });
+            let takenById = x.takenBy;
+            ReactDOM.render(<TakenBy id={takenById} update={true} />, document.getElementById('takenBy--update'));
+            $('#quote-date-picker_2').datepicker();
+            $(function() {
+                $('#quote-date-picker_2').datepicker('setDate', new Date(x.workDate));
+            });
 
-        $(document).ready(function() {
-            $('select').material_select();
-        });
+            $(document).ready(function() {
+                $('select').material_select();
+            });
+
+            document.getElementById('edit-schedule-page').scrollIntoView({ behavior: 'smooth' });
+        }
     },
     'click #testucun': function() {
         function yenidenIsled() {

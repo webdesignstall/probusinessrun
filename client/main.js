@@ -66,6 +66,7 @@ Meteor.startup(() => {
     Session.set('status', 'inProgress');
     Session.set('searchWords', '');
     Session.set('sort', 'default');
+    Session.set('addingJob', false);
 
     Bert.defaults = {
         hideDelay: 6000,

@@ -22,6 +22,10 @@ export default class FollowUpMain extends TrackerReact(Component) {
         return WorkData.find({ status: 'inProgress' }).fetch();
     }
 
+    UNSAFE_componentWillMount() {
+        Session.set('loading', true);
+    }
+
     componentDidMount() {
         this.x = Tracker.autorun(() => {
             let progressJobs = this.workDataInProgress();
@@ -56,7 +60,7 @@ export default class FollowUpMain extends TrackerReact(Component) {
             <LoadingOverlay
                 text="Loading..."
                 className="loader"
-                active={this.state.loading}
+                active={Session.get('loading')}
                 spinner={<RingLoader color={'#6DD4B8'} />}>
                 <div className="followup-header">
                     <Header />

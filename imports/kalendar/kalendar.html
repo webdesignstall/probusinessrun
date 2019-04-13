@@ -1,24 +1,4 @@
 <template name="kalendar">
-    <div id="add-schedule-page" className="col s12 m12 l12">
-        <div class="header-add-schedule">
-            Adding Schedule
-            <a href="#">
-                <i class="material-icons sag baqla">close</i>
-            </a>
-        </div>
-        {{> preQuote}}
-    </div>
-    <div id="edit-schedule-page" className="col s12 m12 l12">
-        <div class="add-schedule">
-            <div class="header-add-schedule">
-                Edit Schedule
-                <a href="#">
-                    <i class="material-icons sag baqla">close</i>
-                </a>
-            </div>
-            {{> updateQuote}}
-        </div>
-    </div>
     <div>
         <div id="kalendar">
             <div id="ayHaqqinda">
@@ -80,6 +60,10 @@
                                 <a id="isin-saati">
                                     {{#if isBosdur workMustBeginTime}}--:--{{else}}
                                     {{#if workMustBeginTime
+
+
+
+
 
 
 
@@ -172,6 +156,10 @@
 
 
 
+
+
+
+
                                     }}{{saatDeqiq workMustBeginTime}}
                                     {{/if}}
                                     {{/if}}
@@ -240,6 +228,10 @@
                                 <a id="isin-saati">
                                     {{#if isBosdur workMustBeginTime}}--:--{{else}}
                                     {{#if workMustBeginTime
+
+
+
+
 
 
 
@@ -332,6 +324,10 @@
 
 
 
+
+
+
+
                                     }}{{saatDeqiq workMustBeginTime}}
                                     {{/if}}
                                     {{/if}}
@@ -400,6 +396,10 @@
                                 <a id="isin-saati">
                                     {{#if isBosdur workMustBeginTime}}--:--{{else}}
                                     {{#if workMustBeginTime
+
+
+
+
 
 
 
@@ -492,6 +492,10 @@
 
 
 
+
+
+
+
                                     }}{{saatDeqiq workMustBeginTime}}
                                     {{/if}}
                                     {{/if}}
@@ -532,6 +536,26 @@
                     </tr>
                 </tbody>
             </table>
+        </div>
+    </div>
+    <div id="add-schedule-page">
+        <div class="header-add-schedule">
+            Adding Schedule
+            <a href="#">
+                <i class="material-icons sag baqla">close</i>
+            </a>
+        </div>
+        {{> preQuote}}
+    </div>
+    <div id="edit-schedule-page" className="col s12 m12 l12">
+        <div class="add-schedule">
+            <div class="header-add-schedule">
+                Edit Schedule
+                <a href="#">
+                    <i class="material-icons sag baqla">close</i>
+                </a>
+            </div>
+            {{> updateQuote}}
         </div>
     </div>
     <div class="yerlesdir"></div>
