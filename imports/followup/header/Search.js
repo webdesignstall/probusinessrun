@@ -31,19 +31,15 @@ export default class Search extends TrackerReact(Component) {
 
     search(e) {
         Session.set('loading', true);
-        let regEx = /[^? / : ; #,]/;
         let value = e.target.value;
-
-        regEx.test(value)
-            ? this.setState(
-                {
-                    searchWords: value,
-                },
-                () => {
-                    Session.set('searchWords', value);
-                },
-            )
-            : Session.set('loading', false);
+        this.setState(
+            {
+                searchWords: value,
+            },
+            () => {
+                Session.set('searchWords', value);
+            },
+        );
     }
 
     render() {
