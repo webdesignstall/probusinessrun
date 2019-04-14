@@ -49,6 +49,7 @@ export default class QuoteExpiration extends TrackerReact(Component) {
                     icon: 'error',
                     button: 'OK',
                 }),
+                Session.set('loading', false),
                 console.log(err))
                 : swal({
                     title: 'Success!',

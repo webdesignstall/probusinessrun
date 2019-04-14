@@ -190,6 +190,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
         doc.followUp && doc.followUp[doc.followUp.length - 1].note === '' && doc.followUp.pop();
         doc.companyInfo = Session.get('companyInfo');
         doc.numberOfWorkers = Number(document.querySelector('#iscinin-sayi').value);
+        delete doc.quoteExpirationDate;
 
         Meteor.call('updateWork', doc, err => {
             err
@@ -199,7 +200,8 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                     text: 'Reason: ' + err.message,
                     icon: 'error',
                     button: 'OK',
-                }))
+                }),
+                Session.set('loading', false))
                 : (swal({
                     title: 'Success!',
                     text: 'Information updated successfully',
@@ -261,6 +263,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                     icon: 'error',
                     button: 'OK',
                 });
+                Session.set('loading', false);
             } else {
                 Meteor.call('emailGonder', objNew, err => {
                     err
@@ -270,7 +273,8 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                             text: 'Something went wrong. Can\'t send quote email. Reason: ' + err.message,
                             icon: 'error',
                             button: 'OK',
-                        }))
+                        }),
+                        Session.set('loading', false))
                         : (swal({
                             title: 'Success!',
                             text: 'Quote sent successfully',

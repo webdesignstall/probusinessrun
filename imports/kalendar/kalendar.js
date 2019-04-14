@@ -535,6 +535,7 @@ Template.kalendar.events({
     'click .add-moreschedule-button': function(event) {
         event.preventDefault();
         $('#add-schedule-page').show();
+        $('#edit-schedule-page').hide();
         // $('#kalendar').hide();
         ReactDOM.unmountComponentAtNode(document.getElementById('truck-list-update'));
         ReactDOM.unmountComponentAtNode(document.getElementById('update_time_window'));
@@ -562,7 +563,6 @@ Template.kalendar.events({
         colorIndigator();
         $('#add-schedule-page').hide();
         $('#edit-schedule-page').hide();
-        $('#kalendar').show();
         ReactDOM.unmountComponentAtNode(document.getElementById('number-of-movers'));
         ReactDOM.unmountComponentAtNode(document.getElementById('truck-list-update'));
         ReactDOM.unmountComponentAtNode(document.getElementById('update_time_window'));
@@ -582,6 +582,24 @@ Template.kalendar.events({
     'click .edit-duymesi': function(event) {
         if (Session.get('addingJob') !== true) {
             event.preventDefault();
+            // Reset before mount
+            ReactDOM.unmountComponentAtNode(document.getElementById('number-of-movers'));
+            ReactDOM.unmountComponentAtNode(document.getElementById('truck-list-update'));
+            ReactDOM.unmountComponentAtNode(document.getElementById('update_time_window'));
+            ReactDOM.unmountComponentAtNode(document.getElementById('arrival-time'));
+            ReactDOM.unmountComponentAtNode(document.getElementById('moving-size'));
+            ReactDOM.unmountComponentAtNode(document.getElementById('iscilerinSiyahisiRender'));
+            ReactDOM.unmountComponentAtNode(document.getElementById('moving-company'));
+            ReactDOM.unmountComponentAtNode(document.getElementById('tempTruck'));
+            ReactDOM.unmountComponentAtNode(document.getElementById('addressesId'));
+            ReactDOM.unmountComponentAtNode(document.getElementById('takenBy'));
+            ReactDOM.unmountComponentAtNode(document.getElementById('additional-contact-update'));
+            ReactDOM.unmountComponentAtNode(document.getElementById('quote-date-expiration-add'));
+            Session.set('secilmisIsciler', '');
+            Session.set('is', '');
+            Session.set('addingJob', false);
+            $('#edit-schedule-page').hide();
+
             Template.instance().vurulanId.set(this._id);
             $('#edit-schedule-page').show();
             Session.set('is', this._id);

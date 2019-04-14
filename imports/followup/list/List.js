@@ -102,15 +102,24 @@ export default class List extends TrackerReact(Component) {
                     }
 
                     if (Session.get('sort') === 'az') {
-                        return new Date(a.workDate).getTime() - new Date(b.workDate).getTime();
+                        return (
+                            new Date(a.workDate || '1 november 1989').getTime() -
+                            new Date(b.workDate || '1 november 1989').getTime()
+                        );
                     }
 
                     if (Session.get('sort') === 'za') {
-                        return new Date(b.workDate).getTime() - new Date(a.workDate).getTime();
+                        return (
+                            new Date(b.workDate || '1 november 1989').getTime() -
+                            new Date(a.workDate || '1 november 1989').getTime()
+                        );
                     }
 
                     if (Session.get('sort') === 'lc') {
-                        return new Date(b.lastChange).getTime() - new Date(a.lastChange).getTime();
+                        return (
+                            new Date(b.lastChange || '1 november 1989').getTime() -
+                            new Date(a.lastChange || '1 november 1989').getTime()
+                        );
                     }
                 });
 

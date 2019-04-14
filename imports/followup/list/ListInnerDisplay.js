@@ -202,22 +202,26 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
 
     displayInfo() {
         return (
-            <div className={this.state.job._id ? '' : 'hide'}>
-                <span
+            <div className={this.state.job._id ? '' : 'hide'} style={{ position: 'relative' }}>
+                <div
                     style={{
+                        top: '3px',
+                        display: 'inline-block',
+                        position: 'absolute',
                         marginRight: '8px',
+                        width: '130px',
+                        textTransform: 'uppercase',
+                        fontWeight: '500',
+                        overflow: 'hidden',
+                        whiteSpace: 'nowrap',
                     }}>
-                    {this.state.job ? this.state.job.clientFirstName : ''}
-                </span>
-                <span
-                    style={{
-                        marginRight: '8px',
-                    }}>
+                    <div className="fade" />
+                    {this.state.job ? this.state.job.clientFirstName : ''}{' '}
                     {this.state.job ? this.state.job.clientLastName : ''}
-                </span>
+                </div>
                 <span
                     style={{
-                        marginRight: '8px',
+                        margin: '0 8px 0 140px',
                         backgroundColor: '#3D587E',
                         borderRadius: '10px',
                         color: '#D1E0FB',
@@ -293,10 +297,7 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
 
     render() {
         return (
-            <React.Fragment>
-                {this.state.job && this.state.job._id ? this.displayInfo() : ''}
-                {this.state.job && this.state.job._id ? '' : 'NO RESULT'}
-            </React.Fragment>
+            <React.Fragment>{this.state.job && this.state.job._id ? this.displayInfo() : 'NO RESULT'}</React.Fragment>
         );
     }
 }

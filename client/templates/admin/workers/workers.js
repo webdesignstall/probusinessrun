@@ -94,7 +94,8 @@ Template.workersList.events({
                             icon: 'error',
                             button: 'OK',
                         }),
-                        console.log(error))
+                        console.log(error),
+                        Session.set('loading', false))
                         : swal({
                             title: 'Success!',
                             text: 'Information saved successfully',
@@ -112,11 +113,7 @@ Template.workersList.events({
     'click .delete-duymesi': function() {
         if (
             confirm(
-                'Are you sure to delete ' +
-                    this.profile.firstName +
-                    ' ' +
-                    this.profile.lastName +
-                    ' from database?',
+                'Are you sure to delete ' + this.profile.firstName + ' ' + this.profile.lastName + ' from database?',
             )
         ) {
             Meteor.call('isciniSilmek', this._id);

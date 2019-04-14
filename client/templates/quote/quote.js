@@ -102,7 +102,8 @@ Template.updateQuote.events({
                     title: 'Error! Can\'t send email to supervisor pls contact help desk',
                     text: 'Reason: ' + err.message,
                     icon: 'error',
-                }))
+                }),
+                Session.set('loading', false))
                 : swal({
                     title: 'Success',
                     text: 'Email sent successfully',
@@ -121,7 +122,8 @@ Template.updateQuote.events({
                     title: 'Error! Can\'t send email to supervisor pls contact help desk',
                     text: 'Reason: ' + err.message,
                     icon: 'error',
-                }))
+                }),
+                Session.set('loading', false))
                 : swal({
                     title: 'Success',
                     text: 'Email sent successfully',
@@ -210,7 +212,8 @@ Template.updateQuote.events({
                     title: 'Error while sending email',
                     text: err.message,
                     icon: 'error',
-                }))
+                }),
+                Session.set('loading', false))
                 : (swal({
                     title: 'Success',
                     text: 'Email sent successfully',
@@ -300,6 +303,7 @@ Template.updateQuote.events({
                     icon: 'error',
                     button: 'OK',
                 });
+                Session.set('loading', false);
             } else {
                 swal({
                     title: 'Success!',
@@ -511,6 +515,7 @@ Template.preQuote.events({
                         text: err.message,
                         icon: 'error',
                     });
+                    Session.set('loading', false);
                 } else {
                     swal({
                         title: 'Success',
@@ -543,6 +548,7 @@ Template.preQuote.events({
                                 icon: 'error',
                             });
                             console.log(err);
+                            Session.set('loading', false);
                         } else {
                             swal({
                                 title: 'Success',
@@ -553,11 +559,12 @@ Template.preQuote.events({
                     });
                 }
             })
-            : swal({
+            : (swal({
                 title: 'Impossible add quote to database',
                 text: 'Email field is empty or incorrect email',
                 icon: 'error',
-            });
+            }),
+            Session.set('loading', false));
     },
     'click #work-request-reset': function() {
         Session.set('reset', true);
@@ -697,6 +704,7 @@ Template.preQuote.events({
                     text: err.message,
                     icon: 'error',
                 });
+                Session.set('loading', false);
             } else {
                 swal({
                     title: 'Success',
@@ -856,6 +864,7 @@ Template.preQuote.events({
                     text: err.message,
                     icon: 'error',
                 });
+                Session.set('loading', false);
             } else {
                 swal({
                     title: 'Success',
