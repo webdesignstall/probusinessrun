@@ -132,6 +132,7 @@ Template.kalendar.onDestroyed(() => {
     ReactDOM.unmountComponentAtNode(document.getElementById('takenBy'));
     ReactDOM.unmountComponentAtNode(document.getElementById('additional-contact-update'));
     ReactDOM.unmountComponentAtNode(document.getElementById('quote-date-expiration-add'));
+    Session.set('addingJob', false);
     let dailyStatsList = document.getElementsByClassName('dailyStatsComponent');
     console.log('TCL: dailyStatsList', dailyStatsList);
     let i = 0;
