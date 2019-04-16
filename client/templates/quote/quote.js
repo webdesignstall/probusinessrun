@@ -293,6 +293,7 @@ Template.updateQuote.events({
             comment: document.getElementById('textarea2').value,
             deposit: document.getElementById('deposit-update').value,
             additionalContacts: Session.get('additionalContacts'),
+            status: document.getElementById('jobStatus_followup').value,
         };
 
         Meteor.call('updateWork', doc, function(err) {

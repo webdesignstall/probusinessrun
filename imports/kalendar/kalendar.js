@@ -22,6 +22,7 @@ import TakenBy from '../../client/templates/quote/TakenBy';
 import DailyStats from './DailyStats';
 import AdditionalContact from '../../client/templates/quote/AdditionalContact';
 import QuoteExpiration from '../../client/templates/quote/QuoteExpariation';
+import Status from '../../client/templates/quote/Status';
 
 /*global moment $*/
 
@@ -596,6 +597,7 @@ Template.kalendar.events({
             ReactDOM.unmountComponentAtNode(document.getElementById('takenBy'));
             ReactDOM.unmountComponentAtNode(document.getElementById('additional-contact-update'));
             ReactDOM.unmountComponentAtNode(document.getElementById('quote-date-expiration-add'));
+
             Session.set('secilmisIsciler', '');
             Session.set('is', '');
             Session.set('addingJob', false);
@@ -616,6 +618,7 @@ Template.kalendar.events({
             ReactDOM.render(<NumberOfUsers />, document.getElementById('number-of-movers2'));
             ReactDOM.render(<TempTrucks update={true} />, document.getElementById('tempTruckUpdate'));
             ReactDOM.render(<QuoteExpiration />, document.getElementById('quoteExpireDateUpdate'));
+            ReactDOM.render(<Status status={job.status} />, document.getElementById('status_update'));
             ReactDOM.render(
                 <AdditionalContact contacts={job ? job.additionalContacts : []} />,
                 document.getElementById('additional-contact-update'),
