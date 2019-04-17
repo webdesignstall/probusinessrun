@@ -60,7 +60,17 @@ if (Meteor.isServer) {
 
         quotaniBazayaElaveEt: function(doc) {
             doc.statusChange = new Date();
-            WorkData.insert(doc);
+            return WorkData.insert(doc, (err, id) => {
+                if (err) {
+                    console.log(err);
+                    throw new Meteor.Error(
+                        'Can\'t create new job',
+                        'Error while creating new job. Pls Contact with the help desk',
+                    );
+                } else {
+                    return id;
+                }
+            });
         },
 
         emailGonder: function(job) {

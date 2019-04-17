@@ -23,6 +23,7 @@ import DailyStats from './DailyStats';
 import AdditionalContact from '../../client/templates/quote/AdditionalContact';
 import QuoteExpiration from '../../client/templates/quote/QuoteExpariation';
 import Status from '../../client/templates/quote/Status';
+import NewAppointment from '../../client/templates/quote/NewAppointment';
 
 /*global moment $*/
 
@@ -98,7 +99,6 @@ function Xuban() {
 }
 
 Template.kalendar.onCreated(function() {
-    console.log('kalendar mounted');
     Template.instance().secilenTarix2 = new ReactiveVar('burger-form');
     Template.instance().vurulanId = new ReactiveVar('zulumbala');
     usersBaza = Meteor.users.find().fetch();
@@ -119,7 +119,6 @@ Template.preQuote.onDestroyed(function() {
 });
 
 Template.kalendar.onDestroyed(() => {
-    console.log('kalendar unmounted');
     ReactDOM.unmountComponentAtNode(document.getElementById('truck-list-update'));
     ReactDOM.unmountComponentAtNode(document.getElementById('update_time_window'));
     ReactDOM.unmountComponentAtNode(document.getElementById('iscilerinSiyahisiRender'));
@@ -133,12 +132,11 @@ Template.kalendar.onDestroyed(() => {
     ReactDOM.unmountComponentAtNode(document.getElementById('takenBy'));
     ReactDOM.unmountComponentAtNode(document.getElementById('additional-contact-update'));
     ReactDOM.unmountComponentAtNode(document.getElementById('quote-date-expiration-add'));
+    ReactDOM.unmountComponentAtNode(document.getElementById('new_appointment_update'));
     Session.set('addingJob', false);
     let dailyStatsList = document.getElementsByClassName('dailyStatsComponent');
-    console.log('TCL: dailyStatsList', dailyStatsList);
     let i = 0;
     for (i = 0; i < dailyStatsList.length; i++) {
-        console.log('TCL: dailyStatsList', dailyStatsList[i]);
         ReactDOM.unmountComponentAtNode(dailyStatsList[i]);
     }
 });
@@ -577,11 +575,14 @@ Template.kalendar.events({
         ReactDOM.unmountComponentAtNode(document.getElementById('takenBy'));
         ReactDOM.unmountComponentAtNode(document.getElementById('additional-contact-update'));
         ReactDOM.unmountComponentAtNode(document.getElementById('quote-date-expiration-add'));
+        ReactDOM.unmountComponentAtNode(document.getElementById('new_appointment_update'));
         Session.set('secilmisIsciler', '');
         Session.set('is', '');
         Session.set('addingJob', false);
     },
     'click .edit-duymesi': function(event) {
+        console.log('TCL: this', this);
+
         if (Session.get('addingJob') !== true) {
             event.preventDefault();
             // Reset before mount
@@ -604,6 +605,7 @@ Template.kalendar.events({
             $('#edit-schedule-page').hide();
 
             Template.instance().vurulanId.set(this._id);
+            console.log('TCL: this', this);
             $('#edit-schedule-page').show();
             Session.set('is', this._id);
             let job = WorkData.findOne({ _id: Session.get('is') });
@@ -619,6 +621,7 @@ Template.kalendar.events({
             ReactDOM.render(<TempTrucks update={true} />, document.getElementById('tempTruckUpdate'));
             ReactDOM.render(<QuoteExpiration />, document.getElementById('quoteExpireDateUpdate'));
             ReactDOM.render(<Status status={job.status} />, document.getElementById('status_update'));
+            ReactDOM.render(<NewAppointment />, document.getElementById('new_appointment_update'));
             ReactDOM.render(
                 <AdditionalContact contacts={job ? job.additionalContacts : []} />,
                 document.getElementById('additional-contact-update'),

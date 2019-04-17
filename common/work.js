@@ -590,7 +590,7 @@ Schemas.workSchema = new SimpleSchema(
             optional: true,
         },
         quoteDate: {
-            type: Date(),
+            type: Date,
             optional: false,
         },
         checks: {
