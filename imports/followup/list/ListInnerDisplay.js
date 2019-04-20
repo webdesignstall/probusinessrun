@@ -23,7 +23,7 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
 
     UNSAFE_componentWillReceiveProps(nextProps) {
         this.setState({
-            job: this.props.job,
+            job: nextProps.job,
         });
     }
 
@@ -36,7 +36,6 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
             this.setState({
                 job: this.props.job,
             });
-            Session.set('ExtendedJobInformation', '');
         });
     }
 

@@ -113,6 +113,9 @@ Template.updateQuote.events({
     },
     'click #resend-confirmation': function(e) {
         e.preventDefault();
+        if (!confirm('Are you sure to send confirmation email to customer?')) {
+            throw new Error('Email doesn\'t send to customer');
+        }
         let job = WorkData.findOne({ _id: Session.get('is') });
 
         Meteor.call('confirmationGonder', job, err => {
@@ -133,6 +136,9 @@ Template.updateQuote.events({
     },
     'click #resend-email': function(e) {
         e.preventDefault();
+        if (!confirm('Are you sure to send email to customer?')) {
+            throw new Error('Email doesn\'t send to customer');
+        }
 
         let job = WorkData.findOne({ _id: Session.get('is') });
         let companyInfo = job.companyInfo;

@@ -62,7 +62,6 @@ export default class FollowUps extends TrackerReact(Component) {
                 } else {
                     let followUp = this.state.followUp;
                     followUp[index].date = new Date();
-                    console.log('TCL: FollowUps -> onChangeHandler -> followUp', followUp);
                     this.props.updateJob && this.props.updateJob({ followUp });
                 }
             },

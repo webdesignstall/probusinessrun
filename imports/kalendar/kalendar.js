@@ -581,8 +581,6 @@ Template.kalendar.events({
         Session.set('addingJob', false);
     },
     'click .edit-duymesi': function(event) {
-        console.log('TCL: this', this);
-
         if (Session.get('addingJob') !== true) {
             event.preventDefault();
             // Reset before mount
@@ -605,7 +603,6 @@ Template.kalendar.events({
             $('#edit-schedule-page').hide();
 
             Template.instance().vurulanId.set(this._id);
-            console.log('TCL: this', this);
             $('#edit-schedule-page').show();
             Session.set('is', this._id);
             let job = WorkData.findOne({ _id: Session.get('is') });

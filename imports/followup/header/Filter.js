@@ -24,6 +24,8 @@ export default class Filter extends TrackerReact(Component) {
             () => {
                 Session.set('status', status);
                 Session.set('searchWords', '');
+                Session.set('is', '');
+                Session.set('ExtendedJobInformation', '');
             },
         );
     }

@@ -42,7 +42,9 @@ export default class FollowUpMain extends TrackerReact(Component) {
                         other: false,
                     };
                     job.finalNote = finalNote_;
-                    Meteor.call('updateWork', job);
+                    Meteor.call('updateWork', job, err => {
+                        err ? console.log('Error while trying to make lost some jobs. ' + err.reason) : null;
+                    });
                 }
             });
             this.setState({

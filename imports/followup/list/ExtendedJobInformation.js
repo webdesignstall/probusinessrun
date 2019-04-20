@@ -17,6 +17,7 @@ import QuoteExpiration from '../../../client/templates/quote/QuoteExpariation';
 import TakenBy from '../../../client/templates/quote/TakenBy';
 import CompanySelector from '../../../client/templates/quote/CompanySelector';
 import NumberOfUsers from '../../../client/templates/quote/NumberOfUsers';
+import NewAppointment from '../../../client/templates/quote/NewAppointment';
 
 /*global $ moment*/
 
@@ -52,6 +53,12 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
 
     UNSAFE_componentWillMount() {
         this.props.loading();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            job: this.workData(nextProps.job._id)[0],
+        });
     }
 
     componentDidMount() {
@@ -208,13 +215,17 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                     icon: 'success',
                     button: 'OK',
                 }),
-                Session.set('is', ''),
-                Session.set('ExtendedJobInformation', ''),
+                // Session.set('is', ''),
+                // Session.set('ExtendedJobInformation', ''),
                 Session.set('loading', false));
         });
     }
 
     sendQuote() {
+        if (!confirm('Are you sure to send quote email to customer?')) {
+            throw new Error('Email doesn\'t send to customer');
+        }
+
         let workDate = document.getElementById('quote-date-picker-followup').value;
         let doc = this.state.job;
         doc.workDate = workDate;
@@ -581,6 +592,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                         </i>
                         Send Quote
                     </a>
+                    {this.state.job.status !== 'inProgress' ? <NewAppointment /> : ''}
                 </div>
             </div>
         );

@@ -4,8 +4,6 @@ import { Tracker } from 'meteor/tracker';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import { Session } from 'meteor/session';
 import ListInnerDisplay from './ListInnerDisplay';
-import LoadingOverlay from 'react-loading-overlay';
-import RingLoader from 'react-spinners/RingLoader';
 import { Meteor } from 'meteor/meteor';
 
 export default class List extends TrackerReact(Component) {
@@ -36,7 +34,10 @@ export default class List extends TrackerReact(Component) {
 
             let regEx = /^[a-zA-Z0-9 /\b]+$/;
 
-            if (Session.get('searchWords') !== '' || regEx.test(Session.get('searchWords'))) {
+            if (
+                Session.get('searchWords') !== '' ||
+                (regEx.test(Session.get('searchWords')) && (Session.get('update') || !Session.get('update')))
+            ) {
                 let value = Session.get('searchWords');
                 this.setState(
                     {
