@@ -22,7 +22,6 @@ quote-content input {
     border: none !important;
 }
 
-
 .delete-address {
     color: red;
     position: absolute;
@@ -121,8 +120,7 @@ quote-content input {
 }
 
 .addMoreAddress-button {
-    border-radius: 5px !important;
-    border: 1px solid rgb(207, 207, 207);
+    border-radius: 20px !important;
     margin: 5px 0 !important;
     padding: 5px 10px !important;
     overflow: hidden !important;
@@ -203,15 +201,17 @@ hr {
 
 .addMoreAddress {
     position: absolute;
-    background-color: rgb(20, 134, 64) !important;
+    background-color: #5bbd73 !important;
     color: rgb(231, 248, 231) !important;
-    height: 35px;
-    width: 105px;
+    box-shadow: #5bbd73 0px 2px 12px -3px;
+    /* height: 35px; */
     right: 0;
     top: -15px;
     cursor: pointer;
-    padding: 7px 10px !important;
-    border: 1px solid green;
+    padding: 5px 40px 3px 13px !important;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 0.5px;
 }
 
 .ikonka {
@@ -261,4 +261,10 @@ hr {
 
 .temp-trucks--header {
     color: rgb(255, 255, 255);
+}
+
+.add_contact {
+    -webkit-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    transition: all 1s ease;
 }

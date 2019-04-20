@@ -114,11 +114,13 @@ export default class Addresses extends React.Component {
         return (
             <div>
                 <div>
-                    Addresses
+                    <span style={{ fontWeight: 'bold', letterSpacing: '0.5px' }}>ADDRESSES</span>
                     <div className="addMoreAddress-button addMoreAddress" onClick={this.addMore}>
                         <div className="relative">
                             <span>Add More</span>
-                            <i className="ikonka material-icons">add_circle</i>
+                            <i className="ikonka material-icons" style={{ left: '87px' }}>
+                                add_circle
+                            </i>
                         </div>
                     </div>
                 </div>

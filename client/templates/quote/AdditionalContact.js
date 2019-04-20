@@ -86,7 +86,7 @@ export default class AdditionalContact extends TrackerReact(Component) {
     renderAdditional() {
         return this.state.additionalContacts.map((contact, index) => {
             return (
-                <div key={index + 'additionalContact'} className="card__ brown lighten-5">
+                <div key={index + 'additionalContact'} className="row" style={{ marginTop: '10px' }}>
                     <div className="input-field valideyn col s12 m6 l3">
                         <i className="material-icons isare">account_box</i>
                         <input
@@ -162,20 +162,25 @@ export default class AdditionalContact extends TrackerReact(Component) {
     render() {
         return (
             <div
-                className="row"
+                className="row add_contact"
                 style={{
-                    border: '1px dashed #D55B26',
+                    border: '1px solid #D55B26',
                     margin: '10px 0 0 0',
+                    borderRadius: '20px',
+                    overflow: 'hidden',
                 }}>
                 <span
                     style={{
                         display: 'block',
                         width: '100%',
-                        padding: '8px 10px',
+                        padding: '5px 10px',
+                        fontWeight: 'bold',
+                        letterSpacing: '0.5px',
                         backgroundColor: '#D55B26',
                         color: 'white',
                         margin: '0 4px 0 0',
                         position: 'relative',
+                        textTransform: 'uppercase',
                     }}>
                     Additional Contact
                     <i
@@ -185,7 +190,7 @@ export default class AdditionalContact extends TrackerReact(Component) {
                             position: 'absolute',
                             margin: '5px 0 0 15px',
                             color: '#4EDB9E',
-                            top: '0',
+                            top: '-2px',
                             cursor: 'pointer',
                         }}>
                         add_circle

@@ -164,22 +164,26 @@
 }
 
 #add-schedule-page {
+    border-radius: 20px;
     display: none;
     background-color: #ecf0f1;
     /* width: 76%; */
     z-index: 1;
     padding: 10px 10px 30px 10px;
     margin: 5px 2px 10px 0;
+    border: 1px solid #e1e6e7;
 }
 
 #edit-schedule-page {
+    border-radius: 20px;
     display: none;
     background-color: #ecf0f1;
     /* width: 76%; */
     z-index: 1;
     position: absolute;
     padding: 10px 10px 30px 10px;
-    margin-right: 10px;
+    margin: 5px 10px 10px 0;
+    border: 1px solid #e1e6e7;
 }
 
 #add-schedule {
@@ -283,13 +287,24 @@ fieldset div {
 }
 
 .header-add-schedule {
+    position: relative;
+    border-radius: 20px;
+    margin: 0 0 10px 0;
+    font-weight: bold;
+    letter-spacing: 1px;
     text-align: center;
-    font-size: 20px;
+    font-size: 15px;
+    padding: 5px;
     background-color: #16a085;
     color: white;
 }
 
 .baqla {
+    right: 1px;
+    position: absolute;
+    top: 1px;
+    font-weight: 500;
+    border-radius: 20px;
     padding: 3px;
     background-color: #e74c3c;
     color: white;
