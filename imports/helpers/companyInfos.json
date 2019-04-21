@@ -134,6 +134,15 @@
             "smtp": "mail.cheapmoverscostamesa.com",
             "userName": "info@cheapmoverscostamesa.com",
             "key": 1015
+        },
+        {
+            "name": "Pro Movers San Diego",
+            "phoneNumber": "(858) 630-9922",
+            "url": "www.promoverssandiego.com",
+            "email": "info@promoverssandiego.com",
+            "smtp": "mail.promoverssandiego.com",
+            "userName": "info@promoverssandiego.com",
+            "key": 1016
         }
     ]
 }

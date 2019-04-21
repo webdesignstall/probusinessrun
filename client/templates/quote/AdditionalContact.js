@@ -31,15 +31,27 @@ export default class AdditionalContact extends TrackerReact(Component) {
         this.x.stop();
     }
 
-    deleteAddContacnt(index) {
-        this.setState(prevState => {
-            let newArr = prevState.additionalContacts;
-            newArr.splice(index, 1);
+    animateHeight(id, height) {
+        let element = document.getElementById(id);
 
-            return {
-                additionalContacts: newArr,
-            };
-        });
+        element.style.height = height + 'px';
+    }
+
+    deleteAddContacnt(index) {
+        this.setState(
+            prevState => {
+                let newArr = prevState.additionalContacts;
+                newArr.splice(index, 1);
+
+                return {
+                    additionalContacts: newArr,
+                };
+            },
+            () => {
+                let height = 32 + 88 * this.state.additionalContacts.length;
+                this.animateHeight('additionalContactId', height);
+            },
+        );
     }
 
     componentWillReceiveProps(nextProps) {
@@ -69,18 +81,24 @@ export default class AdditionalContact extends TrackerReact(Component) {
     }
 
     addMore() {
-        this.setState(prevState => {
-            let arr = prevState.additionalContacts.concat({
-                firstName: '',
-                lastName: '',
-                phoneNumber: '',
-                additionalPhoneNumber: '',
-            });
+        this.setState(
+            prevState => {
+                let arr = prevState.additionalContacts.concat({
+                    firstName: '',
+                    lastName: '',
+                    phoneNumber: '',
+                    additionalPhoneNumber: '',
+                });
 
-            return {
-                additionalContacts: arr,
-            };
-        });
+                return {
+                    additionalContacts: arr,
+                };
+            },
+            () => {
+                let height = 32 + 88 * this.state.additionalContacts.length;
+                this.animateHeight('additionalContactId', height);
+            },
+        );
     }
 
     renderAdditional() {
@@ -162,12 +180,15 @@ export default class AdditionalContact extends TrackerReact(Component) {
     render() {
         return (
             <div
+                id="additionalContactId"
                 className="row add_contact"
                 style={{
-                    border: '1px solid #D55B26',
+                    // border: '1px solid #D55B26',
                     margin: '10px 0 0 0',
-                    borderRadius: '20px',
+                    borderRadius: '16px',
                     overflow: 'hidden',
+                    height: '32px',
+                    backgroundColor: '#D9DCDD',
                 }}>
                 <span
                     style={{
@@ -178,6 +199,7 @@ export default class AdditionalContact extends TrackerReact(Component) {
                         letterSpacing: '0.5px',
                         backgroundColor: '#D55B26',
                         color: 'white',
+                        borderRadius: '14px',
                         margin: '0 4px 0 0',
                         position: 'relative',
                         textTransform: 'uppercase',

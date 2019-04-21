@@ -70,7 +70,7 @@ export default class PaymentOptions extends Component {
             <div className="row chargingPanel">
                 <div className="col s12 m12 l12 orange darken-4 payment-header">
                     Payment options
-                    <i className="lime-text lighten-5 black">
+                    <i className="lime-text lighten-5 black flatRateSelect">
                         [ Flat Rate
                         <input
                             id="flatRateCheck"
@@ -159,11 +159,7 @@ export default class PaymentOptions extends Component {
                             className="xx"
                             type="number"
                             placeholder="0"
-                            value={
-                                (this.state.job.flatRate &&
-                                    this.state.job.flatRate[0].cashAmount) ||
-                                ''
-                            }
+                            value={(this.state.job.flatRate && this.state.job.flatRate[0].cashAmount) || ''}
                             onChange={e => this.flatRateHandler(e, 'cashAmount')}
                         />
                         <label className="active" htmlFor="flatRateCash">
@@ -177,11 +173,7 @@ export default class PaymentOptions extends Component {
                             className="xx"
                             type="number"
                             placeholder="0"
-                            value={
-                                (this.state.job.flatRate &&
-                                    this.state.job.flatRate[0].cardAmount) ||
-                                ''
-                            }
+                            value={(this.state.job.flatRate && this.state.job.flatRate[0].cardAmount) || ''}
                             onChange={e => this.flatRateHandler(e, 'cardAmount')}
                         />
                         <label className="active" htmlFor="flatRateCard">

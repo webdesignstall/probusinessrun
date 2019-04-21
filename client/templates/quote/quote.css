@@ -183,11 +183,23 @@ hr {
 
 .chargingPanel {
     background-color: rgba(0, 0, 0, 0.082) !important;
+    border-radius: 15px;
+    overflow: hidden;
+    padding-bottom: 5px;
 }
 
 .payment-header {
     color: white;
     padding: 5px 20px;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    margin-bottom: 5px;
+}
+
+.flatRateSelect {
+    font-weight: normal;
+    letter-spacing: 0;
 }
 
 /* .input-field label {
@@ -206,7 +218,7 @@ hr {
     box-shadow: #5bbd73 0px 2px 12px -3px;
     /* height: 35px; */
     right: 0;
-    top: -15px;
+    top: -37px;
     cursor: pointer;
     padding: 5px 40px 3px 13px !important;
     text-transform: uppercase;
@@ -264,7 +276,13 @@ hr {
 }
 
 .add_contact {
-    -webkit-transition: all 1s ease;
-    -o-transition: all 1s ease;
-    transition: all 1s ease;
+    -webkit-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+.addresses {
+    -webkit-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
 }

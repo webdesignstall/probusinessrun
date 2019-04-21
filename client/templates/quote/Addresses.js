@@ -112,9 +112,17 @@ export default class Addresses extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="addresses">
                 <div>
-                    <span style={{ fontWeight: 'bold', letterSpacing: '0.5px' }}>ADDRESSES</span>
+                    <span
+                        style={{
+                            fontWeight: 'bold',
+                            letterSpacing: '0.5px',
+                            position: 'absolute',
+                            top: '-27px',
+                        }}>
+                        ADDRESSES
+                    </span>
                     <div className="addMoreAddress-button addMoreAddress" onClick={this.addMore}>
                         <div className="relative">
                             <span>Add More</span>
@@ -124,7 +132,7 @@ export default class Addresses extends React.Component {
                         </div>
                     </div>
                 </div>
-                <hr />
+                <hr style={{ marginTop: '30px' }} />
                 {this.renderAddressFields()}
             </div>
         );
