@@ -112,7 +112,7 @@ export default class Addresses extends React.Component {
 
     render() {
         return (
-            <div className="addresses">
+            <div className="addresses_">
                 <div>
                     <span
                         style={{

@@ -18,6 +18,7 @@ import TakenBy from '../../../client/templates/quote/TakenBy';
 import CompanySelector from '../../../client/templates/quote/CompanySelector';
 import NumberOfUsers from '../../../client/templates/quote/NumberOfUsers';
 import NewAppointment from '../../../client/templates/quote/NewAppointment';
+import { AsYouType } from 'libphonenumber-js';
 
 /*global $ moment*/
 
@@ -132,7 +133,8 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
         let workDate = document.getElementById('quote-date-picker-followup').value;
         let job = this.state.job;
         job.workDate = workDate;
-        job[what] = e.target.value;
+        let value = new AsYouType('US').input(e.target.value);
+        job[what] = value;
 
         this.setState({
             job,
@@ -332,7 +334,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                     </label>
                     <input
                         onChange={e => this.onChangeHandler(e, 'phoneNumber')}
-                        type="number"
+                        type="text"
                         id="phone_number_followUp"
                         value={this.state.job.phoneNumber || ''}
                     />
@@ -343,7 +345,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                     </label>
                     <input
                         onChange={e => this.onChangeHandler(e, 'phoneAdditional')}
-                        type="number"
+                        type="text"
                         id="additional_phone_number_followUp"
                         value={this.state.job.phoneAdditional || ''}
                     />

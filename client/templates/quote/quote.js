@@ -6,6 +6,7 @@ import ReactDOM from 'react-dom';
 import WorkData from './../../../common/collections_2';
 import { Tracker } from 'meteor/tracker';
 import swal from 'sweetalert';
+import { AsYouType } from 'libphonenumber-js';
 
 /*global $*/
 
@@ -26,6 +27,17 @@ Template.updateQuote.onRendered(function() {
     // });
     let ishDeyisibdir = '';
     let checkedUpdate = document.querySelector('#flatBoxUpdate');
+
+    document.querySelector('#phoneNumber_2').addEventListener('input', e => {
+        e.preventDefault();
+        let value = new AsYouType('US').input(e.target.value);
+        document.querySelector('#phoneNumber_2').value = value;
+    });
+    document.querySelector('#phoneNumber_2_additional').addEventListener('input', e => {
+        e.preventDefault();
+        let value = new AsYouType('US').input(e.target.value);
+        document.querySelector('#phoneNumber_2_additional').value = value;
+    });
 
     checkedUpdate.addEventListener('change', function() {
         Session.set('flatRate', !Session.get('flatRate'));
@@ -338,6 +350,17 @@ Template.preQuote.onRendered(function() {
     $(function() {
         $('#quote-date-picker').datepicker('setDate', new Date());
     });
+
+    document.querySelector('#phoneNumber').addEventListener('input', e => {
+        e.preventDefault();
+        let value = new AsYouType('US').input(e.target.value);
+        document.querySelector('#phoneNumber').value = value;
+    });
+    document.querySelector('#phoneNumberAdditional').addEventListener('input', e => {
+        e.preventDefault();
+        let value = new AsYouType('US').input(e.target.value);
+        document.querySelector('#phoneNumberAdditional').value = value;
+    });
 });
 
 Template.preQuote.events({
@@ -353,6 +376,7 @@ Template.preQuote.events({
         addressesArray.map(address => {
             addresses.push(address.value);
         });
+        console.log('TCL: addresses', addresses);
         let movingDate = document.getElementById('quote-date-picker').value;
         let movingDateConverted = movingDate;
         let price = document.getElementById('quote_price').value;

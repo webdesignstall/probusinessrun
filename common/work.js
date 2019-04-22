@@ -42,11 +42,11 @@ Schemas.workSchema = new SimpleSchema(
             },
         },
         phoneNumber: {
-            type: Number,
+            type: String,
             optional: true,
         },
         phoneAdditional: {
-            type: Number,
+            type: String,
             label: 'Additional Phone number',
             optional: true,
         },
@@ -582,11 +582,11 @@ Schemas.workSchema = new SimpleSchema(
             optional: true,
         },
         'additionalContacts.$.phoneNumber': {
-            type: Number,
+            type: String,
             optional: true,
         },
         'additionalContacts.$.additionalPhoneNumber': {
-            type: Number,
+            type: String,
             optional: true,
         },
         quoteDate: {

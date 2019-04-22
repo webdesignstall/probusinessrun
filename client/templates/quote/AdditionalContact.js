@@ -3,6 +3,7 @@ import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import { Session } from 'meteor/session';
 import { Tracker } from 'meteor/tracker';
 import PropTypes from 'prop-types';
+import { AsYouType } from 'libphonenumber-js';
 
 export default class AdditionalContact extends TrackerReact(Component) {
     constructor(props) {
@@ -63,7 +64,8 @@ export default class AdditionalContact extends TrackerReact(Component) {
     }
 
     changeInput(index, targ, event) {
-        let yazi = event.target.value;
+        let yazi = new AsYouType('US').input(event.target.value);
+        console.log('TCL: AdditionalContact -> changeInput -> yazi', yazi);
         this.setState(
             prevState => {
                 let info = prevState.additionalContacts;
@@ -139,7 +141,7 @@ export default class AdditionalContact extends TrackerReact(Component) {
                             onChange={event => this.changeInput(index, 'phoneNumber', event)}
                             id={index + 'phoneNumberAdditionalContact'}
                             value={contact.phoneNumber}
-                            type="number"
+                            type="text"
                             placeholder=""
                             required
                         />
@@ -153,7 +155,7 @@ export default class AdditionalContact extends TrackerReact(Component) {
                             onChange={event => this.changeInput(index, 'additionalPhoneNumber', event)}
                             id={index + 'phoneNumberAddAdditionalContact'}
                             value={contact.additionalPhoneNumber}
-                            type="number"
+                            type="text"
                             placeholder=""
                         />
                         <label className="active" htmlFor={index + 'phoneNumberAddAdditionalContact'}>
