@@ -134,16 +134,27 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
         let job = this.state.job;
         job.workDate = workDate;
         let value = '';
+        let regex = new RegExp(/^\d+$/);
         if (what === 'phoneNumber' || what === 'phoneAdditional') {
-            value = new AsYouType('US').input(e.target.value);
+            console.log('1');
+            if (regex.test(e.target.value)) {
+                console.log('isledi');
+                value = e.target.value;
+
+                job[what] = value;
+
+                this.setState({
+                    job,
+                });
+            }
         } else {
             value = e.target.value;
-        }
-        job[what] = value;
+            job[what] = value;
 
-        this.setState({
-            job,
-        });
+            this.setState({
+                job,
+            });
+        }
     }
 
     jobStatus(status) {

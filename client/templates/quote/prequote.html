@@ -18,13 +18,24 @@
                 <!-- Phone number -->
                 <div class="input-field valideyn col s12 m6 l2">
                     <i class="material-icons isare">phone</i>
-                    <input id="phoneNumber" type="text" placeholder="" required />
+                    <input
+                        onkeypress="return isNumberKey(event)"
+                        id="phoneNumber"
+                        type="text"
+                        placeholder=""
+                        required
+                    />
                     <label class="active" for="phoneNumber">Main Phone Number</label>
                 </div>
                 <!-- Additional phone number -->
                 <div class="input-field valideyn col s12 m6 l2">
                     <i class="material-icons isare">phone</i>
-                    <input id="phoneNumberAdditional" type="text" placeholder="" />
+                    <input
+                        onkeypress="return isNumberKey(event)"
+                        id="phoneNumberAdditional"
+                        type="text"
+                        placeholder=""
+                    />
                     <label class="active" for="phoneNumberAdditional">Secondary Phone Number</label>
                 </div>
                 <!-- Email -->

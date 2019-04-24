@@ -27,16 +27,27 @@ Template.updateQuote.onRendered(function() {
     // });
     let ishDeyisibdir = '';
     let checkedUpdate = document.querySelector('#flatBoxUpdate');
+    let regex = new RegExp(/^\d+$/);
 
     document.querySelector('#phoneNumber_2').addEventListener('input', e => {
         e.preventDefault();
-        let value = new AsYouType('US').input(e.target.value);
-        document.querySelector('#phoneNumber_2').value = value;
+        if (regex.test(e.target.value)) {
+            let value = e.target.value;
+            document.querySelector('#phoneNumber_2').value = value;
+        } else {
+            let value = e.target.value.toString().slice(0, e.target.value.length - 1);
+            document.querySelector('#phoneNumber_2').value = value;
+        }
     });
     document.querySelector('#phoneNumber_2_additional').addEventListener('input', e => {
         e.preventDefault();
-        let value = new AsYouType('US').input(e.target.value);
-        document.querySelector('#phoneNumber_2_additional').value = value;
+        if (regex.test(e.target.value)) {
+            let value = e.target.value;
+            document.querySelector('#phoneNumber_2_additional').value = value;
+        } else {
+            let value = e.target.value.toString().slice(0, e.target.value.length - 1);
+            document.querySelector('#phoneNumber_2_additional').value = value;
+        }
     });
 
     checkedUpdate.addEventListener('change', function() {
@@ -319,7 +330,6 @@ Template.updateQuote.events({
         };
 
         Meteor.call('updateWork', doc, function(err) {
-            console.log('TCL: doc', doc);
             if (err) {
                 swal({
                     title: 'Error!',
@@ -356,15 +366,27 @@ Template.preQuote.onRendered(function() {
         $('#quote-date-picker').datepicker('setDate', new Date());
     });
 
+    let regex = new RegExp(/^\d+$/);
+
     document.querySelector('#phoneNumber').addEventListener('input', e => {
         e.preventDefault();
-        let value = new AsYouType('US').input(e.target.value);
-        document.querySelector('#phoneNumber').value = value;
+        if (regex.test(e.target.value)) {
+            let value = e.target.value;
+            document.querySelector('#phoneNumber').value = value;
+        } else {
+            let value = e.target.value.toString().slice(0, e.target.value.length - 1);
+            document.querySelector('#phoneNumber').value = value;
+        }
     });
     document.querySelector('#phoneNumberAdditional').addEventListener('input', e => {
         e.preventDefault();
-        let value = new AsYouType('US').input(e.target.value);
-        document.querySelector('#phoneNumberAdditional').value = value;
+        if (regex.test(e.target.value)) {
+            let value = e.target.value;
+            document.querySelector('#phoneNumberAdditional').value = value;
+        } else {
+            let value = e.target.value.toString().slice(0, e.target.value.length - 1);
+            document.querySelector('#phoneNumberAdditional').value = value;
+        }
     });
 });
 

@@ -65,26 +65,44 @@ export default class AdditionalContact extends TrackerReact(Component) {
 
     changeInput(index, targ, event) {
         let yazi = '';
+        let regex = new RegExp(/^\d+$/);
         if (targ === 'phoneNumber' || targ === 'additionalPhoneNumber') {
-            yazi = new AsYouType('US').input(event.target.value);
+            if (regex.test(event.target.value)) {
+                yazi = event.target.value;
+
+                this.setState(
+                    prevState => {
+                        let info = prevState.additionalContacts;
+                        info[index][targ] = yazi;
+
+                        return {
+                            additionalContacts: info,
+                        };
+                    },
+                    () => {
+                        Session.set('additionalContacts', this.state.additionalContacts);
+                        this.props.updateJob && this.props.updateJob(this.state);
+                    },
+                );
+            }
         } else {
             yazi = event.target.value;
-        }
-        console.log('TCL: AdditionalContact -> changeInput -> yazi', yazi);
-        this.setState(
-            prevState => {
-                let info = prevState.additionalContacts;
-                info[index][targ] = yazi;
 
-                return {
-                    additionalContacts: info,
-                };
-            },
-            () => {
-                Session.set('additionalContacts', this.state.additionalContacts);
-                this.props.updateJob && this.props.updateJob(this.state);
-            },
-        );
+            this.setState(
+                prevState => {
+                    let info = prevState.additionalContacts;
+                    info[index][targ] = yazi;
+
+                    return {
+                        additionalContacts: info,
+                    };
+                },
+                () => {
+                    Session.set('additionalContacts', this.state.additionalContacts);
+                    this.props.updateJob && this.props.updateJob(this.state);
+                },
+            );
+        }
     }
 
     addMore() {
@@ -101,10 +119,10 @@ export default class AdditionalContact extends TrackerReact(Component) {
                     additionalContacts: arr,
                 };
             },
-            () => {
-                let height = 32 + 88 * this.state.additionalContacts.length;
-                this.animateHeight('additionalContactId', height);
-            },
+            // () => {
+            //     let height = 32 + 88 * this.state.additionalContacts.length;
+            //     this.animateHeight('additionalContactId', height);
+            // },
         );
     }
 
@@ -194,7 +212,7 @@ export default class AdditionalContact extends TrackerReact(Component) {
                     margin: '10px 0 0 0',
                     borderRadius: '16px',
                     overflow: 'hidden',
-                    height: '32px',
+                    // height: '32px',
                     backgroundColor: '#D9DCDD',
                 }}>
                 <span

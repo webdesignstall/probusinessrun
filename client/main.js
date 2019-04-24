@@ -10,6 +10,13 @@ import { Session } from 'meteor/session';
 $(document).ready(function() {
     $('select').material_select();
 
+    function isNumberKey(evt) {
+        var charCode = evt.which ? evt.which : event.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) return false;
+
+        return true;
+    }
+
     // $('#quote-date-picker').pickadate({
     //     selectMonths: true, // Creates a dropdown to control month
     //     selectYears: 15, // Creates a dropdown of 15 years to control year,
