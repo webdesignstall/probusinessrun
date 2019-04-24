@@ -23,58 +23,55 @@ Meteor.Spinner.options = {
 
 //Login
 Template.loginFormasi.events({
-    'click #sign_in': function (event) {
+    'click #sign_in': function(event) {
         event.preventDefault();
         const userNameLogin = document.getElementById('userName').value;
         const passwordLogin = document.getElementById('loginPassword').value;
-        Meteor.loginWithPassword(
-            userNameLogin, passwordLogin,
-            function (err) {
-                if (err) {
-                    Bert.alert({
-                        hideDelay: 4000,
-                        title: 'Error',
-                        message: 'Incorrect username or password!',
-                        type: 'danger',
-                        style: 'growl-top-right'
-                    });
-                } else {
-                    Bert.alert({
-                        title: 'Logged in',
-                        message: `Hello ${userNameLogin}`,
-                        type: 'success',
-                        style: 'growl-top-right'
-                    });
-                }
+        Meteor.loginWithPassword(userNameLogin, passwordLogin, function(err) {
+            if (err) {
+                Bert.alert({
+                    hideDelay: 4000,
+                    title: 'Error',
+                    message: 'Incorrect username or password!',
+                    type: 'danger',
+                    style: 'growl-top-right',
+                });
+            } else {
+                Bert.alert({
+                    title: 'Logged in',
+                    message: `Hello ${userNameLogin}`,
+                    type: 'success',
+                    style: 'growl-top-right',
+                });
             }
-        );
-    }
+        });
+    },
 });
 
 Template.loginFormasi.helpers({
-    errorMessage: function () {
+    errorMessage: function() {
         return Session.get('errorMessage');
-    }
+    },
 });
 
 //navbar
 Template.navBar.helpers({
-    nameAdi: function () {
+    nameAdi: function() {
         return Meteor.user().profile.name;
     },
-    moverIs: function () {
+    moverIs: function() {
         return Meteor.user().profile.rank === 'mover';
     },
-    driverIs: function () {
+    driverIs: function() {
         return Meteor.user().profile.rank === 'driver';
     },
-    adminIs: function () {
+    adminIs: function() {
         return Meteor.user().profile.rank === 'admin';
-    }
+    },
 });
 
 Template.navBar.events({
-    'click #logout': function (event) {
+    'click #logout': function(event) {
         event.preventDefault();
         Meteor.logout();
 
@@ -83,13 +80,17 @@ Template.navBar.events({
         }
 
         GoToHomePage();
-    }
+    },
 });
 
 Template.navBar.onRendered(() => {
     let address = window.location.href;
     let path = url.parse(address, true).path;
 
-    document.getElementsByClassName('menyuElement active').length > 0 ? document.getElementsByClassName('menyuElement active')[0].classList.remove('active') : null;
-    document.querySelectorAll(`[href="${path}"]`).length > 0 ? document.querySelectorAll(`[href="${path}"]`)[0].classList.add('active') : null;
+    document.getElementsByClassName('menyuElement active').length > 0
+        ? document.getElementsByClassName('menyuElement active')[0].classList.remove('active')
+        : null;
+    document.querySelectorAll(`[href="${path}"]`).length > 0
+        ? document.querySelectorAll(`[href="${path}"]`)[0].classList.add('active')
+        : null;
 });

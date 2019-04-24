@@ -10,7 +10,7 @@ export default class RenderEmployees extends TrackerReact(Component) {
         super(props);
         this.state = {
             isciler: [],
-            secilmisIsciler: []
+            secilmisIsciler: [],
         };
 
         this.renderWorkers = this.renderWorkers.bind(this);
@@ -21,7 +21,7 @@ export default class RenderEmployees extends TrackerReact(Component) {
     check(id) {
         let arr = Session.get('secilmisIsciler');
         this.vez = false;
-        arr.map((yoxIs) => {
+        arr.map(yoxIs => {
             if (yoxIs.id === id) {
                 this.vez = true;
             }
@@ -42,7 +42,7 @@ export default class RenderEmployees extends TrackerReact(Component) {
             }
 
             this.setState({
-                isciler
+                isciler,
             });
         });
     }
@@ -58,7 +58,7 @@ export default class RenderEmployees extends TrackerReact(Component) {
     employeeClick(id) {
         let arr = Session.get('secilmisIsciler');
         let maxWorkers = this.workData()[0].numberOfWorkers;
-        let isId = arr.findIndex(function (element) {
+        let isId = arr.findIndex(function(element) {
             return element.id === id;
         });
 
@@ -71,7 +71,7 @@ export default class RenderEmployees extends TrackerReact(Component) {
             if (arr.length < maxWorkers) {
                 document.getElementById(id).classList.remove('iscilerin-adlari');
                 document.getElementById(id).classList.add('green');
-                arr.push({ 'id': id });
+                arr.push({ id: id });
             }
         }
 
@@ -79,27 +79,20 @@ export default class RenderEmployees extends TrackerReact(Component) {
     }
 
     renderWorkers() {
-        return (
-            this.state.isciler.map(isci => {
-                return (
-                    <a
-                        id={isci._id}
-                        key={isci._id}
-                        className={this.check(isci._id) ? 'green' : ''}
-                        onClick={() => this.employeeClick(isci._id)}
-                    >
-                        {isci.profile.firstName} {isci.profile.lastName}
-                    </a>
-                );
-            })
-        );
+        return this.state.isciler.map(isci => {
+            return (
+                <a
+                    id={isci._id}
+                    key={isci._id}
+                    className={this.check(isci._id) ? 'green' : ''}
+                    onClick={() => this.employeeClick(isci._id)}>
+                    {isci.profile.firstName} {isci.profile.lastName}
+                </a>
+            );
+        });
     }
 
     render() {
-        return (
-            <div >
-                {this.renderWorkers()}
-            </div>
-        );
+        return <div>{this.renderWorkers()}</div>;
     }
 }

@@ -133,7 +133,12 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
         let workDate = document.getElementById('quote-date-picker-followup').value;
         let job = this.state.job;
         job.workDate = workDate;
-        let value = new AsYouType('US').input(e.target.value);
+        let value = '';
+        if (what === 'phoneNumber' || what === 'phoneAdditional') {
+            value = new AsYouType('US').input(e.target.value);
+        } else {
+            value = e.target.value;
+        }
         job[what] = value;
 
         this.setState({
@@ -523,9 +528,9 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                         <TempTrucks update={true} updateJob={this.updateJob} />
                     </div>
                     <div className="row">
-                        <div className="col s12 m3 l3">
+                        <div className="col s12 m4 l4">
                             <label className="active" htmlFor="textarea2_followup">
-                                Comment
+                                Note for Company
                             </label>
                             <textarea
                                 onChange={e => this.onChangeHandler(e, 'comment')}
@@ -534,6 +539,30 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                                 className="materialize-textarea"
                             />
                         </div>
+                        <div className="col s12 m4 l4">
+                            <label className="active" htmlFor="note_for_your_move_followUp">
+                                Note for Your Move
+                            </label>
+                            <textarea
+                                onChange={e => this.onChangeHandler(e, 'noteForYourMove')}
+                                id="note_for_your_move_followUp"
+                                value={this.state.job.noteForYourMove}
+                                className="materialize-textarea"
+                            />
+                        </div>
+                        <div className="col s12 m4 l4">
+                            <label className="active" htmlFor="additional_info">
+                                Additional Info
+                            </label>
+                            <textarea
+                                onChange={e => this.onChangeHandler(e, 'additionalInfo')}
+                                id="additional_info"
+                                value={this.state.job.additionalInfo}
+                                className="materialize-textarea"
+                            />
+                        </div>
+                    </div>
+                    <div className="row">
                         <div className="col s12 m3 l3">
                             <label className="active">Final Note</label>
                             <FinalNote

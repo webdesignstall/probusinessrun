@@ -293,16 +293,16 @@
                 <!-- selected movers -->
                 <div id="secilmisIscilerinSiyahisi col s12 m12 l12"></div>
                 <!-- TempTruck -->
-                <div class="col s12 m12 l12">
+                <div>
                     <div id="tempTruckUpdate" class="iscilerinSiyahisiRender"></div>
                 </div>
                 <!-- movers list -->
-                <div class="iscilerin-siyahisi col s12 m12 l12">
-                    <div class="basliq">Assign movers</div>
+                <div class="iscilerin-siyahisi row">
+                    <div class="basliq">ASSIGN MOVERS</div>
                     <div id="iscilerinSiyahisiRender"></div>
                 </div>
                 <!-- truck number -->
-                <div id="truck-list-update" class="input-field valideyn col s12 m12 l12">
+                <div id="truck-list-update" class="valideyn">
                     <i class="material-icons isare">local_shipping</i>
                     <input
                         id="quote-turck-number_2"
@@ -313,11 +313,23 @@
                     />
                 </div>
                 <!-- comment -->
-                <div class="input-field col s12">
-                    <textarea id="textarea2" class="materialize-textarea">
-                        {{ istifadechi.comment }}
-                    </textarea>
-                    <label class="active" for="textarea2">Comments</label>
+                <div class="input-field col s12 m4 l4">
+                    <textarea id="textarea2" class="materialize-textarea">{{ istifadechi.comment }}</textarea>
+                    <label class="active" for="textarea2">Note for Company</label>
+                </div>
+                <!-- comment -->
+                <div class="input-field col s12 m4 l4">
+                    <textarea id="for_your_move_update" class="materialize-textarea">{{
+                        istifadechi.noteForYourMove
+                    }}</textarea>
+                    <label class="active" for="for_your_move_update">Note for Your Move</label>
+                </div>
+                <!-- comment -->
+                <div class="input-field col s12 m4 l4">
+                    <textarea id="additional_info_update" class="materialize-textarea">{{
+                        istifadechi.additionalInfo
+                    }}</textarea>
+                    <label class="active" for="additional_info_update">Additional Info</label>
                 </div>
                 <div class="clear"></div>
                 <!-- save & resend button -->

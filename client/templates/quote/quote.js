@@ -221,6 +221,8 @@ Template.updateQuote.events({
             jobNumber: document.getElementById('quote-job-number_2').value,
             numberOfWorkers: document.getElementById('iscinin-sayi').value,
             additionalContacts: Session.get('additionalContacts'),
+            noteForYourMove: document.getElementById('for_your_move_update').value,
+            additionalInfo: document.getElementById('additional_info_update').value,
         };
 
         Meteor.call('emailGonder', doc, err => {
@@ -312,9 +314,12 @@ Template.updateQuote.events({
             deposit: document.getElementById('deposit-update').value,
             additionalContacts: Session.get('additionalContacts'),
             status: document.getElementById('jobStatus_followup').value,
+            noteForYourMove: document.getElementById('for_your_move_update').value.trim(),
+            additionalInfo: document.getElementById('additional_info_update').value.trim(),
         };
 
         Meteor.call('updateWork', doc, function(err) {
+            console.log('TCL: doc', doc);
             if (err) {
                 swal({
                     title: 'Error!',
@@ -434,6 +439,8 @@ Template.preQuote.events({
         let emailSentDate = new Date();
         let expireHour = Number(document.getElementById('quoteExpirationDate').value);
         let quoteExpirationDate = new Date(new Date().getTime() + expireHour * 3600000);
+        let noteForYourMove = document.getElementById('for_your_move').value;
+        let additionalInfo = document.getElementById('additional_info').value;
 
         function idniSec(soz) {
             var baslama = soz.indexOf(':');
@@ -485,6 +492,8 @@ Template.preQuote.events({
             quoteDate,
             expireHour,
             quoteExpirationDate,
+            noteForYourMove,
+            additionalInfo,
         };
 
         let doc = {
@@ -532,6 +541,8 @@ Template.preQuote.events({
             emailSentDate,
             expireHour,
             quoteExpirationDate,
+            noteForYourMove,
+            additionalInfo,
         };
 
         let emailReg = new RegExp(
@@ -665,6 +676,8 @@ Template.preQuote.events({
         let sourceOfLeads = document.getElementById('source_of_leads_add').value;
         let status = 'won';
         let emailSent = true;
+        let noteForYourMove = document.getElementById('for_your_move').value;
+        let additionalInfo = document.getElementById('additional_info').value;
 
         function idniSec(soz) {
             var baslama = soz.indexOf(':');
@@ -726,6 +739,8 @@ Template.preQuote.events({
             isFollowUp,
             sourceOfLeads,
             status,
+            noteForYourMove,
+            additionalInfo,
         };
 
         Meteor.call('quotaniBazayaElaveEt', doc, function(err) {
@@ -825,6 +840,8 @@ Template.preQuote.events({
         let isFollowUp = true;
         let sourceOfLeads = document.getElementById('source_of_leads_add').value;
         let status = 'inProgress';
+        let noteForYourMove = document.getElementById('for_your_move').value;
+        let additionalInfo = document.getElementById('additional_info').value;
 
         function idniSec(soz) {
             var baslama = soz.indexOf(':');
@@ -886,6 +903,8 @@ Template.preQuote.events({
             isFollowUp,
             sourceOfLeads,
             status,
+            noteForYourMove,
+            additionalInfo,
         };
 
         Meteor.call('quotaniBazayaElaveEt', doc, function(err) {

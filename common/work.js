@@ -689,6 +689,14 @@ Schemas.workSchema = new SimpleSchema(
             type: Date,
             optional: true,
         },
+        noteForYourMove: {
+            type: String,
+            optional: true,
+        },
+        additionalInfo: {
+            type: String,
+            optional: true,
+        },
     },
     { tracker: Tracker },
 );

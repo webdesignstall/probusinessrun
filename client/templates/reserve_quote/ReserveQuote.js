@@ -66,9 +66,11 @@ class ReserveQuote extends React.Component {
                 if (this.state.selected === 7) {
                     $('.note').hide();
                     $('.paypal-button').show();
+                    $('#payPal').show();
                 } else {
                     $('.note').show();
                     $('.paypal-button').hide();
+                    $('#payPal').hide();
                 }
             },
         );
@@ -279,7 +281,11 @@ class ReserveQuote extends React.Component {
                             {/* cash rate flat */}
                             {job.flatRate && job.flatRate[0].isTrue ? (
                                 <tr>
-                                    <td>Flat Rate Up to {job.laborTime} hours</td>
+                                    {job.laborTime > 0 ? (
+                                        <td>Flat Rate Up to {job.laborTime} hours</td>
+                                    ) : (
+                                        <td>Flat Rate</td>
+                                    )}
                                     <td>
                                         cash ${job.flatRate[0].cashAmount}, card ${job.flatRate[0].cardAmount}
                                     </td>
@@ -289,7 +295,11 @@ class ReserveQuote extends React.Component {
                             )}
                             {job.flatRate && job.flatRate[0].isTrue ? (
                                 <tr>
-                                    <td>Hourly Rate After {job.laborTime} hours</td>
+                                    {job.laborTime > 0 ? (
+                                        <td>Hourly Rate After {job.laborTime} hours</td>
+                                    ) : (
+                                        <td>Hourly Rate</td>
+                                    )}
                                     <td>
                                         cash ${job.hourlyRatesCash}/hr, card ${job.hourlyRatesCard}/hr
                                     </td>
@@ -516,7 +526,12 @@ class ReserveQuote extends React.Component {
                     <div className="note">
                         <h4>Please check all the boxes for next step</h4>
                     </div>
-                    <div id="paypal-button" />
+                    <div id="payPal">
+                        <p style={{ color: 'red', fontStyle: 'italic' }}>
+                            Click to PayPall to see the payment options.
+                        </p>
+                        <div id="paypal-button" />
+                    </div>
                 </div>
             </div>
         );
@@ -541,9 +556,7 @@ Template.reserveQuote.onRendered(function() {
                     sandbox: 'ASree96P5IIPryoEkaURjZl_uCCGHLcso9ZNy6U_4vLFUnFc5qhU7hIP7KsLIfZoepVvPhxtdwvTsao5',
                     production: 'AeKzmDv5m4KcyrlQI7Y9qiyjYr5jyUYVKd1FsKrXF9Nce7qmfekBC35JIAFbV2am3TdVKhszmcOdFJhK',
                 },
-
                 commit: true, // Show a 'Pay Now' button
-
                 payment: function(data, actions) {
                     return actions.payment.create({
                         payment: {
@@ -583,6 +596,7 @@ Template.reserveQuote.onRendered(function() {
         );
 
         $('.paypal-button').hide();
+        $('#payPal').hide();
     } catch (err) {
         console.log(err);
     }

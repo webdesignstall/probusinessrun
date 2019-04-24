@@ -64,7 +64,12 @@ export default class AdditionalContact extends TrackerReact(Component) {
     }
 
     changeInput(index, targ, event) {
-        let yazi = new AsYouType('US').input(event.target.value);
+        let yazi = '';
+        if (targ === 'phoneNumber' || targ === 'additionalPhoneNumber') {
+            yazi = new AsYouType('US').input(event.target.value);
+        } else {
+            yazi = event.target.value;
+        }
         console.log('TCL: AdditionalContact -> changeInput -> yazi', yazi);
         this.setState(
             prevState => {

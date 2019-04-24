@@ -12,7 +12,7 @@ export default class UpdateAddTruck extends React.Component {
             key: [],
             truckList: [],
             trucks: [],
-            silinesi: []
+            silinesi: [],
         };
 
         this.renderTruckList = this.renderTruckList.bind(this);
@@ -22,16 +22,18 @@ export default class UpdateAddTruck extends React.Component {
     }
 
     componentDidMount() {
-        let truckList = Meteor.users.find(
-            {
-                'profile.rank': 'tablet'
-            },
-            {
-                sort: {
-                    'profile.number': 1
-                }
-            }
-        ).fetch();
+        let truckList = Meteor.users
+            .find(
+                {
+                    'profile.rank': 'tablet',
+                },
+                {
+                    sort: {
+                        'profile.number': 1,
+                    },
+                },
+            )
+            .fetch();
 
         //eger sessionda is secilibdirse bazadan melumatlari sec
 
@@ -43,19 +45,19 @@ export default class UpdateAddTruck extends React.Component {
 
             if (trucks !== undefined) {
                 if (trucks.length > 0) {
-                    trucks.map((truck) => {
+                    trucks.map(truck => {
                         isArray.push(truck.truck);
                     });
                 }
             }
 
             this.setState({
-                key: isArray
+                key: isArray,
             });
         }
 
         this.setState({
-            truckList
+            truckList,
         });
     }
 
@@ -64,7 +66,7 @@ export default class UpdateAddTruck extends React.Component {
             key: [],
             truckList: [],
             trucks: [],
-            silinesi: []
+            silinesi: [],
         });
     }
 
@@ -73,55 +75,62 @@ export default class UpdateAddTruck extends React.Component {
     }
 
     addTruckC() {
-        this.setState((prevState) => {
+        this.setState(prevState => {
             return { key: prevState.key.concat([new Date().getTime()]) };
         });
     }
 
     renderTruckList() {
-        return (
-            this.state.truckList.map((truck) => {
-                return (
-                    <option key={truck._id} value={truck.profile.number}>#{truck.profile.number} - {truck.profile.lenght}</option>
-                );
-            })
-        );
+        return this.state.truckList.map(truck => {
+            return (
+                <option key={truck._id} value={truck.profile.number}>
+                    #{truck.profile.number} - {truck.profile.lenght}
+                </option>
+            );
+        });
     }
 
     addTruckCList() {
         if (this.state.key.length > 0) {
-            return (
-                this.state.key.map((key) => {
-                    let nomre = key;
-                    return (
-                        <div id={nomre} key={key} className="input-field col s12 m6 l6 valideyn">
-                            <select ref={(selected) => this.selected = selected} className="browser-default truck-select col s10 m10 l10" defaultValue={key < 100 ? key : 'no_truck'} >
-                                <option value="no_truck" disabled={true}>Choose truck size</option>
-                                {this.renderTruckList()}
-
-                            </select>
-                            <i className="material-icons isare col s2 m2 l2 truck-delete" onClick={() => this.deleteTruck(nomre)} >delete_forever</i>
-                        </div>
-                    );
-                })
-            );
+            return this.state.key.map(key => {
+                let nomre = key;
+                return (
+                    <div id={nomre} key={key} className="input-field col s12 m6 l6 valideyn">
+                        <select
+                            ref={selected => (this.selected = selected)}
+                            className="browser-default truck-select col s10 m10 l10"
+                            defaultValue={key < 100 ? key : 'no_truck'}>
+                            <option value="no_truck" disabled={true}>
+                                Choose truck size
+                            </option>
+                            {this.renderTruckList()}
+                        </select>
+                        <i
+                            className="material-icons isare col s2 m2 l2 truck-delete"
+                            onClick={() => this.deleteTruck(nomre)}>
+                            delete_forever
+                        </i>
+                    </div>
+                );
+            });
         }
     }
 
     render() {
         return (
-            <div id="xumba" className="input-field valideyn col s12 m12 l12 add-truck-root">
+            <div id="xumba" className=" valideyn col s12 m12 l12 add-truck-root">
                 <div className="merkez">
-                    <a className="waves-effect waves-light btn" onClick={this.addTruckC.bind(this)}>Assign Trucks +</a>
-                    <hr />
+                    <a className="waves-effect waves-light btn" onClick={this.addTruckC.bind(this)}>
+                        ASSIGN TRUCKS +
+                    </a>
                 </div>
-                <div className="clear"></div>
+                <div className="clear" />
                 {this.addTruckCList()}
             </div>
         );
     }
 }
 
-Template.updateQuote.onDestroyed(function () {
+Template.updateQuote.onDestroyed(function() {
     Session.set('is', '');
 });
