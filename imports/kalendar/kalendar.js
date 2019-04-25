@@ -24,6 +24,7 @@ import AdditionalContact from '../../client/templates/quote/AdditionalContact';
 import QuoteExpiration from '../../client/templates/quote/QuoteExpariation';
 import Status from '../../client/templates/quote/Status';
 import NewAppointment from '../../client/templates/quote/NewAppointment';
+import AdditionalInfo from '../../client/templates/quote/AdditionalInfo';
 
 /*global moment $*/
 
@@ -547,6 +548,7 @@ Template.kalendar.events({
         ReactDOM.render(<NumberOfUsers />, document.getElementById('number-of-movers'));
         ReactDOM.render(<AdditionalContact />, document.getElementById('additional-contact'));
         ReactDOM.render(<QuoteExpiration />, document.getElementById('quote-date-expiration-add'));
+        ReactDOM.render(<AdditionalInfo />, document.getElementById('additional_info_add'));
         window.addresses = ReactDOM.render(<Addresses />, document.getElementById('addressesId'));
         Session.set('is', '');
 
@@ -576,6 +578,7 @@ Template.kalendar.events({
         ReactDOM.unmountComponentAtNode(document.getElementById('additional-contact-update'));
         ReactDOM.unmountComponentAtNode(document.getElementById('quote-date-expiration-add'));
         ReactDOM.unmountComponentAtNode(document.getElementById('new_appointment_update'));
+        ReactDOM.unmountComponentAtNode(document.getElementById('additional_info_add'));
         Session.set('secilmisIsciler', '');
         Session.set('is', '');
         Session.set('addingJob', false);
