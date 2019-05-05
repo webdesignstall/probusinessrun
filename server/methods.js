@@ -27,7 +27,7 @@ if (Meteor.isServer) {
                         profile: obj
                     }
                 },
-                (err) => {
+                err => {
                     if (err) {
                         console.log(err);
                         throw new Meteor.Error(
