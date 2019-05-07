@@ -208,7 +208,8 @@ if (Meteor.isServer) {
             let message = {
                 text: ' ',
                 from: job.companyInfo.name + ' ' + job.companyInfo.email,
-                to: 'movinglosangeles111@gmail.com',
+                // to: 'movinglosangeles111@gmail.com',
+                to: 'joseph.khalilov@gmail.com',
                 subject: 'Confirmation email',
                 attachment: [
                     {
