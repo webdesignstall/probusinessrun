@@ -5,7 +5,8 @@ export default function ConfirmationEmail(job) {
             addreslerHTML += `
             <div style="font-size:16px;text-align:center;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif">
 <div  style="font-size: 13px; margin-bottom: 5px; border-bottom: 1px solid #BBBEC3">
-<div style="width: 49%; display: inline-block; text-align: left;">Address#${index + 1}:</div>
+<div style="width: 49%; display: inline-block; text-align: left;">Address#${index +
+                1}:</div>
 <div style="width: 49%; display: inline-block; text-align: left;">${address}</div>
 </div>
 </div>`;
@@ -27,7 +28,7 @@ export default function ConfirmationEmail(job) {
             '4_bedrooom_avg': '4 Bedroom (avg. size, avg. items)',
             '4_bedroom_large': '4 Bedroom (large size, many items)',
             commercial_avg: 'Commercial (avg. size, avg. items)',
-            commercial_large: 'Commercial (large size, many items)',
+            commercial_large: 'Commercial (large size, many items)'
         };
 
         return movingSizeList[job.movingSize];
@@ -40,13 +41,16 @@ export default function ConfirmationEmail(job) {
                 <div style="font-size:16px;text-align:center;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif">
 <div  style="font-size: 13px; margin-bottom: 5px; border-bottom: 1px solid #BBBEC3">
 <div style="width: 49%; display: inline-block; text-align: left;">Additional Contact Name:</div>
-<div style="width: 49%; display: inline-block; text-align: left;"> ${contact.firstName} ${contact.lastName}</div>
+<div style="width: 49%; display: inline-block; text-align: left;"> ${
+    contact.firstName
+} ${contact.lastName}</div>
 </div>
 </div>
 <div style="font-size:16px;text-align:center;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif">
 <div  style="font-size: 13px; margin-bottom: 5px; border-bottom: 1px solid #BBBEC3">
 <div style="width: 49%; display: inline-block; text-align: left;">Contact Main No:</div>
-<div style="width: 49%; display: inline-block; text-align: left;"> ${contact.phoneNumber || '-'}</div>
+<div style="width: 49%; display: inline-block; text-align: left;"> ${contact.phoneNumber ||
+                      '-'}</div>
 </div>
 </div>
                 ${
@@ -57,7 +61,9 @@ export default function ConfirmationEmail(job) {
         <div style="font-size:16px;text-align:center;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif">
 <div  style="font-size: 13px; margin-bottom: 5px; border-bottom: 1px solid #BBBEC3">
 <div style="width: 49%; display: inline-block; text-align: left;">Contact Secondary No:</div>
-<div style="width: 49%; display: inline-block; text-align: left;"> ${contact.additionalPhoneNumber}</div>
+<div style="width: 49%; display: inline-block; text-align: left;"> ${
+    contact.additionalPhoneNumber
+}</div>
 </div>
 </div>`
         : ''
@@ -67,12 +73,16 @@ export default function ConfirmationEmail(job) {
             : '';
 
     let additionalPhoneNumber =
-        job.phoneAdditional !== null && job.phoneAdditional !== undefined && job.phoneAdditional !== 'null'
+        job.phoneAdditional !== null &&
+        job.phoneAdditional !== undefined &&
+        job.phoneAdditional !== 'null'
             ? `
             <div style="font-size:16px;text-align:center;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif">
 <div  style="font-size: 13px; margin-bottom: 5px; border-bottom: 1px solid #BBBEC3">
 <div style="width: 49%; display: inline-block; text-align: left;">Customer Secondary No:</div>
-<div style="width: 49%; display: inline-block; text-align: left;">${job.phoneAdditional}</div>
+<div style="width: 49%; display: inline-block; text-align: left;">${
+    job.phoneAdditional
+}</div>
 </div>
 </div>`
             : '';
@@ -109,7 +119,9 @@ export default function ConfirmationEmail(job) {
             <div style="font-size:16px;text-align:center;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif">
                         <div  style="font-size: 13px; margin-bottom: 5px; border-bottom: 1px solid #BBBEC3">
 <div style="width: 49%; display: inline-block; text-align: left;">Truck Size:</div>
-<div style="width: 49%; display: inline-block; text-align: left;">${truck.size}</div>
+<div style="width: 49%; display: inline-block; text-align: left;">${
+    truck.size
+}</div>
 </div>
 </div>
                 `;
@@ -120,7 +132,8 @@ export default function ConfirmationEmail(job) {
             : '';
 
     let arrivalWindow =
-        job.workMustBeginTime[0] === '04:00 am' && job.workMustBeginTime[0] === '04:00 am'
+        job.workMustBeginTime[0] === '04:00 am' &&
+        job.workMustBeginTime[0] === '04:00 am'
             ? `
             <div style="font-size:16px;text-align:center;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif">
 <div  style="font-size: 13px; margin-bottom: 5px; border-bottom: 1px solid #BBBEC3">
@@ -133,9 +146,9 @@ export default function ConfirmationEmail(job) {
             <div style="font-size:16px;text-align:center;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif">
 <div  style="font-size: 13px; margin-bottom: 5px; border-bottom: 1px solid #BBBEC3">
 <div style="width: 49%; display: inline-block; text-align: left;">Arrival Window:</div>
-<div style="width: 49%; display: inline-block; text-align: left;">${job.workMustBeginTime[0]} - ${
-    job.workMustBeginTime[1]
-}</div>
+<div style="width: 49%; display: inline-block; text-align: left;">${
+    job.workMustBeginTime[0]
+} - ${job.workMustBeginTime[1]}</div>
 </div>
 </div>`;
 
@@ -145,7 +158,9 @@ export default function ConfirmationEmail(job) {
 <div style="font-size:16px;text-align:center;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif">
 <div  style="font-size: 13px; margin-bottom: 5px; border-bottom: 1px solid #BBBEC3">
 <div style="width: 49%; display: inline-block; text-align: left;">Minimum Labor Time:</div>
-<div style="width: 49%; display: inline-block; text-align: left;">${job.laborTime} hours</div>
+<div style="width: 49%; display: inline-block; text-align: left;">${
+    job.laborTime
+} hours</div>
 </div>
 </div>`
             : '';
@@ -156,10 +171,12 @@ export default function ConfirmationEmail(job) {
             ? `
             <div style="font-size:16px;text-align:center;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif">
 <div  style="font-size: 13px; margin-bottom: 5px; border-bottom: 1px solid #BBBEC3">
-<div style="width: 49%; display: inline-block; text-align: left;">Flat Rate Up to ${job.laborTime} hours</div>
-<div style="width: 49%; display: inline-block; text-align: left;">cash $${job.flatRate[0].cashAmount}, card $${
-    job.flatRate[0].cardAmount
-}</div>
+<div style="width: 49%; display: inline-block; text-align: left;">Flat Rate Up to ${
+    job.laborTime
+} hours</div>
+<div style="width: 49%; display: inline-block; text-align: left;">cash $${
+    job.flatRate[0].cashAmount
+}, card $${job.flatRate[0].cardAmount}</div>
 </div>
 </div>`
             : '';
@@ -170,10 +187,12 @@ export default function ConfirmationEmail(job) {
             ? `
         <div style="font-size:16px;text-align:center;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif">
 <div  style="font-size: 13px; margin-bottom: 5px; border-bottom: 1px solid #BBBEC3">
-<div style="width: 49%; display: inline-block; text-align: left;">Hourly Rate After ${job.laborTime} hours</div>
-<div style="width: 49%; display: inline-block; text-align: left;">cash $${job.hourlyRatesCash}/hr, card $${
-    job.hourlyRatesCard
-}/hr </div>
+<div style="width: 49%; display: inline-block; text-align: left;">Hourly Rate After ${
+    job.laborTime
+} hours</div>
+<div style="width: 49%; display: inline-block; text-align: left;">cash $${
+    job.hourlyRatesCash
+}/hr, card $${job.hourlyRatesCard}/hr </div>
 </div>
 </div> 
         `
@@ -186,7 +205,9 @@ export default function ConfirmationEmail(job) {
                 <div style="font-size:16px;text-align:center;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif">
 <div  style="font-size: 13px; margin-bottom: 5px; border-bottom: 1px solid #BBBEC3">
 <div style="width: 49%; display: inline-block; text-align: left;">Card Regular Rate p/hour:</div>
-<div style="width: 49%; display: inline-block; text-align: left;">$${job.hourlyRatesCard}</div>
+<div style="width: 49%; display: inline-block; text-align: left;">$${
+    job.hourlyRatesCard
+}</div>
 </div>
 </div>`
             : '';
@@ -198,7 +219,9 @@ export default function ConfirmationEmail(job) {
                 <div style="font-size:16px;text-align:center;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif">
 <div  style="font-size: 13px; margin-bottom: 5px; border-bottom: 1px solid #BBBEC3">
 <div style="width: 49%; display: inline-block; text-align: left;">Cash Discount Rate p/hour:</div>
-<div style="width: 49%; display: inline-block; text-align: left;">$${job.hourlyRatesCash}</div>
+<div style="width: 49%; display: inline-block; text-align: left;">$${
+    job.hourlyRatesCash
+}</div>
 </div>
 </div>
                 `
@@ -253,7 +276,9 @@ export default function ConfirmationEmail(job) {
             <div style="font-size:16px;text-align:center;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif">
 <div  style="font-size: 13px; margin-bottom: 5px; border-bottom: 1px solid #BBBEC3">
 <div style="width: 49%; display: inline-block; text-align: left;">Extra Large Item Handling:</div>
-<div style="width: 49%; display: inline-block; text-align: left;">$${job.largeItemFee}</div>
+<div style="width: 49%; display: inline-block; text-align: left;">$${
+    job.largeItemFee
+}</div>
 </div>
 </div>`
             : '';
@@ -271,6 +296,14 @@ export default function ConfirmationEmail(job) {
 </div>
 </div>`
             : '';
+    }
+
+    function additionalInfo() {
+        return job.additionalInfo
+            .map(info => {
+                return `<div>✓ ${info}</div>`;
+            })
+            .join('');
     }
 
     return `
@@ -650,13 +683,17 @@ export default function ConfirmationEmail(job) {
 <div style="font-size:16px;text-align:center;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif">
 <div  style="font-size: 13px; margin-bottom: 5px; border-bottom: 1px solid #BBBEC3">
 <div style="width: 49%; display: inline-block; text-align: left;">Customer Name:</div>
-<div style="width: 49%; display: inline-block; text-align: left;">${job.clientFirstName} ${job.clientLastName}</div>
+<div style="width: 49%; display: inline-block; text-align: left;">${
+    job.clientFirstName
+} ${job.clientLastName}</div>
 </div>
 </div>
 <div style="font-size:16px;text-align:center;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif">
 <div  style="font-size: 13px; margin-bottom: 5px; border-bottom: 1px solid #BBBEC3">
 <div style="width: 49%; display: inline-block; text-align: left;">Customer Main No:</div>
-<div style="width: 49%; display: inline-block; text-align: left;">${job.phoneNumber}</div>
+<div style="width: 49%; display: inline-block; text-align: left;">${
+    job.phoneNumber
+}</div>
 </div>
 </div>
 ${additionalPhoneNumber}
@@ -664,13 +701,17 @@ ${additionalContacts}
 <div style="font-size:16px;text-align:center;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif">
 <div  style="font-size: 13px; margin-bottom: 5px; border-bottom: 1px solid #BBBEC3">
 <div style="width: 49%; display: inline-block; text-align: left;">Your Job Number:</div>
-<div style="width: 49%; display: inline-block; text-align: left;">${job.jobNumber}</div>
+<div style="width: 49%; display: inline-block; text-align: left;">${
+    job.jobNumber
+}</div>
 </div>
 </div>
 <div style="font-size:16px;text-align:center;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif">
 <div  style="font-size: 13px; margin-bottom: 5px; border-bottom: 1px solid #BBBEC3">
 <div style="width: 49%; display: inline-block; text-align: left;">Moving Date:</div>
-<div style="width: 49%; display: inline-block; text-align: left;">${job.workDate}</div>
+<div style="width: 49%; display: inline-block; text-align: left;">${
+    job.workDate
+}</div>
 </div>
 </div>
 ${arrivalWindow}
@@ -684,7 +725,9 @@ ${addressesRender(job.addresses)}
 <div style="font-size:16px;text-align:center;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif">
 <div  style="font-size: 13px; margin-bottom: 5px; border-bottom: 1px solid #BBBEC3">
 <div style="width: 49%; display: inline-block; text-align: left;">Number of Movers:</div>
-<div style="width: 49%; display: inline-block; text-align: left;">${job.numberOfWorkers} men crew</div>
+<div style="width: 49%; display: inline-block; text-align: left;">${
+    job.numberOfWorkers
+} men crew</div>
 </div>
 </div>
 ${numberOfTrucks}
@@ -719,7 +762,17 @@ ${deposit()}
 <!--[if (!mso)&(!IE)]><!-->
 <div style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:5px; padding-bottom:5px; padding-right: 0px; padding-left: 0px;">
 <!--<![endif]-->
-<div style="font-size:16px;text-align:center;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif">
+<div style="font-size:16px;border:1px solid #BBBEC2;text-align:center;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif">
+${
+    job.additionalInfo &&
+    Array.isArray(job.additionalInfo) &&
+    job.additionalInfo.length > 0
+        ? `<div  style="text-align: left; padding: 5px 10px; font-size: 13px">
+Additional Info <br/>
+${additionalInfo()}
+</div>`
+        : ''
+}
 <div  style="text-align: left; padding: 5px 10px; font-size: 13px">
     <input checked disabled type="checkbox"> I have read, understand and agree to the contents of the <i><a href="https://www.moverslegion.com/wp-content/uploads/2019/01/included.pdf" download="https://www.moverslegion.com/wp-content/uploads/2019/01/included.pdf" target="_blank" style="color: #4698de; font-weight: 600;">&quot;What&apos;s Included&quot; Section.</a></i>
 </div>

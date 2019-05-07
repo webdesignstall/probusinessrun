@@ -35,7 +35,9 @@
                         value="{{ istifadechi.phoneNumber }}"
                         placeholder="Phone Number"
                     />
-                    <label class="active" for="phoneNumber_2">Phone Number</label>
+                    <label class="active" for="phoneNumber_2"
+                        >Phone Number</label
+                    >
                 </div>
                 <!-- Additional phone number -->
                 <div class="input-field valideyn col s12 m6 l2">
@@ -47,12 +49,19 @@
                         value="{{ istifadechi.phoneAdditional }}"
                         placeholder="Additional Phone Number"
                     />
-                    <label class="active" for="phoneNumber_2">Additional Phone Number</label>
+                    <label class="active" for="phoneNumber_2"
+                        >Additional Phone Number</label
+                    >
                 </div>
                 <!-- email -->
                 <div class="input-field valideyn col s12 m6 l4">
                     <i class="material-icons isare">email</i>
-                    <input id="musteriEmail_2" type="email" value="{{ istifadechi.email }}" placeholder="E-mail" />
+                    <input
+                        id="musteriEmail_2"
+                        type="email"
+                        value="{{ istifadechi.email }}"
+                        placeholder="E-mail"
+                    />
                     <label class="active" for="musteriEmail_2">E-mail</label>
                 </div>
                 <div class="clear"></div>
@@ -61,8 +70,15 @@
                 <!-- moving date -->
                 <div class="input-field valideyn col s12 m6 l3">
                     <i class="material-icons isare">date_range</i>
-                    <input id="quote-date-picker_2" class="xx" type="text" placeholder="Moving Date" />
-                    <label class="active" for="quote-date-picker_2">Moving Date</label>
+                    <input
+                        id="quote-date-picker_2"
+                        class="xx"
+                        type="text"
+                        placeholder="Moving Date"
+                    />
+                    <label class="active" for="quote-date-picker_2"
+                        >Moving Date</label
+                    >
                 </div>
                 <!-- Taken By -->
                 <div id="takenBy--update" class="col s12 m3 l3"></div>
@@ -70,10 +86,16 @@
                 <div class="clear"></div>
                 <!-- moving addresses -->
                 <div class="col s12 l12 m12 cardBorder relative">
-                    <div id="addressesIdUpdate" class="input-field valideyn"></div>
+                    <div
+                        id="addressesIdUpdate"
+                        class="input-field valideyn"
+                    ></div>
                 </div>
                 <!-- moving time window -->
-                <div id="update_time_window" class="input-field valideyn col s12 m6 l6"></div>
+                <div
+                    id="update_time_window"
+                    class="input-field valideyn col s12 m6 l6"
+                ></div>
                 <!-- small item pack -->
                 <div class="input-field valideyn col s12 m6 l3">
                     <i class="material-icons isare">view_array</i>
@@ -107,7 +129,9 @@
                         value="{{ istifadechi.largeItemFee }}"
                         placeholder="Large item fee"
                     />
-                    <label class="active" for="large_item_fee_2">Large item fee</label>
+                    <label class="active" for="large_item_fee_2"
+                        >Large item fee</label
+                    >
                 </div>
                 <!-- gas fee -->
                 <div class="input-field valideyn col s12 m3 l3">
@@ -157,7 +181,13 @@
                     <div class="col s12 m12 l12 orange darken-4 payment-header">
                         Payment options
                         <i class="lime-text lighten-5 black flatRateSelect"
-                            >[ Flat Rate <input id="flatBoxUpdate" type="checkbox" checked="{{ isFlat }}" /> ]</i
+                            >[ Flat Rate
+                            <input
+                                id="flatBoxUpdate"
+                                type="checkbox"
+                                checked="{{ isFlat }}"
+                            />
+                            ]</i
                         >
                     </div>
                     <div id="paymentContentUpdate">
@@ -171,7 +201,9 @@
                                 value="{{ istifadechi.laborTime }}"
                                 placeholder="0"
                             />
-                            <label class="active" for="labor_time_2">Minimum labor time</label>
+                            <label class="active" for="labor_time_2"
+                                >Minimum labor time</label
+                            >
                         </div>
                         <!-- rates cash -->
                         <div class="input-field valideyn col s12 m6 l3">
@@ -183,7 +215,9 @@
                                 value="{{ istifadechi.hourlyRatesCash }}"
                                 placeholder="0"
                             />
-                            <label class="active" for="hourly_rates_cash_2">Hourly rate (cash)</label>
+                            <label class="active" for="hourly_rates_cash_2"
+                                >Hourly rate (cash)</label
+                            >
                         </div>
                         <!-- rates card -->
                         <div class="input-field valideyn col s12 m6 l3">
@@ -195,7 +229,9 @@
                                 value="{{ istifadechi.hourlyRatesCard }}"
                                 placeholder="0"
                             />
-                            <label class="active" for="hourly_rates_card_2">Hourly rate (card)</label>
+                            <label class="active" for="hourly_rates_card_2"
+                                >Hourly rate (card)</label
+                            >
                         </div>
                         <!-- not exceed price -->
                         <div class="input-field valideyn col s12 m6 l3">
@@ -207,11 +243,16 @@
                                 value="{{ istifadechi.price }}"
                                 placeholder="0"
                             />
-                            <label class="active" for="quote_price_2">Not exceed price</label>
+                            <label class="active" for="quote_price_2"
+                                >Not exceed price</label
+                            >
                         </div>
                     </div>
                     <!-- flate rate -->
-                    <div id="flatRateUpdate_" class="input-field valideyn col s12 m12 l12 flatRate hide">
+                    <div
+                        id="flatRateUpdate_"
+                        class="input-field valideyn col s12 m12 l12 flatRate hide"
+                    >
                         <!-- flat rate cash -->
                         <div class="input-field valideyn col s12 m6 l3">
                             <i class="material-icons isare">attach_money</i>
@@ -225,7 +266,9 @@
                                                          this.value=0; 
                                                          } })()"
                             />
-                            <label class="active" for="flatRateCashUpdate">Flat rate cash</label>
+                            <label class="active" for="flatRateCashUpdate"
+                                >Flat rate cash</label
+                            >
                         </div>
                         <!-- flat rate card -->
                         <div class="input-field valideyn col s12 m6 l3">
@@ -238,7 +281,9 @@
                                 onchange="(() => {
                                                     if (this.value < 0) { this.value=0; } })()"
                             />
-                            <label class="active" for="flatRateCardUpdate">Flat rate card</label>
+                            <label class="active" for="flatRateCardUpdate"
+                                >Flat rate card</label
+                            >
                         </div>
                     </div>
                 </div>
@@ -252,16 +297,27 @@
                         value="{{ istifadechi.companyInfo.name }}"
                         disabled
                     />
-                    <label class="active" for="company-name-update">Company</label>
+                    <label class="active" for="company-name-update"
+                        >Company</label
+                    >
                 </div>
                 <!-- double drive time -->
-                <div id="double-drive-time-update" class="input-field col s12 m3 l3 azMargin"></div>
+                <div
+                    id="double-drive-time-update"
+                    class="input-field col s12 m3 l3 azMargin"
+                ></div>
                 <!-- Number of movers -->
-                <div id="number-of-movers2" class="input-field valideyn col s12 m3 l3 azMargin">
+                <div
+                    id="number-of-movers2"
+                    class="input-field valideyn col s12 m3 l3 azMargin"
+                >
                     <!-- <i class="material-icons isare">person</i> -->
                 </div>
                 <!-- moving size -->
-                <div id="moving-size" class="input-field col s12 m6 l6 azMargin"></div>
+                <div
+                    id="moving-size"
+                    class="input-field col s12 m6 l6 azMargin"
+                ></div>
                 <div class="clear"></div>
                 <!-- job number -->
                 <div class="input-field valideyn col s12 m3 l3">
@@ -274,7 +330,9 @@
                         placeholder="Job ID"
                         disabled
                     />
-                    <label class="active" for="quote-job-number_2">Job number</label>
+                    <label class="active" for="quote-job-number_2"
+                        >Job number</label
+                    >
                 </div>
                 <!-- Quote taken date -->
                 <div class="input-field valideyn col s12 m6 l6">
@@ -287,16 +345,24 @@
                         placeholder="Quote taken Date"
                         disabled
                     />
-                    <label class="active" for="quote-quote-date">Quote Taken Date</label>
+                    <label class="active" for="quote-quote-date"
+                        >Quote Taken Date</label
+                    >
                 </div>
                 <!-- Status -->
-                <div id="status_update" class="input-field valideyn col s12 m3 l3"></div>
+                <div
+                    id="status_update"
+                    class="input-field valideyn col s12 m3 l3"
+                ></div>
                 <div class="clear"></div>
                 <!-- selected movers -->
                 <div id="secilmisIscilerinSiyahisi col s12 m12 l12"></div>
                 <!-- TempTruck -->
                 <div>
-                    <div id="tempTruckUpdate" class="iscilerinSiyahisiRender"></div>
+                    <div
+                        id="tempTruckUpdate"
+                        class="iscilerinSiyahisiRender"
+                    ></div>
                 </div>
                 <!-- movers list -->
                 <div class="iscilerin-siyahisi row">
@@ -316,32 +382,44 @@
                 </div>
                 <!-- comment -->
                 <div class="input-field col s12 m4 l4">
-                    <textarea id="textarea2" class="materialize-textarea">{{ istifadechi.comment }}</textarea>
-                    <label class="active" for="textarea2">Note for Company</label>
+                    <textarea id="textarea2" class="materialize-textarea">{{
+                        istifadechi.comment
+                    }}</textarea>
+                    <label class="active" for="textarea2"
+                        >Note for Company</label
+                    >
                 </div>
                 <!-- comment -->
                 <div class="input-field col s12 m4 l4">
-                    <textarea id="for_your_move_update" class="materialize-textarea">{{
-                        istifadechi.noteForYourMove
-                    }}</textarea>
-                    <label class="active" for="for_your_move_update">Note for Your Move</label>
+                    <textarea
+                        id="for_your_move_update"
+                        class="materialize-textarea"
+                        >{{ istifadechi.noteForYourMove }}</textarea
+                    >
+                    <label class="active" for="for_your_move_update"
+                        >Note for Your Move</label
+                    >
                 </div>
                 <!-- comment -->
-                <div class="input-field col s12 m4 l4">
-                    <textarea id="additional_info_update" class="materialize-textarea">{{
-                        istifadechi.additionalInfo
-                    }}</textarea>
-                    <label class="active" for="additional_info_update">Additional Info</label>
-                </div>
+                <div
+                    id="additional_info_update"
+                    class="input-field col s12 m12 l12"
+                ></div>
                 <div class="clear"></div>
                 <!-- save & resend button -->
                 <div class="center-align">
                     <div class="center-align quote-submit">
-                        <a id="work-update" class="waves-effect waves-light btn">Save (Update)</a>
+                        <a id="work-update" class="waves-effect waves-light btn"
+                            >Save (Update)</a
+                        >
                     </div>
                     <div class="center-align quote-submit">
                         <div class="center-align quote-submit">
-                            <a id="resend-email" class="waves-effect waves-light btn" style="background-color: #E9A226">
+                            <a
+                                id="resend-email"
+                                class="waves-effect waves-light btn"
+                                style="background-color: #E9A226"
+                            >
                                 Resend Quote
                             </a>
                         </div>
@@ -363,7 +441,10 @@
                                 For Supervisor
                             </a>
                         </div>
-                        <div class="center-align quote-submit" id="new_appointment_update"></div>
+                        <div
+                            class="center-align quote-submit"
+                            id="new_appointment_update"
+                        ></div>
                     </div>
                 </div>
             </form>

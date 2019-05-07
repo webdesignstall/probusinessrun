@@ -33,21 +33,25 @@ class ReserveQuote extends React.Component {
                 '4_bedrooom_avg': '4 Bedroom (avg. size, avg. items)',
                 '4_bedroom_large': '4 Bedroom (large size, many items)',
                 commercial_avg: 'Commercial (avg. size, avg. items)',
-                commercial_large: 'Commercial (large size, many items)',
-            },
+                commercial_large: 'Commercial (large size, many items)'
+            }
         };
 
         this.checked = this.checked.bind(this);
         this.jobNumber = this.jobNumber.bind(this);
-        this.renderAdditionalContacts = this.renderAdditionalContacts.bind(this);
+        this.renderAdditionalContacts = this.renderAdditionalContacts.bind(
+            this
+        );
     }
 
     componentDidMount() {
         this.x = Tracker.autorun(() => {
             Meteor.subscribe('workSchema');
-            const tapilasiIs = WorkData.find({ jobNumber: Session.get('jobNumber') }).fetch();
+            const tapilasiIs = WorkData.find({
+                jobNumber: Session.get('jobNumber')
+            }).fetch();
             this.setState({
-                is: tapilasiIs,
+                is: tapilasiIs
             });
         });
     }
@@ -57,10 +61,11 @@ class ReserveQuote extends React.Component {
     }
 
     checked() {
-        const secilmislerinSayi = document.querySelectorAll('.secilib:checked').length;
+        const secilmislerinSayi = document.querySelectorAll('.secilib:checked')
+            .length;
         this.setState(
             {
-                selected: secilmislerinSayi,
+                selected: secilmislerinSayi
             },
             () => {
                 if (this.state.selected === 7) {
@@ -72,7 +77,7 @@ class ReserveQuote extends React.Component {
                     $('.paypal-button').hide();
                     $('#payPal').hide();
                 }
-            },
+            }
         );
     }
 
@@ -105,7 +110,7 @@ class ReserveQuote extends React.Component {
             : Bert.alert({
                 title: 'Uncorrect job number',
                 message: 'Please enter correct job number',
-                type: 'danger',
+                type: 'danger'
             });
     }
 
@@ -177,7 +182,11 @@ class ReserveQuote extends React.Component {
 
     trucksRender(job) {
         return job.trucksTemp.map((truck, index) => {
-            return <React.Fragment key={index + 'trucksRenderConfirm'}>{this.renderTrucks(truck)}</React.Fragment>;
+            return (
+                <React.Fragment key={index + 'trucksRenderConfirm'}>
+                    {this.renderTrucks(truck)}
+                </React.Fragment>
+            );
         });
     }
 
@@ -207,12 +216,21 @@ class ReserveQuote extends React.Component {
             <tr>
                 <td>Arrival Window:</td>
                 <td>
-                    {job.workMustBeginTime[0] === '04:00 am' && job.workMustBeginTime[0] === '04:00 am'
+                    {job.workMustBeginTime[0] === '04:00 am' &&
+                    job.workMustBeginTime[0] === '04:00 am'
                         ? 'Morning & Afternoon'
-                        : `${job.workMustBeginTime[0]} - ${job.workMustBeginTime[1]}`}
+                        : `${job.workMustBeginTime[0]} - ${
+                            job.workMustBeginTime[1]
+                        }`}
                 </td>
             </tr>
         );
+    }
+
+    additionalInfo(job) {
+        return job.additionalInfo.map((addInfo, index) => {
+            return <div key={index + 'addInfoConfirm'}>✓ {addInfo}</div>;
+        });
     }
 
     axtarisinNeticesi() {
@@ -223,8 +241,10 @@ class ReserveQuote extends React.Component {
                 <div key={index}>
                     <p>
                         Hello {job.clientFirstName}!<br />
-                        Thank you for confirming your move with {job.companyInfo.name}!<br />
-                        Please review your Moving Confirmation below to ensure accuracy:
+                        Thank you for confirming your move with{' '}
+                        {job.companyInfo.name}!<br />
+                        Please review your Moving Confirmation below to ensure
+                        accuracy:
                     </p>
                     <table style={{ width: '100%' }}>
                         <tbody>
@@ -249,7 +269,9 @@ class ReserveQuote extends React.Component {
                                 <td>Customer Secondary Number:</td>
                                 <td>{job.phoneAdditional}</td>
                             </tr>
-                            {this.renderAdditionalContacts(job.additionalContacts || null)}
+                            {this.renderAdditionalContacts(
+                                job.additionalContacts || null
+                            )}
                             <tr>
                                 <td>Your Job Number:</td>
                                 <td>{job.jobNumber}</td>
@@ -262,7 +284,13 @@ class ReserveQuote extends React.Component {
                             {(() => this.addressesRender(job.addresses))()}
                             <tr>
                                 <td>Moving Size:</td>
-                                <td>{this.state.movingSizeCorrectNaming[job.movingSize]}</td>
+                                <td>
+                                    {
+                                        this.state.movingSizeCorrectNaming[
+                                            job.movingSize
+                                        ]
+                                    }
+                                </td>
                             </tr>
                             <tr>
                                 <td>Number of Movers:</td>
@@ -282,12 +310,16 @@ class ReserveQuote extends React.Component {
                             {job.flatRate && job.flatRate[0].isTrue ? (
                                 <tr>
                                     {job.laborTime > 0 ? (
-                                        <td>Flat Rate Up to {job.laborTime} hours</td>
+                                        <td>
+                                            Flat Rate Up to {job.laborTime}{' '}
+                                            hours
+                                        </td>
                                     ) : (
                                         <td>Flat Rate</td>
                                     )}
                                     <td>
-                                        cash ${job.flatRate[0].cashAmount}, card ${job.flatRate[0].cardAmount}
+                                        cash ${job.flatRate[0].cashAmount}, card
+                                        ${job.flatRate[0].cardAmount}
                                     </td>
                                 </tr>
                             ) : (
@@ -296,44 +328,53 @@ class ReserveQuote extends React.Component {
                             {job.flatRate && job.flatRate[0].isTrue ? (
                                 <tr>
                                     {job.laborTime > 0 ? (
-                                        <td>Hourly Rate After {job.laborTime} hours</td>
+                                        <td>
+                                            Hourly Rate After {job.laborTime}{' '}
+                                            hours
+                                        </td>
                                     ) : (
                                         <td>Hourly Rate</td>
                                     )}
                                     <td>
-                                        cash ${job.hourlyRatesCash}/hr, card ${job.hourlyRatesCard}/hr
+                                        cash ${job.hourlyRatesCash}/hr, card $
+                                        {job.hourlyRatesCard}/hr
                                     </td>
                                 </tr>
                             ) : (
                                 ''
                             )}
                             {/* hourly rates cash*/}
-                            {job.hourlyRatesCash && job.hourlyRatesCash > 0 && !job.flatRate[0].isTrue ? (
-                                <tr>
-                                    <td>Cash Discount Rate p/hour:</td>
-                                    <td>${job.hourlyRatesCash}</td>
-                                </tr>
-                            ) : (
-                                ''
-                            )}
+                            {job.hourlyRatesCash &&
+                            job.hourlyRatesCash > 0 &&
+                            !job.flatRate[0].isTrue ? (
+                                    <tr>
+                                        <td>Cash Discount Rate p/hour:</td>
+                                        <td>${job.hourlyRatesCash}</td>
+                                    </tr>
+                                ) : (
+                                    ''
+                                )}
                             {/* hourly rates card*/}
-                            {job.hourlyRatesCard && job.hourlyRatesCard > 0 && !job.flatRate[0].isTrue ? (
-                                <tr>
-                                    <td>Card Regular Rate p/hour:</td>
-                                    <td>${job.hourlyRatesCard}</td>
-                                </tr>
-                            ) : (
-                                ''
-                            )}
+                            {job.hourlyRatesCard &&
+                            job.hourlyRatesCard > 0 &&
+                            !job.flatRate[0].isTrue ? (
+                                    <tr>
+                                        <td>Card Regular Rate p/hour:</td>
+                                        <td>${job.hourlyRatesCard}</td>
+                                    </tr>
+                                ) : (
+                                    ''
+                                )}
                             {/* gas fee */}
-                            {!isNaN(Number(job.gasFee)) && Number(job.gasFee) > 0 ? (
-                                <tr>
-                                    <td>Gas Fee (one time):</td>
-                                    <td>${job.gasFee}</td>
-                                </tr>
-                            ) : (
-                                ''
-                            )}
+                            {!isNaN(Number(job.gasFee)) &&
+                            Number(job.gasFee) > 0 ? (
+                                    <tr>
+                                        <td>Gas Fee (one time):</td>
+                                        <td>${job.gasFee}</td>
+                                    </tr>
+                                ) : (
+                                    ''
+                                )}
                             {/* double drive time */}
                             {job.doubleDrive === 'yes' ? (
                                 <tr>
@@ -353,7 +394,8 @@ class ReserveQuote extends React.Component {
                                 ''
                             )}
                             {/* small item packing */}
-                            {job.smallItemPacking < 0 || job.smallItemPacking > 0
+                            {job.smallItemPacking < 0 ||
+                            job.smallItemPacking > 0
                                 ? this.renderSmallitemPacking(job)
                                 : ''}
                             {/* Extra Large Item Handling */}
@@ -367,9 +409,12 @@ class ReserveQuote extends React.Component {
                             )}
                             {job.deposit && job.deposit > 0 ? (
                                 <tr>
-                                    <td style={{ width: '49%' }}>Deposit required to lock the spot:</td>
                                     <td style={{ width: '49%' }}>
-                                        +${job.deposit} (to be applied as a credit toward this move’s bill)
+                                        Deposit required to lock the spot:
+                                    </td>
+                                    <td style={{ width: '49%' }}>
+                                        +${job.deposit} (to be applied as a
+                                        credit toward this move’s bill)
                                     </td>
                                 </tr>
                             ) : (
@@ -379,9 +424,24 @@ class ReserveQuote extends React.Component {
                     </table>
                     <div className="sola-cekme">
                         <p>
+                            {job.additionalInfo &&
+                            Array.isArray(job.additionalInfo) &&
+                            job.additionalInfo.length > 0 ? (
+                                    <div>
+                                    Additional Info <br />
+                                        {this.additionalInfo(jobIs)}
+                                    </div>
+                                ) : null}
+                        </p>
+                        <p>
                             {/* finish the on clikc pdf download */}
-                            <input className="secilib" onChange={() => this.checked()} type="checkbox" /> I have read,
-                            understand and agree to the contents of the{' '}
+                            <input
+                                className="secilib"
+                                onChange={() => this.checked()}
+                                type="checkbox"
+                            />{' '}
+                            I have read, understand and agree to the contents of
+                            the{' '}
                             <i>
                                 <a
                                     href="http://www.moverslegion.com/wp-content/uploads/2019/01/included.pdf"
@@ -393,21 +453,32 @@ class ReserveQuote extends React.Component {
                             </i>
                         </p>
                         <p>
-                            <input className="secilib" onChange={() => this.checked()} type="checkbox" /> I have read,
-                            understand and agree to the contents of the{' '}
+                            <input
+                                className="secilib"
+                                onChange={() => this.checked()}
+                                type="checkbox"
+                            />{' '}
+                            I have read, understand and agree to the contents of
+                            the{' '}
                             <i>
                                 <a
                                     href="http://www.moverslegion.com/wp-content/uploads/2019/01/not-included.pdf"
                                     download="http://www.moverslegion.com/wp-content/uploads/2019/01/not-included.pdf"
                                     target="_blank"
                                     rel="noopener noreferrer">
-                                    &quot;What&apos;s Not Included&quot; Section.
+                                    &quot;What&apos;s Not Included&quot;
+                                    Section.
                                 </a>
                             </i>
                         </p>
                         <p>
-                            <input className="secilib" onChange={() => this.checked()} type="checkbox" /> I have read,
-                            understand and agree to the contents of the{' '}
+                            <input
+                                className="secilib"
+                                onChange={() => this.checked()}
+                                type="checkbox"
+                            />{' '}
+                            I have read, understand and agree to the contents of
+                            the{' '}
                             <i>
                                 <a
                                     href="http://www.moverslegion.com/wp-content/uploads/2018/12/for-you-1.pdf"
@@ -419,21 +490,30 @@ class ReserveQuote extends React.Component {
                             </i>
                         </p>
                         <p>
-                            <input className="secilib" onChange={() => this.checked()} type="checkbox" /> I have
-                            recieved a copy of the{' '}
+                            <input
+                                className="secilib"
+                                onChange={() => this.checked()}
+                                type="checkbox"
+                            />{' '}
+                            I have recieved a copy of the{' '}
                             <i>
                                 <a
                                     href="http://www.moverslegion.com/wp-content/uploads/2018/12/important.pdf"
                                     download="http://www.moverslegion.com/wp-content/uploads/2018/12/important.pdf"
                                     target="_blank"
                                     rel="noopener noreferrer">
-                                    CPUC &quot;Important Information About Your Move&quot; booklet.
+                                    CPUC &quot;Important Information About Your
+                                    Move&quot; booklet.
                                 </a>
                             </i>
                         </p>
                         <p>
-                            <input className="secilib" onChange={() => this.checked()} type="checkbox" /> I have
-                            recieved a copy of the{' '}
+                            <input
+                                className="secilib"
+                                onChange={() => this.checked()}
+                                type="checkbox"
+                            />{' '}
+                            I have recieved a copy of the{' '}
                             <i>
                                 <a
                                     href="http://www.moverslegion.com/wp-content/uploads/2018/12/Hazard.pdf"
@@ -445,27 +525,45 @@ class ReserveQuote extends React.Component {
                             </i>{' '}
                             and I agree not to pack any of the
                             <br />
-                            items listed for transportation by the moving company.
+                            items listed for transportation by the moving
+                            company.
                         </p>
                         <p>
-                            <input className="secilib" onChange={() => this.checked()} type="checkbox" /> I understand
-                            and agree that I will have Cash or Card Payment ready on the day of my move.
+                            <input
+                                className="secilib"
+                                onChange={() => this.checked()}
+                                type="checkbox"
+                            />{' '}
+                            I understand and agree that I will have Cash or Card
+                            Payment ready on the day of my move.
                         </p>
                         <p>
-                            <input className="secilib" onChange={() => this.checked()} type="checkbox" /> Yes! I have
-                            read the information below and wish to pay my Moving Deposit to book this move.
-                            <br />I understand that this Deposit is non-refundable and non-transferrable if I reschedule
+                            <input
+                                className="secilib"
+                                onChange={() => this.checked()}
+                                type="checkbox"
+                            />{' '}
+                            Yes! I have read the information below and wish to
+                            pay my Moving Deposit to book this move.
+                            <br />I understand that this Deposit is
+                            non-refundable and non-transferrable if I reschedule
                             or cancel this move.
                         </p>
                         <p>
-                            **If you have any questions, please contact us as soon as possible by phone, text, or e-mail
-                            24/7**
+                            **If you have any questions, please contact us as
+                            soon as possible by phone, text, or e-mail 24/7**
                         </p>
                         <div style={{ textAlign: 'center' }}>
                             Phone Number: {job.companyInfo.phoneNumber} <br />
-                            Email: <a href={'mailto:' + job.companyInfo.email}>{job.companyInfo.email}</a>
+                            Email:{' '}
+                            <a href={'mailto:' + job.companyInfo.email}>
+                                {job.companyInfo.email}
+                            </a>
                             <br />
-                            Web: <a href={job.companyInfo.url}>{job.companyInfo.url}</a>
+                            Web:{' '}
+                            <a href={job.companyInfo.url}>
+                                {job.companyInfo.url}
+                            </a>
                             <br />
                         </div>
                     </div>
@@ -490,7 +588,10 @@ class ReserveQuote extends React.Component {
             <div id="jobInfoMain" className="jobMain">
                 <div className="job-number-enter">
                     <div id="enter-number" className="enter-code">
-                        <h6>By entering your job number below you will be able to confirm your moving details</h6>
+                        <h6>
+                            By entering your job number below you will be able
+                            to confirm your moving details
+                        </h6>
                         <input
                             id="code"
                             key="jobNumber"
@@ -514,11 +615,16 @@ class ReserveQuote extends React.Component {
                     <div className={this.compare() ? 'coverDark' : 'hide'}>
                         <div className="enter-code">
                             <h6>
-                                Your offer has expired. Please contact customer service in order to access to your
-                                confirmation page. <span>(844) 404-8404</span>
+                                Your offer has expired. Please contact customer
+                                service in order to access to your confirmation
+                                page. <span>(844) 404-8404</span>
                                 <br />
                                 Your job number is:{' '}
-                                <span>{(this.state.is[0] && this.state.is[0].jobNumber) || ''}</span>
+                                <span>
+                                    {(this.state.is[0] &&
+                                        this.state.is[0].jobNumber) ||
+                                        ''}
+                                </span>
                             </h6>
                         </div>
                     </div>
@@ -549,12 +655,14 @@ Template.reserveQuote.onRendered(function() {
                     label: 'pay',
                     size: 'medium', // small | medium | large | responsive
                     shape: 'rect', // pill | rect
-                    color: 'blue', // gold | blue | silver | black
+                    color: 'blue' // gold | blue | silver | black
                 },
 
                 client: {
-                    sandbox: 'ASree96P5IIPryoEkaURjZl_uCCGHLcso9ZNy6U_4vLFUnFc5qhU7hIP7KsLIfZoepVvPhxtdwvTsao5',
-                    production: 'AeKzmDv5m4KcyrlQI7Y9qiyjYr5jyUYVKd1FsKrXF9Nce7qmfekBC35JIAFbV2am3TdVKhszmcOdFJhK',
+                    sandbox:
+                        'ASree96P5IIPryoEkaURjZl_uCCGHLcso9ZNy6U_4vLFUnFc5qhU7hIP7KsLIfZoepVvPhxtdwvTsao5',
+                    production:
+                        'AeKzmDv5m4KcyrlQI7Y9qiyjYr5jyUYVKd1FsKrXF9Nce7qmfekBC35JIAFbV2am3TdVKhszmcOdFJhK'
                 },
                 commit: true, // Show a 'Pay Now' button
                 payment: function(data, actions) {
@@ -562,10 +670,13 @@ Template.reserveQuote.onRendered(function() {
                         payment: {
                             transactions: [
                                 {
-                                    amount: { total: Session.get('job').deposit, currency: 'USD' },
-                                },
-                            ],
-                        },
+                                    amount: {
+                                        total: Session.get('job').deposit,
+                                        currency: 'USD'
+                                    }
+                                }
+                            ]
+                        }
                     });
                 },
 
@@ -573,10 +684,17 @@ Template.reserveQuote.onRendered(function() {
                     return actions.payment
                         .execute()
                         .then(function(payment) {
-                            document.getElementById('jobInfoMain').classList.add('hide');
-                            document.getElementById('son-mesaj').classList.remove('hide');
+                            document
+                                .getElementById('jobInfoMain')
+                                .classList.add('hide');
+                            document
+                                .getElementById('son-mesaj')
+                                .classList.remove('hide');
                             Meteor.call('confirmationGonder', jobIs);
-                            ReactDOM.render(<ConfirmationDisplay />, document.getElementById('son-mesaj'));
+                            ReactDOM.render(
+                                <ConfirmationDisplay />,
+                                document.getElementById('son-mesaj')
+                            );
                             let job = Session.get('job');
                             job.quote = false;
                             job.confirmed = true;
@@ -590,9 +708,9 @@ Template.reserveQuote.onRendered(function() {
                         .catch(err => {
                             err ? console.log(err) : null;
                         });
-                },
+                }
             },
-            '#paypal-button',
+            '#paypal-button'
         );
 
         $('.paypal-button').hide();

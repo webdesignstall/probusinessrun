@@ -75,6 +75,7 @@ Meteor.startup(() => {
     Session.set('sort', 'default');
     Session.set('addingJob', false);
     Session.set('update', false);
+    Session.set('additionalInfo', []);
 
     Bert.defaults = {
         hideDelay: 6000,

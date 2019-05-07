@@ -35,20 +35,30 @@ Template.updateQuote.onRendered(function() {
             let value = e.target.value;
             document.querySelector('#phoneNumber_2').value = value;
         } else {
-            let value = e.target.value.toString().slice(0, e.target.value.length - 1);
+            let value = e.target.value
+                .toString()
+                .slice(0, e.target.value.length - 1);
             document.querySelector('#phoneNumber_2').value = value;
         }
     });
-    document.querySelector('#phoneNumber_2_additional').addEventListener('input', e => {
-        e.preventDefault();
-        if (regex.test(e.target.value)) {
-            let value = e.target.value;
-            document.querySelector('#phoneNumber_2_additional').value = value;
-        } else {
-            let value = e.target.value.toString().slice(0, e.target.value.length - 1);
-            document.querySelector('#phoneNumber_2_additional').value = value;
-        }
-    });
+    document
+        .querySelector('#phoneNumber_2_additional')
+        .addEventListener('input', e => {
+            e.preventDefault();
+            if (regex.test(e.target.value)) {
+                let value = e.target.value;
+                document.querySelector(
+                    '#phoneNumber_2_additional'
+                ).value = value;
+            } else {
+                let value = e.target.value
+                    .toString()
+                    .slice(0, e.target.value.length - 1);
+                document.querySelector(
+                    '#phoneNumber_2_additional'
+                ).value = value;
+            }
+        });
 
     checkedUpdate.addEventListener('change', function() {
         Session.set('flatRate', !Session.get('flatRate'));
@@ -60,31 +70,51 @@ Template.updateQuote.onRendered(function() {
 
             ish.smallItemPacking && ish.smallItemPacking == -1
                 ? document.querySelector('#smallItemPackUpdate')
-                    ? ((document.querySelector('#smallItemPackUpdate').checked = true),
-                    (document.querySelector('#small_item_pack_2').disabled = true))
+                    ? ((document.querySelector(
+                        '#smallItemPackUpdate'
+                    ).checked = true),
+                    (document.querySelector(
+                        '#small_item_pack_2'
+                    ).disabled = true))
                     : null
                 : null;
             document.querySelector('#flatRateCashUpdate') &&
-                (document.querySelector('#flatRateCashUpdate').defaultValue = ish.flatRate[0].cashAmount);
+                (document.querySelector('#flatRateCashUpdate').defaultValue =
+                    ish.flatRate[0].cashAmount);
             document.querySelector('#flatRateCardUpdate') &&
-                (document.querySelector('#flatRateCardUpdate').defaultValue = ish.flatRate[0].cardAmount);
+                (document.querySelector('#flatRateCardUpdate').defaultValue =
+                    ish.flatRate[0].cardAmount);
             document.querySelector('#flatBoxUpdate') &&
-                (document.querySelector('#flatBoxUpdate').checked = ish.flatRate[0].isTrue);
+                (document.querySelector('#flatBoxUpdate').checked =
+                    ish.flatRate[0].isTrue);
             Session.set('flatRate', ish.flatRate[0].isTrue);
             document.querySelector('#flatRateUpdate_')
                 ? ish.flatRate[0].isTrue
-                    ? document.querySelector('#flatRateUpdate_').classList.remove('hide')
-                    : document.querySelector('#flatRateUpdate_').classList.add('hide')
+                    ? document
+                        .querySelector('#flatRateUpdate_')
+                        .classList.remove('hide')
+                    : document
+                        .querySelector('#flatRateUpdate_')
+                        .classList.add('hide')
                 : null;
 
             document.querySelector('#flatBoxUpdate')
-                ? document.querySelector('#flatBoxUpdate').addEventListener('change', function() {
-                    if (document.querySelector('#flatBoxUpdate').checked === false) {
-                        document.querySelector('#flatRateUpdate_').classList.add('hide');
-                    } else {
-                        document.querySelector('#flatRateUpdate_').classList.remove('hide');
-                    }
-                })
+                ? document
+                    .querySelector('#flatBoxUpdate')
+                    .addEventListener('change', function() {
+                        if (
+                            document.querySelector('#flatBoxUpdate')
+                                .checked === false
+                        ) {
+                            document
+                                .querySelector('#flatRateUpdate_')
+                                .classList.add('hide');
+                        } else {
+                            document
+                                .querySelector('#flatRateUpdate_')
+                                .classList.remove('hide');
+                        }
+                    })
                 : null;
             ishDeyisibdir = Session.get('is');
         }
@@ -96,7 +126,8 @@ Template.updateQuote.helpers({
         return WorkData.findOne({ _id: Session.get('is') });
     },
     isGasFee: () => {
-        return WorkData.findOne({ _id: Session.get('is') }) && WorkData.findOne({ _id: Session.get('is') }).gasFee < 0
+        return WorkData.findOne({ _id: Session.get('is') }) &&
+            WorkData.findOne({ _id: Session.get('is') }).gasFee < 0
             ? true
             : false;
     },
@@ -109,7 +140,7 @@ Template.updateQuote.helpers({
         return WorkData.findOne({ _id: Session.get('is') })
             ? !WorkData.findOne({ _id: Session.get('is') }).quote
             : false;
-    },
+    }
 });
 
 Template.updateQuote.events({
@@ -122,15 +153,16 @@ Template.updateQuote.events({
             err
                 ? (console.log(err),
                 swal({
-                    title: 'Error! Can\'t send email to supervisor pls contact help desk',
+                    title:
+                          'Error! Can\'t send email to supervisor pls contact help desk',
                     text: 'Reason: ' + err.message,
-                    icon: 'error',
+                    icon: 'error'
                 }),
                 Session.set('loading', false))
                 : swal({
                     title: 'Success',
                     text: 'Email sent successfully',
-                    icon: 'success',
+                    icon: 'success'
                 });
         });
     },
@@ -145,15 +177,16 @@ Template.updateQuote.events({
             err
                 ? (console.log(err),
                 swal({
-                    title: 'Error! Can\'t send email to supervisor pls contact help desk',
+                    title:
+                          'Error! Can\'t send email to supervisor pls contact help desk',
                     text: 'Reason: ' + err.message,
-                    icon: 'error',
+                    icon: 'error'
                 }),
                 Session.set('loading', false))
                 : swal({
                     title: 'Success',
                     text: 'Email sent successfully',
-                    icon: 'success',
+                    icon: 'success'
                 });
         });
     },
@@ -174,7 +207,7 @@ Template.updateQuote.events({
 
             for (i = 0; i < massiv.length; i++) {
                 massivFilter.push({
-                    truck: massiv[i].value,
+                    truck: massiv[i].value
                 });
             }
             return massivFilter;
@@ -187,7 +220,9 @@ Template.updateQuote.events({
 
         let workDate = document.getElementById('quote-date-picker_2').value;
 
-        let addressesArray = Array.from(document.getElementsByClassName('addresses'));
+        let addressesArray = Array.from(
+            document.getElementsByClassName('addresses')
+        );
         let addresses = [];
         addressesArray.map(address => {
             addresses.push(address.value);
@@ -198,33 +233,42 @@ Template.updateQuote.events({
             firstName: document.getElementById('firstName_2').value,
             lastName: document.getElementById('lastName_2').value,
             phone: document.getElementById('phoneNumber_2').value,
-            phoneAdditional: document.getElementById('phoneNumber_2_additional').value,
+            phoneAdditional: document.getElementById('phoneNumber_2_additional')
+                .value,
             email: document.getElementById('musteriEmail_2').value,
             addresses,
             movingDateConverted: workDate,
             workMustBeginTime: [
                 document.getElementById('customTime--1').value,
-                document.getElementById('customTime--2').value,
+                document.getElementById('customTime--2').value
             ],
             price: document.getElementById('quote_price_2').value,
             minimumLaborTime: document.getElementById('labor_time_2').value,
-            hourlyRatesCash: document.getElementById('hourly_rates_cash_2').value,
-            hourlyRatesCard: document.getElementById('hourly_rates_card_2').value,
+            hourlyRatesCash: document.getElementById('hourly_rates_cash_2')
+                .value,
+            hourlyRatesCard: document.getElementById('hourly_rates_card_2')
+                .value,
             trucks: trucksSelected,
             companyInfo,
-            doubleDrive: document.getElementById('updated-double-drive-value').value,
+            doubleDrive: document.getElementById('updated-double-drive-value')
+                .value,
             gasFee: document.getElementById('gas_fee_2').value,
-            smallPackingItems: document.getElementById('small_item_pack_2').value,
+            smallPackingItems: document.getElementById('small_item_pack_2')
+                .value,
             largeItemFee: document.getElementById('large_item_fee_2').value,
             movingSize: Session.get('movingSize'),
             workers: Session.get('secilmisIsciler'),
             note: document.getElementById('textarea2').value,
             trucksTemp: Session.get('trucklar'),
             flatRate: Session.get('flatRate'),
-            flatRateCash: !isNaN(document.querySelector('#flatRateCashUpdate').value)
+            flatRateCash: !isNaN(
+                document.querySelector('#flatRateCashUpdate').value
+            )
                 ? document.querySelector('#flatRateCashUpdate').value
                 : 0,
-            flatRateCard: !isNaN(document.querySelector('#flatRateCardUpdate').value)
+            flatRateCard: !isNaN(
+                document.querySelector('#flatRateCardUpdate').value
+            )
                 ? document.querySelector('#flatRateCardUpdate').value
                 : 0,
             comment: document.getElementById('textarea2').value,
@@ -232,8 +276,9 @@ Template.updateQuote.events({
             jobNumber: document.getElementById('quote-job-number_2').value,
             numberOfWorkers: document.getElementById('iscinin-sayi').value,
             additionalContacts: Session.get('additionalContacts'),
-            noteForYourMove: document.getElementById('for_your_move_update').value,
-            additionalInfo: document.getElementById('additional_info_update').value,
+            noteForYourMove: document.getElementById('for_your_move_update')
+                .value,
+            additionalInfo: Session.get('additionalInfo')
         };
 
         Meteor.call('emailGonder', doc, err => {
@@ -242,15 +287,18 @@ Template.updateQuote.events({
                 swal({
                     title: 'Error while sending email',
                     text: err.message,
-                    icon: 'error',
+                    icon: 'error'
                 }),
                 Session.set('loading', false))
                 : (swal({
                     title: 'Success',
                     text: 'Email sent successfully',
-                    icon: 'success',
+                    icon: 'success'
                 }),
-                Meteor.call('updateWork', { _id: Session.get('is'), emailSent: true }));
+                Meteor.call('updateWork', {
+                    _id: Session.get('is'),
+                    emailSent: true
+                }));
         });
     },
     'click #work-update': function(e) {
@@ -264,7 +312,7 @@ Template.updateQuote.events({
 
             for (i = 0; i < massiv.length; i++) {
                 massivFilter.push({
-                    truck: massiv[i].value,
+                    truck: massiv[i].value
                 });
             }
             return massivFilter;
@@ -277,7 +325,9 @@ Template.updateQuote.events({
 
         let workDate = document.getElementById('quote-date-picker_2').value;
 
-        let addressesArray = Array.from(document.getElementsByClassName('addresses'));
+        let addressesArray = Array.from(
+            document.getElementsByClassName('addresses')
+        );
         let addresses = [];
         addressesArray.map(address => {
             addresses.push(address.value);
@@ -288,22 +338,27 @@ Template.updateQuote.events({
             clientFirstName: document.getElementById('firstName_2').value,
             clientLastName: document.getElementById('lastName_2').value,
             phoneNumber: document.getElementById('phoneNumber_2').value,
-            phoneAdditional: document.getElementById('phoneNumber_2_additional').value,
+            phoneAdditional: document.getElementById('phoneNumber_2_additional')
+                .value,
             email: document.getElementById('musteriEmail_2').value,
             addresses,
             workDate,
             workMustBeginTime: [
                 document.getElementById('customTime--1').value,
-                document.getElementById('customTime--2').value,
+                document.getElementById('customTime--2').value
             ],
             price: document.getElementById('quote_price_2').value,
             laborTime: document.getElementById('labor_time_2').value,
-            hourlyRatesCash: document.getElementById('hourly_rates_cash_2').value,
-            hourlyRatesCard: document.getElementById('hourly_rates_card_2').value,
+            hourlyRatesCash: document.getElementById('hourly_rates_cash_2')
+                .value,
+            hourlyRatesCard: document.getElementById('hourly_rates_card_2')
+                .value,
             trucks: trucksSelected,
-            doubleDrive: document.getElementById('updated-double-drive-value').value,
+            doubleDrive: document.getElementById('updated-double-drive-value')
+                .value,
             gasFee: document.getElementById('gas_fee_2').value,
-            smallItemPacking: document.getElementById('small_item_pack_2').value,
+            smallItemPacking: document.getElementById('small_item_pack_2')
+                .value,
             largeItemFee: document.getElementById('large_item_fee_2').value,
             movingSize: Session.get('movingSize'),
             workers: Session.get('secilmisIsciler'),
@@ -313,20 +368,26 @@ Template.updateQuote.events({
             flatRate: [
                 {
                     isTrue: Session.get('flatRate'),
-                    cashAmount: !isNaN(document.querySelector('#flatRateCashUpdate').value)
+                    cashAmount: !isNaN(
+                        document.querySelector('#flatRateCashUpdate').value
+                    )
                         ? document.querySelector('#flatRateCashUpdate').value
                         : 0,
-                    cardAmount: !isNaN(document.querySelector('#flatRateCardUpdate').value)
+                    cardAmount: !isNaN(
+                        document.querySelector('#flatRateCardUpdate').value
+                    )
                         ? document.querySelector('#flatRateCardUpdate').value
-                        : 0,
-                },
+                        : 0
+                }
             ],
             comment: document.getElementById('textarea2').value,
             deposit: document.getElementById('deposit-update').value,
             additionalContacts: Session.get('additionalContacts'),
             status: document.getElementById('jobStatus_followup').value,
-            noteForYourMove: document.getElementById('for_your_move_update').value.trim(),
-            additionalInfo: document.getElementById('additional_info_update').value.trim(),
+            noteForYourMove: document
+                .getElementById('for_your_move_update')
+                .value.trim(),
+            additionalInfo: Session.get('additionalInfo')
         };
 
         Meteor.call('updateWork', doc, function(err) {
@@ -335,7 +396,7 @@ Template.updateQuote.events({
                     title: 'Error!',
                     text: err.reason,
                     icon: 'error',
-                    button: 'OK',
+                    button: 'OK'
                 });
                 Session.set('loading', false);
             } else {
@@ -343,7 +404,7 @@ Template.updateQuote.events({
                     title: 'Success!',
                     text: 'Information saved successfully',
                     icon: 'success',
-                    button: 'OK',
+                    button: 'OK'
                 });
             }
         });
@@ -351,7 +412,7 @@ Template.updateQuote.events({
     'click #hide-update-quote': function() {
         document.querySelector('#updateQuote2').classList.add('hide');
         ReactDOM.unmountComponentAtNode('');
-    },
+    }
 });
 
 Template.preQuote.onRendered(function() {
@@ -374,20 +435,26 @@ Template.preQuote.onRendered(function() {
             let value = e.target.value;
             document.querySelector('#phoneNumber').value = value;
         } else {
-            let value = e.target.value.toString().slice(0, e.target.value.length - 1);
+            let value = e.target.value
+                .toString()
+                .slice(0, e.target.value.length - 1);
             document.querySelector('#phoneNumber').value = value;
         }
     });
-    document.querySelector('#phoneNumberAdditional').addEventListener('input', e => {
-        e.preventDefault();
-        if (regex.test(e.target.value)) {
-            let value = e.target.value;
-            document.querySelector('#phoneNumberAdditional').value = value;
-        } else {
-            let value = e.target.value.toString().slice(0, e.target.value.length - 1);
-            document.querySelector('#phoneNumberAdditional').value = value;
-        }
-    });
+    document
+        .querySelector('#phoneNumberAdditional')
+        .addEventListener('input', e => {
+            e.preventDefault();
+            if (regex.test(e.target.value)) {
+                let value = e.target.value;
+                document.querySelector('#phoneNumberAdditional').value = value;
+            } else {
+                let value = e.target.value
+                    .toString()
+                    .slice(0, e.target.value.length - 1);
+                document.querySelector('#phoneNumberAdditional').value = value;
+            }
+        });
 });
 
 Template.preQuote.events({
@@ -396,9 +463,12 @@ Template.preQuote.events({
         let firstName = document.getElementById('firstName').value;
         let lastName = document.getElementById('lastName').value;
         let phone = document.getElementById('phoneNumber').value;
-        let phoneAdditional = document.getElementById('phoneNumberAdditional').value;
+        let phoneAdditional = document.getElementById('phoneNumberAdditional')
+            .value;
         let email = document.getElementById('musteriEmail').value;
-        let addressesArray = Array.from(document.getElementsByClassName('addresses'));
+        let addressesArray = Array.from(
+            document.getElementsByClassName('addresses')
+        );
         let addresses = [];
         addressesArray.map(address => {
             addresses.push(address.value);
@@ -408,15 +478,17 @@ Template.preQuote.events({
         let movingDateConverted = movingDate;
         let price = document.getElementById('quote_price').value;
         let minimumLaborTime = document.getElementById('labor_time').value;
-        let hourlyRatesCash = document.getElementById('hourly_rates_cash').value;
-        let hourlyRatesCard = document.getElementById('hourly_rates_card').value;
+        let hourlyRatesCash = document.getElementById('hourly_rates_cash')
+            .value;
+        let hourlyRatesCard = document.getElementById('hourly_rates_card')
+            .value;
         let trucksArray = document.getElementsByClassName('truck-select');
         //trucks loop ele array yarat
         let trucks = [];
         let i = 0;
         for (i = 0; i < trucksArray.length; i++) {
             trucks.push({
-                truck: Number(trucksArray[i].value),
+                truck: Number(trucksArray[i].value)
             });
         }
         let doubleDrive = document.getElementById('double_drive').value;
@@ -433,7 +505,7 @@ Template.preQuote.events({
         }
         let workMustBeginTime = [
             document.getElementById('customTime--1').value,
-            document.getElementById('customTime--2').value,
+            document.getElementById('customTime--2').value
         ];
         let numberOfWorkers = document.getElementById('iscinin-sayi').value;
         let companyInfo = Session.get('companyInfo');
@@ -449,20 +521,30 @@ Template.preQuote.events({
         let deposit = document.getElementById('deposit').value;
         let takenBy_ = document.getElementById('takenBy--value').value;
         let takenBy =
-            takenBy_ !== '' && takenBy_ !== null && takenBy_ !== undefined && takenBy_ !== '_' ? takenBy_ : undefined;
+            takenBy_ !== '' &&
+            takenBy_ !== null &&
+            takenBy_ !== undefined &&
+            takenBy_ !== '_'
+                ? takenBy_
+                : undefined;
         let additionalContacts = Session.get('additionalContacts');
         let quoteDate = new Date();
         let quote = true;
         let confirmed = false;
         let isFollowUp = true;
-        let sourceOfLeads = document.getElementById('source_of_leads_add').value;
+        let sourceOfLeads = document.getElementById('source_of_leads_add')
+            .value;
         let status = 'inProgress';
         let emailSent = true;
         let emailSentDate = new Date();
-        let expireHour = Number(document.getElementById('quoteExpirationDate').value);
-        let quoteExpirationDate = new Date(new Date().getTime() + expireHour * 3600000);
+        let expireHour = Number(
+            document.getElementById('quoteExpirationDate').value
+        );
+        let quoteExpirationDate = new Date(
+            new Date().getTime() + expireHour * 3600000
+        );
         let noteForYourMove = document.getElementById('for_your_move').value;
-        let additionalInfo = document.getElementById('additional_info').value;
+        let additionalInfo = Session.get('additionalInfo');
 
         function idniSec(soz) {
             var baslama = soz.indexOf(':');
@@ -515,7 +597,7 @@ Template.preQuote.events({
             expireHour,
             quoteExpirationDate,
             noteForYourMove,
-            additionalInfo,
+            additionalInfo
         };
 
         let doc = {
@@ -548,8 +630,8 @@ Template.preQuote.events({
                 {
                     isTrue: flatRate,
                     cashAmount: flatRateCash,
-                    cardAmount: flatRateCard,
-                },
+                    cardAmount: flatRateCard
+                }
             ],
             deposit,
             takenBy,
@@ -564,11 +646,11 @@ Template.preQuote.events({
             expireHour,
             quoteExpirationDate,
             noteForYourMove,
-            additionalInfo,
+            additionalInfo
         };
 
         let emailReg = new RegExp(
-            /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+            /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         );
 
         typeof email === 'string' && email !== '' && emailReg.test(email)
@@ -577,21 +659,25 @@ Template.preQuote.events({
                     swal({
                         title: 'Impossible add quote to database',
                         text: err.message,
-                        icon: 'error',
+                        icon: 'error'
                     });
                     Session.set('loading', false);
                 } else {
                     swal({
                         title: 'Success',
                         text: 'Quote added to database successfully',
-                        icon: 'success',
+                        icon: 'success'
                     });
 
                     document.querySelector('#flatRateCheck').checked = false;
                     document.getElementById('gas_fee').disabled = false;
 
-                    document.querySelector('#paymentContent').classList.remove('hide');
-                    document.querySelector('#flatRate_').classList.add('hide');
+                    document
+                        .querySelector('#paymentContent')
+                        .classList.remove('hide');
+                    document
+                        .querySelector('#flatRate_')
+                        .classList.add('hide');
 
                     window.addresses.resetComponent();
 
@@ -609,7 +695,7 @@ Template.preQuote.events({
                             swal({
                                 title: 'Impossible send email to customer',
                                 text: err.message,
-                                icon: 'error',
+                                icon: 'error'
                             });
                             console.log(err);
                             Session.set('loading', false);
@@ -617,7 +703,7 @@ Template.preQuote.events({
                             swal({
                                 title: 'Success',
                                 text: 'Email successfully sent to customer',
-                                icon: 'success',
+                                icon: 'success'
                             });
                         }
                     });
@@ -626,7 +712,7 @@ Template.preQuote.events({
             : (swal({
                 title: 'Impossible add quote to database',
                 text: 'Email field is empty or incorrect email',
-                icon: 'error',
+                icon: 'error'
             }),
             Session.set('loading', false));
     },
@@ -638,30 +724,37 @@ Template.preQuote.events({
         let firstName = document.getElementById('firstName').value;
         let lastName = document.getElementById('lastName').value;
         let phone = document.getElementById('phoneNumber').value;
-        let phoneAdditional = document.getElementById('phoneNumberAdditional').value;
+        let phoneAdditional = document.getElementById('phoneNumberAdditional')
+            .value;
         let email = document.getElementById('musteriEmail').value;
-        let addressesArray = Array.from(document.getElementsByClassName('addresses'));
+        let addressesArray = Array.from(
+            document.getElementsByClassName('addresses')
+        );
         let addresses = [];
         addressesArray.map(address => {
             addresses.push(address.value);
         });
-        let movingDateConverted = document.getElementById('quote-date-picker').value;
+        let movingDateConverted = document.getElementById('quote-date-picker')
+            .value;
         let price = document.getElementById('quote_price').value;
         let minimumLaborTime = document.getElementById('labor_time').value;
-        let hourlyRatesCash = document.getElementById('hourly_rates_cash').value;
-        let hourlyRatesCard = document.getElementById('hourly_rates_card').value;
+        let hourlyRatesCash = document.getElementById('hourly_rates_cash')
+            .value;
+        let hourlyRatesCard = document.getElementById('hourly_rates_card')
+            .value;
         let trucksArray = document.getElementsByClassName('truck-select');
         //trucks loop ele array yarat
         let trucks = [];
         let i = 0;
         for (i = 0; i < trucksArray.length; i++) {
             trucks.push({
-                truck: Number(trucksArray[i].value),
+                truck: Number(trucksArray[i].value)
             });
         }
         let doubleDrive = document.getElementById('double_drive').value;
         let gasFee = document.getElementById('gas_fee').value;
-        let smallPackingItems = document.getElementById('small_item_pack').value;
+        let smallPackingItems = document.getElementById('small_item_pack')
+            .value;
         let largeItemFee = document.getElementById('large_item_fee').value;
         let jobNumber = document.getElementById('quote-job-number').value;
         let movingSize = document.getElementById('moving_size_2').value;
@@ -673,7 +766,7 @@ Template.preQuote.events({
         }
         let workMustBeginTime = [
             document.getElementById('customTime--1').value,
-            document.getElementById('customTime--2').value,
+            document.getElementById('customTime--2').value
         ];
         let numberOfWorkers = document.getElementById('iscinin-sayi').value;
         let companyInfo = Session.get('companyInfo');
@@ -689,17 +782,23 @@ Template.preQuote.events({
         let deposit = document.getElementById('deposit').value;
         let takenBy_ = document.getElementById('takenBy--value').value;
         let takenBy =
-            takenBy_ !== '' && takenBy_ !== null && takenBy_ !== undefined && takenBy_ !== '_' ? takenBy_ : undefined;
+            takenBy_ !== '' &&
+            takenBy_ !== null &&
+            takenBy_ !== undefined &&
+            takenBy_ !== '_'
+                ? takenBy_
+                : undefined;
         let additionalContacts = Session.get('additionalContacts');
         let quoteDate = new Date();
         let quote = false;
         let confirmed = true;
         let isFollowUp = true;
-        let sourceOfLeads = document.getElementById('source_of_leads_add').value;
+        let sourceOfLeads = document.getElementById('source_of_leads_add')
+            .value;
         let status = 'won';
         let emailSent = true;
         let noteForYourMove = document.getElementById('for_your_move').value;
-        let additionalInfo = document.getElementById('additional_info').value;
+        let additionalInfo = Session.get('additionalInfo');
 
         function idniSec(soz) {
             var baslama = soz.indexOf(':');
@@ -749,8 +848,8 @@ Template.preQuote.events({
                 {
                     isTrue: flatRate,
                     cashAmount: flatRateCash,
-                    cardAmount: flatRateCard,
-                },
+                    cardAmount: flatRateCard
+                }
             ],
             deposit,
             takenBy,
@@ -762,7 +861,7 @@ Template.preQuote.events({
             sourceOfLeads,
             status,
             noteForYourMove,
-            additionalInfo,
+            additionalInfo
         };
 
         Meteor.call('quotaniBazayaElaveEt', doc, function(err) {
@@ -770,19 +869,21 @@ Template.preQuote.events({
                 swal({
                     title: 'Impossible add quote to database',
                     text: err.message,
-                    icon: 'error',
+                    icon: 'error'
                 });
                 Session.set('loading', false);
             } else {
                 swal({
                     title: 'Success',
                     text: 'Quote added to database successfully',
-                    icon: 'success',
+                    icon: 'success'
                 });
                 document.querySelector('#flatRateCheck').checked = false;
                 document.getElementById('gas_fee').disabled = false;
 
-                document.querySelector('#paymentContent').classList.remove('hide');
+                document
+                    .querySelector('#paymentContent')
+                    .classList.remove('hide');
                 document.querySelector('#flatRate_').classList.add('hide');
 
                 window.addresses.resetComponent();
@@ -803,30 +904,37 @@ Template.preQuote.events({
         let firstName = document.getElementById('firstName').value;
         let lastName = document.getElementById('lastName').value;
         let phone = document.getElementById('phoneNumber').value;
-        let phoneAdditional = document.getElementById('phoneNumberAdditional').value;
+        let phoneAdditional = document.getElementById('phoneNumberAdditional')
+            .value;
         let email = document.getElementById('musteriEmail').value;
-        let addressesArray = Array.from(document.getElementsByClassName('addresses'));
+        let addressesArray = Array.from(
+            document.getElementsByClassName('addresses')
+        );
         let addresses = [];
         addressesArray.map(address => {
             addresses.push(address.value);
         });
-        let movingDateConverted = document.getElementById('quote-date-picker').value;
+        let movingDateConverted = document.getElementById('quote-date-picker')
+            .value;
         let price = document.getElementById('quote_price').value;
         let minimumLaborTime = document.getElementById('labor_time').value;
-        let hourlyRatesCash = document.getElementById('hourly_rates_cash').value;
-        let hourlyRatesCard = document.getElementById('hourly_rates_card').value;
+        let hourlyRatesCash = document.getElementById('hourly_rates_cash')
+            .value;
+        let hourlyRatesCard = document.getElementById('hourly_rates_card')
+            .value;
         let trucksArray = document.getElementsByClassName('truck-select');
         //trucks loop ele array yarat
         let trucks = [];
         let i = 0;
         for (i = 0; i < trucksArray.length; i++) {
             trucks.push({
-                truck: Number(trucksArray[i].value),
+                truck: Number(trucksArray[i].value)
             });
         }
         let doubleDrive = document.getElementById('double_drive').value;
         let gasFee = document.getElementById('gas_fee').value;
-        let smallPackingItems = document.getElementById('small_item_pack').value;
+        let smallPackingItems = document.getElementById('small_item_pack')
+            .value;
         let largeItemFee = document.getElementById('large_item_fee').value;
         let jobNumber = document.getElementById('quote-job-number').value;
         let movingSize = document.getElementById('moving_size_2').value;
@@ -838,7 +946,7 @@ Template.preQuote.events({
         }
         let workMustBeginTime = [
             document.getElementById('customTime--1').value,
-            document.getElementById('customTime--2').value,
+            document.getElementById('customTime--2').value
         ];
         let numberOfWorkers = document.getElementById('iscinin-sayi').value;
         let companyInfo = Session.get('companyInfo');
@@ -854,16 +962,22 @@ Template.preQuote.events({
         let deposit = document.getElementById('deposit').value;
         let takenBy_ = document.getElementById('takenBy--value').value;
         let takenBy =
-            takenBy_ !== '' && takenBy_ !== null && takenBy_ !== undefined && takenBy_ !== '_' ? takenBy_ : undefined;
+            takenBy_ !== '' &&
+            takenBy_ !== null &&
+            takenBy_ !== undefined &&
+            takenBy_ !== '_'
+                ? takenBy_
+                : undefined;
         let additionalContacts = Session.get('additionalContacts');
         let quoteDate = new Date();
         let quote = false;
         let confirmed = false;
         let isFollowUp = true;
-        let sourceOfLeads = document.getElementById('source_of_leads_add').value;
+        let sourceOfLeads = document.getElementById('source_of_leads_add')
+            .value;
         let status = 'inProgress';
         let noteForYourMove = document.getElementById('for_your_move').value;
-        let additionalInfo = document.getElementById('additional_info').value;
+        let additionalInfo = Session.get('additionalInfo');
 
         function idniSec(soz) {
             var baslama = soz.indexOf(':');
@@ -913,8 +1027,8 @@ Template.preQuote.events({
                 {
                     isTrue: flatRate,
                     cashAmount: flatRateCash,
-                    cardAmount: flatRateCard,
-                },
+                    cardAmount: flatRateCard
+                }
             ],
             deposit,
             takenBy,
@@ -926,7 +1040,7 @@ Template.preQuote.events({
             sourceOfLeads,
             status,
             noteForYourMove,
-            additionalInfo,
+            additionalInfo
         };
 
         Meteor.call('quotaniBazayaElaveEt', doc, function(err) {
@@ -934,19 +1048,21 @@ Template.preQuote.events({
                 swal({
                     title: 'Impossible add job to database',
                     text: err.message,
-                    icon: 'error',
+                    icon: 'error'
                 });
                 Session.set('loading', false);
             } else {
                 swal({
                     title: 'Success',
                     text: 'Job added to database successfully',
-                    icon: 'success',
+                    icon: 'success'
                 });
                 document.querySelector('#flatRateCheck').checked = false;
                 document.getElementById('gas_fee').disabled = false;
 
-                document.querySelector('#paymentContent').classList.remove('hide');
+                document
+                    .querySelector('#paymentContent')
+                    .classList.remove('hide');
                 document.querySelector('#flatRate_').classList.add('hide');
 
                 window.addresses.resetComponent();
@@ -961,7 +1077,7 @@ Template.preQuote.events({
                 setTimeout(() => Session.set('reset', false), 3000);
             }
         });
-    },
+    }
 });
 
 Template.quoteTam.events({
@@ -971,37 +1087,69 @@ Template.quoteTam.events({
         });
     },
     'click #close-update-work': function() {
-        ReactDOM.unmountComponentAtNode(document.querySelector('#truck-list-update'));
-        ReactDOM.unmountComponentAtNode(document.querySelector('#update_time_window'));
-        ReactDOM.unmountComponentAtNode(document.querySelector('#number-of-movers2'));
+        ReactDOM.unmountComponentAtNode(
+            document.querySelector('#truck-list-update')
+        );
+        ReactDOM.unmountComponentAtNode(
+            document.querySelector('#update_time_window')
+        );
+        ReactDOM.unmountComponentAtNode(
+            document.querySelector('#number-of-movers2')
+        );
         ReactDOM.unmountComponentAtNode(document.querySelector('#moving-size'));
-        ReactDOM.unmountComponentAtNode(document.querySelector('#double-drive-time-update'));
-        ReactDOM.unmountComponentAtNode(document.querySelector('#iscilerinSiyahisiRender'));
-        ReactDOM.unmountComponentAtNode(document.querySelector('#tempTruckUpdate'));
-        ReactDOM.unmountComponentAtNode(document.querySelector('#addressesIdUpdate'));
-        ReactDOM.unmountComponentAtNode(document.querySelector('#takenBy--update'));
-        ReactDOM.unmountComponentAtNode(document.querySelector('#additional-contact-update'));
+        ReactDOM.unmountComponentAtNode(
+            document.querySelector('#double-drive-time-update')
+        );
+        ReactDOM.unmountComponentAtNode(
+            document.querySelector('#iscilerinSiyahisiRender')
+        );
+        ReactDOM.unmountComponentAtNode(
+            document.querySelector('#tempTruckUpdate')
+        );
+        ReactDOM.unmountComponentAtNode(
+            document.querySelector('#addressesIdUpdate')
+        );
+        ReactDOM.unmountComponentAtNode(
+            document.querySelector('#takenBy--update')
+        );
+        ReactDOM.unmountComponentAtNode(
+            document.querySelector('#additional-contact-update')
+        );
         tracker_.stop();
         // ReactDOM.unmountComponentAtNode(document.querySelector('#tempTruck'));
 
         document.querySelector('#quoteTam').classList.remove('hide');
         document.querySelector('#updateQuote2').classList.add('hide');
         Session.set('additionalContacts', []);
-    },
+    }
 });
 
 Template.quoteTam.onDestroyed(function() {
-    ReactDOM.unmountComponentAtNode(document.querySelector('#truck-list-update'));
-    ReactDOM.unmountComponentAtNode(document.querySelector('#update_time_window'));
-    ReactDOM.unmountComponentAtNode(document.querySelector('#number-of-movers2'));
+    ReactDOM.unmountComponentAtNode(
+        document.querySelector('#truck-list-update')
+    );
+    ReactDOM.unmountComponentAtNode(
+        document.querySelector('#update_time_window')
+    );
+    ReactDOM.unmountComponentAtNode(
+        document.querySelector('#number-of-movers2')
+    );
     ReactDOM.unmountComponentAtNode(document.querySelector('#moving-size'));
-    ReactDOM.unmountComponentAtNode(document.querySelector('#double-drive-time-update'));
-    ReactDOM.unmountComponentAtNode(document.querySelector('#iscilerinSiyahisiRender'));
+    ReactDOM.unmountComponentAtNode(
+        document.querySelector('#double-drive-time-update')
+    );
+    ReactDOM.unmountComponentAtNode(
+        document.querySelector('#iscilerinSiyahisiRender')
+    );
     ReactDOM.unmountComponentAtNode(document.querySelector('#tempTruckUpdate'));
     ReactDOM.unmountComponentAtNode(document.querySelector('#quoteTam'));
-    ReactDOM.unmountComponentAtNode(document.querySelector('#addressesIdUpdate'));
+    ReactDOM.unmountComponentAtNode(
+        document.querySelector('#addressesIdUpdate')
+    );
     ReactDOM.unmountComponentAtNode(document.querySelector('#takenBy--update'));
-    ReactDOM.unmountComponentAtNode(document.querySelector('#additional-contact-update'));
+    ReactDOM.unmountComponentAtNode(
+        document.querySelector('#additional-contact-update')
+    );
 
     document.querySelector('#quoteTam').classList.remove('hide');
     document.querySelector('#updateQuote2').classList.add('hide');
@@ -1018,7 +1166,11 @@ Template.preQuote.onRendered(function() {
 
 Template.navBar.events({
     'click .quoteDuymesi': function() {
-        document.querySelector('#quoteTam') ? document.querySelector('#quoteTam').classList.remove('hide') : '';
-        document.querySelector('#updateQuote2') ? document.querySelector('#updateQuote2').classList.add('hide') : '';
-    },
+        document.querySelector('#quoteTam')
+            ? document.querySelector('#quoteTam').classList.remove('hide')
+            : '';
+        document.querySelector('#updateQuote2')
+            ? document.querySelector('#updateQuote2').classList.add('hide')
+            : '';
+    }
 });

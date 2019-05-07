@@ -20,8 +20,8 @@ Schemas.workSchema = new SimpleSchema(
             max: 200,
             optional: true,
             autoform: {
-                class: '',
-            },
+                class: ''
+            }
         },
         clientLastName: {
             type: String,
@@ -29,8 +29,8 @@ Schemas.workSchema = new SimpleSchema(
             max: 200,
             optional: true,
             autoform: {
-                class: '',
-            },
+                class: ''
+            }
         },
         workDate: {
             type: String,
@@ -38,34 +38,34 @@ Schemas.workSchema = new SimpleSchema(
             optional: true,
             autoform: {
                 class: '',
-                placeholder: 'Click and select date',
-            },
+                placeholder: 'Click and select date'
+            }
         },
         phoneNumber: {
             type: String,
-            optional: true,
+            optional: true
         },
         phoneAdditional: {
             type: String,
             label: 'Additional Phone number',
-            optional: true,
+            optional: true
         },
         addresses: {
-            type: Array,
+            type: Array
         },
         'addresses.$': {
             type: String,
             optional: true,
             label: 'Addresses',
-            minCount: 1,
+            minCount: 1
         },
         workers: {
             type: Array,
-            optional: true,
+            optional: true
         },
         'workers.$': {
             type: Object,
-            optional: true,
+            optional: true
         },
         'workers.$.id': {
             type: String,
@@ -78,56 +78,58 @@ Schemas.workSchema = new SimpleSchema(
                 let tamId;
                 if (iscilerinBazasi) {
                     ikiNoqteninYeri = iscilerinBazasi.indexOf(':') + 1;
-                    tamId = iscilerinBazasi.substr(ikiNoqteninYeri, iscilerinBazasi.length).trim();
+                    tamId = iscilerinBazasi
+                        .substr(ikiNoqteninYeri, iscilerinBazasi.length)
+                        .trim();
                 }
 
                 return tamId;
-            },
+            }
         },
         numberOfWorkers: {
             type: Number,
-            optional: true,
+            optional: true
         },
         comment: {
             type: String,
-            optional: true,
+            optional: true
         },
         trucks: {
             type: Array,
-            optional: true,
+            optional: true
         },
         'trucks.$': {
             type: Object,
-            optional: true,
+            optional: true
         },
         'trucks.$.truck': {
             type: Number,
-            optional: true,
+            optional: true
         },
         price: {
             type: Number,
             label: 'Price',
-            optional: true,
+            optional: true
         },
         workTime: {
             type: Number,
             label: 'How long it will take to finish work',
-            optional: true,
+            optional: true
         },
 
         // Isin baslama araliqi
         workMustBeginTime: {
             type: Array,
             optional: true,
-            label: 'Arriving time window',
+            label: 'Arriving time window'
         },
         'workMustBeginTime.$': {
-            type: String,
+            type: String
         },
         // should it display in quote menu
         quote: {
             type: Boolean,
-            optional: true,
+            optional: true
         },
         // is the job confirmed
         confirmed: {
@@ -135,12 +137,12 @@ Schemas.workSchema = new SimpleSchema(
             optional: true,
             autoform: {
                 type: 'hidden',
-                display: 'none',
-            },
+                display: 'none'
+            }
         },
         isFollowUp: {
             type: Boolean,
-            optional: true,
+            optional: true
         },
         company: {
             type: String,
@@ -149,554 +151,558 @@ Schemas.workSchema = new SimpleSchema(
             },
             autoform: {
                 type: 'hidden',
-                display: 'none',
+                display: 'none'
             },
-            optional: true,
+            optional: true
         },
         packDate: {
             type: Date,
             label: 'Packing date',
-            optional: true,
+            optional: true
         },
         jobNumber: {
             type: String,
-            label: 'Job Number',
+            label: 'Job Number'
         },
         email: {
             type: String,
             label: 'Email',
-            optional: true,
+            optional: true
         },
         movingSize: {
             type: String,
             label: 'Moving size',
-            optional: true,
+            optional: true
         },
         numberOfTheCompanyMovers: {
             type: Number,
             optional: true,
-            label: 'Number of the company movers',
+            label: 'Number of the company movers'
         },
         note: {
             type: String,
-            optional: true,
+            optional: true
         },
         startTime: {
             type: Date,
             label: 'Work start time',
-            optional: true,
+            optional: true
         },
         finishTime: {
             type: Date,
             label: 'Work start time',
-            optional: true,
+            optional: true
         },
         totalWorkTime: {
             type: Number,
             label: 'Total worked time',
-            optional: true,
+            optional: true
         },
         totalWorkHours: {
             type: Number,
             label: 'Total worked hours',
-            optional: true,
+            optional: true
         },
         breakTime: {
             type: Array,
             label: 'Driving time',
-            optional: true,
+            optional: true
         },
         'breakTime.$': {
             type: Object,
-            optional: true,
+            optional: true
         },
         'breakTime.$.startTime': {
             type: Date,
-            optional: true,
+            optional: true
         },
         'breakTime.$.endTime': {
             type: Date,
-            optional: true,
+            optional: true
         },
         'breakTime.$.totalTime': {
             type: Number,
-            optional: true,
+            optional: true
         },
         drivingTime: {
             type: Array,
             label: 'Driving time',
-            optional: true,
+            optional: true
         },
         'drivingTime.$': {
             type: Object,
-            optional: true,
+            optional: true
         },
         'drivingTime.$.startTime': {
             type: Date,
-            optional: true,
+            optional: true
         },
         'drivingTime.$.endTime': {
             type: Date,
-            optional: true,
+            optional: true
         },
         'drivingTime.$.totalTime': {
             type: Number,
-            optional: true,
+            optional: true
         },
         initSign: {
             type: String,
-            optional: true,
+            optional: true
         },
         initFullName: {
             type: String,
-            optional: true,
+            optional: true
         },
         initSignDate: {
             type: Date,
-            optional: true,
+            optional: true
         },
         finalSign: {
             type: String,
-            optional: true,
+            optional: true
         },
         finalEmployeeSign: {
             type: String,
-            optional: true,
+            optional: true
         },
         totalBreakTime: {
             type: Number,
-            optional: true,
+            optional: true
         },
         totalDrivingTime: {
             type: Number,
-            optional: true,
+            optional: true
         },
         totalDoubleDrive: {
             type: Number,
-            optional: true,
+            optional: true
         },
         payedCash: {
             type: Number,
-            optional: true,
+            optional: true
         },
         payedCard: {
             type: Number,
-            optional: true,
+            optional: true
         },
         muveqqetiYaddas: {
             type: Date,
-            optional: true,
+            optional: true
         },
         hourlyRatesCash: {
             type: Number,
             optional: true,
-            label: 'Hourly rates',
+            label: 'Hourly rates'
         },
         hourlyRatesCard: {
             type: Number,
             optional: true,
-            label: 'Hourly rates',
+            label: 'Hourly rates'
         },
         laborTime: {
             type: Number,
             optional: true,
-            label: 'Minimum labor time',
+            label: 'Minimum labor time'
         },
         gasFee: {
             type: Number,
             optional: true,
-            label: 'Gas fee',
+            label: 'Gas fee'
         },
         doubleDrive: {
             type: String,
             optional: true,
-            label: 'Double Drive',
+            label: 'Double Drive'
         },
         deposit: {
             type: Number,
-            optional: true,
+            optional: true
         },
         smallItemPacking: {
             type: Number,
             optional: true,
-            label: 'Small Item Packing',
+            label: 'Small Item Packing'
         },
         largeItemFee: {
             type: Number,
             optional: true,
-            label: 'Large item fee',
+            label: 'Large item fee'
         },
         cardPayed: {
             type: Number,
             optional: true,
-            label: 'Card payed amount',
+            label: 'Card payed amount'
         },
         cashPayed: {
             type: Number,
             optional: true,
-            label: 'Cash payed amount',
+            label: 'Cash payed amount'
         },
         finished: {
             type: Boolean,
-            optional: true,
+            optional: true
         },
         initialSignAlphabet: {
             type: String,
-            optional: true,
+            optional: true
         },
         requirementEntirely: {
             type: Boolean,
-            optional: true,
+            optional: true
         },
         threeDayPrior: {
             type: Boolean,
-            optional: true,
+            optional: true
         },
         lastSignCustomer: {
             type: String,
-            optional: true,
+            optional: true
         },
         lastSignEmployee: {
             type: String,
-            optional: true,
+            optional: true
         },
         companyInfo: {
             type: Object,
-            optional: false,
+            optional: false
         },
         'companyInfo.name': {
             type: String,
-            optional: false,
+            optional: false
         },
         'companyInfo.phoneNumber': {
             type: String,
-            optional: false,
+            optional: false
         },
         'companyInfo.url': {
             type: String,
-            optional: false,
+            optional: false
         },
         'companyInfo.email': {
             type: String,
-            optional: false,
+            optional: false
         },
         'companyInfo.smtp': {
             type: String,
-            optional: true,
+            optional: true
         },
         'companyInfo.userName': {
             type: String,
-            optional: true,
+            optional: true
         },
         'companyInfo.password': {
             type: String,
-            optional: true,
+            optional: true
         },
         'companyInfo.key': {
             type: String,
-            optional: true,
+            optional: true
         },
         wardrobeBoxes: {
             type: Number,
-            optional: true,
+            optional: true
         },
         movingBlankets: {
             type: Number,
-            optional: true,
+            optional: true
         },
         packingPaperBundles: {
             type: Number,
-            optional: true,
+            optional: true
         },
         bundleWrapRoll: {
             type: Number,
-            optional: true,
+            optional: true
         },
         smallBoxes: {
             type: Number,
-            optional: true,
+            optional: true
         },
         mediumBoxes: {
             type: Number,
-            optional: true,
+            optional: true
         },
         largeBoxes: {
             type: Number,
-            optional: true,
+            optional: true
         },
         emailSent: {
             type: Boolean,
-            optional: true,
+            optional: true
         },
         emailSentDate: {
             type: Date,
-            optional: true,
+            optional: true
         },
         trucksTemp: {
             type: Array,
-            optional: true,
+            optional: true
         },
         'trucksTemp.$': {
             type: Object,
-            optional: true,
+            optional: true
         },
         'trucksTemp.$.size': {
             type: String,
-            optional: true,
+            optional: true
         },
         'trucksTemp.$.qty': {
             type: Number,
-            optional: true,
+            optional: true
         },
         flatRate: {
             type: Array,
             label: 'Driving time',
-            optional: true,
+            optional: true
         },
         'flatRate.$': {
             type: Object,
-            optional: true,
+            optional: true
         },
         'flatRate.$.isTrue': {
             type: Boolean,
-            optional: true,
+            optional: true
         },
         'flatRate.$.cashAmount': {
             type: Number,
-            optional: true,
+            optional: true
         },
         'flatRate.$.cardAmount': {
             type: Number,
-            optional: true,
+            optional: true
         },
         additionalSignature: {
             type: Array,
-            optional: true,
+            optional: true
         },
         'additionalSignature.$': {
             type: Object,
-            optional: true,
+            optional: true
         },
         'additionalSignature.$.date': {
             type: Date,
-            optional: true,
+            optional: true
         },
         'additionalSignature.$.fullname': {
             type: String,
-            optional: true,
+            optional: true
         },
         'additionalSignature.$.signature': {
             type: String,
-            optional: true,
+            optional: true
         },
         'additionalSignature.$.typeId': {
             type: String,
-            optional: true,
+            optional: true
         },
         discount: {
             type: Array,
-            optional: true,
+            optional: true
         },
         'discount.$': {
             type: Object,
-            optional: true,
+            optional: true
         },
         'discount.$.type': {
             type: String,
-            optional: true,
+            optional: true
         },
         'discount.$.amount': {
             type: Number,
-            optional: true,
+            optional: true
         },
         'discount.$.signature': {
             type: String,
-            optional: true,
+            optional: true
         },
         'discount.$.date': {
             type: Date,
-            optional: true,
+            optional: true
         },
         'discount.$.fullname': {
             type: String,
-            optional: true,
+            optional: true
         },
         'discount.$.note': {
             type: String,
-            optional: true,
+            optional: true
         },
         additionalCharge: {
             type: Array,
-            optional: true,
+            optional: true
         },
         'additionalCharge.$': {
             type: Object,
-            optional: true,
+            optional: true
         },
         'additionalCharge.$.fullname': {
             type: String,
-            optional: true,
+            optional: true
         },
         'additionalCharge.$.reason': {
             type: String,
-            optional: true,
+            optional: true
         },
         'additionalCharge.$.signature': {
             type: String,
-            optional: true,
+            optional: true
         },
         'additionalCharge.$.date': {
             type: Date,
-            optional: true,
+            optional: true
         },
         'additionalCharge.$.amount': {
             type: Number,
-            optional: true,
+            optional: true
         },
         takenBy: {
             type: String,
-            optional: false,
+            optional: false
         },
         drivingClicked: {
             type: Boolean,
-            defaultValue: false,
+            defaultValue: false
         },
         breakClicked: {
             type: Boolean,
-            defaultValue: false,
+            defaultValue: false
         },
         additionalContacts: {
             type: Array,
-            optional: true,
+            optional: true
         },
         'additionalContacts.$': {
             type: Object,
-            optional: true,
+            optional: true
         },
         'additionalContacts.$.firstName': {
             type: String,
-            optional: true,
+            optional: true
         },
         'additionalContacts.$.lastName': {
             type: String,
-            optional: true,
+            optional: true
         },
         'additionalContacts.$.phoneNumber': {
             type: String,
-            optional: true,
+            optional: true
         },
         'additionalContacts.$.additionalPhoneNumber': {
             type: String,
-            optional: true,
+            optional: true
         },
         quoteDate: {
             type: Date,
-            optional: false,
+            optional: false
         },
         checks: {
             type: Object,
-            optional: true,
+            optional: true
         },
         'checks.packMater': {
             type: Boolean,
-            optional: true,
+            optional: true
         },
         'checks.cargoIsSubject': {
             type: Boolean,
-            optional: true,
+            optional: true
         },
         'checks.myResponsibility': {
             type: Boolean,
-            optional: true,
+            optional: true
         },
         initialized: {
             type: Boolean,
-            optional: true,
+            optional: true
         },
         sourceOfLeads: {
             type: String,
-            optional: true,
+            optional: true
         },
         status: {
             type: String,
-            optional: true,
+            optional: true
         },
         followUp: {
             type: Array,
-            optional: true,
+            optional: true
         },
         'followUp.$': {
             type: Object,
-            optional: true,
+            optional: true
         },
         'followUp.$.note': {
             type: String,
-            optional: true,
+            optional: true
         },
         'followUp.$.date': {
             type: Date,
-            optional: true,
+            optional: true
         },
         finalNote: {
             type: Object,
-            optional: true,
+            optional: true
         },
         'finalNote.reason': {
             type: String,
-            optional: true,
+            optional: true
         },
         'finalNote.other': {
             type: Boolean,
-            optional: true,
+            optional: true
         },
         'finalNote.otherNote': {
             type: String,
-            optional: true,
+            optional: true
         },
         totalDistance: {
             type: Number,
-            optional: true,
+            optional: true
         },
         valuationOption: {
             type: Object,
-            optional: true,
+            optional: true
         },
         'valuationOption.initial': {
             type: String,
-            optional: true,
+            optional: true
         },
         'valuationOption.typeNumber': {
             type: Number,
-            optional: true,
+            optional: true
         },
         isPayed: {
             type: Boolean,
-            optional: true,
+            optional: true
         },
         quoteExpirationDate: {
             type: Date,
-            optional: true,
+            optional: true
         },
         expireHour: {
             type: Number,
-            optional: true,
+            optional: true
         },
         lastChange: {
             type: Date,
-            optional: true,
+            optional: true
         },
         statusChange: {
             type: Date,
-            optional: true,
+            optional: true
         },
         noteForYourMove: {
             type: String,
-            optional: true,
+            optional: true
         },
         additionalInfo: {
-            type: String,
-            optional: true,
+            type: Array,
+            optional: true
         },
+        'additionalInfo.$': {
+            type: String,
+            optional: true
+        }
     },
-    { tracker: Tracker },
+    { tracker: Tracker }
 );

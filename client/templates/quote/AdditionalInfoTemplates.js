@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { Session } from 'meteor/session';
 
 export default class AdditionalInfoTemplates extends Component {
     constructor(props) {
@@ -13,12 +13,10 @@ export default class AdditionalInfoTemplates extends Component {
         };
     }
 
-    componentDidMount() {
-        this.valueChange = this.props.valueChange;
-    }
-
-    UNSAFE_componentWillReceiveProps(nextProps) {
-        this.valueChange = nextProps.valueChange;
+    valueChange(template) {
+        let arr = Session.get('additionalInfo');
+        arr.push(template);
+        Session.set('additionalInfo', arr);
     }
 
     renderList() {
@@ -26,7 +24,7 @@ export default class AdditionalInfoTemplates extends Component {
             return (
                 <React.Fragment key={index + 'additionalInfoTemplates'}>
                     <ul onClick={() => this.valueChange(template)}>
-                        <p>{template}</p>
+                        <p>✓ {template}</p>
                     </ul>
                 </React.Fragment>
             );
@@ -41,7 +39,3 @@ export default class AdditionalInfoTemplates extends Component {
         );
     }
 }
-
-AdditionalInfoTemplates.propTypes = {
-    valueChange: PropTypes.func
-};

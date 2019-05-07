@@ -637,6 +637,16 @@ export default function EmailContent(job) {
         return job.expireHour > 0 ? `in ${amount} ${time}.` : 'soon.';
     }
 
+    function renderAdditionalInfo() {
+        return job.additionalInfo
+            .map(addInfo => {
+                return `
+        <div>✓ ${addInfo}</div>
+          `;
+            })
+            .join('');
+    }
+
     return `
     <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -1554,7 +1564,9 @@ export default function EmailContent(job) {
 }
 
 ${
-    job.additionalInfo && job.additionalInfo !== ''
+    job.additionalInfo &&
+    job.additionalInfo.length > 0 &&
+    Array.isArray(job.additionalInfo)
         ? `
       <div style="background-color:transparent;">
       <div
@@ -1624,13 +1636,13 @@ ${
                                   <div
                                   style="padding: 3px 0 3px 10px;font-size:13px;text-align:left;font-family:'Roboto', Tahoma, Verdana, Segoe, sans-serif"
                                   >
-                                  <textarea disabled 
+                                  <div 
                                   style="border: none;
                                   background-color: rgb(243, 242, 242);
                                   min-width: 480px;
                                   max-width: 480px;
                                   min-height: 60px;
-                                  ">${job.additionalInfo.trim()}</textarea>
+                                  ">${renderAdditionalInfo()}</div>
                                   </div>
                                   <!--[if (!mso)&(!IE)]><!-->
                                 </div>

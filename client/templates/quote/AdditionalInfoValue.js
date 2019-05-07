@@ -1,56 +1,70 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { Session } from 'meteor/session';
+import { Tracker } from 'meteor/tracker';
 
 export default class AdditionalInfoValue extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            value: ''
-        };
+    changeValue(e) {
+        this.setState({
+            value: []
+        });
     }
 
     componentDidMount() {
-        this.setState({
-            value: this.props.value
+        this.x = Tracker.autorun(() => {
+            this.setState({
+                value: Session.get('additionalInfo')
+            });
         });
     }
 
-    UNSAFE_componentWillReceiveProps(nextProps) {
-        this.setState({
-            value: nextProps.value
-        });
+    componentWillUnmount() {
+        this.x.stop();
     }
 
-    changeValue(e) {
-        this.setState({
-            value: e.target.value
-        });
+    delete(index) {
+        let arr = Session.get('additionalInfo');
+        arr.splice(index, 1);
+
+        Session.set('additionalInfo', arr);
+    }
+
+    renderList() {
+        return (
+            <ul>
+                {Session.get('additionalInfo').map((info, index) => {
+                    return (
+                        <li
+                            key={index + 'addInfoVal'}
+                            style={{
+                                listStyleType: 'circle',
+                                cursor: 'pointer'
+                            }}
+                            onClick={() => this.delete(index)}
+                        >
+                            ✓ {info}
+                        </li>
+                    );
+                })}
+            </ul>
+        );
     }
 
     render() {
         return (
-            <div>
-                <textarea
-                    id="additional_info"
-                    className="col s6 m6 l6"
-                    value={this.state.value}
-                    onChange={e => this.changeValue(e)}
-                    style={{
-                        maxWidth: '50%',
-                        minWidth: '50%',
-                        minHeight: '100px',
-                        maxHeight: '100px',
-                        border: 'none',
-                        padding: '10px',
-                        outline: 'none'
-                    }}
-                />
+            <div
+                style={{
+                    maxWidth: '50%',
+                    minWidth: '50%',
+                    minHeight: '100px',
+                    maxHeight: '100px',
+                    border: 'none',
+                    padding: '10px',
+                    outline: 'none',
+                    float: 'left'
+                }}
+            >
+                {this.renderList()}
             </div>
         );
     }
 }
-
-AdditionalInfoValue.propTypes = {
-    value: PropTypes.string
-};

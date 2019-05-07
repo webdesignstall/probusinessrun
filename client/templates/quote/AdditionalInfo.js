@@ -1,35 +1,35 @@
 import React, { Component } from 'react';
 import AdditionalInfoTemplates from './AdditionalInfoTemplates';
 import AdditionalInfoValue from './AdditionalInfoValue';
+import { Tracker } from 'meteor/tracker';
+import { Session } from 'meteor/session';
+import WorkData from '../../../common/collections_2';
 
 export default class AdditionalInfo extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            value: ''
-        };
-
-        this.changeValue = this.changeValue.bind(this);
+    componentDidMount() {
+        this.x = Tracker.autorun(() => {
+            if (Session.get('is') !== '') {
+                let is = WorkData.findOne({ _id: Session.get('is') })
+                    .additionalInfo;
+                is &&
+                    is !== '' &&
+                    Array.isArray(is) &&
+                    Session.set('additionalInfo', is);
+            }
+        });
     }
 
-    changeValue(value) {
-        this.setState(prevState => {
-            return {
-                value:
-                    prevState.value === ''
-                        ? prevState.value + '✓ ' + value
-                        : prevState.value + '\n✓ ' + value
-            };
-        });
+    componentWillUnmount() {
+        this.x.stop();
+        Session.set('additionalInfo', []);
     }
 
     render() {
         return (
             <div className="row additional_info">
                 <div className="additional_info_header">Additional Info</div>
-                <AdditionalInfoValue value={this.state.value} />
-                <AdditionalInfoTemplates valueChange={this.changeValue} />
+                <AdditionalInfoValue />
+                <AdditionalInfoTemplates />
             </div>
         );
     }
