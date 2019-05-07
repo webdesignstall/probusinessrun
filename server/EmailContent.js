@@ -228,7 +228,7 @@ export default function EmailContent(job) {
                     <td
                     style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px 0 3px 10px; width: 50%;"
                     >
-                    Gas Fee (one time fee):
+                    Travel Fee (one time fee):
                     </td>
                     <td
                     style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px 0 3px 10px; width: 50%;"
@@ -253,7 +253,7 @@ export default function EmailContent(job) {
                     <td
                     style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px 0 3px 10px; width: 50%;"
                     >
-                    Gas Fee (one time fee):
+                    Travel Fee (one time fee):
                     </td>
                     <td
                     style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px 0 3px 10px; width: 50%;"
@@ -368,7 +368,7 @@ export default function EmailContent(job) {
             <div
             style="padding: 3px 0 3px 10px;font-size:13px;text-align:left;font-family:'Roboto', Tahoma, Verdana, Segoe, sans-serif"
             >
-            Gas Fee (one time fee)
+            Travel Fee (one time fee)
             </div>
         `
             : '';

@@ -28,7 +28,7 @@ export default function ConfirmationEmail(job) {
             '4_bedrooom_avg': '4 Bedroom (avg. size, avg. items)',
             '4_bedroom_large': '4 Bedroom (large size, many items)',
             commercial_avg: 'Commercial (avg. size, avg. items)',
-            commercial_large: 'Commercial (large size, many items)',
+            commercial_large: 'Commercial (large size, many items)'
         };
 
         return movingSizeList[job.movingSize];
@@ -73,7 +73,9 @@ export default function ConfirmationEmail(job) {
             : '';
 
     let additionalPhoneNumber =
-        job.phoneAdditional !== null && job.phoneAdditional !== undefined && job.phoneAdditional !== 'null'
+        job.phoneAdditional !== null &&
+        job.phoneAdditional !== undefined &&
+        job.phoneAdditional !== 'null'
             ? `<tr>
             <td style="width: 49%;" width="49%">
                 Customer Secondary No:
@@ -131,7 +133,8 @@ export default function ConfirmationEmail(job) {
             : '';
 
     let arrivalWindow =
-        job.workMustBeginTime[0] === '04:00 am' && job.workMustBeginTime[0] === '04:00 am'
+        job.workMustBeginTime[0] === '04:00 am' &&
+        job.workMustBeginTime[0] === '04:00 am'
             ? `
             <tr>
                 <td style="width: 49%;" width="49%">
@@ -162,8 +165,12 @@ export default function ConfirmationEmail(job) {
 
 <body style="background-color: #d3d9e0; max-width: 550px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 13px; padding: 5px;">
     <div class="email-content" style="max-width: 550px; margin: 0 auto;">
-        <p class="head" style="text-align: center;"><b>Hello ${job.clientFirstName}!</b><br>
-            <b>Thank you for confirming your move with ${job.companyInfo.name}!</b><br>
+        <p class="head" style="text-align: center;"><b>Hello ${
+    job.clientFirstName
+}!</b><br>
+            <b>Thank you for confirming your move with ${
+    job.companyInfo.name
+}!</b><br>
             <b>Please review your Moving Confirmation below to ensure accuracy:</b>
         </p>
         <p></p>
@@ -291,7 +298,7 @@ export default function ConfirmationEmail(job) {
         ? `
                 <tr>
                     <td style="width: 49%;" width="49%">
-                        Gas Fee (one time):
+                    Travel Fee (one time):
                     </td>
                     <td style="width: 49%;" width="49%">
                         ${job.gasFee < 0 ? 'Not Sure' : '$' + job.gasFee}

@@ -92,7 +92,7 @@ export default function EmailContent(job) {
         job.gasFee && job.gasFee > 0
             ? `
         <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
-            <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Gas Fee (one time fee):</td>
+            <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Travel Fee (one time fee):</td>
             <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">$${
     job.gasFee
 }</td>
@@ -101,7 +101,7 @@ export default function EmailContent(job) {
             : job.gasFee === '' || job.gasFee === 0 || job.gasFee === undefined
                 ? `
             <tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
-                <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Gas Fee (one time fee)</td>
+                <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Travel Fee (one time fee)</td>
                 <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Waived</td>
             </tr>
             `
@@ -148,7 +148,7 @@ export default function EmailContent(job) {
     let gasFeeAdditional =
         job.gasFee && job.gasFee < 0
             ? `
-        <div style="margin-bottom: 5px;">Gas Fee (one time fee)</div>
+        <div style="margin-bottom: 5px;">Travel Fee (one time fee)</div>
         `
             : '';
 
@@ -167,7 +167,7 @@ export default function EmailContent(job) {
     let additionalContacts =
         job.additionalContacts && job.additionalContacts.length > 0
             ? job.additionalContacts
-                .map((contact) => {
+                .map(contact => {
                     return `<tr style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px;">
                     <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">Additional Contact Name:</td>
                     <td style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px; width: 50%;" width="50%">${
@@ -217,7 +217,7 @@ export default function EmailContent(job) {
     let totalTrucks = 0;
     job.trucksTemp && job.trucksTemp.length > 0
         ? job.trucksTemp
-            .map((truck) => {
+            .map(truck => {
                 totalTrucks += Number(truck.qty);
             })
             .join('')
@@ -236,7 +236,7 @@ export default function EmailContent(job) {
     let trucksList =
         job.trucksTemp && job.trucksTemp.length > 0
             ? job.trucksTemp
-                .map((truck) => {
+                .map(truck => {
                     let render = '';
                     let i = 0;
                     for (i = 0; i < Number(truck.qty); i++) {

@@ -307,7 +307,7 @@ Schemas.workSchema = new SimpleSchema(
         gasFee: {
             type: Number,
             optional: true,
-            label: 'Gas fee'
+            label: 'Travel Fee'
         },
         doubleDrive: {
             type: String,

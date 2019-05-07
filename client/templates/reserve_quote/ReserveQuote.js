@@ -365,11 +365,11 @@ class ReserveQuote extends React.Component {
                                 ) : (
                                     ''
                                 )}
-                            {/* gas fee */}
+                            {/* Travel Fee */}
                             {!isNaN(Number(job.gasFee)) &&
                             Number(job.gasFee) > 0 ? (
                                     <tr>
-                                        <td>Gas Fee (one time):</td>
+                                        <td>Travel Fee (one time):</td>
                                         <td>${job.gasFee}</td>
                                     </tr>
                                 ) : (

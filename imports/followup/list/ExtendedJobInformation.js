@@ -127,8 +127,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                     className="browser-default"
                     name="double drive time"
                     id="double_drive_time_followup"
-                    value={value || 'false'}
-                >
+                    value={value || 'false'}>
                     <option value="false" disabled>
                         Select double drive
                     </option>
@@ -209,8 +208,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                     className="browser-default"
                     name="jobStatus"
                     id="jobStatus_followup"
-                    value={status}
-                >
+                    value={status}>
                     <option value="inProgress">In Progress</option>
                     <option value="won">Won</option>
                     <option value="lost">Lost</option>
@@ -362,8 +360,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                     Session.get('ExtendedJobInformation') === this.state.job._id
                         ? 'row'
                         : 'hide'
-                }
-            >
+                }>
                 <hr />
                 CONTACT INFORMATION <br />
                 <div className="col s12 m2 l2">
@@ -406,8 +403,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                 <div className="col s12 m2 l2">
                     <label
                         className="active"
-                        htmlFor="additional_phone_number_followUp"
-                    >
+                        htmlFor="additional_phone_number_followUp">
                         Additional Phone
                     </label>
                     <input
@@ -441,8 +437,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                     MOVING INFORMATION <br />
                     <div
                         id="moving-time--followup"
-                        className="input-field valideyn col s12 m3 l3"
-                    >
+                        className="input-field valideyn col s12 m3 l3">
                         <ArrivalWindow
                             update={true}
                             updateJob={this.updateJob}
@@ -451,8 +446,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                     <div className="col s12 m6 l2">
                         <label
                             className="active"
-                            htmlFor="quote-date-picker-followup"
-                        >
+                            htmlFor="quote-date-picker-followup">
                             Moving Date
                         </label>
                         <input
@@ -470,8 +464,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                             htmlFor={
                                 'first_contact_date_followup' +
                                 Session.get('is')
-                            }
-                        >
+                            }>
                             First Contact Date
                         </label>
                         <input
@@ -491,8 +484,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                     <div className="col s12 m3 l2">
                         <label
                             className="active"
-                            htmlFor={'job_number_followup' + Session.get('is')}
-                        >
+                            htmlFor={'job_number_followup' + Session.get('is')}>
                             Job Number
                         </label>
                         <input
@@ -505,8 +497,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                     <div className="col s12 m3 l2">
                         <label
                             className="active"
-                            htmlFor="source_of_leads_followup"
-                        >
+                            htmlFor="source_of_leads_followup">
                             Source of Leads
                         </label>
                         <select
@@ -516,8 +507,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                             }
                             value={this.state.job.sourceOfLeads}
                             name="source_of_leads_followup"
-                            id="source_of_leads_followup"
-                        >
+                            id="source_of_leads_followup">
                             <option value="call">Call</option>
                             <option value="e-mail">Email</option>
                             <option value="yelp">Yelp</option>
@@ -531,8 +521,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                         <div className="cardBorder relative">
                             <div
                                 id={'addresses_followup' + this.state.job._id}
-                                className="input-field valideyn"
-                            >
+                                className="input-field valideyn">
                                 <Addresses updateJob={this.updateJob} />
                             </div>
                         </div>
@@ -544,8 +533,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                                 htmlFor={
                                     'small_item_pack_followup_check' +
                                     this.state.job._id
-                                }
-                            >
+                                }>
                                 Small item packing
                                 <i className="lime-text lighten-5 black">
                                     [Yes
@@ -597,8 +585,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                                 htmlFor={
                                     'large_item_fee_followup' +
                                     Session.get('is')
-                                }
-                            >
+                                }>
                                 Large Item Fee
                             </label>
                             <input
@@ -618,9 +605,8 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                                 className="active"
                                 htmlFor={
                                     'gas_fee_followup' + this.state.job._id
-                                }
-                            >
-                                Gas Fee
+                                }>
+                                Travel Fee
                                 <i className="lime-text lighten-5 black">
                                     [ Not sure?{' '}
                                     <input
@@ -647,8 +633,9 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                         <div className="col s12 m6 l2">
                             <label
                                 className="active"
-                                htmlFor={'deposit_followup' + Session.get('is')}
-                            >
+                                htmlFor={
+                                    'deposit_followup' + Session.get('is')
+                                }>
                                 Deposit
                             </label>
                             <input
@@ -682,8 +669,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                         <div className="col s12 m4 l4">
                             <label
                                 className="active"
-                                htmlFor="textarea2_followup"
-                            >
+                                htmlFor="textarea2_followup">
                                 Note for Company
                             </label>
                             <textarea
@@ -698,8 +684,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                         <div className="col s12 m4 l4">
                             <label
                                 className="active"
-                                htmlFor="note_for_your_move_followUp"
-                            >
+                                htmlFor="note_for_your_move_followUp">
                                 Note for Your Move
                             </label>
                             <textarea
@@ -770,29 +755,25 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                 <div className="clear" />
                 <div
                     className="row center-align"
-                    style={{ paddingTop: '20px' }}
-                >
+                    style={{ paddingTop: '20px' }}>
                     <a
                         className="waves-effect waves-light btn blue"
                         onClick={this.saveJob}
-                        style={{ marginRight: '10px', color: 'black' }}
-                    >
+                        style={{ marginRight: '10px', color: 'black' }}>
                         <i className="material-icons left">update</i>
                         Update / Save
                     </a>
                     <a
                         onClick={this.sendQuote}
                         className="waves-effect waves-light btn amber"
-                        style={{ marginRight: '10px', color: 'black' }}
-                    >
+                        style={{ marginRight: '10px', color: 'black' }}>
                         <i
                             style={{
                                 color: this.state.job.quote
                                     ? '#77AB64'
                                     : '#D64F2D'
                             }}
-                            className="material-icons left"
-                        >
+                            className="material-icons left">
                             send
                         </i>
                         Send Quote

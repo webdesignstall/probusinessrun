@@ -233,7 +233,7 @@ export default function ConfirmationEmail(job) {
             ? `
             <div style="font-size:16px;text-align:center;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif">
 <div  style="font-size: 13px; margin-bottom: 5px; border-bottom: 1px solid #BBBEC3">
-<div style="width: 49%; display: inline-block; text-align: left;">Gas Fee (one time):</div>
+<div style="width: 49%; display: inline-block; text-align: left;">Travel Fee (one time):</div>
 <div style="width: 49%; display: inline-block; text-align: left;">${
     job.gasFee < 0 ? 'Not Sure' : '$' + job.gasFee
 }</div>
