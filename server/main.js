@@ -174,7 +174,8 @@ if (Meteor.isServer) {
             doc.status !== WorkData.findOne({ _id: doc._id }).status
                 ? (doc.statusChange = new Date())
                 : null;
-            console.log(doc);
+
+            doc.status === 'won' ? (doc.wonDate = new Date()) : null;
 
             doc.lastChange = new Date();
 

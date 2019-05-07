@@ -702,6 +702,10 @@ Schemas.workSchema = new SimpleSchema(
         'additionalInfo.$': {
             type: String,
             optional: true
+        },
+        wonDate: {
+            type: Date,
+            optional: true
         }
     },
     { tracker: Tracker }
