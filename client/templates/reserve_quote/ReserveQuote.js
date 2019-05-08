@@ -311,8 +311,12 @@ class ReserveQuote extends React.Component {
                                 <tr>
                                     {job.laborTime > 0 ? (
                                         <td>
-                                            Flat Rate Up to {job.laborTime}{' '}
-                                            hours
+                                            Flat Rate{' '}
+                                            {job.laborTime
+                                                ? 'Up to ' +
+                                                  job.laborTime +
+                                                  ' hours'
+                                                : ''}
                                         </td>
                                     ) : (
                                         <td>Flat Rate</td>
@@ -325,24 +329,27 @@ class ReserveQuote extends React.Component {
                             ) : (
                                 ''
                             )}
-                            {job.flatRate && job.flatRate[0].isTrue ? (
-                                <tr>
-                                    {job.laborTime > 0 ? (
-                                        <td>
+                            {job.flatRate &&
+                            job.laborTime &&
+                            job.flatRate[0].isTrue &&
+                            job.laborTime > 0 ? (
+                                    <tr>
+                                        {job.laborTime > 0 ? (
+                                            <td>
                                             Hourly Rate After {job.laborTime}{' '}
                                             hours
-                                        </td>
-                                    ) : (
-                                        <td>Hourly Rate</td>
-                                    )}
-                                    <td>
+                                            </td>
+                                        ) : (
+                                            <td>Hourly Rate</td>
+                                        )}
+                                        <td>
                                         cash ${job.hourlyRatesCash}/hr, card $
-                                        {job.hourlyRatesCard}/hr
-                                    </td>
-                                </tr>
-                            ) : (
-                                ''
-                            )}
+                                            {job.hourlyRatesCard}/hr
+                                        </td>
+                                    </tr>
+                                ) : (
+                                    ''
+                                )}
                             {/* hourly rates cash*/}
                             {job.hourlyRatesCash &&
                             job.hourlyRatesCash > 0 &&
