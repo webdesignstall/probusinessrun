@@ -1,0 +1,59 @@
+{
+    "start": {
+        "survey": "How will you pay for the move?",
+        "buttons": {
+            "cash": "enoughCash",
+            "card": "presentInTheEnd",
+            "Both cash & card": "presentInTheEnd"
+        }
+    },
+    "enoughCash": {
+        "survey": "Make sure you have enough cash at the end of your move. If we wait for ATM we will charge for that time.",
+        "buttons": {
+            "OK": {
+                "updateWork": "doc"
+            }
+        }
+    },
+    "presentInTheEnd": {
+        "survey": "Will card holder present to the end of the move?",
+        "buttons": {
+            "yes": "elseThan",
+            "no": "enterEmail"
+        }
+    },
+    "elseThan": {
+        "survey": "Is cardholder someone else than you?",
+        "buttons": {
+            "No, it is me": {
+                "updateWork": "doc"
+            },
+            "Yes, someone else": "enterFullName"
+        }
+    },
+    "enterEmail": {
+        "survey": "Please enter cardholder`s email address.",
+        "buttons": {
+            "submit": {
+                "updateWork": "doc",
+                "emailToCardHolder": "doc.cardHolderInfo.email"
+            }
+        },
+        "inputs": {
+            "email": "Email Address"
+        }
+    },
+    "enterFullName": {
+        "survey": "Enter full name of the Cardholder",
+        "buttons": {
+            "submit" : {
+                "updateWork": "doc"
+            }
+        },
+        "inputs": {
+            "firstName": "First Name",
+            "lastName": "Last Name",
+            "email": "Email Address"
+        }
+    }
+}

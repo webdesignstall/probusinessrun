@@ -222,10 +222,10 @@ if (Meteor.isServer) {
                 if (err) {
                     console.log(err);
                     throw new Meteor.Error(
-                        'Imposible to send email to supervisor'
+                        'Impossible to send email to supervisor'
                     );
                 } else {
-                    console.log('Email succesfully sent to supervisor');
+                    console.log('Email successfully sent to supervisor');
                 }
             });
         },

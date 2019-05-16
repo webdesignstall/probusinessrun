@@ -5,7 +5,6 @@ import { Meteor } from 'meteor/meteor';
 import WorkData from '../../common/collections_2';
 import { Tracker } from 'meteor/tracker';
 import { Session } from 'meteor/session';
-
 /*global $*/
 
 export default class TabletIsList extends React.Component {
