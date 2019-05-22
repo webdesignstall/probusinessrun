@@ -4,11 +4,10 @@ import ReactDOM from 'react-dom';
 import App from './_add';
 import './add.css';
 import { Meteor } from 'meteor/meteor';
-import Payment from '../payment/Payment';
 
 Template.add.onRendered(function() {
     Meteor.subscribe('usersData');
-    ReactDOM.render(<Payment />, document.getElementById('addComponent'));
+    ReactDOM.render(<App />, document.getElementById('addComponent'));
 });
 
 Template.add.onDestroyed(function() {
