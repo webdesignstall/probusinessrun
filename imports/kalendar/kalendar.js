@@ -259,6 +259,15 @@ Template.kalendar.onRendered(function() {
             Meteor.subscribe('workSchema', () => {
                 let totalJobs = new ReactiveVar(0);
                 let monthIndex = ayDaxil + 1;
+                if (dateChanged === 1) {
+                    tarixIn.innerHTML =
+                        gun +
+                        `<a href="#" id="ay" class="tarixSecim"></a><a href="#" id="il" class="tarixSecim"></a><a href="#" id="goToday" class="tarixSecimGoToday"></a><a href="#" id="totalMonth">Total Jobs: ${totalJobs.get()}</a><div class="add-moreschedule-button">Create New Job + </div>`;
+                } else {
+                    tarixIn.innerHTML =
+                        gun +
+                        `<a href="#" id="ay" class="tarixSecim"></a><a href="#" id="il" class="tarixSecim"></a><a href="#" id="totalMonth">Total Jobs: ${totalJobs.get()}</a><div class="add-moreschedule-button">Create New Job + </div>`;
+                }
                 let reg =
                     (monthIndex < 10 ? '0' + monthIndex : monthIndex) +
                     '/[0-9][0-9]/' +
@@ -274,15 +283,6 @@ Template.kalendar.onRendered(function() {
                 let ayAdi = moment.months(ayDaxil);
                 let tarixIn = document.getElementById('ayHaqqinda');
 
-                if (dateChanged === 1) {
-                    tarixIn.innerHTML =
-                        gun +
-                        `<a href="#" id="ay" class="tarixSecim"></a><a href="#" id="il" class="tarixSecim"></a><a href="#" id="goToday" class="tarixSecimGoToday"></a><a href="#" id="totalMonth">Total Jobs: ${totalJobs.get()}</a><div class="add-moreschedule-button">Create New Job + </div>`;
-                } else {
-                    tarixIn.innerHTML =
-                        gun +
-                        `<a href="#" id="ay" class="tarixSecim"></a><a href="#" id="il" class="tarixSecim"></a><a href="#" id="totalMonth">Total Jobs: ${totalJobs.get()}</a><div class="add-moreschedule-button">Create New Job + </div>`;
-                }
                 let ayHedef = document.getElementById('ay');
                 let ilHedef = document.getElementById('il');
                 let goTodayHedef = document.getElementById('goToday');
@@ -305,14 +305,6 @@ Template.kalendar.onRendered(function() {
                 (monthIndex < 10 ? '0' + monthIndex : monthIndex) +
                 '/[0-9][0-9]/' +
                 il;
-            totalJobs.set(
-                WorkData.find({
-                    workDate: { $regex: reg },
-                    status: 'won'
-                }).count()
-            );
-            Session.set('totalJobs', totalJobs.get());
-
             let ayAdi = moment.months(ay);
             let tarixIn = document.getElementById('ayHaqqinda');
 
@@ -325,6 +317,14 @@ Template.kalendar.onRendered(function() {
                     gun +
                     `<a href="#" id="ay" class="tarixSecim"></a><a href="#" id="il" class="tarixSecim"></a><a href="#" id="totalMonth">Total Jobs: ${totalJobs.get()}</a><div class="add-moreschedule-button">Create New Job + </div>`;
             }
+            totalJobs.set(
+                WorkData.find({
+                    workDate: { $regex: reg },
+                    status: 'won'
+                }).count()
+            );
+            Session.set('totalJobs', totalJobs.get());
+
             let ayHedef = document.getElementById('ay');
             let ilHedef = document.getElementById('il');
             let goTodayHedef = document.getElementById('goToday');
