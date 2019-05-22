@@ -10,10 +10,9 @@ import LoadingOverlay from 'react-loading-overlay';
 import BarLoader from 'react-spinners/BarLoader';
 
 import Payment from '../../../imports/payment/Payment';
-import ConfirmationDisplay from './ConfirmationDisplay';
+// import ConfirmationDisplay from './ConfirmationDisplay';
 
-// load companies info json
-const baza = require('../../../imports/helpers/companyInfos.json');
+/*global $ Bert*/
 
 let jobIs = {};
 
@@ -89,6 +88,7 @@ export default class ReserveQuote extends TrackerReact(Component) {
     }
 
     jobNumber(event) {
+        console.log(event.target.value);
         let isJob = WorkData.findOne({ jobNumber: event.target.value });
         isJob
             ? ($('#axtarisin-neticesi').show(),
@@ -621,7 +621,7 @@ export default class ReserveQuote extends TrackerReact(Component) {
                                 type="text"
                                 placeholder="Enter code here please."
                                 autoComplete="off"
-                                onChange={this.jobNumber}
+                                onChange={e => this.jobNumber(e)}
                             />
                             <button
                                 id="isi-tap"
