@@ -8,7 +8,7 @@ Router.configure({
         return Meteor.subscribe('userData');
     },
     loadingTemplate: 'loading',
-    notFoundTemplate: '404',
+    notFoundTemplate: '404'
 });
 
 Router.route('/', {
@@ -26,52 +26,52 @@ Router.route('/', {
         } else {
             this.render('loginFormasi');
         }
-    },
+    }
 });
 
 Router.route('/add', {
     onBeforeAction: function() {
         this.render('add');
-    },
+    }
 });
 
 if (Meteor.userId()) {
     Router.route('/followup', {
         onBeforeAction: function() {
             this.render('followUp');
-        },
+        }
     });
 
     Router.route('/workers', {
         onBeforeAction: function() {
             this.render('workersList');
-        },
+        }
     });
 
     Router.route('/workers/addWorker', {
         onBeforeAction: function() {
             this.render('register');
-        },
+        }
     });
     Router.route('/quote', {
         onBeforeAction: function() {
             this.render('quoteTam');
-        },
+        }
     });
     Router.route('/prequote', {
         onBeforeAction: function() {
             this.render('preQuote');
-        },
+        }
     });
     Router.route('/discount', {
         onBeforeAction: function() {
             this.render('discountAdmin');
-        },
+        }
     });
 }
 
 Router.route('/reserve', {
     onBeforeAction: function() {
         this.render('reserveQuote');
-    },
+    }
 });

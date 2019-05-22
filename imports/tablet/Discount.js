@@ -6,8 +6,6 @@ import { Tracker } from 'meteor/tracker';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import swal from 'sweetalert';
 
-/*global Bert*/
-
 // components
 import Signature from './Signature';
 import { Meteor } from 'meteor/meteor';
@@ -25,7 +23,7 @@ export default class Discount extends TrackerReact(React.Component) {
             note: '',
             discountId: '',
             discountApproved: false,
-            waiting: false,
+            waiting: false
         };
 
         this.promoCode = React.createRef();
@@ -61,21 +59,21 @@ export default class Discount extends TrackerReact(React.Component) {
             ? swal({
                 title: 'Success',
                 text: 'Discount accepted',
-                icon: 'success',
+                icon: 'success'
             })
             : null;
     }
 
     select(name) {
         this.setState({
-            selected: name,
+            selected: name
         });
     }
 
     changeAmountValue(e) {
         e.preventDefault();
         this.setState({
-            valueOfSelected: e.target.value,
+            valueOfSelected: e.target.value
         });
     }
 
@@ -86,14 +84,14 @@ export default class Discount extends TrackerReact(React.Component) {
         })
             ? this.setState({
                 discountApproved: true,
-                waiting: true,
+                waiting: true
             })
             : // document.getElementById('signatureForDiscount').classList.remove('hide'),
         // document.getElementById('askDiscount').setAttribute('disabled', true)
             (swal({
                 title: 'Wrong promo code',
                 text: 'You entered wrong Promo Code',
-                icon: 'error',
+                icon: 'error'
             }),
             Session.set('loading', false));
     }
@@ -111,7 +109,7 @@ export default class Discount extends TrackerReact(React.Component) {
                         note: this.state.note,
                         type: this.state.selected,
                         confirmed: false,
-                        truckNumber: Meteor.user().profile.number,
+                        truckNumber: Meteor.user().profile.number
                     },
                     (error, _id) => {
                         error
@@ -121,28 +119,35 @@ export default class Discount extends TrackerReact(React.Component) {
                             Session.set('discountId', _id),
                             setTimeout(() => {
                                 !this.state.discountApproved
-                                    ? (Meteor.call('removeDiscount', this.state.discountId, err =>
-                                        err ? console.log(err) : null,
+                                    ? (Meteor.call(
+                                        'removeDiscount',
+                                        this.state.discountId,
+                                        err => (err ? console.log(err) : null)
                                     ),
                                     swal({
                                         title: 'Discount doesn\'t accepted',
-                                        text: 'For more info contact with the manager',
-                                        icon: 'error',
+                                        text:
+                                              'For more info contact with the manager',
+                                        icon: 'error'
                                     }),
                                     Session.set('loading', false),
-                                    this.setState({ waiting: false }, err => (err ? console.log(err) : null)),
+                                    this.setState({ waiting: false }, err =>
+                                        err ? console.log(err) : null
+                                    ),
                                     Session.set('discountId', ''),
                                     Session.set('discountAproved', false))
                                     : null;
                             }, 120000));
-                    },
+                    }
                 )
-                : alert('You have not internet connection try to call to manager and get promo Code');
+                : alert(
+                    'You have not internet connection try to call to manager and get promo Code'
+                );
     }
 
     noteChange(e) {
         this.setState({
-            note: e.target.value,
+            note: e.target.value
         });
     }
 
@@ -162,16 +167,18 @@ export default class Discount extends TrackerReact(React.Component) {
                 note: '',
                 waiting: false,
                 discountId: '',
-                discountApproved: false,
+                discountApproved: false
             },
             error => {
                 error ? console.log(error) : this.props.unclick('discount_');
-            },
+            }
         );
     }
 
     render() {
-        this.state.discountApproved ? swal('Success', 'Discount approved!', 'success') : null;
+        this.state.discountApproved
+            ? swal('Success', 'Discount approved!', 'success')
+            : null;
 
         return (
             <div id={this.state.id} className="card__ discount row">
@@ -229,12 +236,19 @@ export default class Discount extends TrackerReact(React.Component) {
                                 id="askDiscount"
                                 className="btn"
                                 style={{
-                                    width: '200px',
+                                    width: '200px'
                                 }}
                                 onClick={this.askDiscount}
-                                disabled={this.state.waiting || this.state.note === ''}>
+                                disabled={
+                                    this.state.waiting || this.state.note === ''
+                                }>
                                 <svg
-                                    className={this.state.waiting && !this.state.discountApproved ? 'spinner2' : 'hide'}
+                                    className={
+                                        this.state.waiting &&
+                                        !this.state.discountApproved
+                                            ? 'spinner2'
+                                            : 'hide'
+                                    }
                                     width="100%"
                                     height="28px"
                                     viewBox="0 0 66 66"
@@ -250,16 +264,31 @@ export default class Discount extends TrackerReact(React.Component) {
                                     />
                                 </svg>
                                 <span
-                                    style={{ color: 'green', width: '50px', fontSize: '30px' }}
-                                    className={this.state.discountApproved ? '' : 'hide'}>
+                                    style={{
+                                        color: 'green',
+                                        width: '50px',
+                                        fontSize: '30px'
+                                    }}
+                                    className={
+                                        this.state.discountApproved
+                                            ? ''
+                                            : 'hide'
+                                    }>
                                     ✓
                                 </span>
-                                <span className={this.state.waiting ? 'hide' : ''}>Ask Discount</span>
+                                <span
+                                    className={
+                                        this.state.waiting ? 'hide' : ''
+                                    }>
+                                    Ask Discount
+                                </span>
                             </button>
                             <div className="borderRight" />
                         </div>
                         <div className="notes">
-                            <div className="cardTitle white left-align grey-text">Notes:</div>
+                            <div className="cardTitle white left-align grey-text">
+                                Notes:
+                            </div>
                             <div className="noteTextArea">
                                 <textarea
                                     name="discountNote"
@@ -276,7 +305,11 @@ export default class Discount extends TrackerReact(React.Component) {
                     </div>
                     <div
                         id="signatureForDiscount"
-                        className={this.state.discountApproved ? 'col s12 m12 l12' : 'col s12 m12 l12 hide'}>
+                        className={
+                            this.state.discountApproved
+                                ? 'col s12 m12 l12'
+                                : 'col s12 m12 l12 hide'
+                        }>
                         <Signature
                             saveSignature={this.props.saveSignature}
                             id={this.state.id}
@@ -284,7 +317,7 @@ export default class Discount extends TrackerReact(React.Component) {
                             extraInformation={{
                                 type: this.state.selected,
                                 amount: this.state.valueOfSelected,
-                                note: this.state.note,
+                                note: this.state.note
                             }}
                             resetDiscount={this.resetDiscount}
                         />
