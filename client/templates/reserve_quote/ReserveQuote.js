@@ -20,6 +20,7 @@ export default class ReserveQuote extends TrackerReact(Component) {
     constructor(props) {
         super(props);
         this.state = {
+            jobNumber: '',
             is: [],
             id: '',
             selected: 0,
@@ -55,12 +56,12 @@ export default class ReserveQuote extends TrackerReact(Component) {
     componentDidMount() {
         this.x = Tracker.autorun(() => {
             Meteor.subscribe('workSchema');
-            const tapilasiIs = this.workData(Session.get('jobNumber'));
-            let id = Session.get('job')._id;
-            this.setState({
-                is: tapilasiIs,
-                id
-            });
+            // const tapilasiIs = this.workData(Session.get('jobNumber'));
+            // let id = Session.get('job')._id;
+            // this.setState({
+            //     is: tapilasiIs,
+            //     id
+            // });
         });
     }
 
@@ -89,12 +90,23 @@ export default class ReserveQuote extends TrackerReact(Component) {
 
     jobNumber(event) {
         console.log(event.target.value);
-        let isJob = WorkData.findOne({ jobNumber: event.target.value });
-        isJob
-            ? ($('#axtarisin-neticesi').show(),
-            document.getElementById('enter-number').classList.add('hide'),
-            Session.set('jobNumber', event.target.value))
-            : null;
+        let jobNumber = event.target.value;
+        let isJob = WorkData.find({ jobNumber }).fetch()[0];
+        this.setState(
+            {
+                is: isJob,
+                id: isJob._id
+            },
+            () => {
+                isJob && isJob.length > 0
+                    ? ($('#axtarisin-neticesi').show(),
+                    document
+                        .getElementById('enter-number')
+                        .classList.add('hide'),
+                    Session.set('jobNumber', jobNumber))
+                    : null;
+            }
+        );
     }
 
     addressesRender(addressler) {
@@ -109,8 +121,9 @@ export default class ReserveQuote extends TrackerReact(Component) {
     }
 
     submit() {
-        let isJob = WorkData.findOne({ jobNumber: event.target.value });
-        isJob
+        let jobNumber = document.getElementById('code').value;
+        let isJob = WorkData.findOne({ jobNumber });
+        isJob && isJob.length > 0
             ? ($('#axtarisin-neticesi').show(),
             document.getElementById('enter-number').classList.add('hide'),
             Session.set('jobNumber', event.target.value))
