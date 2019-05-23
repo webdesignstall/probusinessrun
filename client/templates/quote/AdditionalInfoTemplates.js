@@ -7,8 +7,10 @@ export default class AdditionalInfoTemplates extends Component {
 
         this.state = {
             templates: [
-                'We can finance your move, if you have difficulties to pay. Ask more from your sales rep.',
-                'If you hire 3 movers, hourly rate will be $129 cash or $139 card per hour'
+                'We have PRICE BEAT guaranteed. If you find any cheaper rate than us, go ahead and forward their official quote to us, then we will beat their price and send you updated quote. Terms and conditions applies.',
+                'We can finance your move if you have difficulties to pay. Ask more from your sales representative.',
+                'For any additional mover rate will be $30 more per hour.',
+                'For 2 movers rate will be $30 less per hour.'
             ]
         };
     }
