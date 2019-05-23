@@ -256,16 +256,16 @@ export default class ReserveQuote extends TrackerReact(Component) {
     axtarisinNeticesi() {
         Session.set('job', this.state.is);
 
-        let jobIs = this.state.is;
+        let job = this.state.is;
         return (
-            <div key={jobIs._id || 123243423}>
+            <div key={job._id || 123243423}>
                 <p>
                     Hello {job.clientFirstName}!<br />
                     Thank you for confirming your move with{' '}
                     {job.companyInfo.name}!<br />
                     Please review your Moving Confirmation below to ensure
                     accuracy:
-                    </p>
+                </p>
                 <table style={{ width: '100%' }}>
                     <tbody>
                         <tr>
@@ -281,8 +281,8 @@ export default class ReserveQuote extends TrackerReact(Component) {
                         <tr
                             className={
                                 job.phoneAdditional === '' ||
-                                    job.phoneAdditional === undefined ||
-                                    job.phoneAdditional === null
+                                job.phoneAdditional === undefined ||
+                                job.phoneAdditional === null
                                     ? 'hide'
                                     : ''
                             }>
@@ -307,7 +307,7 @@ export default class ReserveQuote extends TrackerReact(Component) {
                             <td>
                                 {
                                     this.state.movingSizeCorrectNaming[
-                                    job.movingSize
+                                        job.movingSize
                                     ]
                                 }
                             </td>
@@ -324,8 +324,8 @@ export default class ReserveQuote extends TrackerReact(Component) {
                                 <td>{job.laborTime} hours</td>
                             </tr>
                         ) : (
-                                ''
-                            )}
+                            ''
+                        )}
                         {/* cash rate flat */}
                         {job.flatRate && job.flatRate[0].isTrue ? (
                             <tr>
@@ -334,46 +334,45 @@ export default class ReserveQuote extends TrackerReact(Component) {
                                         Flat Rate{' '}
                                         {job.laborTime
                                             ? 'Up to ' +
-                                            job.laborTime +
-                                            ' hours'
+                                              job.laborTime +
+                                              ' hours'
                                             : ''}
                                     </td>
                                 ) : (
-                                        <td>Flat Rate</td>
-                                    )}
+                                    <td>Flat Rate</td>
+                                )}
                                 <td>
-                                    cash ${job.flatRate[0].cashAmount}, card
-                                        ${job.flatRate[0].cardAmount}
+                                    cash ${job.flatRate[0].cashAmount}, card $
+                                    {job.flatRate[0].cardAmount}
                                 </td>
                             </tr>
                         ) : (
-                                ''
-                            )}
+                            ''
+                        )}
                         {job.flatRate &&
-                            job.laborTime &&
-                            job.flatRate[0].isTrue &&
-                            job.laborTime > 0 ? (
+                        job.laborTime &&
+                        job.flatRate[0].isTrue &&
+                        job.laborTime > 0 ? (
                                 <tr>
                                     {job.laborTime > 0 ? (
                                         <td>
-                                            Hourly Rate After {job.laborTime}{' '}
-                                            hours
-                                            </td>
-                                    ) : (
-                                            <td>Hourly Rate</td>
-                                        )}
-                                    <td>
-                                        cash ${job.hourlyRatesCash}/hr, card $
-                                            {job.hourlyRatesCard}/hr
+                                        Hourly Rate After {job.laborTime} hours
                                         </td>
+                                    ) : (
+                                        <td>Hourly Rate</td>
+                                    )}
+                                    <td>
+                                    cash ${job.hourlyRatesCash}/hr, card $
+                                        {job.hourlyRatesCard}/hr
+                                    </td>
                                 </tr>
                             ) : (
                                 ''
                             )}
                         {/* hourly rates cash*/}
                         {job.hourlyRatesCash &&
-                            job.hourlyRatesCash > 0 &&
-                            !job.flatRate[0].isTrue ? (
+                        job.hourlyRatesCash > 0 &&
+                        !job.flatRate[0].isTrue ? (
                                 <tr>
                                     <td>Cash Discount Rate p/hour:</td>
                                     <td>${job.hourlyRatesCash}</td>
@@ -383,8 +382,8 @@ export default class ReserveQuote extends TrackerReact(Component) {
                             )}
                         {/* hourly rates card*/}
                         {job.hourlyRatesCard &&
-                            job.hourlyRatesCard > 0 &&
-                            !job.flatRate[0].isTrue ? (
+                        job.hourlyRatesCard > 0 &&
+                        !job.flatRate[0].isTrue ? (
                                 <tr>
                                     <td>Card Regular Rate p/hour:</td>
                                     <td>${job.hourlyRatesCard}</td>
@@ -394,7 +393,7 @@ export default class ReserveQuote extends TrackerReact(Component) {
                             )}
                         {/* Travel Fee */}
                         {!isNaN(Number(job.gasFee)) &&
-                            Number(job.gasFee) > 0 ? (
+                        Number(job.gasFee) > 0 ? (
                                 <tr>
                                     <td>Travel Fee (one time):</td>
                                     <td>${job.gasFee}</td>
@@ -414,15 +413,14 @@ export default class ReserveQuote extends TrackerReact(Component) {
                                         target="_blank"
                                         rel="noopener noreferrer">
                                         learn more
-                                        </a>
+                                    </a>
                                 </td>
                             </tr>
                         ) : (
-                                ''
-                            )}
+                            ''
+                        )}
                         {/* small item packing */}
-                        {job.smallItemPacking < 0 ||
-                            job.smallItemPacking > 0
+                        {job.smallItemPacking < 0 || job.smallItemPacking > 0
                             ? this.renderSmallitemPacking(job)
                             : ''}
                         {/* Extra Large Item Handling */}
@@ -432,30 +430,30 @@ export default class ReserveQuote extends TrackerReact(Component) {
                                 <td>${job.largeItemFee}</td>
                             </tr>
                         ) : (
-                                ''
-                            )}
+                            ''
+                        )}
                         {job.deposit && job.deposit > 0 ? (
                             <tr>
                                 <td style={{ width: '49%' }}>
                                     Deposit required to lock the spot:
-                                    </td>
+                                </td>
                                 <td style={{ width: '49%' }}>
-                                    +${job.deposit} (to be applied as a
-                                    credit toward this move’s bill)
-                                    </td>
+                                    +${job.deposit} (to be applied as a credit
+                                    toward this move’s bill)
+                                </td>
                             </tr>
                         ) : (
-                                ''
-                            )}
+                            ''
+                        )}
                     </tbody>
                 </table>
                 <div className="sola-cekme">
                     <p>
                         {job.additionalInfo &&
-                            Array.isArray(job.additionalInfo) &&
-                            job.additionalInfo.length > 0 ? (
+                        Array.isArray(job.additionalInfo) &&
+                        job.additionalInfo.length > 0 ? (
                                 <div>
-                                    Additional Info <br />
+                                Additional Info <br />
                                     {this.additionalInfo(jobIs)}
                                 </div>
                             ) : null}
@@ -467,8 +465,7 @@ export default class ReserveQuote extends TrackerReact(Component) {
                             onChange={() => this.checked()}
                             type="checkbox"
                         />{' '}
-                        I have read, understand and agree to the contents of
-                            the{' '}
+                        I have read, understand and agree to the contents of the{' '}
                         <i>
                             <a
                                 href="http://www.moverslegion.com/wp-content/uploads/2019/01/included.pdf"
@@ -476,7 +473,7 @@ export default class ReserveQuote extends TrackerReact(Component) {
                                 target="_blank"
                                 rel="noopener noreferrer">
                                 &quot;What&apos;s Included&quot; Section.
-                                </a>
+                            </a>
                         </i>
                     </p>
                     <p>
@@ -485,17 +482,15 @@ export default class ReserveQuote extends TrackerReact(Component) {
                             onChange={() => this.checked()}
                             type="checkbox"
                         />{' '}
-                        I have read, understand and agree to the contents of
-                            the{' '}
+                        I have read, understand and agree to the contents of the{' '}
                         <i>
                             <a
                                 href="http://www.moverslegion.com/wp-content/uploads/2019/01/not-included.pdf"
                                 download="http://www.moverslegion.com/wp-content/uploads/2019/01/not-included.pdf"
                                 target="_blank"
                                 rel="noopener noreferrer">
-                                &quot;What&apos;s Not Included&quot;
-                                Section.
-                                </a>
+                                &quot;What&apos;s Not Included&quot; Section.
+                            </a>
                         </i>
                     </p>
                     <p>
@@ -504,8 +499,7 @@ export default class ReserveQuote extends TrackerReact(Component) {
                             onChange={() => this.checked()}
                             type="checkbox"
                         />{' '}
-                        I have read, understand and agree to the contents of
-                            the{' '}
+                        I have read, understand and agree to the contents of the{' '}
                         <i>
                             <a
                                 href="http://www.moverslegion.com/wp-content/uploads/2018/12/for-you-1.pdf"
@@ -513,7 +507,7 @@ export default class ReserveQuote extends TrackerReact(Component) {
                                 target="_blank"
                                 rel="noopener noreferrer">
                                 &quot;For Your Information&quot; Section.
-                                </a>
+                            </a>
                         </i>
                     </p>
                     <p>
@@ -531,7 +525,7 @@ export default class ReserveQuote extends TrackerReact(Component) {
                                 rel="noopener noreferrer">
                                 CPUC &quot;Important Information About Your
                                 Move&quot; booklet.
-                                </a>
+                            </a>
                         </i>
                     </p>
                     <p>
@@ -548,13 +542,12 @@ export default class ReserveQuote extends TrackerReact(Component) {
                                 target="_blank"
                                 rel="noopener noreferrer">
                                 CPUC Hazardous Material List
-                                </a>
+                            </a>
                         </i>{' '}
                         and I agree not to pack any of the
-                            <br />
-                        items listed for transportation by the moving
-                        company.
-                        </p>
+                        <br />
+                        items listed for transportation by the moving company.
+                    </p>
                     <p>
                         <input
                             className="secilib"
@@ -563,23 +556,23 @@ export default class ReserveQuote extends TrackerReact(Component) {
                         />{' '}
                         I understand and agree that I will have Cash or Card
                         Payment ready on the day of my move.
-                        </p>
+                    </p>
                     <p>
                         <input
                             className="secilib"
                             onChange={() => this.checked()}
                             type="checkbox"
                         />{' '}
-                        Yes! I have read the information below and wish to
-                        pay my Moving Deposit to book this move.
-                            <br />I understand that this Deposit is
-                        non-refundable and non-transferrable if I reschedule
-                        or cancel this move.
-                        </p>
+                        Yes! I have read the information below and wish to pay
+                        my Moving Deposit to book this move.
+                        <br />I understand that this Deposit is non-refundable
+                        and non-transferrable if I reschedule or cancel this
+                        move.
+                    </p>
                     <p>
-                        **If you have any questions, please contact us as
-                        soon as possible by phone, text, or e-mail 24/7**
-                        </p>
+                        **If you have any questions, please contact us as soon
+                        as possible by phone, text, or e-mail 24/7**
+                    </p>
                     <div style={{ textAlign: 'center' }}>
                         Phone Number: {job.companyInfo.phoneNumber} <br />
                         Email:{' '}
@@ -588,19 +581,16 @@ export default class ReserveQuote extends TrackerReact(Component) {
                         </a>
                         <br />
                         Web:{' '}
-                        <a href={job.companyInfo.url}>
-                            {job.companyInfo.url}
-                        </a>
+                        <a href={job.companyInfo.url}>{job.companyInfo.url}</a>
                         <br />
                     </div>
                 </div>
             </div>
-        )
-    };
+        );
     }
 
     compare() {
-        let is = this.state.is[0];
+        let is = this.state.is;
         if (is) {
             return is.quoteExpirationDate
                 ? is.quoteExpirationDate.getTime() < new Date()
