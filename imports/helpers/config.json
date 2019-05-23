@@ -1,0 +1,15 @@
+{
+    "squareApplicationId": "sq0idp-_MzZGzsLcrzXhQSQolZ4_Q",
+    "squareAccessToken": "sq0atp-9mnsWssjVrIiOkGHktsOoA",
+    "squareLocationId": "RGT056NG9D9QX",
+    "sandbox": {
+        "squareApplicationId": "sandbox-sq0idp-_MzZGzsLcrzXhQSQolZ4_Q",
+        "squareAccessToken": "sandbox-sq0atb--F4kpyRz8Vqm1wmPtAZzSQ",
+        "squareLocationId": "CBASEOHRf1wmK6B1xdLy4-fZr2cgAQ"
+    },
+    "production": {
+        "squareApplicationId": "sq0idp-_MzZGzsLcrzXhQSQolZ4_Q",
+        "squareAccessToken": "sq0atp-9mnsWssjVrIiOkGHktsOoA",
+        "squareLocationId": "RGT056NG9D9QX"
+    }
+}

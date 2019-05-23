@@ -1,5 +1,5 @@
 import { Meteor } from 'meteor/meteor';
-import WorkData from './../common/collections_2';
+import WorkData from '../common/collections_2';
 import Discounts from '../common/discountData';
 
 Meteor.publish('workSchema', function() {

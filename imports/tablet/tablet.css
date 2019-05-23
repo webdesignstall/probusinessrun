@@ -119,9 +119,13 @@
 }
 
 .close-duymesi {
-    display: block;
+    position: absolute;
+    right: 40px;
+    top: 18px;
+    display: inline-block;
     text-align: center;
-    padding: 10px;
+    padding: 2px 10px;
+    border-radius: 20px;
     background-color: #e55039;
     color: white;
 }
@@ -190,12 +194,7 @@
 
 .tabletJobRendered {
     margin-top: 5px;
-    border: 1px solid rgb(182, 182, 182);
-    border-radius: 5px;
     overflow: hidden;
-    -webkit-box-shadow: 0px 0px 79px -19px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: 0px 0px 79px -19px rgba(0, 0, 0, 0.75);
-    box-shadow: 0px 0px 80px -20px rgba(0, 0, 0, 0.75);
 }
 
 .card__ {
@@ -236,13 +235,16 @@
 }
 
 .cardTitle {
-    background-color: rgb(5, 114, 204);
-    color: white;
+    border-bottom: 1px solid #d2d2d2;
+    /* background-color: rgb(5, 114, 204); */
+     color: #151515;
     /* margin: -10px -10px 0 -10px; */
-    border-radius: 5px;
-    padding: 5px;
+    /* border-radius: 5px; */
+    /* padding: 5px; */
     font-size: 16px;
-    text-align: center;
+    /* text-align: center; */
+    margin-bottom: 10px;
+    text-transform: uppercase;
 }
 
 .cardInner {

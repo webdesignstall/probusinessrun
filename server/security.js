@@ -40,7 +40,7 @@ PromoCodes.allow({
     remove(userId, doc) {
         return userId === userId;
     }
-})
+});
 
 Meteor.users.allow({
     insert(userId, doc) {

@@ -3,14 +3,13 @@ import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import { Session } from 'meteor/session';
 import { Tracker } from 'meteor/tracker';
 import PropTypes from 'prop-types';
-import { AsYouType } from 'libphonenumber-js';
 
 export default class AdditionalContact extends TrackerReact(Component) {
     constructor(props) {
         super(props);
 
         this.state = {
-            additionalContacts: [],
+            additionalContacts: []
         };
 
         this.addMore = this.addMore.bind(this);
@@ -20,10 +19,12 @@ export default class AdditionalContact extends TrackerReact(Component) {
 
     componentDidMount() {
         this.x = Tracker.autorun(() => {
-            Session.get('reset') ? this.setState({ additionalContacts: [] }) : null;
+            Session.get('reset')
+                ? this.setState({ additionalContacts: [] })
+                : null;
 
             this.setState({
-                additionalContacts: this.props.contacts || [],
+                additionalContacts: this.props.contacts || []
             });
         });
     }
@@ -39,26 +40,20 @@ export default class AdditionalContact extends TrackerReact(Component) {
     }
 
     deleteAddContacnt(index) {
-        this.setState(
-            prevState => {
-                let newArr = prevState.additionalContacts;
-                newArr.splice(index, 1);
+        this.setState(prevState => {
+            let newArr = prevState.additionalContacts;
+            newArr.splice(index, 1);
 
-                return {
-                    additionalContacts: newArr,
-                };
-            },
-            () => {
-                let height = 32 + 88 * this.state.additionalContacts.length;
-                this.animateHeight('additionalContactId', height);
-            },
-        );
+            return {
+                additionalContacts: newArr
+            };
+        });
     }
 
     componentWillReceiveProps(nextProps) {
         Array.isArray(nextProps.contacts) && nextProps.contacts.length > 0
             ? this.setState({
-                additionalContacts: nextProps.contacts,
+                additionalContacts: nextProps.contacts
             })
             : null;
     }
@@ -76,13 +71,17 @@ export default class AdditionalContact extends TrackerReact(Component) {
                         info[index][targ] = yazi;
 
                         return {
-                            additionalContacts: info,
+                            additionalContacts: info
                         };
                     },
                     () => {
-                        Session.set('additionalContacts', this.state.additionalContacts);
-                        this.props.updateJob && this.props.updateJob(this.state);
-                    },
+                        Session.set(
+                            'additionalContacts',
+                            this.state.additionalContacts
+                        );
+                        this.props.updateJob &&
+                            this.props.updateJob(this.state);
+                    }
                 );
             }
         } else {
@@ -94,94 +93,115 @@ export default class AdditionalContact extends TrackerReact(Component) {
                     info[index][targ] = yazi;
 
                     return {
-                        additionalContacts: info,
+                        additionalContacts: info
                     };
                 },
                 () => {
-                    Session.set('additionalContacts', this.state.additionalContacts);
+                    Session.set(
+                        'additionalContacts',
+                        this.state.additionalContacts
+                    );
                     this.props.updateJob && this.props.updateJob(this.state);
-                },
+                }
             );
         }
     }
 
     addMore() {
-        this.setState(
-            prevState => {
-                let arr = prevState.additionalContacts.concat({
-                    firstName: '',
-                    lastName: '',
-                    phoneNumber: '',
-                    additionalPhoneNumber: '',
-                });
+        this.setState(prevState => {
+            let arr = prevState.additionalContacts;
+            arr.push({
+                firstName: '',
+                lastName: '',
+                phoneNumber: '',
+                additionalPhoneNumber: ''
+            });
 
-                return {
-                    additionalContacts: arr,
-                };
-            },
-            // () => {
-            //     let height = 32 + 88 * this.state.additionalContacts.length;
-            //     this.animateHeight('additionalContactId', height);
-            // },
-        );
+            return {
+                additionalContacts: arr
+            };
+        });
     }
 
     renderAdditional() {
         return this.state.additionalContacts.map((contact, index) => {
             return (
-                <div key={index + 'additionalContact'} className="row" style={{ marginTop: '10px' }}>
+                <div
+                    key={index + 'additionalContact'}
+                    className="row"
+                    style={{ marginTop: '10px' }}>
                     <div className="input-field valideyn col s12 m6 l3">
                         <i className="material-icons isare">account_box</i>
                         <input
-                            onChange={event => this.changeInput(index, 'firstName', event)}
+                            onChange={event =>
+                                this.changeInput(index, 'firstName', event)
+                            }
                             id={index + 'firstNameAdditionalContact'}
                             value={contact.firstName}
                             type="text"
                             placeholder=""
                             required
                         />
-                        <label className="active" htmlFor={index + 'firstNameAdditionalContact'}>
+                        <label
+                            className="active"
+                            htmlFor={index + 'firstNameAdditionalContact'}>
                             First Name
                         </label>
                     </div>
                     <div className="input-field valideyn col s12 m6 l3">
                         <i className="material-icons isare">account_box</i>
                         <input
-                            onChange={event => this.changeInput(index, 'lastName', event)}
+                            onChange={event =>
+                                this.changeInput(index, 'lastName', event)
+                            }
                             id={index + 'lastNameAdditionalContact'}
                             value={contact.lastName}
                             type="text"
                             placeholder=""
                             required
                         />
-                        <label className="active" htmlFor={index + 'lastNameAdditionalContact'}>
+                        <label
+                            className="active"
+                            htmlFor={index + 'lastNameAdditionalContact'}>
                             Last Name
                         </label>
                     </div>
                     <div className="input-field valideyn col s12 m6 l3">
                         <i className="material-icons isare">phone</i>
                         <input
-                            onChange={event => this.changeInput(index, 'phoneNumber', event)}
+                            onChange={event =>
+                                this.changeInput(index, 'phoneNumber', event)
+                            }
                             id={index + 'phoneNumberAdditionalContact'}
                             value={contact.phoneNumber}
                             type="text"
                             placeholder=""
                             required
                         />
-                        <label className="active" htmlFor={index + 'phoneNumberAdditionalContact'}>
+                        <label
+                            className="active"
+                            htmlFor={index + 'phoneNumberAdditionalContact'}>
                             Main Phone Number
                         </label>
                     </div>
                     <div className="input-field valideyn col s12 m5 l2">
                         <i className="material-icons isare">phone</i>
                         <input
-                            onChange={event => this.changeInput(index, 'additionalPhoneNumber', event)}
+                            onChange={event =>
+                                this.changeInput(
+                                    index,
+                                    'additionalPhoneNumber',
+                                    event
+                                )
+                            }
                             id={index + 'phoneNumberAddAdditionalContact'}
                             value={contact.additionalPhoneNumber}
                             type="text"
                             placeholder=""
                         />
-                        <label className="active" htmlFor={index + 'phoneNumberAddAdditionalContact'}>
+                        <label
+                            className="active"
+                            htmlFor={index + 'phoneNumberAddAdditionalContact'}>
                             Secondary Phone Number
                         </label>
                     </div>
@@ -192,7 +212,7 @@ export default class AdditionalContact extends TrackerReact(Component) {
                             style={{
                                 color: 'red',
                                 cursor: 'pointer',
-                                marginLeft: '10px',
+                                marginLeft: '10px'
                             }}>
                             delete_forever
                         </i>
@@ -213,7 +233,7 @@ export default class AdditionalContact extends TrackerReact(Component) {
                     borderRadius: '16px',
                     overflow: 'hidden',
                     // height: '32px',
-                    backgroundColor: '#D9DCDD',
+                    backgroundColor: '#D9DCDD'
                 }}>
                 <span
                     style={{
@@ -227,7 +247,7 @@ export default class AdditionalContact extends TrackerReact(Component) {
                         borderRadius: '14px',
                         margin: '0 4px 0 0',
                         position: 'relative',
-                        textTransform: 'uppercase',
+                        textTransform: 'uppercase'
                     }}>
                     Additional Contact
                     <i
@@ -238,7 +258,7 @@ export default class AdditionalContact extends TrackerReact(Component) {
                             margin: '5px 0 0 15px',
                             color: '#4EDB9E',
                             top: '-2px',
-                            cursor: 'pointer',
+                            cursor: 'pointer'
                         }}>
                         add_circle
                     </i>
@@ -251,5 +271,5 @@ export default class AdditionalContact extends TrackerReact(Component) {
 
 AdditionalContact.propTypes = {
     updateJob: PropTypes.func,
-    contacts: PropTypes.array,
+    contacts: PropTypes.array
 };

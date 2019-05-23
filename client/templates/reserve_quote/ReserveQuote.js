@@ -1,25 +1,27 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Template } from 'meteor/templating';
 import WorkData from './../../../common/collections_2';
 import { Meteor } from 'meteor/meteor';
 import { Tracker } from 'meteor/tracker';
 import { Session } from 'meteor/session';
+import TrackerReact from 'meteor/ultimatejs:tracker-react';
+import LoadingOverlay from 'react-loading-overlay';
+import BarLoader from 'react-spinners/BarLoader';
 
-import ConfirmationDisplay from './ConfirmationDisplay';
+import Payment from '../../../imports/payment/Payment';
+// import ConfirmationDisplay from './ConfirmationDisplay';
 
-// load companies info json
-const baza = require('../../../imports/helpers/companyInfos.json');
-
-/*global paypal, $, Bert*/
+/*global $ Bert*/
 
 let jobIs = {};
 
-class ReserveQuote extends React.Component {
+export default class ReserveQuote extends TrackerReact(Component) {
     constructor(props) {
         super(props);
         this.state = {
             is: [],
+            id: '',
             selected: 0,
             movingSizeCorrectNaming: {
                 items: 'Items',
@@ -44,14 +46,20 @@ class ReserveQuote extends React.Component {
         );
     }
 
+    workData(id) {
+        return WorkData.find({
+            jobNumber: id
+        }).fetch();
+    }
+
     componentDidMount() {
         this.x = Tracker.autorun(() => {
             Meteor.subscribe('workSchema');
-            const tapilasiIs = WorkData.find({
-                jobNumber: Session.get('jobNumber')
-            }).fetch();
+            const tapilasiIs = this.workData(Session.get('jobNumber'));
+            let id = Session.get('job')._id;
             this.setState({
-                is: tapilasiIs
+                is: tapilasiIs,
+                id
             });
         });
     }
@@ -70,11 +78,9 @@ class ReserveQuote extends React.Component {
             () => {
                 if (this.state.selected === 7) {
                     $('.note').hide();
-                    $('.paypal-button').show();
                     $('#payPal').show();
                 } else {
                     $('.note').show();
-                    $('.paypal-button').hide();
                     $('#payPal').hide();
                 }
             }
@@ -82,6 +88,7 @@ class ReserveQuote extends React.Component {
     }
 
     jobNumber(event) {
+        console.log(event.target.value);
         let isJob = WorkData.findOne({ jobNumber: event.target.value });
         isJob
             ? ($('#axtarisin-neticesi').show(),
@@ -580,149 +587,158 @@ class ReserveQuote extends React.Component {
     }
 
     compare() {
-        return (this.state.is[0] && this.state.is[0].quoteExpirationDate) ||
-            (this.state.is[0] && this.state.is[0].status === 'lost') ||
-            (this.state.is[0] && this.state.is[0].status === 'won')
-            ? this.state.is[0].quoteExpirationDate.getTime() < new Date() ||
-                  this.state.is[0].status === 'lost' ||
-                  this.state.is[0].status === 'won' ||
-                  this.state.is[0].status === 'cancelled'
-            : false;
+        let is = this.state.is[0];
+        if (is) {
+            return is.quoteExpirationDate
+                ? is.quoteExpirationDate.getTime() < new Date()
+                    ? true
+                    : is.status === 'won' ||
+                      is.status === 'lost' ||
+                      is.status === 'cancelled'
+                : true;
+        } else {
+            return false;
+        }
     }
 
     render() {
         return (
-            <div id="jobInfoMain" className="jobMain">
-                <div className="job-number-enter">
-                    <div id="enter-number" className="enter-code">
-                        <h6>
-                            By entering your job number below you will be able
-                            to confirm your moving details
-                        </h6>
-                        <input
-                            id="code"
-                            key="jobNumber"
-                            type="text"
-                            placeholder="Enter code here please."
-                            autoComplete="off"
-                            onChange={this.jobNumber}
-                        />
-                        <button
-                            id="isi-tap"
-                            className="btn waves-effect waves-light"
-                            type="submit"
-                            name="action"
-                            onClick={this.submit}>
-                            <i className="material-icons right">send</i>
-                        </button>
-                    </div>
-                </div>
-                <div className="clear" />
-                <div id="axtarisin-neticesi">
-                    <div className={this.compare() ? 'coverDark' : 'hide'}>
-                        <div className="enter-code">
+            <LoadingOverlay
+                text="Loading..."
+                className="loader"
+                active={Session.get('loading')}
+                spinner={<BarLoader color={'#6DD4B8'} />}>
+                <div id="jobInfoMain" className="jobMain">
+                    <div className="job-number-enter">
+                        <div id="enter-number" className="enter-code">
                             <h6>
-                                Your offer has expired. Please contact customer
-                                service in order to access to your confirmation
-                                page. <span>(844) 404-8404</span>
-                                <br />
-                                Your job number is:{' '}
-                                <span>
-                                    {(this.state.is[0] &&
-                                        this.state.is[0].jobNumber) ||
-                                        ''}
-                                </span>
+                                By entering your job number below you will be
+                                able to confirm your moving details
                             </h6>
+                            <input
+                                id="code"
+                                key="jobNumber"
+                                type="text"
+                                placeholder="Enter code here please."
+                                autoComplete="off"
+                                onChange={e => this.jobNumber(e)}
+                            />
+                            <button
+                                id="isi-tap"
+                                className="btn waves-effect waves-light"
+                                type="submit"
+                                name="action"
+                                onClick={this.submit}>
+                                <i className="material-icons right">send</i>
+                            </button>
                         </div>
                     </div>
-                    {this.axtarisinNeticesi()}
-                    <div className="note">
-                        <h4>Please check all the boxes for next step</h4>
-                    </div>
-                    <div id="payPal">
-                        <p style={{ color: 'red', fontStyle: 'italic' }}>
-                            Click to PayPall to see the payment options.
-                        </p>
-                        <div id="paypal-button" />
+                    <div className="clear" />
+                    <div id="axtarisin-neticesi">
+                        <div className={this.compare() ? 'coverDark' : 'hide'}>
+                            <div className="enter-code">
+                                <h6>
+                                    Your offer has expired. Please contact
+                                    customer service in order to access to your
+                                    confirmation page.{' '}
+                                    <span>(844) 404-8404</span>
+                                    <br />
+                                    Your job number is:{' '}
+                                    <span>
+                                        {(this.state.is[0] &&
+                                            this.state.is[0].jobNumber) ||
+                                            ''}
+                                    </span>
+                                </h6>
+                            </div>
+                        </div>
+                        {this.axtarisinNeticesi()}
+                        <div className="note">
+                            <h4>Please check all the boxes for next step</h4>
+                        </div>
+                        <div
+                            id="payPal"
+                            style={{ display: 'none', margin: '20px 0' }}>
+                            {this.state.id !== '' &&
+                                this.state.id !== undefined && (
+                                <Payment id={this.state.id} />
+                            )}
+                            {/* <div id="paypal-button" /> */}
+                        </div>
                     </div>
                 </div>
-            </div>
+            </LoadingOverlay>
         );
     }
 }
 
 Template.reserveQuote.onRendered(function() {
     ReactDOM.render(<ReserveQuote />, document.getElementById('reserve-quote'));
-    try {
-        paypal.Button.render(
-            {
-                env: 'production', // Or 'sandbox'
-
-                style: {
-                    label: 'pay',
-                    size: 'medium', // small | medium | large | responsive
-                    shape: 'rect', // pill | rect
-                    color: 'blue' // gold | blue | silver | black
-                },
-
-                client: {
-                    sandbox:
-                        'ASree96P5IIPryoEkaURjZl_uCCGHLcso9ZNy6U_4vLFUnFc5qhU7hIP7KsLIfZoepVvPhxtdwvTsao5',
-                    production:
-                        'AeKzmDv5m4KcyrlQI7Y9qiyjYr5jyUYVKd1FsKrXF9Nce7qmfekBC35JIAFbV2am3TdVKhszmcOdFJhK'
-                },
-                commit: true, // Show a 'Pay Now' button
-                payment: function(data, actions) {
-                    return actions.payment.create({
-                        payment: {
-                            transactions: [
-                                {
-                                    amount: {
-                                        total: Session.get('job').deposit,
-                                        currency: 'USD'
-                                    }
-                                }
-                            ]
-                        }
-                    });
-                },
-
-                onAuthorize: function(data, actions) {
-                    return actions.payment
-                        .execute()
-                        .then(function(payment) {
-                            document
-                                .getElementById('jobInfoMain')
-                                .classList.add('hide');
-                            document
-                                .getElementById('son-mesaj')
-                                .classList.remove('hide');
-                            Meteor.call('confirmationGonder', jobIs);
-                            ReactDOM.render(
-                                <ConfirmationDisplay />,
-                                document.getElementById('son-mesaj')
-                            );
-                            let job = Session.get('job');
-                            job.quote = false;
-                            job.confirmed = true;
-                            job.isFollowUp = true;
-                            job.status = 'won';
-
-                            Meteor.call('updateWork', job);
-                            // The payment is complete!
-                            // You can now show a confirmation message to the customer
-                        })
-                        .catch(err => {
-                            err ? console.log(err) : null;
-                        });
-                }
-            },
-            '#paypal-button'
-        );
-
-        $('.paypal-button').hide();
-        $('#payPal').hide();
-    } catch (err) {
-        console.log(err);
-    }
+    // try {
+    //     paypal.Button.render(
+    //         {
+    //             env: 'production', // Or 'sandbox'
+    //             style: {
+    //                 label: 'pay',
+    //                 size: 'medium', // small | medium | large | responsive
+    //                 shape: 'rect', // pill | rect
+    //                 color: 'blue' // gold | blue | silver | black
+    //             },
+    //             client: {
+    //                 sandbox:
+    //                     'ASree96P5IIPryoEkaURjZl_uCCGHLcso9ZNy6U_4vLFUnFc5qhU7hIP7KsLIfZoepVvPhxtdwvTsao5',
+    //                 production:
+    //                     'AeKzmDv5m4KcyrlQI7Y9qiyjYr5jyUYVKd1FsKrXF9Nce7qmfekBC35JIAFbV2am3TdVKhszmcOdFJhK'
+    //             },
+    //             commit: true, // Show a 'Pay Now' button
+    //             payment: function(data, actions) {
+    //                 return actions.payment.create({
+    //                     payment: {
+    //                         transactions: [
+    //                             {
+    //                                 amount: {
+    //                                     total: Session.get('job').deposit,
+    //                                     currency: 'USD'
+    //                                 }
+    //                             }
+    //                         ]
+    //                     }
+    //                 });
+    //             },
+    //             onAuthorize: function(data, actions) {
+    //                 return actions.payment
+    //                     .execute()
+    //                     .then(function(payment) {
+    //                         document
+    //                             .getElementById('jobInfoMain')
+    //                             .classList.add('hide');
+    //                         document
+    //                             .getElementById('son-mesaj')
+    //                             .classList.remove('hide');
+    //                         Meteor.call('confirmationGonder', jobIs);
+    //                         ReactDOM.render(
+    //                             <ConfirmationDisplay />,
+    //                             document.getElementById('son-mesaj')
+    //                         );
+    //                         let job = Session.get('job');
+    //                         job.quote = false;
+    //                         job.confirmed = true;
+    //                         job.isFollowUp = true;
+    //                         job.status = 'won';
+    //                         Meteor.call('updateWork', job);
+    //                         // The payment is complete!
+    //                         // You can now show a confirmation message to the customer
+    //                     })
+    //                     .catch(err => {
+    //                         err ? console.log(err) : null;
+    //                     });
+    //             }
+    //         },
+    //         '#paypal-button'
+    //     );
+    //     $('.paypal-button').hide();
+    //     $('#payPal').hide();
+    // } catch (err) {
+    //     console.log(err);
+    // }
 });
