@@ -39,8 +39,7 @@ export default class AdditionalInfoValue extends Component {
                                 listStyleType: 'circle',
                                 cursor: 'pointer'
                             }}
-                            onClick={() => this.delete(index)}
-                        >
+                            onClick={() => this.delete(index)}>
                             ✓ {info}
                         </li>
                     );
@@ -60,9 +59,9 @@ export default class AdditionalInfoValue extends Component {
                     border: 'none',
                     padding: '10px',
                     outline: 'none',
-                    float: 'left'
-                }}
-            >
+                    float: 'left',
+                    overflow: 'auto'
+                }}>
                 {this.renderList()}
             </div>
         );
