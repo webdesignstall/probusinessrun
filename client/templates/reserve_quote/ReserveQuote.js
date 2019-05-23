@@ -55,7 +55,15 @@ export default class ReserveQuote extends TrackerReact(Component) {
 
     componentDidMount() {
         this.x = Tracker.autorun(() => {
-            Meteor.subscribe('workSchema');
+            Session.set('loading', true);
+            Meteor.subscribe('workSchema', {
+                onReady: function() {
+                    Session.set('loading', false);
+                },
+                onError: function() {
+                    Session.set('loading', false);
+                }
+            });
             // const tapilasiIs = this.workData(Session.get('jobNumber'));
             // let id = Session.get('job')._id;
             // this.setState({
@@ -454,7 +462,7 @@ export default class ReserveQuote extends TrackerReact(Component) {
                         job.additionalInfo.length > 0 ? (
                                 <div>
                                 Additional Info <br />
-                                    {this.additionalInfo(jobIs)}
+                                    {this.additionalInfo(job)}
                                 </div>
                             ) : null}
                     </p>
