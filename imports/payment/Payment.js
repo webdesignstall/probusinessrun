@@ -84,7 +84,7 @@ class Payment extends TrackerReact(Component) {
                     fontSize: '18px'
                 }}
                 onClick={this.clicked}>
-                Make Payment ${this.state.amount}
+                Pay Deposit ${this.state.amount}
             </button>
         );
     }
