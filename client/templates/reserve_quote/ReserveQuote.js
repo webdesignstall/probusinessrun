@@ -254,349 +254,349 @@ export default class ReserveQuote extends TrackerReact(Component) {
     }
 
     axtarisinNeticesi() {
-        return this.state.is.map((job, index) => {
-            jobIs = job;
-            Session.set('job', job);
-            return (
-                <div key={index}>
-                    <p>
-                        Hello {job.clientFirstName}!<br />
-                        Thank you for confirming your move with{' '}
-                        {job.companyInfo.name}!<br />
-                        Please review your Moving Confirmation below to ensure
-                        accuracy:
+        Session.set('job', this.state.is);
+
+        let jobIs = this.state.is;
+        return (
+            <div key={jobIs._id || 123243423}>
+                <p>
+                    Hello {job.clientFirstName}!<br />
+                    Thank you for confirming your move with{' '}
+                    {job.companyInfo.name}!<br />
+                    Please review your Moving Confirmation below to ensure
+                    accuracy:
                     </p>
-                    <table style={{ width: '100%' }}>
-                        <tbody>
-                            <tr>
-                                <td>Customer Name:</td>
-                                <td>
-                                    {job.clientFirstName} {job.clientLastName}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Customer Main Number:</td>
-                                <td>{job.phoneNumber}</td>
-                            </tr>
-                            <tr
-                                className={
-                                    job.phoneAdditional === '' ||
+                <table style={{ width: '100%' }}>
+                    <tbody>
+                        <tr>
+                            <td>Customer Name:</td>
+                            <td>
+                                {job.clientFirstName} {job.clientLastName}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Customer Main Number:</td>
+                            <td>{job.phoneNumber}</td>
+                        </tr>
+                        <tr
+                            className={
+                                job.phoneAdditional === '' ||
                                     job.phoneAdditional === undefined ||
                                     job.phoneAdditional === null
-                                        ? 'hide'
-                                        : ''
-                                }>
-                                <td>Customer Secondary Number:</td>
-                                <td>{job.phoneAdditional}</td>
-                            </tr>
-                            {this.renderAdditionalContacts(
-                                job.additionalContacts || null
-                            )}
+                                    ? 'hide'
+                                    : ''
+                            }>
+                            <td>Customer Secondary Number:</td>
+                            <td>{job.phoneAdditional}</td>
+                        </tr>
+                        {this.renderAdditionalContacts(
+                            job.additionalContacts || null
+                        )}
+                        <tr>
+                            <td>Your Job Number:</td>
+                            <td>{job.jobNumber}</td>
+                        </tr>
+                        <tr>
+                            <td>Moving Date:</td>
+                            <td>{job.workDate}</td>
+                        </tr>
+                        {this.arrivalWindowRender()}
+                        {(() => this.addressesRender(job.addresses))()}
+                        <tr>
+                            <td>Moving Size:</td>
+                            <td>
+                                {
+                                    this.state.movingSizeCorrectNaming[
+                                    job.movingSize
+                                    ]
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Number of Movers:</td>
+                            <td>{job.numberOfWorkers} men crew</td>
+                        </tr>
+                        {this.numberOfTrucks(jobIs)}
+                        {this.trucksRender(jobIs)}
+                        {job.laborTime ? (
                             <tr>
-                                <td>Your Job Number:</td>
-                                <td>{job.jobNumber}</td>
+                                <td>Minimum Labor Time:</td>
+                                <td>{job.laborTime} hours</td>
                             </tr>
-                            <tr>
-                                <td>Moving Date:</td>
-                                <td>{job.workDate}</td>
-                            </tr>
-                            {this.arrivalWindowRender()}
-                            {(() => this.addressesRender(job.addresses))()}
-                            <tr>
-                                <td>Moving Size:</td>
-                                <td>
-                                    {
-                                        this.state.movingSizeCorrectNaming[
-                                            job.movingSize
-                                        ]
-                                    }
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Number of Movers:</td>
-                                <td>{job.numberOfWorkers} men crew</td>
-                            </tr>
-                            {this.numberOfTrucks(jobIs)}
-                            {this.trucksRender(jobIs)}
-                            {job.laborTime ? (
-                                <tr>
-                                    <td>Minimum Labor Time:</td>
-                                    <td>{job.laborTime} hours</td>
-                                </tr>
-                            ) : (
+                        ) : (
                                 ''
                             )}
-                            {/* cash rate flat */}
-                            {job.flatRate && job.flatRate[0].isTrue ? (
-                                <tr>
-                                    {job.laborTime > 0 ? (
-                                        <td>
-                                            Flat Rate{' '}
-                                            {job.laborTime
-                                                ? 'Up to ' +
-                                                  job.laborTime +
-                                                  ' hours'
-                                                : ''}
-                                        </td>
-                                    ) : (
+                        {/* cash rate flat */}
+                        {job.flatRate && job.flatRate[0].isTrue ? (
+                            <tr>
+                                {job.laborTime > 0 ? (
+                                    <td>
+                                        Flat Rate{' '}
+                                        {job.laborTime
+                                            ? 'Up to ' +
+                                            job.laborTime +
+                                            ' hours'
+                                            : ''}
+                                    </td>
+                                ) : (
                                         <td>Flat Rate</td>
                                     )}
-                                    <td>
-                                        cash ${job.flatRate[0].cashAmount}, card
+                                <td>
+                                    cash ${job.flatRate[0].cashAmount}, card
                                         ${job.flatRate[0].cardAmount}
-                                    </td>
-                                </tr>
-                            ) : (
+                                </td>
+                            </tr>
+                        ) : (
                                 ''
                             )}
-                            {job.flatRate &&
+                        {job.flatRate &&
                             job.laborTime &&
                             job.flatRate[0].isTrue &&
                             job.laborTime > 0 ? (
-                                    <tr>
-                                        {job.laborTime > 0 ? (
-                                            <td>
+                                <tr>
+                                    {job.laborTime > 0 ? (
+                                        <td>
                                             Hourly Rate After {job.laborTime}{' '}
                                             hours
                                             </td>
-                                        ) : (
+                                    ) : (
                                             <td>Hourly Rate</td>
                                         )}
-                                        <td>
+                                    <td>
                                         cash ${job.hourlyRatesCash}/hr, card $
                                             {job.hourlyRatesCard}/hr
                                         </td>
-                                    </tr>
-                                ) : (
-                                    ''
-                                )}
-                            {/* hourly rates cash*/}
-                            {job.hourlyRatesCash &&
+                                </tr>
+                            ) : (
+                                ''
+                            )}
+                        {/* hourly rates cash*/}
+                        {job.hourlyRatesCash &&
                             job.hourlyRatesCash > 0 &&
                             !job.flatRate[0].isTrue ? (
-                                    <tr>
-                                        <td>Cash Discount Rate p/hour:</td>
-                                        <td>${job.hourlyRatesCash}</td>
-                                    </tr>
-                                ) : (
-                                    ''
-                                )}
-                            {/* hourly rates card*/}
-                            {job.hourlyRatesCard &&
+                                <tr>
+                                    <td>Cash Discount Rate p/hour:</td>
+                                    <td>${job.hourlyRatesCash}</td>
+                                </tr>
+                            ) : (
+                                ''
+                            )}
+                        {/* hourly rates card*/}
+                        {job.hourlyRatesCard &&
                             job.hourlyRatesCard > 0 &&
                             !job.flatRate[0].isTrue ? (
-                                    <tr>
-                                        <td>Card Regular Rate p/hour:</td>
-                                        <td>${job.hourlyRatesCard}</td>
-                                    </tr>
-                                ) : (
-                                    ''
-                                )}
-                            {/* Travel Fee */}
-                            {!isNaN(Number(job.gasFee)) &&
+                                <tr>
+                                    <td>Card Regular Rate p/hour:</td>
+                                    <td>${job.hourlyRatesCard}</td>
+                                </tr>
+                            ) : (
+                                ''
+                            )}
+                        {/* Travel Fee */}
+                        {!isNaN(Number(job.gasFee)) &&
                             Number(job.gasFee) > 0 ? (
-                                    <tr>
-                                        <td>Travel Fee (one time):</td>
-                                        <td>${job.gasFee}</td>
-                                    </tr>
-                                ) : (
-                                    ''
-                                )}
-                            {/* double drive time */}
-                            {job.doubleDrive === 'yes' ? (
                                 <tr>
-                                    <td>Double Drive Time:</td>
-                                    <td>
-                                        Yes,{' '}
-                                        <a
-                                            href="http://www.moverslegion.com/wp-content/uploads/2019/02/DDT.pdf"
-                                            download="http://www.moverslegion.com/wp-content/uploads/2019/02/DDT.pdf"
-                                            target="_blank"
-                                            rel="noopener noreferrer">
-                                            learn more
+                                    <td>Travel Fee (one time):</td>
+                                    <td>${job.gasFee}</td>
+                                </tr>
+                            ) : (
+                                ''
+                            )}
+                        {/* double drive time */}
+                        {job.doubleDrive === 'yes' ? (
+                            <tr>
+                                <td>Double Drive Time:</td>
+                                <td>
+                                    Yes,{' '}
+                                    <a
+                                        href="http://www.moverslegion.com/wp-content/uploads/2019/02/DDT.pdf"
+                                        download="http://www.moverslegion.com/wp-content/uploads/2019/02/DDT.pdf"
+                                        target="_blank"
+                                        rel="noopener noreferrer">
+                                        learn more
                                         </a>
-                                    </td>
-                                </tr>
-                            ) : (
+                                </td>
+                            </tr>
+                        ) : (
                                 ''
                             )}
-                            {/* small item packing */}
-                            {job.smallItemPacking < 0 ||
+                        {/* small item packing */}
+                        {job.smallItemPacking < 0 ||
                             job.smallItemPacking > 0
-                                ? this.renderSmallitemPacking(job)
-                                : ''}
-                            {/* Extra Large Item Handling */}
-                            {job.largeItemFee && job.largeItemFee > 0 ? (
-                                <tr>
-                                    <td>Extra Large Item Handling:</td>
-                                    <td>${job.largeItemFee}</td>
-                                </tr>
-                            ) : (
+                            ? this.renderSmallitemPacking(job)
+                            : ''}
+                        {/* Extra Large Item Handling */}
+                        {job.largeItemFee && job.largeItemFee > 0 ? (
+                            <tr>
+                                <td>Extra Large Item Handling:</td>
+                                <td>${job.largeItemFee}</td>
+                            </tr>
+                        ) : (
                                 ''
                             )}
-                            {job.deposit && job.deposit > 0 ? (
-                                <tr>
-                                    <td style={{ width: '49%' }}>
-                                        Deposit required to lock the spot:
+                        {job.deposit && job.deposit > 0 ? (
+                            <tr>
+                                <td style={{ width: '49%' }}>
+                                    Deposit required to lock the spot:
                                     </td>
-                                    <td style={{ width: '49%' }}>
-                                        +${job.deposit} (to be applied as a
-                                        credit toward this move’s bill)
+                                <td style={{ width: '49%' }}>
+                                    +${job.deposit} (to be applied as a
+                                    credit toward this move’s bill)
                                     </td>
-                                </tr>
-                            ) : (
+                            </tr>
+                        ) : (
                                 ''
                             )}
-                        </tbody>
-                    </table>
-                    <div className="sola-cekme">
-                        <p>
-                            {job.additionalInfo &&
+                    </tbody>
+                </table>
+                <div className="sola-cekme">
+                    <p>
+                        {job.additionalInfo &&
                             Array.isArray(job.additionalInfo) &&
                             job.additionalInfo.length > 0 ? (
-                                    <div>
+                                <div>
                                     Additional Info <br />
-                                        {this.additionalInfo(jobIs)}
-                                    </div>
-                                ) : null}
-                        </p>
-                        <p>
-                            {/* finish the on clikc pdf download */}
-                            <input
-                                className="secilib"
-                                onChange={() => this.checked()}
-                                type="checkbox"
-                            />{' '}
-                            I have read, understand and agree to the contents of
+                                    {this.additionalInfo(jobIs)}
+                                </div>
+                            ) : null}
+                    </p>
+                    <p>
+                        {/* finish the on clikc pdf download */}
+                        <input
+                            className="secilib"
+                            onChange={() => this.checked()}
+                            type="checkbox"
+                        />{' '}
+                        I have read, understand and agree to the contents of
                             the{' '}
-                            <i>
-                                <a
-                                    href="http://www.moverslegion.com/wp-content/uploads/2019/01/included.pdf"
-                                    download="http://www.moverslegion.com/wp-content/uploads/2019/01/included.pdf"
-                                    target="_blank"
-                                    rel="noopener noreferrer">
-                                    &quot;What&apos;s Included&quot; Section.
+                        <i>
+                            <a
+                                href="http://www.moverslegion.com/wp-content/uploads/2019/01/included.pdf"
+                                download="http://www.moverslegion.com/wp-content/uploads/2019/01/included.pdf"
+                                target="_blank"
+                                rel="noopener noreferrer">
+                                &quot;What&apos;s Included&quot; Section.
                                 </a>
-                            </i>
-                        </p>
-                        <p>
-                            <input
-                                className="secilib"
-                                onChange={() => this.checked()}
-                                type="checkbox"
-                            />{' '}
-                            I have read, understand and agree to the contents of
+                        </i>
+                    </p>
+                    <p>
+                        <input
+                            className="secilib"
+                            onChange={() => this.checked()}
+                            type="checkbox"
+                        />{' '}
+                        I have read, understand and agree to the contents of
                             the{' '}
-                            <i>
-                                <a
-                                    href="http://www.moverslegion.com/wp-content/uploads/2019/01/not-included.pdf"
-                                    download="http://www.moverslegion.com/wp-content/uploads/2019/01/not-included.pdf"
-                                    target="_blank"
-                                    rel="noopener noreferrer">
-                                    &quot;What&apos;s Not Included&quot;
-                                    Section.
+                        <i>
+                            <a
+                                href="http://www.moverslegion.com/wp-content/uploads/2019/01/not-included.pdf"
+                                download="http://www.moverslegion.com/wp-content/uploads/2019/01/not-included.pdf"
+                                target="_blank"
+                                rel="noopener noreferrer">
+                                &quot;What&apos;s Not Included&quot;
+                                Section.
                                 </a>
-                            </i>
-                        </p>
-                        <p>
-                            <input
-                                className="secilib"
-                                onChange={() => this.checked()}
-                                type="checkbox"
-                            />{' '}
-                            I have read, understand and agree to the contents of
+                        </i>
+                    </p>
+                    <p>
+                        <input
+                            className="secilib"
+                            onChange={() => this.checked()}
+                            type="checkbox"
+                        />{' '}
+                        I have read, understand and agree to the contents of
                             the{' '}
-                            <i>
-                                <a
-                                    href="http://www.moverslegion.com/wp-content/uploads/2018/12/for-you-1.pdf"
-                                    download="http://www.moverslegion.com/wp-content/uploads/2018/12/for-you-1.pdf"
-                                    target="_blank"
-                                    rel="noopener noreferrer">
-                                    &quot;For Your Information&quot; Section.
+                        <i>
+                            <a
+                                href="http://www.moverslegion.com/wp-content/uploads/2018/12/for-you-1.pdf"
+                                download="http://www.moverslegion.com/wp-content/uploads/2018/12/for-you-1.pdf"
+                                target="_blank"
+                                rel="noopener noreferrer">
+                                &quot;For Your Information&quot; Section.
                                 </a>
-                            </i>
-                        </p>
-                        <p>
-                            <input
-                                className="secilib"
-                                onChange={() => this.checked()}
-                                type="checkbox"
-                            />{' '}
-                            I have recieved a copy of the{' '}
-                            <i>
-                                <a
-                                    href="http://www.moverslegion.com/wp-content/uploads/2018/12/important.pdf"
-                                    download="http://www.moverslegion.com/wp-content/uploads/2018/12/important.pdf"
-                                    target="_blank"
-                                    rel="noopener noreferrer">
-                                    CPUC &quot;Important Information About Your
-                                    Move&quot; booklet.
+                        </i>
+                    </p>
+                    <p>
+                        <input
+                            className="secilib"
+                            onChange={() => this.checked()}
+                            type="checkbox"
+                        />{' '}
+                        I have recieved a copy of the{' '}
+                        <i>
+                            <a
+                                href="http://www.moverslegion.com/wp-content/uploads/2018/12/important.pdf"
+                                download="http://www.moverslegion.com/wp-content/uploads/2018/12/important.pdf"
+                                target="_blank"
+                                rel="noopener noreferrer">
+                                CPUC &quot;Important Information About Your
+                                Move&quot; booklet.
                                 </a>
-                            </i>
-                        </p>
-                        <p>
-                            <input
-                                className="secilib"
-                                onChange={() => this.checked()}
-                                type="checkbox"
-                            />{' '}
-                            I have recieved a copy of the{' '}
-                            <i>
-                                <a
-                                    href="http://www.moverslegion.com/wp-content/uploads/2018/12/Hazard.pdf"
-                                    download="http://www.moverslegion.com/wp-content/uploads/2018/12/Hazard.pdf"
-                                    target="_blank"
-                                    rel="noopener noreferrer">
-                                    CPUC Hazardous Material List
+                        </i>
+                    </p>
+                    <p>
+                        <input
+                            className="secilib"
+                            onChange={() => this.checked()}
+                            type="checkbox"
+                        />{' '}
+                        I have recieved a copy of the{' '}
+                        <i>
+                            <a
+                                href="http://www.moverslegion.com/wp-content/uploads/2018/12/Hazard.pdf"
+                                download="http://www.moverslegion.com/wp-content/uploads/2018/12/Hazard.pdf"
+                                target="_blank"
+                                rel="noopener noreferrer">
+                                CPUC Hazardous Material List
                                 </a>
-                            </i>{' '}
-                            and I agree not to pack any of the
+                        </i>{' '}
+                        and I agree not to pack any of the
                             <br />
-                            items listed for transportation by the moving
-                            company.
+                        items listed for transportation by the moving
+                        company.
                         </p>
-                        <p>
-                            <input
-                                className="secilib"
-                                onChange={() => this.checked()}
-                                type="checkbox"
-                            />{' '}
-                            I understand and agree that I will have Cash or Card
-                            Payment ready on the day of my move.
+                    <p>
+                        <input
+                            className="secilib"
+                            onChange={() => this.checked()}
+                            type="checkbox"
+                        />{' '}
+                        I understand and agree that I will have Cash or Card
+                        Payment ready on the day of my move.
                         </p>
-                        <p>
-                            <input
-                                className="secilib"
-                                onChange={() => this.checked()}
-                                type="checkbox"
-                            />{' '}
-                            Yes! I have read the information below and wish to
-                            pay my Moving Deposit to book this move.
+                    <p>
+                        <input
+                            className="secilib"
+                            onChange={() => this.checked()}
+                            type="checkbox"
+                        />{' '}
+                        Yes! I have read the information below and wish to
+                        pay my Moving Deposit to book this move.
                             <br />I understand that this Deposit is
-                            non-refundable and non-transferrable if I reschedule
-                            or cancel this move.
+                        non-refundable and non-transferrable if I reschedule
+                        or cancel this move.
                         </p>
-                        <p>
-                            **If you have any questions, please contact us as
-                            soon as possible by phone, text, or e-mail 24/7**
+                    <p>
+                        **If you have any questions, please contact us as
+                        soon as possible by phone, text, or e-mail 24/7**
                         </p>
-                        <div style={{ textAlign: 'center' }}>
-                            Phone Number: {job.companyInfo.phoneNumber} <br />
-                            Email:{' '}
-                            <a href={'mailto:' + job.companyInfo.email}>
-                                {job.companyInfo.email}
-                            </a>
-                            <br />
-                            Web:{' '}
-                            <a href={job.companyInfo.url}>
-                                {job.companyInfo.url}
-                            </a>
-                            <br />
-                        </div>
+                    <div style={{ textAlign: 'center' }}>
+                        Phone Number: {job.companyInfo.phoneNumber} <br />
+                        Email:{' '}
+                        <a href={'mailto:' + job.companyInfo.email}>
+                            {job.companyInfo.email}
+                        </a>
+                        <br />
+                        Web:{' '}
+                        <a href={job.companyInfo.url}>
+                            {job.companyInfo.url}
+                        </a>
+                        <br />
                     </div>
                 </div>
-            );
-        });
+            </div>
+        )
+    };
     }
 
     compare() {
