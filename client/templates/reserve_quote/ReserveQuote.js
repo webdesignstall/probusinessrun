@@ -21,7 +21,7 @@ export default class ReserveQuote extends TrackerReact(Component) {
         super(props);
         this.state = {
             jobNumber: '',
-            is: [],
+            is: {},
             id: '',
             selected: 0,
             movingSizeCorrectNaming: {
@@ -92,7 +92,7 @@ export default class ReserveQuote extends TrackerReact(Component) {
         console.log(event.target.value);
         let jobNumber = event.target.value;
         let isJob = WorkData.find({ jobNumber }).fetch()[0];
-        isJob && isJob.length > 0
+        isJob
             ? this.setState(
                 {
                     is: isJob,
@@ -262,7 +262,7 @@ export default class ReserveQuote extends TrackerReact(Component) {
                 <p>
                     Hello {job.clientFirstName}!<br />
                     Thank you for confirming your move with{' '}
-                    {job.companyInfo.name}!<br />
+                    {job.companyInfo && job.companyInfo.name}!<br />
                     Please review your Moving Confirmation below to ensure
                     accuracy:
                 </p>
@@ -316,8 +316,8 @@ export default class ReserveQuote extends TrackerReact(Component) {
                             <td>Number of Movers:</td>
                             <td>{job.numberOfWorkers} men crew</td>
                         </tr>
-                        {this.numberOfTrucks(jobIs)}
-                        {this.trucksRender(jobIs)}
+                        {this.numberOfTrucks(job)}
+                        {this.trucksRender(job)}
                         {job.laborTime ? (
                             <tr>
                                 <td>Minimum Labor Time:</td>
@@ -655,7 +655,7 @@ export default class ReserveQuote extends TrackerReact(Component) {
                                 </h6>
                             </div>
                         </div>
-                        {this.axtarisinNeticesi()}
+                        {this.state.id !== '' ? this.axtarisinNeticesi() : ''}
                         <div className="note">
                             <h4>Please check all the boxes for next step</h4>
                         </div>
