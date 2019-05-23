@@ -92,21 +92,21 @@ export default class ReserveQuote extends TrackerReact(Component) {
         console.log(event.target.value);
         let jobNumber = event.target.value;
         let isJob = WorkData.find({ jobNumber }).fetch()[0];
-        this.setState(
-            {
-                is: isJob,
-                id: isJob._id
-            },
-            () => {
-                isJob && isJob.length > 0
-                    ? ($('#axtarisin-neticesi').show(),
+        isJob && isJob.length > 0
+            ? this.setState(
+                {
+                    is: isJob,
+                    id: isJob._id
+                },
+                () => {
+                    $('#axtarisin-neticesi').show(),
                     document
                         .getElementById('enter-number')
                         .classList.add('hide'),
-                    Session.set('jobNumber', jobNumber))
-                    : null;
-            }
-        );
+                    Session.set('jobNumber', jobNumber);
+                }
+            )
+            : null;
     }
 
     addressesRender(addressler) {
@@ -258,7 +258,7 @@ export default class ReserveQuote extends TrackerReact(Component) {
 
         let job = this.state.is;
         return (
-            <div key={job._id || 123243423}>
+            <div key={(job && job._id) || 123243423}>
                 <p>
                     Hello {job.clientFirstName}!<br />
                     Thank you for confirming your move with{' '}
@@ -648,8 +648,8 @@ export default class ReserveQuote extends TrackerReact(Component) {
                                     <br />
                                     Your job number is:{' '}
                                     <span>
-                                        {(this.state.is[0] &&
-                                            this.state.is[0].jobNumber) ||
+                                        {(this.state.is &&
+                                            this.state.is.jobNumber) ||
                                             ''}
                                     </span>
                                 </h6>
