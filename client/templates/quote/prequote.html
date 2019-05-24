@@ -462,16 +462,6 @@
             document.getElementById('quote-request').reset();
         }
 
-        // declare job number
-        function jobNumber() {
-            document.getElementById('quote-job-number').value = Math.random()
-                .toString(36)
-                .substr(2, 5);
-        }
-
-        // run job number
-        jobNumber();
-
         function gasFeeNotSure() {
             if (!document.getElementById('gas_fee').disabled) {
                 document.getElementById('gas_fee').value = -0.01;
