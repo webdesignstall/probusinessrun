@@ -25,7 +25,7 @@ export default function EmailContent(job) {
         </div>`
         : '';
 
-    let movingSize = function () {
+    let movingSize = function() {
         let movingSizeList = {
             items: 'Items',
             studio: 'Studio',
@@ -76,7 +76,10 @@ export default function EmailContent(job) {
         .join('');
 
     function rateInFlatDisplay() {
-        return job.flatRate && job.minimumLaborTime
+        return job.flatRate &&
+            job.minimumLaborTime &&
+            job.hourlyRatesCash > 0 &&
+            job.hourlyRatesCard
             ? `
             <div
             style="font-size:16px;text-align:center;font-family:'Roboto', Tahoma, Verdana, Segoe, sans-serif"
@@ -169,10 +172,10 @@ export default function EmailContent(job) {
                   style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px 0 3px 10px; width: 50%;"
                 >
                 Flat Rate ${
-            job.minimumLaborTime && job.minimumLaborTime > 0
-                ? `Up to ${job.minimumLaborTime} hours`
-                : ''
-            }
+    job.minimumLaborTime && job.minimumLaborTime > 0
+        ? `Up to ${job.minimumLaborTime} hours`
+        : ''
+}
                 </td>
                 <td
                   style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px 0 3px 10px; width: 50%;"
@@ -240,7 +243,7 @@ export default function EmailContent(job) {
             </div>
         `
             : job.gasFee === '' || job.gasFee === 0 || job.gasFee === undefined
-            ? `
+                ? `
                 <div
             style="font-size:16px;text-align:center;font-family:'Roboto', Tahoma, Verdana, Segoe, sans-serif"
             >
@@ -264,7 +267,7 @@ export default function EmailContent(job) {
                 </table>
             </div>
             `
-            : '';
+                : '';
 
     let doubleDrive =
         job.doubleDrive && job.doubleDrive === 'yes'
@@ -293,7 +296,7 @@ export default function EmailContent(job) {
             </div>
         `
             : job.doubleDrive && job.doubleDrive === 'waived'
-            ? `
+                ? `
                 <div
             style="font-size:16px;text-align:center;font-family:'Roboto', Tahoma, Verdana, Segoe, sans-serif"
             >
@@ -317,7 +320,7 @@ export default function EmailContent(job) {
                 </table>
             </div>
             `
-            : '';
+                : '';
 
     let smallItemPacking =
         job.smallPackingItems && job.smallPackingItems !== 0
@@ -340,10 +343,10 @@ export default function EmailContent(job) {
                     style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px 0 3px 10px; width: 50%;"
                     >
                     ${
-                job.smallPackingItems < 0
-                    ? 'Yes, <a href="http://www.moverslegion.com/wp-content/uploads/2018/12/small-item-pricing.pdf">learn more</a>'
-                    : '$' + job.smallPackingItems
-                }
+    job.smallPackingItems < 0
+        ? 'Yes, <a href="http://www.moverslegion.com/wp-content/uploads/2018/12/small-item-pricing.pdf">learn more</a>'
+        : '$' + job.smallPackingItems
+}
                     </td>
                 </tr>
                 </table>
@@ -451,10 +454,10 @@ export default function EmailContent(job) {
                 </table>
             </div>
                 ${
-                        contact.additionalPhoneNumber !== null &&
-                        contact.additionalPhoneNumber !== undefined &&
-                        contact.additionalPhoneNumber !== ''
-                            ? `
+    contact.additionalPhoneNumber !== null &&
+                    contact.additionalPhoneNumber !== undefined &&
+                    contact.additionalPhoneNumber !== ''
+        ? `
         <div
             style="font-size:16px;text-align:center;font-family:'Roboto', Tahoma, Verdana, Segoe, sans-serif"
             >
@@ -477,8 +480,8 @@ export default function EmailContent(job) {
                 </tr>
                 </table>
             </div>`
-                            : ''
-                        }`;
+        : ''
+}`;
                 })
                 .join('')
             : '';
@@ -613,25 +616,25 @@ export default function EmailContent(job) {
         let amount = 0;
 
         switch (job.expireHour) {
-            case 24:
-                (time = 'day'), (amount = 1);
-                break;
+        case 24:
+            (time = 'day'), (amount = 1);
+            break;
 
-            case 48:
-                (time = 'days'), (amount = 2);
-                break;
+        case 48:
+            (time = 'days'), (amount = 2);
+            break;
 
-            case 72:
-                (time = 'days'), (amount = 3);
-                break;
+        case 72:
+            (time = 'days'), (amount = 3);
+            break;
 
-            case 168:
-                (time = 'week'), (amount = 1);
-                break;
+        case 168:
+            (time = 'week'), (amount = 1);
+            break;
 
-            default:
-                (time = 'hour(s)'), (amount = job.expireHour);
-                break;
+        default:
+            (time = 'hour(s)'), (amount = job.expireHour);
+            break;
         }
 
         return job.expireHour > 0 ? `in ${amount} ${time}.` : 'soon.';
@@ -1030,8 +1033,8 @@ export default function EmailContent(job) {
                                 <p style="font-size: 14px; line-height: 16px; text-align: center; margin: 0;">
                                   <span style="font-size: 14px; line-height: 16px;">
                                   <strong> Hello ${job.firstName} ${
-        job.lastName
-        }!</strong>
+    job.lastName
+}!</strong>
                                 </span><br />
                                 <span style="font-size: 14px; line-height: 16px;" >
                                 <strong>
@@ -1388,11 +1391,11 @@ export default function EmailContent(job) {
                   </div>
                 </div>
                 ${
-        job.gasFee >= 0 ||
-        job.doubleDrive !== 'notSure' ||
-        (job.smallPackingItems > 0 || job.smallItemPacking < 0) ||
-        job.largeItemFee > 0
-            ? `
+    job.gasFee >= 0 ||
+                    job.doubleDrive !== 'notSure' ||
+                    (job.smallPackingItems > 0 || job.smallItemPacking < 0) ||
+                    job.largeItemFee > 0
+        ? `
                 <div style="background-color:transparent;">
                   <div
                     class="block-grid"
@@ -1474,12 +1477,12 @@ export default function EmailContent(job) {
                   </div>
                 </div>
       `
-            : ''
-        }
+        : ''
+}
                 
                 ${
-        job.doubleDrive === 'notSure' || job.gasFee < 0
-            ? `
+    job.doubleDrive === 'notSure' || job.gasFee < 0
+        ? `
         <div style="background-color:transparent;">
                   <div
                     class="block-grid"
@@ -1560,14 +1563,14 @@ export default function EmailContent(job) {
                         </div>
                       </div>
                             `
-            : ''
-        }
+        : ''
+}
 
 ${
-        job.additionalInfo &&
-        job.additionalInfo.length > 0 &&
-        Array.isArray(job.additionalInfo)
-            ? `
+    job.additionalInfo &&
+    job.additionalInfo.length > 0 &&
+    Array.isArray(job.additionalInfo)
+        ? `
       <div style="background-color:transparent;">
       <div
         class="block-grid"
@@ -1656,8 +1659,8 @@ ${
                       </div>
     
       `
-            : ''
-        }
+        : ''
+}
 
                 <div style="background-color:transparent;">
                   <div
@@ -1725,10 +1728,10 @@ ${
                           >
                             <!--<![endif]-->
                             ${
-        job.smallPackingItems === 0 ||
-        job.smallPackingItems === '' ||
-        job.smallPackingItems === undefined
-            ? `
+    job.smallPackingItems === 0 ||
+                                job.smallPackingItems === '' ||
+                                job.smallPackingItems === undefined
+        ? `
                             <div
                               style="font-size:16px;text-align:center;font-family:'Roboto', Tahoma, Verdana, Segoe, sans-serif"
                             >
@@ -1743,13 +1746,13 @@ ${
                               </div>
                             </div>
                             `
-            : ''
-        } 
+        : ''
+} 
                             ${
-        job.largeItemFee === 0 ||
-        job.largeItemFee === '' ||
-        job.largeItemFee === undefined
-            ? `
+    job.largeItemFee === 0 ||
+                                job.largeItemFee === '' ||
+                                job.largeItemFee === undefined
+        ? `
                             <div
                               style="font-size:16px;text-align:center;font-family:'Roboto', Tahoma, Verdana, Segoe, sans-serif"
                             >
@@ -1764,8 +1767,8 @@ ${
                               </div>
                             </div>
                             `
-            : ''
-        }
+        : ''
+}
                             
                             <div
                                   style="text-align: left; font-size: 13px; padding: 2px 0;"

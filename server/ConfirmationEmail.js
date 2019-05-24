@@ -183,7 +183,10 @@ export default function ConfirmationEmail(job) {
     }
 
     function hourlyRate() {
-        return job.flatRate && job.flatRate[0].isTrue
+        return job.flatRate &&
+            job.flatRate[0].isTrue &&
+            job.hourlyRatesCard > 0 &&
+            job.hourlyRatesCash > 0
             ? `
         <div style="font-size:16px;text-align:center;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif">
 <div  style="font-size: 13px; margin-bottom: 5px; border-bottom: 1px solid #BBBEC3">
