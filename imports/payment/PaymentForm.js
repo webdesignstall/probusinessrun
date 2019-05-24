@@ -184,7 +184,7 @@ export default class PaymentForm extends TrackerReact(Component) {
                             nonce: nonce
                         },
                         () => {
-                            fetch('https://probusinessrun.com/charge/', {
+                            fetch('https://www.probusinessrun.com/charge/', {
                                 method: 'POST',
                                 body: JSON.stringify({
                                     nonce: this.state.nonce,
