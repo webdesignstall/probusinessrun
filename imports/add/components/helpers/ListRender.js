@@ -13,7 +13,7 @@ export default class ListRender extends TrackerReact(Component) {
         this.state = {
             rank: this.props.rank,
             list: [],
-            displayInfo: false,
+            displayInfo: false
         };
 
         this.renderList = this.renderList.bind(this);
@@ -24,12 +24,12 @@ export default class ListRender extends TrackerReact(Component) {
             const data = Meteor.users
                 .find({
                     'profile.company': Meteor.userId(),
-                    'profile.rank': this.state.rank,
+                    'profile.rank': this.state.rank
                 })
                 .fetch();
 
             this.setState({
-                list: data,
+                list: data
             });
         });
 
@@ -44,15 +44,17 @@ export default class ListRender extends TrackerReact(Component) {
         this.setState(
             {
                 rank: nextProps.rank,
-                displayInfo: false,
+                displayInfo: false
             },
-            () => this.getlistFromDatabase(),
+            () => this.getlistFromDatabase()
         );
     }
 
     displayItemInfo(whatToShow) {
         this.setState(prevState => {
-            return prevState.displayInfo === whatToShow ? { displayInfo: '' } : { displayInfo: whatToShow };
+            return prevState.displayInfo === whatToShow
+                ? { displayInfo: '' }
+                : { displayInfo: whatToShow };
         });
     }
 
@@ -60,17 +62,22 @@ export default class ListRender extends TrackerReact(Component) {
         return this.state.list.map((list, index) => {
             return (
                 <div key={index + 'mainDiv'}>
-                    <div onClick={() => this.displayItemInfo(index + 'Show')} className="card__ employee--info">
+                    <div
+                        onClick={() => this.displayItemInfo(index + 'Show')}
+                        className="card__ employee--info">
                         {list.profile.firstName} {list.profile.lastName}&nbsp;
                         <span
                             className={
-                                (list.profile.rank === 'mover' || list.profile.rank === 'officeEmployee') &&
+                                (list.profile.rank === 'mover' ||
+                                    list.profile.rank === 'officeEmployee') &&
                                 list.profile.phoneNumber !== '' &&
                                 list.profile.phoneNumber !== 0
                                     ? 'employee--phone-number'
                                     : 'hide'
                             }>
-                            <i className="material-icons employee--phone-icon">phone</i>
+                            <i className="material-icons employee--phone-icon">
+                                phone
+                            </i>
                             {list.profile.phoneNumber}
                         </span>
                         <span
@@ -81,15 +88,23 @@ export default class ListRender extends TrackerReact(Component) {
                                     ? 'employee--phone-number'
                                     : 'hide'
                             }>
-                            <i className="material-icons employee--phone-icon">keyboard_tab</i>
+                            <i className="material-icons employee--phone-icon">
+                                keyboard_tab
+                            </i>
                             {list.profile.lenght}
                         </span>
                         <DeleteButton id={list._id} />
                     </div>
 
-                    <div className={this.state.displayInfo === index + 'Show' ? 'card__' : 'hide'}>
+                    <div
+                        className={
+                            this.state.displayInfo === index + 'Show'
+                                ? 'card__'
+                                : 'hide'
+                        }>
                         <div className="clear" />
-                        {(this.state.displayInfo && this.state.rank === 'mover') ||
+                        {(this.state.displayInfo &&
+                            this.state.rank === 'mover') ||
                         this.state.rank === 'officeEmployee' ? (
                                 <MoverForm
                                     hide={this.displayItemInfo}

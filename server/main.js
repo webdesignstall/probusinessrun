@@ -8,6 +8,8 @@ import ConfirmationEmail from './ConfirmationEmail';
 import supervisorEmailContent from './supervisorEmailContent';
 import squareConnect from 'square-connect';
 
+import depositPaymentEmail from './depositPaymentEmail';
+
 var config = require('../imports/helpers/config.json');
 
 Meteor.startup(() => {
@@ -252,6 +254,38 @@ if (Meteor.isServer) {
         },
         removeDiscount: function(id) {
             Discounts.remove(id);
+        },
+        sendPaymentConfirmationEmail: function(obj) {
+            let server = email.server.connect({
+                user: 'info@movingcompanylosangeles.com',
+                password: 'MCla7724!',
+                timeout: 60000,
+                host: 'mail.movingcompanylosangeles.com'
+                // ssl: true
+            });
+
+            let message = {
+                text: ' ',
+                from: 'ProBusinessRun info@probusinessrun.com',
+                to: 'lamovingcom@gmail.com',
+                subject: `${obj.clientFirstName} ${obj.clientLastName} payed $${
+                    obj.amount
+                } deposit`,
+                attachment: [
+                    {
+                        data: depositPaymentEmail(obj),
+                        alternative: true
+                    }
+                ]
+            };
+
+            server.send(message, function(err) {
+                err
+                    ? console.log(err)
+                    : console.log(
+                        'Info about payment successfully sent to administration email'
+                    );
+            });
         }
     });
 }

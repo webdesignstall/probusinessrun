@@ -54,9 +54,18 @@ Router.route('/charge', { where: 'server' }).post(function() {
         .charge(locationIds[jobInfo.companyInfo.name], request_body)
         .then(
             function(data) {
+                let obj = {
+                    clientFirstName: request_params.clientFirstName,
+                    clientLastName: request_params.clientLastName,
+                    amount,
+                    cardHolderName: request_params.cardHolderName,
+                    tsId: data.transaction.id,
+                    date: data.transaction.created_at,
+                    jobNumber: request_params.jobNumber
+                };
+                Meteor.call('sendPaymentConfirmationEmail', obj);
                 var json = JSON.stringify(data);
-                console.log(data);
-                console.log('payment successfully: ' + data.exports);
+                console.log('payment successfully: ' + data.transaction.id);
                 res.end(json);
             },
             function(error) {

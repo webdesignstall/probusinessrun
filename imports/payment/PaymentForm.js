@@ -6,6 +6,8 @@ import { Session } from 'meteor/session';
 import WorkData from '../../common/collections_2';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 
+/*global swal */
+
 import ConfirmationDisplay from '../../client/templates/reserve_quote/ConfirmationDisplay';
 
 var configs = require('../helpers/config.json');
@@ -42,9 +44,19 @@ export default class PaymentForm extends TrackerReact(Component) {
             googlePay: false,
             applePay: false,
             masterpass: false,
-            paymentAmount: 0
+            paymentAmount: 0,
+            cardHolderName: ''
         };
+
         this.requestCardNonce = this.requestCardNonce.bind(this);
+        this.nameChange = this.nameChange.bind(this);
+    }
+
+    nameChange(e) {
+        let value = e.target.value;
+        this.setState({
+            cardHolderName: value
+        });
     }
 
     requestCardNonce() {
@@ -172,12 +184,19 @@ export default class PaymentForm extends TrackerReact(Component) {
                             nonce: nonce
                         },
                         () => {
-                            fetch('https://www.probusinessrun.com/charge/', {
+                            fetch('https://probusinessrun.com/charge/', {
                                 method: 'POST',
                                 body: JSON.stringify({
                                     nonce: this.state.nonce,
                                     id: this.props.id,
-                                    what: 'deposit'
+                                    what: 'deposit',
+                                    cardHolderName: this.state.cardHolderName,
+                                    jobNumber: Session.get('jobNumber'),
+                                    clientFirstName:
+                                        Session.get('job').clientFirstName ||
+                                        '',
+                                    clientLastName:
+                                        Session.get('job').clientLastName || ''
                                 }),
                                 headers: {
                                     'Content-Type': 'application/json'
@@ -333,6 +352,7 @@ export default class PaymentForm extends TrackerReact(Component) {
                                 style={styles.name}
                                 type="text"
                                 placeholder="Name"
+                                onChange={e => this.nameChange(e)}
                             />
                             <div id="sq-postal-code" />
                         </div>
