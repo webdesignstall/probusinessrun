@@ -422,6 +422,24 @@ Template.preQuote.onRendered(function() {
     Meteor.subscribe('usersData');
     Meteor.subscribe('workSchema');
 
+    // declare job number
+    function jobNumber_() {
+        let jobNumber = Math.round(Math.random() * (999999 - 1) + 1);
+        jobNumber = jobNumber.toString();
+        let howManyZero = 6 - jobNumber.length;
+        if (howManyZero > 0) {
+            for (let i = 0; i < howManyZero; i++) {
+                jobNumber = '0' + jobNumber;
+            }
+        }
+        let result = WorkData.find({ jobNumber }).fetch();
+        result && result.length > 0 ? jobNumber_() : null;
+        document.getElementById('quote-job-number').value = jobNumber;
+    }
+
+    // run job number
+    jobNumber_();
+
     $('#quote-date-picker').datepicker();
     $(function() {
         $('#quote-date-picker').datepicker('setDate', new Date());
