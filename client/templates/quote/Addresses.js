@@ -10,12 +10,13 @@ export default class Addresses extends React.Component {
         super(props);
 
         this.state = {
-            arrayOfvalue: ['', ''],
+            arrayOfvalue: ['', '']
         };
 
         this.renderAddressFields = this.renderAddressFields.bind(this);
         this.addMore = this.addMore.bind(this);
         this.resetComponent = this.resetComponent.bind(this);
+        this.deleteAddress = this.deleteAddress.bind(this);
         // this.inputChangeHandler = this.inputChangeHandler.bind(this)
     }
 
@@ -31,11 +32,11 @@ export default class Addresses extends React.Component {
                 ? this.setState({ arrayOfvalue: isInfo.addresses }, () => {
                     this.props.updateJob &&
                           this.props.updateJob({
-                              addresses: this.state.arrayOfvalue,
+                              addresses: this.state.arrayOfvalue
                           });
                 })
                 : this.setState({
-                    arrayOfvalue: ['', ''],
+                    arrayOfvalue: ['', '']
                 });
         });
     }
@@ -43,14 +44,14 @@ export default class Addresses extends React.Component {
     resetComponent() {
         this.setState(
             {
-                arrayOfvalue: ['', ''],
+                arrayOfvalue: ['', '']
             },
             () => {
                 this.props.updateJob &&
                     this.props.updateJob({
-                        addresses: this.state.arrayOfvalue,
+                        addresses: this.state.arrayOfvalue
                     });
-            },
+            }
         );
         // this.forceUpdate();
     }
@@ -65,18 +66,33 @@ export default class Addresses extends React.Component {
         this.setState({ arrayOfvalue }, () => {
             this.props.updateJob &&
                 this.props.updateJob({
-                    addresses: this.state.arrayOfvalue,
+                    addresses: this.state.arrayOfvalue
                 });
         });
     }
 
-    deleteAddress(id) {
-        document.getElementById(id).remove();
+    deleteAddress(index) {
+        let oldArray = this.state.arrayOfvalue;
+        oldArray.splice(index, 1);
+        this.setState(
+            {
+                arrayOfvalue: oldArray
+            },
+            () => {
+                this.props.updateJob &&
+                    this.props.updateJob({
+                        addresses: this.state.arrayOfvalue
+                    });
+            }
+        );
     }
 
     renderAddressFields() {
         return this.state.arrayOfvalue.map((el, i) => (
-            <div key={i} id={i + '_id'} className="input-field valideyn col s12 m6 l6">
+            <div
+                key={i}
+                id={i + '_id'}
+                className="input-field valideyn col s12 m6 l6">
                 <i className="material-icons isare">location_on</i>
                 <input
                     key={i}
@@ -86,7 +102,9 @@ export default class Addresses extends React.Component {
                     value={this.state.arrayOfvalue[i]}
                     onChange={this.inputChangeHandler.bind(this, i)}
                 />
-                <i className="material-icons sag delete-address animated" onClick={() => this.deleteAddress(i + '_id')}>
+                <i
+                    className="material-icons sag delete-address animated"
+                    onClick={() => this.deleteAddress(i)}>
                     delete_forever
                 </i>
                 <label className="active" htmlFor="movingFrom">
@@ -99,14 +117,14 @@ export default class Addresses extends React.Component {
     addMore() {
         this.setState(
             prevState => ({
-                arrayOfvalue: [...prevState.arrayOfvalue, ''],
+                arrayOfvalue: [...prevState.arrayOfvalue, '']
             }),
             () => {
                 this.props.updateJob &&
                     this.props.updateJob({
-                        addresses: this.state.arrayOfvalue,
+                        addresses: this.state.arrayOfvalue
                     });
-            },
+            }
         );
     }
 
@@ -119,14 +137,18 @@ export default class Addresses extends React.Component {
                             fontWeight: 'bold',
                             letterSpacing: '0.5px',
                             position: 'absolute',
-                            top: '-27px',
+                            top: '-27px'
                         }}>
                         ADDRESSES
                     </span>
-                    <div className="addMoreAddress-button addMoreAddress" onClick={this.addMore}>
+                    <div
+                        className="addMoreAddress-button addMoreAddress"
+                        onClick={this.addMore}>
                         <div className="relative">
                             <span>Add More</span>
-                            <i className="ikonka material-icons" style={{ left: '87px' }}>
+                            <i
+                                className="ikonka material-icons"
+                                style={{ left: '87px' }}>
                                 add_circle
                             </i>
                         </div>
@@ -140,5 +162,5 @@ export default class Addresses extends React.Component {
 }
 
 Addresses.propTypes = {
-    updateJob: PropTypes.func,
+    updateJob: PropTypes.func
 };
