@@ -426,7 +426,7 @@ export default function EmailContent(job) {
                     <td
                     style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px 0 3px 10px; width: 50%;"
                     >
-                    ${contact.firstName} ${contact.lastName}
+                    ${contact.firstName || ''} ${contact.lastName || ''}
                     </td>
                 </tr>
                 </table>
@@ -1032,9 +1032,8 @@ export default function EmailContent(job) {
                               >
                                 <p style="font-size: 14px; line-height: 16px; text-align: center; margin: 0;">
                                   <span style="font-size: 14px; line-height: 16px;">
-                                  <strong> Hello ${job.firstName} ${
-    job.lastName
-}!</strong>
+                                  <strong> Hello ${job.firstName ||
+                                      ''} ${job.lastName || ''}!</strong>
                                 </span><br />
                                 <span style="font-size: 14px; line-height: 16px;" >
                                 <strong>
