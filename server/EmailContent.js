@@ -1567,6 +1567,100 @@ export default function EmailContent(job) {
 }
 
 ${
+    job.noteForYourMove && job.noteForYourMove !== ''
+        ? `
+    <div style="background-color:transparent;">
+    <div
+      class="block-grid"
+      style="Margin: 0 auto; min-width: 320px; max-width: 500px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #4B5570;"
+    >
+      <div
+        style="border-collapse: collapse;display: table;width: 100%;background-color:#4B5570;"
+      >
+        <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:transparent;"><tr><td align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:500px"><tr class="layout-full-width" style="background-color:#4B5570"><![endif]-->
+        <!--[if (mso)|(IE)]><td align="center" width="500" style="background-color:#4B5570;width:500px; border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent;" valign="top"><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 0px; padding-left: 0px; padding-top:0px; padding-bottom:0px;"><![endif]-->
+        <div
+          class="col num12"
+          style="min-width: 320px; max-width: 500px; display: table-cell; vertical-align: top;"
+        >
+          <div style="width:100% !important;">
+            <!--[if (!mso)&(!IE)]><!-->
+            <div
+              style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:0px; padding-bottom:0px; padding-right: 0px; padding-left: 0px;"
+            >
+              <!--<![endif]-->
+              <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top: 10px; padding-bottom: 10px; font-family: Tahoma, Verdana, sans-serif"><![endif]-->
+              <div
+                style="color:#FFFFFF;font-family:'Roboto', Tahoma, Verdana, Segoe, sans-serif;line-height:120%;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;"
+              >
+                <div
+                  style="font-size: 13px; line-height: 14px; color: #FFFFFF; font-family: 'Roboto', Tahoma, Verdana, Segoe, sans-serif;"
+                >
+                  <p
+                    style="font-size: 14px; line-height: 16px; text-align: center; margin: 0;"
+                  >
+                  NOTE FOR YOUR MOVE
+                  </p>
+                </div>
+              </div>
+              <!--[if mso]></td></tr></table><![endif]-->
+              <!--[if (!mso)&(!IE)]><!-->
+            </div>
+            <!--<![endif]-->
+          </div>
+        </div>
+        <!--[if (mso)|(IE)]></td></tr></table><![endif]-->
+        <!--[if (mso)|(IE)]></td></tr></table></td></tr></table><![endif]-->
+      </div>
+    </div>
+  </div>
+  <div style="background-color:transparent;">
+                      <div
+                        class="block-grid"
+                        style="Margin: 0 auto; min-width: 320px; max-width: 500px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; background-color: #F3F2F2;"
+                      >
+                        <div
+                          style="border-collapse: collapse;display: table;width: 100%;background-color:#F3F2F2;"
+                        >
+                          <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:transparent;"><tr><td align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:500px"><tr class="layout-full-width" style="background-color:#F3F2F2"><![endif]-->
+                          <!--[if (mso)|(IE)]><td align="center" width="500" style="background-color:#F3F2F2;width:500px; border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent;" valign="top"><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 5px; padding-left: 5px; padding-top:5px; padding-bottom:5px;"><![endif]-->
+                          <div
+                            class="col num12"
+                            style="min-width: 320px; max-width: 500px; display: table-cell; vertical-align: top;"
+                          >
+                            <div style="width:100% !important;">
+                              <!--[if (!mso)&(!IE)]><!-->
+                              <div
+                                style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:5px; padding-bottom:5px; padding-right: 5px; padding-left: 5px;"
+                              >
+                                <!--<![endif]-->
+                                <div
+                                style="padding: 3px 0 3px 10px;font-size:13px;text-align:left;font-family:'Roboto', Tahoma, Verdana, Segoe, sans-serif"
+                                >
+                                <div 
+                                style="border: none;
+                                background-color: rgb(243, 242, 242);
+                                min-width: 480px;
+                                max-width: 480px;
+                                min-height: 60px;
+                                ">${job.noteForYourMove}</div>
+                                </div>
+                                <!--[if (!mso)&(!IE)]><!-->
+                              </div>
+                              <!--<![endif]-->
+                            </div>
+                          </div>
+                          <!--[if (mso)|(IE)]></td></tr></table><![endif]-->
+                          <!--[if (mso)|(IE)]></td></tr></table></td></tr></table><![endif]-->
+                        </div>
+                      </div>
+                    </div>
+  
+    `
+        : ''
+}
+
+${
     job.additionalInfo &&
     job.additionalInfo.length > 0 &&
     Array.isArray(job.additionalInfo)
@@ -1601,7 +1695,7 @@ ${
                     <p
                       style="font-size: 14px; line-height: 16px; text-align: center; margin: 0;"
                     >
-                      ADDITIONAL INFO
+                      GOOD TO KNOW
                     </p>
                   </div>
                 </div>
