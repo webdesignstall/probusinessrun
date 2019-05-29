@@ -1566,7 +1566,7 @@ export default function EmailContent(job) {
 }
 
 ${
-    job.noteForYourMove && job.noteForYourMove !== ''
+    job.noteForYourMove && job.noteForYourMove.trim() !== ''
         ? `
     <div style="background-color:transparent;">
     <div

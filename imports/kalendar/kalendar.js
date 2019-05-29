@@ -612,7 +612,6 @@ Template.kalendar.onRendered(function() {
     });
 
     function filterJob(date, status) {
-        console.log(date, status, dataBase);
         let result = dataBase.filter(job => {
             return job.workDate === date && job.status === status;
         });

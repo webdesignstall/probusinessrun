@@ -301,12 +301,8 @@ export default function ConfirmationEmail(job) {
             : '';
     }
 
-    function additionalInfo() {
-        return job.additionalInfo
-            .map(info => {
-                return `<div>✓ ${info}</div>`;
-            })
-            .join('');
+    function noteForYourMove() {
+        return `<div>✓ ${noteForYourMove}</div>`;
     }
 
     return `
@@ -767,12 +763,10 @@ ${deposit()}
 <!--<![endif]-->
 <div style="font-size:16px;border:1px solid #BBBEC2;text-align:center;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif">
 ${
-    job.additionalInfo &&
-    Array.isArray(job.additionalInfo) &&
-    job.additionalInfo.length > 0
+    job.noteForYourMove && job.noteForYourMove.trim() !== ''
         ? `<div  style="text-align: left; padding: 5px 10px; font-size: 13px">
-Additional Info <br/>
-${additionalInfo()}
+Note For Your Move <br/>
+${noteForYourMove()}
 </div>`
         : ''
 }
