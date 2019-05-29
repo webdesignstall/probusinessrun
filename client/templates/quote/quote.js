@@ -13,9 +13,9 @@ import { AsYouType } from 'libphonenumber-js';
 let tracker_ = null;
 
 Template.updateQuote.onRendered(function() {
-    Meteor.subscribe('workSchema');
-    Meteor.subscribe('tabletData');
-    Meteor.subscribe('usersData');
+    // Meteor.subscribe('workSchema');
+    // Meteor.subscribe('tabletData');
+    // Meteor.subscribe('usersData');
 
     // $('#quote-date-picker_2').pickadate({
     //     selectMonths: true, // Creates a dropdown to control month
@@ -419,8 +419,8 @@ Template.preQuote.onRendered(function() {
     $(document).ready(function() {
         $('select').material_select();
     });
-    Meteor.subscribe('usersData');
-    Meteor.subscribe('workSchema');
+    // Meteor.subscribe('usersData');
+    // Meteor.subscribe('workSchema');
 
     // declare job number
     function jobNumber_() {

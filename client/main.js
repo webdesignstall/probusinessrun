@@ -4,6 +4,7 @@ import './templates/admin/calendar.html';
 import '../imports/imports';
 import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
+import { Tracker } from 'meteor/tracker';
 
 /*global $, Bert*/ window.jQuery = window.$ = $;
 
@@ -45,7 +46,7 @@ $(document).ready(function() {
         canceltext: 'Cancel', // Text for cancel-button
         autoclose: false, // automatic close timepicker
         ampmclickable: true, // make AM PM clickable
-        aftershow: function() {}, //Function for after opening timepicker
+        aftershow: function() {} //Function for after opening timepicker
     });
 });
 
@@ -77,13 +78,50 @@ Meteor.startup(() => {
     Session.set('update', false);
     Session.set('additionalInfo', []);
 
+    Tracker.autorun(() => {
+        let user = Meteor.userId();
+
+        if (user) {
+            let user1 = Meteor.users.find({ _id: user }).fetch()[0];
+            if (
+                user1 &&
+                (user1.profile.rank === 'admin' ||
+                    user1.profile.rank === 'officeEmployee')
+            ) {
+                Session.set('loading', true);
+                Meteor.subscribe('workSchema', {
+                    onReady: function() {
+                        Meteor.subscribe('fullUser', {
+                            onReady: function() {
+                                Meteor.subscribe('Dicsounts', {
+                                    onReady: function() {
+                                        Meteor.subscribe('tabletData', {
+                                            onReady: function() {
+                                                Session.set('loading', false);
+                                            },
+                                            onError: function() {
+                                                Session.set('loading', false);
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+        } else {
+            console.log('user yoxdu');
+        }
+    });
+
     Bert.defaults = {
         hideDelay: 6000,
         // Accepts: a number in milliseconds.
         style: 'fixed-top',
         // Accepts: fixed-top, fixed-bottom, growl-top-left,   growl-top-right,
         // growl-bottom-left, growl-bottom-right.
-        type: 'default',
+        type: 'default'
         // Accepts: default, success, info, warning, danger.
     };
 });

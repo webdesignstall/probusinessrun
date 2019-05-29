@@ -12,7 +12,7 @@ export default class DiscountAdminRender extends TrackerReact(React.Component) {
 
     componentDidMount() {
         this.x = Tracker.autorun(() => {
-            Meteor.subscribe('Dicsounts');
+            // Meteor.subscribe('Dicsounts');
         });
     }
 
@@ -31,7 +31,7 @@ export default class DiscountAdminRender extends TrackerReact(React.Component) {
             type: discount.type,
             confirmed: false,
             truckNumber: discount.truckNumber,
-            responded: true,
+            responded: true
         };
 
         Meteor.call('updateDiscount', doc, discount._id);
@@ -44,7 +44,7 @@ export default class DiscountAdminRender extends TrackerReact(React.Component) {
             type: discount.type,
             confirmed: true,
             truckNumber: discount.truckNumber,
-            responded: true,
+            responded: true
         };
 
         Meteor.call('updateDiscount', doc, discount._id, err => {
@@ -54,7 +54,7 @@ export default class DiscountAdminRender extends TrackerReact(React.Component) {
                 swal({
                     title: 'Success',
                     text: 'Discount accepted',
-                    icon: 'success',
+                    icon: 'success'
                 });
             }
         });
@@ -63,17 +63,24 @@ export default class DiscountAdminRender extends TrackerReact(React.Component) {
     renderList() {
         return this.discountsData().map(discount => {
             return (
-                <div key={Math.random()} className="cardBorder col s12 m12 l12" style={{ backgroundColor: '#ecf0f1' }}>
+                <div
+                    key={Math.random()}
+                    className="cardBorder col s12 m12 l12"
+                    style={{ backgroundColor: '#ecf0f1' }}>
                     <div
                         id={discount._id + 'deny'}
                         className={
-                            discount.responded && !discount.confirmed ? 'z2 transparentRed center-align' : 'hide'
+                            discount.responded && !discount.confirmed
+                                ? 'z2 transparentRed center-align'
+                                : 'hide'
                         }
                     />
                     <div
                         id={discount._id + 'accept'}
                         className={
-                            discount.responded && discount.confirmed ? 'z2 transparentGreen center-align' : 'hide'
+                            discount.responded && discount.confirmed
+                                ? 'z2 transparentGreen center-align'
+                                : 'hide'
                         }
                     />
                     <div className="col s5 m5 l5 cardBorder noPadding">
@@ -103,11 +110,17 @@ export default class DiscountAdminRender extends TrackerReact(React.Component) {
                             className=" click  col s6 m6 l6 center-align white-text"
                             style={{ backgroundColor: '#1abc9c' }}
                             onClick={() => this.accept(discount)}>
-                            <i className="material-icons padding5z">check_circle</i>
+                            <i className="material-icons padding5z">
+                                check_circle
+                            </i>
                         </div>
                     </div>
                     <div className="clear" />
-                    {discount.note ? <div className="cardBorder col s12 m12 l12">{discount.note}</div> : null}
+                    {discount.note ? (
+                        <div className="cardBorder col s12 m12 l12">
+                            {discount.note}
+                        </div>
+                    ) : null}
                 </div>
             );
         });

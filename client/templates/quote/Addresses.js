@@ -22,7 +22,7 @@ export default class Addresses extends React.Component {
 
     componentDidMount() {
         this.x = Tracker.autorun(() => {
-            Meteor.subscribe('workSchema');
+            // Meteor.subscribe('workSchema');
             let isId = Session.get('is');
             let isInfo = WorkData.findOne(isId);
 

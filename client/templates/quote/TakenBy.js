@@ -8,7 +8,7 @@ export default class TakenBy extends TrackerReact(Component) {
 
         this.state = {
             id: this.props.id,
-            usersList: [],
+            usersList: []
         };
 
         this.selectRef = React.createRef();
@@ -24,16 +24,16 @@ export default class TakenBy extends TrackerReact(Component) {
     }
 
     componentDidMount() {
-        Meteor.subscribe('fullUser');
+        // Meteor.subscribe('fullUser');
         this.setState({
-            usersList: this.fetchUsers(this.props.id),
+            usersList: this.fetchUsers(this.props.id)
         });
     }
 
     UNSAFE_componentWillReceiveProps(nextProps) {
         this.setState({
             usersList: this.fetchUsers(nextProps.id),
-            id: nextProps.id,
+            id: nextProps.id
         });
     }
 

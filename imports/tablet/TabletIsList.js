@@ -11,7 +11,7 @@ export default class TabletIsList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            tabletIsler: [],
+            tabletIsler: []
         };
 
         this.isleriDuz = this.isleriDuz.bind(this);
@@ -19,19 +19,19 @@ export default class TabletIsList extends React.Component {
 
     UNSAFE_componentWillMount() {
         this.x = Tracker.autorun(() => {
-            Meteor.subscribe('workSchema');
+            // Meteor.subscribe('workSchema');
             // const isler = WorkData.find({ truckNumber: Meteor.user().profile.number, quote: false }).fetch();
             const truckId = Number(Meteor.user().profile.number);
             const isler = WorkData.find({
                 trucks: {
                     $elemMatch: {
-                        truck: truckId,
-                    },
+                        truck: truckId
+                    }
                 },
-                status: 'won',
+                status: 'won'
             }).fetch();
             this.setState({
-                tabletIsler: isler,
+                tabletIsler: isler
             });
         });
     }
@@ -61,7 +61,7 @@ export default class TabletIsList extends React.Component {
                             fontWeight: 'bold',
                             color: '#52A39A',
                             margin: '0 5px',
-                            padding: '0 10px',
+                            padding: '0 10px'
                         }}>
                         {is.clientFirstName} {is.clientLastName}
                     </span>
@@ -72,7 +72,7 @@ export default class TabletIsList extends React.Component {
                             textTransform: 'uppercase',
                             fontWeight: 'bold',
                             color: 'black',
-                            padding: '0 10px',
+                            padding: '0 10px'
                         }}>
                         |
                     </span>
@@ -85,7 +85,7 @@ export default class TabletIsList extends React.Component {
                             fontWeight: 'bold',
                             color: '#78ab64',
                             padding: '0 10px',
-                            margin: '0 5px',
+                            margin: '0 5px'
                         }}>
                         {is.jobNumber}
                     </span>
@@ -100,7 +100,7 @@ export default class TabletIsList extends React.Component {
                                 color: 'white',
                                 padding: '0 10px',
                                 margin: '0 5px',
-                                textShadow: '1px 1px black',
+                                textShadow: '1px 1px black'
                             }}>
                             CLOSED
                         </span>
@@ -116,5 +116,8 @@ export default class TabletIsList extends React.Component {
 }
 
 Template.tablet.onRendered(function() {
-    ReactDOM.render(<TabletIsList />, document.getElementById('tablet-is-siyahi'));
+    ReactDOM.render(
+        <TabletIsList />,
+        document.getElementById('tablet-is-siyahi')
+    );
 });

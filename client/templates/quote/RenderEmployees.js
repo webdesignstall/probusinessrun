@@ -10,7 +10,7 @@ export default class RenderEmployees extends TrackerReact(Component) {
         super(props);
         this.state = {
             isciler: [],
-            secilmisIsciler: [],
+            secilmisIsciler: []
         };
 
         this.renderWorkers = this.renderWorkers.bind(this);
@@ -32,17 +32,24 @@ export default class RenderEmployees extends TrackerReact(Component) {
 
     componentWillMount() {
         this.x = Tracker.autorun(() => {
-            Meteor.subscribe('workSchema');
-            Meteor.subscribe('tabletData');
-            Meteor.subscribe('usersData');
-            const isciler = Meteor.users.find({ 'profile.rank': 'mover' }).fetch();
+            // Meteor.subscribe('workSchema');
+            // Meteor.subscribe('tabletData');
+            // Meteor.subscribe('usersData');
+            const isciler = Meteor.users
+                .find({ 'profile.rank': 'mover' })
+                .fetch();
             const is = WorkData.findOne(Session.get('is'));
-            if (is.workers !== undefined || is.workers !== null || is.workers !== '' || is.workers !== []) {
+            if (
+                is.workers !== undefined ||
+                is.workers !== null ||
+                is.workers !== '' ||
+                is.workers !== []
+            ) {
                 Session.set('secilmisIsciler', is.workers);
             }
 
             this.setState({
-                isciler,
+                isciler
             });
         });
     }
@@ -69,7 +76,9 @@ export default class RenderEmployees extends TrackerReact(Component) {
             document.getElementById(id).classList.add('iscilerin-adlari');
         } else {
             if (arr.length < maxWorkers) {
-                document.getElementById(id).classList.remove('iscilerin-adlari');
+                document
+                    .getElementById(id)
+                    .classList.remove('iscilerin-adlari');
                 document.getElementById(id).classList.add('green');
                 arr.push({ id: id });
             }

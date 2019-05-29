@@ -775,8 +775,8 @@ MY OWN FREE WILL`
 
     componentDidMount() {
         this.x = Tracker.autorun(() => {
-            Meteor.subscribe('workSchema');
-            Meteor.subscribe('fullUser');
+            // Meteor.subscribe('workSchema');
+            // Meteor.subscribe('fullUser');
             const isRender = WorkData.find({
                 _id: Session.get('tabletIsId')
             }).fetch();

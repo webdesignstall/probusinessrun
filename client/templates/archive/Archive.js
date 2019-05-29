@@ -29,7 +29,7 @@ export default class Archive extends TrackerReact(Component) {
     }
 
     componentDidMount() {
-        Meteor.subscribe('workSchema');
+        // Meteor.subscribe('workSchema');
     }
 
     updateJobLit(list) {

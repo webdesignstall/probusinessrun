@@ -41,7 +41,7 @@ export default class Discount extends TrackerReact(React.Component) {
 
     componentDidMount() {
         this.x = Tracker.autorun(() => {
-            Meteor.subscribe('Dicsounts');
+            // Meteor.subscribe('Dicsounts');
             const discount = this.discount(Session.get('discountId'))[0];
             discount
                 ? Session.set('discountAproved', discount.confirmed)

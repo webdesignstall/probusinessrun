@@ -25,16 +25,19 @@ export default class QuoteTam extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            baza: [],
+            baza: []
         };
     }
 
     componentDidMount() {
         this.x = Tracker.autorun(() => {
-            Meteor.subscribe('workSchema');
-            const melumatlar = WorkData.find({ quote: true, isFollowUp: true }).fetch();
+            // Meteor.subscribe('workSchema');
+            const melumatlar = WorkData.find({
+                quote: true,
+                isFollowUp: true
+            }).fetch();
             this.setState({
-                baza: melumatlar,
+                baza: melumatlar
             });
         });
     }
@@ -46,25 +49,53 @@ export default class QuoteTam extends React.Component {
         Session.set('additionalContacts', additionalContacts);
         let x = WorkData.findOne({ _id: Session.get('is') });
         document.querySelector('#updateQuote2').classList.remove('hide');
-        ReactDOM.render(<UpdateAddTruck />, document.querySelector('#truck-list-update'));
-        ReactDOM.render(<ArrivalWindow update={true} />, document.getElementById('update_time_window'));
-        ReactDOM.render(<NumberOfUsers />, document.getElementById('number-of-movers2'));
+        ReactDOM.render(
+            <UpdateAddTruck />,
+            document.querySelector('#truck-list-update')
+        );
+        ReactDOM.render(
+            <ArrivalWindow update={true} />,
+            document.getElementById('update_time_window')
+        );
+        ReactDOM.render(
+            <NumberOfUsers />,
+            document.getElementById('number-of-movers2')
+        );
         ReactDOM.render(<MovingSize />, document.getElementById('moving-size'));
-        ReactDOM.render(<UpdateDoubleDrive />, document.getElementById('double-drive-time-update'));
-        ReactDOM.render(<RenderEmployees />, document.getElementById('iscilerinSiyahisiRender'));
-        ReactDOM.render(<TempTruck update={true} />, document.querySelector('#tempTruckUpdate'));
-        ReactDOM.render(<Addresses />, document.querySelector('#addressesIdUpdate'));
-        ReactDOM.render(<QuoteExpiration />, document.querySelector('#quoteExpireDateUpdate'));
+        ReactDOM.render(
+            <UpdateDoubleDrive />,
+            document.getElementById('double-drive-time-update')
+        );
+        ReactDOM.render(
+            <RenderEmployees />,
+            document.getElementById('iscilerinSiyahisiRender')
+        );
+        ReactDOM.render(
+            <TempTruck update={true} />,
+            document.querySelector('#tempTruckUpdate')
+        );
+        ReactDOM.render(
+            <Addresses />,
+            document.querySelector('#addressesIdUpdate')
+        );
+        ReactDOM.render(
+            <QuoteExpiration />,
+            document.querySelector('#quoteExpireDateUpdate')
+        );
         ReactDOM.render(
             <AdditionalContact contacts={x.additionalContacts} />,
-            document.querySelector('#additional-contact-update'),
+            document.querySelector('#additional-contact-update')
         );
         let takenById = x.takenBy;
-        ReactDOM.render(<TakenBy id={takenById} update={true} />, document.getElementById('takenBy--update'));
+        ReactDOM.render(
+            <TakenBy id={takenById} update={true} />,
+            document.getElementById('takenBy--update')
+        );
         $(document).ready(function() {
             $('select').material_select();
         });
-        let jobSmallItemPacking = WorkData.findOne({ _id: Session.get('is') }).smallItemPacking;
+        let jobSmallItemPacking = WorkData.findOne({ _id: Session.get('is') })
+            .smallItemPacking;
         jobSmallItemPacking == -1
             ? ((document.getElementById('smallItemPackUpdate').checked = true),
             (document.getElementById('small_item_pack_2').disabled = true))
@@ -87,15 +118,23 @@ export default class QuoteTam extends React.Component {
                     key={quotes._id}
                     href="#"
                     className="collection-item"
-                    onClick={() => this.setWorkId(quotes._id, quotes.additionalContacts)}>
+                    onClick={() =>
+                        this.setWorkId(quotes._id, quotes.additionalContacts)
+                    }>
                     <span className="tarix-in-list">{quotes.workDate}</span>
-                    <span className="tarix-in-list green">{quotes.jobNumber}</span>
+                    <span className="tarix-in-list green">
+                        {quotes.jobNumber}
+                    </span>
                     <span>
                         {quotes.clientFirstName} {quotes.clientLastName}
                     </span>
                     <span
                         className="tarix-in-list sag deep-purple darken-1"
-                        style={{ padding: '3px 10px 2px', marginTop: '-2px', borderRadius: '15px' }}>
+                        style={{
+                            padding: '3px 10px 2px',
+                            marginTop: '-2px',
+                            borderRadius: '15px'
+                        }}>
                         {moment(quotes.quoteDate).format('MM/DD/YYYY hh:mm a')}
                     </span>
                 </a>
