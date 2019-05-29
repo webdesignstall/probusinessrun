@@ -9,7 +9,7 @@ export default class DailyStats extends TrackerReact(Component) {
         super(props);
 
         this.state = {
-            totalDaily: 0,
+            totalDaily: 0
         };
 
         this.totalJobs = 0;
@@ -20,25 +20,31 @@ export default class DailyStats extends TrackerReact(Component) {
         this.jobsMorning = 0;
     }
 
-    workDataList() {
-        return WorkData.find({ workDate: this.props.date, status: 'won' }).fetch();
-    }
+    // workDataList() {
+    //     // console.log('query');
+    //     return WorkData.find({
+    //         workDate: this.props.date,
+    //         status: 'won'
+    //     }).fetch();
+    // }
 
     morningJobs() {
         let jobs = 0;
         let employees = 0;
 
-        this.workDataList().map(work => {
-            Date.parse('1 Aug 2018 ' + work.workMustBeginTime[0]) < Date.parse('1 Aug 2018 01:00 pm')
-                ? ((employees += work.numberOfWorkers), jobs++)
-                : null;
-        });
+        this.props.workDataList &&
+            this.props.workDataList.map(work => {
+                Date.parse('1 Aug 2018 ' + work.workMustBeginTime[0]) <
+                Date.parse('1 Aug 2018 01:00 pm')
+                    ? ((employees += work.numberOfWorkers), jobs++)
+                    : null;
+            });
 
         this.jobsMorning = jobs;
 
         return {
             jobs,
-            employees,
+            employees
         };
     }
 
@@ -46,26 +52,36 @@ export default class DailyStats extends TrackerReact(Component) {
         let jobs = 0;
         let employees = 0;
 
-        this.workDataList().map(work => {
-            Date.parse('1 Aug 2018 ' + work.workMustBeginTime[0]) > Date.parse('1 Aug 2018 12:45 pm')
-                ? ((employees += work.numberOfWorkers), jobs++)
-                : null;
-        });
+        this.props.workDataList &&
+            this.props.workDataList.map(work => {
+                Date.parse('1 Aug 2018 ' + work.workMustBeginTime[0]) >
+                Date.parse('1 Aug 2018 12:45 pm')
+                    ? ((employees += work.numberOfWorkers), jobs++)
+                    : null;
+            });
 
         this.jobsAfterNoon = jobs;
 
         return {
             jobs,
-            employees,
+            employees
         };
     }
 
     render() {
         return (
             <div className="dailystat--main">
-                <MorningJobs jobsNumber={this.morningJobs().jobs} employeeNumber={this.morningJobs().employees} />
-                <AfternoonJobs jobsNumber={this.afterNoonJobs().jobs} employeeNumber={this.afterNoonJobs().employees} />
-                <span className="free">{this.jobsMorning + this.jobsAfterNoon}</span>
+                <MorningJobs
+                    jobsNumber={this.morningJobs().jobs}
+                    employeeNumber={this.morningJobs().employees}
+                />
+                <AfternoonJobs
+                    jobsNumber={this.afterNoonJobs().jobs}
+                    employeeNumber={this.afterNoonJobs().employees}
+                />
+                <span className="free">
+                    {this.jobsMorning + this.jobsAfterNoon}
+                </span>
             </div>
         );
     }

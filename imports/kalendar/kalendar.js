@@ -231,6 +231,7 @@ Template.kalendar.onRendered(function() {
         document.getElementById('number-of-movers')
     );
 
+    let dataBase = [];
     let sayi = 0;
     let clickOnDay = 0;
     let clickOnSelect = 0;
@@ -303,7 +304,7 @@ Template.kalendar.onRendered(function() {
 
     // tarixiGoster(ay, il);
 
-    Tracker.autorun(() => {
+    this.x = Tracker.autorun(() => {
         let totalJobs = new ReactiveVar(0);
         let monthIndex = ay + 1;
         let reg =
@@ -444,8 +445,9 @@ Template.kalendar.onRendered(function() {
             div.setAttribute('class', 'dailyStatsComponent');
             document.getElementById(gun.id).appendChild(div);
             if (gun.id.search('gunNomre') < 0) {
+                let fileterdJobs = filterJob(gun.id, 'won');
                 ReactDOM.render(
-                    <DailyStats date={gun.id} />,
+                    <DailyStats workDataList={fileterdJobs} />,
                     document.getElementById(gun.id + '_')
                 );
             }
@@ -536,8 +538,9 @@ Template.kalendar.onRendered(function() {
                     div.setAttribute('className', 'dailyStatsComponent');
                     document.getElementById(gun.id).appendChild(div);
                     if (gun.id.search('gunNomre') < 0) {
+                        let fileterdJobs = filterJob(gun.id, 'won');
                         ReactDOM.render(
-                            <DailyStats date={gun.id} />,
+                            <DailyStats workDataList={fileterdJobs} />,
                             document.getElementById(gun.id + '_')
                         );
                     }
@@ -601,6 +604,20 @@ Template.kalendar.onRendered(function() {
             }
         }
     });
+
+    Tracker.autorun(() => {
+        let baza = WorkData.find({}).fetch();
+        dataBase = baza;
+        gunYerlesdirme();
+    });
+
+    function filterJob(date, status) {
+        console.log(date, status, dataBase);
+        let result = dataBase.filter(job => {
+            return job.workDate === date && job.status === status;
+        });
+        return result;
+    }
     $('.dayData').click(function() {
         $('#modal1').modal();
     });
