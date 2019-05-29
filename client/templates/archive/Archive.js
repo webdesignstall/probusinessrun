@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import { Template } from 'meteor/templating';
+import { Meteor } from 'meteor/meteor';
 
 // importing style
-import './archive.styl';
+import './archive.css';
 
 // importing components
 import ArchiveHeader from './ArchiveHeader';
@@ -20,13 +21,28 @@ Template.archive.onDestroyed(() => {
 export default class Archive extends TrackerReact(Component) {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            jobList: []
+        };
+
+        this.updateJobLit = this.updateJobLit.bind(this);
     }
+
+    componentDidMount() {
+        Meteor.subscribe('workSchema');
+    }
+
+    updateJobLit(list) {
+        this.setState({
+            jobList: list
+        });
+    }
+
     render() {
         return (
             <div className="archive-main">
-                <ArchiveHeader />
-                <ArchiveList />
+                <ArchiveHeader updateJobLit={this.updateJobLit} />
+                <ArchiveList jobList={this.state.jobList} />
             </div>
         );
     }

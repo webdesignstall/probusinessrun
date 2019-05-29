@@ -1,0 +1,75 @@
+.archive-main {
+    margin-top: 10px;
+}
+.archive-main .archive-list {
+    border-radius: 5px !important;
+}
+.archive-header {
+    padding: 10px;
+    background-color: #edf0f1;
+    border-radius: 5px;
+}
+.archive-header span {
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #808080;
+    position: absolute;
+    top: 33px;
+}
+#search {
+    margin: 0 !important;
+}
+
+/* list */
+.archive-list-item {
+    height: 40px;
+    vertical-align: middle !important;
+}
+.archive-list-item:hover {
+    cursor: pointer;
+    background-color: #4599df !important;
+    color: #fff !important;
+}
+.archive-fullName {
+    position: relative;
+    text-transform: uppercase;
+    font-weight: 500;
+    width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+}
+
+.archive-date {
+    display: inline-block;
+    vertical-align: top;
+    font-family: monospace;
+    margin-left: 10px;
+    padding: 0 10px;
+    border-radius: 15px;
+    background-color: #303f4f;
+    color: white;
+}
+
+.archive-list--company {
+    display: inline-block;
+    vertical-align: top;
+    font-family: monospace;
+    margin-left: 10px;
+    padding: 0 10px;
+    border-radius: 15px;
+    background-color: #c6d092;
+    color: black;
+}
+
+.archive-list--jobNumber {
+    display: inline-block;
+    vertical-align: top;
+    font-family: monospace;
+    margin-left: 10px;
+    padding: 0 10px;
+    border-radius: 15px;
+    background-color: #e4d194;
+    color: black;
+}

@@ -15,7 +15,7 @@ export default class ArchiveHeader extends TrackerReact(Component) {
         return (
             <div className="archive-header">
                 <span>Search in Archive</span>
-                <ArchiveSearch />
+                <ArchiveSearch updateJobLit={this.props.updateJobLit} />
                 {/* display range component */}
             </div>
         );
