@@ -10,7 +10,8 @@ export default class ArchiveList extends TrackerReact(Component) {
         super(props);
         this.state = {
             list: [],
-            extend: false
+            extend: false,
+            id: ''
         };
 
         this.renderList = this.renderList.bind(this);
@@ -32,9 +33,15 @@ export default class ArchiveList extends TrackerReact(Component) {
         });
     }
 
-    extend() {
+    extend(id) {
         this.setState(prevState => {
-            return { extend: !prevState.extend };
+            return {
+                extend:
+                    prevState.id === id || prevState.id === ''
+                        ? !prevState.extend
+                        : prevState.extend,
+                id: prevState.id === '' || prevState.id !== id ? id : ''
+            };
         });
     }
 
@@ -52,21 +59,22 @@ export default class ArchiveList extends TrackerReact(Component) {
         return this.state.list.map((job, index) => {
             return (
                 <div
-                    onClick={this.extend}
                     style={{
                         height: this.state.extend ? 'auto' : '40px'
                     }}
                     key={'archiveList' + index}
                     className="collection-item archive-list-item">
-                    <div className="archive-fullName">
-                        {job.clientFirstName} {job.clientLastName}
-                    </div>
-                    <div className="archive-date">{job.workDate}</div>
-                    <div className="archive-list--jobNumber">
-                        {job.jobNumber}
-                    </div>
-                    <div className="archive-list--company">
-                        {job.companyInfo.name}
+                    <div onClick={() => this.extend(job._id)}>
+                        <div className="archive-fullName">
+                            {job.clientFirstName} {job.clientLastName}
+                        </div>
+                        <div className="archive-date">{job.workDate}</div>
+                        <div className="archive-list--jobNumber">
+                            {job.jobNumber}
+                        </div>
+                        <div className="archive-list--company">
+                            {job.companyInfo.name}
+                        </div>
                     </div>
                     <div className="right-content">
                         <a
@@ -90,7 +98,11 @@ export default class ArchiveList extends TrackerReact(Component) {
                             </i>
                         </a>
                     </div>
-                    {this.state.extend ? <ExtendArchive job={job || {}} /> : ''}
+                    {this.state.extend && this.state.id === job._id ? (
+                        <ExtendArchive job={job || {}} />
+                    ) : (
+                        ''
+                    )}
                 </div>
             );
         });

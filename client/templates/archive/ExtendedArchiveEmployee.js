@@ -28,7 +28,6 @@ export default class ExtendedArchiveEmployee extends Component {
 
     employees() {
         return this.state.employees.map((employee, index) => {
-            console.log(employee.profile.firstName);
             return (
                 <button key={'archiveListEmployee' + index}>
                     {employee.profile.firstName} {employee.profile.lastName}
