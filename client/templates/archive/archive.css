@@ -22,7 +22,6 @@
 
 /* list */
 .archive-list-item {
-    height: 40px;
     vertical-align: middle !important;
 }
 .archive-list-item:hover {
@@ -72,4 +71,43 @@
     border-radius: 15px;
     background-color: #e4d194;
     color: black;
+}
+
+/* right align */
+.right-content {
+    position: absolute;
+    right: 0;
+    top: 9px;
+    font-weight: bold;
+}
+
+/* contract button */
+.archive-list--contract {
+    position: relative;
+    display: inline-block;
+    margin-right: 20px;
+    font-weight: bold;
+    border-radius: 15px;
+    padding: 0 30px 0 10px;
+    background-color: rgb(236, 236, 236);
+}
+
+.archive-list--contract:hover {
+    -webkit-box-shadow: 0px 0px 10px -1px white;
+    -moz-box-shadow: 0px 0px 10px -1px white;
+    box-shadow: 0px 0px 10px -1px white;
+}
+
+.archive-list--contract .material-icons {
+    position: absolute;
+    right: 5px;
+    top: 1px;
+    font-size: 18px;
+}
+
+/* extended information */
+
+.archive-list--extended-information {
+    text-transform: uppercase;
+    font-weight: 500;
 }

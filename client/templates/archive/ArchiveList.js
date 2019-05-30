@@ -3,14 +3,18 @@ import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import WorkData from '../../../common/collections_2';
 import { Tracker } from 'meteor/tracker';
 
+import ExtendArchive from './ExtendArchive';
+
 export default class ArchiveList extends TrackerReact(Component) {
     constructor(props) {
         super(props);
         this.state = {
-            list: []
+            list: [],
+            extend: false
         };
 
         this.renderList = this.renderList.bind(this);
+        this.extend = this.extend.bind(this);
     }
 
     workData() {
@@ -28,8 +32,13 @@ export default class ArchiveList extends TrackerReact(Component) {
         });
     }
 
+    extend() {
+        this.setState(prevState => {
+            return { extend: !prevState.extend };
+        });
+    }
+
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps.jobList);
         this.setState({
             list: nextProps.jobList
         });
@@ -43,6 +52,10 @@ export default class ArchiveList extends TrackerReact(Component) {
         return this.state.list.map((job, index) => {
             return (
                 <div
+                    onClick={this.extend}
+                    style={{
+                        height: this.state.extend ? 'auto' : '40px'
+                    }}
                     key={'archiveList' + index}
                     className="collection-item archive-list-item">
                     <div className="archive-fullName">
@@ -55,6 +68,29 @@ export default class ArchiveList extends TrackerReact(Component) {
                     <div className="archive-list--company">
                         {job.companyInfo.name}
                     </div>
+                    <div className="right-content">
+                        <a
+                            className="archive-list--contract"
+                            href={job.finishedJobPDF || ''}>
+                            CONTRACT{' '}
+                            <i
+                                style={{ color: 'black' }}
+                                className="material-icons">
+                                insert_drive_file
+                            </i>
+                        </a>
+                        <a
+                            className="archive-list--contract"
+                            href={job.finishedJobPDF || ''}>
+                            CARDHOLDER{' '}
+                            <i
+                                style={{ color: 'black' }}
+                                className="material-icons">
+                                insert_drive_file
+                            </i>
+                        </a>
+                    </div>
+                    {this.state.extend ? <ExtendArchive job={job} /> : ''}
                 </div>
             );
         });
