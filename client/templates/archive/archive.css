@@ -110,4 +110,25 @@
 .archive-list--extended-information {
     text-transform: uppercase;
     font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.archive-card-main {
+    border-radius: 10px;
+    background-color: #323f4e;
+    padding: 10px;
+}
+
+.archive-card-main .card-title {
+    color: white;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+.archive-card-main button {
+    padding: 1px 10px;
+    color: white;
+    background-color: #4b596e;
+    border: none;
+    border-radius: 15px;
 }

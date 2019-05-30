@@ -90,7 +90,7 @@ export default class ArchiveList extends TrackerReact(Component) {
                             </i>
                         </a>
                     </div>
-                    {this.state.extend ? <ExtendArchive job={job} /> : ''}
+                    {this.state.extend ? <ExtendArchive job={job || {}} /> : ''}
                 </div>
             );
         });
