@@ -86,7 +86,8 @@ Meteor.startup(() => {
             if (
                 user1 &&
                 (user1.profile.rank === 'admin' ||
-                    user1.profile.rank === 'officeEmployee')
+                    user1.profile.rank === 'officeEmployee' ||
+                    user1.profile.rank === 'tablet')
             ) {
                 Session.set('loading', true);
                 Meteor.subscribe('workSchema', {
