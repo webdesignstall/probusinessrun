@@ -302,7 +302,7 @@ export default function ConfirmationEmail(job) {
     }
 
     function noteForYourMove() {
-        return `<div>✓ ${noteForYourMove}</div>`;
+        return ``;
     }
 
     return `
@@ -684,15 +684,14 @@ export default function ConfirmationEmail(job) {
 <div style="width: 49%; display: inline-block; text-align: left;">Customer Name:</div>
 <div style="width: 49%; display: inline-block; text-align: left;">${
     job.clientFirstName
-} ${job.clientLastName}</div>
+} ${job.clientLastName || ''}</div>
 </div>
 </div>
 <div style="font-size:16px;text-align:center;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif">
 <div  style="font-size: 13px; margin-bottom: 5px; border-bottom: 1px solid #BBBEC3">
 <div style="width: 49%; display: inline-block; text-align: left;">Customer Main No:</div>
-<div style="width: 49%; display: inline-block; text-align: left;">${
-    job.phoneNumber
-}</div>
+<div style="width: 49%; display: inline-block; text-align: left;">${job.phoneNumber ||
+        ''}</div>
 </div>
 </div>
 ${additionalPhoneNumber}
@@ -766,7 +765,7 @@ ${
     job.noteForYourMove && job.noteForYourMove.trim() !== ''
         ? `<div  style="text-align: left; padding: 5px 10px; font-size: 13px">
 Note For Your Move <br/>
-${noteForYourMove()}
+<div>${noteForYourMove}</div>
 </div>`
         : ''
 }
