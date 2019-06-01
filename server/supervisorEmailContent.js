@@ -91,9 +91,8 @@ export default function supervisorEmailContent(job) {
             job.additionalContacts.map(addContacts => {
                 return `<p>${addContacts.firstName} ${
                     addContacts.lastName
-                }</p><p>${addContacts.phoneNumber}</p><p>${
-                    addContacts.additionalPhoneNumber
-                }</p>`;
+                }</p><p>${addContacts.phoneNumber ||
+                    ''}</p><p>${addContacts.additionalPhoneNumber || ''}</p>`;
             })
         );
     };
