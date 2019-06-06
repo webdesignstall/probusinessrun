@@ -235,6 +235,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
         let doc = this.state.job;
         doc.workDate = workDate;
         doc.followUp &&
+            doc.followUp.length > 0 &&
             doc.followUp[doc.followUp.length - 1].note === '' &&
             doc.followUp.pop();
         doc.companyInfo = Session.get('companyInfo');
@@ -279,6 +280,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
         doc.isFollowUp = true;
         doc.confirmed = false;
         doc.followUp &&
+            doc.followUp.length > 0 &&
             doc.followUp[doc.followUp.length - 1].note === '' &&
             doc.followUp.pop();
         doc.emailSent = true;

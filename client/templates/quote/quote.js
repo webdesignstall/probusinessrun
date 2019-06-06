@@ -577,9 +577,17 @@ Template.preQuote.events({
 
         // declare job number
         function jobNumber_() {
-            document.getElementById('quote-job-number').value = Math.random()
-                .toString(36)
-                .substr(2, 5);
+            let jobNumber = Math.round(Math.random() * (999999 - 1) + 1);
+            jobNumber = jobNumber.toString();
+            let howManyZero = 6 - jobNumber.length;
+            if (howManyZero > 0) {
+                for (let i = 0; i < howManyZero; i++) {
+                    jobNumber = '0' + jobNumber;
+                }
+            }
+            let result = WorkData.find({ jobNumber }).fetch();
+            result && result.length > 0 ? jobNumber_() : null;
+            document.getElementById('quote-job-number').value = jobNumber;
         }
 
         let jobInfo = {
