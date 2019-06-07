@@ -54,18 +54,18 @@ export default class Addresses extends React.Component {
             console.log(response);
             if (status === 'OK') {
                 let distancies = [];
-                console.log(response.rows);
-                console.log(response.rows[0].elements);
-                console.log(response.rows[0].elements[0].distance);
-                console.log(response.rows[0].elements[0].distance.value);
-                response.rows.map(row => {
-                    let value = row.elements[0];
+                // console.log(response.rows);
+                // console.log(response.rows[0].elements);
+                // console.log(response.rows[0].elements[0].distance);
+                // console.log(response.rows[0].elements[0].distance.value);
+                response.rows.map((row, index) => {
+                    let value = row.elements[index].distance.value;
                     distancies.push(value);
                 });
                 let totalInMeter = 0;
                 let distance = 0;
-                distancies.map(result => {
-                    totalInMeter += result.distance.value;
+                distancies.map(distance => {
+                    totalInMeter += distance;
                 });
                 distance = parseFloat((totalInMeter / 1609.34).toFixed(2));
                 this_.setState({
@@ -88,13 +88,16 @@ export default class Addresses extends React.Component {
             this.state.arrayOfvalue[1].trim() !== '';
         if (isClaculatable) {
             let addresses = [...this.state.arrayOfvalue];
-            console.log(addresses);
             let service = new google.maps.DistanceMatrixService();
+            let origins = [...addresses];
+            origins.pop();
+            let destinations = [...addresses];
+            destinations.shift();
 
             service.getDistanceMatrix(
                 {
-                    origins: [addresses[0], addresses[2]],
-                    destinations: [addresses[1]],
+                    origins,
+                    destinations,
                     travelMode: 'DRIVING',
                     unitSystem: google.maps.UnitSystem.IMPERIAL,
                     drivingOptions: {
