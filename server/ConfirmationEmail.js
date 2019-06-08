@@ -302,7 +302,7 @@ export default function ConfirmationEmail(job) {
     }
 
     function noteForYourMove() {
-        return ``;
+        return job.noteForYourMove;
     }
 
     return `
@@ -765,7 +765,8 @@ ${
     job.noteForYourMove && job.noteForYourMove.trim() !== ''
         ? `<div  style="text-align: left; padding: 5px 10px; font-size: 13px">
 Note For Your Move <br/>
-<div>${noteForYourMove}</div>
+<div>${noteForYourMove()}</div><br/>
+<hr/>
 </div>`
         : ''
 }
