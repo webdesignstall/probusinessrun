@@ -315,7 +315,8 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
             numberOfWorkers: doc.numberOfWorkers,
             additionalContacts: doc.additionalContacts,
             emailSent: true,
-            additionalInfo: doc.additionalInfo
+            additionalInfo: doc.additionalInfo,
+            noteForYourMove: doc.noteForYourMove
         };
 
         Meteor.call('updateWork', doc, err => {
