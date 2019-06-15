@@ -41,7 +41,7 @@ export default class ExtendedArchiveEmployee extends Component {
             <div className="col s12 m3 l3">
                 <div className="archive-card-main">
                     <div className="card-content black-text">
-                        <span className="card-title">Employees</span>
+                        <span className="card-title">Movers</span>
                         <p>{this.employees()}</p>
                     </div>
                 </div>

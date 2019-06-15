@@ -1344,14 +1344,14 @@ MY OWN FREE WILL`
                                                 ? '$' + is.largeItemFee
                                                 : 'No'}
                                             <br />
-                                            Small Item Packing:{' '}
+                                            Flat Small Item Packing Price:{' '}
                                             {is.smallItemPacking &&
                                             is.smallItemPacking < 0
                                                 ? 'Yes'
                                                 : is.smallItemPacking &&
                                                   is.smallItemPacking > 0
                                                     ? '$' + is.smallItemPacking
-                                                    : 'Waived'}
+                                                    : 'No'}
                                             <br />
                                             Not to Exceed Price: ${is.price}
                                             <br />

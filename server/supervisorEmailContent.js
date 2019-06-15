@@ -84,6 +84,19 @@ export default function supervisorEmailContent(job) {
             : '';
     };
 
+    let additionalContacts = function() {
+        return (
+            job.additionalContacts &&
+            job.additionalContacts.length > 0 &&
+            job.additionalContacts.map(addContacts => {
+                return `<p>${addContacts.firstName} ${
+                    addContacts.lastName
+                }</p><p>${addContacts.phoneNumber ||
+                    ''}</p><p>${addContacts.additionalPhoneNumber || ''}</p>`;
+            })
+        );
+    };
+
     return `
         <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -427,6 +440,7 @@ export default function supervisorEmailContent(job) {
         ''} ${job.clientLastName || ''}</p>
 <p style="font-size: 14px; line-height: 16px; margin: 0;">${job.phoneNumber ||
         ''}</p>
+${additionalContacts()}
 <p style="font-size: 14px; line-height: 16px; margin: 0;">${
     job.workMustBeginTime[0]
 } - ${job.workMustBeginTime[1]}</p>

@@ -323,3 +323,37 @@ hr {
     list-style: square;
     cursor: pointer;
 }
+
+/* addresses */
+.totalDistance_button {
+    background-color: #74bb7a;
+    color: white;
+    font-weight: 500;
+    letter-spacing: 0.2px;
+    border: none;
+    border-radius: 5px 0 0 5px;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    cursor: pointer;
+    -webkit-box-shadow: #5bbd73 0px 2px 12px -3px;
+    box-shadow: #5bbd73 0px 2px 12px -3px;
+}
+
+.totalDistance {
+    margin-top: 5px;
+    margin-bottom: 10px;
+    font-family: monospace;
+}
+
+.totalDistance_distance {
+    background-color: #505ed8;
+    color: white;
+    font-weight: 500;
+    letter-spacing: 0.2px;
+    border: none;
+    text-transform: lowercase;
+    padding: 5px 10px;
+    -webkit-box-shadow: #505ed8 0px 2px 12px -3px;
+    box-shadow: #505ed8 0px 2px 12px -3px;
+    border-radius: 0 5px 5px 0;
+}

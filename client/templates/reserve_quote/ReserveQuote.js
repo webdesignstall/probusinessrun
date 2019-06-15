@@ -457,14 +457,14 @@ export default class ReserveQuote extends TrackerReact(Component) {
                 </table>
                 <div className="sola-cekme">
                     <p>
-                        {job.additionalInfo &&
-                        Array.isArray(job.additionalInfo) &&
-                        job.additionalInfo.length > 0 ? (
-                                <div>
-                                Additional Info <br />
-                                    {this.additionalInfo(job)}
-                                </div>
-                            ) : null}
+                        {job.noteForYourMove ? (
+                            <div>
+                                Note For Your Move <br />
+                                <span style={{ fontWeight: 'normal' }}>
+                                    {job.noteForYourMove}
+                                </span>
+                            </div>
+                        ) : null}
                     </p>
                     <p>
                         {/* finish the on clikc pdf download */}

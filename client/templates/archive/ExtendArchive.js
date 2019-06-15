@@ -52,13 +52,19 @@ export default class ExtendArchive extends Component {
         ) {
             let employee =
                 this.props.job.workers &&
-                Object.values(this.props.job.workers[0]);
+                this.props.job.workers.map(employee => {
+                    return employee.id;
+                });
+
             employee = Meteor.users.find({ _id: { $in: employee } }).fetch();
-            console.log(employee);
             let trucks =
                 this.props.job.trucks &&
-                Object.values(this.props.job.trucks[0]);
+                this.props.job.trucks.map(truck => {
+                    return truck.truck;
+                });
+
             trucks = Array.from(trucks.join(' ').split(' '));
+
             trucks = Meteor.users
                 .find({ 'profile.number': { $in: trucks } })
                 .fetch();
