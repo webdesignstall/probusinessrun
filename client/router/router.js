@@ -80,3 +80,9 @@ Router.route('/reserve', {
         this.render('reserveQuote');
     }
 });
+
+Router.route('/cardholder', {
+    onBeforeAction: function() {
+        this.render('cardHolder');
+    }
+});

@@ -100,11 +100,7 @@ if (Meteor.isServer) {
                 text: ' ',
                 from: job.companyInfo.name + ' ' + job.companyInfo.email,
                 to: job.email,
-                subject:
-                    'Guaranteed Moving Estimate for ' +
-                    job.firstName +
-                    ' ' +
-                    job.lastName,
+                subject: 'Guaranteed Moving Estimate for ' + job.firstName + ' ' + job.lastName,
                 attachment: [
                     {
                         data: EmailContent(job),
@@ -160,9 +156,7 @@ if (Meteor.isServer) {
             };
 
             server.send(message, function(err) {
-                err
-                    ? console.log(err)
-                    : console.log('Email succesfully sent to: ' + job.email);
+                err ? console.log(err) : console.log('Email succesfully sent to: ' + job.email);
             });
         },
 
@@ -197,10 +191,7 @@ if (Meteor.isServer) {
                 function(error, result) {
                     if (error) {
                         console.log(error);
-                        throw new Meteor.Error(
-                            'Error updating',
-                            'Reason: ' + error.message
-                        );
+                        throw new Meteor.Error('Error updating', 'Reason: ' + error.message);
                     } else {
                         console.log(result);
                     }
@@ -232,9 +223,7 @@ if (Meteor.isServer) {
             server.send(message, function(err) {
                 if (err) {
                     console.log(err);
-                    throw new Meteor.Error(
-                        'Impossible to send email to supervisor'
-                    );
+                    throw new Meteor.Error('Impossible to send email to supervisor');
                 } else {
                     console.log('Email successfully sent to supervisor');
                 }
@@ -281,8 +270,73 @@ if (Meteor.isServer) {
             server.send(message, function(err) {
                 err
                     ? console.log(err)
+                    : console.log('Info about payment successfully sent to administration email');
+            });
+        },
+        emailToCardHolder: function(obj) {
+            console.log(obj);
+            let server = email.server.connect({
+                user: 'movinglosangeles111@gmail.com',
+                password: '!QAZ1qaz',
+                timeout: 60000,
+                host: 'smtp.gmail.com',
+                ssl: true
+            });
+
+            //sending email
+            let message = {
+                text: ' ',
+                from: obj.companyInfo.name + ' <info@cheapmoverslosangeles.com>',
+                to: obj.cardHolderInfo.email,
+                subject: `Your have a request from ${obj.firstName} ${obj.lastName}`,
+                attachment: [
+                    {
+                        data: `<!DOCTYPE html>
+<html>
+<head>
+<title>Parcel Sandbox</title>
+<meta charset="UTF-8">
+</head>
+<body>
+<div>
+<p>
+Hello ${obj.cardHolderInfo.firstName} ${obj.cardHolderInfo.lastName},<br>
+We have a move scheduled for ${obj.firstName} ${obj.lastName} on
+${obj.movingDate}.<br>
+${obj.firstName} ${obj.lastName}, wants you to pay for his/her moving
+service bill. If you agree please go to the link and complete the form
+in order to make the payment.<br>
+</p>
+<a id="app" href="https://probusinessrun.com/cardholder/?id=${
+    obj._id
+}" style="border: 1px solid rgb(160, 190, 255);padding: 3px 15px;border-radius: 4px;font-family: monospace;cursor: pointer;background-color: rgb(220, 245, 253);color: blue;text-decoration: none;">
+click here continue to process
+</a>
+<p>
+Thank you for your cooperation!<br>
+${obj.companyInfo.name}<br>
+${obj.companyInfo.phoneNumber}<br>
+${obj.companyInfo.url}<br>
+${obj.companyInfo.email}<br>
+</p>
+</div>
+</body>
+</html>
+`,
+                        alternative: true
+                    }
+                ]
+            };
+
+            server.send(message, function(err, message) {
+                console.log(err);
+                console.log(message);
+                err
+                    ? console.log(err)
                     : console.log(
-                        'Info about payment successfully sent to administration email'
+                        'Info about payment successfully sent to ' +
+                              obj.cardHolderInfo.email +
+                              ' email'
                     );
             });
         }
