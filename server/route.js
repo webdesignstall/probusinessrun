@@ -20,8 +20,7 @@ Router.route('/charge', { where: 'server' }).post(function() {
 
     api.listLocations()
         .then(
-            data =>
-                console.log('API called successfully. Returned data: ' + data)
+            data => console.log('API called successfully. Returned data: ' + data)
             // function(data) {
             //     console.log('API called successfully. Returned data: ' + data);
             // },
@@ -50,28 +49,32 @@ Router.route('/charge', { where: 'server' }).post(function() {
         },
         idempotency_key: idempotency_key
     };
-    transactions_api
-        .charge(locationIds[jobInfo.companyInfo.name], request_body)
-        .then(
-            function(data) {
-                let obj = {
-                    clientFirstName: request_params.clientFirstName,
-                    clientLastName: request_params.clientLastName,
-                    amount,
-                    cardHolderName: request_params.cardHolderName,
-                    tsId: data.transaction.id,
-                    date: data.transaction.created_at,
-                    jobNumber: request_params.jobNumber
-                };
-                Meteor.call('sendPaymentConfirmationEmail', obj);
-                var json = JSON.stringify(data);
-                console.log('payment successfully: ' + data.transaction.id);
-                res.end(json);
-            },
-            function(error) {
-                console.log('route line 62: ' + error);
-                // res.writeHead(500);
-                res.end(JSON.stringify({ error: true }));
-            }
-        );
+    transactions_api.charge(locationIds[jobInfo.companyInfo.name], request_body).then(
+        function(data) {
+            let obj = {
+                clientFirstName: request_params.clientFirstName,
+                clientLastName: request_params.clientLastName,
+                amount,
+                cardHolderName: request_params.cardHolderName,
+                tsId: data.transaction.id,
+                date: data.transaction.created_at,
+                jobNumber: request_params.jobNumber
+            };
+            Meteor.call('sendPaymentConfirmationEmail', obj);
+            let job = request_params.job;
+            job.quote = false;
+            job.confirmed = true;
+            job.isFollowUp = true;
+            job.status = 'won';
+            Meteor.call('updateWork', job);
+            var json = JSON.stringify(data);
+            console.log('payment successfully: ' + data.transaction.id);
+            res.end(json);
+        },
+        function(error) {
+            console.log('route line 62: ' + error);
+            // res.writeHead(500);
+            res.end(JSON.stringify({ error: true }));
+        }
+    );
 });

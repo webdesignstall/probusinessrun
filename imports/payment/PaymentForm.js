@@ -168,9 +168,7 @@ export default class PaymentForm extends TrackerReact(Component) {
                             Session.set('loading', false);
                             swal({
                                 title: 'Error!',
-                                text:
-                                    'Can\'t proccess payment. Reason: ' +
-                                    error.message,
+                                text: 'Can\'t proccess payment. Reason: ' + error.message,
                                 icon: 'error',
                                 button: 'OK'
                             });
@@ -193,11 +191,9 @@ export default class PaymentForm extends TrackerReact(Component) {
                                     what: 'deposit',
                                     cardHolderName: this.state.cardHolderName,
                                     jobNumber: Session.get('jobNumber'),
-                                    clientFirstName:
-                                        Session.get('job').clientFirstName ||
-                                        '',
-                                    clientLastName:
-                                        Session.get('job').clientLastName || ''
+                                    clientFirstName: Session.get('job').clientFirstName || '',
+                                    clientLastName: Session.get('job').clientLastName || '',
+                                    job: Session.get('job')
                                 }),
                                 headers: {
                                     'Content-Type': 'application/json'
@@ -212,8 +208,7 @@ export default class PaymentForm extends TrackerReact(Component) {
                                         Session.set('loading', false);
                                         swal({
                                             title: 'Success!',
-                                            text:
-                                                'Payment processed successfully ',
+                                            text: 'Payment processed successfully ',
                                             icon: 'success',
                                             button: 'OK'
                                         });
@@ -223,20 +218,17 @@ export default class PaymentForm extends TrackerReact(Component) {
                                         document
                                             .getElementById('son-mesaj')
                                             .classList.remove('hide');
-                                        Meteor.call(
-                                            'confirmationGonder',
-                                            Session.get('job')
-                                        );
+                                        Meteor.call('confirmationGonder', Session.get('job'));
                                         ReactDOM.render(
                                             <ConfirmationDisplay />,
                                             document.getElementById('son-mesaj')
                                         );
-                                        let job = Session.get('job');
-                                        job.quote = false;
-                                        job.confirmed = true;
-                                        job.isFollowUp = true;
-                                        job.status = 'won';
-                                        Meteor.call('updateWork', job);
+                                        // let job = Session.get('job');
+                                        // job.quote = false;
+                                        // job.confirmed = true;
+                                        // job.isFollowUp = true;
+                                        // job.status = 'won';
+                                        // Meteor.call('updateWork', job);
                                     } else {
                                         console.log(error);
                                         Session.set('loading', false);
@@ -264,8 +256,7 @@ export default class PaymentForm extends TrackerReact(Component) {
                                 'Please fix card information errors before continuing.';
                         break;
                     case 'errorClassRemoved':
-                        document.getElementById('error').style.display =
-                                'none';
+                        document.getElementById('error').style.display = 'none';
                         break;
                     case 'cardBrandChanged':
                         if (inputEvent.cardBrand !== 'unknown') {
@@ -285,8 +276,7 @@ export default class PaymentForm extends TrackerReact(Component) {
                     }
                 },
                 paymentFormLoaded: function() {
-                    document.getElementById('name').style.display =
-                        'inline-flex';
+                    document.getElementById('name').style.display = 'inline-flex';
                     Session.set('loading', false);
                 }
             }
@@ -302,27 +292,21 @@ export default class PaymentForm extends TrackerReact(Component) {
                     <div id="sq-walletbox">
                         <button
                             style={{
-                                display: this.state.applePay
-                                    ? 'inherit'
-                                    : 'none'
+                                display: this.state.applePay ? 'inherit' : 'none'
                             }}
                             className="wallet-button"
                             id="sq-apple-pay"
                         />
                         <button
                             style={{
-                                display: this.state.masterpass
-                                    ? 'block'
-                                    : 'none'
+                                display: this.state.masterpass ? 'block' : 'none'
                             }}
                             className="wallet-button"
                             id="sq-masterpass"
                         />
                         <button
                             style={{
-                                display: this.state.googlePay
-                                    ? 'inherit'
-                                    : 'none'
+                                display: this.state.googlePay ? 'inherit' : 'none'
                             }}
                             className="wallet-button"
                             id="sq-google-pay"
@@ -332,9 +316,7 @@ export default class PaymentForm extends TrackerReact(Component) {
 
                     <div id="sq-ccbox">
                         <p id="card_header">
-                            <span style={styles.leftCenter}>
-                                Enter Card Info Below{' '}
-                            </span>
+                            <span style={styles.leftCenter}>Enter Card Info Below </span>
                             <span style={styles.blockRight}>
                                 {this.state.cardBrand.toUpperCase()}
                             </span>
@@ -358,9 +340,7 @@ export default class PaymentForm extends TrackerReact(Component) {
                             <div id="sq-postal-code" />
                         </div>
                     </div>
-                    <button
-                        className="button-credit-card"
-                        onClick={this.requestCardNonce}>
+                    <button className="button-credit-card" onClick={this.requestCardNonce}>
                         Pay ${this.state.paymentAmount}
                     </button>
                 </div>
