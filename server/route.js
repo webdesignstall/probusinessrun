@@ -61,13 +61,16 @@ Router.route('/charge', { where: 'server' }).post(function() {
                 jobNumber: request_params.jobNumber
             };
             Meteor.call('sendPaymentConfirmationEmail', obj);
+
             let job = request_params.job;
             job.quote = false;
             job.confirmed = true;
             job.isFollowUp = true;
             job.status = 'won';
             Meteor.call('updateWork', job);
-            var json = JSON.stringify(data);
+            Meteor.call('confirmationGonder', job);
+
+            let json = JSON.stringify(data);
             console.log('payment successfully: ' + data.transaction.id);
             res.end(json);
         },

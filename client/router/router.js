@@ -1,6 +1,7 @@
 // Routing ayarlari
 import { Router } from 'meteor/iron:router';
 import { Meteor } from 'meteor/meteor';
+import { Session } from 'meteor/session';
 
 Router.configure({
     layoutTemplate: 'layout',
@@ -81,8 +82,14 @@ Router.route('/reserve', {
     }
 });
 
-Router.route('/cardholder', {
-    onBeforeAction: function() {
-        this.render('cardHolder');
-    }
+Router.route('/cardholder/:id', function() {
+    Meteor.call('checkId', this.params.id, (err, res) => {
+        if (err) console.log(err);
+        if (res) {
+            this.render('cardHolder');
+            Session.set('job', res);
+        } else {
+            this.render('404');
+        }
+    });
 });

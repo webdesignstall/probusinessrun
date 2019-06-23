@@ -77,6 +77,7 @@ Meteor.startup(() => {
     Session.set('addingJob', false);
     Session.set('update', false);
     Session.set('additionalInfo', []);
+    Session.set('cardHolder', {});
 
     Tracker.autorun(() => {
         let user = Meteor.userId();

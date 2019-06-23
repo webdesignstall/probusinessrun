@@ -218,7 +218,6 @@ export default class PaymentForm extends TrackerReact(Component) {
                                         document
                                             .getElementById('son-mesaj')
                                             .classList.remove('hide');
-                                        Meteor.call('confirmationGonder', Session.get('job'));
                                         ReactDOM.render(
                                             <ConfirmationDisplay />,
                                             document.getElementById('son-mesaj')

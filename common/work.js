@@ -78,9 +78,7 @@ Schemas.workSchema = new SimpleSchema(
                 let tamId;
                 if (iscilerinBazasi) {
                     ikiNoqteninYeri = iscilerinBazasi.indexOf(':') + 1;
-                    tamId = iscilerinBazasi
-                        .substr(ikiNoqteninYeri, iscilerinBazasi.length)
-                        .trim();
+                    tamId = iscilerinBazasi.substr(ikiNoqteninYeri, iscilerinBazasi.length).trim();
                 }
 
                 return tamId;
@@ -721,6 +719,54 @@ Schemas.workSchema = new SimpleSchema(
         },
         'cardHolderInfo.lastName': {
             type: String,
+            optional: true
+        },
+        'cardHolderInfo.typedFirstName': {
+            type: String,
+            optional: true
+        },
+        'cardHolderInfo.typedLastName': {
+            type: String,
+            optional: true
+        },
+        'cardHolderInfo.nameOnCard': {
+            type: String,
+            optional: true
+        },
+        'cardHolderInfo.billingAddress': {
+            type: String,
+            optional: true
+        },
+        'cardHolderInfo.creditCardType': {
+            type: String,
+            optional: true
+        },
+        'cardHolderInfo.creditCardNumber': {
+            type: Number,
+            optional: true
+        },
+        'cardHolderInfo.expirationDate': {
+            type: String,
+            optional: true
+        },
+        'cardHolderInfo.cardId': {
+            type: String,
+            optional: true
+        },
+        'cardHolderInfo.cardFront': {
+            type: String,
+            optional: true
+        },
+        'cardHolderInfo.cardBack': {
+            type: String,
+            optional: true
+        },
+        'cardHolderInfo.cardHolderId': {
+            type: String,
+            optional: true
+        },
+        'cardHolderInfo.agreement': {
+            type: Boolean,
             optional: true
         },
         finishedJobPDF: {
