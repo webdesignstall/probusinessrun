@@ -15,7 +15,12 @@ class CardHolderUpload extends Component {
     }
 
     fileSelect(e, nameOfFile) {
+        let icon = document.getElementById(nameOfFile).innerHTML;
+        let loading =
+            '<svg width="36px"  height="36px"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="lds-rolling" style="background: none;"><circle cx="50" cy="50" fill="none" ng-attr-stroke="{{config.color}}" ng-attr-stroke-width="{{config.width}}" ng-attr-r="{{config.radius}}" ng-attr-stroke-dasharray="{{config.dasharray}}" stroke="#e15b64" stroke-width="10" r="35" stroke-dasharray="164.93361431346415 56.97787143782138" transform="rotate(71.8531 50 50)"><animateTransform attributeName="transform" type="rotate" calcMode="linear" values="0 50 50;360 50 50" keyTimes="0;1" dur="1s" begin="0s" repeatCount="indefinite"></animateTransform></circle></svg><p>click to upload</p>';
+        document.getElementById(nameOfFile).innerHTML = loading;
         let file = e.target.files[0];
+        // let value_ = e.target.value;
         let this_ = this;
         function getBase64(file) {
             var reader = new FileReader();
@@ -23,7 +28,7 @@ class CardHolderUpload extends Component {
             reader.onload = function() {
                 let cardHolder = Session.get('cardHolder');
                 cardHolder[nameOfFile] = reader.result;
-                this.props.change(nameOfFile, e.target.value);
+                this_.props.change(nameOfFile, reader.result);
                 this_.setState({
                     [nameOfFile]: true
                 });
@@ -35,12 +40,12 @@ class CardHolderUpload extends Component {
                     icon: 'error',
                     button: 'OK'
                 });
+                document.getElementById(nameOfFile).innerHTML = icon;
                 console.log('Error: ', error);
             };
         }
 
-        Session;
-        getBase64(file);
+        file ? getBase64(file) : (document.getElementById(nameOfFile).innerHTML = icon);
     }
     render() {
         return (
@@ -50,7 +55,7 @@ class CardHolderUpload extends Component {
                     <label htmlFor="card_front">
                         <div className="upload_cardholder_sections">
                             <p>Upload picture of the card front side</p>
-                            <div className={this.state.cardFront ? 'hide' : ''}>
+                            <div id="cardFront" className={this.state.cardFront ? 'hide' : ''}>
                                 <svg
                                     aria-hidden="true"
                                     focusable="false"
@@ -102,7 +107,7 @@ class CardHolderUpload extends Component {
                     <label htmlFor="card_back">
                         <div className="upload_cardholder_sections">
                             <p>Upload picture of the card back side</p>
-                            <div className={this.state.cardBack ? 'hide' : ''}>
+                            <div id="cardBack" className={this.state.cardBack ? 'hide' : ''}>
                                 <svg
                                     aria-hidden="true"
                                     focusable="false"
@@ -154,7 +159,10 @@ class CardHolderUpload extends Component {
                     <label htmlFor="cardholder_id">
                         <div className="upload_cardholder_sections">
                             <p>Upload picture of government issued ID</p>
-                            <div className={this.state.cardHolderId ? 'hide' : ''}>
+                            <div
+                                id="cardHolderId"
+                                className={this.state.cardHolderId ? 'hide' : ''}
+                            >
                                 <svg
                                     aria-hidden="true"
                                     focusable="false"

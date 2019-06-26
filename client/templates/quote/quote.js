@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 import WorkData from './../../../common/collections_2';
 import { Tracker } from 'meteor/tracker';
 import swal from 'sweetalert';
-import { AsYouType } from 'libphonenumber-js';
+import getUserIP from '../../../imports/helpers/getIp';
 
 /*global $*/
 
@@ -35,30 +35,20 @@ Template.updateQuote.onRendered(function() {
             let value = e.target.value;
             document.querySelector('#phoneNumber_2').value = value;
         } else {
-            let value = e.target.value
-                .toString()
-                .slice(0, e.target.value.length - 1);
+            let value = e.target.value.toString().slice(0, e.target.value.length - 1);
             document.querySelector('#phoneNumber_2').value = value;
         }
     });
-    document
-        .querySelector('#phoneNumber_2_additional')
-        .addEventListener('input', e => {
-            e.preventDefault();
-            if (regex.test(e.target.value)) {
-                let value = e.target.value;
-                document.querySelector(
-                    '#phoneNumber_2_additional'
-                ).value = value;
-            } else {
-                let value = e.target.value
-                    .toString()
-                    .slice(0, e.target.value.length - 1);
-                document.querySelector(
-                    '#phoneNumber_2_additional'
-                ).value = value;
-            }
-        });
+    document.querySelector('#phoneNumber_2_additional').addEventListener('input', e => {
+        e.preventDefault();
+        if (regex.test(e.target.value)) {
+            let value = e.target.value;
+            document.querySelector('#phoneNumber_2_additional').value = value;
+        } else {
+            let value = e.target.value.toString().slice(0, e.target.value.length - 1);
+            document.querySelector('#phoneNumber_2_additional').value = value;
+        }
+    });
 
     checkedUpdate.addEventListener('change', function() {
         Session.set('flatRate', !Session.get('flatRate'));
@@ -70,12 +60,8 @@ Template.updateQuote.onRendered(function() {
 
             ish.smallItemPacking && ish.smallItemPacking == -1
                 ? document.querySelector('#smallItemPackUpdate')
-                    ? ((document.querySelector(
-                        '#smallItemPackUpdate'
-                    ).checked = true),
-                    (document.querySelector(
-                        '#small_item_pack_2'
-                    ).disabled = true))
+                    ? ((document.querySelector('#smallItemPackUpdate').checked = true),
+                    (document.querySelector('#small_item_pack_2').disabled = true))
                     : null
                 : null;
             document.querySelector('#flatRateCashUpdate') &&
@@ -85,36 +71,22 @@ Template.updateQuote.onRendered(function() {
                 (document.querySelector('#flatRateCardUpdate').defaultValue =
                     ish.flatRate[0].cardAmount);
             document.querySelector('#flatBoxUpdate') &&
-                (document.querySelector('#flatBoxUpdate').checked =
-                    ish.flatRate[0].isTrue);
+                (document.querySelector('#flatBoxUpdate').checked = ish.flatRate[0].isTrue);
             Session.set('flatRate', ish.flatRate[0].isTrue);
             document.querySelector('#flatRateUpdate_')
                 ? ish.flatRate[0].isTrue
-                    ? document
-                        .querySelector('#flatRateUpdate_')
-                        .classList.remove('hide')
-                    : document
-                        .querySelector('#flatRateUpdate_')
-                        .classList.add('hide')
+                    ? document.querySelector('#flatRateUpdate_').classList.remove('hide')
+                    : document.querySelector('#flatRateUpdate_').classList.add('hide')
                 : null;
 
             document.querySelector('#flatBoxUpdate')
-                ? document
-                    .querySelector('#flatBoxUpdate')
-                    .addEventListener('change', function() {
-                        if (
-                            document.querySelector('#flatBoxUpdate')
-                                .checked === false
-                        ) {
-                            document
-                                .querySelector('#flatRateUpdate_')
-                                .classList.add('hide');
-                        } else {
-                            document
-                                .querySelector('#flatRateUpdate_')
-                                .classList.remove('hide');
-                        }
-                    })
+                ? document.querySelector('#flatBoxUpdate').addEventListener('change', function() {
+                    if (document.querySelector('#flatBoxUpdate').checked === false) {
+                        document.querySelector('#flatRateUpdate_').classList.add('hide');
+                    } else {
+                        document.querySelector('#flatRateUpdate_').classList.remove('hide');
+                    }
+                })
                 : null;
             ishDeyisibdir = Session.get('is');
         }
@@ -153,8 +125,7 @@ Template.updateQuote.events({
             err
                 ? (console.log(err),
                 swal({
-                    title:
-                          'Error! Can\'t send email to supervisor pls contact help desk',
+                    title: 'Error! Can\'t send email to supervisor pls contact help desk',
                     text: 'Reason: ' + err.message,
                     icon: 'error'
                 }),
@@ -177,8 +148,7 @@ Template.updateQuote.events({
             err
                 ? (console.log(err),
                 swal({
-                    title:
-                          'Error! Can\'t send email to supervisor pls contact help desk',
+                    title: 'Error! Can\'t send email to supervisor pls contact help desk',
                     text: 'Reason: ' + err.message,
                     icon: 'error'
                 }),
@@ -220,9 +190,7 @@ Template.updateQuote.events({
 
         let workDate = document.getElementById('quote-date-picker_2').value;
 
-        let addressesArray = Array.from(
-            document.getElementsByClassName('addresses')
-        );
+        let addressesArray = Array.from(document.getElementsByClassName('addresses'));
         let addresses = [];
         addressesArray.map(address => {
             addresses.push(address.value);
@@ -233,8 +201,7 @@ Template.updateQuote.events({
             firstName: document.getElementById('firstName_2').value,
             lastName: document.getElementById('lastName_2').value,
             phone: document.getElementById('phoneNumber_2').value,
-            phoneAdditional: document.getElementById('phoneNumber_2_additional')
-                .value,
+            phoneAdditional: document.getElementById('phoneNumber_2_additional').value,
             email: document.getElementById('musteriEmail_2').value,
             addresses,
             movingDateConverted: workDate,
@@ -244,31 +211,23 @@ Template.updateQuote.events({
             ],
             price: document.getElementById('quote_price_2').value,
             minimumLaborTime: document.getElementById('labor_time_2').value,
-            hourlyRatesCash: document.getElementById('hourly_rates_cash_2')
-                .value,
-            hourlyRatesCard: document.getElementById('hourly_rates_card_2')
-                .value,
+            hourlyRatesCash: document.getElementById('hourly_rates_cash_2').value,
+            hourlyRatesCard: document.getElementById('hourly_rates_card_2').value,
             trucks: trucksSelected,
             companyInfo,
-            doubleDrive: document.getElementById('updated-double-drive-value')
-                .value,
+            doubleDrive: document.getElementById('updated-double-drive-value').value,
             gasFee: document.getElementById('gas_fee_2').value,
-            smallPackingItems: document.getElementById('small_item_pack_2')
-                .value,
+            smallPackingItems: document.getElementById('small_item_pack_2').value,
             largeItemFee: document.getElementById('large_item_fee_2').value,
             movingSize: Session.get('movingSize'),
             workers: Session.get('secilmisIsciler'),
             note: document.getElementById('textarea2').value,
             trucksTemp: Session.get('trucklar'),
             flatRate: Session.get('flatRate'),
-            flatRateCash: !isNaN(
-                document.querySelector('#flatRateCashUpdate').value
-            )
+            flatRateCash: !isNaN(document.querySelector('#flatRateCashUpdate').value)
                 ? document.querySelector('#flatRateCashUpdate').value
                 : 0,
-            flatRateCard: !isNaN(
-                document.querySelector('#flatRateCardUpdate').value
-            )
+            flatRateCard: !isNaN(document.querySelector('#flatRateCardUpdate').value)
                 ? document.querySelector('#flatRateCardUpdate').value
                 : 0,
             comment: document.getElementById('textarea2').value,
@@ -276,11 +235,10 @@ Template.updateQuote.events({
             jobNumber: document.getElementById('quote-job-number_2').value,
             numberOfWorkers: document.getElementById('iscinin-sayi').value,
             additionalContacts: Session.get('additionalContacts'),
-            noteForYourMove: document.getElementById('for_your_move_update')
-                .value,
+            noteForYourMove: document.getElementById('for_your_move_update').value,
             additionalInfo: Session.get('additionalInfo')
         };
-
+        let ip = '';
         Meteor.call('emailGonder', doc, err => {
             err
                 ? (console.log(err),
@@ -295,9 +253,11 @@ Template.updateQuote.events({
                     text: 'Email sent successfully',
                     icon: 'success'
                 }),
+                // (ip = getUserIP()),
                 Meteor.call('updateWork', {
                     _id: Session.get('is'),
-                    emailSent: true
+                    emailSent: true,
+                    ip
                 }));
         });
     },
@@ -325,21 +285,21 @@ Template.updateQuote.events({
 
         let workDate = document.getElementById('quote-date-picker_2').value;
 
-        let addressesArray = Array.from(
-            document.getElementsByClassName('addresses')
-        );
+        let addressesArray = Array.from(document.getElementsByClassName('addresses'));
         let addresses = [];
         addressesArray.map(address => {
             addresses.push(address.value);
         });
+
+        let ip = '';
+        // ip = getUserIP();
 
         let doc = {
             _id: Session.get('is'),
             clientFirstName: document.getElementById('firstName_2').value,
             clientLastName: document.getElementById('lastName_2').value,
             phoneNumber: document.getElementById('phoneNumber_2').value,
-            phoneAdditional: document.getElementById('phoneNumber_2_additional')
-                .value,
+            phoneAdditional: document.getElementById('phoneNumber_2_additional').value,
             email: document.getElementById('musteriEmail_2').value,
             addresses,
             workDate,
@@ -349,16 +309,12 @@ Template.updateQuote.events({
             ],
             price: document.getElementById('quote_price_2').value,
             laborTime: document.getElementById('labor_time_2').value,
-            hourlyRatesCash: document.getElementById('hourly_rates_cash_2')
-                .value,
-            hourlyRatesCard: document.getElementById('hourly_rates_card_2')
-                .value,
+            hourlyRatesCash: document.getElementById('hourly_rates_cash_2').value,
+            hourlyRatesCard: document.getElementById('hourly_rates_card_2').value,
             trucks: trucksSelected,
-            doubleDrive: document.getElementById('updated-double-drive-value')
-                .value,
+            doubleDrive: document.getElementById('updated-double-drive-value').value,
             gasFee: document.getElementById('gas_fee_2').value,
-            smallItemPacking: document.getElementById('small_item_pack_2')
-                .value,
+            smallItemPacking: document.getElementById('small_item_pack_2').value,
             largeItemFee: document.getElementById('large_item_fee_2').value,
             movingSize: Session.get('movingSize'),
             workers: Session.get('secilmisIsciler'),
@@ -368,14 +324,10 @@ Template.updateQuote.events({
             flatRate: [
                 {
                     isTrue: Session.get('flatRate'),
-                    cashAmount: !isNaN(
-                        document.querySelector('#flatRateCashUpdate').value
-                    )
+                    cashAmount: !isNaN(document.querySelector('#flatRateCashUpdate').value)
                         ? document.querySelector('#flatRateCashUpdate').value
                         : 0,
-                    cardAmount: !isNaN(
-                        document.querySelector('#flatRateCardUpdate').value
-                    )
+                    cardAmount: !isNaN(document.querySelector('#flatRateCardUpdate').value)
                         ? document.querySelector('#flatRateCardUpdate').value
                         : 0
                 }
@@ -384,10 +336,9 @@ Template.updateQuote.events({
             deposit: document.getElementById('deposit-update').value,
             additionalContacts: Session.get('additionalContacts'),
             status: document.getElementById('jobStatus_followup').value,
-            noteForYourMove: document
-                .getElementById('for_your_move_update')
-                .value.trim(),
-            additionalInfo: Session.get('additionalInfo')
+            noteForYourMove: document.getElementById('for_your_move_update').value.trim(),
+            additionalInfo: Session.get('additionalInfo'),
+            ip
         };
 
         Meteor.call('updateWork', doc, function(err) {
@@ -453,26 +404,20 @@ Template.preQuote.onRendered(function() {
             let value = e.target.value;
             document.querySelector('#phoneNumber').value = value;
         } else {
-            let value = e.target.value
-                .toString()
-                .slice(0, e.target.value.length - 1);
+            let value = e.target.value.toString().slice(0, e.target.value.length - 1);
             document.querySelector('#phoneNumber').value = value;
         }
     });
-    document
-        .querySelector('#phoneNumberAdditional')
-        .addEventListener('input', e => {
-            e.preventDefault();
-            if (regex.test(e.target.value)) {
-                let value = e.target.value;
-                document.querySelector('#phoneNumberAdditional').value = value;
-            } else {
-                let value = e.target.value
-                    .toString()
-                    .slice(0, e.target.value.length - 1);
-                document.querySelector('#phoneNumberAdditional').value = value;
-            }
-        });
+    document.querySelector('#phoneNumberAdditional').addEventListener('input', e => {
+        e.preventDefault();
+        if (regex.test(e.target.value)) {
+            let value = e.target.value;
+            document.querySelector('#phoneNumberAdditional').value = value;
+        } else {
+            let value = e.target.value.toString().slice(0, e.target.value.length - 1);
+            document.querySelector('#phoneNumberAdditional').value = value;
+        }
+    });
 });
 
 Template.preQuote.events({
@@ -481,12 +426,9 @@ Template.preQuote.events({
         let firstName = document.getElementById('firstName').value;
         let lastName = document.getElementById('lastName').value;
         let phone = document.getElementById('phoneNumber').value;
-        let phoneAdditional = document.getElementById('phoneNumberAdditional')
-            .value;
+        let phoneAdditional = document.getElementById('phoneNumberAdditional').value;
         let email = document.getElementById('musteriEmail').value;
-        let addressesArray = Array.from(
-            document.getElementsByClassName('addresses')
-        );
+        let addressesArray = Array.from(document.getElementsByClassName('addresses'));
         let addresses = [];
         addressesArray.map(address => {
             addresses.push(address.value);
@@ -496,10 +438,8 @@ Template.preQuote.events({
         let movingDateConverted = movingDate;
         let price = document.getElementById('quote_price').value;
         let minimumLaborTime = document.getElementById('labor_time').value;
-        let hourlyRatesCash = document.getElementById('hourly_rates_cash')
-            .value;
-        let hourlyRatesCard = document.getElementById('hourly_rates_card')
-            .value;
+        let hourlyRatesCash = document.getElementById('hourly_rates_cash').value;
+        let hourlyRatesCard = document.getElementById('hourly_rates_card').value;
         let trucksArray = document.getElementsByClassName('truck-select');
         //trucks loop ele array yarat
         let trucks = [];
@@ -539,10 +479,7 @@ Template.preQuote.events({
         let deposit = document.getElementById('deposit').value;
         let takenBy_ = document.getElementById('takenBy--value').value;
         let takenBy =
-            takenBy_ !== '' &&
-            takenBy_ !== null &&
-            takenBy_ !== undefined &&
-            takenBy_ !== '_'
+            takenBy_ !== '' && takenBy_ !== null && takenBy_ !== undefined && takenBy_ !== '_'
                 ? takenBy_
                 : undefined;
         let additionalContacts = Session.get('additionalContacts');
@@ -550,17 +487,12 @@ Template.preQuote.events({
         let quote = true;
         let confirmed = false;
         let isFollowUp = true;
-        let sourceOfLeads = document.getElementById('source_of_leads_add')
-            .value;
+        let sourceOfLeads = document.getElementById('source_of_leads_add').value;
         let status = 'inProgress';
         let emailSent = true;
         let emailSentDate = new Date();
-        let expireHour = Number(
-            document.getElementById('quoteExpirationDate').value
-        );
-        let quoteExpirationDate = new Date(
-            new Date().getTime() + expireHour * 3600000
-        );
+        let expireHour = Number(document.getElementById('quoteExpirationDate').value);
+        let quoteExpirationDate = new Date(new Date().getTime() + expireHour * 3600000);
         let noteForYourMove = document.getElementById('for_your_move').value;
         let additionalInfo = Session.get('additionalInfo');
 
@@ -698,12 +630,8 @@ Template.preQuote.events({
                     document.querySelector('#flatRateCheck').checked = false;
                     document.getElementById('gas_fee').disabled = false;
 
-                    document
-                        .querySelector('#paymentContent')
-                        .classList.remove('hide');
-                    document
-                        .querySelector('#flatRate_')
-                        .classList.add('hide');
+                    document.querySelector('#paymentContent').classList.remove('hide');
+                    document.querySelector('#flatRate_').classList.add('hide');
 
                     window.addresses.resetComponent();
 
@@ -750,24 +678,18 @@ Template.preQuote.events({
         let firstName = document.getElementById('firstName').value;
         let lastName = document.getElementById('lastName').value;
         let phone = document.getElementById('phoneNumber').value;
-        let phoneAdditional = document.getElementById('phoneNumberAdditional')
-            .value;
+        let phoneAdditional = document.getElementById('phoneNumberAdditional').value;
         let email = document.getElementById('musteriEmail').value;
-        let addressesArray = Array.from(
-            document.getElementsByClassName('addresses')
-        );
+        let addressesArray = Array.from(document.getElementsByClassName('addresses'));
         let addresses = [];
         addressesArray.map(address => {
             addresses.push(address.value);
         });
-        let movingDateConverted = document.getElementById('quote-date-picker')
-            .value;
+        let movingDateConverted = document.getElementById('quote-date-picker').value;
         let price = document.getElementById('quote_price').value;
         let minimumLaborTime = document.getElementById('labor_time').value;
-        let hourlyRatesCash = document.getElementById('hourly_rates_cash')
-            .value;
-        let hourlyRatesCard = document.getElementById('hourly_rates_card')
-            .value;
+        let hourlyRatesCash = document.getElementById('hourly_rates_cash').value;
+        let hourlyRatesCard = document.getElementById('hourly_rates_card').value;
         let trucksArray = document.getElementsByClassName('truck-select');
         //trucks loop ele array yarat
         let trucks = [];
@@ -779,8 +701,7 @@ Template.preQuote.events({
         }
         let doubleDrive = document.getElementById('double_drive').value;
         let gasFee = document.getElementById('gas_fee').value;
-        let smallPackingItems = document.getElementById('small_item_pack')
-            .value;
+        let smallPackingItems = document.getElementById('small_item_pack').value;
         let largeItemFee = document.getElementById('large_item_fee').value;
         let jobNumber = document.getElementById('quote-job-number').value;
         let movingSize = document.getElementById('moving_size_2').value;
@@ -808,10 +729,7 @@ Template.preQuote.events({
         let deposit = document.getElementById('deposit').value;
         let takenBy_ = document.getElementById('takenBy--value').value;
         let takenBy =
-            takenBy_ !== '' &&
-            takenBy_ !== null &&
-            takenBy_ !== undefined &&
-            takenBy_ !== '_'
+            takenBy_ !== '' && takenBy_ !== null && takenBy_ !== undefined && takenBy_ !== '_'
                 ? takenBy_
                 : undefined;
         let additionalContacts = Session.get('additionalContacts');
@@ -819,8 +737,7 @@ Template.preQuote.events({
         let quote = false;
         let confirmed = true;
         let isFollowUp = true;
-        let sourceOfLeads = document.getElementById('source_of_leads_add')
-            .value;
+        let sourceOfLeads = document.getElementById('source_of_leads_add').value;
         let status = 'won';
         let emailSent = true;
         let noteForYourMove = document.getElementById('for_your_move').value;
@@ -907,9 +824,7 @@ Template.preQuote.events({
                 document.querySelector('#flatRateCheck').checked = false;
                 document.getElementById('gas_fee').disabled = false;
 
-                document
-                    .querySelector('#paymentContent')
-                    .classList.remove('hide');
+                document.querySelector('#paymentContent').classList.remove('hide');
                 document.querySelector('#flatRate_').classList.add('hide');
 
                 window.addresses.resetComponent();
@@ -930,24 +845,18 @@ Template.preQuote.events({
         let firstName = document.getElementById('firstName').value;
         let lastName = document.getElementById('lastName').value;
         let phone = document.getElementById('phoneNumber').value;
-        let phoneAdditional = document.getElementById('phoneNumberAdditional')
-            .value;
+        let phoneAdditional = document.getElementById('phoneNumberAdditional').value;
         let email = document.getElementById('musteriEmail').value;
-        let addressesArray = Array.from(
-            document.getElementsByClassName('addresses')
-        );
+        let addressesArray = Array.from(document.getElementsByClassName('addresses'));
         let addresses = [];
         addressesArray.map(address => {
             addresses.push(address.value);
         });
-        let movingDateConverted = document.getElementById('quote-date-picker')
-            .value;
+        let movingDateConverted = document.getElementById('quote-date-picker').value;
         let price = document.getElementById('quote_price').value;
         let minimumLaborTime = document.getElementById('labor_time').value;
-        let hourlyRatesCash = document.getElementById('hourly_rates_cash')
-            .value;
-        let hourlyRatesCard = document.getElementById('hourly_rates_card')
-            .value;
+        let hourlyRatesCash = document.getElementById('hourly_rates_cash').value;
+        let hourlyRatesCard = document.getElementById('hourly_rates_card').value;
         let trucksArray = document.getElementsByClassName('truck-select');
         //trucks loop ele array yarat
         let trucks = [];
@@ -959,8 +868,7 @@ Template.preQuote.events({
         }
         let doubleDrive = document.getElementById('double_drive').value;
         let gasFee = document.getElementById('gas_fee').value;
-        let smallPackingItems = document.getElementById('small_item_pack')
-            .value;
+        let smallPackingItems = document.getElementById('small_item_pack').value;
         let largeItemFee = document.getElementById('large_item_fee').value;
         let jobNumber = document.getElementById('quote-job-number').value;
         let movingSize = document.getElementById('moving_size_2').value;
@@ -988,10 +896,7 @@ Template.preQuote.events({
         let deposit = document.getElementById('deposit').value;
         let takenBy_ = document.getElementById('takenBy--value').value;
         let takenBy =
-            takenBy_ !== '' &&
-            takenBy_ !== null &&
-            takenBy_ !== undefined &&
-            takenBy_ !== '_'
+            takenBy_ !== '' && takenBy_ !== null && takenBy_ !== undefined && takenBy_ !== '_'
                 ? takenBy_
                 : undefined;
         let additionalContacts = Session.get('additionalContacts');
@@ -999,8 +904,7 @@ Template.preQuote.events({
         let quote = false;
         let confirmed = false;
         let isFollowUp = true;
-        let sourceOfLeads = document.getElementById('source_of_leads_add')
-            .value;
+        let sourceOfLeads = document.getElementById('source_of_leads_add').value;
         let status = 'inProgress';
         let noteForYourMove = document.getElementById('for_your_move').value;
         let additionalInfo = Session.get('additionalInfo');
@@ -1086,9 +990,7 @@ Template.preQuote.events({
                 document.querySelector('#flatRateCheck').checked = false;
                 document.getElementById('gas_fee').disabled = false;
 
-                document
-                    .querySelector('#paymentContent')
-                    .classList.remove('hide');
+                document.querySelector('#paymentContent').classList.remove('hide');
                 document.querySelector('#flatRate_').classList.add('hide');
 
                 window.addresses.resetComponent();
@@ -1113,34 +1015,16 @@ Template.quoteTam.events({
         });
     },
     'click #close-update-work': function() {
-        ReactDOM.unmountComponentAtNode(
-            document.querySelector('#truck-list-update')
-        );
-        ReactDOM.unmountComponentAtNode(
-            document.querySelector('#update_time_window')
-        );
-        ReactDOM.unmountComponentAtNode(
-            document.querySelector('#number-of-movers2')
-        );
+        ReactDOM.unmountComponentAtNode(document.querySelector('#truck-list-update'));
+        ReactDOM.unmountComponentAtNode(document.querySelector('#update_time_window'));
+        ReactDOM.unmountComponentAtNode(document.querySelector('#number-of-movers2'));
         ReactDOM.unmountComponentAtNode(document.querySelector('#moving-size'));
-        ReactDOM.unmountComponentAtNode(
-            document.querySelector('#double-drive-time-update')
-        );
-        ReactDOM.unmountComponentAtNode(
-            document.querySelector('#iscilerinSiyahisiRender')
-        );
-        ReactDOM.unmountComponentAtNode(
-            document.querySelector('#tempTruckUpdate')
-        );
-        ReactDOM.unmountComponentAtNode(
-            document.querySelector('#addressesIdUpdate')
-        );
-        ReactDOM.unmountComponentAtNode(
-            document.querySelector('#takenBy--update')
-        );
-        ReactDOM.unmountComponentAtNode(
-            document.querySelector('#additional-contact-update')
-        );
+        ReactDOM.unmountComponentAtNode(document.querySelector('#double-drive-time-update'));
+        ReactDOM.unmountComponentAtNode(document.querySelector('#iscilerinSiyahisiRender'));
+        ReactDOM.unmountComponentAtNode(document.querySelector('#tempTruckUpdate'));
+        ReactDOM.unmountComponentAtNode(document.querySelector('#addressesIdUpdate'));
+        ReactDOM.unmountComponentAtNode(document.querySelector('#takenBy--update'));
+        ReactDOM.unmountComponentAtNode(document.querySelector('#additional-contact-update'));
         tracker_.stop();
         // ReactDOM.unmountComponentAtNode(document.querySelector('#tempTruck'));
 
@@ -1151,31 +1035,17 @@ Template.quoteTam.events({
 });
 
 Template.quoteTam.onDestroyed(function() {
-    ReactDOM.unmountComponentAtNode(
-        document.querySelector('#truck-list-update')
-    );
-    ReactDOM.unmountComponentAtNode(
-        document.querySelector('#update_time_window')
-    );
-    ReactDOM.unmountComponentAtNode(
-        document.querySelector('#number-of-movers2')
-    );
+    ReactDOM.unmountComponentAtNode(document.querySelector('#truck-list-update'));
+    ReactDOM.unmountComponentAtNode(document.querySelector('#update_time_window'));
+    ReactDOM.unmountComponentAtNode(document.querySelector('#number-of-movers2'));
     ReactDOM.unmountComponentAtNode(document.querySelector('#moving-size'));
-    ReactDOM.unmountComponentAtNode(
-        document.querySelector('#double-drive-time-update')
-    );
-    ReactDOM.unmountComponentAtNode(
-        document.querySelector('#iscilerinSiyahisiRender')
-    );
+    ReactDOM.unmountComponentAtNode(document.querySelector('#double-drive-time-update'));
+    ReactDOM.unmountComponentAtNode(document.querySelector('#iscilerinSiyahisiRender'));
     ReactDOM.unmountComponentAtNode(document.querySelector('#tempTruckUpdate'));
     ReactDOM.unmountComponentAtNode(document.querySelector('#quoteTam'));
-    ReactDOM.unmountComponentAtNode(
-        document.querySelector('#addressesIdUpdate')
-    );
+    ReactDOM.unmountComponentAtNode(document.querySelector('#addressesIdUpdate'));
     ReactDOM.unmountComponentAtNode(document.querySelector('#takenBy--update'));
-    ReactDOM.unmountComponentAtNode(
-        document.querySelector('#additional-contact-update')
-    );
+    ReactDOM.unmountComponentAtNode(document.querySelector('#additional-contact-update'));
 
     document.querySelector('#quoteTam').classList.remove('hide');
     document.querySelector('#updateQuote2').classList.add('hide');

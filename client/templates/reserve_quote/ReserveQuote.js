@@ -42,9 +42,7 @@ export default class ReserveQuote extends TrackerReact(Component) {
 
         this.checked = this.checked.bind(this);
         this.jobNumber = this.jobNumber.bind(this);
-        this.renderAdditionalContacts = this.renderAdditionalContacts.bind(
-            this
-        );
+        this.renderAdditionalContacts = this.renderAdditionalContacts.bind(this);
     }
 
     workData(id) {
@@ -78,8 +76,7 @@ export default class ReserveQuote extends TrackerReact(Component) {
     }
 
     checked() {
-        const secilmislerinSayi = document.querySelectorAll('.secilib:checked')
-            .length;
+        const secilmislerinSayi = document.querySelectorAll('.secilib:checked').length;
         this.setState(
             {
                 selected: secilmislerinSayi
@@ -108,9 +105,7 @@ export default class ReserveQuote extends TrackerReact(Component) {
                 },
                 () => {
                     $('#axtarisin-neticesi').show(),
-                    document
-                        .getElementById('enter-number')
-                        .classList.add('hide'),
+                    document.getElementById('enter-number').classList.add('hide'),
                     Session.set('jobNumber', jobNumber);
                 }
             )
@@ -154,7 +149,8 @@ export default class ReserveQuote extends TrackerReact(Component) {
                                 href="http://www.moverslegion.com/wp-content/uploads/2018/12/small-item-pricing.pdf"
                                 download="http://www.moverslegion.com/wp-content/uploads/2018/12/small-item-pricing.pdf"
                                 target="_blank"
-                                rel="noopener noreferrer">
+                                rel="noopener noreferrer"
+                            >
                                 learn more
                             </a>
                         </div>
@@ -247,9 +243,7 @@ export default class ReserveQuote extends TrackerReact(Component) {
                     {job.workMustBeginTime[0] === '04:00 am' &&
                     job.workMustBeginTime[0] === '04:00 am'
                         ? 'Morning & Afternoon'
-                        : `${job.workMustBeginTime[0]} - ${
-                            job.workMustBeginTime[1]
-                        }`}
+                        : `${job.workMustBeginTime[0]} - ${job.workMustBeginTime[1]}`}
                 </td>
             </tr>
         );
@@ -271,8 +265,7 @@ export default class ReserveQuote extends TrackerReact(Component) {
                     Hello {job.clientFirstName}!<br />
                     Thank you for confirming your move with{' '}
                     {job.companyInfo && job.companyInfo.name}!<br />
-                    Please review your Moving Confirmation below to ensure
-                    accuracy:
+                    Please review your Moving Confirmation below to ensure accuracy:
                 </p>
                 <table style={{ width: '100%' }}>
                     <tbody>
@@ -293,13 +286,12 @@ export default class ReserveQuote extends TrackerReact(Component) {
                                 job.phoneAdditional === null
                                     ? 'hide'
                                     : ''
-                            }>
+                            }
+                        >
                             <td>Customer Secondary Number:</td>
                             <td>{job.phoneAdditional}</td>
                         </tr>
-                        {this.renderAdditionalContacts(
-                            job.additionalContacts || null
-                        )}
+                        {this.renderAdditionalContacts(job.additionalContacts || null)}
                         <tr>
                             <td>Your Job Number:</td>
                             <td>{job.jobNumber}</td>
@@ -312,13 +304,7 @@ export default class ReserveQuote extends TrackerReact(Component) {
                         {(() => this.addressesRender(job.addresses))()}
                         <tr>
                             <td>Moving Size:</td>
-                            <td>
-                                {
-                                    this.state.movingSizeCorrectNaming[
-                                        job.movingSize
-                                    ]
-                                }
-                            </td>
+                            <td>{this.state.movingSizeCorrectNaming[job.movingSize]}</td>
                         </tr>
                         <tr>
                             <td>Number of Movers:</td>
@@ -340,11 +326,7 @@ export default class ReserveQuote extends TrackerReact(Component) {
                                 {job.laborTime > 0 ? (
                                     <td>
                                         Flat Rate{' '}
-                                        {job.laborTime
-                                            ? 'Up to ' +
-                                              job.laborTime +
-                                              ' hours'
-                                            : ''}
+                                        {job.laborTime ? 'Up to ' + job.laborTime + ' hours' : ''}
                                     </td>
                                 ) : (
                                     <td>Flat Rate</td>
@@ -363,15 +345,12 @@ export default class ReserveQuote extends TrackerReact(Component) {
                         job.laborTime > 0 ? (
                                 <tr>
                                     {job.laborTime > 0 ? (
-                                        <td>
-                                        Hourly Rate After {job.laborTime} hours
-                                        </td>
+                                        <td>Hourly Rate After {job.laborTime} hours</td>
                                     ) : (
                                         <td>Hourly Rate</td>
                                     )}
                                     <td>
-                                    cash ${job.hourlyRatesCash}/hr, card $
-                                        {job.hourlyRatesCard}/hr
+                                    cash ${job.hourlyRatesCash}/hr, card ${job.hourlyRatesCard}/hr
                                     </td>
                                 </tr>
                             ) : (
@@ -400,15 +379,14 @@ export default class ReserveQuote extends TrackerReact(Component) {
                                 ''
                             )}
                         {/* Travel Fee */}
-                        {!isNaN(Number(job.gasFee)) &&
-                        Number(job.gasFee) > 0 ? (
-                                <tr>
-                                    <td>Travel Fee (one time):</td>
-                                    <td>${job.gasFee}</td>
-                                </tr>
-                            ) : (
-                                ''
-                            )}
+                        {!isNaN(Number(job.gasFee)) && Number(job.gasFee) > 0 ? (
+                            <tr>
+                                <td>Travel Fee (one time):</td>
+                                <td>${job.gasFee}</td>
+                            </tr>
+                        ) : (
+                            ''
+                        )}
                         {/* double drive time */}
                         {job.doubleDrive === 'yes' ? (
                             <tr>
@@ -419,7 +397,8 @@ export default class ReserveQuote extends TrackerReact(Component) {
                                         href="http://www.moverslegion.com/wp-content/uploads/2019/02/DDT.pdf"
                                         download="http://www.moverslegion.com/wp-content/uploads/2019/02/DDT.pdf"
                                         target="_blank"
-                                        rel="noopener noreferrer">
+                                        rel="noopener noreferrer"
+                                    >
                                         learn more
                                     </a>
                                 </td>
@@ -442,12 +421,10 @@ export default class ReserveQuote extends TrackerReact(Component) {
                         )}
                         {job.deposit && job.deposit > 0 ? (
                             <tr>
+                                <td style={{ width: '49%' }}>Deposit required to lock the spot:</td>
                                 <td style={{ width: '49%' }}>
-                                    Deposit required to lock the spot:
-                                </td>
-                                <td style={{ width: '49%' }}>
-                                    +${job.deposit} (to be applied as a credit
-                                    toward this move’s bill)
+                                    +${job.deposit} (to be applied as a credit toward this move’s
+                                    bill)
                                 </td>
                             </tr>
                         ) : (
@@ -460,9 +437,7 @@ export default class ReserveQuote extends TrackerReact(Component) {
                         {job.noteForYourMove ? (
                             <div>
                                 Note For Your Move <br />
-                                <span style={{ fontWeight: 'normal' }}>
-                                    {job.noteForYourMove}
-                                </span>
+                                <span style={{ fontWeight: 'normal' }}>{job.noteForYourMove}</span>
                             </div>
                         ) : null}
                     </p>
@@ -476,10 +451,11 @@ export default class ReserveQuote extends TrackerReact(Component) {
                         I have read, understand and agree to the contents of the{' '}
                         <i>
                             <a
-                                href="http://www.moverslegion.com/wp-content/uploads/2019/01/included.pdf"
-                                download="http://www.moverslegion.com/wp-content/uploads/2019/01/included.pdf"
+                                href="https://www.moverslegion.com/wp-content/uploads/2019/01/included.pdf"
+                                download="https://www.moverslegion.com/wp-content/uploads/2019/01/included.pdf"
                                 target="_blank"
-                                rel="noopener noreferrer">
+                                rel="noopener noreferrer"
+                            >
                                 &quot;What&apos;s Included&quot; Section.
                             </a>
                         </i>
@@ -493,10 +469,11 @@ export default class ReserveQuote extends TrackerReact(Component) {
                         I have read, understand and agree to the contents of the{' '}
                         <i>
                             <a
-                                href="http://www.moverslegion.com/wp-content/uploads/2019/01/not-included.pdf"
+                                href="https://www.moverslegion.com/wp-content/uploads/2019/01/not-included.pdf"
                                 download="http://www.moverslegion.com/wp-content/uploads/2019/01/not-included.pdf"
                                 target="_blank"
-                                rel="noopener noreferrer">
+                                rel="noopener noreferrer"
+                            >
                                 &quot;What&apos;s Not Included&quot; Section.
                             </a>
                         </i>
@@ -510,10 +487,11 @@ export default class ReserveQuote extends TrackerReact(Component) {
                         I have read, understand and agree to the contents of the{' '}
                         <i>
                             <a
-                                href="http://www.moverslegion.com/wp-content/uploads/2018/12/for-you-1.pdf"
-                                download="http://www.moverslegion.com/wp-content/uploads/2018/12/for-you-1.pdf"
+                                href="https://www.moverslegion.com/wp-content/uploads/2019/06/for-you-1.pdf"
+                                download="https://www.moverslegion.com/wp-content/uploads/2019/06/for-you-1.pdf"
                                 target="_blank"
-                                rel="noopener noreferrer">
+                                rel="noopener noreferrer"
+                            >
                                 &quot;For Your Information&quot; Section.
                             </a>
                         </i>
@@ -530,9 +508,9 @@ export default class ReserveQuote extends TrackerReact(Component) {
                                 href="http://www.moverslegion.com/wp-content/uploads/2018/12/important.pdf"
                                 download="http://www.moverslegion.com/wp-content/uploads/2018/12/important.pdf"
                                 target="_blank"
-                                rel="noopener noreferrer">
-                                CPUC &quot;Important Information About Your
-                                Move&quot; booklet.
+                                rel="noopener noreferrer"
+                            >
+                                CPUC &quot;Important Information About Your Move&quot; booklet.
                             </a>
                         </i>
                     </p>
@@ -548,7 +526,8 @@ export default class ReserveQuote extends TrackerReact(Component) {
                                 href="http://www.moverslegion.com/wp-content/uploads/2018/12/Hazard.pdf"
                                 download="http://www.moverslegion.com/wp-content/uploads/2018/12/Hazard.pdf"
                                 target="_blank"
-                                rel="noopener noreferrer">
+                                rel="noopener noreferrer"
+                            >
                                 CPUC Hazardous Material List
                             </a>
                         </i>{' '}
@@ -562,8 +541,8 @@ export default class ReserveQuote extends TrackerReact(Component) {
                             onChange={() => this.checked()}
                             type="checkbox"
                         />{' '}
-                        I understand and agree that I will have Cash or Card
-                        Payment ready on the day of my move.
+                        I understand and agree that I will have Cash or Card Payment ready on the
+                        day of my move.
                     </p>
                     <p>
                         <input
@@ -571,25 +550,21 @@ export default class ReserveQuote extends TrackerReact(Component) {
                             onChange={() => this.checked()}
                             type="checkbox"
                         />{' '}
-                        Yes! I have read the information below and wish to pay
-                        my Moving Deposit to book this move.
-                        <br />I understand that this Deposit is non-refundable
-                        and non-transferrable if I reschedule or cancel this
-                        move.
+                        Yes! I have read the information below and wish to pay my Moving Deposit to
+                        book this move.
+                        <br />I understand that this Deposit is non-refundable and non-transferrable
+                        if I reschedule or cancel this move.
                     </p>
                     <p>
-                        **If you have any questions, please contact us as soon
-                        as possible by phone, text, or e-mail 24/7**
+                        **If you have any questions, please contact us as soon as possible by phone,
+                        text, or e-mail 24/7**
                     </p>
                     <div style={{ textAlign: 'center' }}>
                         Phone Number: {job.companyInfo.phoneNumber} <br />
                         Email:{' '}
-                        <a href={'mailto:' + job.companyInfo.email}>
-                            {job.companyInfo.email}
-                        </a>
+                        <a href={'mailto:' + job.companyInfo.email}>{job.companyInfo.email}</a>
                         <br />
-                        Web:{' '}
-                        <a href={job.companyInfo.url}>{job.companyInfo.url}</a>
+                        Web: <a href={job.companyInfo.url}>{job.companyInfo.url}</a>
                         <br />
                     </div>
                 </div>
@@ -603,9 +578,7 @@ export default class ReserveQuote extends TrackerReact(Component) {
             return is.quoteExpirationDate
                 ? is.quoteExpirationDate.getTime() < new Date()
                     ? true
-                    : is.status === 'won' ||
-                      is.status === 'lost' ||
-                      is.status === 'cancelled'
+                    : is.status === 'won' || is.status === 'lost' || is.status === 'cancelled'
                 : true;
         } else {
             return false;
@@ -618,13 +591,14 @@ export default class ReserveQuote extends TrackerReact(Component) {
                 text="Loading..."
                 className="loader"
                 active={Session.get('loading')}
-                spinner={<BarLoader color={'#6DD4B8'} />}>
+                spinner={<BarLoader color={'#6DD4B8'} />}
+            >
                 <div id="jobInfoMain" className="jobMain">
                     <div className="job-number-enter">
                         <div id="enter-number" className="enter-code">
                             <h6>
-                                By entering your job number below you will be
-                                able to confirm your moving details
+                                By entering your job number below you will be able to confirm your
+                                moving details
                             </h6>
                             <input
                                 id="code"
@@ -639,7 +613,8 @@ export default class ReserveQuote extends TrackerReact(Component) {
                                 className="btn waves-effect waves-light"
                                 type="submit"
                                 name="action"
-                                onClick={this.submit}>
+                                onClick={this.submit}
+                            >
                                 <i className="material-icons right">send</i>
                             </button>
                         </div>
@@ -649,17 +624,11 @@ export default class ReserveQuote extends TrackerReact(Component) {
                         <div className={this.compare() ? 'coverDark' : 'hide'}>
                             <div className="enter-code">
                                 <h6>
-                                    Your offer has expired. Please contact
-                                    customer service in order to access to your
-                                    confirmation page.{' '}
-                                    <span>(844) 404-8404</span>
+                                    Your offer has expired. Please contact customer service in order
+                                    to access to your confirmation page. <span>(844) 404-8404</span>
                                     <br />
                                     Your job number is:{' '}
-                                    <span>
-                                        {(this.state.is &&
-                                            this.state.is.jobNumber) ||
-                                            ''}
-                                    </span>
+                                    <span>{(this.state.is && this.state.is.jobNumber) || ''}</span>
                                 </h6>
                             </div>
                         </div>
@@ -667,11 +636,8 @@ export default class ReserveQuote extends TrackerReact(Component) {
                         <div className="note">
                             <h4>Please check all the boxes for next step</h4>
                         </div>
-                        <div
-                            id="payPal"
-                            style={{ display: 'none', margin: '20px 0' }}>
-                            {this.state.id !== '' &&
-                                this.state.id !== undefined && (
+                        <div id="payPal" style={{ display: 'none', margin: '20px 0' }}>
+                            {this.state.id !== '' && this.state.id !== undefined && (
                                 <Payment id={this.state.id} />
                             )}
                             {/* <div id="paypal-button" /> */}

@@ -772,6 +772,10 @@ Schemas.workSchema = new SimpleSchema(
         finishedJobPDF: {
             type: String,
             optional: true
+        },
+        ip: {
+            type: String,
+            optional: true
         }
     },
     { tracker: Tracker }

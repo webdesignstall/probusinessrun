@@ -9,12 +9,14 @@ import { Meteor } from 'meteor/meteor';
 import LoadingOverlay from 'react-loading-overlay';
 import RingLoader from 'react-spinners/RingLoader';
 
+import getUserIP from '../../imports/helpers/getIp';
+
 export default class FollowUpMain extends TrackerReact(Component) {
     constructor(props) {
         super(props);
 
         this.state = {
-            loading: false,
+            loading: false
         };
     }
 
@@ -31,7 +33,7 @@ export default class FollowUpMain extends TrackerReact(Component) {
             let progressJobs = this.workDataInProgress();
             let date = new Date().getTime();
             this.setState({
-                loading: true,
+                loading: true
             });
             progressJobs.map(job => {
                 let jobDateTime = new Date(job.workDate).getTime();
@@ -39,16 +41,24 @@ export default class FollowUpMain extends TrackerReact(Component) {
                     job.status = 'lost';
                     let finalNote_ = {
                         reason: 'Time Expired',
-                        other: false,
+                        other: false
                     };
                     job.finalNote = finalNote_;
+                    let ip = '';
+                    // ip = getUserIP();
+                    job.ip = ip;
+
                     Meteor.call('updateWork', job, err => {
-                        err ? console.log('Error while trying to make lost some jobs. ' + err.reason) : null;
+                        err
+                            ? console.log(
+                                'Error while trying to make lost some jobs. ' + err.reason
+                            )
+                            : null;
                     });
                 }
             });
             this.setState({
-                loading: false,
+                loading: false
             });
         });
     }
@@ -63,7 +73,8 @@ export default class FollowUpMain extends TrackerReact(Component) {
                 text="Loading..."
                 className="loader"
                 active={Session.get('loading')}
-                spinner={<RingLoader color={'#6DD4B8'} />}>
+                spinner={<RingLoader color={'#6DD4B8'} />}
+            >
                 <div className="followup-header">
                     <Header />
                     <List />

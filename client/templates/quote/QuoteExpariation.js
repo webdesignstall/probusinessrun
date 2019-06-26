@@ -4,6 +4,8 @@ import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
 
+import getUserIP from '../../../imports/helpers/getIp';
+
 /*global swal*/
 
 export default class QuoteExpiration extends TrackerReact(Component) {
@@ -12,7 +14,7 @@ export default class QuoteExpiration extends TrackerReact(Component) {
 
         this.state = {
             checked: false,
-            time: 0,
+            time: 0
         };
 
         this.changeHandler = this.changeHandler.bind(this);
@@ -28,7 +30,7 @@ export default class QuoteExpiration extends TrackerReact(Component) {
 
     changeHandler(e) {
         this.setState({
-            time: e.target.value,
+            time: e.target.value
         });
     }
 
@@ -38,8 +40,11 @@ export default class QuoteExpiration extends TrackerReact(Component) {
         let time = Number(this.state.time) * 3600000 + new Date().getTime();
         let doc = {
             _id: Session.get('is'),
-            quoteExpirationDate: new Date(time),
+            quoteExpirationDate: new Date(time)
         };
+        let ip = '';
+        // ip = getUserIP();
+        doc.ip = ip;
 
         Meteor.call('updateWork', doc, err => {
             err
@@ -47,7 +52,7 @@ export default class QuoteExpiration extends TrackerReact(Component) {
                     title: 'Error, can\'t renew expiration date!',
                     text: err.reason,
                     icon: 'error',
-                    button: 'OK',
+                    button: 'OK'
                 }),
                 Session.set('loading', false),
                 console.log(err))
@@ -55,7 +60,7 @@ export default class QuoteExpiration extends TrackerReact(Component) {
                     title: 'Success!',
                     text: 'Expiration date updated successfully',
                     icon: 'success',
-                    button: 'OK',
+                    button: 'OK'
                 });
         });
     }
@@ -71,7 +76,8 @@ export default class QuoteExpiration extends TrackerReact(Component) {
                     name="quoteExpirationDate"
                     className="browser-default col s8 m8 l8"
                     id="quoteExpirationDate"
-                    value={this.state.time}>
+                    value={this.state.time}
+                >
                     <option value="0">in 0 hour</option>
                     <option value="1">in 1 hour</option>
                     <option value="2">in 2 hour</option>
@@ -86,7 +92,8 @@ export default class QuoteExpiration extends TrackerReact(Component) {
                     <a
                         onClick={e => this.renew(e)}
                         className="col s3 m3 l3 waves-effect waves-light btn offset-s1 offset-m1 offset-l1"
-                        style={{ height: '42px' }}>
+                        style={{ height: '42px' }}
+                    >
                         Renew
                     </a>
                 ) : (

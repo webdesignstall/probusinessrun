@@ -168,7 +168,8 @@ if (Meteor.isServer) {
         },
 
         updateWork: function(doc) {
-            console.log('Satus for _id:' + doc._id + ' changed to ' + doc.status);
+            console.log('Update information: ' + doc.ip + ' :', doc);
+            // console.log('Satus for _id:' + doc._id + ' changed to ' + doc.status);
             if (
                 doc.status === 'lost' &&
                 (doc.finalNote === 'none' || doc.finalNote === undefined)
