@@ -11,31 +11,6 @@ import { Tracker } from 'meteor/tracker';
 $(document).ready(function() {
     $('select').material_select();
 
-    function isNumberKey(evt) {
-        var charCode = evt.which ? evt.which : event.keyCode;
-        if (charCode > 31 && (charCode < 48 || charCode > 57)) return false;
-
-        return true;
-    }
-
-    // $('#quote-date-picker').pickadate({
-    //     selectMonths: true, // Creates a dropdown to control month
-    //     selectYears: 15, // Creates a dropdown of 15 years to control year,
-    //     today: 'Today',
-    //     clear: 'Clear',
-    //     close: 'Ok',
-    //     closeOnSelect: false // Close upon selecting a date,
-    // });
-
-    // $('#quote-date-picker_2').pickadate({
-    //     selectMonths: true, // Creates a dropdown to control month
-    //     selectYears: 15, // Creates a dropdown of 15 years to control year,
-    //     today: 'Today',
-    //     clear: 'Clear',
-    //     close: 'Ok',
-    //     closeOnSelect: false // Close upon selecting a date,
-    // });
-
     // Time picker
     $('#quote-time-picker-from, #quote-time-picker-to').pickatime({
         default: '9:00AM', // Set default time: 'now', '1:30AM', '16:30'

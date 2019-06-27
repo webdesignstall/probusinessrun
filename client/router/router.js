@@ -85,7 +85,7 @@ Router.route('/reserve', {
 Router.route('/cardholder/:id', function() {
     Meteor.call('checkId', this.params.id, (err, res) => {
         if (err) console.log(err);
-        if (res) {
+        if (res && res.cardHolderInfo && !res.cardHolderInfo.agreement) {
             this.render('cardHolder');
             Session.set('job', res);
         } else {

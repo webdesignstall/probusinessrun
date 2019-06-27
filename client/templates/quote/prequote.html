@@ -18,39 +18,23 @@
                 <!-- Phone number -->
                 <div class="input-field valideyn col s12 m6 l2">
                     <i class="material-icons isare">phone</i>
-                    <input
-                        onkeypress="return isNumberKey(event)"
-                        id="phoneNumber"
-                        type="text"
-                        placeholder=""
-                        required
-                    />
-                    <label class="active" for="phoneNumber"
-                        >Main Phone Number</label
-                    >
+                    <input id="phoneNumber" type="number" placeholder="" required />
+                    <label class="active" for="phoneNumber">Main Phone Number</label>
                 </div>
                 <!-- Additional phone number -->
                 <div class="input-field valideyn col s12 m6 l2">
                     <i class="material-icons isare">phone</i>
                     <input
-                        onkeypress="return isNumberKey(event)"
                         id="phoneNumberAdditional"
-                        type="text"
+                        type="number"
                         placeholder=""
                     />
-                    <label class="active" for="phoneNumberAdditional"
-                        >Secondary Phone Number</label
-                    >
+                    <label class="active" for="phoneNumberAdditional">Secondary Phone Number</label>
                 </div>
                 <!-- Email -->
                 <div class="input-field valideyn col s12 m6 l4">
                     <i class="material-icons isare">email</i>
-                    <input
-                        id="musteriEmail"
-                        type="email"
-                        placeholder=""
-                        require
-                    />
+                    <input id="musteriEmail" type="email" placeholder="" require />
                     <label class="active" for="musteriEmail">E-mail</label>
                 </div>
                 <div class="clear"></div>
@@ -67,9 +51,7 @@
                         type="text"
                         placeholder=""
                     />
-                    <label class="active" for="quote-date-picker"
-                        >Moving Date</label
-                    >
+                    <label class="active" for="quote-date-picker">Moving Date</label>
                 </div>
                 <!-- Moving time window -->
                 <div
@@ -102,12 +84,7 @@
                 <!-- Small item packing -->
                 <div class="input-field valideyn col s12 m6 l3">
                     <i class="material-icons isare">view_array</i>
-                    <input
-                        id="small_item_pack"
-                        class="xx"
-                        type="number"
-                        placeholder="0"
-                    />
+                    <input id="small_item_pack" class="xx" type="number" placeholder="0" />
                     <label class="active" for="small_item_pack">
                         Small item packing
                         <i class="lime-text lighten-5 black">
@@ -128,25 +105,13 @@
                 <!-- Large Item fee -->
                 <div class="input-field valideyn col s12 m6 l3">
                     <i class="material-icons isare">view_carousel</i>
-                    <input
-                        id="large_item_fee"
-                        class="xx"
-                        type="number"
-                        placeholder="0"
-                    />
-                    <label class="active" for="large_item_fee"
-                        >Large item fee</label
-                    >
+                    <input id="large_item_fee" class="xx" type="number" placeholder="0" />
+                    <label class="active" for="large_item_fee">Large item fee</label>
                 </div>
                 <!-- Travel Fee -->
                 <div class="input-field valideyn col s12 m6 l3">
                     <i class="material-icons isare">attach_money</i>
-                    <input
-                        id="gas_fee"
-                        class="xx"
-                        type="number"
-                        placeholder="0"
-                    />
+                    <input id="gas_fee" class="xx" type="number" placeholder="0" />
                     <label class="active" for="gas_fee">
                         Travel Fee
                         <i class="lime-text lighten-5 black">
@@ -158,12 +123,7 @@
                 <!-- Deposit -->
                 <div class="input-field valideyn col s12 m6 l3">
                     <i class="material-icons isare">attach_money</i>
-                    <input
-                        id="deposit"
-                        class="xx"
-                        type="number"
-                        placeholder="0"
-                    />
+                    <input id="deposit" class="xx" type="number" placeholder="0" />
                     <label class="active" for="deposit">Deposit</label>
                 </div>
                 <!-- Payment charging options -->
@@ -173,11 +133,7 @@
                         Payment options
                         <i class="lime-text lighten-5 black flatRateSelect"
                             >[ Flat Rate
-                            <input
-                                id="flatRateCheck"
-                                type="checkbox"
-                                onchange="showFlatRate()"
-                            />
+                            <input id="flatRateCheck" type="checkbox" onchange="showFlatRate()" />
                             ]</i
                         >
                     </div>
@@ -250,15 +206,10 @@
                                                                     }
                                                                 })()"
                             />
-                            <label class="active" for="quote_price"
-                                >Not Exceed Price</label
-                            >
+                            <label class="active" for="quote_price">Not Exceed Price</label>
                         </div>
                     </div>
-                    <div
-                        id="flatRate_"
-                        class="input-field valideyn col s12 m12 l12 flatRate hide"
-                    >
+                    <div id="flatRate_" class="input-field valideyn col s12 m12 l12 flatRate hide">
                         <div class="input-field valideyn col s12 m6 l3">
                             <i class="material-icons isare">attach_money</i>
                             <input
@@ -271,9 +222,7 @@
                                  this.value=0; 
                                  } })()"
                             />
-                            <label class="active" for="flatRateCash"
-                                >Flat rate cash</label
-                            >
+                            <label class="active" for="flatRateCash">Flat rate cash</label>
                         </div>
                         <!-- Large Item fee -->
                         <div class="input-field valideyn col s12 m6 l3">
@@ -286,9 +235,7 @@
                                 onchange="(() => {
                             if (this.value < 0) { this.value=0; } })()"
                             />
-                            <label class="active" for="flatRateCard"
-                                >Flat rate card</label
-                            >
+                            <label class="active" for="flatRateCard">Flat rate card</label>
                         </div>
                     </div>
                 </div>
@@ -301,9 +248,7 @@
                             name="double_drive"
                             id="double_drive"
                         >
-                            <option value="false" disabled
-                                >Select double drive</option
-                            >
+                            <option value="false" disabled>Select double drive</option>
                             <option value="waived" selected>No</option>
                             <option value="yes">Yes</option>
                             <option value="notSure">Not Sure</option>
@@ -318,17 +263,11 @@
                         >
                     </div>
                     <!-- Number of movers -->
-                    <div
-                        id="number-of-movers"
-                        class="input-field valideyn col s12 m3 l3 azMargin"
-                    >
+                    <div id="number-of-movers" class="input-field valideyn col s12 m3 l3 azMargin">
                         <!-- <i class="material-icons isare">person</i> -->
                     </div>
                     <!-- Select moving size -->
-                    <div
-                        id="moving-size-main"
-                        class="input-field col s12 m6 l6 azMargin"
-                    >
+                    <div id="moving-size-main" class="input-field col s12 m6 l6 azMargin">
                         <label
                             class="active"
                             style="
@@ -352,15 +291,11 @@
                             <option value="2_bedroom_small"
                                 >2 Bedroom (small size, few items)</option
                             >
-                            <option value="2_bedroom_avg"
-                                >2 Bedroom (avg. size, avg. items)</option
-                            >
+                            <option value="2_bedroom_avg">2 Bedroom (avg. size, avg. items)</option>
                             <option value="2_bedroom_large"
                                 >2 Bedroom (large size, many items)</option
                             >
-                            <option value="3_bedroom_avg"
-                                >3 Bedroom (avg. size, avg. items)</option
-                            >
+                            <option value="3_bedroom_avg">3 Bedroom (avg. size, avg. items)</option>
                             <option value="3_bedroom_large"
                                 >3 Bedroom (large size, many items)</option
                             >
@@ -382,10 +317,7 @@
                 <div class="clear" style="margin-top: 5px;"></div>
                 <div class="row">
                     <!-- Moving company -->
-                    <div
-                        id="moving-company"
-                        class="input-field valideyn col s12 m6 l6"
-                    ></div>
+                    <div id="moving-company" class="input-field valideyn col s12 m6 l6"></div>
                     <!-- Job ID -->
                     <div class="input-field valideyn col s12 m2 l2">
                         <i class="material-icons isare">local_offer</i>
@@ -396,9 +328,7 @@
                             placeholder="Job ID"
                             disabled
                         />
-                        <label class="active" for="quote-job-number"
-                            >Job Number</label
-                        >
+                        <label class="active" for="quote-job-number">Job Number</label>
                     </div>
                     <!-- Quote date expiration -->
                     <div
@@ -410,20 +340,15 @@
                 <!-- TempTruck -->
                 <div id="tempTruck" class="row"></div>
                 <!-- Add Truck -->
-                <div
-                    id="addTruck"
-                    class="valideyn col s12 m12 l12 add-truck-root"
-                ></div>
+                <div id="addTruck" class="valideyn col s12 m12 l12 add-truck-root"></div>
                 <div class="clear"></div>
                 <!-- Comment -->
                 <div class="input-field col s12 m4 l4">
-                    <textarea id="textarea1" class="materialize-textarea">
-                    </textarea>
+                    <textarea id="textarea1" class="materialize-textarea"> </textarea>
                     <label for="textarea1">Note for Company</label>
                 </div>
                 <div class="input-field col s12 m4 l4">
-                    <textarea id="for_your_move" class="materialize-textarea">
-                    </textarea>
+                    <textarea id="for_your_move" class="materialize-textarea"> </textarea>
                     <label for="for_your_move">Note for Your Move</label>
                 </div>
                 <div class="clear"></div>
@@ -437,19 +362,11 @@
                     >
                         Reset
                     </a>
-                    <a id="work-request" class="waves-effect waves-light btn"
-                        >Send quote & save</a
-                    >
-                    <a
-                        id="followup"
-                        class="waves-effect waves-light btn blue darken-2"
-                    >
+                    <a id="work-request" class="waves-effect waves-light btn">Send quote & save</a>
+                    <a id="followup" class="waves-effect waves-light btn blue darken-2">
                         Follow UP
                     </a>
-                    <a
-                        id="confirmed_job"
-                        class="waves-effect waves-light btn grey darken"
-                    >
+                    <a id="confirmed_job" class="waves-effect waves-light btn grey darken">
                         Add To Calendar as confirmed job
                     </a>
                 </div>
