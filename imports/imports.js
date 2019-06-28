@@ -1,3 +1,4 @@
+// calendar
 import './kalendar/kalendar.css';
 import './kalendar/kalendar.html';
 import './kalendar/kalendar';
@@ -15,3 +16,7 @@ import './tablet/TabletIsList';
 import './add/add.html';
 import './add/add';
 import './timeSelector/TimeSelector';
+
+// statistic
+import './statistic/statistic.html';
+import './statistic/Statistic';

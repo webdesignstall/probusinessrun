@@ -74,6 +74,11 @@ if (Meteor.userId()) {
             this.render('archive');
         }
     });
+    Router.route('/statistic', {
+        onBeforeAction: function() {
+            this.render('statistic');
+        }
+    });
 }
 
 Router.route('/reserve', {

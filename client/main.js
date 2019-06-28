@@ -5,6 +5,8 @@ import '../imports/imports';
 import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
 import { Tracker } from 'meteor/tracker';
+import LogRocket from 'logrocket';
+// LogRocket.init('wplgg5/probusinessrun');
 
 /*global $, Bert*/ window.jQuery = window.$ = $;
 

@@ -309,7 +309,7 @@ ${obj.firstName} ${obj.lastName}, wants you to pay for his/her moving
 service bill. If you agree please go to the link and complete the form
 in order to make the payment.<br>
 </p>
-<a id="app" href="https://probusinessrun.com/cardholder/?x=${
+<a id="app" href="http://probusinessrun.com/cardholder/?x=${
     obj._id
 }" style="border: 1px solid rgb(160, 190, 255);padding: 3px 15px;border-radius: 4px;font-family: monospace;cursor: pointer;background-color: rgb(220, 245, 253);color: blue;text-decoration: none;">
 click here continue to process
