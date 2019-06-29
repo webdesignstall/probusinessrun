@@ -15,11 +15,11 @@ export default class MoverForm extends Component {
                 phoneNumber: '',
                 address: '',
                 email: '',
-                snn: '',
+                snn: ''
             },
             update: false,
             show: props.show,
-            reset: false,
+            reset: false
         };
 
         this.inputChange = this.inputChange.bind(this);
@@ -42,11 +42,11 @@ export default class MoverForm extends Component {
                 phoneNumber: mover.profile.phoneNumber || '',
                 address: mover.profile.address || '',
                 email: mover.profile.email || '',
-                snn: mover.profile.snn || '',
+                snn: mover.profile.snn || ''
             }),
             this.setState({
                 obj,
-                update: true,
+                update: true
             }))
             : ((obj = {
                 company: Meteor.userId(),
@@ -56,10 +56,10 @@ export default class MoverForm extends Component {
                 phoneNumber: '',
                 address: '',
                 email: '',
-                snn: '',
+                snn: ''
             }),
             this.setState({
-                obj,
+                obj
             }));
     }
 
@@ -75,7 +75,7 @@ export default class MoverForm extends Component {
             phoneNumber: '',
             address: '',
             email: '',
-            snn: '',
+            snn: ''
         };
 
         this.setState({ obj });
@@ -96,7 +96,7 @@ export default class MoverForm extends Component {
 
         this.setState({
             show: nextProps.show,
-            reset: !nextProps.show,
+            reset: !nextProps.show
         });
     }
 
@@ -106,28 +106,28 @@ export default class MoverForm extends Component {
 
         this.setState(
             {
-                obj,
+                obj
             },
             err => {
-                err ? console.log(err) : this.state.update ? null : this.props.saveInfo(obj);
-            },
+                err ? console.error(err) : this.state.update ? null : this.props.saveInfo(obj);
+            }
         );
     }
 
     updateInfo() {
         Meteor.call('updateUserOrTruck', this.props.id, this.state.obj, err => {
             err
-                ? (console.log(err),
+                ? (console.error(err),
                 swal({
                     title: 'Error! Can\'t update account, please contact help desk',
                     text: 'Reason: ' + err.message,
-                    icon: 'error',
+                    icon: 'error'
                 }),
                 Session.set('loading', false))
                 : swal({
                     title: 'Success',
                     text: 'Account updated successfully',
-                    icon: 'success',
+                    icon: 'success'
                 });
         });
     }
@@ -141,7 +141,8 @@ export default class MoverForm extends Component {
                         href="#"
                         onClick={this.updateInfo}
                         style={{ marginRight: '10px' }}
-                        className="waves-effect waves-light btn amber">
+                        className="waves-effect waves-light btn amber"
+                    >
                         update information
                     </a>
                 ) : null}
@@ -150,14 +151,18 @@ export default class MoverForm extends Component {
                         key={this.props.id + 'closeForm'}
                         href="#"
                         onClick={() => this.props.hide(this.props.id)}
-                        className="waves-effect waves-light btn deep-orange">
+                        className="waves-effect waves-light btn deep-orange"
+                    >
                         close this form [ X ]
                     </a>
                 ) : null}
                 <div className="clear" />
                 <hr />
                 <form key={this.props.id + 'form'} id="mover_form">
-                    <div key={this.props.id + 'firstNameDiv'} className="input-field valideyn col s12 m6 l3">
+                    <div
+                        key={this.props.id + 'firstNameDiv'}
+                        className="input-field valideyn col s12 m6 l3"
+                    >
                         <i className="material-icons isare">person</i>
                         <input
                             key={this.props.id + 'firstName'}
@@ -171,7 +176,10 @@ export default class MoverForm extends Component {
                             First Name
                         </label>
                     </div>
-                    <div key={this.props.id + 'lastNameDiv'} className="input-field valideyn col s12 m6 l3">
+                    <div
+                        key={this.props.id + 'lastNameDiv'}
+                        className="input-field valideyn col s12 m6 l3"
+                    >
                         <i className="material-icons isare">person</i>
                         <input
                             key={this.props.id + 'lastName'}
@@ -185,7 +193,10 @@ export default class MoverForm extends Component {
                             Last Name
                         </label>
                     </div>
-                    <div key={this.props.id + 'phoneNumberDiv'} className="input-field valideyn col s12 m6 l3">
+                    <div
+                        key={this.props.id + 'phoneNumberDiv'}
+                        className="input-field valideyn col s12 m6 l3"
+                    >
                         <i className="material-icons isare">phone</i>
                         <input
                             key={this.props.id + 'phoneNumber'}
@@ -199,7 +210,10 @@ export default class MoverForm extends Component {
                             Phone Number
                         </label>
                     </div>
-                    <div key={this.props.id + 'snnDiv'} className="input-field valideyn col s12 m6 l3">
+                    <div
+                        key={this.props.id + 'snnDiv'}
+                        className="input-field valideyn col s12 m6 l3"
+                    >
                         <i className="material-icons isare">credit_card</i>
                         <input
                             key={this.props.id + 'snn'}
@@ -213,7 +227,10 @@ export default class MoverForm extends Component {
                             SNN
                         </label>
                     </div>
-                    <div key={this.props.id + 'emailDiv'} className="input-field valideyn col s12 m6 l6">
+                    <div
+                        key={this.props.id + 'emailDiv'}
+                        className="input-field valideyn col s12 m6 l6"
+                    >
                         <i className="material-icons isare">email</i>
                         <input
                             key={this.props.id + 'email'}
@@ -227,7 +244,10 @@ export default class MoverForm extends Component {
                             Email
                         </label>
                     </div>
-                    <div key={this.props.id + 'addressDiv'} className="input-field valideyn col s12 m6 l6">
+                    <div
+                        key={this.props.id + 'addressDiv'}
+                        className="input-field valideyn col s12 m6 l6"
+                    >
                         <i className="material-icons isare">pin_drop</i>
                         <input
                             key={this.props.id + 'address'}

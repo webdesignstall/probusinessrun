@@ -22,9 +22,7 @@ export default class List extends TrackerReact(Component) {
 
     workData(status) {
         return WorkData.find(
-            status !== '' && typeof status === 'string'
-                ? { status: status }
-                : {}
+            status !== '' && typeof status === 'string' ? { status: status } : {}
         ).fetch();
     }
 
@@ -50,36 +48,28 @@ export default class List extends TrackerReact(Component) {
                     },
                     err => {
                         if (err) {
-                            console.log(err);
+                            console.error(err);
                         } else {
-                            let arrayOfWords = this.state.searchWords.split(
-                                ' '
-                            );
+                            let arrayOfWords = this.state.searchWords.split(' ');
                             let indexOfEmpty = arrayOfWords.indexOf('');
-                            indexOfEmpty > -1
-                                ? arrayOfWords.splice(indexOfEmpty, 1)
-                                : null;
+                            indexOfEmpty > -1 ? arrayOfWords.splice(indexOfEmpty, 1) : null;
                             let result = new Set();
                             let sort = Session.get('sort');
 
                             arrayOfWords.map(word => {
                                 this.workData().map(work => {
                                     work.clientFirstName &&
-                                    work.clientFirstName
-                                        .toLowerCase()
-                                        .search(word.toLowerCase()) > -1
+                                    work.clientFirstName.toLowerCase().search(word.toLowerCase()) >
+                                        -1
                                         ? result.add(work)
                                         : null;
                                     work.clientLastName &&
-                                    work.clientLastName
-                                        .toLowerCase()
-                                        .search(word.toLowerCase()) > -1
+                                    work.clientLastName.toLowerCase().search(word.toLowerCase()) >
+                                        -1
                                         ? result.add(work)
                                         : null;
                                     work.jobNumber &&
-                                    work.jobNumber
-                                        .toLowerCase()
-                                        .search(word.toLowerCase()) > -1
+                                    work.jobNumber.toLowerCase().search(word.toLowerCase()) > -1
                                         ? result.add(work)
                                         : null;
                                     work.phoneNumber &&
@@ -92,13 +82,9 @@ export default class List extends TrackerReact(Component) {
                                 });
                             });
                             let resultConverted = Array.from(result);
-                            arrayOfWords.length > 0
-                                ? null
-                                : (resultConverted = this.workData());
+                            arrayOfWords.length > 0 ? null : (resultConverted = this.workData());
 
-                            resultConverted.length > 0
-                                ? null
-                                : (resultConverted = [{}]);
+                            resultConverted.length > 0 ? null : (resultConverted = [{}]);
                             arrayOfWords.length > 0
                                 ? Session.set('isSearch', true)
                                 : Session.set('isSearch', false);
@@ -119,41 +105,29 @@ export default class List extends TrackerReact(Component) {
                 result.sort((a, b) => {
                     if (Session.get('sort') === 'default') {
                         return (
-                            new Date(
-                                b.statusChange || '1 november 1989'
-                            ).getTime() -
-                            new Date(
-                                a.statusChange || '1 november 1989'
-                            ).getTime()
+                            new Date(b.statusChange || '1 november 1989').getTime() -
+                            new Date(a.statusChange || '1 november 1989').getTime()
                         );
                     }
 
                     if (Session.get('sort') === 'az') {
                         return (
-                            new Date(
-                                a.workDate || '1 november 1989'
-                            ).getTime() -
+                            new Date(a.workDate || '1 november 1989').getTime() -
                             new Date(b.workDate || '1 november 1989').getTime()
                         );
                     }
 
                     if (Session.get('sort') === 'za') {
                         return (
-                            new Date(
-                                b.workDate || '1 november 1989'
-                            ).getTime() -
+                            new Date(b.workDate || '1 november 1989').getTime() -
                             new Date(a.workDate || '1 november 1989').getTime()
                         );
                     }
 
                     if (Session.get('sort') === 'lc') {
                         return (
-                            new Date(
-                                b.lastChange || '1 november 1989'
-                            ).getTime() -
-                            new Date(
-                                a.lastChange || '1 november 1989'
-                            ).getTime()
+                            new Date(b.lastChange || '1 november 1989').getTime() -
+                            new Date(a.lastChange || '1 november 1989').getTime()
                         );
                     }
                 });
@@ -186,17 +160,11 @@ export default class List extends TrackerReact(Component) {
         return this.state.jobs.map(job => {
             return Session.get('is') === job._id ? (
                 <div key={job._id + 'followUpList'} className="collection-item">
-                    <ListInnerDisplay
-                        loading={this.startStopLoading}
-                        job={job}
-                    />
+                    <ListInnerDisplay loading={this.startStopLoading} job={job} />
                 </div>
             ) : Session.get('is') === '' ? (
                 <div key={job._id + 'followUpList'} className="collection-item">
-                    <ListInnerDisplay
-                        loading={this.startStopLoading}
-                        job={job}
-                    />
+                    <ListInnerDisplay loading={this.startStopLoading} job={job} />
                 </div>
             ) : null;
         });

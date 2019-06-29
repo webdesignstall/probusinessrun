@@ -7,7 +7,7 @@ export default class AddButton extends Component {
         super(props);
 
         this.state = {
-            saveOrAdd: false,
+            saveOrAdd: false
         };
 
         this.add = this.add.bind(this);
@@ -39,38 +39,39 @@ export default class AddButton extends Component {
                     plateNumber: (this.props.obj && this.props.obj.plateNumber) || '',
                     lenght: (this.props.obj && this.props.obj.lenght) || '',
                     numberOfSeats: (this.props.obj && this.props.obj.numberOfSeats) || 0,
-                    specification: (this.props.obj && this.props.obj.specification) || '',
-                },
+                    specification: (this.props.obj && this.props.obj.specification) || ''
+                }
             };
 
             Meteor.call('addUserOrTruck', obj, (err, res) => {
                 err
-                    ? (console.log(err),
-                    console.log(obj),
+                    ? (console.error(err),
                     swal({
                         title: 'Error!',
                         text: 'Reason: ' + err.message,
                         icon: 'error',
-                        button: 'OK',
+                        button: 'OK'
                     }),
                     Session.set('loading', false))
                     : (swal({
                         title: 'Success!',
                         text: 'Profile created successfully',
                         icon: 'success',
-                        button: 'OK',
+                        button: 'OK'
                     }),
-                    document.getElementById('mover_form') && document.getElementById('mover_form').reset(),
-                    document.getElementById('truck_form') && document.getElementById('truck_form').reset());
+                    document.getElementById('mover_form') &&
+                          document.getElementById('mover_form').reset(),
+                    document.getElementById('truck_form') &&
+                          document.getElementById('truck_form').reset());
             });
         } else {
             this.setState(
                 prevState => {
                     return {
-                        saveOrAdd: !prevState.saveOrAdd,
+                        saveOrAdd: !prevState.saveOrAdd
                     };
                 },
-                err => (err ? console.log(err) : this.props.show(this.state.saveOrAdd)),
+                err => (err ? console.error(err) : this.props.show(this.state.saveOrAdd))
             );
         }
     }
@@ -79,15 +80,17 @@ export default class AddButton extends Component {
         this.setState(
             prevState => {
                 return {
-                    saveOrAdd: !prevState.saveOrAdd,
+                    saveOrAdd: !prevState.saveOrAdd
                 };
             },
             err =>
                 err
-                    ? console.log(err)
+                    ? console.error(err)
                     : (this.props.show(this.state.saveOrAdd),
-                    document.getElementById('mover_form') && document.getElementById('mover_form').reset(),
-                    document.getElementById('truck_form') && document.getElementById('truck_form').reset()),
+                    document.getElementById('mover_form') &&
+                          document.getElementById('mover_form').reset(),
+                    document.getElementById('truck_form') &&
+                          document.getElementById('truck_form').reset())
         );
     }
 
@@ -101,8 +104,11 @@ export default class AddButton extends Component {
                     onClick={this.add}
                     style={{ marginRight: '10px' }}
                     className={
-                        this.state.saveOrAdd ? 'waves-effect waves-light btn teal' : 'waves-effect waves-light btn cyan'
-                    }>
+                        this.state.saveOrAdd
+                            ? 'waves-effect waves-light btn teal'
+                            : 'waves-effect waves-light btn cyan'
+                    }
+                >
                     {this.state.saveOrAdd ? 'Save' : 'Add New +'}
                 </a>
                 {/* cancel button */}
@@ -110,7 +116,10 @@ export default class AddButton extends Component {
                     key="close-form"
                     href="#"
                     onClick={this.cancel}
-                    className={this.state.saveOrAdd ? 'waves-effect waves-light btn deep-orange' : 'hide'}>
+                    className={
+                        this.state.saveOrAdd ? 'waves-effect waves-light btn deep-orange' : 'hide'
+                    }
+                >
                     close form
                 </a>
                 <span
@@ -120,8 +129,9 @@ export default class AddButton extends Component {
                         backgroundColor: 'rgb(255, 253, 244)',
                         color: 'rgb(119, 119, 119)',
                         boxShadow: 'none',
-                        border: '1px dashed dimgrey',
-                    }}>
+                        border: '1px dashed dimgrey'
+                    }}
+                >
                     {this.props.obj.rank === 'mover'
                         ? 'Movers'
                         : this.props.obj.rank === 'officeEmployee'

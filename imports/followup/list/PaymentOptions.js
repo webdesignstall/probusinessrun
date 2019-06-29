@@ -6,7 +6,7 @@ export default class PaymentOptions extends Component {
         super(props);
 
         this.state = {
-            job: this.props.job,
+            job: this.props.job
         };
 
         this.checkBox = this.checkBox.bind(this);
@@ -16,7 +16,7 @@ export default class PaymentOptions extends Component {
 
     UNSAFE_componentWillReceiveProps(nextProps) {
         this.setState({
-            job: nextProps.job,
+            job: nextProps.job
         });
     }
 
@@ -26,12 +26,12 @@ export default class PaymentOptions extends Component {
                 let job = prevState.job;
                 job.flatRate[0].isTrue = !job.flatRate[0].isTrue;
                 return {
-                    job,
+                    job
                 };
             },
             err => {
-                err ? console.log(err) : '';
-            },
+                err ? console.error(err) : '';
+            }
         );
     }
 
@@ -41,11 +41,11 @@ export default class PaymentOptions extends Component {
         oldInfo[target_] = valueOf;
         this.setState(
             {
-                job: oldInfo,
+                job: oldInfo
             },
             () => {
                 this.props.updateJob && this.props.updateJob(this.state.job);
-            },
+            }
         );
     }
 
@@ -57,11 +57,11 @@ export default class PaymentOptions extends Component {
         oldInfo.flatRate[0] = baza;
         this.setState(
             {
-                job: oldInfo,
+                job: oldInfo
             },
             () => {
                 this.props.updateJob && this.props.updateJob(this.state.job);
-            },
+            }
         );
     }
 
@@ -151,7 +151,8 @@ export default class PaymentOptions extends Component {
                         this.state.job.flatRate && this.state.job.flatRate[0].isTrue
                             ? 'input-field valideyn col s12 m12 l12 flatRate'
                             : 'input-field valideyn col s12 m12 l12 flatRate hide'
-                    }>
+                    }
+                >
                     <div className="input-field valideyn col s12 m6 l3">
                         <i className="material-icons isare">attach_money</i>
                         <input
@@ -159,7 +160,11 @@ export default class PaymentOptions extends Component {
                             className="xx"
                             type="number"
                             placeholder="0"
-                            value={(this.state.job.flatRate && this.state.job.flatRate[0].cashAmount) || ''}
+                            value={
+                                (this.state.job.flatRate &&
+                                    this.state.job.flatRate[0].cashAmount) ||
+                                ''
+                            }
                             onChange={e => this.flatRateHandler(e, 'cashAmount')}
                         />
                         <label className="active" htmlFor="flatRateCash">
@@ -173,7 +178,11 @@ export default class PaymentOptions extends Component {
                             className="xx"
                             type="number"
                             placeholder="0"
-                            value={(this.state.job.flatRate && this.state.job.flatRate[0].cardAmount) || ''}
+                            value={
+                                (this.state.job.flatRate &&
+                                    this.state.job.flatRate[0].cardAmount) ||
+                                ''
+                            }
                             onChange={e => this.flatRateHandler(e, 'cardAmount')}
                         />
                         <label className="active" htmlFor="flatRateCard">
@@ -188,5 +197,5 @@ export default class PaymentOptions extends Component {
 
 PaymentOptions.propTypes = {
     job: PropTypes.object.isRequired,
-    updateJob: PropTypes.func,
+    updateJob: PropTypes.func
 };

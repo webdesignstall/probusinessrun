@@ -22,18 +22,12 @@ export default class ExtendArchive extends Component {
             nextProps.job.workers.length > 0 &&
             nextProps.job.trucks.length > 0
         ) {
-            let employee =
-                nextProps.job.workers &&
-                Object.values(nextProps.job.workers[0]);
+            let employee = nextProps.job.workers && Object.values(nextProps.job.workers[0]);
             employee = Meteor.users.find({ _id: { $in: employee } }).fetch();
-            console.log(employee);
 
-            let trucks =
-                nextProps.job.trucks && Object.values(nextProps.job.trucks[0]);
+            let trucks = nextProps.job.trucks && Object.values(nextProps.job.trucks[0]);
             trucks = Array.from(trucks.join(' ').split(' '));
-            trucks = Meteor.users
-                .find({ 'profile.number': { $in: trucks } })
-                .fetch();
+            trucks = Meteor.users.find({ 'profile.number': { $in: trucks } }).fetch();
 
             this.setState({
                 employee,
@@ -65,9 +59,7 @@ export default class ExtendArchive extends Component {
 
             trucks = Array.from(trucks.join(' ').split(' '));
 
-            trucks = Meteor.users
-                .find({ 'profile.number': { $in: trucks } })
-                .fetch();
+            trucks = Meteor.users.find({ 'profile.number': { $in: trucks } }).fetch();
 
             this.setState({
                 employee,
@@ -75,7 +67,7 @@ export default class ExtendArchive extends Component {
             });
         }
     }
-    
+
     render() {
         return (
             <div>

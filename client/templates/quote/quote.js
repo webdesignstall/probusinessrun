@@ -123,7 +123,7 @@ Template.updateQuote.events({
 
         Meteor.call('supervisorEmail', job, err => {
             err
-                ? (console.log(err),
+                ? (console.error(err),
                 swal({
                     title: 'Error! Can\'t send email to supervisor pls contact help desk',
                     text: 'Reason: ' + err.message,
@@ -146,7 +146,7 @@ Template.updateQuote.events({
 
         Meteor.call('confirmationGonder', job, err => {
             err
-                ? (console.log(err),
+                ? (console.error(err),
                 swal({
                     title: 'Error! Can\'t send email to supervisor pls contact help desk',
                     text: 'Reason: ' + err.message,
@@ -241,7 +241,7 @@ Template.updateQuote.events({
         let ip = '';
         Meteor.call('emailGonder', doc, err => {
             err
-                ? (console.log(err),
+                ? (console.error(err),
                 swal({
                     title: 'Error while sending email',
                     text: err.message,
@@ -433,7 +433,6 @@ Template.preQuote.events({
         addressesArray.map(address => {
             addresses.push(address.value);
         });
-        console.log('TCL: addresses', addresses);
         let movingDate = document.getElementById('quote-date-picker').value;
         let movingDateConverted = movingDate;
         let price = document.getElementById('quote_price').value;
@@ -651,7 +650,7 @@ Template.preQuote.events({
                                 text: err.message,
                                 icon: 'error'
                             });
-                            console.log(err);
+                            console.error(err);
                             Session.set('loading', false);
                         } else {
                             swal({

@@ -50,7 +50,7 @@ export default class FollowUpMain extends TrackerReact(Component) {
 
                     Meteor.call('updateWork', job, err => {
                         err
-                            ? console.log(
+                            ? console.error(
                                 'Error while trying to make lost some jobs. ' + err.reason
                             )
                             : null;

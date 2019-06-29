@@ -46,7 +46,7 @@ class CardHolderUpload extends Component {
                 });
                 document.getElementById(nameOfFile).innerHTML = icon;
                 Session.set('loading', false);
-                console.log('Error: ', error);
+                console.error('Error: ', error);
             };
         }
 

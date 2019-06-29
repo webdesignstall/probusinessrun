@@ -4,6 +4,7 @@ import { Template } from 'meteor/templating';
 
 import './chart.styl';
 import ChartComp from './ChartComp';
+import ChartMenu from './ChartMenu';
 
 export default class Statistic extends Component {
     render() {
@@ -12,7 +13,9 @@ export default class Statistic extends Component {
                 <div className="col s12 m8 l8 center-align">
                     <ChartComp />
                 </div>
-                <div className="col s12 m4 l4">Hell</div>
+                <div className="col s12 m4 l4">
+                    <ChartMenu />
+                </div>
             </div>
         );
     }

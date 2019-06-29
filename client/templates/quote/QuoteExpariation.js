@@ -55,7 +55,7 @@ export default class QuoteExpiration extends TrackerReact(Component) {
                     button: 'OK'
                 }),
                 Session.set('loading', false),
-                console.log(err))
+                console.error(err))
                 : swal({
                     title: 'Success!',
                     text: 'Expiration date updated successfully',

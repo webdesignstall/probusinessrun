@@ -148,9 +148,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
         let value = '';
         let regex = new RegExp(/^\d+$/);
         if (what === 'phoneNumber' || what === 'phoneAdditional') {
-            console.log('1');
             if (regex.test(e.target.value)) {
-                console.log('isledi');
                 value = e.target.value;
 
                 job[what] = value;
@@ -241,7 +239,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
 
         Meteor.call('updateWork', doc, err => {
             err
-                ? (console.log(err),
+                ? (console.error(err),
                 swal({
                     title: 'Error!',
                     text: 'Reason: ' + err.message,
@@ -328,7 +326,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
             } else {
                 Meteor.call('emailGonder', objNew, err => {
                     err
-                        ? (console.log(err),
+                        ? (console.error(err),
                         swal({
                             title: 'Error!',
                             text:

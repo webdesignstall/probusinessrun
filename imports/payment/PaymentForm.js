@@ -163,7 +163,7 @@ export default class PaymentForm extends TrackerReact(Component) {
                 cardNonceResponseReceived: (errors, nonce, cardData) => {
                     if (errors) {
                         // Log errors from nonce generation to the Javascript console
-                        console.log('Encountered errors:');
+                        console.error('Encountered errors:');
                         errors.forEach(function(error) {
                             Session.set('loading', false);
                             swal({
@@ -172,7 +172,7 @@ export default class PaymentForm extends TrackerReact(Component) {
                                 icon: 'error',
                                 button: 'OK'
                             });
-                            console.log('  ' + error.message);
+                            console.error('  ' + error.message);
                         });
 
                         return;
@@ -200,7 +200,6 @@ export default class PaymentForm extends TrackerReact(Component) {
                                 }
                             })
                                 .then(data => {
-                                    console.log(data.status);
                                     return data.json();
                                 })
                                 .then(data => {
@@ -229,7 +228,7 @@ export default class PaymentForm extends TrackerReact(Component) {
                                         // job.status = 'won';
                                         // Meteor.call('updateWork', job);
                                     } else {
-                                        console.log(error);
+                                        console.error(error);
                                         Session.set('loading', false);
                                         swal({
                                             title: 'Error!',

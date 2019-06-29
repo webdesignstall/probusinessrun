@@ -17,11 +17,11 @@ export default class TruckForm extends Component {
                 plateNumber: '',
                 lenght: '',
                 numberOfSeats: 0,
-                specification: '',
+                specification: ''
             },
             update: false,
             show: props.show,
-            reset: false,
+            reset: false
         };
 
         this.inputChange = this.inputChange.bind(this);
@@ -45,11 +45,11 @@ export default class TruckForm extends Component {
                 plateNumber: truck.profile.plateNumber || '',
                 lenght: truck.profile.lenght || '',
                 numberOfSeats: Number(truck.profile.numberOfSeats) || '',
-                specification: truck.profile.specification || '',
+                specification: truck.profile.specification || ''
             }),
             this.setState({
                 obj,
-                update: true,
+                update: true
             }))
             : null;
     }
@@ -67,7 +67,7 @@ export default class TruckForm extends Component {
             plateNumber: '',
             lenght: '',
             numberOfSeats: 0,
-            specification: '',
+            specification: ''
         };
 
         this.setState({ obj });
@@ -89,7 +89,7 @@ export default class TruckForm extends Component {
 
         this.setState({
             show: nextProps.show,
-            reset: !nextProps.show,
+            reset: !nextProps.show
         });
     }
 
@@ -101,30 +101,30 @@ export default class TruckForm extends Component {
 
         this.setState(
             {
-                obj,
+                obj
             },
             err => {
-                err ? console.log(err) : this.state.update ? null : this.props.saveInfo(obj);
-            },
+                err ? console.error(err) : this.state.update ? null : this.props.saveInfo(obj);
+            }
         );
     }
 
     updateInfo() {
         Meteor.call('updateUserOrTruck', this.props.id, this.state.obj, err => {
             err
-                ? (console.log(err),
+                ? (console.error(err),
                 swal({
                     title: 'Error!',
                     text: 'Reason: ' + err.message,
                     icon: 'error',
-                    button: 'OK',
+                    button: 'OK'
                 }),
                 Session.set('loading', false))
                 : swal({
                     title: 'Success!',
                     text: 'Profile updated successfully',
                     icon: 'success',
-                    button: 'OK',
+                    button: 'OK'
                 });
         });
     }
@@ -138,7 +138,8 @@ export default class TruckForm extends Component {
                         href="#"
                         onClick={this.updateInfo}
                         style={{ marginRight: '10px' }}
-                        className="waves-effect waves-light btn amber">
+                        className="waves-effect waves-light btn amber"
+                    >
                         update information
                     </a>
                 ) : null}
@@ -147,7 +148,8 @@ export default class TruckForm extends Component {
                         key={this.props.id + 'closeForm'}
                         href="#"
                         onClick={() => this.props.hide(this.props.id)}
-                        className="waves-effect waves-light btn deep-orange">
+                        className="waves-effect waves-light btn deep-orange"
+                    >
                         close this form [ X ]
                     </a>
                 ) : null}
@@ -188,7 +190,11 @@ export default class TruckForm extends Component {
                         <input
                             key={this.props.id + 'numberOfSeats'}
                             onChange={e => this.inputChange('numberOfSeats', e)}
-                            value={this.state.obj.numberOfSeats !== 0 ? this.state.obj.numberOfSeats : ''}
+                            value={
+                                this.state.obj.numberOfSeats !== 0
+                                    ? this.state.obj.numberOfSeats
+                                    : ''
+                            }
                             placeholder="Number of seats"
                             id="number_of_seats"
                             type="number"
@@ -219,7 +225,11 @@ export default class TruckForm extends Component {
                         <input
                             key={this.props.id + 'specification'}
                             onChange={e => this.inputChange('specification', e)}
-                            value={this.state.obj.specification !== 0 ? this.state.obj.specification : ''}
+                            value={
+                                this.state.obj.specification !== 0
+                                    ? this.state.obj.specification
+                                    : ''
+                            }
                             placeholder="Specification"
                             id="truck_specification"
                             type="text"

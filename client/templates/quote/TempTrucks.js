@@ -11,7 +11,7 @@ export default class TempTrucks extends Component {
         this.state = {
             update: this.props.update,
             trucks: [],
-            trucksList: ['16 foot', '18 foot', '20 foot', '22 foot', '24 foot', '26 foot'],
+            trucksList: ['16 foot', '18 foot', '20 foot', '22 foot', '24 foot', '26 foot']
         };
 
         this.deleteTempTruck = this.deleteTempTruck.bind(this);
@@ -32,11 +32,12 @@ export default class TempTrucks extends Component {
                 Session.set('trucklar', selectedJob.trucksTemp);
                 this.setState(
                     {
-                        trucks: selectedJob.trucksTemp,
+                        trucks: selectedJob.trucksTemp
                     },
                     () => {
-                        this.props.updateJob && this.props.updateJob({ trucksTemp: this.state.trucks });
-                    },
+                        this.props.updateJob &&
+                            this.props.updateJob({ trucksTemp: this.state.trucks });
+                    }
                 );
             }
         });
@@ -64,10 +65,11 @@ export default class TempTrucks extends Component {
             },
             err => {
                 err
-                    ? console.log(err)
+                    ? console.error(err)
                     : (Session.set('trucklar', this.state.trucks),
-                    this.props.updateJob && this.props.updateJob({ trucksTemp: this.state.trucks }));
-            },
+                    this.props.updateJob &&
+                          this.props.updateJob({ trucksTemp: this.state.trucks }));
+            }
         );
     }
 
@@ -79,22 +81,27 @@ export default class TempTrucks extends Component {
                 old[index][type] = value;
 
                 return {
-                    trucks: old,
+                    trucks: old
                 };
             },
             err => {
                 err
-                    ? console.log(err)
+                    ? console.error(err)
                     : (Session.set('trucklar', this.state.trucks),
-                    this.props.updateJob && this.props.updateJob({ trucksTemp: this.state.trucks }));
-            },
+                    this.props.updateJob &&
+                          this.props.updateJob({ trucksTemp: this.state.trucks }));
+            }
         );
     }
 
     addTruckList() {
         return this.state.trucks.map((truck, index) => {
             return (
-                <div className="col s12 m6 l6" style={{ margin: '10px 0' }} key={index + 'tempTruckList'}>
+                <div
+                    className="col s12 m6 l6"
+                    style={{ margin: '10px 0' }}
+                    key={index + 'tempTruckList'}
+                >
                     <div className="col s8 m8 l8">
                         <label htmlFor={'temp-trucks-sizes-list' + index}>Truck Size</label>
                         <select
@@ -102,7 +109,8 @@ export default class TempTrucks extends Component {
                             className="browser-default"
                             name={'truck-sizes' + index}
                             id={'temp-trucks-sizes-list' + index}
-                            value={truck.size}>
+                            value={truck.size}
+                        >
                             <option value="Select Trucks Size" disabled={true}>
                                 Select Trucks Size
                             </option>
@@ -116,7 +124,8 @@ export default class TempTrucks extends Component {
                             className="browser-default"
                             name={'truck-quantity' + index}
                             id={'temp-trucks-quantity' + index}
-                            value={truck.qty || 1}>
+                            value={truck.qty || 1}
+                        >
                             <option value={1}>1</option>
                             <option value={2}>2</option>
                             <option value={3}>3</option>
@@ -137,8 +146,9 @@ export default class TempTrucks extends Component {
                                 margin: '0px auto',
                                 padding: '28px 0',
                                 marginLeft: '-10px',
-                                cursor: 'pointer',
-                            }}>
+                                cursor: 'pointer'
+                            }}
+                        >
                             delete_forever
                         </i>
                     </div>
@@ -155,17 +165,18 @@ export default class TempTrucks extends Component {
                         ...prevState.trucks,
                         {
                             size: 'Select Trucks Size',
-                            qty: 1,
-                        },
-                    ],
+                            qty: 1
+                        }
+                    ]
                 };
             },
             err => {
                 err
-                    ? console.log(err)
+                    ? console.error(err)
                     : (Session.set('trucklar', this.state.trucks),
-                    this.props.updateJob && this.props.updateJob({ trucksTemp: this.state.trucks }));
-            },
+                    this.props.updateJob &&
+                          this.props.updateJob({ trucksTemp: this.state.trucks }));
+            }
         );
     }
 
@@ -178,8 +189,9 @@ export default class TempTrucks extends Component {
                     margin: '10px 0 0 0',
                     letterSpacing: '0.5px',
                     overflow: 'hidden',
-                    border: '1px solid #D55B26',
-                }}>
+                    border: '1px solid #D55B26'
+                }}
+            >
                 <span
                     style={{
                         display: 'block',
@@ -189,8 +201,9 @@ export default class TempTrucks extends Component {
                         color: 'white',
                         margin: '0 4px 0 0',
                         position: 'relative',
-                        fontWeight: '500',
-                    }}>
+                        fontWeight: '500'
+                    }}
+                >
                     TEMPORARY TRUCKS
                     <i
                         className="material-icons"
@@ -200,8 +213,9 @@ export default class TempTrucks extends Component {
                             margin: '4px 0 0 15px',
                             color: '#4EDB9E',
                             top: '0',
-                            cursor: 'pointer',
-                        }}>
+                            cursor: 'pointer'
+                        }}
+                    >
                         add_circle
                     </i>
                 </span>
@@ -213,5 +227,5 @@ export default class TempTrucks extends Component {
 
 TempTrucks.propTypes = {
     updateJob: PropTypes.func,
-    update: PropTypes.bool,
+    update: PropTypes.bool
 };

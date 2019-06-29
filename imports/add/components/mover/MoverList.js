@@ -10,7 +10,7 @@ export default class MoverList extends Component {
 
         this.state = {
             obj: {
-                rank: (this.props.whatToDisplay),
+                rank: this.props.whatToDisplay,
                 firstName: '',
                 lastName: '',
                 phoneNumber: '',
@@ -40,8 +40,8 @@ export default class MoverList extends Component {
     stateChanged(obj) {
         let _obj = obj;
         _obj.rank = this.props.whatToDisplay;
-        this.setState({ obj: _obj }, (err) => {
-            err ? console.log(err) : 'Xeta tapilmadi';
+        this.setState({ obj: _obj }, err => {
+            err ? console.error(err) : 'Xeta tapilmadi';
         });
     }
 
@@ -56,16 +56,20 @@ export default class MoverList extends Component {
             <div className="div">
                 <div className="employee--add-button card__">
                     <AddButton obj={this.state.obj} show={this.show} />
-                    {
-                        (this.state.obj.rank === 'mover' || this.state.obj.rank === 'officeEmployee')
-                            ? <MoverForm show={this.state.show} saveInfo={this.stateChanged} rank={this.state.obj.rank} />
-                            : null
-                    }
-                    {
-                        (this.state.obj.rank === 'tablet')
-                            ? <TruckForm show={this.state.show} saveInfo={this.stateChanged} rank={this.state.obj.rank} />
-                            : null
-                    }
+                    {this.state.obj.rank === 'mover' || this.state.obj.rank === 'officeEmployee' ? (
+                        <MoverForm
+                            show={this.state.show}
+                            saveInfo={this.stateChanged}
+                            rank={this.state.obj.rank}
+                        />
+                    ) : null}
+                    {this.state.obj.rank === 'tablet' ? (
+                        <TruckForm
+                            show={this.state.show}
+                            saveInfo={this.stateChanged}
+                            rank={this.state.obj.rank}
+                        />
+                    ) : null}
                 </div>
                 <ListRender saveInfo={this.stateChanged} rank={this.state.obj.rank} />
             </div>

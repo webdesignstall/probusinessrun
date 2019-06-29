@@ -560,7 +560,7 @@ Template.kalendar.onRendered(function() {
                 $('.dayData').removeClass('aktivGun');
                 secilmisGun.className += ' aktivGun';
             } catch (err) {
-                err ? console.log(err) : null;
+                err ? console.error(err) : null;
             }
 
             // Islerin siyahisini cixardir

@@ -6,6 +6,7 @@ export default class ChartComp extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            title: 'Chart',
             labels: ['Africa', 'Asia', 'Europe', 'Latin America', 'North America'],
             datasets: [
                 {
@@ -39,7 +40,7 @@ export default class ChartComp extends Component {
     }
 
     componentDidMount() {
-        const { labels, datasets } = this.state;
+        const { labels, datasets, title } = this.state;
         Chart.defaults.global.defaultFontFamily = 'Roboto';
         Chart.defaults.global.defaultFontSize = 16;
         new Chart(this.canvas.current, {
@@ -53,8 +54,8 @@ export default class ChartComp extends Component {
                     display: false
                 },
                 title: {
-                    display: false,
-                    text: 'Predicted world population (millions) in 2050'
+                    display: true,
+                    text: title
                 },
                 tooltips: {
                     callbacks: {
@@ -102,11 +103,14 @@ export default class ChartComp extends Component {
 
         return this.state.labels.map((label, index) => {
             return (
-                <div key={'chart_list' + index} className="chart_list_render">
-                    <span className="chart_list_label">{label}</span>{' '}
-                    <span className="chart_list_value">{data[index]}</span>{' '}
-                    <span className="chart_list_value">{percentageData[index]}</span>
-                </div>
+                <React.Fragment key={'chart_list' + index}>
+                    <div className="chart_list_render">
+                        <span className="chart_list_label">{label}</span>{' '}
+                        <span className="chart_list_value value">{data[index]}</span>{' '}
+                        <span className="chart_list_value percent">{percentageData[index]}%</span>
+                    </div>
+                    <br />
+                </React.Fragment>
             );
         });
     }

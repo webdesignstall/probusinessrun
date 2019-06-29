@@ -98,7 +98,7 @@ class CardHolder extends TrackerReact(Component) {
                     icon: 'error',
                     button: 'OK'
                 });
-                console.log(err);
+                console.error(err);
             } else {
                 swal({
                     title: 'Success!',

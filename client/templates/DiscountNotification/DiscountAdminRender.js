@@ -49,7 +49,7 @@ export default class DiscountAdminRender extends TrackerReact(React.Component) {
 
         Meteor.call('updateDiscount', doc, discount._id, err => {
             if (err) {
-                console.log(err);
+                console.error(err);
             } else {
                 swal({
                     title: 'Success',
@@ -66,7 +66,8 @@ export default class DiscountAdminRender extends TrackerReact(React.Component) {
                 <div
                     key={Math.random()}
                     className="cardBorder col s12 m12 l12"
-                    style={{ backgroundColor: '#ecf0f1' }}>
+                    style={{ backgroundColor: '#ecf0f1' }}
+                >
                     <div
                         id={discount._id + 'deny'}
                         className={
@@ -103,23 +104,21 @@ export default class DiscountAdminRender extends TrackerReact(React.Component) {
                         <div
                             className=" click col s6 m6 l6 center-align white-text"
                             style={{ backgroundColor: '#e74c3c' }}
-                            onClick={() => this.deny(discount)}>
+                            onClick={() => this.deny(discount)}
+                        >
                             <i className="material-icons padding5z">cancel</i>
                         </div>
                         <div
                             className=" click  col s6 m6 l6 center-align white-text"
                             style={{ backgroundColor: '#1abc9c' }}
-                            onClick={() => this.accept(discount)}>
-                            <i className="material-icons padding5z">
-                                check_circle
-                            </i>
+                            onClick={() => this.accept(discount)}
+                        >
+                            <i className="material-icons padding5z">check_circle</i>
                         </div>
                     </div>
                     <div className="clear" />
                     {discount.note ? (
-                        <div className="cardBorder col s12 m12 l12">
-                            {discount.note}
-                        </div>
+                        <div className="cardBorder col s12 m12 l12">{discount.note}</div>
                     ) : null}
                 </div>
             );
