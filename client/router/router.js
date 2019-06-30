@@ -6,7 +6,7 @@ import { Session } from 'meteor/session';
 Router.configure({
     layoutTemplate: 'layout',
     waitOn: function() {
-        return Meteor.subscribe('userData');
+        // return Meteor.subscribe('userData');
     },
     loadingTemplate: 'loading',
     notFoundTemplate: '404'

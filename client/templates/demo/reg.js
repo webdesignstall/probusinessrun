@@ -4,7 +4,7 @@ import { Accounts } from 'meteor/accounts-base';
 
 Template.register.events({
     'submit form': function(event) {
-        Meteor.subscribe('usersData');
+        // Meteor.subscribe('usersData');
         event.preventDefault();
         const userName = event.target.userName.value;
         const password = String(event.target.registerPassword.value);
