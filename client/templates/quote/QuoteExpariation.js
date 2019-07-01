@@ -4,8 +4,6 @@ import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
 
-import getUserIP from '../../../imports/helpers/getIp';
-
 /*global swal*/
 
 export default class QuoteExpiration extends TrackerReact(Component) {
@@ -42,9 +40,8 @@ export default class QuoteExpiration extends TrackerReact(Component) {
             _id: Session.get('is'),
             quoteExpirationDate: new Date(time)
         };
-        let ip = '';
-        // ip = getUserIP();
-        doc.ip = ip;
+
+        doc.ip = Session.get('ip');
 
         Meteor.call('updateWork', doc, err => {
             err

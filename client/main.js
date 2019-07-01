@@ -8,6 +8,8 @@ import { Tracker } from 'meteor/tracker';
 import LogRocket from 'logrocket';
 // LogRocket.init('wplgg5/probusinessrun');
 
+import getUserIP from '../imports/helpers/getIp';
+
 /*global $, Bert*/ window.jQuery = window.$ = $;
 
 $(document).ready(function() {
@@ -58,6 +60,7 @@ Meteor.startup(() => {
 
     Tracker.autorun(() => {
         let user = Meteor.userId();
+        getUserIP().then(result => Session.set('ip', result));
 
         if (user) {
             let user1 = Meteor.users.find({ _id: user }).fetch()[0];

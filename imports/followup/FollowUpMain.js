@@ -9,8 +9,6 @@ import { Meteor } from 'meteor/meteor';
 import LoadingOverlay from 'react-loading-overlay';
 import RingLoader from 'react-spinners/RingLoader';
 
-import getUserIP from '../../imports/helpers/getIp';
-
 export default class FollowUpMain extends TrackerReact(Component) {
     constructor(props) {
         super(props);
@@ -44,9 +42,8 @@ export default class FollowUpMain extends TrackerReact(Component) {
                         other: false
                     };
                     job.finalNote = finalNote_;
-                    let ip = '';
-                    // ip = getUserIP();
-                    job.ip = ip;
+
+                    job.ip = Session.get('ip');
 
                     Meteor.call('updateWork', job, err => {
                         err

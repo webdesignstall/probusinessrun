@@ -6,7 +6,6 @@ import ReactDOM from 'react-dom';
 import WorkData from './../../../common/collections_2';
 import { Tracker } from 'meteor/tracker';
 import swal from 'sweetalert';
-import getUserIP from '../../../imports/helpers/getIp';
 
 /*global $*/
 
@@ -238,7 +237,7 @@ Template.updateQuote.events({
             noteForYourMove: document.getElementById('for_your_move_update').value,
             additionalInfo: Session.get('additionalInfo')
         };
-        let ip = '';
+
         Meteor.call('emailGonder', doc, err => {
             err
                 ? (console.error(err),
@@ -253,11 +252,10 @@ Template.updateQuote.events({
                     text: 'Email sent successfully',
                     icon: 'success'
                 }),
-                // (ip = getUserIP()),
                 Meteor.call('updateWork', {
                     _id: Session.get('is'),
                     emailSent: true,
-                    ip
+                    ip: Session.get('ip')
                 }));
         });
     },
@@ -290,9 +288,6 @@ Template.updateQuote.events({
         addressesArray.map(address => {
             addresses.push(address.value);
         });
-
-        let ip = '';
-        // ip = getUserIP();
 
         let doc = {
             _id: Session.get('is'),
@@ -338,7 +333,7 @@ Template.updateQuote.events({
             status: document.getElementById('jobStatus_followup').value,
             noteForYourMove: document.getElementById('for_your_move_update').value.trim(),
             additionalInfo: Session.get('additionalInfo'),
-            ip
+            ip: Session.get('ip')
         };
 
         Meteor.call('updateWork', doc, function(err) {
