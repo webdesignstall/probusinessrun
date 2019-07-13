@@ -11,16 +11,19 @@ export default class Search extends TrackerReact(Component) {
         this.state = {
             searchWords: '',
             result: new Set(),
-            works: [],
+            works: []
         };
 
         this.search = this.search.bind(this);
+        this.search_ = this.search_.bind(this);
+        this.interval = this.interval.bind(this);
     }
 
     componentDidMount() {
+        this.timeOut = null;
         this.x = Tracker.autorun(() => {
             this.setState({
-                searchWords: Session.get('searchWords'),
+                searchWords: Session.get('searchWords')
             });
         });
     }
@@ -30,16 +33,21 @@ export default class Search extends TrackerReact(Component) {
     }
 
     search(e) {
-        Session.set('loading', true);
+        Session.set('loading', false);
         let value = e.target.value;
-        this.setState(
-            {
-                searchWords: value,
-            },
-            () => {
-                Session.set('searchWords', value);
-            },
-        );
+        this.setState({
+            searchWords: value
+        });
+    }
+
+    search_() {
+        Session.set('loading', true);
+        Session.set('searchWords', this.state.searchWords);
+    }
+
+    interval() {
+        clearTimeout(this.timeOut);
+        this.timeOut = setTimeout(this.search_, 500);
     }
 
     render() {
@@ -48,6 +56,7 @@ export default class Search extends TrackerReact(Component) {
                 <i className="material-icons">search</i>
                 <input
                     onChange={e => this.search(e)}
+                    onKeyUp={this.interval}
                     type="text"
                     placeholder="type for searching..."
                     value={this.state.searchWords}

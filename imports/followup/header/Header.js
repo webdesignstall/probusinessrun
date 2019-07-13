@@ -9,10 +9,12 @@ export default class Header extends Component {
             <div
                 className="followup--header"
                 style={{
-                    padding: '10px 0',
-                    borderBottom: '1px solid #3E3E3E',
+                    padding: '15px 10px',
+                    border: '1px solid #d2d2d2',
+                    borderRadius: '10px',
+                    marginTop: '10px',
+                    height: '52px'
                 }}>
-                <span style={{ color: '#707070' }}>JOBS LIST</span>
                 <Filter />
                 <Sorting />
                 <Search />

@@ -46,11 +46,7 @@ export default class FollowUpMain extends TrackerReact(Component) {
                     job.ip = Session.get('ip');
 
                     Meteor.call('updateWork', job, err => {
-                        err
-                            ? console.error(
-                                'Error while trying to make lost some jobs. ' + err.reason
-                            )
-                            : null;
+                        err ? console.error('Error while trying to make lost some jobs. ' + err.reason) : null;
                     });
                 }
             });
@@ -66,12 +62,7 @@ export default class FollowUpMain extends TrackerReact(Component) {
 
     render() {
         return (
-            <LoadingOverlay
-                text="Loading..."
-                className="loader"
-                active={Session.get('loading')}
-                spinner={<RingLoader color={'#6DD4B8'} />}
-            >
+            <LoadingOverlay text="Loading..." className="loader" active={Session.get('loading')} spinner={<RingLoader color={'#6DD4B8'} />}>
                 <div className="followup-header">
                     <Header />
                     <List />
