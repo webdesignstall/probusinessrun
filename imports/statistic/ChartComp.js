@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Chart from 'chart.js';
 import 'chartjs-plugin-labels';
 
@@ -39,15 +40,56 @@ export default class ChartComp extends Component {
         this.canvas = React.createRef();
     }
 
+    UNSAFE_componentWillReceiveProps(nextProps) {
+        const { data, title, labels, label, colors } = nextProps;
+        let datasets = this.state.datasets;
+        datasets[0].data = data || [2478, 5267, 734, 784, 433];
+        datasets[0].label = label || 'Population (millions)';
+        datasets[0].backgroundColor = colors || ['#1abc9c', '#2ecc71', '#3498db', '#9b59b6', '#34495e', '#16a085'];
+        this.setState(
+            () => {
+                return {
+                    title: title || 'Chart',
+                    labels: labels || ['Africa', 'Asia', 'Europe', 'Latin America', 'North America'],
+                    datasets: datasets
+                };
+            },
+            () => {
+                let labels = this.state.labels;
+                let title = this.state.title;
+                this.chart.options.title.text = title;
+                this.chart.data = { labels, datasets };
+                this.chart.update();
+            }
+        );
+    }
+
     componentDidMount() {
-        const { labels, datasets, title } = this.state;
+        const { data, title, labels, label, colors } = this.props;
+        let datasets = this.state.datasets;
+        datasets[0].data = data || [2478, 5267, 734, 784, 433];
+        datasets[0].label = label || 'Population (millions)';
+        datasets[0].backgroundColor = colors || ['#1abc9c', '#2ecc71', '#3498db', '#9b59b6', '#34495e', '#16a085'];
+        this.setState(() => {
+            return {
+                title: title || 'Chart',
+                labels: labels || ['Africa', 'Asia', 'Europe', 'Latin America', 'North America'],
+                datasets
+            };
+        });
+
         Chart.defaults.global.defaultFontFamily = 'Roboto';
         Chart.defaults.global.defaultFontSize = 16;
-        new Chart(this.canvas.current, {
+
+        const datasets_ = this.state.datasets;
+        const labels_ = this.state.labels;
+        const title_ = this.state.title;
+
+        this.chart = new Chart(this.canvas.current, {
             type: 'pie',
             data: {
-                labels,
-                datasets
+                labels: labels_,
+                datasets: datasets_
             },
             options: {
                 legend: {
@@ -55,7 +97,7 @@ export default class ChartComp extends Component {
                 },
                 title: {
                     display: true,
-                    text: title
+                    text: title_
                 },
                 tooltips: {
                     callbacks: {
@@ -105,8 +147,7 @@ export default class ChartComp extends Component {
             return (
                 <React.Fragment key={'chart_list' + index}>
                     <div className="chart_list_render">
-                        <span className="chart_list_label">{label}</span>{' '}
-                        <span className="chart_list_value value">{data[index]}</span>{' '}
+                        <span className="chart_list_label">{label}</span> <span className="chart_list_value value">{data[index]}</span>{' '}
                         <span className="chart_list_value percent">{percentageData[index]}%</span>
                     </div>
                     <br />
@@ -117,16 +158,18 @@ export default class ChartComp extends Component {
 
     render() {
         return (
-            <div>
-                <canvas
-                    className="statistic__chart"
-                    ref={this.canvas}
-                    id="myChart"
-                    width="400"
-                    height="400"
-                />
+            <div className="statistic__graph_list">
+                <canvas className="statistic__chart" ref={this.canvas} id="myChart" width="400" height="400" />
                 {this.listOfData()}
             </div>
         );
     }
 }
+
+ChartComp.propTypes = {
+    data: PropTypes.array,
+    title: PropTypes.string,
+    labels: PropTypes.array,
+    label: PropTypes.string,
+    colors: PropTypes.array
+};

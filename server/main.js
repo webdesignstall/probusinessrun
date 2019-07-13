@@ -21,8 +21,7 @@ Meteor.startup(() => {
     oauth2.accessToken = config.squareAccessToken;
 
     // prepare mailing server
-    process.env.MAIL_URL =
-        'smtp://postmaster%40probusinessrun.com:6d0eb775d8a76c5f1efd0b02030ea3fa-e89319ab-67f4f8af@smtp.mailgun.org:587';
+    process.env.MAIL_URL = 'smtp://postmaster%40probusinessrun.com:6d0eb775d8a76c5f1efd0b02030ea3fa-e89319ab-67f4f8af@smtp.mailgun.org:587';
     // code to run on server at startup
     Meteor.publish('userData', function() {
         if (this.userId && Meteor.user().profile.rank === 'admin') {
@@ -76,8 +75,7 @@ if (Meteor.isServer) {
                     console.log(err);
                     throw new Meteor.Error(
                         'Can\'t create new job',
-                        'Error while creating new job. Pls Contact with the help desk. Reason: ' +
-                            err.message
+                        'Error while creating new job. Pls Contact with the help desk. Reason: ' + err.message
                     );
                 } else {
                     return id;
@@ -113,10 +111,7 @@ if (Meteor.isServer) {
             server.send(message, function(err) {
                 if (err) {
                     console.log(err);
-                    throw new Meteor.Error(
-                        'Can\'t send email',
-                        'Impossible send email. Contact system administration'
-                    );
+                    throw new Meteor.Error('Can\'t send email', 'Impossible send email. Contact system administration');
                 } else {
                     console.log('Email successfully sent to: ' + job.email);
                 }
@@ -145,8 +140,7 @@ if (Meteor.isServer) {
                 text: ' ',
                 from: job.companyInfo.name + ' ' + job.companyInfo.email,
                 to: job.email,
-                subject: `Moving Confirmation for ${job.clientFirstName ||
-                    ''} ${job.clientLastName || ''}`,
+                subject: `Moving Confirmation for ${job.clientFirstName || ''} ${job.clientLastName || ''}`,
                 attachment: [
                     {
                         data: ConfirmationEmail(job),
@@ -161,25 +155,17 @@ if (Meteor.isServer) {
         },
 
         saveEmployeeInfo: function(isinIdsi, value, iscininIdsi) {
-            WorkData.update(
-                { _id: isinIdsi, 'workers.id': iscininIdsi },
-                { $set: { 'workers.$.payed': value } }
-            );
+            WorkData.update({ _id: isinIdsi, 'workers.id': iscininIdsi }, { $set: { 'workers.$.payed': value } });
         },
 
         updateWork: function(doc) {
             console.log('Update information: ' + doc.ip + ' :', doc);
-            // console.log('Satus for _id:' + doc._id + ' changed to ' + doc.status);
-            if (
-                doc.status === 'lost' &&
-                (doc.finalNote === 'none' || doc.finalNote === undefined)
-            ) {
+
+            if (doc.status === 'lost' && (doc.finalNote === 'none' || doc.finalNote === undefined)) {
                 throw new Meteor.Error('Please select final note for lost job');
             }
 
-            doc.status !== WorkData.findOne({ _id: doc._id }).status
-                ? (doc.statusChange = new Date())
-                : null;
+            doc.status !== WorkData.findOne({ _id: doc._id }).status ? (doc.statusChange = new Date()) : null;
 
             doc.status === 'won' ? (doc.wonDate = new Date()) : null;
 
@@ -258,9 +244,7 @@ if (Meteor.isServer) {
                 text: ' ',
                 from: 'ProBusinessRun info@probusinessrun.com',
                 to: 'lamovingcom@gmail.com',
-                subject: `${obj.clientFirstName} ${obj.clientLastName} payed $${
-                    obj.amount
-                } deposit`,
+                subject: `${obj.clientFirstName} ${obj.clientLastName} payed $${obj.amount} deposit`,
                 attachment: [
                     {
                         data: depositPaymentEmail(obj),
@@ -270,9 +254,7 @@ if (Meteor.isServer) {
             };
 
             server.send(message, function(err) {
-                err
-                    ? console.log(err)
-                    : console.log('Info about payment successfully sent to administration email');
+                err ? console.log(err) : console.log('Info about payment successfully sent to administration email');
             });
         },
         emailToCardHolder: function(obj) {
@@ -333,13 +315,7 @@ ${obj.companyInfo.email}<br>
             server.send(message, function(err, message) {
                 console.log(err);
                 console.log(message);
-                err
-                    ? console.log(err)
-                    : console.log(
-                        'Info about payment successfully sent to ' +
-                              obj.cardHolderInfo.email +
-                              ' email'
-                    );
+                err ? console.log(err) : console.log('Info about payment successfully sent to ' + obj.cardHolderInfo.email + ' email');
             });
         }
     });

@@ -12,22 +12,22 @@ import getUserIP from '../imports/helpers/getIp';
 
 /*global $, Bert*/ window.jQuery = window.$ = $;
 
-$(document).ready(function() {
-    $('select').material_select();
+// $(document).ready(function() {
+//     // $('select').material_select();
 
-    // Time picker
-    $('#quote-time-picker-from, #quote-time-picker-to').pickatime({
-        default: '9:00AM', // Set default time: 'now', '1:30AM', '16:30'
-        fromnow: 0, // set default time to * milliseconds from now (using with default = 'now')
-        twelvehour: true, // Use AM/PM or 24-hour format
-        donetext: 'SELECT', // text for done-button
-        cleartext: 'Clear', // text for clear-button
-        canceltext: 'Cancel', // Text for cancel-button
-        autoclose: false, // automatic close timepicker
-        ampmclickable: true, // make AM PM clickable
-        aftershow: function() {} //Function for after opening timepicker
-    });
-});
+//     // Time picker
+//     $('#quote-time-picker-from, #quote-time-picker-to').pickatime({
+//         default: '9:00AM', // Set default time: 'now', '1:30AM', '16:30'
+//         fromnow: 0, // set default time to * milliseconds from now (using with default = 'now')
+//         twelvehour: true, // Use AM/PM or 24-hour format
+//         donetext: 'SELECT', // text for done-button
+//         cleartext: 'Clear', // text for clear-button
+//         canceltext: 'Cancel', // Text for cancel-button
+//         autoclose: false, // automatic close timepicker
+//         ampmclickable: true, // make AM PM clickable
+//         aftershow: function() {} //Function for after opening timepicker
+//     });
+// });
 
 Meteor.startup(() => {
     Session.set('isciId', '');
@@ -64,12 +64,7 @@ Meteor.startup(() => {
 
         if (user) {
             let user1 = Meteor.users.find({ _id: user }).fetch()[0];
-            if (
-                user1 &&
-                (user1.profile.rank === 'admin' ||
-                    user1.profile.rank === 'officeEmployee' ||
-                    user1.profile.rank === 'tablet')
-            ) {
+            if (user1 && (user1.profile.rank === 'admin' || user1.profile.rank === 'officeEmployee' || user1.profile.rank === 'tablet')) {
                 Session.set('loading', true);
                 Meteor.subscribe('workSchema', {
                     onReady: function() {
