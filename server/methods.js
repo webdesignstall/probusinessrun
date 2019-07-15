@@ -30,10 +30,7 @@ if (Meteor.isServer) {
                 err => {
                     if (err) {
                         console.log(err);
-                        throw new Meteor.Error(
-                            'Error',
-                            'Can\'t update information. Please contact with the administration'
-                        );
+                        throw new Meteor.Error('Error', 'Can\'t update information. Please contact with the administration');
                     }
                 }
             );
@@ -45,6 +42,9 @@ if (Meteor.isServer) {
             } else {
                 return false;
             }
+        },
+        officeEmployees: function() {
+            return Meteor.users.find({ 'profile.rank': 'officeEmployee' }).fetch();
         }
     });
 }

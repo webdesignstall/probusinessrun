@@ -9,7 +9,7 @@ export default class Filter extends TrackerReact(Component) {
         super(props);
 
         this.state = {
-            clicked: '',
+            clicked: 'inProgress'
         };
 
         this.filter = this.filter.bind(this);
@@ -18,15 +18,15 @@ export default class Filter extends TrackerReact(Component) {
 
     filter(status) {
         this.setState(
-            {
-                clicked: status,
+            prevState => {
+                return prevState.clicked === status ? { clicked: '' } : { clicked: status };
             },
             () => {
                 Session.set('status', status);
                 Session.set('searchWords', '');
                 Session.set('is', '');
                 Session.set('ExtendedJobInformation', '');
-            },
+            }
         );
     }
 
@@ -36,28 +36,29 @@ export default class Filter extends TrackerReact(Component) {
 
     render() {
         return (
-            <div className="sag">
-                <ul className="filter--list sag">
+            <div className="filter--main">
+                <ul className={'filter--list'}>
                     <li
-                        className={this.state.clicked === '' || this.state.clicked === 'inProgress' ? 'sari_' : ''}
+                        className={this.state.clicked === '' || this.state.clicked === 'inProgress' ? 'sari_' : 'hide'}
                         onClick={() => this.filter('inProgress')}>
                         IN PROGRESS
                     </li>
-                    <li className={this.state.clicked === 'lost' ? 'qirmizi_' : ''} onClick={() => this.filter('lost')}>
+                    <li
+                        className={this.state.clicked === '' || this.state.clicked === 'lost' ? 'qirmizi_' : 'hide'}
+                        onClick={() => this.filter('lost')}>
                         LOST
                     </li>
-                    <li className={this.state.clicked === 'won' ? 'yasil_' : ''} onClick={() => this.filter('won')}>
+                    <li
+                        className={this.state.clicked === '' || this.state.clicked === 'won' ? 'yasil_' : 'hide'}
+                        onClick={() => this.filter('won')}>
                         WON
                     </li>
                     <li
-                        className={this.state.clicked === 'cancelled' ? 'boz_' : ''}
+                        className={this.state.clicked === '' || this.state.clicked === 'cancelled' ? 'boz_' : 'hide'}
                         onClick={() => this.filter('cancelled')}>
                         CANCELLED
                     </li>
                 </ul>
-                <span className="sag">
-                    <i className="material-icons">filter_list</i>
-                </span>
             </div>
         );
     }
