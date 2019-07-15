@@ -6,6 +6,7 @@ import { Tracker } from 'meteor/tracker';
 import LoadingOverlay from 'react-loading-overlay';
 import BounceLoader from 'react-spinners/BounceLoader';
 import { Meteor } from 'meteor/meteor';
+import swal from 'sweetalert';
 
 /*global moment*/
 
@@ -14,7 +15,6 @@ import ChartComp from './ChartComp';
 import ChartMenu from './ChartMenu';
 import WorkData from '../../common/collections_2';
 import companies from '../helpers/companyInfos.json';
-import { stat } from 'fs';
 
 companies = companies.companies;
 
@@ -23,6 +23,7 @@ export default class Statistic extends Component {
         super(props);
 
         this.state = {
+            loading: false,
             locations: {
                 labels: [],
                 data: [],
@@ -64,9 +65,17 @@ export default class Statistic extends Component {
     componentDidMount() {
         Meteor.call('officeEmployees', (error, result) => {
             if (error) {
+                Session.set('loading', false);
                 console.log(error);
+                swal({
+                    title: 'Error!',
+                    text: 'Can\'t get data from server. Please resfresh the page or contact system administration',
+                    icon: 'error',
+                    button: 'OK'
+                });
             } else {
                 Session.set('employeesList', result);
+                Session.set('loading', false);
             }
         });
         this.x = Tracker.autorun(() => {
@@ -76,6 +85,7 @@ export default class Statistic extends Component {
             let status = Session.get('status');
             let takenBy = Session.get('takenBy');
             let employeesList = Session.get('employeesList');
+            let loading = Session.get('loading');
 
             this.setState(
                 prevState => {
@@ -86,7 +96,7 @@ export default class Statistic extends Component {
                     provided.status = status;
                     provided.takenBy = takenBy;
 
-                    return { employeesList, provided };
+                    return { employeesList, provided, loading };
                 },
                 () => {
                     this.calculateData();
@@ -103,7 +113,6 @@ export default class Statistic extends Component {
         let locations = { labels: [], data: [], colors: [] };
         let employees = { labels: [], data: [], colors: [] };
         let status = { labels: [], data: [], colors: [] };
-        let date = { labels: [], data: [], colors: [] };
 
         function randomColor() {
             return '#' + (0x1000000 + Math.random() * 0x999fff).toString(16).substr(1, 6);
@@ -230,7 +239,6 @@ export default class Statistic extends Component {
                     new Date(job.workDate).getTime() < new Date(monthEnd).getTime() &&
                     new Date(job.workDate).getTime() >= new Date(monthBegin).getTime()
                 ) {
-                    console.log('match');
                     date.data[index_]++;
                 }
             });
@@ -267,14 +275,17 @@ export default class Statistic extends Component {
         });
 
         this.setData(filteredJobs);
-        Session.set('loading', false);
     }
 
     render() {
         const { locations, employees, status, date } = this.state;
 
         return (
-            <LoadingOverlay text="Loading..." className="loader" active={Session.get('loading')} spinner={<BounceLoader color={'#6DD4B8'} />}>
+            <LoadingOverlay
+                text="Loading..."
+                className="loader"
+                active={this.state.loading}
+                spinner={<BounceLoader color={'#6DD4B8'} />}>
                 <div className="statistic">
                     <div className="col s12 m12 l12">
                         <ChartMenu />
@@ -301,10 +312,22 @@ export default class Statistic extends Component {
                     </div>
                     <div className="row">
                         <div className="col s12 m6 l6 center-align">
-                            <ChartComp title="Status" labels={status.labels} colors={status.colors} data={status.data} label="Locations" />
+                            <ChartComp
+                                title="Status"
+                                labels={status.labels}
+                                colors={status.colors}
+                                data={status.data}
+                                label="Locations"
+                            />
                         </div>
                         <div className="col s12 m6 l6 center-align">
-                            <ChartComp title="Date" labels={date.labels} colors={date.colors} data={date.data} label="Locations" />
+                            <ChartComp
+                                title="Date"
+                                labels={date.labels}
+                                colors={date.colors}
+                                data={date.data}
+                                label="Locations"
+                            />
                         </div>
                     </div>
                 </div>
