@@ -1,18 +1,4 @@
-Survey:
-    ✔ custom message to cardholder depends on the job information (DDT, flat rate ...) @today @done(19-06-26 17:05)
-    ✔ only after filling all forms and checking box activate submit button @today @done(19-06-26 17:56)
-    ✘ error messages @today @cancelled(19-06-26 18:00)
-    ✔ interactive footer @today @done(19-06-26 18:03)
-    ✔ functionality submit form @today @done(19-06-26 19:25)
-
-Statistic:
-    ✔ install chart.js @started(19-06-27 13:48) @done(19-06-27 13:51) @lasted(3m9s)
-    ✔ design front-end @started(19-06-27 13:51) @done(19-07-01 11:27) @lasted(3d21h36m10s)
-    ✔ detect and send ip information while updating @done(19-07-01 15:03)
-    ☐ log only updated fields server main.js
-    ☐ date component
-    ☐ company component
-    ☐ status component
-    ☐ employees component
-    ☐ add functionality to buttons
-    ☐ depends on buttons value change chart statistic
+cardholder someone else:
+    ✔ display cardhoilder info in the left top card @started(19-07-15 12:41) @done(19-07-15 13:05) @lasted(24m24s)
+    ✔ add menu item "Send CC Form" @started(19-07-15 13:05) @done(19-07-15 14:04) @lasted(59m33s)
+    ☐ display "enter cardholder email" input @started(19-07-15 14:04)

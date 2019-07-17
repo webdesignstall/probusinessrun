@@ -1,7 +1,9 @@
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import { Session } from 'meteor/session';
+import { Tracker } from 'meteor/tracker';
 import url from 'url';
+import WorkData from '../../../common/collections_2';
 
 //Spinnet Load settings
 Meteor.Spinner.options = {
@@ -18,7 +20,7 @@ Meteor.Spinner.options = {
     shadow: true, // Whether to render a shadow
     hwaccel: false, // Whether to use hardware acceleration
     className: 'spinner', // The CSS class to assign to the spinner
-    zIndex: 2e9, // The z-index (defaults to 2000000000)
+    zIndex: 2e9 // The z-index (defaults to 2000000000)
 };
 
 //Login
@@ -34,24 +36,24 @@ Template.loginFormasi.events({
                     title: 'Error',
                     message: 'Incorrect username or password!',
                     type: 'danger',
-                    style: 'growl-top-right',
+                    style: 'growl-top-right'
                 });
             } else {
                 Bert.alert({
                     title: 'Logged in',
                     message: `Hello ${userNameLogin}`,
                     type: 'success',
-                    style: 'growl-top-right',
+                    style: 'growl-top-right'
                 });
             }
         });
-    },
+    }
 });
 
 Template.loginFormasi.helpers({
     errorMessage: function() {
         return Session.get('errorMessage');
-    },
+    }
 });
 
 //navbar
@@ -68,6 +70,14 @@ Template.navBar.helpers({
     adminIs: function() {
         return Meteor.user().profile.rank === 'admin';
     },
+    tabletIs: function() {
+        return Meteor.user().profile.rank === 'tablet';
+    },
+    isCardHolder: function() {
+        let id = Session.get('tabletIsId');
+        let job = WorkData.findOne({ _id: id });
+        return job && job.cardHolderInfo && job.cardHolderInfo.firstName;
+    }
 });
 
 Template.navBar.events({
@@ -81,6 +91,9 @@ Template.navBar.events({
 
         GoToHomePage();
     },
+    'click #send_cc_form_id': function() {
+        Session.set('ccForm', true);
+    }
 });
 
 Template.navBar.onRendered(() => {

@@ -7,7 +7,6 @@ import { Meteor } from 'meteor/meteor';
 import WorkData from '../../common/collections_2';
 import './survey.styl';
 import surveys from './surveys.json';
-import { disconnect } from 'cluster';
 
 export default class Survey extends TrackerReact(Component) {
     constructor(props) {
@@ -110,12 +109,9 @@ export default class Survey extends TrackerReact(Component) {
         return Object.keys(this.state.surveys[this.state.status].buttons).map((key, index) => {
             return (
                 <button
-                    onClick={() =>
-                        this.changeStatus(this.state.surveys[this.state.status].buttons[key])
-                    }
+                    onClick={() => this.changeStatus(this.state.surveys[this.state.status].buttons[key])}
                     className="btn"
-                    key={index + 'surveyButtons'}
-                >
+                    key={index + 'surveyButtons'}>
                     {key}
                 </button>
             );
@@ -128,13 +124,9 @@ export default class Survey extends TrackerReact(Component) {
                 {/*survey messages*/}
                 <div className="surveyMessage">{this.state.surveys[this.state.status].survey}</div>
                 {/*survey inputs*/}
-                <div className="row">
-                    {this.state.surveys[this.state.status].inputs ? this.inputs_() : ''}
-                </div>
+                <div className="row">{this.state.surveys[this.state.status].inputs ? this.inputs_() : ''}</div>
                 {/*survey buttons*/}
-                <div className="row">
-                    {this.state.surveys[this.state.status].buttons ? this.buttons_() : ''}
-                </div>
+                <div className="row">{this.state.surveys[this.state.status].buttons ? this.buttons_() : ''}</div>
             </div>
         );
     }

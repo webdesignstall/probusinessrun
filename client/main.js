@@ -57,6 +57,7 @@ Meteor.startup(() => {
     Session.set('update', false);
     Session.set('additionalInfo', []);
     Session.set('cardHolder', {});
+    Session.set('ccForm', false);
 
     Tracker.autorun(() => {
         let user = Meteor.userId();
@@ -64,7 +65,10 @@ Meteor.startup(() => {
 
         if (user) {
             let user1 = Meteor.users.find({ _id: user }).fetch()[0];
-            if (user1 && (user1.profile.rank === 'admin' || user1.profile.rank === 'officeEmployee' || user1.profile.rank === 'tablet')) {
+            if (
+                user1 &&
+                (user1.profile.rank === 'admin' || user1.profile.rank === 'officeEmployee' || user1.profile.rank === 'tablet')
+            ) {
                 Session.set('loading', true);
                 Meteor.subscribe('workSchema', {
                     onReady: function() {
