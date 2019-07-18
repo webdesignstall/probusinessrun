@@ -410,3 +410,7 @@ input {
     -webkit-box-shadow: white 0 0 20px 20px;
     box-shadow: white 0 0 20px 20px;
 }
+
+.materialize-textarea {
+    overflow: auto !important;
+}

@@ -1,4 +1,4 @@
 cardholder someone else:
     ✔ display cardhoilder info in the left top card @started(19-07-15 12:41) @done(19-07-15 13:05) @lasted(24m24s)
     ✔ add menu item "Send CC Form" @started(19-07-15 13:05) @done(19-07-15 14:04) @lasted(59m33s)
-    ☐ display "enter cardholder email" input @started(19-07-15 14:04)
+    ✔ display "enter cardholder email" input @started(19-07-15 14:04) @done(19-07-16 18:34) @lasted(1d4h30m37s)
