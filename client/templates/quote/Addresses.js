@@ -74,8 +74,7 @@ export default class Addresses extends React.Component {
             } else {
                 swal({
                     title: 'Error!',
-                    text:
-                        'Reason: Be sure that there are 2 addresses or addresses are connected with drivible road',
+                    text: 'Reason: Be sure that there are 2 addresses or addresses are connected with drivible road',
                     icon: 'error',
                     button: 'OK'
                 });
@@ -112,8 +111,7 @@ export default class Addresses extends React.Component {
         } else {
             swal({
                 title: 'Error!',
-                text:
-                    'Reason: Be sure that there are 2 addresses or addresses are connected with drivible road',
+                text: 'Reason: Be sure that there are 2 addresses or addresses are connected with drivible road',
                 icon: 'error',
                 button: 'OK'
             });
@@ -123,7 +121,8 @@ export default class Addresses extends React.Component {
     resetComponent() {
         this.setState(
             {
-                arrayOfvalue: ['', '']
+                arrayOfvalue: ['', ''],
+                distance: 0
             },
             () => {
                 this.props.updateJob &&
@@ -167,10 +166,7 @@ export default class Addresses extends React.Component {
 
     renderAddressFields() {
         return this.state.arrayOfvalue.map((el, i) => (
-            <div
-                key={i}
-                id={i + '_id'}
-                className="input-field valideyn col s12 m6 l6">
+            <div key={i} id={i + '_id'} className="input-field valideyn col s12 m6 l6">
                 <i className="material-icons isare">location_on</i>
                 <input
                     id={'addressInputId' + i}
@@ -181,9 +177,7 @@ export default class Addresses extends React.Component {
                     value={this.state.arrayOfvalue[i]}
                     onChange={this.inputChangeHandler.bind(this, i)}
                 />
-                <i
-                    className="material-icons sag delete-address animated"
-                    onClick={() => this.deleteAddress(i)}>
+                <i className="material-icons sag delete-address animated" onClick={() => this.deleteAddress(i)}>
                     delete_forever
                 </i>
                 <label className="active" htmlFor="movingFrom">
@@ -261,14 +255,10 @@ export default class Addresses extends React.Component {
                         }}>
                         ADDRESSES
                     </span>
-                    <div
-                        className="addMoreAddress-button addMoreAddress"
-                        onClick={this.addMore}>
+                    <div className="addMoreAddress-button addMoreAddress" onClick={this.addMore}>
                         <div className="relative">
                             <span>Add More</span>
-                            <i
-                                className="ikonka material-icons"
-                                style={{ left: '87px' }}>
+                            <i className="ikonka material-icons" style={{ left: '87px' }}>
                                 add_circle
                             </i>
                         </div>
@@ -277,14 +267,10 @@ export default class Addresses extends React.Component {
                 <hr style={{ marginTop: '30px' }} />
                 {this.renderAddressFields()}
                 <div className="totalDistance col s12 m12 l12">
-                    <span
-                        className="totalDistance_button"
-                        onClick={this.calculateDistance}>
+                    <span className="totalDistance_button" onClick={this.calculateDistance}>
                         Calculate Total Distance
                     </span>
-                    <span className="totalDistance_distance">
-                        {this.state.distance} mi
-                    </span>
+                    <span className="totalDistance_distance">{this.state.distance} mi</span>
                 </div>
                 <div className="clear" />
                 <Script

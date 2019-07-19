@@ -1,5 +1,6 @@
 import React from 'react';
 import { Session } from 'meteor/session';
+import { Tracker } from 'meteor/tracker';
 
 let companies = require('../../../imports/helpers/companyInfos.json');
 
@@ -9,7 +10,7 @@ export default class CompanySelector extends React.Component {
 
         this.state = {
             companies: [],
-            value: 'select-company',
+            value: 'select-company'
         };
 
         this.renderCompanies = this.renderCompanies.bind(this);
@@ -17,15 +18,28 @@ export default class CompanySelector extends React.Component {
     }
 
     componentDidMount() {
-        this.setState({
-            companies: companies.companies,
-            value: this.props.value || 'select-company',
+        this.x = Tracker.autorun(() => {
+            let reset = Session.get('reset');
+            if (reset) {
+                this.setState({
+                    value: 'select-company'
+                });
+            }
+
+            this.setState({
+                companies: companies.companies,
+                value: this.props.value || 'select-company'
+            });
         });
+    }
+
+    componentWillUnmount() {
+        this.x.stop();
     }
 
     UNSAFE_componentWillReceiveProps(nextProps) {
         this.setState({
-            value: nextProps.value || 'select-company',
+            value: nextProps.value || 'select-company'
         });
     }
 
@@ -42,14 +56,14 @@ export default class CompanySelector extends React.Component {
     onChange() {
         this.setState(
             {
-                value: this.companyName.value,
+                value: this.companyName.value
             },
             () => {
                 let secilmisIs = this.state.companies.find(companies => {
                     return companies.name === this.companyName.value;
                 });
                 Session.set('companyInfo', secilmisIs);
-            },
+            }
         );
     }
 

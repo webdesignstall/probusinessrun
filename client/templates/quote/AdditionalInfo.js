@@ -8,13 +8,16 @@ import WorkData from '../../../common/collections_2';
 export default class AdditionalInfo extends Component {
     componentDidMount() {
         this.x = Tracker.autorun(() => {
+            let reset = Session.get('reset');
+
+            if (reset) {
+                Session.set('additionalInfo', []);
+            }
+
             if (Session.get('is') !== '') {
-                let is = WorkData.findOne({ _id: Session.get('is') })
-                    .additionalInfo;
-                is &&
-                    is !== '' &&
-                    Array.isArray(is) &&
-                    Session.set('additionalInfo', is);
+                let is = WorkData.findOne({ _id: Session.get('is') }).additionalInfo;
+
+                is && is !== '' && Array.isArray(is) && Session.set('additionalInfo', is);
             }
         });
     }

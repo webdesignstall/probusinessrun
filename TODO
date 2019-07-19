@@ -2,3 +2,10 @@ cardholder someone else:
     ✔ display cardhoilder info in the left top card @started(19-07-15 12:41) @done(19-07-15 13:05) @lasted(24m24s)
     ✔ add menu item "Send CC Form" @started(19-07-15 13:05) @done(19-07-15 14:04) @lasted(59m33s)
     ✔ display "enter cardholder email" input @started(19-07-15 14:04) @done(19-07-16 18:34) @lasted(1d4h30m37s)
+
+full reset #247:
+    ✔ calculate total distance @started(19-07-19 13:44) @done(19-07-19 14:10) @lasted(26m37s)
+    ✔ number of movers @started(19-07-19 14:10) @done(19-07-19 14:20) @lasted(10m17s)
+    ✔ select the company @started(19-07-19 14:20) @done(19-07-19 14:30) @lasted(10m29s)
+    ✔ temporary trucks @started(19-07-19 14:30) @done(19-07-19 14:34) @lasted(4m2s)
+    ✔ additional info @started(19-07-19 14:34) @done(19-07-19 14:39) @lasted(5m48s)

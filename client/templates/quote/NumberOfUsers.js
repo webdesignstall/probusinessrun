@@ -11,7 +11,7 @@ export default class NumberOfUsers extends React.Component {
         super(props);
         this.state = {
             iscilerinSayi: 0,
-            oncedenSecilmis: 0,
+            oncedenSecilmis: 0
         };
 
         this.saylari = this.saylari.bind(this);
@@ -19,19 +19,27 @@ export default class NumberOfUsers extends React.Component {
     UNSAFE_componentWillMount() {
         this.x = Tracker.autorun(() => {
             const iscilerinSayi = WorkData.find({ _id: Session.get('is') }).fetch();
+            let reset = Session.get('reset');
+
+            if (reset) {
+                this.setState({
+                    iscilerinSayi: 0,
+                    oncedenSecilmis: 0
+                });
+            }
 
             if (iscilerinSayi.length > 0) {
                 const iscilerinSayiNumber = iscilerinSayi[0].numberOfWorkers;
                 if (!isNaN(iscilerinSayiNumber)) {
                     this.setState({
-                        oncedenSecilmis: iscilerinSayiNumber,
+                        oncedenSecilmis: iscilerinSayiNumber
                     });
                 }
             }
 
             let ishchilerSay = Meteor.users.find({ 'profile.rank': 'mover' }).fetch().length;
             this.setState({
-                iscilerinSayi: ishchilerSay,
+                iscilerinSayi: ishchilerSay
             });
         });
     }
@@ -67,7 +75,7 @@ export default class NumberOfUsers extends React.Component {
 
     changeValue(e) {
         this.setState({
-            oncedenSecilmis: e.target.value,
+            oncedenSecilmis: e.target.value
         });
     }
 
@@ -76,7 +84,7 @@ export default class NumberOfUsers extends React.Component {
             <div
                 className="number-of-users--main"
                 style={{
-                    position: 'relative',
+                    position: 'relative'
                 }}>
                 {/* value deyisir amma seelect edende deyismir */}
                 <select
@@ -95,7 +103,7 @@ export default class NumberOfUsers extends React.Component {
                         margin: ' -28px 15px',
                         top: '-15px',
                         left: '0',
-                        position: 'absolute',
+                        position: 'absolute'
                     }}
                     htmlFor="iscinin-sayi">
                     # of movers
