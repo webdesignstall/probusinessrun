@@ -23,7 +23,6 @@ export default class ListRender extends TrackerReact(Component) {
         this.x = Tracker.autorun(() => {
             const data = Meteor.users
                 .find({
-                    'profile.company': Meteor.userId(),
                     'profile.rank': this.state.rank
                 })
                 .fetch();
@@ -52,9 +51,7 @@ export default class ListRender extends TrackerReact(Component) {
 
     displayItemInfo(whatToShow) {
         this.setState(prevState => {
-            return prevState.displayInfo === whatToShow
-                ? { displayInfo: '' }
-                : { displayInfo: whatToShow };
+            return prevState.displayInfo === whatToShow ? { displayInfo: '' } : { displayInfo: whatToShow };
         });
     }
 
@@ -62,64 +59,48 @@ export default class ListRender extends TrackerReact(Component) {
         return this.state.list.map((list, index) => {
             return (
                 <div key={index + 'mainDiv'}>
-                    <div
-                        onClick={() => this.displayItemInfo(index + 'Show')}
-                        className="card__ employee--info">
+                    <div onClick={() => this.displayItemInfo(index + 'Show')} className="card__ employee--info">
                         {list.profile.firstName} {list.profile.lastName}&nbsp;
                         <span
                             className={
-                                (list.profile.rank === 'mover' ||
-                                    list.profile.rank === 'officeEmployee') &&
+                                (list.profile.rank === 'mover' || list.profile.rank === 'officeEmployee') &&
                                 list.profile.phoneNumber !== '' &&
                                 list.profile.phoneNumber !== 0
                                     ? 'employee--phone-number'
                                     : 'hide'
                             }>
-                            <i className="material-icons employee--phone-icon">
-                                phone
-                            </i>
+                            <i className="material-icons employee--phone-icon">phone</i>
                             {list.profile.phoneNumber}
                         </span>
                         <span
                             className={
-                                list.profile.rank === 'tablet' &&
-                                list.profile.lenght !== '' &&
-                                list.profile.lenght !== 0
+                                list.profile.rank === 'tablet' && list.profile.lenght !== '' && list.profile.lenght !== 0
                                     ? 'employee--phone-number'
                                     : 'hide'
                             }>
-                            <i className="material-icons employee--phone-icon">
-                                keyboard_tab
-                            </i>
+                            <i className="material-icons employee--phone-icon">keyboard_tab</i>
                             {list.profile.lenght}
                         </span>
                         <DeleteButton id={list._id} />
                     </div>
 
-                    <div
-                        className={
-                            this.state.displayInfo === index + 'Show'
-                                ? 'card__'
-                                : 'hide'
-                        }>
+                    <div className={this.state.displayInfo === index + 'Show' ? 'card__' : 'hide'}>
                         <div className="clear" />
-                        {(this.state.displayInfo &&
-                            this.state.rank === 'mover') ||
-                        this.state.rank === 'officeEmployee' ? (
-                                <MoverForm
-                                    hide={this.displayItemInfo}
-                                    rank={this.state.rank}
-                                    show={this.state.displayInfo}
-                                    id={list._id}
-                                />
-                            ) : (
-                                <TruckForm
-                                    hide={this.displayItemInfo}
-                                    rank={this.state.rank}
-                                    show={this.state.displayInfo}
-                                    id={list._id}
-                                />
-                            )}
+                        {(this.state.displayInfo && this.state.rank === 'mover') || this.state.rank === 'officeEmployee' ? (
+                            <MoverForm
+                                hide={this.displayItemInfo}
+                                rank={this.state.rank}
+                                show={this.state.displayInfo}
+                                id={list._id}
+                            />
+                        ) : (
+                            <TruckForm
+                                hide={this.displayItemInfo}
+                                rank={this.state.rank}
+                                show={this.state.displayInfo}
+                                id={list._id}
+                            />
+                        )}
                     </div>
                 </div>
             );

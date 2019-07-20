@@ -414,3 +414,24 @@ input {
 .materialize-textarea {
     overflow: auto !important;
 }
+
+#sign_in {
+    background: #272994;
+    background: -moz-linear-gradient(45deg, #272994 0%, #3f42d4 100%);
+    background: -webkit-linear-gradient(45deg, #272994 0%, #3f42d4 100%);
+    background: linear-gradient(45deg, #272994 0%, #3f42d4 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#272994', endColorstr='#3f42d4',GradientType=1 );
+    border-radius: 20px;
+    -webkit-box-shadow: 0px 5px 14px 1px #272994;
+    box-shadow: 0px 5px 14px -4px #272994;
+    transition: all ease 1s;
+}
+
+#sign_in:hover {
+    -webkit-box-shadow: 0px 5px 14px 1px #67ad5b;
+    box-shadow: 0px 5px 14px -4px #67ad5b;
+    background: #67ad5b;
+    background: -moz-linear-gradient(45deg, #67ad5b 0%, #97c05c 100%);
+    background: -webkit-linear-gradient(45deg, #67ad5b 0%, #97c05c 100%);
+    background: linear-gradient(45deg, #67ad5b 0%, #97c05c 100%);
+}

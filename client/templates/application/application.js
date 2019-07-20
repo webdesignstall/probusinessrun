@@ -68,7 +68,7 @@ Template.navBar.helpers({
         return Meteor.user().profile.rank === 'driver';
     },
     adminIs: function() {
-        return Meteor.user().profile.rank === 'admin';
+        return Meteor.user().profile.rank === 'admin' || Meteor.user().profile.rank === 'officeEmployee';
     },
     tabletIs: function() {
         return Meteor.user().profile.rank === 'tablet';

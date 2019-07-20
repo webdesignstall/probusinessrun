@@ -9,3 +9,9 @@ full reset #247:
     ✔ select the company @started(19-07-19 14:20) @done(19-07-19 14:30) @lasted(10m29s)
     ✔ temporary trucks @started(19-07-19 14:30) @done(19-07-19 14:34) @lasted(4m2s)
     ✔ additional info @started(19-07-19 14:34) @done(19-07-19 14:39) @lasted(5m48s)
+
+Tracking of updates #255:
+    ✔ Taken by automatically persons info who is logned in @done(19-07-19 17:08)
+    ✔ Create changes section in database @done(19-07-19 17:38)
+    ☐ Design how will it look
+    ☐ Add function which every time will compare the before and after data and will return the difference

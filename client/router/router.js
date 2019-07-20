@@ -15,7 +15,7 @@ Router.configure({
 Router.route('/', {
     onBeforeAction: function() {
         if (Meteor.userId()) {
-            if (Meteor.user().profile.rank === 'admin') {
+            if (Meteor.user().profile.rank === 'admin' || Meteor.user().profile.rank === 'officeEmployee') {
                 this.render('calendarMenu');
                 // this.render('tablet');
                 //this.render('quote');

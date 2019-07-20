@@ -7,19 +7,12 @@ Meteor.publish('workSchema', function() {
 });
 
 Meteor.publish('usersData', function() {
-    return Meteor.users.find({ 'profile.company': Meteor.userId() });
+    return Meteor.users.find({});
 });
 
 Meteor.publish('fullUser', function() {
     return Meteor.users.find({});
 });
-
-// Meteor.publish('tabletData', function() {
-//     return Meteor.users.find({
-//         'profile.company': Meteor.userId(),
-//         'profile.rank': 'tablet'
-//     });
-// });
 
 Meteor.publish('Dicsounts', function() {
     return Discounts.find({});

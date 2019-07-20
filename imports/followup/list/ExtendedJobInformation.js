@@ -22,6 +22,7 @@ import { AsYouType } from 'libphonenumber-js';
 import AdditionalInfo from '../../../client/templates/quote/AdditionalInfo';
 
 import getUserIP from '../../../imports/helpers/getIp';
+import UpdateList from './UpdateList';
 
 /*global $ moment*/
 
@@ -80,13 +81,9 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
         let element = document.getElementById('small_item_pack_followup' + this.state.job._id);
         element
             ? this.state.job.smallItemPacking == -1
-                ? ((document.getElementById(
-                    'small_item_pack_followup_check' + this.state.job._id
-                ).checked = true),
+                ? ((document.getElementById('small_item_pack_followup_check' + this.state.job._id).checked = true),
                 (element.disabled = true))
-                : ((document.getElementById(
-                    'small_item_pack_followup_check' + this.state.job._id
-                ).checked = false),
+                : ((document.getElementById('small_item_pack_followup_check' + this.state.job._id).checked = false),
                 (element.disabled = false))
             : null;
         this.props.loading();
@@ -99,13 +96,9 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
         let element = document.getElementById('small_item_pack_followup' + this.state.job._id);
         document.getElementById('small_item_pack_followup_check' + this.state.job._id)
             ? this.state.job.smallItemPacking == -1
-                ? ((document.getElementById(
-                    'small_item_pack_followup_check' + this.state.job._id
-                ).checked = true),
+                ? ((document.getElementById('small_item_pack_followup_check' + this.state.job._id).checked = true),
                 (element.disabled = true))
-                : ((document.getElementById(
-                    'small_item_pack_followup_check' + this.state.job._id
-                ).checked = false),
+                : ((document.getElementById('small_item_pack_followup_check' + this.state.job._id).checked = false),
                 (element.disabled = false))
             : null;
     }
@@ -121,8 +114,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                     className="browser-default"
                     name="double drive time"
                     id="double_drive_time_followup"
-                    value={value || 'false'}
-                >
+                    value={value || 'false'}>
                     <option value="false" disabled>
                         Select double drive
                     </option>
@@ -197,8 +189,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                     className="browser-default"
                     name="jobStatus"
                     id="jobStatus_followup"
-                    value={status}
-                >
+                    value={status}>
                     <option value="inProgress">In Progress</option>
                     <option value="won">Won</option>
                     <option value="lost">Lost</option>
@@ -223,10 +214,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
         workDate = moment(workDate).format('MM/DD/YYYY');
         let doc = this.state.job;
         doc.workDate = workDate;
-        doc.followUp &&
-            doc.followUp.length > 0 &&
-            doc.followUp[doc.followUp.length - 1].note === '' &&
-            doc.followUp.pop();
+        doc.followUp && doc.followUp.length > 0 && doc.followUp[doc.followUp.length - 1].note === '' && doc.followUp.pop();
         doc.companyInfo = Session.get('companyInfo');
         doc.numberOfWorkers = Number(document.querySelector('#iscinin-sayi').value);
         doc.additionalInfo = Session.get('additionalInfo');
@@ -271,10 +259,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
         doc.quote = true;
         doc.isFollowUp = true;
         doc.confirmed = false;
-        doc.followUp &&
-            doc.followUp.length > 0 &&
-            doc.followUp[doc.followUp.length - 1].note === '' &&
-            doc.followUp.pop();
+        doc.followUp && doc.followUp.length > 0 && doc.followUp[doc.followUp.length - 1].note === '' && doc.followUp.pop();
         doc.emailSent = true;
         doc.emailSentDate = new Date();
         doc.additionalInfo = Session.get('additionalInfo');
@@ -330,9 +315,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                         ? (console.error(err),
                         swal({
                             title: 'Error!',
-                            text:
-                                  'Something went wrong. Can\'t send quote email. Reason: ' +
-                                  err.message,
+                            text: 'Something went wrong. Can\'t send quote email. Reason: ' + err.message,
                             icon: 'error',
                             button: 'OK'
                         }),
@@ -352,11 +335,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
 
     render() {
         return (
-            <div
-                className={
-                    Session.get('ExtendedJobInformation') === this.state.job._id ? 'row' : 'hide'
-                }
-            >
+            <div className={Session.get('ExtendedJobInformation') === this.state.job._id ? 'row' : 'hide'}>
                 <hr />
                 CONTACT INFORMATION <br />
                 <div className="col s12 m2 l2">
@@ -415,10 +394,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                     />
                 </div>
                 <div className="col s12 m12 l12">
-                    <AdditionalContacts
-                        updateJob={this.updateJob}
-                        contacts={this.state.job.additionalContacts || []}
-                    />
+                    <AdditionalContacts updateJob={this.updateJob} contacts={this.state.job.additionalContacts || []} />
                 </div>
                 <div className="clear padding5px" />
                 <div className="row">
@@ -440,28 +416,18 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                         />
                     </div>
                     <div className="col s12 m3 l3">
-                        <label
-                            className="active"
-                            htmlFor={'first_contact_date_followup' + Session.get('is')}
-                        >
+                        <label className="active" htmlFor={'first_contact_date_followup' + Session.get('is')}>
                             First Contact Date
                         </label>
                         <input
                             type="text"
                             id={'first_contact_date_followup' + Session.get('is')}
                             disabled={true}
-                            value={
-                                moment(new Date(this.state.job.quoteDate)).format(
-                                    'D MMMM YYYY hh:mm a'
-                                ) || ''
-                            }
+                            value={moment(new Date(this.state.job.quoteDate)).format('D MMMM YYYY hh:mm a') || ''}
                         />
                     </div>
                     <div className="col s12 m3 l2">
-                        <label
-                            className="active"
-                            htmlFor={'job_number_followup' + Session.get('is')}
-                        >
+                        <label className="active" htmlFor={'job_number_followup' + Session.get('is')}>
                             Job Number
                         </label>
                         <input
@@ -480,8 +446,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                             onChange={e => this.onChangeHandler(e, 'sourceOfLeads')}
                             value={this.state.job.sourceOfLeads}
                             name="source_of_leads_followup"
-                            id="source_of_leads_followup"
-                        >
+                            id="source_of_leads_followup">
                             <option value="call">Call</option>
                             <option value="e-mail">Email</option>
                             <option value="yelp">Yelp</option>
@@ -493,20 +458,14 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                     </div>
                     <div className="col s12 m12 l12">
                         <div className="cardBorder relative">
-                            <div
-                                id={'addresses_followup' + this.state.job._id}
-                                className="input-field valideyn"
-                            >
+                            <div id={'addresses_followup' + this.state.job._id} className="input-field valideyn">
                                 <Addresses updateJob={this.updateJob} />
                             </div>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col s12 m6 l2">
-                            <label
-                                className="active"
-                                htmlFor={'small_item_pack_followup_check' + this.state.job._id}
-                            >
+                            <label className="active" htmlFor={'small_item_pack_followup_check' + this.state.job._id}>
                                 Small item packing
                                 <i className="lime-text lighten-5 black">
                                     [Yes
@@ -518,9 +477,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                                             let element = document.getElementById(
                                                 'small_item_pack_followup' + this.state.job._id
                                             );
-                                            element.value == -1
-                                                ? (element.value = '')
-                                                : (element.value = -1);
+                                            element.value == -1 ? (element.value = '') : (element.value = -1);
                                             element.disabled = !element.disabled;
 
                                             let job = this.state.job;
@@ -543,10 +500,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                             />
                         </div>
                         <div className="col s12 m6 l2">
-                            <label
-                                className="active"
-                                htmlFor={'large_item_fee_followup' + Session.get('is')}
-                            >
+                            <label className="active" htmlFor={'large_item_fee_followup' + Session.get('is')}>
                                 Large Item Fee
                             </label>
                             <input
@@ -557,10 +511,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                             />
                         </div>
                         <div className="col s12 m6 l2">
-                            <label
-                                className="active"
-                                htmlFor={'gas_fee_followup' + this.state.job._id}
-                            >
+                            <label className="active" htmlFor={'gas_fee_followup' + this.state.job._id}>
                                 Travel Fee
                                 <i className="lime-text lighten-5 black">
                                     [ Not sure?{' '}
@@ -584,10 +535,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                             />
                         </div>
                         <div className="col s12 m6 l2">
-                            <label
-                                className="active"
-                                htmlFor={'deposit_followup' + Session.get('is')}
-                            >
+                            <label className="active" htmlFor={'deposit_followup' + Session.get('is')}>
                                 Deposit
                             </label>
                             <input
@@ -597,9 +545,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                                 value={this.state.job.deposit || ''}
                             />
                         </div>
-                        <div className="col s12 m6 l2">
-                            {this.doubleDrive(this.state.job.doubleDrive || 'false')}
-                        </div>
+                        <div className="col s12 m6 l2">{this.doubleDrive(this.state.job.doubleDrive || 'false')}</div>
                         <div className="col s12 m3 l2">{this.jobStatus(this.state.job.status)}</div>
                     </div>
                     <div className="row">
@@ -663,11 +609,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                         </div>
                         <div className="col s12 m3 l3">
                             <label htmlFor="select-company">Company</label>
-                            <CompanySelector
-                                value={
-                                    this.state.job.companyInfo && this.state.job.companyInfo.name
-                                }
-                            />
+                            <CompanySelector value={this.state.job.companyInfo && this.state.job.companyInfo.name} />
                         </div>
                         <div className="col s12 m3 l3">
                             <label htmlFor="select-company">Number of movers</label>
@@ -675,10 +617,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                         </div>
                     </div>
                     <div className="row">
-                        <FollowUps
-                            followUpList={this.state.job.followUp}
-                            updateJob={this.updateJob}
-                        />
+                        <FollowUps followUpList={this.state.job.followUp} updateJob={this.updateJob} />
                     </div>
                 </div>
                 <div className="clear" />
@@ -686,28 +625,26 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                     <a
                         className="waves-effect waves-light btn blue"
                         onClick={this.saveJob}
-                        style={{ marginRight: '10px', color: 'black' }}
-                    >
+                        style={{ marginRight: '10px', color: 'black' }}>
                         <i className="material-icons left">update</i>
                         Update / Save
                     </a>
                     <a
                         onClick={this.sendQuote}
                         className="waves-effect waves-light btn amber"
-                        style={{ marginRight: '10px', color: 'black' }}
-                    >
+                        style={{ marginRight: '10px', color: 'black' }}>
                         <i
                             style={{
                                 color: this.state.job.quote ? '#77AB64' : '#D64F2D'
                             }}
-                            className="material-icons left"
-                        >
+                            className="material-icons left">
                             send
                         </i>
                         Send Quote
                     </a>
                     {this.state.job.status !== 'inProgress' ? <NewAppointment /> : ''}
                 </div>
+                <UpdateList />
             </div>
         );
     }

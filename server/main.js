@@ -25,9 +25,8 @@ Meteor.startup(() => {
         'smtp://postmaster%40probusinessrun.com:6d0eb775d8a76c5f1efd0b02030ea3fa-e89319ab-67f4f8af@smtp.mailgun.org:587';
     // code to run on server at startup
     Meteor.publish('userData', function() {
-        if (this.userId && Meteor.user().profile.rank === 'admin') {
+        if ((this.userId && Meteor.user().profile.rank === 'admin') || Meteor.user().profile.rank === 'officeEmployee') {
             return Meteor.users.find({
-                'profile.company': Meteor.userId(),
                 'profile.rank': 'mover'
             });
         } else {
@@ -35,9 +34,8 @@ Meteor.startup(() => {
         }
     });
     Meteor.publish('tabletData', function() {
-        if (this.userId && Meteor.user().profile.rank === 'admin') {
+        if ((this.userId && Meteor.user().profile.rank === 'admin') || Meteor.user().profile.rank === 'officeEmployee') {
             return Meteor.users.find({
-                'profile.company': Meteor.userId(),
                 'profile.rank': 'tablet'
             });
         } else {

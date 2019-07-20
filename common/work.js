@@ -776,6 +776,14 @@ Schemas.workSchema = new SimpleSchema(
         ip: {
             type: String,
             optional: true
+        },
+        updates: {
+            type: Array,
+            optional: true
+        },
+        'updates.$': {
+            type: Object,
+            optional: true
         }
     },
     { tracker: Tracker }

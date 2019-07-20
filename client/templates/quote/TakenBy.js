@@ -17,16 +17,16 @@ export default class TakenBy extends TrackerReact(Component) {
 
     fetchUsers(id) {
         let users = [];
-        users = id
-            ? Meteor.users.find({ _id: id }).fetch()
-            : Meteor.users.find({ 'profile.rank': 'officeEmployee' }).fetch();
+        users = id ? Meteor.users.find({ _id: id }).fetch() : Meteor.users.find({ 'profile.rank': 'officeEmployee' }).fetch();
         return users;
     }
 
     componentDidMount() {
         // Meteor.subscribe('fullUser');
+        let userId = Meteor.user()._id;
         this.setState({
-            usersList: this.fetchUsers(this.props.id)
+            usersList: this.fetchUsers(this.props.id),
+            id: userId
         });
     }
 
@@ -63,6 +63,7 @@ export default class TakenBy extends TrackerReact(Component) {
                     id="takenBy--value"
                     ref={this.selectRef}
                     disabled={this.state.id ? true : false}
+                    // disabled={true}
                     defaultValue="_"
                     className="browser-default">
                     <option id="taken_by_add" value="_" disabled>
