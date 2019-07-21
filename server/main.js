@@ -8,6 +8,7 @@ import ConfirmationEmail from './ConfirmationEmail';
 import supervisorEmailContent from './supervisorEmailContent';
 import squareConnect from 'square-connect';
 
+import DifferenceCalculator from './DifferenceCalculator';
 import depositPaymentEmail from './depositPaymentEmail';
 
 var config = require('../imports/helpers/config.json');
@@ -158,13 +159,36 @@ if (Meteor.isServer) {
         },
 
         updateWork: function(doc) {
-            console.log('Update information: ' + doc.ip + ' :', doc);
+            // console.log('Update information: ' + doc.ip + ' :', doc);
 
             if (doc.status === 'lost' && (doc.finalNote === 'none' || doc.finalNote === undefined)) {
                 throw new Meteor.Error('Please select final note for lost job');
             }
 
-            doc.status !== WorkData.findOne({ _id: doc._id }).status ? (doc.statusChange = new Date()) : null;
+            let job = WorkData.findOne({ _id: doc._id });
+
+            // find differences
+            let diff = DifferenceCalculator(job, doc);
+
+            if (diff && diff.length > 0) {
+                // create object inside all information about changes
+                let update = {
+                    by: Meteor.userId(),
+                    date: new Date(),
+                    changes: diff
+                };
+
+                // push update informations into the doc
+                if (job.updates) {
+                    job.updates.push(update);
+                    doc.updates = job.updates;
+                } else {
+                    doc.updates = [];
+                    doc.updates.push(update);
+                }
+            }
+
+            doc.status !== job.status ? (doc.statusChange = new Date()) : null;
 
             doc.status === 'won' ? (doc.wonDate = new Date()) : null;
 

@@ -783,7 +783,8 @@ Schemas.workSchema = new SimpleSchema(
         },
         'updates.$': {
             type: Object,
-            optional: true
+            optional: true,
+            blackbox: true
         }
     },
     { tracker: Tracker }

@@ -644,7 +644,11 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                     </a>
                     {this.state.job.status !== 'inProgress' ? <NewAppointment /> : ''}
                 </div>
-                <UpdateList />
+                {this.state.job.updates && this.state.job.updates.length > 0 ? (
+                    <UpdateList updates={this.state.job.updates} />
+                ) : (
+                    ''
+                )}
             </div>
         );
     }
