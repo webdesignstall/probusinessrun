@@ -4,6 +4,8 @@ import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
 
+import WorkData from '../../../common/collections_2';
+
 /*global swal*/
 
 export default class QuoteExpiration extends TrackerReact(Component) {
@@ -36,11 +38,9 @@ export default class QuoteExpiration extends TrackerReact(Component) {
         e.preventDefault();
 
         let time = Number(this.state.time) * 3600000 + new Date().getTime();
-        let doc = {
-            _id: Session.get('is'),
-            quoteExpirationDate: new Date(time)
-        };
+        let doc = WorkData.findOne({ _id: Session.get('is') });
 
+        doc.quoteExpirationDate = new Date(time);
         doc.ip = Session.get('ip');
 
         Meteor.call('updateWork', doc, err => {
@@ -73,8 +73,7 @@ export default class QuoteExpiration extends TrackerReact(Component) {
                     name="quoteExpirationDate"
                     className="browser-default col s8 m8 l8"
                     id="quoteExpirationDate"
-                    value={this.state.time}
-                >
+                    value={this.state.time}>
                     <option value="0">in 0 hour</option>
                     <option value="1">in 1 hour</option>
                     <option value="2">in 2 hour</option>
@@ -89,8 +88,7 @@ export default class QuoteExpiration extends TrackerReact(Component) {
                     <a
                         onClick={e => this.renew(e)}
                         className="col s3 m3 l3 waves-effect waves-light btn offset-s1 offset-m1 offset-l1"
-                        style={{ height: '42px' }}
-                    >
+                        style={{ height: '42px' }}>
                         Renew
                     </a>
                 ) : (

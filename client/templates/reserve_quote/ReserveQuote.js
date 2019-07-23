@@ -10,11 +10,8 @@ import LoadingOverlay from 'react-loading-overlay';
 import BarLoader from 'react-spinners/BarLoader';
 
 import Payment from '../../../imports/payment/Payment';
-// import ConfirmationDisplay from './ConfirmationDisplay';
 
 /*global $ Bert*/
-
-let jobIs = {};
 
 export default class ReserveQuote extends TrackerReact(Component) {
     constructor(props) {
@@ -62,12 +59,6 @@ export default class ReserveQuote extends TrackerReact(Component) {
                     Session.set('loading', false);
                 }
             });
-            // const tapilasiIs = this.workData(Session.get('jobNumber'));
-            // let id = Session.get('job')._id;
-            // this.setState({
-            //     is: tapilasiIs,
-            //     id
-            // });
         });
     }
 
@@ -94,7 +85,6 @@ export default class ReserveQuote extends TrackerReact(Component) {
     }
 
     jobNumber(event) {
-        console.log(event.target.value);
         let jobNumber = event.target.value;
         let isJob = WorkData.find({ jobNumber }).fetch()[0];
         isJob
@@ -149,8 +139,7 @@ export default class ReserveQuote extends TrackerReact(Component) {
                                 href="http://www.moverslegion.com/wp-content/uploads/2018/12/small-item-pricing.pdf"
                                 download="http://www.moverslegion.com/wp-content/uploads/2018/12/small-item-pricing.pdf"
                                 target="_blank"
-                                rel="noopener noreferrer"
-                            >
+                                rel="noopener noreferrer">
                                 learn more
                             </a>
                         </div>
@@ -206,11 +195,7 @@ export default class ReserveQuote extends TrackerReact(Component) {
 
     trucksRender(job) {
         return job.trucksTemp.map((truck, index) => {
-            return (
-                <React.Fragment key={index + 'trucksRenderConfirm'}>
-                    {this.renderTrucks(truck)}
-                </React.Fragment>
-            );
+            return <React.Fragment key={index + 'trucksRenderConfirm'}>{this.renderTrucks(truck)}</React.Fragment>;
         });
     }
 
@@ -240,8 +225,7 @@ export default class ReserveQuote extends TrackerReact(Component) {
             <tr>
                 <td>Arrival Window:</td>
                 <td>
-                    {job.workMustBeginTime[0] === '04:00 am' &&
-                    job.workMustBeginTime[0] === '04:00 am'
+                    {job.workMustBeginTime[0] === '04:00 am' && job.workMustBeginTime[0] === '04:00 am'
                         ? 'Morning & Afternoon'
                         : `${job.workMustBeginTime[0]} - ${job.workMustBeginTime[1]}`}
                 </td>
@@ -263,8 +247,7 @@ export default class ReserveQuote extends TrackerReact(Component) {
             <div key={(job && job._id) || 123243423}>
                 <p>
                     Hello {job.clientFirstName}!<br />
-                    Thank you for confirming your move with{' '}
-                    {job.companyInfo && job.companyInfo.name}!<br />
+                    Thank you for confirming your move with {job.companyInfo && job.companyInfo.name}!<br />
                     Please review your Moving Confirmation below to ensure accuracy:
                 </p>
                 <table style={{ width: '100%' }}>
@@ -281,13 +264,10 @@ export default class ReserveQuote extends TrackerReact(Component) {
                         </tr>
                         <tr
                             className={
-                                job.phoneAdditional === '' ||
-                                job.phoneAdditional === undefined ||
-                                job.phoneAdditional === null
+                                job.phoneAdditional === '' || job.phoneAdditional === undefined || job.phoneAdditional === null
                                     ? 'hide'
                                     : ''
-                            }
-                        >
+                            }>
                             <td>Customer Secondary Number:</td>
                             <td>{job.phoneAdditional}</td>
                         </tr>
@@ -324,60 +304,45 @@ export default class ReserveQuote extends TrackerReact(Component) {
                         {job.flatRate && job.flatRate[0].isTrue ? (
                             <tr>
                                 {job.laborTime > 0 ? (
-                                    <td>
-                                        Flat Rate{' '}
-                                        {job.laborTime ? 'Up to ' + job.laborTime + ' hours' : ''}
-                                    </td>
+                                    <td>Flat Rate {job.laborTime ? 'Up to ' + job.laborTime + ' hours' : ''}</td>
                                 ) : (
                                     <td>Flat Rate</td>
                                 )}
                                 <td>
-                                    cash ${job.flatRate[0].cashAmount}, card $
-                                    {job.flatRate[0].cardAmount}
+                                    cash ${job.flatRate[0].cashAmount}, card ${job.flatRate[0].cardAmount}
                                 </td>
                             </tr>
                         ) : (
                             ''
                         )}
-                        {job.flatRate &&
-                        job.laborTime &&
-                        job.flatRate[0].isTrue &&
-                        job.laborTime > 0 ? (
-                                <tr>
-                                    {job.laborTime > 0 ? (
-                                        <td>Hourly Rate After {job.laborTime} hours</td>
-                                    ) : (
-                                        <td>Hourly Rate</td>
-                                    )}
-                                    <td>
+                        {job.flatRate && job.laborTime && job.flatRate[0].isTrue && job.laborTime > 0 ? (
+                            <tr>
+                                {job.laborTime > 0 ? <td>Hourly Rate After {job.laborTime} hours</td> : <td>Hourly Rate</td>}
+                                <td>
                                     cash ${job.hourlyRatesCash}/hr, card ${job.hourlyRatesCard}/hr
-                                    </td>
-                                </tr>
-                            ) : (
-                                ''
-                            )}
+                                </td>
+                            </tr>
+                        ) : (
+                            ''
+                        )}
                         {/* hourly rates cash*/}
-                        {job.hourlyRatesCash &&
-                        job.hourlyRatesCash > 0 &&
-                        !job.flatRate[0].isTrue ? (
-                                <tr>
-                                    <td>Cash Discount Rate p/hour:</td>
-                                    <td>${job.hourlyRatesCash}</td>
-                                </tr>
-                            ) : (
-                                ''
-                            )}
+                        {job.hourlyRatesCash && job.hourlyRatesCash > 0 && !job.flatRate[0].isTrue ? (
+                            <tr>
+                                <td>Cash Discount Rate p/hour:</td>
+                                <td>${job.hourlyRatesCash}</td>
+                            </tr>
+                        ) : (
+                            ''
+                        )}
                         {/* hourly rates card*/}
-                        {job.hourlyRatesCard &&
-                        job.hourlyRatesCard > 0 &&
-                        !job.flatRate[0].isTrue ? (
-                                <tr>
-                                    <td>Card Regular Rate p/hour:</td>
-                                    <td>${job.hourlyRatesCard}</td>
-                                </tr>
-                            ) : (
-                                ''
-                            )}
+                        {job.hourlyRatesCard && job.hourlyRatesCard > 0 && !job.flatRate[0].isTrue ? (
+                            <tr>
+                                <td>Card Regular Rate p/hour:</td>
+                                <td>${job.hourlyRatesCard}</td>
+                            </tr>
+                        ) : (
+                            ''
+                        )}
                         {/* Travel Fee */}
                         {!isNaN(Number(job.gasFee)) && Number(job.gasFee) > 0 ? (
                             <tr>
@@ -397,8 +362,7 @@ export default class ReserveQuote extends TrackerReact(Component) {
                                         href="http://www.moverslegion.com/wp-content/uploads/2019/02/DDT.pdf"
                                         download="http://www.moverslegion.com/wp-content/uploads/2019/02/DDT.pdf"
                                         target="_blank"
-                                        rel="noopener noreferrer"
-                                    >
+                                        rel="noopener noreferrer">
                                         learn more
                                     </a>
                                 </td>
@@ -407,9 +371,7 @@ export default class ReserveQuote extends TrackerReact(Component) {
                             ''
                         )}
                         {/* small item packing */}
-                        {job.smallItemPacking < 0 || job.smallItemPacking > 0
-                            ? this.renderSmallitemPacking(job)
-                            : ''}
+                        {job.smallItemPacking < 0 || job.smallItemPacking > 0 ? this.renderSmallitemPacking(job) : ''}
                         {/* Extra Large Item Handling */}
                         {job.largeItemFee && job.largeItemFee > 0 ? (
                             <tr>
@@ -423,8 +385,7 @@ export default class ReserveQuote extends TrackerReact(Component) {
                             <tr>
                                 <td style={{ width: '49%' }}>Deposit required to lock the spot:</td>
                                 <td style={{ width: '49%' }}>
-                                    +${job.deposit} (to be applied as a credit toward this move’s
-                                    bill)
+                                    +${job.deposit} (to be applied as a credit toward this move’s bill)
                                 </td>
                             </tr>
                         ) : (
@@ -443,91 +404,66 @@ export default class ReserveQuote extends TrackerReact(Component) {
                     </p>
                     <p>
                         {/* finish the on clikc pdf download */}
-                        <input
-                            className="secilib"
-                            onChange={() => this.checked()}
-                            type="checkbox"
-                        />{' '}
-                        I have read, understand and agree to the contents of the{' '}
+                        <input className="secilib" onChange={() => this.checked()} type="checkbox" /> I have read, understand and
+                        agree to the contents of the{' '}
                         <i>
                             <a
                                 href="https://www.moverslegion.com/wp-content/uploads/2019/01/included.pdf"
                                 download="https://www.moverslegion.com/wp-content/uploads/2019/01/included.pdf"
                                 target="_blank"
-                                rel="noopener noreferrer"
-                            >
+                                rel="noopener noreferrer">
                                 &quot;What&apos;s Included&quot; Section.
                             </a>
                         </i>
                     </p>
                     <p>
-                        <input
-                            className="secilib"
-                            onChange={() => this.checked()}
-                            type="checkbox"
-                        />{' '}
-                        I have read, understand and agree to the contents of the{' '}
+                        <input className="secilib" onChange={() => this.checked()} type="checkbox" /> I have read, understand and
+                        agree to the contents of the{' '}
                         <i>
                             <a
                                 href="https://www.moverslegion.com/wp-content/uploads/2019/01/not-included.pdf"
                                 download="http://www.moverslegion.com/wp-content/uploads/2019/01/not-included.pdf"
                                 target="_blank"
-                                rel="noopener noreferrer"
-                            >
+                                rel="noopener noreferrer">
                                 &quot;What&apos;s Not Included&quot; Section.
                             </a>
                         </i>
                     </p>
                     <p>
-                        <input
-                            className="secilib"
-                            onChange={() => this.checked()}
-                            type="checkbox"
-                        />{' '}
-                        I have read, understand and agree to the contents of the{' '}
+                        <input className="secilib" onChange={() => this.checked()} type="checkbox" /> I have read, understand and
+                        agree to the contents of the{' '}
                         <i>
                             <a
                                 href="https://www.moverslegion.com/wp-content/uploads/2019/06/for-you-1.pdf"
                                 download="https://www.moverslegion.com/wp-content/uploads/2019/06/for-you-1.pdf"
                                 target="_blank"
-                                rel="noopener noreferrer"
-                            >
+                                rel="noopener noreferrer">
                                 &quot;For Your Information&quot; Section.
                             </a>
                         </i>
                     </p>
                     <p>
-                        <input
-                            className="secilib"
-                            onChange={() => this.checked()}
-                            type="checkbox"
-                        />{' '}
-                        I have recieved a copy of the{' '}
+                        <input className="secilib" onChange={() => this.checked()} type="checkbox" /> I have recieved a copy of
+                        the{' '}
                         <i>
                             <a
                                 href="http://www.moverslegion.com/wp-content/uploads/2018/12/important.pdf"
                                 download="http://www.moverslegion.com/wp-content/uploads/2018/12/important.pdf"
                                 target="_blank"
-                                rel="noopener noreferrer"
-                            >
+                                rel="noopener noreferrer">
                                 CPUC &quot;Important Information About Your Move&quot; booklet.
                             </a>
                         </i>
                     </p>
                     <p>
-                        <input
-                            className="secilib"
-                            onChange={() => this.checked()}
-                            type="checkbox"
-                        />{' '}
-                        I have recieved a copy of the{' '}
+                        <input className="secilib" onChange={() => this.checked()} type="checkbox" /> I have recieved a copy of
+                        the{' '}
                         <i>
                             <a
                                 href="http://www.moverslegion.com/wp-content/uploads/2018/12/Hazard.pdf"
                                 download="http://www.moverslegion.com/wp-content/uploads/2018/12/Hazard.pdf"
                                 target="_blank"
-                                rel="noopener noreferrer"
-                            >
+                                rel="noopener noreferrer">
                                 CPUC Hazardous Material List
                             </a>
                         </i>{' '}
@@ -536,33 +472,19 @@ export default class ReserveQuote extends TrackerReact(Component) {
                         items listed for transportation by the moving company.
                     </p>
                     <p>
-                        <input
-                            className="secilib"
-                            onChange={() => this.checked()}
-                            type="checkbox"
-                        />{' '}
-                        I understand and agree that I will have Cash or Card Payment ready on the
-                        day of my move.
+                        <input className="secilib" onChange={() => this.checked()} type="checkbox" /> I understand and agree that
+                        I will have Cash or Card Payment ready on the day of my move.
                     </p>
                     <p>
-                        <input
-                            className="secilib"
-                            onChange={() => this.checked()}
-                            type="checkbox"
-                        />{' '}
-                        Yes! I have read the information below and wish to pay my Moving Deposit to
-                        book this move.
-                        <br />I understand that this Deposit is non-refundable and non-transferrable
-                        if I reschedule or cancel this move.
+                        <input className="secilib" onChange={() => this.checked()} type="checkbox" /> Yes! I have read the
+                        information below and wish to pay my Moving Deposit to book this move.
+                        <br />I understand that this Deposit is non-refundable and non-transferrable if I reschedule or cancel
+                        this move.
                     </p>
-                    <p>
-                        **If you have any questions, please contact us as soon as possible by phone,
-                        text, or e-mail 24/7**
-                    </p>
+                    <p>**If you have any questions, please contact us as soon as possible by phone, text, or e-mail 24/7**</p>
                     <div style={{ textAlign: 'center' }}>
                         Phone Number: {job.companyInfo.phoneNumber} <br />
-                        Email:{' '}
-                        <a href={'mailto:' + job.companyInfo.email}>{job.companyInfo.email}</a>
+                        Email: <a href={'mailto:' + job.companyInfo.email}>{job.companyInfo.email}</a>
                         <br />
                         Web: <a href={job.companyInfo.url}>{job.companyInfo.url}</a>
                         <br />
@@ -591,15 +513,11 @@ export default class ReserveQuote extends TrackerReact(Component) {
                 text="Loading..."
                 className="loader"
                 active={Session.get('loading')}
-                spinner={<BarLoader color={'#6DD4B8'} />}
-            >
+                spinner={<BarLoader color={'#6DD4B8'} />}>
                 <div id="jobInfoMain" className="jobMain">
                     <div className="job-number-enter">
                         <div id="enter-number" className="enter-code">
-                            <h6>
-                                By entering your job number below you will be able to confirm your
-                                moving details
-                            </h6>
+                            <h6>By entering your job number below you will be able to confirm your moving details</h6>
                             <input
                                 id="code"
                                 key="jobNumber"
@@ -613,8 +531,7 @@ export default class ReserveQuote extends TrackerReact(Component) {
                                 className="btn waves-effect waves-light"
                                 type="submit"
                                 name="action"
-                                onClick={this.submit}
-                            >
+                                onClick={this.submit}>
                                 <i className="material-icons right">send</i>
                             </button>
                         </div>
@@ -624,11 +541,10 @@ export default class ReserveQuote extends TrackerReact(Component) {
                         <div className={this.compare() ? 'coverDark' : 'hide'}>
                             <div className="enter-code">
                                 <h6>
-                                    Your offer has expired. Please contact customer service in order
-                                    to access to your confirmation page. <span>(844) 404-8404</span>
+                                    Your offer has expired. Please contact customer service in order to access to your
+                                    confirmation page. <span>(844) 404-8404</span>
                                     <br />
-                                    Your job number is:{' '}
-                                    <span>{(this.state.is && this.state.is.jobNumber) || ''}</span>
+                                    Your job number is: <span>{(this.state.is && this.state.is.jobNumber) || ''}</span>
                                 </h6>
                             </div>
                         </div>
@@ -637,10 +553,7 @@ export default class ReserveQuote extends TrackerReact(Component) {
                             <h4>Please check all the boxes for next step</h4>
                         </div>
                         <div id="payPal" style={{ display: 'none', margin: '20px 0' }}>
-                            {this.state.id !== '' && this.state.id !== undefined && (
-                                <Payment id={this.state.id} />
-                            )}
-                            {/* <div id="paypal-button" /> */}
+                            {this.state.id !== '' && this.state.id !== undefined && <Payment id={this.state.id} />}
                         </div>
                     </div>
                 </div>
@@ -651,71 +564,4 @@ export default class ReserveQuote extends TrackerReact(Component) {
 
 Template.reserveQuote.onRendered(function() {
     ReactDOM.render(<ReserveQuote />, document.getElementById('reserve-quote'));
-    // try {
-    //     paypal.Button.render(
-    //         {
-    //             env: 'production', // Or 'sandbox'
-    //             style: {
-    //                 label: 'pay',
-    //                 size: 'medium', // small | medium | large | responsive
-    //                 shape: 'rect', // pill | rect
-    //                 color: 'blue' // gold | blue | silver | black
-    //             },
-    //             client: {
-    //                 sandbox:
-    //                     'ASree96P5IIPryoEkaURjZl_uCCGHLcso9ZNy6U_4vLFUnFc5qhU7hIP7KsLIfZoepVvPhxtdwvTsao5',
-    //                 production:
-    //                     'AeKzmDv5m4KcyrlQI7Y9qiyjYr5jyUYVKd1FsKrXF9Nce7qmfekBC35JIAFbV2am3TdVKhszmcOdFJhK'
-    //             },
-    //             commit: true, // Show a 'Pay Now' button
-    //             payment: function(data, actions) {
-    //                 return actions.payment.create({
-    //                     payment: {
-    //                         transactions: [
-    //                             {
-    //                                 amount: {
-    //                                     total: Session.get('job').deposit,
-    //                                     currency: 'USD'
-    //                                 }
-    //                             }
-    //                         ]
-    //                     }
-    //                 });
-    //             },
-    //             onAuthorize: function(data, actions) {
-    //                 return actions.payment
-    //                     .execute()
-    //                     .then(function(payment) {
-    //                         document
-    //                             .getElementById('jobInfoMain')
-    //                             .classList.add('hide');
-    //                         document
-    //                             .getElementById('son-mesaj')
-    //                             .classList.remove('hide');
-    //                         Meteor.call('confirmationGonder', jobIs);
-    //                         ReactDOM.render(
-    //                             <ConfirmationDisplay />,
-    //                             document.getElementById('son-mesaj')
-    //                         );
-    //                         let job = Session.get('job');
-    //                         job.quote = false;
-    //                         job.confirmed = true;
-    //                         job.isFollowUp = true;
-    //                         job.status = 'won';
-    //                         Meteor.call('updateWork', job);
-    //                         // The payment is complete!
-    //                         // You can now show a confirmation message to the customer
-    //                     })
-    //                     .catch(err => {
-    //                         err ? console.log(err) : null;
-    //                     });
-    //             }
-    //         },
-    //         '#paypal-button'
-    //     );
-    //     $('.paypal-button').hide();
-    //     $('#payPal').hide();
-    // } catch (err) {
-    //     console.log(err);
-    // }
 });

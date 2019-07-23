@@ -45,6 +45,9 @@ if (Meteor.isServer) {
         },
         officeEmployees: function() {
             return Meteor.users.find({ 'profile.rank': 'officeEmployee' }).fetch();
+        },
+        employees: function() {
+            return Meteor.users.find({}).fetch();
         }
     });
 }

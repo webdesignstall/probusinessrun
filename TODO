@@ -13,5 +13,5 @@ full reset #247:
 Tracking of updates #255:
     ✔ Taken by automatically persons info who is logned in @done(19-07-19 17:08)
     ✔ Create changes section in database @done(19-07-19 17:38)
-    ☐ Design how will it look
+    ☐ Design how will it look @started(19-07-22 09:47)
     ☐ Add function which every time will compare the before and after data and will return the difference

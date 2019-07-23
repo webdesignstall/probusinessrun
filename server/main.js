@@ -173,7 +173,7 @@ if (Meteor.isServer) {
             if (diff && diff.length > 0) {
                 // create object inside all information about changes
                 let update = {
-                    by: Meteor.userId(),
+                    by: Meteor.userId() ? Meteor.userId() : 'customer',
                     date: new Date(),
                     changes: diff
                 };
@@ -201,7 +201,7 @@ if (Meteor.isServer) {
                 },
                 function(error, result) {
                     if (error) {
-                        console.log(error);
+                        console.log(doc);
                         throw new Meteor.Error('Error updating', 'Reason: ' + error.message);
                     } else {
                         console.log(result);
