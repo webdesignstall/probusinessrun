@@ -22,7 +22,7 @@ export default class UpdateList extends Component {
 
     UNSAFE_componentWillReceiveProps(nextProps) {
         this.setState({
-            list: nextProps.updates
+            list: nextProps.updates.reverse()
         });
     }
 
@@ -35,7 +35,9 @@ export default class UpdateList extends Component {
     }
 
     renderUpdates() {
-        return this.state.list.map((list, index) => {
+        let arr = this.state.list;
+
+        return arr.map((list, index) => {
             const { date, by, changes } = list;
             let by_ = {};
 
