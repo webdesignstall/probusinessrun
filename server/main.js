@@ -166,10 +166,18 @@ if (Meteor.isServer) {
             }
 
             let job = WorkData.findOne({ _id: doc._id });
+            let updates_ = doc.updates;
+            let updates__ = job.updates;
+
+            console.log(updates_);
+
+            delete doc.updates;
+            delete job.updates;
 
             // find differences
             let diff = DifferenceCalculator(job, doc);
-
+            doc.updates = updates_;
+            job.updates = updates__;
             if (diff && diff.length > 0) {
                 // create object inside all information about changes
                 let update = {

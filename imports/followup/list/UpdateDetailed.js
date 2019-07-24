@@ -54,11 +54,11 @@ export default class UpdateDetailed extends Component {
                     </p>
                     <div className={kind !== 'N' ? 'col s12 m6 l6 update_values' : 'hide'}>
                         <p>Old value</p>
-                        {lhs && lhs.toString()}
+                        {lhs && JSON.stringify(lhs)}
                     </div>
                     <div className={kind !== 'D' ? 'col s12 m6 l6 update_values' : 'hide'}>
                         <p>New value</p>
-                        {rhs && rhs.toString()}
+                        {rhs && JSON.stringify(rhs)}
                     </div>
                 </div>
             );
