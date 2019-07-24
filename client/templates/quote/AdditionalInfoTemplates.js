@@ -18,6 +18,7 @@ export default class AdditionalInfoTemplates extends Component {
     valueChange(template) {
         let arr = Session.get('additionalInfo');
         arr.push(template);
+        console.log(arr);
         Session.set('additionalInfo', arr);
     }
 
@@ -34,10 +35,6 @@ export default class AdditionalInfoTemplates extends Component {
     }
 
     render() {
-        return (
-            <div className="col s6 m6 l6 additional_info_template">
-                {this.renderList()}
-            </div>
-        );
+        return <div className="col s6 m6 l6 additional_info_template">{this.renderList()}</div>;
     }
 }
