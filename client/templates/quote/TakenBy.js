@@ -17,7 +17,7 @@ export default class TakenBy extends TrackerReact(Component) {
 
     fetchUsers(id) {
         let users = [];
-        users = id ? Meteor.users.find({ _id: id }).fetch() : Meteor.users.find({ 'profile.rank': 'officeEmployee' }).fetch();
+        users = id ? Meteor.users.find({ _id: id }).fetch() : Meteor.users.find({}).fetch();
         return users;
     }
 

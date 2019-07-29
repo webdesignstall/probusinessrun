@@ -15,3 +15,7 @@ Tracking of updates #255:
     ✔ Create changes section in database @done(19-07-19 17:38)
     ✔ Design how will it look @started(19-07-22 09:47) @done(19-07-23 18:48) @lasted(1d9h1m53s)
     ✔ Add function which every time will compare the before and after data and will return the difference @done(19-07-23 18:48)
+
+Performance imporovements:
+    ☐ Subscribe -> Meteor methods @started(19-07-27 11:43)
+    ☐ Limit rendering in follow up

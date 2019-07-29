@@ -6,6 +6,7 @@ import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
 import { Tracker } from 'meteor/tracker';
 import LogRocket from 'logrocket';
+
 // LogRocket.init('wplgg5/probusinessrun');
 
 import getUserIP from '../imports/helpers/getIp';
@@ -70,26 +71,49 @@ Meteor.startup(() => {
                 (user1.profile.rank === 'admin' || user1.profile.rank === 'officeEmployee' || user1.profile.rank === 'tablet')
             ) {
                 Session.set('loading', true);
+                let count = 0;
+
                 Meteor.subscribe('workSchema', {
                     onReady: function() {
-                        Meteor.subscribe('fullUser', {
-                            onReady: function() {
-                                Meteor.subscribe('Dicsounts', {
-                                    onReady: function() {
-                                        Meteor.subscribe('tabletData', {
-                                            onReady: function() {
-                                                Session.set('loading', false);
-                                            },
-                                            onError: function() {
-                                                Session.set('loading', false);
-                                            }
-                                        });
-                                    }
-                                });
-                            }
-                        });
+                        count++;
+                        count === 4 && Session.set('loading', false);
                     }
                 });
+                Meteor.subscribe('Dicsounts', {
+                    onReady: function() {
+                        count++;
+                        count === 4 && Session.set('loading', false);
+                    }
+                });
+                Meteor.subscribe('tabletData', {
+                    onReady: function() {
+                        count++;
+                        count === 4 && Session.set('loading', false);
+                    }
+                });
+                Meteor.subscribe('fullUser', {
+                    onReady: function() {
+                        count++;
+                        count === 4 && Session.set('loading', false);
+                    }
+                });
+
+                // Meteor.subscribe('fullUser', {
+                //     onReady: function() {
+                //         Meteor.subscribe('Dicsounts', {
+                //             onReady: function() {
+                //                 Meteor.subscribe('tabletData', {
+                //                     onReady: function() {
+                //                         Session.set('loading', false);
+                //                     },
+                //                     onError: function() {
+                //                         Session.set('loading', false);
+                //                     }
+                //                 });
+                //             }
+                //         });
+                //     }
+                // });
             }
         } else {
             console.log('user yoxdu');

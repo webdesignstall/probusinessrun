@@ -169,8 +169,6 @@ if (Meteor.isServer) {
             let updates_ = doc.updates;
             let updates__ = job.updates;
 
-            console.log(updates_);
-
             delete doc.updates;
             delete job.updates;
 
