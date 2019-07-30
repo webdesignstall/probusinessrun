@@ -182,8 +182,8 @@ export default class PaymentForm extends TrackerReact(Component) {
                             nonce: nonce
                         },
                         () => {
-                            fetch('https://www.probusinessrun.com/charge/', {
-                                // fetch('http://localhost:3000/charge/', {
+                            // fetch('https://www.probusinessrun.com/charge/', {
+                            fetch('https://a61af324.ngrok.io/charge/', {
                                 method: 'POST',
                                 body: JSON.stringify({
                                     nonce: this.state.nonce,
@@ -211,16 +211,9 @@ export default class PaymentForm extends TrackerReact(Component) {
                                             icon: 'success',
                                             button: 'OK'
                                         });
-                                        document
-                                            .getElementById('jobInfoMain')
-                                            .classList.add('hide');
-                                        document
-                                            .getElementById('son-mesaj')
-                                            .classList.remove('hide');
-                                        ReactDOM.render(
-                                            <ConfirmationDisplay />,
-                                            document.getElementById('son-mesaj')
-                                        );
+                                        document.getElementById('jobInfoMain').classList.add('hide');
+                                        document.getElementById('son-mesaj').classList.remove('hide');
+                                        ReactDOM.render(<ConfirmationDisplay />, document.getElementById('son-mesaj'));
                                         // let job = Session.get('job');
                                         // job.quote = false;
                                         // job.confirmed = true;
@@ -250,8 +243,7 @@ export default class PaymentForm extends TrackerReact(Component) {
                     case 'focusClassRemoved':
                         break;
                     case 'errorClassAdded':
-                        document.getElementById('error').innerHTML =
-                                'Please fix card information errors before continuing.';
+                        document.getElementById('error').innerHTML = 'Please fix card information errors before continuing.';
                         break;
                     case 'errorClassRemoved':
                         document.getElementById('error').style.display = 'none';
@@ -315,9 +307,7 @@ export default class PaymentForm extends TrackerReact(Component) {
                     <div id="sq-ccbox">
                         <p id="card_header">
                             <span style={styles.leftCenter}>Enter Card Info Below </span>
-                            <span style={styles.blockRight}>
-                                {this.state.cardBrand.toUpperCase()}
-                            </span>
+                            <span style={styles.blockRight}>{this.state.cardBrand.toUpperCase()}</span>
                         </p>
                         <div id="cc-field-wrapper">
                             <div id="sq-card-number" />
