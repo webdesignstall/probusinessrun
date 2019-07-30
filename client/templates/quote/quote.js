@@ -64,11 +64,9 @@ Template.updateQuote.onRendered(function() {
                     : null
                 : null;
             document.querySelector('#flatRateCashUpdate') &&
-                (document.querySelector('#flatRateCashUpdate').defaultValue =
-                    ish.flatRate[0].cashAmount);
+                (document.querySelector('#flatRateCashUpdate').defaultValue = ish.flatRate[0].cashAmount);
             document.querySelector('#flatRateCardUpdate') &&
-                (document.querySelector('#flatRateCardUpdate').defaultValue =
-                    ish.flatRate[0].cardAmount);
+                (document.querySelector('#flatRateCardUpdate').defaultValue = ish.flatRate[0].cardAmount);
             document.querySelector('#flatBoxUpdate') &&
                 (document.querySelector('#flatBoxUpdate').checked = ish.flatRate[0].isTrue);
             Session.set('flatRate', ish.flatRate[0].isTrue);
@@ -97,8 +95,7 @@ Template.updateQuote.helpers({
         return WorkData.findOne({ _id: Session.get('is') });
     },
     isGasFee: () => {
-        return WorkData.findOne({ _id: Session.get('is') }) &&
-            WorkData.findOne({ _id: Session.get('is') }).gasFee < 0
+        return WorkData.findOne({ _id: Session.get('is') }) && WorkData.findOne({ _id: Session.get('is') }).gasFee < 0
             ? true
             : false;
     },
@@ -108,9 +105,7 @@ Template.updateQuote.helpers({
             : false;
     },
     isConfirmed: () => {
-        return WorkData.findOne({ _id: Session.get('is') })
-            ? !WorkData.findOne({ _id: Session.get('is') }).quote
-            : false;
+        return WorkData.findOne({ _id: Session.get('is') }) ? !WorkData.findOne({ _id: Session.get('is') }).quote : false;
     }
 });
 
@@ -204,10 +199,7 @@ Template.updateQuote.events({
             email: document.getElementById('musteriEmail_2').value,
             addresses,
             movingDateConverted: workDate,
-            workMustBeginTime: [
-                document.getElementById('customTime--1').value,
-                document.getElementById('customTime--2').value
-            ],
+            workMustBeginTime: [document.getElementById('customTime--1').value, document.getElementById('customTime--2').value],
             price: document.getElementById('quote_price_2').value,
             minimumLaborTime: document.getElementById('labor_time_2').value,
             hourlyRatesCash: document.getElementById('hourly_rates_cash_2').value,
@@ -298,10 +290,7 @@ Template.updateQuote.events({
             email: document.getElementById('musteriEmail_2').value,
             addresses,
             workDate,
-            workMustBeginTime: [
-                document.getElementById('customTime--1').value,
-                document.getElementById('customTime--2').value
-            ],
+            workMustBeginTime: [document.getElementById('customTime--1').value, document.getElementById('customTime--2').value],
             price: document.getElementById('quote_price_2').value,
             laborTime: document.getElementById('labor_time_2').value,
             hourlyRatesCash: document.getElementById('hourly_rates_cash_2').value,
@@ -416,6 +405,13 @@ Template.preQuote.onRendered(function() {
 });
 
 Template.preQuote.events({
+    'click .btn': function() {
+        // Session.set('buttonsDisabled', true);
+        let btns = document.getElementsByClassName('btn');
+        for (let i = 0; i < btns.length; i++) {
+            btns[i].classList.add('disabled');
+        }
+    },
     'click #work-request': function(e) {
         e.preventDefault();
         let firstName = document.getElementById('firstName').value;
@@ -455,27 +451,17 @@ Template.preQuote.events({
         if (isNaN(iscilerinSayi)) {
             iscilerinSayi = 0;
         }
-        let workMustBeginTime = [
-            document.getElementById('customTime--1').value,
-            document.getElementById('customTime--2').value
-        ];
+        let workMustBeginTime = [document.getElementById('customTime--1').value, document.getElementById('customTime--2').value];
         let numberOfWorkers = document.getElementById('iscinin-sayi').value;
         let companyInfo = Session.get('companyInfo');
         let trucksTemp = Session.get('trucklar');
         let flatRate = document.getElementById('flatRateCheck').checked;
-        let flatRateCash = document.querySelector('#flatRateCash').value
-            ? document.querySelector('#flatRateCash').value
-            : 0;
-        let flatRateCard = document.querySelector('#flatRateCash').value
-            ? document.querySelector('#flatRateCard').value
-            : 0;
+        let flatRateCash = document.querySelector('#flatRateCash').value ? document.querySelector('#flatRateCash').value : 0;
+        let flatRateCard = document.querySelector('#flatRateCash').value ? document.querySelector('#flatRateCard').value : 0;
         let comment = document.getElementById('textarea1').value;
         let deposit = document.getElementById('deposit').value;
         let takenBy_ = document.getElementById('takenBy--value').value;
-        let takenBy =
-            takenBy_ !== '' && takenBy_ !== null && takenBy_ !== undefined && takenBy_ !== '_'
-                ? takenBy_
-                : undefined;
+        let takenBy = takenBy_ !== '' && takenBy_ !== null && takenBy_ !== undefined && takenBy_ !== '_' ? takenBy_ : undefined;
         let additionalContacts = Session.get('additionalContacts');
         let quoteDate = new Date();
         let quote = true;
@@ -705,27 +691,17 @@ Template.preQuote.events({
         if (isNaN(iscilerinSayi)) {
             iscilerinSayi = 0;
         }
-        let workMustBeginTime = [
-            document.getElementById('customTime--1').value,
-            document.getElementById('customTime--2').value
-        ];
+        let workMustBeginTime = [document.getElementById('customTime--1').value, document.getElementById('customTime--2').value];
         let numberOfWorkers = document.getElementById('iscinin-sayi').value;
         let companyInfo = Session.get('companyInfo');
         let trucksTemp = Session.get('trucklar');
         let flatRate = document.getElementById('flatRateCheck').checked;
-        let flatRateCash = document.querySelector('#flatRateCash').value
-            ? document.querySelector('#flatRateCash').value
-            : 0;
-        let flatRateCard = document.querySelector('#flatRateCash').value
-            ? document.querySelector('#flatRateCard').value
-            : 0;
+        let flatRateCash = document.querySelector('#flatRateCash').value ? document.querySelector('#flatRateCash').value : 0;
+        let flatRateCard = document.querySelector('#flatRateCash').value ? document.querySelector('#flatRateCard').value : 0;
         let comment = document.getElementById('textarea1').value;
         let deposit = document.getElementById('deposit').value;
         let takenBy_ = document.getElementById('takenBy--value').value;
-        let takenBy =
-            takenBy_ !== '' && takenBy_ !== null && takenBy_ !== undefined && takenBy_ !== '_'
-                ? takenBy_
-                : undefined;
+        let takenBy = takenBy_ !== '' && takenBy_ !== null && takenBy_ !== undefined && takenBy_ !== '_' ? takenBy_ : undefined;
         let additionalContacts = Session.get('additionalContacts');
         let quoteDate = new Date();
         let quote = false;
@@ -872,27 +848,17 @@ Template.preQuote.events({
         if (isNaN(iscilerinSayi)) {
             iscilerinSayi = 0;
         }
-        let workMustBeginTime = [
-            document.getElementById('customTime--1').value,
-            document.getElementById('customTime--2').value
-        ];
+        let workMustBeginTime = [document.getElementById('customTime--1').value, document.getElementById('customTime--2').value];
         let numberOfWorkers = document.getElementById('iscinin-sayi').value;
         let companyInfo = Session.get('companyInfo');
         let trucksTemp = Session.get('trucklar');
         let flatRate = document.getElementById('flatRateCheck').checked;
-        let flatRateCash = document.querySelector('#flatRateCash').value
-            ? document.querySelector('#flatRateCash').value
-            : 0;
-        let flatRateCard = document.querySelector('#flatRateCash').value
-            ? document.querySelector('#flatRateCard').value
-            : 0;
+        let flatRateCash = document.querySelector('#flatRateCash').value ? document.querySelector('#flatRateCash').value : 0;
+        let flatRateCard = document.querySelector('#flatRateCash').value ? document.querySelector('#flatRateCard').value : 0;
         let comment = document.getElementById('textarea1').value;
         let deposit = document.getElementById('deposit').value;
         let takenBy_ = document.getElementById('takenBy--value').value;
-        let takenBy =
-            takenBy_ !== '' && takenBy_ !== null && takenBy_ !== undefined && takenBy_ !== '_'
-                ? takenBy_
-                : undefined;
+        let takenBy = takenBy_ !== '' && takenBy_ !== null && takenBy_ !== undefined && takenBy_ !== '_' ? takenBy_ : undefined;
         let additionalContacts = Session.get('additionalContacts');
         let quoteDate = new Date();
         let quote = false;
@@ -1056,11 +1022,7 @@ Template.preQuote.onRendered(function() {
 
 Template.navBar.events({
     'click .quoteDuymesi': function() {
-        document.querySelector('#quoteTam')
-            ? document.querySelector('#quoteTam').classList.remove('hide')
-            : '';
-        document.querySelector('#updateQuote2')
-            ? document.querySelector('#updateQuote2').classList.add('hide')
-            : '';
+        document.querySelector('#quoteTam') ? document.querySelector('#quoteTam').classList.remove('hide') : '';
+        document.querySelector('#updateQuote2') ? document.querySelector('#updateQuote2').classList.add('hide') : '';
     }
 });

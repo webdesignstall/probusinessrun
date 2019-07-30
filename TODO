@@ -17,5 +17,11 @@ Tracking of updates #255:
     ✔ Add function which every time will compare the before and after data and will return the difference @done(19-07-23 18:48)
 
 Performance imporovements:
-    ☐ Subscribe -> Meteor methods @started(19-07-27 11:43)
+    ✘ Subscribe -> Meteor methods @started(19-07-27 11:43) @cancelled(19-07-29 18:07) @wasted(2d6h24m40s)
     ☐ Limit rendering in follow up
+    ☐ Get only jobs list for calendar rendered time period
+
+Disable buttons after click untill response from server:
+    ✔ Get svg icon for loading @started(19-07-29 18:47) @done(19-07-29 18:52) @lasted(6m)
+    ✔ Create button display status in Sessions @started(19-07-29 18:53) @done(19-07-29 18:54) @lasted(1m25s)
+    ☐ After click disable all buttons @started(19-07-29 18:54)
