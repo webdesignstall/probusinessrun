@@ -610,6 +610,11 @@ Template.kalendar.events({
         Session.set('secilmisIsciler', '');
         Session.set('is', '');
         Session.set('addingJob', false);
+
+        let btns = document.getElementsByClassName('btn');
+        for (let i = 0; i < btns.length; i++) {
+            btns[i].classList.remove('disabled');
+        }
     },
     'click .edit-duymesi': function(event) {
         if (Session.get('addingJob') !== true) {

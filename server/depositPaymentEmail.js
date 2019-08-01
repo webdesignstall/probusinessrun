@@ -364,8 +364,8 @@ export default function depositPaymentEmail(obj) {
 <div style="color:#555555;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif;line-height:120%;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;">
 <div style="font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; font-size: 12px; line-height: 14px; color: #555555;">
 <p style="font-size: 14px; line-height: 16px; margin: 0;">${
-    obj.cardHolderName
-}</p>
+        obj.cardHolderName
+    }</p>
 </div>
 </div>
 <!--[if mso]></td></tr></table><![endif]-->
@@ -412,8 +412,8 @@ export default function depositPaymentEmail(obj) {
 <div style="color:#555555;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif;line-height:120%;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;">
 <div style="font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; font-size: 12px; line-height: 14px; color: #555555;">
 <p style="font-size: 14px; line-height: 16px; margin: 0;">${
-    obj.clientFirstName
-} ${obj.clientLastName}</p>
+        obj.clientFirstName
+    } ${obj.clientLastName}</p>
 </div>
 </div>
 <!--[if mso]></td></tr></table><![endif]-->

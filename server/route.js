@@ -1,12 +1,12 @@
-import { Router } from 'meteor/iron:router';
+import {Router} from 'meteor/iron:router';
 import SquareConnect from 'square-connect';
 import WorkData from '../common/collections_2';
 import locationIds from '../imports/helpers/companyId.json';
-import { Meteor } from 'meteor/meteor';
+import {Meteor} from 'meteor/meteor';
 
 var config = require('../imports/helpers/config.json');
 
-Router.route('/charge', { where: 'server' }).post(function() {
+Router.route('/charge', {where: 'server'}).post(function () {
     var req = this.request;
     var res = this.response;
 
@@ -36,7 +36,7 @@ Router.route('/charge', { where: 'server' }).post(function() {
         .randomBytes(64)
         .toString('hex');
 
-    let jobInfo = WorkData.findOne({ _id: request_params.id });
+    let jobInfo = WorkData.findOne({_id: request_params.id});
     let amount = jobInfo[request_params.what];
 
     // Charge the customer's card
@@ -50,7 +50,7 @@ Router.route('/charge', { where: 'server' }).post(function() {
         idempotency_key: idempotency_key
     };
     transactions_api.charge(locationIds[jobInfo.companyInfo.name], request_body).then(
-        function(data) {
+        function (data) {
             let obj = {
                 clientFirstName: request_params.clientFirstName,
                 clientLastName: request_params.clientLastName,
@@ -79,10 +79,10 @@ Router.route('/charge', { where: 'server' }).post(function() {
                 }
             });
         },
-        function(error) {
+        function (error) {
             console.log('route line 62: ' + error);
             // res.writeHead(500);
-            res.end(JSON.stringify({ error: true }));
+            res.end(JSON.stringify({error: true}));
         }
     );
 });

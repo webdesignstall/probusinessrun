@@ -11,6 +11,13 @@ import swal from 'sweetalert';
 
 let tracker_ = null;
 
+let enableButtons = function() {
+    let btns = document.getElementsByClassName('btn');
+    for (let i = 0; i < btns.length; i++) {
+        btns[i].classList.remove('disabled');
+    }
+};
+
 Template.updateQuote.onRendered(function() {
     // Meteor.subscribe('workSchema');
     // Meteor.subscribe('tabletData');
@@ -406,7 +413,6 @@ Template.preQuote.onRendered(function() {
 
 Template.preQuote.events({
     'click .btn': function() {
-        // Session.set('buttonsDisabled', true);
         let btns = document.getElementsByClassName('btn');
         for (let i = 0; i < btns.length; i++) {
             btns[i].classList.add('disabled');
@@ -599,6 +605,7 @@ Template.preQuote.events({
                         text: err.message,
                         icon: 'error'
                     });
+                    enableButtons();
                     Session.set('loading', false);
                 } else {
                     swal({
@@ -633,12 +640,14 @@ Template.preQuote.events({
                             });
                             console.error(err);
                             Session.set('loading', false);
+                            enableButtons();
                         } else {
                             swal({
                                 title: 'Success',
                                 text: 'Email successfully sent to customer',
                                 icon: 'success'
                             });
+                            enableButtons();
                         }
                     });
                 }
@@ -648,10 +657,12 @@ Template.preQuote.events({
                 text: 'Email field is empty or incorrect email',
                 icon: 'error'
             }),
-            Session.set('loading', false));
+            Session.set('loading', false),
+            enableButtons());
     },
     'click #work-request-reset': function() {
         Session.set('reset', true);
+        enableButtons();
     },
     'click #confirmed_job': function(e) {
         e.preventDefault();
@@ -785,6 +796,7 @@ Template.preQuote.events({
                     icon: 'error'
                 });
                 Session.set('loading', false);
+                enableButtons();
             } else {
                 swal({
                     title: 'Success',
@@ -806,6 +818,7 @@ Template.preQuote.events({
 
                 Session.set('reset', true);
                 Session.set('additionalContacts', []);
+                enableButtons();
                 setTimeout(() => Session.set('reset', false), 3000);
             }
         });
@@ -941,6 +954,8 @@ Template.preQuote.events({
                     icon: 'error'
                 });
                 Session.set('loading', false);
+                enableButtons();
+                v;
             } else {
                 swal({
                     title: 'Success',
@@ -963,6 +978,7 @@ Template.preQuote.events({
                 Session.set('reset', true);
                 Session.set('additionalContacts', []);
                 setTimeout(() => Session.set('reset', false), 3000);
+                enableButtons();
             }
         });
     }
