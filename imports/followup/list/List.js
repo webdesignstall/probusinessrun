@@ -21,9 +21,7 @@ export default class List extends TrackerReact(Component) {
     }
 
     workData(status) {
-        return WorkData.find(
-            status !== '' && typeof status === 'string' ? { status: status } : {}
-        ).fetch();
+        return WorkData.find(status !== '' && typeof status === 'string' ? { status: status } : {}).fetch();
     }
 
     componentDidMount() {
@@ -38,8 +36,7 @@ export default class List extends TrackerReact(Component) {
 
             if (
                 Session.get('searchWords') !== '' ||
-                (regEx.test(Session.get('searchWords')) &&
-                    (Session.get('update') || !Session.get('update')))
+                (regEx.test(Session.get('searchWords')) && (Session.get('update') || !Session.get('update')))
             ) {
                 let value = Session.get('searchWords');
                 this.setState(
@@ -58,18 +55,13 @@ export default class List extends TrackerReact(Component) {
 
                             arrayOfWords.map(word => {
                                 this.workData().map(work => {
-                                    work.clientFirstName &&
-                                    work.clientFirstName.toLowerCase().search(word.toLowerCase()) >
-                                        -1
+                                    work.clientFirstName && work.clientFirstName.toLowerCase().search(word.toLowerCase()) > -1
                                         ? result.add(work)
                                         : null;
-                                    work.clientLastName &&
-                                    work.clientLastName.toLowerCase().search(word.toLowerCase()) >
-                                        -1
+                                    work.clientLastName && work.clientLastName.toLowerCase().search(word.toLowerCase()) > -1
                                         ? result.add(work)
                                         : null;
-                                    work.jobNumber &&
-                                    work.jobNumber.toLowerCase().search(word.toLowerCase()) > -1
+                                    work.jobNumber && work.jobNumber.toLowerCase().search(word.toLowerCase()) > -1
                                         ? result.add(work)
                                         : null;
                                     work.phoneNumber &&
@@ -85,9 +77,7 @@ export default class List extends TrackerReact(Component) {
                             arrayOfWords.length > 0 ? null : (resultConverted = this.workData());
 
                             resultConverted.length > 0 ? null : (resultConverted = [{}]);
-                            arrayOfWords.length > 0
-                                ? Session.set('isSearch', true)
-                                : Session.set('isSearch', false);
+                            arrayOfWords.length > 0 ? Session.set('isSearch', true) : Session.set('isSearch', false);
                             this.setState(
                                 {
                                     jobs: resultConverted
@@ -157,7 +147,16 @@ export default class List extends TrackerReact(Component) {
     }
 
     renderList() {
-        return this.state.jobs.map(job => {
+        let jobs = this.state.jobs;
+        let newJobs = [];
+
+        if (jobs.length > 30) {
+            newJobs = jobs.slice(0, 31);
+        } else {
+            newJobs = jobs;
+        }
+
+        return newJobs.map(job => {
             return Session.get('is') === job._id ? (
                 <div key={job._id + 'followUpList'} className="collection-item">
                     <ListInnerDisplay loading={this.startStopLoading} job={job} />

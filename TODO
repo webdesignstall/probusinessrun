@@ -18,7 +18,7 @@ Tracking of updates #255:
 
 Performance imporovements:
     ✘ Subscribe -> Meteor methods @started(19-07-27 11:43) @cancelled(19-07-29 18:07) @wasted(2d6h24m40s)
-    ☐ Limit rendering in follow up
+    ✔ Limit rendering in follow up @started(19-08-01 16:41) @done(19-08-01 17:02) @lasted(21m19s)
     ☐ Get only jobs list for calendar rendered time period
 
 Disable buttons after click untill response from server:
