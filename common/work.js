@@ -785,6 +785,18 @@ Schemas.workSchema = new SimpleSchema(
             type: Object,
             optional: true,
             blackbox: true
+        },
+        label: {
+            type: Object,
+            optional: true
+        },
+        'label.name': {
+            type: String,
+            optional: true
+        },
+        'label.color': {
+            type: String,
+            optional: true
         }
     },
     { tracker: Tracker }

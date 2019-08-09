@@ -1,5 +1,17 @@
+Notification center:
+    ☐ Create notification center database
+    ☐ Fields: Created date, remove date, message
+    ☐ Create notifications center menu
+    ☐ In the menu should display notifications which not deleted
+    ☐ Make possible to create and delete the notifications from client side
+    ☐ only admins can modify notifications
+
+Labels:
+    ✔ design label button in the calendar @started(19-08-05 17:52) @done(19-08-08 11:59) @lasted(2d18h7m7s)
+    ☐ onClick display modal list and save selected info into the that job after @started(19-08-08 16:16)
+
 cardholder someone else:
-    ✔ display cardhoilder info in the left top card @started(19-07-15 12:41) @done(19-07-15 13:05) @lasted(24m24s)
+    ✔ display cardholder info in the left top card @started(19-07-15 12:41) @done(19-07-15 13:05) @lasted(24m24s)
     ✔ add menu item "Send CC Form" @started(19-07-15 13:05) @done(19-07-15 14:04) @lasted(59m33s)
     ✔ display "enter cardholder email" input @started(19-07-15 14:04) @done(19-07-16 18:34) @lasted(1d4h30m37s)
 

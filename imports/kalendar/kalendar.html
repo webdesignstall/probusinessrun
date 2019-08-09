@@ -1,5 +1,55 @@
 <template name="kalendar">
-    <div>
+    <div class="realtive">
+        <div id="labelModal" class="hide">
+            <div class="modalContent">
+                <p>Select the Label</p>
+                <span class="modalClose"
+                    ><i class="material-icons">
+                        close
+                    </i>
+                </span>
+                <ul>
+                    <li
+                        data-label="called no aswer"
+                        data-color="#E15141"
+                        class="modalContent_labels"
+                        style="background-color: #E15141"
+                    >
+                        called no aswer
+                    </li>
+                    <li data-label="cancelled" data-color="#E15141" class="modalContent_labels" style="background-color: #E15141">
+                        cancelled
+                    </li>
+                    <li data-label="confirmed" data-color="#F09C38" class="modalContent_labels" style="background-color: #F09C38">
+                        confirmed
+                    </li>
+                    <li
+                        data-label="sent text message"
+                        data-color="#8F31AA"
+                        class="modalContent_labels"
+                        style="background-color: #8F31AA"
+                    >
+                        sent text message
+                    </li>
+                    <li
+                        data-label="voice mail"
+                        data-color="#4994EB"
+                        class="modalContent_labels"
+                        style="background-color: #4994EB"
+                    >
+                        voice mail
+                    </li>
+                    <li
+                        data-label="will reschedule"
+                        data-color="#67AD5B"
+                        class="modalContent_labels"
+                        style="background-color: #67AD5B"
+                    >
+                        will reschedule
+                    </li>
+                </ul>
+            </div>
+        </div>
         <div id="kalendar">
             <div id="ayHaqqinda">
                 <a href="#" id="ay" class="tarixSecim"></a>
@@ -60,12 +110,6 @@
                                 <a id="isin-saati">
                                     {{#if isBosdur workMustBeginTime}}--:--{{else}}
                                     {{#if workMustBeginTime
-
-
-
-
-
-
 
 
 
@@ -155,22 +199,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                                     }}{{saatDeqiq workMustBeginTime}}
                                     {{/if}}
                                     {{/if}}
@@ -185,6 +213,18 @@
                                 <a href="#">
                                     <i class="material-icons mover--status sag edit-duymesi">person</i>
                                 </a>
+                                <div href="#" id="{{ _id }}" class="sag label_main" style="background-color: {{ label.color }}">
+                                    <i class="material-icons animated">label_important</i>
+                                    {{#if label}}
+                                    <div class="label_text">
+                                        {{ labelName label }}
+                                    </div>
+                                    {{else}}
+                                    <div class="label_text">
+                                        label
+                                    </div>
+                                    {{/if}}
+                                </div>
                             </div>
                             {{/each}}
                             <script>
@@ -236,13 +276,6 @@
                                 <a id="isin-saati">
                                     {{#if isBosdur workMustBeginTime}}--:--{{else}}
                                     {{#if workMustBeginTime
-
-
-
-
-
-
-
 
 
 
@@ -324,6 +357,11 @@
                                 <a id="isin-saati">
                                     {{#if isBosdur workMustBeginTime}}--:--{{else}}
                                     {{#if workMustBeginTime
+
+
+
+
+
 
 
 
@@ -435,6 +473,11 @@
 
 
 
+
+
+
+
+
                                     }}{{saatDeqiq workMustBeginTime}}
                                     {{/if}}
                                     {{/if}}
@@ -500,6 +543,30 @@
                                 <a id="isin-saati">
                                     {{#if isBosdur workMustBeginTime}}--:--{{else}}
                                     {{#if workMustBeginTime
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

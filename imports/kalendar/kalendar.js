@@ -26,7 +26,7 @@ import Status from '../../client/templates/quote/Status';
 import NewAppointment from '../../client/templates/quote/NewAppointment';
 import AdditionalInfo from '../../client/templates/quote/AdditionalInfo';
 
-/*global moment $*/
+/*global moment $ swal*/
 
 function colorIndigator() {
     let isler = document.getElementsByClassName('work-list-show');
@@ -166,6 +166,12 @@ Template.kalendar.helpers({
         });
 
         return baza;
+    },
+    labelName: function(label) {
+        return label.name;
+    },
+    labelColor: function(label) {
+        return label.color;
     },
     isGunMelumatVar: function() {
         if (
@@ -525,6 +531,11 @@ Template.kalendar.onRendered(function() {
     });
 });
 
+// label modal box selector
+// function labelModalbox (id){
+//     document
+// }
+
 // kalendardaki eventler
 Template.kalendar.events({
     'click .delete-duymesi': function() {
@@ -537,6 +548,46 @@ Template.kalendar.events({
         Template.instance().secilenTarix2.set(event.target.id);
 
         setTimeout(colorIndigator, 900);
+    },
+    'click .modalContent_labels': function(event) {
+        let name = event.target.getAttribute('data-label');
+        let color = event.target.getAttribute('data-color');
+
+        let obj = {
+            _id: Session.get('labelJobId'),
+            label: {
+                name,
+                color
+            }
+        };
+
+        Meteor.call('updateWork', obj, err => {
+            if (err) {
+                swal({
+                    title: 'Error!',
+                    text: 'Cant update label in this job',
+                    icon: 'error',
+                    button: 'OK'
+                });
+            } else {
+                document.getElementById('labelModal').classList.add('hide');
+                Session.set('labelJobId', '');
+                swal({
+                    title: 'Success!',
+                    text: 'Label succsessfully added to the job',
+                    icon: 'success',
+                    button: 'OK'
+                });
+            }
+        });
+    },
+    'click .modalClose': function() {
+        document.getElementById('labelModal').classList.add('hide');
+        Session.set('labelJobId', '');
+    },
+    'click .label_main': function() {
+        document.getElementById('labelModal').classList.remove('hide');
+        Session.set('labelJobId', this._id);
     },
     'click .add-schedule-button': function(event) {
         event.preventDefault();
