@@ -14,12 +14,23 @@ export default class FollowUpMain extends TrackerReact(Component) {
         super(props);
 
         this.state = {
-            loading: false
+            loading: false,
+            workDataInProgress: []
         };
+
+        this.workDataInProgress = this.workDataInProgress.bind(this);
     }
 
     workDataInProgress() {
-        return WorkData.find({ status: 'inProgress' }).fetch();
+        let res = WorkData.find({ status: 'inProgress' }).fetch() || [];
+        this.setState(
+            {
+                workDataInProgress: res
+            },
+            () => {
+                Session.set('_', '_');
+            }
+        );
     }
 
     UNSAFE_componentWillMount() {
@@ -27,8 +38,12 @@ export default class FollowUpMain extends TrackerReact(Component) {
     }
 
     componentDidMount() {
+        Session.set('loading', true);
+        this.workDataInProgress();
+        Session.set('_', '');
         this.x = Tracker.autorun(() => {
-            let progressJobs = this.workDataInProgress();
+            let progressJobs = this.state.workDataInProgress;
+            let sess = Session.get('_');
             let date = new Date().getTime();
             this.setState({
                 loading: true
@@ -50,9 +65,14 @@ export default class FollowUpMain extends TrackerReact(Component) {
                     });
                 }
             });
-            this.setState({
-                loading: false
-            });
+            this.setState(
+                {
+                    loading: false
+                },
+                () => {
+                    Session.set('loading', false);
+                }
+            );
         });
     }
 
@@ -62,7 +82,11 @@ export default class FollowUpMain extends TrackerReact(Component) {
 
     render() {
         return (
-            <LoadingOverlay text="Loading..." className="loader" active={Session.get('loading')} spinner={<RingLoader color={'#6DD4B8'} />}>
+            <LoadingOverlay
+                text="Loading..."
+                className="loader"
+                active={Session.get('loading')}
+                spinner={<RingLoader color={'#6DD4B8'} />}>
                 <div className="followup-header">
                     <Header />
                     <List />

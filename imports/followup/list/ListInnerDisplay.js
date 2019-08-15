@@ -4,6 +4,7 @@ import { Session } from 'meteor/session';
 import ExtendedJobInformation from './ExtendedJobInformation';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import WorkData from '../../../common/collections_2';
+import { Meteor } from 'meteor/meteor';
 import { Tracker } from 'meteor/tracker';
 import WonDate from './WonDate';
 
@@ -29,7 +30,7 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
     }
 
     workData(_id) {
-        return WorkData.find({ _id }).fetch();
+        return WorkData.findeOne({ _id });
     }
 
     componentDidMount() {
@@ -88,51 +89,27 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
         let status = [{}, {}, {}, {}, {}];
 
         let greenFollowUp = (
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 22 22">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 22 22">
                 <circle cx="11" cy="11" r="11" fill="#4cd137" />
-                <g
-                    transform="translate(3.667 3.667)"
-                    fill="#4cd137"
-                    stroke="#fff"
-                    strokeWidth="1">
+                <g transform="translate(3.667 3.667)" fill="#4cd137" stroke="#fff" strokeWidth="1">
                     <circle cx="7.333" cy="7.333" r="7.333" stroke="none" />
                     <circle cx="7.333" cy="7.333" r="6.833" fill="none" />
                 </g>
             </svg>
         );
         let redFollowUp = (
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 22 22">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 22 22">
                 <circle cx="11" cy="11" r="11" fill="#e84118" />
-                <g
-                    transform="translate(3.667 3.667)"
-                    fill="#e84118"
-                    stroke="#fff"
-                    strokeWidth="1">
+                <g transform="translate(3.667 3.667)" fill="#e84118" stroke="#fff" strokeWidth="1">
                     <circle cx="7.333" cy="7.333" r="7.333" stroke="none" />
                     <circle cx="7.333" cy="7.333" r="6.833" fill="none" />
                 </g>
             </svg>
         );
         let greyFollowUp = (
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 22 22">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 22 22">
                 <circle cx="11" cy="11" r="11" fill="#3D3F40" />
-                <g
-                    transform="translate(3.667 3.667)"
-                    fill="#3D3F40"
-                    stroke="#fff"
-                    strokeWidth="1">
+                <g transform="translate(3.667 3.667)" fill="#3D3F40" stroke="#fff" strokeWidth="1">
                     <circle cx="7.333" cy="7.333" r="7.333" stroke="none" />
                     <circle cx="7.333" cy="7.333" r="6.833" fill="none" />
                 </g>
@@ -140,17 +117,9 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
         );
 
         let lightGreyFollowUp = (
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 22 22">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 22 22">
                 <circle cx="11" cy="11" r="11" fill="#BEC3C6" />
-                <g
-                    transform="translate(3.667 3.667)"
-                    fill="#BEC3C6"
-                    stroke="#fff"
-                    strokeWidth="1">
+                <g transform="translate(3.667 3.667)" fill="#BEC3C6" stroke="#fff" strokeWidth="1">
                     <circle cx="7.333" cy="7.333" r="7.333" stroke="none" />
                     <circle cx="7.333" cy="7.333" r="6.833" fill="none" />
                 </g>
@@ -158,17 +127,9 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
         );
 
         let sariFollowUp = (
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 22 22">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 22 22">
                 <circle cx="11" cy="11" r="11" fill="#ffd32a" />
-                <g
-                    transform="translate(3.667 3.667)"
-                    fill="#ffd32a"
-                    stroke="#fff"
-                    strokeWidth="1">
+                <g transform="translate(3.667 3.667)" fill="#ffd32a" stroke="#fff" strokeWidth="1">
                     <circle cx="7.333" cy="7.333" r="7.333" stroke="none" />
                     <circle cx="7.333" cy="7.333" r="6.833" fill="none" />
                 </g>
@@ -183,22 +144,13 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
                             position: 'relative',
                             top: '3px'
                         }}>
-                        {index <
-                        (this.state.job.followUp
-                            ? this.state.job.followUp.length
-                            : -1)
-                            ? index ===
-                              (this.state.job.followUp
-                                  ? this.state.job.followUp.length - 1
-                                  : -1)
-                                ? this.state.job.status &&
-                                  this.state.job.status === 'lost'
+                        {index < (this.state.job.followUp ? this.state.job.followUp.length : -1)
+                            ? index === (this.state.job.followUp ? this.state.job.followUp.length - 1 : -1)
+                                ? this.state.job.status && this.state.job.status === 'lost'
                                     ? redFollowUp
-                                    : this.state.job.status &&
-                                      this.state.job.status === 'won'
+                                    : this.state.job.status && this.state.job.status === 'won'
                                         ? greenFollowUp
-                                        : this.state.job.status &&
-                                      this.state.job.status === 'cancelled'
+                                        : this.state.job.status && this.state.job.status === 'cancelled'
                                             ? lightGreyFollowUp
                                             : sariFollowUp
                                 : sariFollowUp
@@ -211,20 +163,13 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
                             top: '-4px',
                             margin: '0 5px'
                         }}>
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="40"
-                            height="2"
-                            viewBox="0 0 40 2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="2" viewBox="0 0 40 2">
                             <line
                                 x2="40"
                                 transform="translate(0 1)"
                                 fill="none"
                                 stroke={
-                                    index <
-                                    (this.state.job.followUp
-                                        ? this.state.job.followUp.length - 1
-                                        : 0)
+                                    index < (this.state.job.followUp ? this.state.job.followUp.length - 1 : 0)
                                         ? '#ffd32a'
                                         : '#98ABAB'
                                 }
@@ -248,19 +193,18 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
             Session.set('ExtendedJobInformation', '');
             Session.set('is', '');
             this.setState({ show: '' });
+            this.props.loading();
         } else {
             Session.set('is', this.state.job._id);
             Session.set('ExtendedJobInformation', this.state.job._id);
             this.setState({ show: this.state.job._id });
+            this.props.loading();
         }
-        this.props.loading();
     }
 
     displayInfo() {
         return (
-            <div
-                className={this.state.job._id ? '' : 'hide'}
-                style={{ position: 'relative' }}>
+            <div className={this.state.job._id ? '' : 'hide'} style={{ position: 'relative' }}>
                 <div
                     style={{
                         top: '3px',
@@ -274,8 +218,7 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
                         whiteSpace: 'nowrap'
                     }}>
                     <div className="fade" />
-                    {this.state.job ? this.state.job.clientFirstName : ''}{' '}
-                    {this.state.job ? this.state.job.clientLastName : ''}
+                    {this.state.job ? this.state.job.clientFirstName : ''} {this.state.job ? this.state.job.clientLastName : ''}
                 </div>
                 <span
                     style={{
@@ -308,34 +251,29 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
                         color: '#50325C',
                         padding: '5px 10px'
                     }}>
-                    {this.state.job.companyInfo
-                        ? this.state.job.companyInfo.name || ''
-                        : ''}
+                    {this.state.job.companyInfo ? this.state.job.companyInfo.name || '' : ''}
                 </span>
                 {this.reason()}
-                {Session.get('is') !== '' &&
-                Session.get('is') === this.state.show ? (
-                        <i
-                            style={{ top: '-5px', cursor: 'pointer' }}
-                            className="material-icons right"
-                            onClick={e => this.showMore(e)}>
+                {Session.get('is') !== '' && Session.get('is') === this.state.show ? (
+                    <i
+                        style={{ top: '-5px', cursor: 'pointer' }}
+                        className="material-icons right"
+                        onClick={e => this.showMore(e)}>
                         close
-                        </i>
-                    ) : (
-                        <i
-                            style={{ top: '-5px', cursor: 'pointer' }}
-                            className="material-icons right"
-                            onClick={() => this.showMore()}>
+                    </i>
+                ) : (
+                    <i
+                        style={{ top: '-5px', cursor: 'pointer' }}
+                        className="material-icons right"
+                        onClick={() => this.showMore()}>
                         edit
-                        </i>
-                    )}
+                    </i>
+                )}
                 <span
                     style={{
                         marginRight: '8px',
                         borderRadius: '10px',
-                        backgroundColor: this.state.job.emailSent
-                            ? '#CBEEDD'
-                            : '#EEB5BC',
+                        backgroundColor: this.state.job.emailSent ? '#CBEEDD' : '#EEB5BC',
                         color: this.state.job.emailSent ? '#2AC852' : '#D21324',
                         padding: '1px 10px',
                         fontWeight: 'bold'
@@ -344,22 +282,14 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
                     <span style={{ color: 'black' }}>
                         {this.state.job.emailSent
                             ? this.state.job.emailSentDate
-                                ? '- ' +
-                                  moment(this.state.job.emailSentDate).format(
-                                      'MM/DD/YYYY hh:mm a'
-                                  )
+                                ? '- ' + moment(this.state.job.emailSentDate).format('MM/DD/YYYY hh:mm a')
                                 : 'DATE INFORMATION NOT AVIABLE'
                             : ''}
                     </span>
                 </span>
-                {this.state.job.status === 'won' && (
-                    <WonDate wonDate={this.state.job.wonDate} />
-                )}
+                {this.state.job.status === 'won' && <WonDate wonDate={this.state.job.wonDate} />}
                 {Session.get('ExtendedJobInformation') !== '' ? (
-                    <ExtendedJobInformation
-                        loading={this.props.loading}
-                        job={this.state.job}
-                    />
+                    <ExtendedJobInformation loading={this.props.loading} job={this.state.job} />
                 ) : (
                     ''
                 )}
@@ -368,13 +298,7 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
     }
 
     render() {
-        return (
-            <React.Fragment>
-                {this.state.job && this.state.job._id
-                    ? this.displayInfo()
-                    : 'NO RESULT'}
-            </React.Fragment>
-        );
+        return <React.Fragment>{this.state.job && this.state.job._id ? this.displayInfo() : 'NO RESULT'}</React.Fragment>;
     }
 }
 

@@ -74,47 +74,51 @@ Meteor.startup(() => {
                 Session.set('loading', true);
                 let count = 0;
 
-                Meteor.subscribe('workSchema', {
-                    onReady: function() {
-                        count++;
-                        count === 4 && Session.set('loading', false);
-                    }
-                });
-                Meteor.subscribe('Dicsounts', {
-                    onReady: function() {
-                        count++;
-                        count === 4 && Session.set('loading', false);
-                    }
-                });
-                Meteor.subscribe('tabletData', {
-                    onReady: function() {
-                        count++;
-                        count === 4 && Session.set('loading', false);
-                    }
-                });
-                Meteor.subscribe('fullUser', {
-                    onReady: function() {
-                        count++;
-                        count === 4 && Session.set('loading', false);
-                    }
-                });
-
-                // Meteor.subscribe('fullUser', {
+                // Meteor.subscribe('workSchema', {
                 //     onReady: function() {
-                //         Meteor.subscribe('Dicsounts', {
-                //             onReady: function() {
-                //                 Meteor.subscribe('tabletData', {
-                //                     onReady: function() {
-                //                         Session.set('loading', false);
-                //                     },
-                //                     onError: function() {
-                //                         Session.set('loading', false);
-                //                     }
-                //                 });
-                //             }
-                //         });
+                //         count++;
+                //         count === 4 && Session.set('loading', false);
                 //     }
                 // });
+                // Meteor.subscribe('Dicsounts', {
+                //     onReady: function() {
+                //         count++;
+                //         count === 4 && Session.set('loading', false);
+                //     }
+                // });
+                // Meteor.subscribe('tabletData', {
+                //     onReady: function() {
+                //         count++;
+                //         count === 4 && Session.set('loading', false);
+                //     }
+                // });
+                // Meteor.subscribe('fullUser', {
+                //     onReady: function() {
+                //         count++;
+                //         count === 4 && Session.set('loading', false);
+                //     }
+                // });
+
+                Meteor.subscribe('fullUser', {
+                    onReady: function() {
+                        // Meteor.subscribe('workSchema', {
+                        // onReady: function() {
+                        Meteor.subscribe('Dicsounts', {
+                            onReady: function() {
+                                Meteor.subscribe('tabletData', {
+                                    onReady: function() {
+                                        Session.set('loading', false);
+                                    },
+                                    onError: function() {
+                                        Session.set('loading', false);
+                                    }
+                                });
+                            }
+                        });
+                        // }
+                        // });
+                    }
+                });
             }
         } else {
             console.log('user yoxdu');

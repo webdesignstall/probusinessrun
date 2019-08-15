@@ -14,7 +14,8 @@ class Payment extends TrackerReact(Component) {
             id: '',
             amount: 0,
             loaded: false,
-            button: true
+            button: true,
+            job: {}
         };
 
         this.clicked = this.clicked.bind(this);
@@ -27,7 +28,8 @@ class Payment extends TrackerReact(Component) {
     UNSAFE_componentWillReceiveProp(nextProps) {
         this.setState({
             id: nextProps.id,
-            amount: this.workData(nextProps.id)[0].deposit || 0,
+            job: nextProps.job,
+            amount: nextProps.deposit || 0,
             button: true
         });
     }
@@ -36,7 +38,8 @@ class Payment extends TrackerReact(Component) {
         this.props.id &&
             this.setState({
                 id: this.props.id,
-                amount: this.workData(this.props.id)[0].deposit || 0
+                amount: this.props.deposit || 0,
+                job: this.props.job
             });
     }
 
@@ -67,10 +70,7 @@ class Payment extends TrackerReact(Component) {
 
     render() {
         return !this.state.button && this.state.loaded ? (
-            <PaymentForm
-                paymentForm={window.SqPaymentForm}
-                id={this.props.id}
-            />
+            <PaymentForm paymentForm={window.SqPaymentForm} id={this.props.id} job={this.props.job} deposit={this.state.amount} />
         ) : (
             <button
                 style={{

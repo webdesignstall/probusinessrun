@@ -87,8 +87,7 @@ export default class ArrivalWindow extends TrackerReact(Component) {
             let reset = Session.get('reset');
 
             reset
-                ? ((document.getElementById('select-arrive-time' + this.state.randomNumber).value =
-                      'Select moving time window'),
+                ? ((document.getElementById('select-arrive-time' + this.state.randomNumber).value = 'Select moving time window'),
                 this.setState({ custom: false }))
                 : null;
 
@@ -120,12 +119,8 @@ export default class ArrivalWindow extends TrackerReact(Component) {
                         },
                         err => {
                             err ? console.error(err) : null;
-                            document.getElementById(
-                                'select-arrive-time' + this.state.randomNumber
-                            )
-                                ? (document.getElementById(
-                                    'select-arrive-time' + this.state.randomNumber
-                                ).value = difValue)
+                            document.getElementById('select-arrive-time' + this.state.randomNumber)
+                                ? (document.getElementById('select-arrive-time' + this.state.randomNumber).value = difValue)
                                 : null;
                             let workMustBeginTime = [this.state.time1, this.state.time2];
 
@@ -141,12 +136,9 @@ export default class ArrivalWindow extends TrackerReact(Component) {
                             },
                             err => {
                                 err ? console.error(err) : null;
-                                document.getElementById(
-                                    'select-arrive-time' + this.state.randomNumber
-                                )
-                                    ? (document.getElementById(
-                                        'select-arrive-time' + this.state.randomNumber
-                                    ).value = 'Morning & Afternoon')
+                                document.getElementById('select-arrive-time' + this.state.randomNumber)
+                                    ? (document.getElementById('select-arrive-time' + this.state.randomNumber).value =
+                                        'Morning & Afternoon')
                                     : null;
                                 let workMustBeginTime = [this.state.time1, this.state.time2];
 
@@ -162,12 +154,8 @@ export default class ArrivalWindow extends TrackerReact(Component) {
                                 },
                                 err => {
                                     err ? console.error(err) : null;
-                                    document.getElementById(
-                                        'select-arrive-time' + this.state.randomNumber
-                                    )
-                                        ? (document.getElementById(
-                                            'select-arrive-time' + this.state.randomNumber
-                                        ).value = 'Custom')
+                                    document.getElementById('select-arrive-time' + this.state.randomNumber)
+                                        ? (document.getElementById('select-arrive-time' + this.state.randomNumber).value = 'Custom')
                                         : null;
                                     let workMustBeginTime = [this.state.time1, this.state.time2];
 
@@ -179,12 +167,8 @@ export default class ArrivalWindow extends TrackerReact(Component) {
             let arrTime = document.getElementById('select-arrive-time' + this.state.randomNumber);
 
             arrTime
-                ? (document.getElementById(
-                    'select-arrive-time' + this.state.randomNumber
-                ).onchange = () => {
-                    let value = document.getElementById(
-                        'select-arrive-time' + this.state.randomNumber
-                    ).value;
+                ? (document.getElementById('select-arrive-time' + this.state.randomNumber).onchange = () => {
+                    let value = document.getElementById('select-arrive-time' + this.state.randomNumber).value;
                     if (value === 'Custom') {
                         this.setState({
                             custom: true
@@ -198,9 +182,7 @@ export default class ArrivalWindow extends TrackerReact(Component) {
                     let selectedOption = '';
 
                     Array.from(document.getElementsByTagName('option')).map(option => {
-                        option.value === this.arrivalTime.current.value
-                            ? (selectedOption = option)
-                            : null;
+                        option.value === this.arrivalTime.current.value ? (selectedOption = option) : null;
                     });
 
                     selectedOption !== ''
@@ -212,8 +194,7 @@ export default class ArrivalWindow extends TrackerReact(Component) {
                             () => {
                                 let workMustBeginTime = [this.state.time1, this.state.time2];
 
-                                this.props.updateJob &&
-                                        this.props.updateJob({ workMustBeginTime });
+                                this.props.updateJob && this.props.updateJob({ workMustBeginTime });
                             }
                         )
                         : null;
@@ -234,8 +215,7 @@ export default class ArrivalWindow extends TrackerReact(Component) {
                     value={option.name}
                     disabled={option.status === 0}
                     data-time1={option.value1 || '08:00 am'}
-                    data-time2={option.value2 || '10:00 am'}
-                >
+                    data-time2={option.value2 || '10:00 am'}>
                     {option.name}
                 </option>
             );
@@ -249,8 +229,7 @@ export default class ArrivalWindow extends TrackerReact(Component) {
                 ref={this.arrivalTime}
                 className="browser-default custom--select-arrivalWindow"
                 name={'select-arrive-time' + this.state.randomNumber}
-                id={'select-arrive-time' + this.state.randomNumber}
-            >
+                id={'select-arrive-time' + this.state.randomNumber}>
                 {this.renderOptions()}
             </select>
         );
@@ -318,8 +297,7 @@ export default class ArrivalWindow extends TrackerReact(Component) {
                 <label
                     className="active"
                     htmlFor="arrivalWindow--id"
-                    style={{ backgroundColor: '#EDF0F1', padding: '0 5px', margin: '8px 15px' }}
-                >
+                    style={{ backgroundColor: '#EDF0F1', padding: '0 5px', margin: '8px 15px' }}>
                     Arrival Window
                 </label>
             </div>

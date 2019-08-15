@@ -11,57 +11,57 @@ export default class MovingSize extends Component {
             options: [
                 {
                     value: 'select_moving_size',
-                    name: 'Select Moving Size',
+                    name: 'Select Moving Size'
                 },
                 {
                     value: 'items',
-                    name: 'Items',
+                    name: 'Items'
                 },
                 {
                     value: 'studio',
-                    name: 'Studio',
+                    name: 'Studio'
                 },
                 {
                     value: '1_bedroom',
-                    name: '1 Bedroom',
+                    name: '1 Bedroom'
                 },
                 {
                     value: '2_bedroom_small',
-                    name: '2 Bedroom (small size, few items)',
+                    name: '2 Bedroom (small size, few items)'
                 },
                 {
                     value: '2_bedroom_avg',
-                    name: '2 Bedroom (avg. size, avg. items)',
+                    name: '2 Bedroom (avg. size, avg. items)'
                 },
                 {
                     value: '2_bedroom_large',
-                    name: '2 Bedroom (large size, many items)',
+                    name: '2 Bedroom (large size, many items)'
                 },
                 {
                     value: '3_bedroom_avg',
-                    name: '3 Bedroom (avg. size, avg. items)',
+                    name: '3 Bedroom (avg. size, avg. items)'
                 },
                 {
                     value: '3_bedroom_large',
-                    name: '3 Bedroom (large size, many items)',
+                    name: '3 Bedroom (large size, many items)'
                 },
                 {
                     value: '4_bedrooom_avg',
-                    name: '4 Bedroom (avg. size, avg. items)',
+                    name: '4 Bedroom (avg. size, avg. items)'
                 },
                 {
                     value: '4_bedroom_large',
-                    name: '4 Bedroom (large size, many items)',
+                    name: '4 Bedroom (large size, many items)'
                 },
                 {
                     value: 'commercial_avg',
-                    name: 'Commercial (avg. size, avg. items)',
+                    name: 'Commercial (avg. size, avg. items)'
                 },
                 {
                     value: 'commercial_large',
-                    name: 'Commercial (large size, many items)',
-                },
-            ],
+                    name: 'Commercial (large size, many items)'
+                }
+            ]
         };
 
         this.sizeSelected = React.createRef();
@@ -76,9 +76,7 @@ export default class MovingSize extends Component {
                 const ish = WorkData.find({ _id: Session.get('is') }).fetch();
                 if (
                     ish[0].movingSize &&
-                    (ish[0].movingSize !== '' ||
-                        ish[0].movingSize !== undefined ||
-                        ish[0].movingSize !== null)
+                    (ish[0].movingSize !== '' || ish[0].movingSize !== undefined || ish[0].movingSize !== null)
                 ) {
                     Session.set('movingSize', ish[0].movingSize);
                 }
@@ -94,7 +92,7 @@ export default class MovingSize extends Component {
         Session.set('movingSize', this.sizeSelected.current.value);
         this.props.updateJob &&
             this.props.updateJob({
-                movingSize: this.sizeSelected.current.value,
+                movingSize: this.sizeSelected.current.value
             });
     }
 
@@ -130,5 +128,5 @@ export default class MovingSize extends Component {
 }
 
 MovingSize.propTypes = {
-    updateJob: PropTypes.func,
+    updateJob: PropTypes.func
 };

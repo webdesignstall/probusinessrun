@@ -49,17 +49,17 @@ export default class ReserveQuote extends TrackerReact(Component) {
     }
 
     componentDidMount() {
-        this.x = Tracker.autorun(() => {
-            Session.set('loading', true);
-            Meteor.subscribe('workSchema', {
-                onReady: function() {
-                    Session.set('loading', false);
-                },
-                onError: function() {
-                    Session.set('loading', false);
-                }
-            });
-        });
+        // this.x = Tracker.autorun(() => {
+        //     // Session.set('loading', true);
+        //     // Meteor.subscribe('workSchema', {
+        //     //     onReady: function() {
+        //     //         Session.set('loading', false);
+        //     //     },
+        //     //     onError: function() {
+        //     //         Session.set('loading', false);
+        //     //     }
+        //     // });
+        // });
     }
 
     componentWillUnmount() {
@@ -86,20 +86,38 @@ export default class ReserveQuote extends TrackerReact(Component) {
 
     jobNumber(event) {
         let jobNumber = event.target.value;
-        let isJob = WorkData.find({ jobNumber }).fetch()[0];
-        isJob
-            ? this.setState(
-                {
-                    is: isJob,
-                    id: isJob._id
-                },
-                () => {
-                    $('#axtarisin-neticesi').show(),
-                    document.getElementById('enter-number').classList.add('hide'),
-                    Session.set('jobNumber', jobNumber);
+        if (jobNumber.length === 6) {
+            Meteor.call('findJobNumber', jobNumber, (err, res) => {
+                if (err) {
+                    console.log(err);
+                    Bert.alert({
+                        title: 'Uncorrect job number',
+                        message: 'Can\'t find the job information. Please enter correct job number',
+                        type: 'danger'
+                    });
+                } else {
+                    this.x = Tracker.autorun(() => {
+                        let isJob = res;
+                        this.deposit = res.deposit || 0;
+                        this.job = res || {};
+                        console.log(res);
+                        if (isJob) {
+                            this.setState(
+                                {
+                                    is: isJob,
+                                    id: isJob._id
+                                },
+                                () => {
+                                    $('#axtarisin-neticesi').show(),
+                                    document.getElementById('enter-number').classList.add('hide'),
+                                    Session.set('jobNumber', jobNumber);
+                                }
+                            );
+                        }
+                    });
                 }
-            )
-            : null;
+            });
+        }
     }
 
     addressesRender(addressler) {
@@ -115,16 +133,35 @@ export default class ReserveQuote extends TrackerReact(Component) {
 
     submit() {
         let jobNumber = document.getElementById('code').value;
-        let isJob = WorkData.findOne({ jobNumber });
-        isJob && isJob.length > 0
-            ? ($('#axtarisin-neticesi').show(),
-            document.getElementById('enter-number').classList.add('hide'),
-            Session.set('jobNumber', event.target.value))
-            : Bert.alert({
-                title: 'Uncorrect job number',
-                message: 'Please enter correct job number',
-                type: 'danger'
-            });
+        Meteor.call('findJobNumber', jobNumber, (err, res) => {
+            if (err) {
+                console.log(err);
+                Bert.alert({
+                    title: 'Uncorrect job number',
+                    message: 'Can\'t find the job information. Please enter correct job number',
+                    type: 'danger'
+                });
+            } else {
+                this.x = Tracker.autorun(() => {
+                    let isJob = res;
+                    this.deposit = res.deposit || 0;
+                    this.job = res || {};
+                    if (isJob) {
+                        this.setState(
+                            {
+                                is: isJob,
+                                id: isJob._id
+                            },
+                            () => {
+                                $('#axtarisin-neticesi').show(),
+                                document.getElementById('enter-number').classList.add('hide'),
+                                Session.set('jobNumber', jobNumber);
+                            }
+                        );
+                    }
+                });
+            }
+        });
     }
 
     renderSmallitemPacking(job) {
@@ -553,7 +590,9 @@ export default class ReserveQuote extends TrackerReact(Component) {
                             <h4>Please check all the boxes for next step</h4>
                         </div>
                         <div id="payPal" style={{ display: 'none', margin: '20px 0' }}>
-                            {this.state.id !== '' && this.state.id !== undefined && <Payment id={this.state.id} />}
+                            {this.state.id !== '' && this.state.id !== undefined && (
+                                <Payment id={this.state.id} deposit={this.deposit || 0} job={this.job} />
+                            )}
                         </div>
                     </div>
                 </div>

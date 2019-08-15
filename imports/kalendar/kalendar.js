@@ -205,7 +205,14 @@ Template.kalendar.helpers({
     }
 });
 
-Template.kalendar.onRendered(function() {
+Template.kalendar.onRendered(() =>  {
+    this.z = Tracker.autorun(() => {
+        this.xx && this.xx.stop();
+        Session.get('calendarCurrentDate') || Session.set('calendarCurrentDate', new Date());
+        let calendarDate = Session.get('calendarCurrentDate');
+        this.xx = Meteor.subscribe('calendar', calendarDate);
+    });
+    
     ReactDOM.unmountComponentAtNode(document.getElementById('number-of-movers'));
 
     let dataBase = [];
@@ -444,6 +451,10 @@ Template.kalendar.onRendered(function() {
             $('.tarixSecimay').click(function(event) {
                 if (event.target.name < 12) {
                     ay = Number(event.target.name);
+                    let date_ = new Date();
+                    let yearOfDate_ = date_.getFullYear();
+                    let newDate = new Date(ay + 1 + '/01/' + yearOfDate_);
+                    Session.set('calendarCurrentDate', newDate);
                 }
                 if (event.target.name > 2000 && event.target.name < 2100) {
                     il = Number(event.target.name);

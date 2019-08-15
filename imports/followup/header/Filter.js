@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './filter.css';
 import WorkData from '../../../common/collections_2';
+import { Meteor } from 'meteor/meteor';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import { Session } from 'meteor/session';
 
@@ -31,7 +32,11 @@ export default class Filter extends TrackerReact(Component) {
     }
 
     workData(status) {
-        return status === '' ? WorkData.find({ status: 'inProgress' }).fetch() : WorkData.find({ status }).fetch();
+        if (status === '') {
+            return WorkData.find({ status: 'inProgress' }).fetch() || [];
+        } else {
+            return WorkData.find({ status }).fetch() || [];
+        }
     }
 
     render() {

@@ -1,14 +1,21 @@
 import { Template } from 'meteor/templating';
 import React from 'react';
+import { Meteor } from 'meteor/meteor';
 import ReactDOM from 'react-dom';
 import FollowUpMain from './FollowUpMain';
 import { Session } from 'meteor/session';
+import { Tracker } from 'meteor/tracker';
 
 Template.followUp.onRendered(() => {
-    ReactDOM.render(<FollowUpMain />, document.getElementById('follow-up'));
+    this.x = Tracker.autorun(() => {
+        let status = Session.get('status');
+        Meteor.subscribe('workSchema', { status });
+        ReactDOM.render(<FollowUpMain />, document.getElementById('follow-up'));
+    });
 });
 
 Template.followUp.onDestroyed(() => {
+    this.x.stop();
     ReactDOM.unmountComponentAtNode(document.getElementById('follow-up'));
     Session.set('isciId', '');
     Session.set('jobNumber', '');

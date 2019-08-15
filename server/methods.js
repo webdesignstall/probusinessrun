@@ -1,15 +1,15 @@
-import {Meteor} from 'meteor/meteor';
-import {Accounts} from 'meteor/accounts-base';
+import { Meteor } from 'meteor/meteor';
+import { Accounts } from 'meteor/accounts-base';
 import WorkData from '../common/collections_2';
 
 if (Meteor.isServer) {
     Meteor.methods({
         // remove user
-        removeUser: function (id) {
+        removeUser: function(id) {
             Meteor.users.remove(id);
         },
         // add user
-        addUserOrTruck: function (obj) {
+        addUserOrTruck: function(obj) {
             let userInfo = Accounts.createUser(obj);
             if (userInfo) {
                 return userInfo;
@@ -17,9 +17,9 @@ if (Meteor.isServer) {
                 throw new Meteor.Error('Error', 'Can\'t create information in the database');
             }
         },
-        updateUserOrTruck: function (id, obj) {
+        updateUserOrTruck: function(id, obj) {
             Meteor.users.update(
-                {_id: id},
+                { _id: id },
                 {
                     $set: {
                         profile: obj
@@ -33,19 +33,29 @@ if (Meteor.isServer) {
                 }
             );
         },
-        checkId: function (id) {
-            let list = WorkData.find({_id: id}).fetch();
+        checkId: function(id) {
+            let list = WorkData.find({ _id: id }).fetch();
             if (list.length > 0) {
                 return list[0];
             } else {
                 return false;
             }
         },
-        officeEmployees: function () {
-            return Meteor.users.find({'profile.rank': 'officeEmployee'}).fetch();
+        officeEmployees: function() {
+            return Meteor.users.find({ 'profile.rank': 'officeEmployee' }).fetch();
         },
-        employees: function () {
+        employees: function() {
             return Meteor.users.find({}).fetch();
+        },
+        findJobEx: function(param) {
+            let data = WorkData.find(param || {}).fetch();
+            return data;
+        },
+        findJobNumber: function(jobNumber) {
+            return WorkData.findOne({ jobNumber });
+        },
+        findJobID: function(_id) {
+            return WorkData.findOne({ _id });
         }
     });
 }

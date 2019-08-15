@@ -18,10 +18,8 @@ import TakenBy from '../../../client/templates/quote/TakenBy';
 import CompanySelector from '../../../client/templates/quote/CompanySelector';
 import NumberOfUsers from '../../../client/templates/quote/NumberOfUsers';
 import NewAppointment from '../../../client/templates/quote/NewAppointment';
-import { AsYouType } from 'libphonenumber-js';
 import AdditionalInfo from '../../../client/templates/quote/AdditionalInfo';
 
-import getUserIP from '../../../imports/helpers/getIp';
 import UpdateList from './UpdateList';
 
 /*global $ moment*/

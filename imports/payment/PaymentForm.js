@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Meteor } from 'meteor/meteor';
 import PropTypes from 'prop-types';
 import { Session } from 'meteor/session';
 import WorkData from '../../common/collections_2';
@@ -45,7 +44,8 @@ export default class PaymentForm extends TrackerReact(Component) {
             applePay: false,
             masterpass: false,
             paymentAmount: 0,
-            cardHolderName: ''
+            cardHolderName: '',
+            job: {}
         };
 
         this.requestCardNonce = this.requestCardNonce.bind(this);
@@ -64,23 +64,23 @@ export default class PaymentForm extends TrackerReact(Component) {
         this.paymentForm.requestCardNonce();
     }
 
-    workData(id) {
-        return WorkData.find({ _id: id }).fetch();
-    }
+    // workData(id) {
+    //     return WorkData.find({ _id: id }).fetch();
+    // }
 
     UNSAFE_componentWillReceiveProps(nextProps) {
         this.setState({
-            paymentAmount: this.workData(nextProps.id)[0].deposit
+            paymentAmount: nextProps.deposit || 0
         });
     }
 
     componentDidMount() {
         this.setState({
-            paymentAmount: this.workData(this.props.id)[0].deposit
+            paymentAmount: this.state.job.deposit || 0
         });
         const config = {
             applicationId: configs.squareApplicationId,
-            locationId: configs[this.workData(this.props.id)[0].name],
+            locationId: configs[this.state.job.name],
             inputClass: 'sq-input',
             autoBuild: false,
             inputStyles: [
@@ -182,8 +182,8 @@ export default class PaymentForm extends TrackerReact(Component) {
                             nonce: nonce
                         },
                         () => {
-                            // fetch('https://www.probusinessrun.com/charge/', {
-                            fetch('https://a61af324.ngrok.io/charge/', {
+                            fetch('https://www.probusinessrun.com/charge/', {
+                                // fetch('https://a61af324.ngrok.io/charge/', {
                                 method: 'POST',
                                 body: JSON.stringify({
                                     nonce: this.state.nonce,

@@ -11,7 +11,7 @@ export default class AddTruck extends React.Component {
             key: [],
             truckList: [],
             trucks: [],
-            silinesi: [],
+            silinesi: []
         };
 
         this.renderTruckList = this.renderTruckList.bind(this);
@@ -23,20 +23,20 @@ export default class AddTruck extends React.Component {
     componentDidMount() {
         let truckList;
         this.setState({
-            key: [],
+            key: []
         });
         Session.set('is', '');
 
         truckList = Meteor.users
             .find(
                 {
-                    'profile.rank': 'tablet',
+                    'profile.rank': 'tablet'
                 },
                 {
                     sort: {
-                        'profile.number': 1,
-                    },
-                },
+                        'profile.number': 1
+                    }
+                }
             )
             .fetch();
 
@@ -44,12 +44,12 @@ export default class AddTruck extends React.Component {
             const isinNomresi = Session.get('is');
             const ish = WorkData.find({ _id: isinNomresi }).fetch();
             this.setState({
-                key: ish[0].trucks,
+                key: ish[0].trucks
             });
         }
 
         this.setState({
-            truckList,
+            truckList
         });
     }
 
@@ -88,9 +88,7 @@ export default class AddTruck extends React.Component {
                             </option>
                             {this.renderTruckList()}
                         </select>
-                        <i
-                            className="material-icons isare col s2 m2 l2 truck-delete"
-                            onClick={() => this.deleteTruck(nomre)}>
+                        <i className="material-icons isare col s2 m2 l2 truck-delete" onClick={() => this.deleteTruck(nomre)}>
                             delete_forever
                         </i>
                     </div>

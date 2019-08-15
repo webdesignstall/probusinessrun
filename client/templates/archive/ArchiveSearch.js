@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
-import WorkData from '../../../common/collections_2';
+import { Meteor } from 'meteor/meteor';
 export default class ArchiveSearch extends TrackerReact(Component) {
     constructor(props) {
         super(props);
         this.state = {
-            searchValue: ''
+            searchValue: '',
+            list: []
         };
 
         this.searchInput = this.searchInput.bind(this);
@@ -28,7 +29,17 @@ export default class ArchiveSearch extends TrackerReact(Component) {
     }
 
     workData() {
-        return WorkData.find({ finished: true }).fetch();
+        Meteor.call('findJobEx', { finished: true }, (err, res) => {
+            if (err) {
+                this.setState({
+                    list: []
+                });
+            } else {
+                this.setState({
+                    list: res
+                });
+            }
+        });
     }
 
     search() {
@@ -38,21 +49,14 @@ export default class ArchiveSearch extends TrackerReact(Component) {
         let result = new Set();
 
         arrayOfWords.map(word => {
-            this.workData().map(work => {
-                work.clientFirstName &&
-                work.clientFirstName.toLowerCase().search(word.toLowerCase()) >
-                    -1
+            this.state.list.map(work => {
+                work.clientFirstName && work.clientFirstName.toLowerCase().search(word.toLowerCase()) > -1
                     ? result.add(work)
                     : null;
-                work.clientLastName &&
-                work.clientLastName.toLowerCase().search(word.toLowerCase()) >
-                    -1
+                work.clientLastName && work.clientLastName.toLowerCase().search(word.toLowerCase()) > -1
                     ? result.add(work)
                     : null;
-                work.jobNumber &&
-                work.jobNumber.toLowerCase().search(word.toLowerCase()) > -1
-                    ? result.add(work)
-                    : null;
+                work.jobNumber && work.jobNumber.toLowerCase().search(word.toLowerCase()) > -1 ? result.add(work) : null;
                 work.phoneNumber &&
                 work.phoneNumber
                     .toString()
@@ -63,7 +67,7 @@ export default class ArchiveSearch extends TrackerReact(Component) {
             });
         });
         let resultConverted = Array.from(result);
-        arrayOfWords.length > 0 ? null : (resultConverted = this.workData());
+        arrayOfWords.length > 0 ? null : (resultConverted = this.state.list);
         this.props.updateJobLit(resultConverted);
     }
 
@@ -109,16 +113,11 @@ export default class ArchiveSearch extends TrackerReact(Component) {
                             }}
                         />
                         <label className="label-icon" htmlFor="search">
-                            <i
-                                className="material-icons"
-                                style={{ lineHeight: '30px', color: 'grey' }}>
+                            <i className="material-icons" style={{ lineHeight: '30px', color: 'grey' }}>
                                 search
                             </i>
                         </label>
-                        <i
-                            onClick={this.clearSearch}
-                            className="material-icons"
-                            style={{ lineHeight: '30px' }}>
+                        <i onClick={this.clearSearch} className="material-icons" style={{ lineHeight: '30px' }}>
                             close
                         </i>
                     </div>
