@@ -35,7 +35,7 @@ Performance imporovements:
     ✔ Customers get job info thrue methods not subscribtions @started(19-08-09 19:31) @done(19-08-13 11:59) @lasted(3d16h28m33s)
     ✘ Stop subscribe after living calendar @started(19-08-14 17:50) @cancelled(19-08-14 18:35) @wasted(45m13s)
     ✔ Subscribe only status based in follow up @started(19-08-14 18:35) @done(19-08-14 18:40) @lasted(5m40s)
-    ☐ Improove follow up @started(19-08-13 12:02)
+    ✔ Improove follow up @started(19-08-13 12:02) @done(19-08-14 19:19) @lasted(1d7h17m8s)
 
 Disable buttons after click untill response from server:
     ✔ Get svg icon for loading @started(19-07-29 18:47) @done(19-07-29 18:52) @lasted(6m)

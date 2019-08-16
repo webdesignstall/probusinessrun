@@ -60,6 +60,7 @@ Meteor.startup(() => {
     Session.set('cardHolder', {});
     Session.set('ccForm', false);
     Session.set('buttonsDisabled', false);
+    Session.set('dataReady', false);
 
     Tracker.autorun(() => {
         let user = Meteor.userId();

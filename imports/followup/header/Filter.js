@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import './filter.css';
-import WorkData from '../../../common/collections_2';
-import { Meteor } from 'meteor/meteor';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import { Session } from 'meteor/session';
 
@@ -14,7 +12,6 @@ export default class Filter extends TrackerReact(Component) {
         };
 
         this.filter = this.filter.bind(this);
-        this.workData = this.workData.bind(this);
     }
 
     filter(status) {
@@ -27,16 +24,9 @@ export default class Filter extends TrackerReact(Component) {
                 Session.set('searchWords', '');
                 Session.set('is', '');
                 Session.set('ExtendedJobInformation', '');
+                Session.set('dataReady', false);
             }
         );
-    }
-
-    workData(status) {
-        if (status === '') {
-            return WorkData.find({ status: 'inProgress' }).fetch() || [];
-        } else {
-            return WorkData.find({ status }).fetch() || [];
-        }
     }
 
     render() {

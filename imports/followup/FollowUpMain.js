@@ -15,6 +15,7 @@ export default class FollowUpMain extends TrackerReact(Component) {
 
         this.state = {
             loading: false,
+            dataReady: false,
             workDataInProgress: []
         };
 
@@ -38,39 +39,61 @@ export default class FollowUpMain extends TrackerReact(Component) {
     }
 
     componentDidMount() {
-        Session.set('loading', true);
-        this.workDataInProgress();
-        Session.set('_', '');
         this.x = Tracker.autorun(() => {
-            let progressJobs = this.state.workDataInProgress;
-            let sess = Session.get('_');
-            let date = new Date().getTime();
+            Session.set('loading', true);
+            Session.set('_', '');
+            let status = Session.get('status');
             this.setState({
-                loading: true
+                dataReady: false
             });
-            progressJobs.map(job => {
-                let jobDateTime = new Date(job.workDate).getTime();
-                if (jobDateTime + 86400000 <= date) {
-                    job.status = 'lost';
-                    let finalNote_ = {
-                        reason: 'Time Expired',
-                        other: false
-                    };
-                    job.finalNote = finalNote_;
-
-                    job.ip = Session.get('ip');
-
-                    Meteor.call('updateWork', job, err => {
-                        err ? console.error('Error while trying to make lost some jobs. ' + err.reason) : null;
-                    });
-                }
-            });
-            this.setState(
+            Meteor.subscribe(
+                'workSchema',
+                { status },
                 {
-                    loading: false
-                },
-                () => {
-                    Session.set('loading', false);
+                    onReady: () => {
+                        this.setState(
+                            {
+                                dataReady: true
+                            },
+                            () => {
+                                this.workDataInProgress();
+
+                                let progressJobs = this.state.workDataInProgress;
+                                let sess = Session.get('_');
+                                let date = new Date().getTime();
+                                this.setState({
+                                    loading: true
+                                });
+                                progressJobs.map(job => {
+                                    let jobDateTime = new Date(job.workDate).getTime();
+                                    if (jobDateTime + 86400000 <= date) {
+                                        job.status = 'lost';
+                                        let finalNote_ = {
+                                            reason: 'Time Expired',
+                                            other: false
+                                        };
+                                        job.finalNote = finalNote_;
+
+                                        job.ip = Session.get('ip');
+
+                                        Meteor.call('updateWork', job, err => {
+                                            err
+                                                ? console.error('Error while trying to make lost some jobs. ' + err.reason)
+                                                : null;
+                                        });
+                                    }
+                                });
+                                this.setState(
+                                    {
+                                        loading: false
+                                    },
+                                    () => {
+                                        Session.set('loading', false);
+                                    }
+                                );
+                            }
+                        );
+                    }
                 }
             );
         });
@@ -89,7 +112,7 @@ export default class FollowUpMain extends TrackerReact(Component) {
                 spinner={<RingLoader color={'#6DD4B8'} />}>
                 <div className="followup-header">
                     <Header />
-                    <List />
+                    {this.state.dataReady ? <List /> : ''}
                 </div>
             </LoadingOverlay>
         );

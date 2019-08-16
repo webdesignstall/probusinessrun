@@ -29,30 +29,14 @@ export default class List extends TrackerReact(Component) {
         this.setState({
             loading: true
         });
-        let res = WorkData.find({ obj });
-        this.setState({ jobsBase: res, loading: false });
-        // Meteor.call('findJobEx', obj, (err, res) => {
-        //     if (err) {
-        //         this.setState({ jobsBase: [] });
-        //     } else {
-        //     }
-        // });
-    }
-
-    filterJobs(jobs, status) {
-        let list = [];
-
-        jobs.map(job => {
-            if (job.status === status) list.push(job);
-        });
-
-        return list;
+        let res = WorkData.find(obj).fetch();
+        this.setState({ jobs: res, jobsBase: res, loading: false });
     }
 
     componentDidMount() {
-        this.workData();
         this.x = Tracker.autorun(() => {
-            // Meteor.subscribe('workSchema');
+            let status = Session.get('status');
+            this.workData(status);
             this.setState({
                 loading: true
             });
@@ -113,13 +97,9 @@ export default class List extends TrackerReact(Component) {
                     }
                 );
             } else {
-                // this.workData(Session.get('status'));
-                let status = Session.get('status');
-                let result = this.filterJobs(this.state.jobsBase, status);
-                console.log(result);
                 let sort_ = Session.get('sort');
 
-                result.sort((a, b) => {
+                this.state.jobsBase.sort((a, b) => {
                     if (sort_ === 'default') {
                         return (
                             new Date(b.statusChange || '1 november 1989').getTime() -
@@ -150,8 +130,8 @@ export default class List extends TrackerReact(Component) {
                 });
 
                 this.setState(
-                    {
-                        jobs: result
+                    prevState => {
+                        return { jobs: prevState.jobsBase };
                     },
                     () => {
                         Session.set('loading', false);
@@ -174,7 +154,7 @@ export default class List extends TrackerReact(Component) {
     }
 
     renderList() {
-        let jobs = this.state.jobs.length > 0 ? this.state.jobs : this.filterJobs(this.state.jobsBase, Session.get('status'));
+        let jobs = this.state.jobs;
         let newJobs = [];
 
         if (jobs.length > this.state.showLimit) {
