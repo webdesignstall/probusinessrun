@@ -10,6 +10,10 @@ Router.route('/charge', { where: 'server' }).post(function() {
     var req = this.request;
     var res = this.response;
 
+    // let x = JSON.stringify({ name: 'yusif' });
+
+    // res.end(x);
+
     var defaultClient = SquareConnect.ApiClient.instance;
 
     // Configure OAuth2 access token for authorization: oauth2
@@ -63,7 +67,6 @@ Router.route('/charge', { where: 'server' }).post(function() {
                 date: data.transaction.created_at,
                 jobNumber: request_params.jobNumber
             };
-            Meteor.call('sendPaymentConfirmationEmail', obj);
 
             let job = request_params.job;
             job.quote = false;
@@ -71,19 +74,21 @@ Router.route('/charge', { where: 'server' }).post(function() {
             job.isFollowUp = true;
             job.status = 'won';
             job.by = 'customer';
+
             Meteor.call('updateWork', job, (err, response) => {
+                res.end(JSON.stringify({ error: false }));
                 if (err) {
                     console.error(err);
-                } else {
-                    Meteor.call('confirmationGonder', job, (err, response) => {
-                        if (!err) {
-                            console.error(err);
-                        } else {
-                            let json = JSON.stringify(data);
-                            res.end(json);
-                        }
-                    });
+                    throw new Meteor.Error('Error while saving data', 'Error while saving data');
                 }
+                Meteor.call('sendPaymentConfirmationEmail', obj);
+                Meteor.call('confirmationGonder', job, (err, response) => {
+                    if (err) {
+                        console.error(err);
+                        throw new Meteor.Error('Error while sending email', 'Error while sending email');
+                    }
+                    // let json = JSON.stringify(data);
+                });
             });
         },
         function(error) {

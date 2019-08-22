@@ -36,6 +36,11 @@ Performance imporovements:
     ✘ Stop subscribe after living calendar @started(19-08-14 17:50) @cancelled(19-08-14 18:35) @wasted(45m13s)
     ✔ Subscribe only status based in follow up @started(19-08-14 18:35) @done(19-08-14 18:40) @lasted(5m40s)
     ✔ Improove follow up @started(19-08-13 12:02) @done(19-08-14 19:19) @lasted(1d7h17m8s)
+    ✔ Search thrue server @started(19-08-17 14:20) @done(19-08-19 15:12) @lasted(2d52m21s)
+    ✔ Add loading sign next to search input @done(19-08-19 16:44)
+    ✔ Publish search result @started(19-08-19 16:44) @done(19-08-19 16:44) @lasted(11s)
+    ✔ Statistic will get data thrue method @started(19-08-19 16:44) @done(19-08-19 16:56) @lasted(12m17s)
+    ✔ Add loading page to Statistics @done(19-08-22 11:31)
 
 Disable buttons after click untill response from server:
     ✔ Get svg icon for loading @started(19-07-29 18:47) @done(19-07-29 18:52) @lasted(6m)

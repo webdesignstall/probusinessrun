@@ -61,6 +61,7 @@ Meteor.startup(() => {
     Session.set('ccForm', false);
     Session.set('buttonsDisabled', false);
     Session.set('dataReady', false);
+    Session.set('searching', false);
 
     Tracker.autorun(() => {
         let user = Meteor.userId();

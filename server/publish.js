@@ -38,3 +38,34 @@ Meteor.publish('fullUser', function() {
 Meteor.publish('Dicsounts', function() {
     return Discounts.find({});
 });
+
+Meteor.publish('searchFollowUp', function(words) {
+    let reg = words.map(function(word) {
+        return new RegExp(word, 'gi');
+    });
+
+    return WorkData.find({
+        $or: [
+            {
+                clientFirstName: {
+                    $in: reg
+                }
+            },
+            {
+                clientLastName: {
+                    $in: reg
+                }
+            },
+            {
+                jobNumber: {
+                    $in: reg
+                }
+            },
+            {
+                phoneNumber: {
+                    $in: reg
+                }
+            }
+        ]
+    });
+});

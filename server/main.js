@@ -90,7 +90,6 @@ if (Meteor.isServer) {
                 password: 'MCla7724!',
                 host: job.companyInfo.smtp,
                 timeout: 60000
-                // ssl: true,
             });
 
             //sending email
@@ -283,7 +282,7 @@ if (Meteor.isServer) {
             };
 
             server.send(message, function(err) {
-                err ? console.log(err) : console.log('Info about payment successfully sent to administration email');
+                err ? console.error(err) : console.info('Info about payment successfully sent to administration email');
             });
         },
         emailToCardHolder: function(obj) {

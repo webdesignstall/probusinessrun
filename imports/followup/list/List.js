@@ -30,6 +30,12 @@ export default class List extends TrackerReact(Component) {
             loading: true
         });
         let res = WorkData.find(obj).fetch();
+
+        res.sort((a, b) => {
+            return (
+                new Date(b.statusChange || '1 november 1989').getTime() - new Date(a.statusChange || '1 november 1989').getTime()
+            );
+        });
         this.setState({ jobs: res, jobsBase: res, loading: false });
     }
 
@@ -61,27 +67,36 @@ export default class List extends TrackerReact(Component) {
                             let result = new Set();
                             let sort = Session.get('sort');
 
-                            arrayOfWords.map(word => {
-                                this.state.jobsBase.map(work => {
-                                    work.clientFirstName && work.clientFirstName.toLowerCase().search(word.toLowerCase()) > -1
-                                        ? result.add(work)
-                                        : null;
-                                    work.clientLastName && work.clientLastName.toLowerCase().search(word.toLowerCase()) > -1
-                                        ? result.add(work)
-                                        : null;
-                                    work.jobNumber && work.jobNumber.toLowerCase().search(word.toLowerCase()) > -1
-                                        ? result.add(work)
-                                        : null;
-                                    work.phoneNumber &&
-                                    work.phoneNumber
-                                        .toString()
-                                        .toLowerCase()
-                                        .search(word.toLowerCase()) > -1
-                                        ? result.add(work)
-                                        : null;
-                                });
+                            Meteor.subscribe('searchFollowUp', arrayOfWords);
+
+                            let reg = arrayOfWords.map(function(word) {
+                                return new RegExp(word, 'gi');
                             });
-                            let resultConverted = Array.from(result);
+
+                            let resultConverted = WorkData.find({
+                                $or: [
+                                    {
+                                        clientFirstName: {
+                                            $in: reg
+                                        }
+                                    },
+                                    {
+                                        clientLastName: {
+                                            $in: reg
+                                        }
+                                    },
+                                    {
+                                        jobNumber: {
+                                            $in: reg
+                                        }
+                                    },
+                                    {
+                                        phoneNumber: {
+                                            $in: reg
+                                        }
+                                    }
+                                ]
+                            }).fetch();
                             arrayOfWords.length > 0 ? null : (resultConverted = this.state.jobs);
                             resultConverted.length > 0 ? null : (resultConverted = [{}]);
                             arrayOfWords.length > 0 ? Session.set('isSearch', true) : Session.set('isSearch', false);
@@ -91,6 +106,7 @@ export default class List extends TrackerReact(Component) {
                                 },
                                 () => {
                                     Session.set('loading', false);
+                                    Session.set('searching', false);
                                 }
                             );
                         }
@@ -98,8 +114,9 @@ export default class List extends TrackerReact(Component) {
                 );
             } else {
                 let sort_ = Session.get('sort');
+                let baza = this.state.jobsBase;
 
-                this.state.jobsBase.sort((a, b) => {
+                baza.sort((a, b) => {
                     if (sort_ === 'default') {
                         return (
                             new Date(b.statusChange || '1 november 1989').getTime() -

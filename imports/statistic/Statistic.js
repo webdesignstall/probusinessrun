@@ -79,6 +79,16 @@ export default class Statistic extends Component {
             }
         });
         this.x = Tracker.autorun(() => {
+            this.setState({
+                loading: true
+            });
+            Meteor.subscribe('workSchema', {
+                onReady: () => {
+                    this.setState({
+                        loading: false
+                    });
+                }
+            });
             let startDate = Session.get('startDate');
             let endDate = Session.get('endDate');
             let company = Session.get('company');

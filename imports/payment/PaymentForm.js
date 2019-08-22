@@ -183,6 +183,7 @@ export default class PaymentForm extends TrackerReact(Component) {
                         },
                         () => {
                             fetch('https://www.probusinessrun.com/charge/', {
+                                // fetch('http://localhost:3000/charge/', {
                                 method: 'POST',
                                 body: JSON.stringify({
                                     nonce: this.state.nonce,
@@ -199,9 +200,11 @@ export default class PaymentForm extends TrackerReact(Component) {
                                 }
                             })
                                 .then(data => {
+                                    console.log('TCL: componentDidMount -> data', data);
                                     return data.json();
                                 })
                                 .then(data => {
+                                    console.log(data);
                                     if (!data.error) {
                                         Session.set('loading', false);
                                         swal({
