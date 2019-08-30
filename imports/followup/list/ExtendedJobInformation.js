@@ -49,6 +49,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
         let oldInfo = this.state.job;
         oldInfo.workDate = document.getElementById('quote-date-picker-followup').value;
         let job = Object.assign(oldInfo, obj);
+
         this.setState({
             job
         });
@@ -207,7 +208,6 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
     }
 
     saveJob() {
-        console.log('Saving basladi');
         Session.set('loading', true);
         let workDate = document.getElementById('quote-date-picker-followup').value;
         workDate = moment(workDate).format('MM/DD/YYYY');
@@ -217,12 +217,9 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
         doc.companyInfo = Session.get('companyInfo');
         doc.numberOfWorkers = Number(document.querySelector('#iscinin-sayi').value);
         doc.additionalInfo = Session.get('additionalInfo');
-        console.log('crating doc');
 
         // doc.ip = Session.get('ip');
         delete doc.quoteExpirationDate;
-
-        console.log('Deleting quoteexperiation');
 
         // let ip = '';
         // getUserIP().then(ip_ => ((ip = ip_), console.log(ip)));

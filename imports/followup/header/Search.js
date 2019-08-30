@@ -36,6 +36,7 @@ export default class Search extends TrackerReact(Component) {
     }
 
     search(e) {
+        e.preventDefault();
         Session.set('loading', false);
         let value = e.target.value;
         let searching = true;

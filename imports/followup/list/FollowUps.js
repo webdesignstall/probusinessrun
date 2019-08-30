@@ -4,6 +4,11 @@ import WorkData from '../../../common/collections_2';
 import { Session } from 'meteor/session';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 
+/*global moment*/
+
+import './follow-ups.css';
+import SendEmailFollowUp from './SendEmailFollowUp';
+
 export default class FollowUps extends TrackerReact(Component) {
     constructor(props) {
         super(props);
@@ -14,6 +19,7 @@ export default class FollowUps extends TrackerReact(Component) {
         };
 
         this.onChangeHandler = this.onChangeHandler.bind(this);
+        this.updateFollowUp = this.updateFollowUp.bind(this);
     }
 
     UNSAFE_componentWillReceiveProps(nextProps) {
@@ -68,6 +74,25 @@ export default class FollowUps extends TrackerReact(Component) {
         );
     }
 
+    updateFollowUp(index) {
+        let followUp = this.state.followUp;
+        followUp[index].note = 'Follow up email was sent \n' + followUp[index].note;
+        this.setState(
+            {
+                followUp
+            },
+            err => {
+                if (err) {
+                    console.error(err);
+                } else {
+                    let followUp = this.state.followUp;
+                    followUp[index].date = new Date();
+                    this.props.updateJob && this.props.updateJob({ followUp });
+                }
+            }
+        );
+    }
+
     renderList() {
         return this.state.followUp.map((note, index) => {
             return (
@@ -75,9 +100,16 @@ export default class FollowUps extends TrackerReact(Component) {
                     <div key={'followup_note' + index} className="col s12 m6 l6">
                         <label className="active" htmlFor="followup_note_list_item">
                             Follow Up #{index + 1}:{' '}
-                            <span style={{ color: '#4F4F4F' }}>
+                            <span style={{ color: '#4F4F4F', marginRight: '10px' }}>
                                 {note.date ? moment(note.date).format('MM/DD/YYYY hh:mm a') : 'Date information is not aviable'}
                             </span>
+                            {this.state.followUpOriginal && index === this.state.followUpOriginal.length ? (
+                                <SendEmailFollowUp job={this.workData()[0] || {}} id={index} update={this.updateFollowUp} />
+                            ) : this.state.followUp.length === 1 ? (
+                                <SendEmailFollowUp job={this.workData()[0] || {}} id={index} update={this.updateFollowUp} />
+                            ) : (
+                                true
+                            )}
                         </label>
                         <textarea
                             onChange={e => this.onChangeHandler(e, index)}

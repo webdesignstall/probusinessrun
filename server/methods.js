@@ -1,6 +1,9 @@
 import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import WorkData from '../common/collections_2';
+import email from 'emailjs';
+
+/*global moment*/
 
 if (Meteor.isServer) {
     Meteor.methods({
@@ -27,7 +30,7 @@ if (Meteor.isServer) {
                 },
                 err => {
                     if (err) {
-                        console.log(err);
+                        console.error(err);
                         throw new Meteor.Error('Error', 'Can\'t update information. Please contact with the administration');
                     }
                 }
@@ -56,6 +59,41 @@ if (Meteor.isServer) {
         },
         findJobID: function(_id) {
             return WorkData.findOne({ _id });
+        },
+        followUpEmail: function(job, template) {
+            let server = email.server.connect({
+                user: job.companyInfo.email,
+                password: 'MCla7724!',
+                timeout: 60000,
+                host: job.companyInfo.smtp
+                // ssl: true
+            });
+
+            let workDate = moment(job.workDate);
+            let today = moment(new Date());
+
+            let diff = workDate.diff(today, 'days');
+
+            let message = {
+                text: ' ',
+                from: job.companyInfo.name + ' ' + job.companyInfo.email,
+                to: job.email,
+                subject: `${diff} more days! Job #${job.jobNumber}`,
+                attachment: [
+                    {
+                        data: template,
+                        alternative: true
+                    }
+                ]
+            };
+
+            server.send(message, function(err) {
+                if (err) {
+                    console.error(err);
+                    throw new Meteor.Error('500', 'Can\'t send email. Please contact system adminstration');
+                }
+                console.info('Follow up Email succesfully sent to: ' + job.email);
+            });
         }
     });
 }
