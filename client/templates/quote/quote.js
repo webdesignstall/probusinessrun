@@ -481,6 +481,17 @@ Template.preQuote.events({
         let quoteExpirationDate = new Date(new Date().getTime() + expireHour * 3600000);
         let noteForYourMove = document.getElementById('for_your_move').value;
         let additionalInfo = Session.get('additionalInfo');
+        let customerRate = Session.get('customerRate');
+
+        if (customerRate === 0) {
+            swal({
+                title: 'Cant finish creating new job',
+                text: 'Please rate customer before continue',
+                icon: 'error'
+            });
+            enableButtons()
+            return false;
+        }
 
         function idniSec(soz) {
             var baslama = soz.indexOf(':');
@@ -590,7 +601,8 @@ Template.preQuote.events({
             expireHour,
             quoteExpirationDate,
             noteForYourMove,
-            additionalInfo
+            additionalInfo,
+            customerRate
         };
 
         let emailReg = new RegExp(
@@ -723,6 +735,17 @@ Template.preQuote.events({
         let emailSent = true;
         let noteForYourMove = document.getElementById('for_your_move').value;
         let additionalInfo = Session.get('additionalInfo');
+        let customerRate = Session.get('customerRate');
+
+        if (customerRate === 0) {
+            swal({
+                title: 'Cant finish creating new job',
+                text: 'Please rate customer before continue',
+                icon: 'error'
+            });
+            enableButtons()
+            return false;
+        }
 
         function idniSec(soz) {
             var baslama = soz.indexOf(':');
@@ -737,9 +760,17 @@ Template.preQuote.events({
 
         // declare job number
         function jobNumber_() {
-            document.getElementById('quote-job-number').value = Math.random()
-                .toString(36)
-                .substr(2, 5);
+            let jobNumber = Math.round(Math.random() * (999999 - 1) + 1);
+            jobNumber = jobNumber.toString();
+            let howManyZero = 6 - jobNumber.length;
+            if (howManyZero > 0) {
+                for (let i = 0; i < howManyZero; i++) {
+                    jobNumber = '0' + jobNumber;
+                }
+            }
+            let result = WorkData.find({ jobNumber }).fetch();
+            result && result.length > 0 ? jobNumber_() : null;
+            document.getElementById('quote-job-number').value = jobNumber;
         }
 
         let doc = {
@@ -785,7 +816,8 @@ Template.preQuote.events({
             sourceOfLeads,
             status,
             noteForYourMove,
-            additionalInfo
+            additionalInfo,
+            customerRate
         };
 
         Meteor.call('quotaniBazayaElaveEt', doc, function(err) {
@@ -881,6 +913,17 @@ Template.preQuote.events({
         let status = 'inProgress';
         let noteForYourMove = document.getElementById('for_your_move').value;
         let additionalInfo = Session.get('additionalInfo');
+        let customerRate = Session.get('customerRate');
+
+        if (customerRate === 0) {
+            swal({
+                title: 'Cant finish creating new job',
+                text: 'Please rate customer before continue',
+                icon: 'error'
+            });
+            enableButtons()
+            return false;
+        }
 
         function idniSec(soz) {
             var baslama = soz.indexOf(':');
@@ -895,9 +938,17 @@ Template.preQuote.events({
 
         // declare job number
         function jobNumber_() {
-            document.getElementById('quote-job-number').value = Math.random()
-                .toString(36)
-                .substr(2, 5);
+            let jobNumber = Math.round(Math.random() * (999999 - 1) + 1);
+            jobNumber = jobNumber.toString();
+            let howManyZero = 6 - jobNumber.length;
+            if (howManyZero > 0) {
+                for (let i = 0; i < howManyZero; i++) {
+                    jobNumber = '0' + jobNumber;
+                }
+            }
+            let result = WorkData.find({ jobNumber }).fetch();
+            result && result.length > 0 ? jobNumber_() : null;
+            document.getElementById('quote-job-number').value = jobNumber;
         }
 
         let doc = {
@@ -943,7 +994,8 @@ Template.preQuote.events({
             sourceOfLeads,
             status,
             noteForYourMove,
-            additionalInfo
+            additionalInfo,
+            customerRate
         };
 
         Meteor.call('quotaniBazayaElaveEt', doc, function(err) {
@@ -955,7 +1007,6 @@ Template.preQuote.events({
                 });
                 Session.set('loading', false);
                 enableButtons();
-                v;
             } else {
                 swal({
                     title: 'Success',

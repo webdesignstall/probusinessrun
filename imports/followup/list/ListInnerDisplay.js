@@ -7,6 +7,7 @@ import WorkData from '../../../common/collections_2';
 import { Meteor } from 'meteor/meteor';
 import { Tracker } from 'meteor/tracker';
 import WonDate from './WonDate';
+import CustomerPriority from '../../../client/templates/quote/CustomerPriority';
 
 /*global moment*/
 
@@ -286,6 +287,9 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
                                 : 'DATE INFORMATION NOT AVIABLE'
                             : ''}
                     </span>
+                </span>
+                <span>
+                    <CustomerPriority id={this.state.job._id} />
                 </span>
                 {this.state.job.status === 'won' && <WonDate wonDate={this.state.job.wonDate} />}
                 {Session.get('ExtendedJobInformation') !== '' ? (

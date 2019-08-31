@@ -94,6 +94,26 @@ if (Meteor.isServer) {
                 }
                 console.info('Follow up Email succesfully sent to: ' + job.email);
             });
+        },
+        rate: function(_id, rate, oldRate) {
+            let job = WorkData.findOne({ _id });
+            let oldJobUpdates = job.updates || [];
+            let updates = {
+                by: Meteor.userId(),
+                date: new Date(),
+                changes: [
+                    {
+                        kind: 'E',
+                        path: ['customerRate'],
+                        lhs: oldRate,
+                        rhs: rate
+                    }
+                ]
+            };
+            oldJobUpdates.push(updates);
+            WorkData.update({ _id }, { $set: { customerRate: rate, updates: oldJobUpdates } }, err => {
+                console.error(err);
+            });
         }
     });
 }

@@ -357,3 +357,23 @@ hr {
     box-shadow: #505ed8 0px 2px 12px -3px;
     border-radius: 0 5px 5px 0;
 }
+
+.customer-rate i {
+    font-size: 40px;
+    cursor: pointer;
+    margin: 3px 5px;
+    transition: color 0.5s ease;
+}
+
+.customer-rate-follow i {
+    font-size: 20px;
+    cursor: pointer;
+    margin: 3px 2px;
+    transition: color 0.5s ease;
+}
+
+.customer-rate-main {
+    display: inline-block;
+    width: 75px;
+    vertical-align: middle;
+}

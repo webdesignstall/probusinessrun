@@ -797,6 +797,10 @@ Schemas.workSchema = new SimpleSchema(
         'label.color': {
             type: String,
             optional: true
+        },
+        customerRate: {
+            type: Number,
+            optional: true
         }
     },
     { tracker: Tracker }

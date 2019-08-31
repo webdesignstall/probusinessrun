@@ -25,6 +25,7 @@ import QuoteExpiration from '../../client/templates/quote/QuoteExpariation';
 import Status from '../../client/templates/quote/Status';
 import NewAppointment from '../../client/templates/quote/NewAppointment';
 import AdditionalInfo from '../../client/templates/quote/AdditionalInfo';
+import CustomerPriority from '../../client/templates/quote/CustomerPriority';
 
 /*global moment $ swal*/
 
@@ -141,6 +142,7 @@ Template.kalendar.onDestroyed(() => {
     ReactDOM.unmountComponentAtNode(document.getElementById('takenBy'));
     ReactDOM.unmountComponentAtNode(document.getElementById('additional-contact-update'));
     ReactDOM.unmountComponentAtNode(document.getElementById('quote-date-expiration-add'));
+    ReactDOM.unmountComponentAtNode(document.getElementById('quote-customer-priority'));
     ReactDOM.unmountComponentAtNode(document.getElementById('new_appointment_update'));
     Session.set('addingJob', false);
     let dailyStatsList = document.getElementsByClassName('dailyStatsComponent');
@@ -205,14 +207,14 @@ Template.kalendar.helpers({
     }
 });
 
-Template.kalendar.onRendered(() =>  {
+Template.kalendar.onRendered(() => {
     this.z = Tracker.autorun(() => {
         this.xx && this.xx.stop();
         Session.get('calendarCurrentDate') || Session.set('calendarCurrentDate', new Date());
         let calendarDate = Session.get('calendarCurrentDate');
         this.xx = Meteor.subscribe('calendar', calendarDate);
     });
-    
+
     ReactDOM.unmountComponentAtNode(document.getElementById('number-of-movers'));
 
     let dataBase = [];
@@ -614,6 +616,7 @@ Template.kalendar.events({
         ReactDOM.render(<NumberOfUsers />, document.getElementById('number-of-movers'));
         ReactDOM.render(<AdditionalContact />, document.getElementById('additional-contact'));
         ReactDOM.render(<QuoteExpiration />, document.getElementById('quote-date-expiration-add'));
+        ReactDOM.render(<CustomerPriority />, document.getElementById('quote-customer-priority'));
         window.addresses = ReactDOM.render(<Addresses />, document.getElementById('addressesId'));
         Session.set('is', '');
 
@@ -638,6 +641,7 @@ Template.kalendar.events({
         ReactDOM.render(<NumberOfUsers />, document.getElementById('number-of-movers'));
         ReactDOM.render(<AdditionalContact />, document.getElementById('additional-contact'));
         ReactDOM.render(<QuoteExpiration />, document.getElementById('quote-date-expiration-add'));
+        ReactDOM.render(<CustomerPriority />, document.getElementById('quote-customer-priority'));
         ReactDOM.render(<AdditionalInfo />, document.getElementById('additional_info_add'));
         window.addresses = ReactDOM.render(<Addresses />, document.getElementById('addressesId'));
         Session.set('is', '');
@@ -667,6 +671,7 @@ Template.kalendar.events({
         ReactDOM.unmountComponentAtNode(document.getElementById('takenBy'));
         ReactDOM.unmountComponentAtNode(document.getElementById('additional-contact-update'));
         ReactDOM.unmountComponentAtNode(document.getElementById('quote-date-expiration-add'));
+        ReactDOM.unmountComponentAtNode(document.getElementById('quote-customer-priority'));
         ReactDOM.unmountComponentAtNode(document.getElementById('new_appointment_update'));
         ReactDOM.unmountComponentAtNode(document.getElementById('additional_info_add'));
         Session.set('secilmisIsciler', '');

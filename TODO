@@ -6,6 +6,11 @@ Notification center:
     ☐ Make possible to create and delete the notifications from client side
     ☐ only admins can modify notifications
 
+Rating:
+    ✔ Display stars in fron of the follow up list after quote icon @done(19-08-30 17:31)
+    ✔ Display error saving whitout customer rate @started(19-08-30 17:32) @done(19-08-31 12:23) @lasted(18h51m11s)
+    ✔ Auto save if clicked on the follow up list @done(19-08-30 19:55)
+
 Labels:
     ✔ design label button in the calendar @started(19-08-05 17:52) @done(19-08-08 11:59) @lasted(2d18h7m7s)
     ✔ onClick display modal list and save selected info into the that job after @started(19-08-08 16:16) @done(19-08-08 19:45) @lasted(20h29m19s)
