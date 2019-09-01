@@ -24,8 +24,13 @@ export default class List extends TrackerReact(Component) {
         this.increaseLimit = this.increaseLimit.bind(this);
     }
 
-    workData(status) {
+    workData(status, rate) {
         let obj = status !== '' && typeof status === 'string' ? { status: status } : {};
+        if (rate && rate > 1) {
+            rate = Number(rate);
+            obj = { customerRate: rate };
+        }
+        console.log(obj);
         this.setState({
             loading: true
         });
@@ -42,7 +47,8 @@ export default class List extends TrackerReact(Component) {
     componentDidMount() {
         this.x = Tracker.autorun(() => {
             let status = Session.get('status');
-            this.workData(status);
+            let rate = Session.get('customerRate_');
+            this.workData(status, rate);
             this.setState({
                 loading: true
             });

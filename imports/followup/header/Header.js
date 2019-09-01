@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Search from './Search';
 import Filter from './Filter';
 import Sorting from './Sorting';
+import RateFilter from './RateFilter';
 
 export default class Header extends Component {
     render() {
@@ -16,6 +17,7 @@ export default class Header extends Component {
                     height: '52px'
                 }}>
                 <Filter />
+                <RateFilter />
                 <Sorting />
                 <Search />
             </div>

@@ -31,7 +31,12 @@ export default class Sorting extends Component {
                 <span className="sol" style={{ marginTop: '2px' }}>
                     Sort by:
                 </span>
-                <select onChange={e => this.changeHandler(e)} className="browser-default" name="sortBy" id="sort_by" value={this.state.sort}>
+                <select
+                    onChange={e => this.changeHandler(e)}
+                    className="browser-default"
+                    name="sortBy"
+                    id="sort_by"
+                    value={this.state.sort}>
                     <option value="default">Default</option>
                     <option value="az">Moving Date A-Z</option>
                     <option value="za">Moving Date Z-A</option>

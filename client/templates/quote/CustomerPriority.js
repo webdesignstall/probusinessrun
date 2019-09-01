@@ -14,7 +14,7 @@ export default class CustomerPriority extends Component {
             star: ['', '', ''],
             rate: 0,
             rateClicked: 0,
-            color: ['#E15141', '#F5C344', '#4994EB'],
+            color: ['#F3E598', '#F2DD73', '#F8D552'],
             clicked: false,
             animation: ''
         };
