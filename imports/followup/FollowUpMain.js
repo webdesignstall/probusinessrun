@@ -23,15 +23,15 @@ export default class FollowUpMain extends TrackerReact(Component) {
     }
 
     workDataInProgress() {
-        let res = WorkData.find({ status: 'inProgress' }).fetch() || [];
-        this.setState(
-            {
-                workDataInProgress: res
-            },
-            () => {
-                Session.set('_', '_');
-            }
-        );
+        return WorkData.find({ status: 'inProgress' }).fetch() || [];
+        // this.setState(
+        //     {
+        //         workDataInProgress: res
+        //     },
+        //     () => {
+        //         Session.set('_', '_');
+        //     }
+        // );
     }
 
     UNSAFE_componentWillMount() {
@@ -51,14 +51,26 @@ export default class FollowUpMain extends TrackerReact(Component) {
                 { status },
                 {
                     onReady: () => {
+                        console.log('ready');
                         this.setState(
                             {
                                 dataReady: true
                             },
                             () => {
-                                this.workDataInProgress();
+                                console.log('2nd');
 
-                                let progressJobs = this.state.workDataInProgress;
+                                let data = this.workDataInProgress();
+
+                                this.setState(
+                                    {
+                                        workDataInProgress: data
+                                    },
+                                    () => {
+                                        Session.set('_', '_');
+                                    }
+                                );
+
+                                let progressJobs = data;
                                 let sess = Session.get('_');
                                 let date = new Date().getTime();
                                 this.setState({
@@ -66,7 +78,7 @@ export default class FollowUpMain extends TrackerReact(Component) {
                                 });
                                 progressJobs.map(job => {
                                     let jobDateTime = new Date(job.workDate).getTime();
-                                    if (jobDateTime + 86400000 <= date) {
+                                    if (jobDateTime + 86400000 < date) {
                                         job.status = 'lost';
                                         let finalNote_ = {
                                             reason: 'Time Expired',
