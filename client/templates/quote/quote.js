@@ -287,6 +287,8 @@ Template.updateQuote.events({
         addressesArray.map(address => {
             addresses.push(address.value);
         });
+        let noteForMovers = document.querySelector('#note_for_movers').value;
+
 
         let doc = {
             _id: Session.get('is'),
@@ -329,7 +331,8 @@ Template.updateQuote.events({
             status: document.getElementById('jobStatus_followup').value,
             noteForYourMove: document.getElementById('for_your_move_update').value.trim(),
             additionalInfo: Session.get('additionalInfo'),
-            ip: Session.get('ip')
+            ip: Session.get('ip'),
+            noteForMovers
         };
 
         Meteor.call('updateWork', doc, function(err) {
@@ -482,6 +485,7 @@ Template.preQuote.events({
         let noteForYourMove = document.getElementById('for_your_move').value;
         let additionalInfo = Session.get('additionalInfo');
         let customerRate = Session.get('customerRate');
+        let noteForMovers = document.querySelector('#note_for_movers').value;
 
         if (customerRate === 0) {
             swal({
@@ -489,7 +493,7 @@ Template.preQuote.events({
                 text: 'Please rate customer before continue',
                 icon: 'error'
             });
-            enableButtons()
+            enableButtons();
             return false;
         }
 
@@ -602,7 +606,8 @@ Template.preQuote.events({
             quoteExpirationDate,
             noteForYourMove,
             additionalInfo,
-            customerRate
+            customerRate,
+            noteForMovers
         };
 
         let emailReg = new RegExp(
@@ -736,6 +741,7 @@ Template.preQuote.events({
         let noteForYourMove = document.getElementById('for_your_move').value;
         let additionalInfo = Session.get('additionalInfo');
         let customerRate = Session.get('customerRate');
+        let noteForMovers = document.querySelector('#note_for_movers').value;
 
         if (customerRate === 0) {
             swal({
@@ -743,7 +749,7 @@ Template.preQuote.events({
                 text: 'Please rate customer before continue',
                 icon: 'error'
             });
-            enableButtons()
+            enableButtons();
             return false;
         }
 
@@ -817,7 +823,8 @@ Template.preQuote.events({
             status,
             noteForYourMove,
             additionalInfo,
-            customerRate
+            customerRate,
+            noteForMovers
         };
 
         Meteor.call('quotaniBazayaElaveEt', doc, function(err) {
@@ -914,6 +921,7 @@ Template.preQuote.events({
         let noteForYourMove = document.getElementById('for_your_move').value;
         let additionalInfo = Session.get('additionalInfo');
         let customerRate = Session.get('customerRate');
+        let noteForMovers = document.querySelector('#note_for_movers').value;
 
         if (customerRate === 0) {
             swal({
@@ -921,7 +929,7 @@ Template.preQuote.events({
                 text: 'Please rate customer before continue',
                 icon: 'error'
             });
-            enableButtons()
+            enableButtons();
             return false;
         }
 
@@ -995,7 +1003,8 @@ Template.preQuote.events({
             status,
             noteForYourMove,
             additionalInfo,
-            customerRate
+            customerRate,
+            noteForMovers
         };
 
         Meteor.call('quotaniBazayaElaveEt', doc, function(err) {

@@ -24,14 +24,6 @@ export default class FollowUpMain extends TrackerReact(Component) {
 
     workDataInProgress() {
         return WorkData.find({ status: 'inProgress' }).fetch() || [];
-        // this.setState(
-        //     {
-        //         workDataInProgress: res
-        //     },
-        //     () => {
-        //         Session.set('_', '_');
-        //     }
-        // );
     }
 
     UNSAFE_componentWillMount() {
@@ -51,14 +43,11 @@ export default class FollowUpMain extends TrackerReact(Component) {
                 { status },
                 {
                     onReady: () => {
-                        console.log('ready');
                         this.setState(
                             {
                                 dataReady: true
                             },
                             () => {
-                                console.log('2nd');
-
                                 let data = this.workDataInProgress();
 
                                 this.setState(

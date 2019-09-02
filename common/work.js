@@ -801,6 +801,10 @@ Schemas.workSchema = new SimpleSchema(
         customerRate: {
             type: Number,
             optional: true
+        },
+        noteForMovers: {
+            type: String,
+            optional: true
         }
     },
     { tracker: Tracker }

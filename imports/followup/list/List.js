@@ -30,7 +30,7 @@ export default class List extends TrackerReact(Component) {
             rate = Number(rate);
             obj = { customerRate: rate };
         }
-        console.log(obj);
+
         this.setState({
             loading: true
         });

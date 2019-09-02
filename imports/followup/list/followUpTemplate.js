@@ -135,8 +135,8 @@ function followUpTemplate(obj) {
 <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top: 10px; padding-bottom: 10px; font-family: Arial, sans-serif"><![endif]-->
 <div style="color:#555555;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif;line-height:120%;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;">
 <div style="font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; font-size: 12px; line-height: 14px; color: #555555;">
-<p style="font-size: 14px; line-height: 16px; text-align: center; margin: 0;"><br/>Hi <strong>${clientFirstName}</strong><br/><br/>Your move date is fast approaching. <strong>${workDate}</strong><br/>Don't miss out on booking us for your next move!<br/>We have your quote saved ready to go 👍<br/>Hakuna Matata! We are licensed movers!<br/><br/>Give us a call!<br/>Your job number is <strong>${jobNumber}</strong><br/><br/>Best regards,<br/>We like to move it, move it!</p>
-<p style="font-size: 14px; line-height: 16px; text-align: center; margin: 0;"><br/><strong>${companyInfo.name}</strong><br/>Phone: <strong>${companyInfo.phoneNumber}</strong><br/>E-mail: <strong>${companyInfo.email}</strong><br/>Web: <strong>${companyInfo.url}</strong><br/>License # BEARHFTI 0191555</p>
+<p style="font-size: 14px; line-height: 16px; text-align: center; margin: 0;"><br/>Hi, ${clientFirstName},<br/><br/>, Your move date is fast approaching. ${workDate}<br/>Don't miss out on booking us for your next move!<br/>We have your quote saved ready to go 👍<br/>Hakuna Matata! We are licensed movers!<br/><br/>Give us a call!<br/>Your job number is ${jobNumber}.<br/><br/>Best regards,<br/>We like to move it, move it!</p>
+<p style="font-size: 14px; line-height: 16px; text-align: center; margin: 0;"><br/>${companyInfo.name}<br/>Phone: ${companyInfo.phoneNumber}<br/>E-mail: ${companyInfo.email}<br/>Web: ${companyInfo.url}<br/>License # BEARHFTI 0191555</p>
 <p style="font-size: 14px; line-height: 16px; text-align: center; margin: 0;"></p>
 </div>
 </div>
@@ -144,7 +144,7 @@ function followUpTemplate(obj) {
 <div align="center" class="button-container" style="padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;">
 <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;"><tr><td style="padding-top: 10px; padding-right: 10px; padding-bottom: 10px; padding-left: 10px" align="center"><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="" style="height:31.5pt; width:144pt; v-text-anchor:middle;" arcsize="10%" stroke="false" fillcolor="#3AAEE0"><w:anchorlock/><v:textbox inset="0,0,0,0"><center style="color:#ffffff; font-family:Arial, sans-serif; font-size:16px"><![endif]-->
 <div style="text-decoration:none;display:inline-block;color:#ffffff;background-color:#3AAEE0;border-radius:4px;-webkit-border-radius:4px;-moz-border-radius:4px;width:auto; width:auto;;border-top:1px solid #3AAEE0;border-right:1px solid #3AAEE0;border-bottom:1px solid #3AAEE0;border-left:1px solid #3AAEE0;padding-top:5px;padding-bottom:5px;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif;text-align:center;mso-border-alt:none;word-break:keep-all;"><span style="padding-left:20px;padding-right:20px;font-size:16px;display:inline-block;">
-<a href="http://probusinessrun.com" style="font-size: 16px; line-height: 32px; cursor: pointer;">Check Quote Details</a>
+<a href="http://probusinessrun.com/reserve" style="font-size: 16px; line-height: 32px; cursor: pointer;">Check Quote Details</a>
 </span></div>
 <!--[if mso]></center></v:textbox></v:roundrect></td></tr></table><![endif]-->
 </div>

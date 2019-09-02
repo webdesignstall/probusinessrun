@@ -557,12 +557,25 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                     <div className="row">
                         <div className="col s12 m4 l4">
                             <label className="active" htmlFor="textarea2_followup">
-                                Note for Company
+                                Note for Customer Service
                             </label>
                             <textarea
+                                style={{ height: '100px' }}
                                 onChange={e => this.onChangeHandler(e, 'comment')}
                                 id="textarea2_followup"
                                 value={this.state.job.comment}
+                                className="materialize-textarea"
+                            />
+                        </div>
+                        <div className="col s12 m4 l4">
+                            <label className="active" htmlFor="textarea2_followup">
+                                Note for Movers
+                            </label>
+                            <textarea
+                                style={{ height: '100px' }}
+                                onChange={e => this.onChangeHandler(e, 'noteForMovers')}
+                                id="textarea2_followup"
+                                value={this.state.job.noteForMovers}
                                 className="materialize-textarea"
                             />
                         </div>
@@ -571,6 +584,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                                 Note for Your Move
                             </label>
                             <textarea
+                                style={{ height: '100px' }}
                                 onChange={e => this.onChangeHandler(e, 'noteForYourMove')}
                                 id="note_for_your_move_followUp"
                                 value={this.state.job.noteForYourMove}

@@ -26,6 +26,7 @@ import Status from '../../client/templates/quote/Status';
 import NewAppointment from '../../client/templates/quote/NewAppointment';
 import AdditionalInfo from '../../client/templates/quote/AdditionalInfo';
 import CustomerPriority from '../../client/templates/quote/CustomerPriority';
+import NoteForMovers from '../../client/templates/quote/NoteForMovers';
 
 /*global moment $ swal*/
 
@@ -144,6 +145,7 @@ Template.kalendar.onDestroyed(() => {
     ReactDOM.unmountComponentAtNode(document.getElementById('quote-date-expiration-add'));
     ReactDOM.unmountComponentAtNode(document.getElementById('quote-customer-priority'));
     ReactDOM.unmountComponentAtNode(document.getElementById('new_appointment_update'));
+    ReactDOM.unmountComponentAtNode(document.getElementById('note_for_movers_'));
     Session.set('addingJob', false);
     let dailyStatsList = document.getElementsByClassName('dailyStatsComponent');
     let i = 0;
@@ -617,6 +619,7 @@ Template.kalendar.events({
         ReactDOM.render(<AdditionalContact />, document.getElementById('additional-contact'));
         ReactDOM.render(<QuoteExpiration />, document.getElementById('quote-date-expiration-add'));
         ReactDOM.render(<CustomerPriority />, document.getElementById('quote-customer-priority'));
+        ReactDOM.render(<NoteForMovers />, document.getElementById('note_for_movers_'));
         window.addresses = ReactDOM.render(<Addresses />, document.getElementById('addressesId'));
         Session.set('is', '');
 
@@ -643,6 +646,7 @@ Template.kalendar.events({
         ReactDOM.render(<QuoteExpiration />, document.getElementById('quote-date-expiration-add'));
         ReactDOM.render(<CustomerPriority />, document.getElementById('quote-customer-priority'));
         ReactDOM.render(<AdditionalInfo />, document.getElementById('additional_info_add'));
+        ReactDOM.render(<NoteForMovers />, document.getElementById('note_for_movers_'));
         window.addresses = ReactDOM.render(<Addresses />, document.getElementById('addressesId'));
         Session.set('is', '');
 
@@ -674,6 +678,7 @@ Template.kalendar.events({
         ReactDOM.unmountComponentAtNode(document.getElementById('quote-customer-priority'));
         ReactDOM.unmountComponentAtNode(document.getElementById('new_appointment_update'));
         ReactDOM.unmountComponentAtNode(document.getElementById('additional_info_add'));
+        ReactDOM.unmountComponentAtNode(document.getElementById('note_for_movers_'));
         Session.set('secilmisIsciler', '');
         Session.set('is', '');
         Session.set('addingJob', false);
@@ -723,6 +728,7 @@ Template.kalendar.events({
             ReactDOM.render(<Status status={job.status} />, document.getElementById('status_update'));
             ReactDOM.render(<NewAppointment />, document.getElementById('new_appointment_update'));
             ReactDOM.render(<AdditionalInfo />, document.getElementById('additional_info_update'));
+            ReactDOM.render(<NoteForMovers />, document.getElementById('note_for_movers_update'));
             ReactDOM.render(
                 <AdditionalContact contacts={job ? job.additionalContacts : []} />,
                 document.getElementById('additional-contact-update')

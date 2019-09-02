@@ -6,6 +6,14 @@ Notification center:
     ☐ Make possible to create and delete the notifications from client side
     ☐ only admins can modify notifications
 
+Changes in notes:
+    ✔ Create Note for Movers Component @started(19-09-02 14:36) @done(19-09-02 16:12) @lasted(1h36m11s)
+    ✔ Create DataBase for note for movers @done(19-09-02 15:35)
+    ✔ Text Arealarin hundurluyunu 30% artir @done(19-09-02 15:35)
+    ✔ Display Note for movers in the follow up @done(19-09-02 16:18)
+    ✔ Save inforation while clicking save or follow up buttons @done(19-09-02 16:18)
+    ✔ Note for movers -i supervisor a gonder @done(19-09-02 16:13)
+
 Rating:
     ✔ Display stars in fron of the follow up list after quote icon @done(19-08-30 17:31)
     ✔ Display error saving whitout customer rate @started(19-08-30 17:32) @done(19-08-31 12:23) @lasted(18h51m11s)

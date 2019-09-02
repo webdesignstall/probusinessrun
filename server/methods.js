@@ -78,7 +78,7 @@ if (Meteor.isServer) {
                 text: ' ',
                 from: job.companyInfo.name + ' ' + job.companyInfo.email,
                 to: job.email,
-                subject: `${diff} more days! Job #${job.jobNumber}`,
+                subject: `${diff} more ${diff === 1 ? 'day' : 'days'}! Job #${job.jobNumber}`,
                 attachment: [
                     {
                         data: template,
