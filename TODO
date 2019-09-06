@@ -6,6 +6,12 @@ Notification center:
     ☐ Make possible to create and delete the notifications from client side
     ☐ only admins can modify notifications
 
+Small Item packing redesign:
+    ✔ add total line @done(19-09-06 16:44)
+    ✔ change sml item pachking name @started(19-09-06 16:45) @done(19-09-06 16:45) @lasted(26s)
+    ✔ small item packinging qarisinda yes waived yazilsin yuxarida hesablamadan reqem gelse onu yazssin @done(19-09-06 16:54)
+    ✔ eger small item packing reqem varsa flat onda onun uzerine yuxaridakini gelib hesablasin @started(19-09-06 16:54) @done(19-09-06 16:54) @lasted(54s)
+
 Changes in notes:
     ✔ Create Note for Movers Component @started(19-09-02 14:36) @done(19-09-02 16:12) @lasted(1h36m11s)
     ✔ Create DataBase for note for movers @done(19-09-02 15:35)

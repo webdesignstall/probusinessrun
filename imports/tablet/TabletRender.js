@@ -1807,6 +1807,10 @@ MY OWN FREE WILL`
                                             = ${this.state.largeBoxes}
                                         </span>
                                     </li>
+                                    <li className="collection-item">
+                                        Total:
+                                        <span className="sag">= ${this.state.totalPul || 0}</span>
+                                    </li>
                                 </ul>
                             </div>
                             <div>
@@ -1868,7 +1872,7 @@ MY OWN FREE WILL`
                                         <span className="sag">= {this.totalWorkLaborTime} hours</span>
                                     </li>
                                     <li className="collection-item blue">
-                                        Small Item Pck Supplies:
+                                        Total Small Item Pck Supplies:
                                         <span className="sag">
                                             ={' '}
                                             {is.smallItemPacking && is.smallItemPacking < 0
@@ -1876,7 +1880,7 @@ MY OWN FREE WILL`
                                                     ? '$' + this.state.totalPul
                                                     : 'Yes'
                                                 : is.smallItemPacking > 0
-                                                    ? '$' + is.smallItemPacking
+                                                    ? '$' + (is.smallItemPacking + (this.state.totalPul? this.state.totalPul : 0))
                                                     : 'Waived'}
                                         </span>
                                     </li>
