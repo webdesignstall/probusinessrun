@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import { Tracker } from 'meteor/tracker';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import { Session } from 'meteor/session';
@@ -7,7 +8,9 @@ import { Meteor } from 'meteor/meteor';
 import WorkData from '../../common/collections_2';
 import './survey.styl';
 import surveys from './surveys.json';
+import TabletIsList from './TabletIsList';
 
+/*global $*/
 export default class Survey extends TrackerReact(Component) {
     constructor(props) {
         super(props);
@@ -30,6 +33,7 @@ export default class Survey extends TrackerReact(Component) {
 
         this.changeStatus = this.changeStatus.bind(this);
         this.changeInput = this.changeInput.bind(this);
+        this.close = this.close.bind(this);
     }
 
     workData(id) {
@@ -105,12 +109,27 @@ export default class Survey extends TrackerReact(Component) {
         });
     }
 
+    close() {
+        Session.set('tabletIsId', '');
+        ReactDOM.render(<TabletIsList />, document.getElementById('tablet-is-siyahi'));
+
+        $('#tablet-is-siyahi').show();
+        $('#tebler-render').hide();
+        this.setState({
+            status: 'start'
+        });
+    }
+
     buttons_() {
         return Object.keys(this.state.surveys[this.state.status].buttons).map((key, index) => {
             return (
                 <button
-                    onClick={() => this.changeStatus(this.state.surveys[this.state.status].buttons[key])}
-                    className="btn"
+                    onClick={
+                        key === 'ⓧ close'
+                            ? this.close
+                            : () => this.changeStatus(this.state.surveys[this.state.status].buttons[key])
+                    }
+                    className={key === '◂ back' ? 'btn yellow darken-4' : key === 'ⓧ close' ? 'btn red' : 'btn'}
                     key={index + 'surveyButtons'}>
                     {key}
                 </button>
