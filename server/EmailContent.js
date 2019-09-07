@@ -25,7 +25,7 @@ export default function EmailContent(job) {
         </div>`
         : '';
 
-    let movingSize = function () {
+    let movingSize = function() {
         let movingSizeList = {
             items: 'Items',
             studio: 'Studio',
@@ -76,10 +76,7 @@ export default function EmailContent(job) {
         .join('');
 
     function rateInFlatDisplay() {
-        return job.flatRate &&
-        job.minimumLaborTime &&
-        job.hourlyRatesCash > 0 &&
-        job.hourlyRatesCard
+        return job.flatRate && job.minimumLaborTime && job.hourlyRatesCash > 0 && job.hourlyRatesCard
             ? `
             <div
             style="font-size:16px;text-align:center;font-family:'Roboto', Tahoma, Verdana, Segoe, sans-serif"
@@ -171,11 +168,7 @@ export default function EmailContent(job) {
                 <td
                   style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px 0 3px 10px; width: 50%;"
                 >
-                Flat Rate: ${
-            job.minimumLaborTime && job.minimumLaborTime > 0
-                ? `Up to ${job.minimumLaborTime} hours`
-                : ''
-        }
+                Flat Rate: ${job.minimumLaborTime && job.minimumLaborTime > 0 ? `Up to ${job.minimumLaborTime} hours` : ''}
                 </td>
                 <td
                   style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px 0 3px 10px; width: 50%;"
@@ -243,7 +236,7 @@ export default function EmailContent(job) {
             </div>
         `
             : job.gasFee === '' || job.gasFee === 0 || job.gasFee === undefined
-            ? `
+                ? `
                 <div
             style="font-size:16px;text-align:center;font-family:'Roboto', Tahoma, Verdana, Segoe, sans-serif"
             >
@@ -267,7 +260,7 @@ export default function EmailContent(job) {
                 </table>
             </div>
             `
-            : '';
+                : '';
 
     let doubleDrive =
         job.doubleDrive && job.doubleDrive === 'yes'
@@ -296,7 +289,7 @@ export default function EmailContent(job) {
             </div>
         `
             : job.doubleDrive && job.doubleDrive === 'waived'
-            ? `
+                ? `
                 <div
             style="font-size:16px;text-align:center;font-family:'Roboto', Tahoma, Verdana, Segoe, sans-serif"
             >
@@ -320,7 +313,7 @@ export default function EmailContent(job) {
                 </table>
             </div>
             `
-            : '';
+                : '';
 
     let smallItemPacking =
         job.smallPackingItems && job.smallPackingItems !== 0
@@ -343,10 +336,10 @@ export default function EmailContent(job) {
                     style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px 0 3px 10px; width: 50%;"
                     >
                     ${
-                job.smallPackingItems < 0
-                    ? 'Yes, <a href="http://www.moverslegion.com/wp-content/uploads/2018/12/small-item-pricing.pdf">learn more</a>'
-                    : '$' + job.smallPackingItems
-            }
+    job.smallPackingItems < 0
+        ? 'Yes, <a href="http://www.moverslegion.com/wp-content/uploads/2018/12/small-item-pricing.pdf">learn more</a>'
+        : '$' + job.smallPackingItems
+}
                     </td>
                 </tr>
                 </table>
@@ -454,10 +447,10 @@ export default function EmailContent(job) {
                 </table>
             </div>
                 ${
-                        contact.additionalPhoneNumber !== null &&
-                        contact.additionalPhoneNumber !== undefined &&
-                        contact.additionalPhoneNumber !== ''
-                            ? `
+    contact.additionalPhoneNumber !== null &&
+                    contact.additionalPhoneNumber !== undefined &&
+                    contact.additionalPhoneNumber !== ''
+        ? `
         <div
             style="font-size:16px;text-align:center;font-family:'Roboto', Tahoma, Verdana, Segoe, sans-serif"
             >
@@ -480,15 +473,14 @@ export default function EmailContent(job) {
                 </tr>
                 </table>
             </div>`
-                            : ''
-                    }`;
+        : ''
+}`;
                 })
                 .join('')
             : '';
 
     let arrivalWindow =
-        job.workMustBeginTime[0] === '04:00 am' &&
-        job.workMustBeginTime[0] === '04:00 am'
+        job.workMustBeginTime[0] === '04:00 am' && job.workMustBeginTime[0] === '04:00 am'
             ? `
             <div
             style="font-size:16px;text-align:center;font-family:'Roboto', Tahoma, Verdana, Segoe, sans-serif"
@@ -616,25 +608,25 @@ export default function EmailContent(job) {
         let amount = 0;
 
         switch (job.expireHour) {
-            case 24:
-                (time = 'day'), (amount = 1);
-                break;
+        case 24:
+            (time = 'day'), (amount = 1);
+            break;
 
-            case 48:
-                (time = 'days'), (amount = 2);
-                break;
+        case 48:
+            (time = 'days'), (amount = 2);
+            break;
 
-            case 72:
-                (time = 'days'), (amount = 3);
-                break;
+        case 72:
+            (time = 'days'), (amount = 3);
+            break;
 
-            case 168:
-                (time = 'week'), (amount = 1);
-                break;
+        case 168:
+            (time = 'week'), (amount = 1);
+            break;
 
-            default:
-                (time = 'hour(s)'), (amount = job.expireHour);
-                break;
+        default:
+            (time = 'hour(s)'), (amount = job.expireHour);
+            break;
         }
 
         return job.expireHour > 0 ? `in ${amount} ${time}.` : 'soon.';
@@ -1032,8 +1024,7 @@ export default function EmailContent(job) {
                               >
                                 <p style="font-size: 14px; line-height: 16px; text-align: center; margin: 0;">
                                   <span style="font-size: 14px; line-height: 16px;">
-                                  <strong> Hello ${job.firstName ||
-    ''} ${job.lastName || ''}!</strong>
+                                  <strong> Hello ${job.firstName || ''} ${job.lastName || ''}!</strong>
                                 </span><br />
                                 <span style="font-size: 14px; line-height: 16px;" >
                                 <strong>
@@ -1390,11 +1381,11 @@ export default function EmailContent(job) {
                   </div>
                 </div>
                 ${
-        job.gasFee >= 0 ||
-        job.doubleDrive !== 'notSure' ||
-        (job.smallPackingItems > 0 || job.smallItemPacking < 0) ||
-        job.largeItemFee > 0
-            ? `
+    job.gasFee >= 0 ||
+                    job.doubleDrive !== 'notSure' ||
+                    (job.smallPackingItems > 0 || job.smallItemPacking < 0) ||
+                    job.largeItemFee > 0
+        ? `
                 <div style="background-color:transparent;">
                   <div
                     class="block-grid"
@@ -1476,12 +1467,12 @@ export default function EmailContent(job) {
                   </div>
                 </div>
       `
-            : ''
-    }
+        : ''
+}
                 
                 ${
-        job.doubleDrive === 'notSure' || job.gasFee < 0
-            ? `
+    job.doubleDrive === 'notSure' || job.gasFee < 0
+        ? `
         <div style="background-color:transparent;">
                   <div
                     class="block-grid"
@@ -1562,11 +1553,11 @@ export default function EmailContent(job) {
                         </div>
                       </div>
                             `
-            : ''
-    }
+        : ''
+}
 ${
-        job.noteForYourMove && job.noteForYourMove.trim() !== ''
-            ? `
+    job.noteForYourMove && job.noteForYourMove.trim() !== ''
+        ? `
 <div style="background-color:transparent;">
 <div
 class="block-grid"
@@ -1655,13 +1646,11 @@ style="Margin: 0 auto; min-width: 320px; max-width: 500px; overflow-wrap: break-
               </div>
 
 `
-            : ''
-    }
+        : ''
+}
 ${
-        job.additionalInfo &&
-        job.additionalInfo.length > 0 &&
-        Array.isArray(job.additionalInfo)
-            ? `
+    job.additionalInfo && job.additionalInfo.length > 0 && Array.isArray(job.additionalInfo)
+        ? `
       <div style="background-color:transparent;">
       <div
         class="block-grid"
@@ -1715,13 +1704,13 @@ ${
                         <div
                           style="border-collapse: collapse;display: table;width: 100%;background-color:#F3F2F2;"
                         >
-                          <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:transparent;"><tr><td align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:500px"><tr class="layout-full-width" style="background-color:#F3F2F2"><![endif]-->
-                          <!--[if (mso)|(IE)]><td align="center" width="500" style="background-color:#F3F2F2;width:500px; border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent;" valign="top"><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 5px; padding-left: 5px; padding-top:5px; padding-bottom:5px;"><![endif]-->
+                          <!--[if (mso)|(IE)]><table max-width="500px" cellpadding="0" cellspacing="0" border="0" style="background-color:transparent;"><tr><td align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:500px"><tr class="layout-full-width" style="background-color:#F3F2F2"><![endif]-->
+                          <!--[if (mso)|(IE)]><td align="center" max-width="500px" style="background-color:#F3F2F2;width:500px; border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent;" valign="top"><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 5px; padding-left: 5px; padding-top:5px; padding-bottom:5px;"><![endif]-->
                           <div
                             class="col num12"
                             style="min-width: 320px; max-width: 500px; display: table-cell; vertical-align: top;"
                           >
-                            <div style="width:100% !important;">
+                            <div style="max-width: 500px !important;">
                               <!--[if (!mso)&(!IE)]><!-->
                               <div
                                 style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:5px; padding-bottom:5px; padding-right: 5px; padding-left: 5px;"
@@ -1750,8 +1739,8 @@ ${
                     </div>
   
     `
-            : ''
-    }
+        : ''
+}
 <div style="background-color:transparent;">
                   <div
                     class="block-grid"
@@ -1760,8 +1749,8 @@ ${
                     <div
                       style="border-collapse: collapse;display: table;width: 100%;background-color:#4B5570;"
                     >
-                      <!--[if (mso)|(IE)]><table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:transparent;"><tr><td align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:500px"><tr class="layout-full-width" style="background-color:#4B5570"><![endif]-->
-                      <!--[if (mso)|(IE)]><td align="center" width="500" style="background-color:#4B5570;width:500px; border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent;" valign="top"><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 0px; padding-left: 0px; padding-top:0px; padding-bottom:0px;"><![endif]-->
+                      <!--[if (mso)|(IE)]><table max-width="500px" cellpadding="0" cellspacing="0" border="0" style="background-color:transparent;"><tr><td align="center"><table cellpadding="0" cellspacing="0" border="0" style="width:500px"><tr class="layout-full-width" style="background-color:#4B5570"><![endif]-->
+                      <!--[if (mso)|(IE)]><td align="center" width="500px" style="background-color:#4B5570;width:500px; border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent;" valign="top"><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 0px; padding-left: 0px; padding-top:0px; padding-bottom:0px;"><![endif]-->
                       <div
                         class="col num12"
                         style="min-width: 320px; max-width: 500px; display: table-cell; vertical-align: top;"
@@ -1772,7 +1761,7 @@ ${
                             style="border-top:0px solid transparent; border-left:0px solid transparent; border-bottom:0px solid transparent; border-right:0px solid transparent; padding-top:0px; padding-bottom:0px; padding-right: 0px; padding-left: 0px;"
                           >
                             <!--<![endif]-->
-                            <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top: 10px; padding-bottom: 10px; font-family: Tahoma, Verdana, sans-serif"><![endif]-->
+                            <!--[if mso]><table max-width="500px" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 10px; padding-left: 10px; padding-top: 10px; padding-bottom: 10px; font-family: Tahoma, Verdana, sans-serif"><![endif]-->
                             <div
                               style="color:#FFFFFF;font-family:'Roboto', Tahoma, Verdana, Segoe, sans-serif;line-height:120%;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;"
                             >
@@ -1818,10 +1807,8 @@ ${
                           >
                             <!--<![endif]-->
                             ${
-        job.smallPackingItems === 0 ||
-        job.smallPackingItems === '' ||
-        job.smallPackingItems === undefined
-            ? `
+    job.smallPackingItems === 0 || job.smallPackingItems === '' || job.smallPackingItems === undefined
+        ? `
                             <div
                               style="font-size:16px;text-align:center;font-family:'Roboto', Tahoma, Verdana, Segoe, sans-serif"
                             >
@@ -1836,8 +1823,8 @@ ${
                               </div>
                             </div>
                             `
-            : ''
-    }<div
+        : ''
+}<div
 style="text-align: left; font-size: 13px; padding: 2px 0;"
 >
 <span style="font-size: 14px; color: red">✘</span>
@@ -1850,10 +1837,8 @@ style="text-align: left; font-size: 13px; padding: 2px 0;"
 <span style="font-size: 14px; color: red">✘</span>
 Full-coverage Insurance. <a href="http://www.moverslegion.com/wp-content/uploads/2018/12/Full-Insurance.pdf" >Inquire, if needed</a>
 </div>${
-        job.largeItemFee === 0 ||
-        job.largeItemFee === '' ||
-        job.largeItemFee === undefined
-            ? `
+    job.largeItemFee === 0 || job.largeItemFee === '' || job.largeItemFee === undefined
+        ? `
                             <div
                               style="font-size:16px;text-align:center;font-family:'Roboto', Tahoma, Verdana, Segoe, sans-serif"
                             >
@@ -1868,8 +1853,8 @@ Full-coverage Insurance. <a href="http://www.moverslegion.com/wp-content/uploads
                               </div>
                             </div>
                             `
-            : ''
-    }<div
+        : ''
+}<div
                               align="center"
                               class="button-container"
                               style="padding-top:15px;padding-right:10px;padding-bottom:10px;padding-left:10px;"
