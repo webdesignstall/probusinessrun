@@ -6,6 +6,7 @@ import { Tracker } from 'meteor/tracker';
 import { Session } from 'meteor/session';
 import SignaturePad from 'signature_pad';
 import WorkData from '../../common/collections_2';
+import html2canvas from 'html2canvas';
 
 import TabletIsList from './TabletIsList';
 import AdditionalSignature from './AdditionalSignature';
@@ -310,22 +311,27 @@ MY OWN FREE WILL`
     }
 
     finishJob() {
-        let doc = {
-            _id: Session.get('tabletIsId'),
-            cardPayed: this.state.payCard,
-            cashPayed: this.state.payCash,
-            lastSignCustomer: this.signaturePad.toDataURL(),
-            lastSignEmployee: this.signaturePad2.toDataURL(),
-            finished: true,
-            wardrobeBoxes: this.state.valueWardrobeBoxes,
-            movingBlankets: this.state.valueMovingBlankets,
-            packingPaperBundles: this.state.valuePaperBundles,
-            bundleWrapRoll: this.state.valueWrapRoll,
-            smallBoxes: this.state.valueSmallBoxes,
-            mediumBoxes: this.state.valueMediumBoxes,
-            largeBoxes: this.state.valueLargeBoxes
-        };
-        Meteor.call('updateWork', doc);
+        html2canvas(document.getElementById('tablet-is-render_')).then(function (canvas) {
+            let png = canvas.toDataURL('image/png');
+            Meteor.call('saveToPdf', png);
+
+            let doc = {
+                _id: Session.get('tabletIsId'),
+                cardPayed: this.state.payCard,
+                cashPayed: this.state.payCash,
+                lastSignCustomer: this.signaturePad.toDataURL(),
+                lastSignEmployee: this.signaturePad2.toDataURL(),
+                finished: true,
+                wardrobeBoxes: this.state.valueWardrobeBoxes,
+                movingBlankets: this.state.valueMovingBlankets,
+                packingPaperBundles: this.state.valuePaperBundles,
+                bundleWrapRoll: this.state.valueWrapRoll,
+                smallBoxes: this.state.valueSmallBoxes,
+                mediumBoxes: this.state.valueMediumBoxes,
+                largeBoxes: this.state.valueLargeBoxes
+            };
+            Meteor.call('updateWork', doc);
+        });
     }
 
     activateStart() {
@@ -1035,7 +1041,7 @@ MY OWN FREE WILL`
                     {this.state.survey && <Survey finishSurvey={this.finishSurvey} />}
                     {this.state.ccForm && <CcForm />}
                 </div>
-                <div className={this.state.survey ? 'hide' : 'tabletJobRendered'}>
+                <div id='tablet-is-render_' className={this.state.survey ? 'hide' : 'tabletJobRendered'}>
                     <a href="#" id="close-duymesi-id" className={this.state.survey ? 'hide' : 'close-duymesi'}>
                         CLOSE THIS PAGE X
                     </a>
@@ -1880,7 +1886,7 @@ MY OWN FREE WILL`
                                                     ? '$' + this.state.totalPul
                                                     : 'Yes'
                                                 : is.smallItemPacking > 0
-                                                    ? '$' + (is.smallItemPacking + (this.state.totalPul? this.state.totalPul : 0))
+                                                    ? '$' + (is.smallItemPacking + (this.state.totalPul ? this.state.totalPul : 0))
                                                     : 'Waived'}
                                         </span>
                                     </li>

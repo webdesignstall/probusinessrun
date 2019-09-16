@@ -289,7 +289,6 @@ Template.updateQuote.events({
         });
         let noteForMovers = document.querySelector('#note_for_movers').value;
 
-
         let doc = {
             _id: Session.get('is'),
             clientFirstName: document.getElementById('firstName_2').value,

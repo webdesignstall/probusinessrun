@@ -2,6 +2,10 @@ import { Meteor } from 'meteor/meteor';
 import { Accounts } from 'meteor/accounts-base';
 import WorkData from '../common/collections_2';
 import email from 'emailjs';
+import pdfTemplate from './htmlToPDFTemplate';
+import fs from 'fs';
+import AWS from 'aws-sdk';
+import pdf from 'html-pdf';
 
 /*global moment*/
 
@@ -113,6 +117,25 @@ if (Meteor.isServer) {
             oldJobUpdates.push(updates);
             WorkData.update({ _id }, { $set: { customerRate: rate, updates: oldJobUpdates } }, err => {
                 console.error(err);
+            });
+        },
+        saveToPdf: function(canvas) {
+            let htmlTemplate = pdfTemplate(canvas);
+            let options = { format: 'Letter' };
+
+            pdf.create(htmlTemplate, options).toFile('../imports/pdfFiles/test.pdf', (err, res) => {
+                if (err) console.log(err);
+
+                console.log(res);
+            });
+
+            AWS.config.getCredentials(function(err) {
+                if (err) console.log(err.stack);
+                // credentials not loaded
+                else {
+                    console.log('Access key:', AWS.config.credentials.accessKeyId);
+                    console.log('Secret access key:', AWS.config.credentials.secretAccessKey);
+                }
             });
         }
     });

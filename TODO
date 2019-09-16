@@ -6,6 +6,14 @@ Notification center:
     ☐ Make possible to create and delete the notifications from client side
     ☐ only admins can modify notifications
 
+Send PDF to customer after finish job:
+    ✔ create and save pdf in temporary folder @done(19-09-10 18:31)
+    ☐ name created file uniquie
+    ☐ use this name for creating file url
+    ☐ upload created file to server via rest 'put' api
+    ☐ add information about pdf link to finished job
+    ☐ remove created file from tmp folder
+
 Small Item packing redesign:
     ✔ add total line @done(19-09-06 16:44)
     ✔ change sml item pachking name @started(19-09-06 16:45) @done(19-09-06 16:45) @lasted(26s)
