@@ -195,7 +195,7 @@ if (Meteor.isServer) {
 
             doc.status !== job.status ? (doc.statusChange = new Date()) : null;
 
-            doc.status === 'won' ? (doc.wonDate = new Date()) : null;
+            doc.status === 'won' &&  !doc.wonDate ? (doc.wonDate = new Date()) : null;
 
             doc.lastChange = new Date();
 
