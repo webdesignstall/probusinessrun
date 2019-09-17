@@ -214,7 +214,36 @@ Template.kalendar.onRendered(() => {
         this.xx && this.xx.stop();
         Session.get('calendarCurrentDate') || Session.set('calendarCurrentDate', new Date());
         let calendarDate = Session.get('calendarCurrentDate');
-        this.xx = Meteor.subscribe('calendar', calendarDate);
+        this.xx = Meteor.subscribe('calendar', calendarDate, {
+            onReady: function() {
+                console.log('ready');
+                let gunler = Array.from(document.getElementsByClassName('dayData'));
+                let baza = WorkData.find({}).fetch();
+                console.log('TCL: baza', baza);
+
+                let fileterdJobs_ = function(date, status) {
+                    let result = baza.filter(job => {
+                        console.log('TCL: date', date);
+                        console.log('TCL: job.workDate', job.workDate);
+                        return job.workDate === date && job.status === status;
+                    });
+                    return result;
+                };
+
+                gunler.map(gun => {
+                    let div = document.createElement('div');
+                    div.setAttribute('id', gun.id + '_');
+                    div.setAttribute('className', 'dailyStatsComponent');
+                    document.getElementById(gun.id).appendChild(div);
+                    if (gun.id.search('gunNomre') < 0) {
+                        console.log('TCL: gun.id', gun.id);
+                        let fileterdJobs = fileterdJobs_(gun.id, 'won');
+                        console.log('TCL: fileterdJobs', fileterdJobs);
+                        ReactDOM.render(<DailyStats workDataList={fileterdJobs} />, document.getElementById(gun.id + '_'));
+                    }
+                });
+            }
+        });
     });
 
     ReactDOM.unmountComponentAtNode(document.getElementById('number-of-movers'));
@@ -333,7 +362,7 @@ Template.kalendar.onRendered(() => {
             }
             if (sayi >= ayin1ciGunu && gunSayimi < aydaGunlerinSayi + 1) {
                 if (gunSayimi < 10) {
-                    if (ayx < 10) {
+                    if (ayx < 9) {
                         let teqvim = '0' + ayDeqiq + '/0' + gunSayimi + '/' + ilx;
                         xanalar[y].setAttribute('id', '');
                         xanalar[y].setAttribute('id', teqvim);
@@ -343,7 +372,7 @@ Template.kalendar.onRendered(() => {
                         xanalar[y].setAttribute('id', teqvim);
                     }
                 } else {
-                    if (ayx < 10) {
+                    if (ayx < 9) {
                         let teqvim = '0' + ayDeqiq + '/' + gunSayimi + '/' + ilx;
                         xanalar[y].setAttribute('id', '');
                         xanalar[y].setAttribute('id', teqvim);
@@ -356,7 +385,7 @@ Template.kalendar.onRendered(() => {
             }
             if (sayi >= ayin1ciGunu && gunSayimi < aydaGunlerinSayi + 1) {
                 if (gunSayimi < 10) {
-                    if (ayx < 10) {
+                    if (ayx < 9) {
                         let teqvim = '0' + ayDeqiq + '/0' + gunSayimi + '/' + ilx;
                         gunYerlesdirilecekHedef = document.getElementById(teqvim);
                         gunYerlesdirilecekHedef.innerHTML = gunSayimi;
@@ -368,7 +397,7 @@ Template.kalendar.onRendered(() => {
                         gunSayimi++;
                     }
                 } else {
-                    if (ayx < 10) {
+                    if (ayx < 9) {
                         let teqvim = '0' + ayDeqiq + '/' + gunSayimi + '/' + ilx;
                         gunYerlesdirilecekHedef = document.getElementById(teqvim);
                         gunYerlesdirilecekHedef.innerHTML = gunSayimi;
