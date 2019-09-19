@@ -217,6 +217,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
         doc.companyInfo = Session.get('companyInfo');
         doc.numberOfWorkers = Number(document.querySelector('#iscinin-sayi').value);
         doc.additionalInfo = Session.get('additionalInfo');
+        doc.addressExt = Session.get('addressExt');
 
         // doc.ip = Session.get('ip');
         delete doc.quoteExpirationDate;

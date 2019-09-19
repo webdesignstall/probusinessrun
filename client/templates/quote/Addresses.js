@@ -35,6 +35,7 @@ export default class Addresses extends React.Component {
             let isId = Session.get('is');
             let isInfo = WorkData.findOne(isId);
 
+            isInfo ? Session.set('addressExt', isInfo.addressExt ? isInfo.addressExt : this.state.addressExt) : null;
             Session.get('reset') ? this.resetComponent() : null;
 
             isInfo && isInfo.addresses.length > 0
@@ -193,7 +194,8 @@ export default class Addresses extends React.Component {
     addMore() {
         this.setState(
             prevState => ({
-                arrayOfvalue: [...prevState.arrayOfvalue, '']
+                arrayOfvalue: [...prevState.arrayOfvalue, ''],
+                addressExt: [...prevState.addressExt, { checked: '', stairs: '' }]
             }),
             () => {
                 this.props.updateJob &&
