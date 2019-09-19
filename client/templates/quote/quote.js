@@ -288,7 +288,7 @@ Template.updateQuote.events({
             addresses.push(address.value);
         });
         let noteForMovers = document.querySelector('#note_for_movers').value;
-
+        let addressExt = Session.get('addressExt');
 
         let doc = {
             _id: Session.get('is'),
@@ -332,7 +332,8 @@ Template.updateQuote.events({
             noteForYourMove: document.getElementById('for_your_move_update').value.trim(),
             additionalInfo: Session.get('additionalInfo'),
             ip: Session.get('ip'),
-            noteForMovers
+            noteForMovers,
+            addressExt
         };
 
         Meteor.call('updateWork', doc, function(err) {
@@ -486,6 +487,7 @@ Template.preQuote.events({
         let additionalInfo = Session.get('additionalInfo');
         let customerRate = Session.get('customerRate');
         let noteForMovers = document.querySelector('#note_for_movers').value;
+        let addressExt = Session.get('addressExt');
 
         if (customerRate === 0) {
             swal({
@@ -607,7 +609,8 @@ Template.preQuote.events({
             noteForYourMove,
             additionalInfo,
             customerRate,
-            noteForMovers
+            noteForMovers,
+            addressExt
         };
 
         let emailReg = new RegExp(
@@ -742,6 +745,7 @@ Template.preQuote.events({
         let additionalInfo = Session.get('additionalInfo');
         let customerRate = Session.get('customerRate');
         let noteForMovers = document.querySelector('#note_for_movers').value;
+        let addressExt = Session.get('addressExt');
 
         if (customerRate === 0) {
             swal({
@@ -824,7 +828,8 @@ Template.preQuote.events({
             noteForYourMove,
             additionalInfo,
             customerRate,
-            noteForMovers
+            noteForMovers,
+            addressExt
         };
 
         Meteor.call('quotaniBazayaElaveEt', doc, function(err) {
@@ -922,6 +927,7 @@ Template.preQuote.events({
         let additionalInfo = Session.get('additionalInfo');
         let customerRate = Session.get('customerRate');
         let noteForMovers = document.querySelector('#note_for_movers').value;
+        let addressExt = Session.get('addressExt');
 
         if (customerRate === 0) {
             swal({
@@ -1004,7 +1010,8 @@ Template.preQuote.events({
             noteForYourMove,
             additionalInfo,
             customerRate,
-            noteForMovers
+            noteForMovers,
+            addressExt
         };
 
         Meteor.call('quotaniBazayaElaveEt', doc, function(err) {

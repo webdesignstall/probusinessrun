@@ -65,6 +65,7 @@ Meteor.startup(() => {
     Session.set('customerRate', 0);
     Session.set('customerRate_', 0);
     Session.set('dataUpdated', false);
+    Session.set('addressExt', []);
 
     Tracker.autorun(() => {
         let user = Meteor.userId();

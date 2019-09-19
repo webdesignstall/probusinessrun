@@ -2,6 +2,7 @@ import SimpleSchema from 'simpl-schema';
 import { Tracker } from 'meteor/tracker';
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
+import { array } from 'prop-types';
 
 // Required AutoForm setup
 SimpleSchema.extendOptions(['autoform']);
@@ -803,6 +804,22 @@ Schemas.workSchema = new SimpleSchema(
             optional: true
         },
         noteForMovers: {
+            type: String,
+            optional: true
+        },
+        addressExt: {
+            type: Array,
+            optional: true
+        },
+        'addressExt.$': {
+            type: Object,
+            optional: true
+        },
+        'addressExt.$.checked': {
+            type: String,
+            optional: true
+        },
+        'addressExt.$.stairs': {
             type: String,
             optional: true
         }

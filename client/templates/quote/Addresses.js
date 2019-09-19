@@ -6,6 +6,7 @@ import { Session } from 'meteor/session';
 import PropTypes from 'prop-types';
 import Script from 'react-load-script';
 import swal from 'sweetalert';
+import StairInfo from './StairInfo';
 
 /*global google*/
 
@@ -15,7 +16,8 @@ export default class Addresses extends React.Component {
 
         this.state = {
             arrayOfvalue: ['', ''],
-            distance: 0
+            distance: 0,
+            addressExt: [{ checked: '', stairs: '' }, { checked: '', stairs: '' }]
         };
 
         this.renderAddressFields = this.renderAddressFields.bind(this);
@@ -36,7 +38,7 @@ export default class Addresses extends React.Component {
             Session.get('reset') ? this.resetComponent() : null;
 
             isInfo && isInfo.addresses.length > 0
-                ? this.setState({ arrayOfvalue: isInfo.addresses }, () => {
+                ? this.setState({ arrayOfvalue: isInfo.addresses, addressExt: isInfo.addressExt }, () => {
                     this.props.updateJob &&
                           this.props.updateJob({
                               addresses: this.state.arrayOfvalue
@@ -51,13 +53,8 @@ export default class Addresses extends React.Component {
     calculateDistance() {
         let this_ = this;
         function callback(response, status) {
-            console.log(response);
             if (status === 'OK') {
                 let distancies = [];
-                // console.log(response.rows);
-                // console.log(response.rows[0].elements);
-                // console.log(response.rows[0].elements[0].distance);
-                // console.log(response.rows[0].elements[0].distance.value);
                 response.rows.map((row, index) => {
                     let value = row.elements[index].distance.value;
                     distancies.push(value);
@@ -165,8 +162,9 @@ export default class Addresses extends React.Component {
     }
 
     renderAddressFields() {
+        let { addressExt } = this.state;
         return this.state.arrayOfvalue.map((el, i) => (
-            <div key={i} id={i + '_id'} className="input-field valideyn col s12 m6 l6">
+            <div key={i} id={i + '_id'} className="input-field valideyn col s12 m6 l6 address_list">
                 <i className="material-icons isare">location_on</i>
                 <input
                     id={'addressInputId' + i}
@@ -183,6 +181,11 @@ export default class Addresses extends React.Component {
                 <label className="active" htmlFor="movingFrom">
                     {'Address #' + (i + 1)}
                 </label>
+                <StairInfo
+                    checked={(addressExt && addressExt[i].checked) || ''}
+                    stairs={(addressExt && addressExt[i].stairs) || ''}
+                    index={i}
+                />
             </div>
         ));
     }

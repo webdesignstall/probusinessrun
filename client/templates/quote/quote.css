@@ -377,3 +377,34 @@ hr {
     width: 75px;
     vertical-align: middle;
 }
+
+.stair-info {
+    margin-bottom: 15px;
+}
+
+.stair-info ul {
+    margin-top: 0;
+    list-style: none;
+}
+
+.address_list {
+    padding: 10px;
+    background-color: white;
+    border: 1px solid rgb(199, 199, 199);
+    border-radius: 10px;
+    width: 48% !important;
+    margin: 20px 1%;
+}
+
+.stair-info label {
+    top: 0 !important;
+}
+.stair-info li {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.stairs_info_select {
+    display: inline-block !important;
+    width: 40px;
+}
