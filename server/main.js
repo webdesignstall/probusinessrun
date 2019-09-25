@@ -14,6 +14,21 @@ import depositPaymentEmail from './depositPaymentEmail';
 var config = require('../imports/helpers/config.json');
 
 Meteor.startup(() => {
+    WorkData.update(
+        { addressExt: { $exists: false } },
+        {
+            $set: {
+                addressExt: [
+                    { checked: '', staris: '' },
+                    { checked: '', staris: '' },
+                    { checked: '', staris: '' },
+                    { checked: '', staris: '' },
+                    { checked: '', staris: '' }
+                ]
+            }
+        },
+        { multi: true }
+    );
     // Set Square Connect credentials
     var defaultClient = squareConnect.ApiClient.instance;
 
@@ -195,7 +210,7 @@ if (Meteor.isServer) {
 
             doc.status !== job.status ? (doc.statusChange = new Date()) : null;
 
-            doc.status === 'won' &&  !doc.wonDate ? (doc.wonDate = new Date()) : null;
+            doc.status === 'won' && !doc.wonDate ? (doc.wonDate = new Date()) : null;
 
             doc.lastChange = new Date();
 
@@ -319,9 +334,7 @@ ${obj.firstName} ${obj.lastName}, wants you to pay for his/her moving
 service bill. If you agree please go to the link and complete the form
 in order to make the payment.<br>
 </p>
-<a id="app" href="http://probusinessrun.com/cardholder/${
-    obj._id
-}" style="border: 1px solid rgb(160, 190, 255);padding: 3px 15px;border-radius: 4px;font-family: monospace;cursor: pointer;background-color: rgb(220, 245, 253);color: blue;text-decoration: none;">
+<a id="app" href="http://probusinessrun.com/cardholder/${obj._id}" style="border: 1px solid rgb(160, 190, 255);padding: 3px 15px;border-radius: 4px;font-family: monospace;cursor: pointer;background-color: rgb(220, 245, 253);color: blue;text-decoration: none;">
 click here continue to process
 </a>
 <p>
