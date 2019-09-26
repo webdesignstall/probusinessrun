@@ -216,15 +216,10 @@ Template.kalendar.onRendered(() => {
         let calendarDate = Session.get('calendarCurrentDate');
         this.xx = Meteor.subscribe('calendar', calendarDate, {
             onReady: function() {
-                console.log('ready');
                 let gunler = Array.from(document.getElementsByClassName('dayData'));
                 let baza = WorkData.find({}).fetch();
-                console.log('TCL: baza', baza);
-
                 let fileterdJobs_ = function(date, status) {
                     let result = baza.filter(job => {
-                        console.log('TCL: date', date);
-                        console.log('TCL: job.workDate', job.workDate);
                         return job.workDate === date && job.status === status;
                     });
                     return result;
@@ -236,9 +231,7 @@ Template.kalendar.onRendered(() => {
                     div.setAttribute('className', 'dailyStatsComponent');
                     document.getElementById(gun.id).appendChild(div);
                     if (gun.id.search('gunNomre') < 0) {
-                        console.log('TCL: gun.id', gun.id);
                         let fileterdJobs = fileterdJobs_(gun.id, 'won');
-                        console.log('TCL: fileterdJobs', fileterdJobs);
                         ReactDOM.render(<DailyStats workDataList={fileterdJobs} />, document.getElementById(gun.id + '_'));
                     }
                 });
