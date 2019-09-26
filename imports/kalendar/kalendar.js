@@ -218,7 +218,6 @@ Template.kalendar.onRendered(() => {
             onReady: function() {
                 let gunler = Array.from(document.getElementsByClassName('dayData'));
                 let baza = WorkData.find({}).fetch();
-
                 let fileterdJobs_ = function(date, status) {
                     let result = baza.filter(job => {
                         return job.workDate === date && job.status === status;

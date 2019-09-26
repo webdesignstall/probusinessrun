@@ -183,8 +183,8 @@ export default class Addresses extends React.Component {
                     {'Address #' + (i + 1)}
                 </label>
                 <StairInfo
-                    checked={(addressExt && addressExt[i].checked) || ''}
-                    stairs={(addressExt && addressExt[i].stairs) || ''}
+                    checked={(addressExt && addressExt.length > 0 && addressExt[i].checked) || ''}
+                    stairs={(addressExt && addressExt.length > 0 && addressExt[i].stairs) || ''}
                     index={i}
                 />
             </div>
