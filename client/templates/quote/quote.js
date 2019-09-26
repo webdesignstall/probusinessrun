@@ -1,4 +1,3 @@
-/*global moment*/
 import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
 import { Template } from 'meteor/templating';
@@ -6,6 +5,8 @@ import ReactDOM from 'react-dom';
 import WorkData from './../../../common/collections_2';
 import { Tracker } from 'meteor/tracker';
 import swal from 'sweetalert';
+import React from 'react';
+import QuoteMainPage from './QuoteMainPage';
 
 /*global $*/
 
@@ -1098,6 +1099,7 @@ Template.quoteTam.onDestroyed(function() {
 
 Template.preQuote.onRendered(function() {
     let checked = document.querySelector('#flatRateCheck');
+    ReactDOM.render(<QuoteMainPage />, document.getElementById('pre_quote'));
     checked.addEventListener('change', function() {
         Session.set('flatRate', !Session.get('flatRate'));
     });

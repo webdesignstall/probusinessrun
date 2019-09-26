@@ -66,6 +66,7 @@ Meteor.startup(() => {
     Session.set('customerRate_', 0);
     Session.set('dataUpdated', false);
     Session.set('addressExt', []);
+    Session.set('job_', {});
 
     Tracker.autorun(() => {
         let user = Meteor.userId();
@@ -78,32 +79,6 @@ Meteor.startup(() => {
                 (user1.profile.rank === 'admin' || user1.profile.rank === 'officeEmployee' || user1.profile.rank === 'tablet')
             ) {
                 Session.set('loading', true);
-                let count = 0;
-
-                // Meteor.subscribe('workSchema', {
-                //     onReady: function() {
-                //         count++;
-                //         count === 4 && Session.set('loading', false);
-                //     }
-                // });
-                // Meteor.subscribe('Dicsounts', {
-                //     onReady: function() {
-                //         count++;
-                //         count === 4 && Session.set('loading', false);
-                //     }
-                // });
-                // Meteor.subscribe('tabletData', {
-                //     onReady: function() {
-                //         count++;
-                //         count === 4 && Session.set('loading', false);
-                //     }
-                // });
-                // Meteor.subscribe('fullUser', {
-                //     onReady: function() {
-                //         count++;
-                //         count === 4 && Session.set('loading', false);
-                //     }
-                // });
 
                 Meteor.subscribe('fullUser', {
                     onReady: function() {
@@ -121,13 +96,11 @@ Meteor.startup(() => {
                                 });
                             }
                         });
-                        // }
-                        // });
                     }
                 });
             }
         } else {
-            console.log('user yoxdu');
+            console.info('User doesnt sign');
         }
     });
 

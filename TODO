@@ -6,6 +6,12 @@ Notification center:
     ☐ Make possible to create and delete the notifications from client side
     ☐ only admins can modify notifications
 
+Rebuild adding job and updatede job component: 
+    ✔ create centralized object in the session @started(19-09-25 17:16) @done(19-09-25 17:26) @lasted(10m1s)
+    ☐ update all fields thrue sessions
+    ☐ save informations from session job object
+    ☐ reset session after saving or updateing job
+
 Small Item packing redesign:
     ✔ add total line @done(19-09-06 16:44)
     ✔ change sml item pachking name @started(19-09-06 16:45) @done(19-09-06 16:45) @lasted(26s)
