@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Session } from 'meteor/session';
+import { Tracker } from 'meteor/tracker';
 
 export default class StairInfo extends Component {
     constructor(props) {
@@ -15,18 +16,19 @@ export default class StairInfo extends Component {
         this.selector = this.selector.bind(this);
     }
 
-    UNSAFE_componentWillReceiveProps(nextProps) {
-        this.setState({
-            checked: nextProps.checked,
-            stairs: nextProps.stairs
+    componentDidMount() {
+        this.x = Tracker.autorun(() => {
+            let job = Session.get('job_');
+
+            this.setState({
+                checked: job.addressExt && job.addressExt[this.props.index] ? job.addressExt[this.props.index].checked : '',
+                stairs: job.addressExt && job.addressExt[this.props.index] ? job.addressExt[this.props.index].stairs : ''
+            });
         });
     }
 
-    componentDidMount() {
-        this.setState({
-            checked: this.props.checked,
-            stairs: this.props.stairs
-        });
+    componentWillUnmount() {
+        this.x.stop();
     }
 
     checkbox(value) {
@@ -40,9 +42,11 @@ export default class StairInfo extends Component {
         );
     }
     setSession() {
-        let oldSession = Session.get('addressExt');
-        oldSession[this.props.index] = this.state;
-        Session.set('addressExt', oldSession);
+        let job = Session.get('job_');
+        job.addressExt ? null : (job.addressExt = [{ checked: '', stairs: '' }, { checked: '', stairs: '' }]);
+        job.addressExt[this.props.index] = this.state;
+
+        Session.set('job_', job);
     }
 
     selector(e) {

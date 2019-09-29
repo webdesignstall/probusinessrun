@@ -121,7 +121,7 @@ Template.preQuote.onDestroyed(function() {
     $('#edit-schedule-page').hide();
     ReactDOM.unmountComponentAtNode(document.getElementById('truck-list-update'));
     ReactDOM.unmountComponentAtNode(document.getElementById('update_time_window'));
-    ReactDOM.unmountComponentAtNode(document.getElementById('arrival-time'));
+    // ReactDOM.unmountComponentAtNode(document.getElementById('arrival-time'));
     ReactDOM.unmountComponentAtNode(document.getElementById('moving-size'));
     ReactDOM.unmountComponentAtNode(document.getElementById('iscilerinSiyahisiRender'));
     ReactDOM.unmountComponentAtNode(document.getElementById('moving-company'));
@@ -135,12 +135,12 @@ Template.kalendar.onDestroyed(() => {
     ReactDOM.unmountComponentAtNode(document.getElementById('iscilerinSiyahisiRender'));
     ReactDOM.unmountComponentAtNode(document.getElementById('number-of-movers'));
     ReactDOM.unmountComponentAtNode(document.getElementById('update_time_window'));
-    ReactDOM.unmountComponentAtNode(document.getElementById('arrival-time'));
+    // ReactDOM.unmountComponentAtNode(document.getElementById('arrival-time'));
     ReactDOM.unmountComponentAtNode(document.getElementById('moving-size'));
     ReactDOM.unmountComponentAtNode(document.getElementById('moving-company'));
     ReactDOM.unmountComponentAtNode(document.getElementById('tempTruck'));
     ReactDOM.unmountComponentAtNode(document.getElementById('addressesId'));
-    ReactDOM.unmountComponentAtNode(document.getElementById('takenBy'));
+    // ReactDOM.unmountComponentAtNode(document.getElementById('takenBy'));
     ReactDOM.unmountComponentAtNode(document.getElementById('additional-contact-update'));
     ReactDOM.unmountComponentAtNode(document.getElementById('quote-date-expiration-add'));
     ReactDOM.unmountComponentAtNode(document.getElementById('quote-customer-priority'));
@@ -633,16 +633,16 @@ Template.kalendar.events({
         ReactDOM.unmountComponentAtNode(document.getElementById('truck-list-update'));
         ReactDOM.unmountComponentAtNode(document.getElementById('update_time_window'));
         ReactDOM.unmountComponentAtNode(document.getElementById('number-of-movers2'));
-        ReactDOM.render(<ArrivalWindow />, document.getElementById('arrival-time'));
+        // ReactDOM.render(<ArrivalWindow />, document.getElementById('arrival-time'));
         ReactDOM.render(<CompanySelector />, document.getElementById('moving-company'));
         ReactDOM.render(<TempTrucks />, document.getElementById('tempTruck'));
-        ReactDOM.render(<TakenBy />, document.getElementById('takenBy'));
+        // ReactDOM.render(<TakenBy />, document.getElementById('takenBy'));
         ReactDOM.render(<NumberOfUsers />, document.getElementById('number-of-movers'));
-        ReactDOM.render(<AdditionalContact />, document.getElementById('additional-contact'));
+        // ReactDOM.render(<AdditionalContact />, document.getElementById('additional-contact'));
         ReactDOM.render(<QuoteExpiration />, document.getElementById('quote-date-expiration-add'));
         ReactDOM.render(<CustomerPriority />, document.getElementById('quote-customer-priority'));
         ReactDOM.render(<NoteForMovers />, document.getElementById('note_for_movers_'));
-        window.addresses = ReactDOM.render(<Addresses />, document.getElementById('addressesId'));
+        // window.addresses = ReactDOM.render(<Addresses />, document.getElementById('addressesId'));
         Session.set('is', '');
 
         $(document).ready(function() {
@@ -659,17 +659,17 @@ Template.kalendar.events({
         ReactDOM.unmountComponentAtNode(document.getElementById('truck-list-update'));
         ReactDOM.unmountComponentAtNode(document.getElementById('update_time_window'));
         ReactDOM.unmountComponentAtNode(document.getElementById('number-of-movers2'));
-        ReactDOM.render(<ArrivalWindow />, document.getElementById('arrival-time'));
+        // ReactDOM.render(<ArrivalWindow />, document.getElementById('arrival-time'));
         ReactDOM.render(<CompanySelector />, document.getElementById('moving-company'));
         ReactDOM.render(<TempTrucks />, document.getElementById('tempTruck'));
-        ReactDOM.render(<TakenBy />, document.getElementById('takenBy'));
+        // ReactDOM.render(<TakenBy />, document.getElementById('takenBy'));
         ReactDOM.render(<NumberOfUsers />, document.getElementById('number-of-movers'));
-        ReactDOM.render(<AdditionalContact />, document.getElementById('additional-contact'));
+        // ReactDOM.render(<AdditionalContact />, document.getElementById('additional-contact'));
         ReactDOM.render(<QuoteExpiration />, document.getElementById('quote-date-expiration-add'));
         ReactDOM.render(<CustomerPriority />, document.getElementById('quote-customer-priority'));
         ReactDOM.render(<AdditionalInfo />, document.getElementById('additional_info_add'));
         ReactDOM.render(<NoteForMovers />, document.getElementById('note_for_movers_'));
-        window.addresses = ReactDOM.render(<Addresses />, document.getElementById('addressesId'));
+        // window.addresses = ReactDOM.render(<Addresses />, document.getElementById('addressesId'));
         Session.set('is', '');
 
         $(document).ready(function() {
@@ -688,13 +688,13 @@ Template.kalendar.events({
         ReactDOM.unmountComponentAtNode(document.getElementById('number-of-movers'));
         ReactDOM.unmountComponentAtNode(document.getElementById('truck-list-update'));
         ReactDOM.unmountComponentAtNode(document.getElementById('update_time_window'));
-        ReactDOM.unmountComponentAtNode(document.getElementById('arrival-time'));
+        // ReactDOM.unmountComponentAtNode(document.getElementById('arrival-time'));
         ReactDOM.unmountComponentAtNode(document.getElementById('moving-size'));
         ReactDOM.unmountComponentAtNode(document.getElementById('iscilerinSiyahisiRender'));
         ReactDOM.unmountComponentAtNode(document.getElementById('moving-company'));
         ReactDOM.unmountComponentAtNode(document.getElementById('tempTruck'));
         ReactDOM.unmountComponentAtNode(document.getElementById('addressesId'));
-        ReactDOM.unmountComponentAtNode(document.getElementById('takenBy'));
+        // ReactDOM.unmountComponentAtNode(document.getElementById('takenBy'));
         ReactDOM.unmountComponentAtNode(document.getElementById('additional-contact-update'));
         ReactDOM.unmountComponentAtNode(document.getElementById('quote-date-expiration-add'));
         ReactDOM.unmountComponentAtNode(document.getElementById('quote-customer-priority'));
@@ -717,13 +717,13 @@ Template.kalendar.events({
             ReactDOM.unmountComponentAtNode(document.getElementById('number-of-movers'));
             ReactDOM.unmountComponentAtNode(document.getElementById('truck-list-update'));
             ReactDOM.unmountComponentAtNode(document.getElementById('update_time_window'));
-            ReactDOM.unmountComponentAtNode(document.getElementById('arrival-time'));
+            // ReactDOM.unmountComponentAtNode(document.getElementById('arrival-time'));
             ReactDOM.unmountComponentAtNode(document.getElementById('moving-size'));
             ReactDOM.unmountComponentAtNode(document.getElementById('iscilerinSiyahisiRender'));
             ReactDOM.unmountComponentAtNode(document.getElementById('moving-company'));
             ReactDOM.unmountComponentAtNode(document.getElementById('tempTruck'));
             ReactDOM.unmountComponentAtNode(document.getElementById('addressesId'));
-            ReactDOM.unmountComponentAtNode(document.getElementById('takenBy'));
+            // ReactDOM.unmountComponentAtNode(document.getElementById('takenBy'));
             ReactDOM.unmountComponentAtNode(document.getElementById('additional-contact-update'));
             ReactDOM.unmountComponentAtNode(document.getElementById('quote-date-expiration-add'));
 
@@ -738,12 +738,12 @@ Template.kalendar.events({
             let job = WorkData.findOne({ _id: Session.get('is') });
             ReactDOM.unmountComponentAtNode(document.getElementById('addTruck'));
             ReactDOM.render(<UpdateAddTruck />, document.querySelector('#truck-list-update'));
-            ReactDOM.unmountComponentAtNode(document.getElementById('arrival-time'));
+            // ReactDOM.unmountComponentAtNode(document.getElementById('arrival-time'));
             ReactDOM.render(<ArrivalWindow update={true} />, document.getElementById('update_time_window'));
             ReactDOM.render(<MovingSize />, document.getElementById('moving-size'));
             ReactDOM.render(<RenderEmployees />, document.getElementById('iscilerinSiyahisiRender'));
             ReactDOM.render(<UpdateDoubleDrive />, document.getElementById('double-drive-time-update'));
-            ReactDOM.render(<Addresses />, document.getElementById('addressesIdUpdate'));
+            // ReactDOM.render(<Addresses />, document.getElementById('addressesIdUpdate'));
             ReactDOM.render(<NumberOfUsers />, document.getElementById('number-of-movers2'));
             ReactDOM.render(<TempTrucks update={true} />, document.getElementById('tempTruckUpdate'));
             ReactDOM.render(<QuoteExpiration />, document.getElementById('quoteExpireDateUpdate'));
@@ -751,14 +751,14 @@ Template.kalendar.events({
             ReactDOM.render(<NewAppointment />, document.getElementById('new_appointment_update'));
             ReactDOM.render(<AdditionalInfo />, document.getElementById('additional_info_update'));
             ReactDOM.render(<NoteForMovers />, document.getElementById('note_for_movers_update'));
-            ReactDOM.render(
-                <AdditionalContact contacts={job ? job.additionalContacts : []} />,
-                document.getElementById('additional-contact-update')
-            );
+            // ReactDOM.render(
+            //     <AdditionalContact contacts={job ? job.additionalContacts : []} />,
+            //     document.getElementById('additional-contact-update')
+            // );
 
             let x = WorkData.findOne({ _id: Session.get('is') });
             let takenById = x.takenBy;
-            ReactDOM.render(<TakenBy id={takenById} update={true} />, document.getElementById('takenBy--update'));
+            // ReactDOM.render(<TakenBy id={takenById} update={true} />, document.getElementById('takenBy--update'));
             $('#quote-date-picker_2').datepicker();
             $(function() {
                 $('#quote-date-picker_2').datepicker('setDate', new Date(x.workDate));

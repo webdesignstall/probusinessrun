@@ -16,13 +16,11 @@ export default class Addresses extends React.Component {
 
         this.state = {
             arrayOfvalue: ['', ''],
-            distance: 0,
-            addressExt: [{ checked: '', stairs: '' }, { checked: '', stairs: '' }]
+            distance: 0
         };
 
         this.renderAddressFields = this.renderAddressFields.bind(this);
         this.addMore = this.addMore.bind(this);
-        this.resetComponent = this.resetComponent.bind(this);
         this.deleteAddress = this.deleteAddress.bind(this);
         this.handleLoadAutoComplete = this.handleLoadAutoComplete.bind(this);
         this.handlePlaceSelect = this.handlePlaceSelect.bind(this);
@@ -32,19 +30,12 @@ export default class Addresses extends React.Component {
 
     componentDidMount() {
         this.x = Tracker.autorun(() => {
-            let isId = Session.get('is');
-            let isInfo = WorkData.findOne(isId);
+            let job = Session.get('job_');
 
-            isInfo ? Session.set('addressExt', isInfo.addressExt ? isInfo.addressExt : this.state.addressExt) : null;
-            Session.get('reset') ? this.resetComponent() : null;
+            !job.addresses ? this.setState({ arrayOfvalue: ['', ''] }) : null;
 
-            isInfo && isInfo.addresses.length > 0
-                ? this.setState({ arrayOfvalue: isInfo.addresses, addressExt: isInfo.addressExt }, () => {
-                    this.props.updateJob &&
-                          this.props.updateJob({
-                              addresses: this.state.arrayOfvalue
-                          });
-                })
+            job.addresses && job.addresses.length > 0
+                ? this.setState({ arrayOfvalue: job.addresses })
                 : this.setState({
                     arrayOfvalue: ['', '']
                 });
@@ -116,21 +107,6 @@ export default class Addresses extends React.Component {
         }
     }
 
-    resetComponent() {
-        this.setState(
-            {
-                arrayOfvalue: ['', ''],
-                distance: 0
-            },
-            () => {
-                this.props.updateJob &&
-                    this.props.updateJob({
-                        addresses: this.state.arrayOfvalue
-                    });
-            }
-        );
-    }
-
     componentWillUnmount() {
         this.x.stop();
     }
@@ -138,32 +114,29 @@ export default class Addresses extends React.Component {
     inputChangeHandler(i) {
         let arrayOfvalue = [...this.state.arrayOfvalue];
         arrayOfvalue[i] = event.target.value;
+        let job = Session.get('job_');
         this.setState({ arrayOfvalue }, () => {
-            this.props.updateJob &&
-                this.props.updateJob({
-                    addresses: this.state.arrayOfvalue
-                });
+            job.addresses = arrayOfvalue;
+            Session.set('job_', job);
         });
     }
 
     deleteAddress(index) {
         let oldArray = this.state.arrayOfvalue;
         oldArray.splice(index, 1);
+        let job = Session.get('job_');
+        job.addresses = oldArray;
         this.setState(
             {
                 arrayOfvalue: oldArray
             },
             () => {
-                this.props.updateJob &&
-                    this.props.updateJob({
-                        addresses: this.state.arrayOfvalue
-                    });
+                Session.set('job_', job);
             }
         );
     }
 
     renderAddressFields() {
-        let { addressExt } = this.state;
         return this.state.arrayOfvalue.map((el, i) => (
             <div key={i} id={i + '_id'} className="input-field valideyn col s12 m6 l6 address_list">
                 <i className="material-icons isare">location_on</i>
@@ -182,11 +155,7 @@ export default class Addresses extends React.Component {
                 <label className="active" htmlFor="movingFrom">
                     {'Address #' + (i + 1)}
                 </label>
-                <StairInfo
-                    checked={(addressExt && addressExt.length > 0 && addressExt[i].checked) || ''}
-                    stairs={(addressExt && addressExt.length > 0 && addressExt[i].stairs) || ''}
-                    index={i}
-                />
+                <StairInfo index={i} />
             </div>
         ));
     }
@@ -194,15 +163,12 @@ export default class Addresses extends React.Component {
     addMore() {
         this.setState(
             prevState => ({
-                arrayOfvalue: [...prevState.arrayOfvalue, ''],
-                addressExt: [...prevState.addressExt, { checked: '', stairs: '' }]
+                arrayOfvalue: [...prevState.arrayOfvalue, '']
             }),
             () => {
-                this.props.updateJob &&
-                    this.props.updateJob({
-                        addresses: this.state.arrayOfvalue
-                    });
-
+                let job = Session.get('job_');
+                job.addresses = this.state.arrayOfvalue;
+                Session.set('job_', job);
                 let index = this.state.arrayOfvalue.length - 1;
                 this.setGoogleAutoComplete(index);
             }
@@ -211,9 +177,15 @@ export default class Addresses extends React.Component {
 
     handlePlaceSelect(id, address, formattedAddress) {
         if (address) {
+            let job = Session.get('job_');
+
             this.setState(prevState => {
                 let arrayOfvalue = prevState.arrayOfvalue;
                 arrayOfvalue[id] = formattedAddress;
+                job.addresses = arrayOfvalue;
+
+                Session.set('job_', job);
+
                 return {
                     arrayOfvalue
                 };
@@ -249,39 +221,41 @@ export default class Addresses extends React.Component {
 
     render() {
         return (
-            <div className="addresses_">
-                <div>
-                    <span
-                        style={{
-                            fontWeight: 'bold',
-                            letterSpacing: '0.5px',
-                            position: 'absolute',
-                            top: '-27px'
-                        }}>
-                        ADDRESSES
-                    </span>
-                    <div className="addMoreAddress-button addMoreAddress" onClick={this.addMore}>
-                        <div className="relative">
-                            <span>Add More</span>
-                            <i className="ikonka material-icons" style={{ left: '87px' }}>
-                                add_circle
-                            </i>
+            <div className="cardBorder relative ">
+                <div id="addressesId" className="input-field valideyn  addresses_">
+                    <div>
+                        <span
+                            style={{
+                                fontWeight: 'bold',
+                                letterSpacing: '0.5px',
+                                position: 'absolute',
+                                top: '-27px'
+                            }}>
+                            ADDRESSES
+                        </span>
+                        <div className="addMoreAddress-button addMoreAddress" onClick={this.addMore}>
+                            <div className="relative">
+                                <span>Add More</span>
+                                <i className="ikonka material-icons" style={{ left: '87px' }}>
+                                    add_circle
+                                </i>
+                            </div>
                         </div>
                     </div>
+                    <hr style={{ marginTop: '30px' }} />
+                    {this.renderAddressFields()}
+                    <div className="totalDistance col s12 m12 l12">
+                        <span className="totalDistance_button" onClick={this.calculateDistance}>
+                            Calculate Total Distance
+                        </span>
+                        <span className="totalDistance_distance">{this.state.distance} mi</span>
+                    </div>
+                    <div className="clear" />
+                    <Script
+                        url="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjRe1_nLcLGv0S6z0r2nxtEzKhqf3Ecco&libraries=places"
+                        onLoad={this.handleLoadAutoComplete}
+                    />
                 </div>
-                <hr style={{ marginTop: '30px' }} />
-                {this.renderAddressFields()}
-                <div className="totalDistance col s12 m12 l12">
-                    <span className="totalDistance_button" onClick={this.calculateDistance}>
-                        Calculate Total Distance
-                    </span>
-                    <span className="totalDistance_distance">{this.state.distance} mi</span>
-                </div>
-                <div className="clear" />
-                <Script
-                    url="https://maps.googleapis.com/maps/api/js?key=AIzaSyBjRe1_nLcLGv0S6z0r2nxtEzKhqf3Ecco&libraries=places"
-                    onLoad={this.handleLoadAutoComplete}
-                />
             </div>
         );
     }

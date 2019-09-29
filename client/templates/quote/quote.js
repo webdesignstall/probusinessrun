@@ -394,26 +394,26 @@ Template.preQuote.onRendered(function() {
 
     let regex = new RegExp(/^\d+$/);
 
-    document.querySelector('#phoneNumber').addEventListener('input', e => {
-        e.preventDefault();
-        if (regex.test(e.target.value)) {
-            let value = e.target.value;
-            document.querySelector('#phoneNumber').value = value;
-        } else {
-            let value = e.target.value.toString().slice(0, e.target.value.length - 1);
-            document.querySelector('#phoneNumber').value = value;
-        }
-    });
-    document.querySelector('#phoneNumberAdditional').addEventListener('input', e => {
-        e.preventDefault();
-        if (regex.test(e.target.value)) {
-            let value = e.target.value;
-            document.querySelector('#phoneNumberAdditional').value = value;
-        } else {
-            let value = e.target.value.toString().slice(0, e.target.value.length - 1);
-            document.querySelector('#phoneNumberAdditional').value = value;
-        }
-    });
+    // document.querySelector('#phoneNumber').addEventListener('input', e => {
+    //     e.preventDefault();
+    //     if (regex.test(e.target.value)) {
+    //         let value = e.target.value;
+    //         document.querySelector('#phoneNumber').value = value;
+    //     } else {
+    //         let value = e.target.value.toString().slice(0, e.target.value.length - 1);
+    //         document.querySelector('#phoneNumber').value = value;
+    //     }
+    // });
+    // document.querySelector('#phoneNumberAdditional').addEventListener('input', e => {
+    //     e.preventDefault();
+    //     if (regex.test(e.target.value)) {
+    //         let value = e.target.value;
+    //         document.querySelector('#phoneNumberAdditional').value = value;
+    //     } else {
+    //         let value = e.target.value.toString().slice(0, e.target.value.length - 1);
+    //         document.querySelector('#phoneNumberAdditional').value = value;
+    //     }
+    // });
 });
 
 Template.preQuote.events({

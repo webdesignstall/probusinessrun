@@ -49,10 +49,7 @@ export default class QuoteTam extends React.Component {
         let x = WorkData.findOne({ _id: Session.get('is') });
         document.querySelector('#updateQuote2').classList.remove('hide');
         ReactDOM.render(<UpdateAddTruck />, document.querySelector('#truck-list-update'));
-        ReactDOM.render(
-            <ArrivalWindow update={true} />,
-            document.getElementById('update_time_window')
-        );
+        ReactDOM.render(<ArrivalWindow update={true} />, document.getElementById('update_time_window'));
         ReactDOM.render(<NumberOfUsers />, document.getElementById('number-of-movers2'));
         ReactDOM.render(<MovingSize />, document.getElementById('moving-size'));
         ReactDOM.render(<UpdateDoubleDrive />, document.getElementById('double-drive-time-update'));
@@ -60,15 +57,12 @@ export default class QuoteTam extends React.Component {
         ReactDOM.render(<TempTruck update={true} />, document.querySelector('#tempTruckUpdate'));
         ReactDOM.render(<Addresses />, document.querySelector('#addressesIdUpdate'));
         ReactDOM.render(<QuoteExpiration />, document.querySelector('#quoteExpireDateUpdate'));
-        ReactDOM.render(
-            <AdditionalContact contacts={x.additionalContacts} />,
-            document.querySelector('#additional-contact-update')
-        );
+        // ReactDOM.render(
+        //     <AdditionalContact contacts={x.additionalContacts} />,
+        //     document.querySelector('#additional-contact-update')
+        // );
         let takenById = x.takenBy;
-        ReactDOM.render(
-            <TakenBy id={takenById} update={true} />,
-            document.getElementById('takenBy--update')
-        );
+        ReactDOM.render(<TakenBy id={takenById} update={true} />, document.getElementById('takenBy--update'));
         $(document).ready(function() {
             $('select').material_select();
         });
@@ -95,8 +89,7 @@ export default class QuoteTam extends React.Component {
                     key={quotes._id}
                     href="#"
                     className="collection-item"
-                    onClick={() => this.setWorkId(quotes._id, quotes.additionalContacts)}
-                >
+                    onClick={() => this.setWorkId(quotes._id, quotes.additionalContacts)}>
                     <span className="tarix-in-list">{quotes.workDate}</span>
                     <span className="tarix-in-list green">{quotes.jobNumber}</span>
                     <span>
@@ -108,8 +101,7 @@ export default class QuoteTam extends React.Component {
                             padding: '3px 10px 2px',
                             marginTop: '-2px',
                             borderRadius: '15px'
-                        }}
-                    >
+                        }}>
                         {moment(quotes.quoteDate).format('MM/DD/YYYY hh:mm a')}
                     </span>
                 </a>

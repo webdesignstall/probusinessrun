@@ -1,77 +1,60 @@
 import React, { Component } from 'react';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import { Meteor } from 'meteor/meteor';
+import { Session } from 'meteor/session';
+import { Tracker } from 'meteor/tracker';
 
 export default class TakenBy extends TrackerReact(Component) {
     constructor(props) {
         super(props);
 
         this.state = {
-            id: this.props.id,
-            usersList: []
+            firstName: '',
+            lastName: ''
         };
-
-        this.selectRef = React.createRef();
-        this.changeDefValue = this.changeDefValue.bind(this);
     }
 
-    fetchUsers(id) {
-        let users = [];
-        users = id ? Meteor.users.find({ _id: id }).fetch() : Meteor.users.find({}).fetch();
-        return users;
+    fetchUsers(_id) {
+        return Meteor.users.find({ _id }).fetch()[0];
     }
 
     componentDidMount() {
-        // Meteor.subscribe('fullUser');
-        let userId = Meteor.user()._id;
-        this.setState({
-            usersList: this.fetchUsers(this.props.id),
-            id: userId
+        this.x = Tracker.autorun(() => {
+            let job = Session.get('job_');
+            let userId = Meteor.userId();
+            job.takenBy ? (userId = job.takenBy) : null;
+            job.takenBy = userId;
+            Session.set('job_', job);
+
+            let user = this.fetchUsers(userId);
+            this.setState({
+                firstName: user ? user.profile.firstName : 'Profile not found',
+                lastName: user ? user.profile.lastName : ''
+            });
         });
     }
 
-    UNSAFE_componentWillReceiveProps(nextProps) {
-        this.setState({
-            usersList: this.fetchUsers(nextProps.id),
-            id: nextProps.id
-        });
-    }
-
-    changeDefValue() {
-        this.selectRef.current.value = this.state.id;
-    }
-
-    componentDidUpdate() {
-        this.state.id ? this.changeDefValue() : '';
+    componentWilUnmount() {
+        this.x.stop();
     }
 
     renderList() {
-        return this.state.usersList.map(user => {
-            return (
-                <option key={user._id + 'option'} value={user._id}>
-                    {user.profile.firstName} {user.profile.lastName}
-                </option>
-            );
-        });
+        let { firstName, lastName } = this.state;
+        return (
+            <option>
+                {firstName} {lastName}
+            </option>
+        );
     }
 
     render() {
         return (
-            <React.Fragment>
+            <div id="takenBy" className="col s12 m3 l3">
                 <label htmlFor="taken_by_add">Taken by</label>
-                <select
-                    id="takenBy--value"
-                    ref={this.selectRef}
-                    disabled={this.state.id ? true : false}
-                    // disabled={true}
-                    defaultValue="_"
-                    className="browser-default">
-                    <option id="taken_by_add" value="_" disabled>
-                        Taken by
-                    </option>
+                <select id="takenBy--value" ref={this.selectRef} disabled={true} className="browser-default">
                     {this.renderList()}
                 </select>
-            </React.Fragment>
+            </div>
         );
     }
 }

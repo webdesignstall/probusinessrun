@@ -4,7 +4,6 @@ import { Session } from 'meteor/session';
 import WorkData from '../../../common/collections_2';
 import TimeSelector from '../../../imports/timeSelector/TimeSelector';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
-import PropTypes from 'prop-types';
 
 export default class ArrivalWindow extends TrackerReact(Component) {
     constructor(props) {
@@ -84,16 +83,15 @@ export default class ArrivalWindow extends TrackerReact(Component) {
         this.x = Tracker.autorun(() => {
             let id = Session.get('is');
             let selected = [];
-            let reset = Session.get('reset');
+            let job = Session.get('job_');
 
-            reset
+            !job.workMustBeginTime
                 ? ((document.getElementById('select-arrive-time' + this.state.randomNumber).value = 'Select moving time window'),
                 this.setState({ custom: false }))
                 : null;
 
             if (id !== '') {
-                selected = this.finTheJob(id);
-                selected = selected[0].workMustBeginTime;
+                selected = job.workMustBeginTime || [];
                 let isMorningAfternoon = selected[0] === '04:00 am' && selected[1] === '04:00 am'; // is it Morning Afternoon aviability selected
                 let isCustom = false; // is custom time selected
                 let difValue = '';
@@ -123,8 +121,10 @@ export default class ArrivalWindow extends TrackerReact(Component) {
                                 ? (document.getElementById('select-arrive-time' + this.state.randomNumber).value = difValue)
                                 : null;
                             let workMustBeginTime = [this.state.time1, this.state.time2];
+                            let job = Session.get('job_');
+                            job.workMustBeginTime = workMustBeginTime;
 
-                            this.props.updateJob && this.props.updateJob({ workMustBeginTime });
+                            Session.set('job_', job);
                         }
                     )
                     : isMorningAfternoon
@@ -141,8 +141,10 @@ export default class ArrivalWindow extends TrackerReact(Component) {
                                         'Morning & Afternoon')
                                     : null;
                                 let workMustBeginTime = [this.state.time1, this.state.time2];
+                                let job = Session.get('job_');
+                                job.workMustBeginTime = workMustBeginTime;
 
-                                this.props.updateJob && this.props.updateJob({ workMustBeginTime });
+                                Session.set('job_', job);
                             }
                         )
                         : isCustom
@@ -158,8 +160,10 @@ export default class ArrivalWindow extends TrackerReact(Component) {
                                         ? (document.getElementById('select-arrive-time' + this.state.randomNumber).value = 'Custom')
                                         : null;
                                     let workMustBeginTime = [this.state.time1, this.state.time2];
+                                    let job = Session.get('job_');
+                                    job.workMustBeginTime = workMustBeginTime;
 
-                                    this.props.updateJob && this.props.updateJob({ workMustBeginTime });
+                                    Session.set('job_', job);
                                 }
                             )
                             : null;
@@ -193,8 +197,10 @@ export default class ArrivalWindow extends TrackerReact(Component) {
                             },
                             () => {
                                 let workMustBeginTime = [this.state.time1, this.state.time2];
+                                let job = Session.get('job_');
+                                job.workMustBeginTime = workMustBeginTime;
 
-                                this.props.updateJob && this.props.updateJob({ workMustBeginTime });
+                                Session.set('job_', job);
                             }
                         )
                         : null;
@@ -253,8 +259,10 @@ export default class ArrivalWindow extends TrackerReact(Component) {
             },
             () => {
                 let workMustBeginTime = [this.state.time1, this.state.time2];
+                let job = Session.get('job_');
+                job.workMustBeginTime = workMustBeginTime;
 
-                this.props.updateJob && this.props.updateJob({ workMustBeginTime });
+                Session.set('job_', job);
             }
         );
     }
@@ -288,23 +296,21 @@ export default class ArrivalWindow extends TrackerReact(Component) {
 
     render() {
         return (
-            <div className="arrivalWindow">
-                <div id="arrivalWindow--id" className="parent">
-                    <i className="material-icons isare">date_range</i>
-                    {this.renderArrivalTime()}
-                    {this.custom()}
+            <div id="arrival-time" style={{ marginTop: '10px' }} className="input-field valideyn col s12 m3 l3">
+                <div className="arrivalWindow">
+                    <div id="arrivalWindow--id" className="parent">
+                        <i className="material-icons isare">date_range</i>
+                        {this.renderArrivalTime()}
+                        {this.custom()}
+                    </div>
+                    <label
+                        className="active"
+                        htmlFor="arrivalWindow--id"
+                        style={{ backgroundColor: '#EDF0F1', padding: '0 5px', margin: '8px 15px' }}>
+                        Arrival Window
+                    </label>
                 </div>
-                <label
-                    className="active"
-                    htmlFor="arrivalWindow--id"
-                    style={{ backgroundColor: '#EDF0F1', padding: '0 5px', margin: '8px 15px' }}>
-                    Arrival Window
-                </label>
             </div>
         );
     }
 }
-
-ArrivalWindow.propTypes = {
-    updateJob: PropTypes.func
-};

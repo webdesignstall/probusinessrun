@@ -15,41 +15,41 @@ export default class UpdateArrivalWindow extends React.Component {
             options: [
                 {
                     name: 'Select moving time window',
-                    status: 1,
+                    status: 1
                 },
                 {
                     name: 'Morning',
-                    status: 0,
+                    status: 0
                 },
                 {
                     name: 'Between 8-9am',
-                    status: 1,
+                    status: 1
                 },
                 {
                     name: 'Between 9-10am',
-                    status: 1,
+                    status: 1
                 },
                 {
                     name: 'Afternoon',
-                    status: 0,
+                    status: 0
                 },
                 {
                     name: 'Between 1-4pm',
-                    status: 1,
+                    status: 1
                 },
                 {
                     name: 'Between 2-5pm',
-                    status: 1,
+                    status: 1
                 },
                 {
                     name: 'Morning & Afternoon',
-                    status: 1,
+                    status: 1
                 },
                 {
                     name: 'Custom',
-                    status: 1,
-                },
-            ],
+                    status: 1
+                }
+            ]
         };
 
         this.onChangeInput = this.onChangeInput.bind(this);
@@ -71,11 +71,11 @@ export default class UpdateArrivalWindow extends React.Component {
 
             this.setState(
                 {
-                    selected: selected,
+                    selected: selected
                 },
                 () => {
                     this.secilmisiRenderEt();
-                },
+                }
             );
 
             let that = this;
@@ -84,11 +84,11 @@ export default class UpdateArrivalWindow extends React.Component {
                 if (value === 'Custom') {
                     // document.getElementsByClassName('select-wrapper')[0].classList.add('hide');
                     that.setState({
-                        custom: true,
+                        custom: true
                     });
                 } else {
                     that.setState({
-                        custom: false,
+                        custom: false
                     });
                 }
             };
@@ -104,7 +104,7 @@ export default class UpdateArrivalWindow extends React.Component {
         this.state.options.map(option => {
             if (option.name === this.state.selected) {
                 this.setState({
-                    defValue: this.state.selected,
+                    defValue: this.state.selected
                 });
             }
         });
@@ -112,19 +112,19 @@ export default class UpdateArrivalWindow extends React.Component {
         //isdeki zaman siyahida yoxdursa ve isdeki zaman bos deyilse
         if (this.state.defValue === '' && this.state.selected != '') {
             this.setState({
-                defValue: 'Custom',
+                defValue: 'Custom'
             });
 
             this.setState({
                 trueFalse: true,
                 custom: true,
-                valueOfInput: this.state.selected,
+                valueOfInput: this.state.selected
             });
         }
 
         if (this.state.selected === '') {
             this.setState({
-                defValue: 'Select moving time window',
+                defValue: 'Select moving time window'
             });
         }
     }
@@ -153,7 +153,7 @@ export default class UpdateArrivalWindow extends React.Component {
 
     onChangeInput(e) {
         this.setState({
-            valueOfInput: e.target.value,
+            valueOfInput: e.target.value
         });
     }
 
@@ -180,7 +180,3 @@ export default class UpdateArrivalWindow extends React.Component {
         );
     }
 }
-
-// Template.preQuote.onRendered(() => {
-//     ReactDOM.render(<ArrivalWindow />, document.getElementById('arrival-time'));
-// });
