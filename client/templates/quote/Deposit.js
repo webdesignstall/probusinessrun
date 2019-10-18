@@ -2,24 +2,22 @@ import React, { Component } from 'react';
 import { Tracker } from 'meteor/tracker';
 import { Session } from 'meteor/session';
 
-export default class NoteForMovers extends Component {
+export default class Deposit extends Component {
     constructor(props) {
         super(props);
-
+        // noinspection JSValidateTypes
         this.state = {
             value: ''
         };
-        this.changeHandler = this.changeHandler.bind(this);
     }
 
     componentDidMount() {
         this.x = Tracker.autorun(() => {
             this.timeOut = null;
-            let job = Session.get('job_');
-
-            if (job.note) {
+            let value = Session.get('job_').deposit;
+            if (value) {
                 this.setState({
-                    value: job.noteForMovers
+                    value
                 });
             } else {
                 this.setState({
@@ -44,28 +42,30 @@ export default class NoteForMovers extends Component {
         this.timeOut = setTimeout(() => this.setSession(what, value), 500);
     }
 
-    changeHandler(e) {
-        let value = e.target.value;
-        this.setState(
-            {
-                value
-            },
-            () => {
-                this.interval('noteForMovers', value);
-            }
-        );
+    onChange(e) {
+        let value = Number(e.target.value);
+
+        this.interval('deposit', value);
+
+        this.setState({
+            value
+        });
     }
 
     render() {
         return (
-            <div className="input-field">
-                <textarea
-                    style={{ height: '100px' }}
+            <div className="input-field valideyn">
+                <i className="material-icons isare">attach_money</i>
+                <input
+                    id="deposit"
+                    className="xx"
+                    type="number"
+                    placeholder="0"
+                    onChange={e => this.onChange(e)}
                     value={this.state.value}
-                    onChange={e => this.changeHandler(e)}
-                    className="materialize-textarea"></textarea>
-                <label htmlFor="textarea1" className="active">
-                    Note for Movers
+                />
+                <label className="active" htmlFor="deposit">
+                    Deposit
                 </label>
             </div>
         );

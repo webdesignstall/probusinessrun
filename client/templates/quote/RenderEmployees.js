@@ -19,7 +19,7 @@ export default class RenderEmployees extends TrackerReact(Component) {
     }
 
     check(id) {
-        let arr = Session.get('secilmisIsciler');
+        let arr = Session.get('job_').workers || [];
         this.vez = false;
         arr.map(yoxIs => {
             if (yoxIs.id === id) {
@@ -30,21 +30,11 @@ export default class RenderEmployees extends TrackerReact(Component) {
         return this.vez;
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.x = Tracker.autorun(() => {
-            // Meteor.subscribe('workSchema');
-            // Meteor.subscribe('tabletData');
-            // Meteor.subscribe('usersData');
-            const isciler = Meteor.users
-                .find({ 'profile.rank': 'mover' })
-                .fetch();
-            const is = WorkData.findOne(Session.get('is'));
-            if (
-                is.workers !== undefined ||
-                is.workers !== null ||
-                is.workers !== '' ||
-                is.workers !== []
-            ) {
+            const isciler = Meteor.users.find({ 'profile.rank': 'mover' }).fetch();
+            const is = Session.get('job_');
+            if (is.workers !== undefined || is.workers !== null || is.workers !== '' || is.workers !== []) {
                 Session.set('secilmisIsciler', is.workers);
             }
 
@@ -63,8 +53,9 @@ export default class RenderEmployees extends TrackerReact(Component) {
     }
 
     employeeClick(id) {
-        let arr = Session.get('secilmisIsciler');
-        let maxWorkers = this.workData()[0].numberOfWorkers;
+        let job = Session.get('job_');
+        let arr = job.workers || [];
+        let maxWorkers = job.numberOfWorkers;
         let isId = arr.findIndex(function(element) {
             return element.id === id;
         });
@@ -76,15 +67,18 @@ export default class RenderEmployees extends TrackerReact(Component) {
             document.getElementById(id).classList.add('iscilerin-adlari');
         } else {
             if (arr.length < maxWorkers) {
-                document
-                    .getElementById(id)
-                    .classList.remove('iscilerin-adlari');
+                document.getElementById(id).classList.remove('iscilerin-adlari');
                 document.getElementById(id).classList.add('green');
                 arr.push({ id: id });
+            } else {
+                document.getElementById(id).classList.remove('shake');
+                document.getElementById(id).classList.add('shake');
             }
         }
 
-        Session.set('secilmisIsciler', arr);
+        job.workers = arr;
+
+        Session.set('job_', job);
     }
 
     renderWorkers() {
@@ -93,7 +87,7 @@ export default class RenderEmployees extends TrackerReact(Component) {
                 <a
                     id={isci._id}
                     key={isci._id}
-                    className={this.check(isci._id) ? 'green' : ''}
+                    className={this.check(isci._id) ? 'green animated' : 'animated'}
                     onClick={() => this.employeeClick(isci._id)}>
                     {isci.profile.firstName} {isci.profile.lastName}
                 </a>

@@ -408,3 +408,34 @@ hr {
     display: inline-block !important;
     width: 40px;
 }
+
+.expired {
+    background-color: #f14848;
+    padding: 1px 5px;
+    border-radius: 5px;
+    color: white;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 0.8px;
+    font-style: italic;
+}
+
+.expired_ {
+    background-color: #a2da5a;
+    padding: 1px 5px;
+    border-radius: 5px;
+    color: black;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 0.8px;
+    font-style: italic;
+}
+
+.workers_selected {
+    background-color: rgb(45, 173, 109);
+    color: white;
+    padding: 0 10px;
+    border-radius: 15px;
+}

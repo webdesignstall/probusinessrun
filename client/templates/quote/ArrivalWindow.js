@@ -296,7 +296,7 @@ export default class ArrivalWindow extends TrackerReact(Component) {
 
     render() {
         return (
-            <div id="arrival-time" style={{ marginTop: '10px' }} className="input-field valideyn col s12 m3 l3">
+            <div id="arrival-time" style={{ marginTop: '10px' }} className="input-field valideyn">
                 <div className="arrivalWindow">
                     <div id="arrivalWindow--id" className="parent">
                         <i className="material-icons isare">date_range</i>

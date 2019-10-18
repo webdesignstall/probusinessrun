@@ -8,9 +8,15 @@ Notification center:
 
 Rebuild adding job and updatede job component: 
     ✔ create centralized object in the session @started(19-09-25 17:16) @done(19-09-25 17:26) @lasted(10m1s)
-    ☐ update all fields thrue sessions
-    ☐ save informations from session job object
-    ☐ reset session after saving or updateing job
+    ✔ update all fields thrue sessions @done(19-10-08 14:17)
+    ✔ change email vaiables @done(19-10-08 17:45)
+    ✔ save informations from session job object @started(19-10-08 14:38) @done(19-10-08 14:38) @lasted(27s)
+    ✔ reset session after saving job @done(19-10-08 14:38)
+    ✔ reset session after updating job @done(19-10-12 19:02)
+    ✔ fix follow up components @done(19-10-12 19:02)
+    ☐ fix the new appointment component if status won @started(19-10-14 12:30)
+    ☐ it doesnt display anything when opening new appointment component after calendar edit component 
+    ✔ fix edit jobs component from calendar @done(19-10-16 19:14)
 
 Small Item packing redesign:
     ✔ add total line @done(19-09-06 16:44)

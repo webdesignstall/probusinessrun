@@ -40,7 +40,10 @@ export default class CompanySelector extends Component {
 
     render() {
         return (
-            <select onChange={e => this.companyChanger(e)} value={this.state.company} className="browser-default statistic__company_selector">
+            <select
+                onChange={e => this.companyChanger(e)}
+                value={this.state.company}
+                className="browser-default statistic__company_selector">
                 <option value="all">All Companies</option>
                 {this.renderCompaniesList()}
             </select>

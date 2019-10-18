@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
 import { Tracker } from 'meteor/tracker';
-import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
-import WorkData from '../../../common/collections_2';
-import PropTypes from 'prop-types';
 
 export default class TempTrucks extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            update: this.props.update,
             trucks: [],
             trucksList: ['16 foot', '18 foot', '20 foot', '22 foot', '24 foot', '26 foot']
         };
@@ -21,31 +17,17 @@ export default class TempTrucks extends Component {
 
     componentDidMount() {
         this.x = Tracker.autorun(() => {
-            let selectedJob = null;
-            let reset = Session.get('reset');
+            let job = Session.get('job_');
 
-            if (reset) {
+            if (!job.trucksTemp) {
                 this.setState({
                     trucks: [],
                     trucksList: ['16 foot', '18 foot', '20 foot', '22 foot', '24 foot', '26 foot']
                 });
-            }
-
-            if (this.state.update) {
-                let isinOzu = Session.get('is');
-                selectedJob = WorkData.findOne({ _id: isinOzu });
-            }
-
-            if (selectedJob) {
-                Session.set('trucklar', selectedJob.trucksTemp);
-                this.setState(
-                    {
-                        trucks: selectedJob.trucksTemp
-                    },
-                    () => {
-                        this.props.updateJob && this.props.updateJob({ trucksTemp: this.state.trucks });
-                    }
-                );
+            } else {
+                this.setState({
+                    trucks: job.trucksTemp
+                });
             }
         });
     }
@@ -65,16 +47,14 @@ export default class TempTrucks extends Component {
     }
 
     deleteTempTruck(index) {
+        let job = Session.get('job_');
         this.setState(
             prevState => {
                 prevState.trucks.splice(index, 1);
                 return { trucks: prevState.trucks };
             },
             err => {
-                err
-                    ? console.error(err)
-                    : (Session.set('trucklar', this.state.trucks),
-                    this.props.updateJob && this.props.updateJob({ trucksTemp: this.state.trucks }));
+                err ? console.error(err) : ((job.trucksTemp = this.state.trucks), Session.set('job_', job));
             }
         );
     }
@@ -91,10 +71,14 @@ export default class TempTrucks extends Component {
                 };
             },
             err => {
-                err
-                    ? console.error(err)
-                    : (Session.set('trucklar', this.state.trucks),
-                    this.props.updateJob && this.props.updateJob({ trucksTemp: this.state.trucks }));
+                if (err) {
+                    console.error(err);
+                } else {
+                    let job = Session.get('job_');
+                    job.trucksTemp = this.state.trucks;
+
+                    Session.set('job_', job);
+                }
             }
         );
     }
@@ -156,25 +140,17 @@ export default class TempTrucks extends Component {
     }
 
     addMore() {
-        this.setState(
-            prevState => {
-                return {
-                    trucks: [
-                        ...prevState.trucks,
-                        {
-                            size: 'Select Trucks Size',
-                            qty: 1
-                        }
-                    ]
-                };
-            },
-            err => {
-                err
-                    ? console.error(err)
-                    : (Session.set('trucklar', this.state.trucks),
-                    this.props.updateJob && this.props.updateJob({ trucksTemp: this.state.trucks }));
-            }
-        );
+        this.setState(prevState => {
+            return {
+                trucks: [
+                    ...prevState.trucks,
+                    {
+                        size: 'Select Trucks Size',
+                        qty: 1
+                    }
+                ]
+            };
+        });
     }
 
     render() {
@@ -218,8 +194,3 @@ export default class TempTrucks extends Component {
         );
     }
 }
-
-TempTrucks.propTypes = {
-    updateJob: PropTypes.func,
-    update: PropTypes.bool
-};

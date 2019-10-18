@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Tracker } from 'meteor/tracker';
 import { Session } from 'meteor/session';
 
-export default class NoteForMovers extends Component {
+export default class NoteForYourMove extends Component {
     constructor(props) {
         super(props);
 
@@ -19,7 +19,7 @@ export default class NoteForMovers extends Component {
 
             if (job.note) {
                 this.setState({
-                    value: job.noteForMovers
+                    value: job.noteForYourMove
                 });
             } else {
                 this.setState({
@@ -51,7 +51,7 @@ export default class NoteForMovers extends Component {
                 value
             },
             () => {
-                this.interval('noteForMovers', value);
+                this.interval('noteForYourMove', value);
             }
         );
     }
@@ -65,7 +65,7 @@ export default class NoteForMovers extends Component {
                     onChange={e => this.changeHandler(e)}
                     className="materialize-textarea"></textarea>
                 <label htmlFor="textarea1" className="active">
-                    Note for Movers
+                    Note for Your Move
                 </label>
             </div>
         );

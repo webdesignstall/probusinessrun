@@ -1,13 +1,13 @@
 import { Session } from 'meteor/session';
 import { Tracker } from 'meteor/tracker';
 import React, { Component } from 'react';
-import WorkData from './../../../common/collections_2';
-import PropTypes from 'prop-types';
 
 export default class MovingSize extends Component {
     constructor(props) {
         super(props);
+        // noinspection JSValidateTypes
         this.state = {
+            value: 'select_moving_size',
             options: [
                 {
                     value: 'select_moving_size',
@@ -64,23 +64,15 @@ export default class MovingSize extends Component {
             ]
         };
 
-        this.sizeSelected = React.createRef();
-
         this.changeSelect = this.changeSelect.bind(this);
         this.renderSizes = this.renderSizes.bind(this);
     }
 
-    UNSAFE_componentWillMount() {
+    componentDidMount() {
         this.x = Tracker.autorun(() => {
-            if (Session.get('is') !== '') {
-                const ish = WorkData.find({ _id: Session.get('is') }).fetch();
-                if (
-                    ish[0].movingSize &&
-                    (ish[0].movingSize !== '' || ish[0].movingSize !== undefined || ish[0].movingSize !== null)
-                ) {
-                    Session.set('movingSize', ish[0].movingSize);
-                }
-            }
+            let job = Session.get('job_');
+
+            job.movingSize ? this.setState({ value: job.movingSize }) : this.setState({ value: 'select_moving_size' });
         });
     }
 
@@ -88,12 +80,19 @@ export default class MovingSize extends Component {
         this.x.stop();
     }
 
-    changeSelect() {
-        Session.set('movingSize', this.sizeSelected.current.value);
-        this.props.updateJob &&
-            this.props.updateJob({
-                movingSize: this.sizeSelected.current.value
-            });
+    changeSelect(e) {
+        let value = e.target.value;
+        let job = Session.get('job_');
+        job.movingSize = value;
+
+        this.setState(
+            {
+                value
+            },
+            () => {
+                Session.set('job_', job);
+            }
+        );
     }
 
     renderSizes() {
@@ -108,15 +107,27 @@ export default class MovingSize extends Component {
 
     render() {
         return (
-            <div>
+            <div className="">
+                <label
+                    // style={{
+                    //     backgroundColor: 'rgb(237, 240, 241)',
+                    //     padding: '0px 5px',
+                    //     margin: ' 5px 15px',
+                    //     top: '0',
+                    //     left: '0',
+                    //     position: 'absolute'
+                    // }}
+                    htmlFor="moving_size_2"
+                    className="active">
+                    Moving Size
+                </label>
                 <select
                     title="moving_size"
                     className="browser-default"
-                    ref={this.sizeSelected}
                     name="moving_size"
-                    defaultValue={Session.get('movingSize')}
                     id="moving_size_2"
-                    onChange={this.changeSelect}>
+                    value={this.state.value}
+                    onChange={e => this.changeSelect(e)}>
                     <option value="select_moving_size" disabled>
                         Select Moving Size
                     </option>
@@ -126,7 +137,3 @@ export default class MovingSize extends Component {
         );
     }
 }
-
-MovingSize.propTypes = {
-    updateJob: PropTypes.func
-};

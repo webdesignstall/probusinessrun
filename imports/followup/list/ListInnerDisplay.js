@@ -4,7 +4,6 @@ import { Session } from 'meteor/session';
 import ExtendedJobInformation from './ExtendedJobInformation';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import WorkData from '../../../common/collections_2';
-import { Meteor } from 'meteor/meteor';
 import { Tracker } from 'meteor/tracker';
 import WonDate from './WonDate';
 import CustomerPriority from '../../../client/templates/quote/CustomerPriority';
@@ -31,13 +30,14 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
     }
 
     workData(_id) {
-        return WorkData.findeOne({ _id });
+        return WorkData.findOne({ _id });
     }
 
     componentDidMount() {
         this.x = Tracker.autorun(() => {
+            let job = Session.get('job_') || {};
             this.setState({
-                job: this.props.job
+                job: job._id ? job : this.props.job
             });
         });
     }
@@ -188,18 +188,18 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
     }
 
     showMore() {
-        this.props.loading();
         let session = Session.get('ExtendedJobInformation');
         if (this.state.job._id === session && session !== '') {
             Session.set('ExtendedJobInformation', '');
             Session.set('is', '');
+            Session.set('job_', {});
             this.setState({ show: '' });
-            this.props.loading();
         } else {
             Session.set('is', this.state.job._id);
             Session.set('ExtendedJobInformation', this.state.job._id);
+            let job = this.workData(this.state.job._id);
+            Session.set('job_', job);
             this.setState({ show: this.state.job._id });
-            this.props.loading();
         }
     }
 
@@ -289,7 +289,7 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
                     </span>
                 </span>
                 <span>
-                    <CustomerPriority id={this.state.job._id} />
+                    <CustomerPriority id={this.state.job._id} rate={this.state.job.customerRate || 0} />
                 </span>
                 {this.state.job.status === 'won' && <WonDate wonDate={this.state.job.wonDate} />}
                 {Session.get('ExtendedJobInformation') !== '' ? (

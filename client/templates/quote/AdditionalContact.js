@@ -18,6 +18,7 @@ export default class AdditionalContact extends TrackerReact(Component) {
 
     componentDidMount() {
         this.x = Tracker.autorun(() => {
+            this.timeOut = null;
             Session.get('reset') ? this.setState({ additionalContacts: [] }) : null;
             let { additionalContacts } = Session.get('job_');
 
@@ -37,15 +38,24 @@ export default class AdditionalContact extends TrackerReact(Component) {
         element.style.height = height + 'px';
     }
 
+    setSession(what, value) {
+        let job = Session.get('job_');
+        job[what] = value;
+        Session.set('job_', job);
+    }
+
+    interval(what, value) {
+        clearTimeout(this.timeOut);
+        this.timeOut = setTimeout(() => this.setSession(what, value), 500);
+    }
+
     deleteAddContacnt(index) {
         this.setState(prevState => {
             let newArr = prevState.additionalContacts;
-            let job = Session.get('job_');
 
             newArr.splice(index, 1);
 
-            job.additionalContacts = newArr;
-            Session.set('job_', job);
+            this.interval('additionalContacts', newArr);
 
             return {
                 additionalContacts: newArr
@@ -60,7 +70,6 @@ export default class AdditionalContact extends TrackerReact(Component) {
 
         function setValueToState() {
             value = event.target.value;
-            let job = Session.get('job_');
 
             that.setState(
                 prevState => {
@@ -72,9 +81,7 @@ export default class AdditionalContact extends TrackerReact(Component) {
                     };
                 },
                 () => {
-                    job.additionalContacts = that.state.additionalContacts;
-                    Session.set('job_', job);
-                    that.props.updateJob && that.props.updateJob(that.state);
+                    that.interval('additionalContacts', that.state.additionalContacts);
                 }
             );
         }

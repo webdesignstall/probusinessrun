@@ -3,68 +3,65 @@ import { Template } from 'meteor/templating';
 import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
 import WorkData from './../../../common/collections_2';
+import { Tracker } from 'meteor/tracker';
 
 export default class AddTruck extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            key: [],
-            truckList: [],
-            trucks: [],
-            silinesi: []
+            trucks: [], //assigned trucks
+            trucksBase: [] //trucks in the company base
         };
 
         this.renderTruckList = this.renderTruckList.bind(this);
         this.deleteTruck = this.deleteTruck.bind(this);
         this.addTruckC = this.addTruckC.bind(this);
         this.addTruckCList = this.addTruckCList.bind(this);
+        this.changeHandler = this.changeHandler.bind(this);
     }
 
     componentDidMount() {
-        let truckList;
-        this.setState({
-            key: []
-        });
-        Session.set('is', '');
+        this.x = Tracker.autorun(() => {
+            let trucks = Session.get('job_').trucks || [];
+            let trucksBase = Meteor.users.find({ 'profile.rank': 'tablet' }).fetch() || [];
 
-        truckList = Meteor.users
-            .find(
-                {
-                    'profile.rank': 'tablet'
-                },
-                {
-                    sort: {
-                        'profile.number': 1
-                    }
-                }
-            )
-            .fetch();
-
-        if (Session.get('is') != '') {
-            const isinNomresi = Session.get('is');
-            const ish = WorkData.find({ _id: isinNomresi }).fetch();
             this.setState({
-                key: ish[0].trucks
+                trucks,
+                trucksBase
             });
-        }
-
-        this.setState({
-            truckList
         });
     }
 
+    componentWillUnmount() {
+        this.x.stop();
+    }
+
     deleteTruck(nomre) {
-        document.getElementById(nomre).remove();
+        let trucks = this.state.trucks;
+        trucks.splice(nomre, 1);
+
+        this.setState(
+            {
+                trucks
+            },
+            () => {
+                let job = Session.get('job_');
+                job.trucks = trucks;
+                Session.set('job_', job);
+            }
+        );
     }
 
     addTruckC() {
         this.setState(prevState => {
-            return { key: prevState.key.concat([new Date().getTime()]) };
+            let trucks = prevState.trucks;
+            trucks.push({ truck: 400 });
+            return { trucks };
         });
     }
 
     renderTruckList() {
-        return this.state.truckList.map(truck => {
+        return this.state.trucksBase.map(truck => {
             return (
                 <option key={truck._id} value={truck.profile.number}>
                     #{truck.profile.number} - {truck.profile.size}
@@ -73,28 +70,43 @@ export default class AddTruck extends React.Component {
         });
     }
 
+    changeHandler(e, index) {
+        let value = e.target.value;
+        this.setState(
+            prevState => {
+                let trucks = prevState.trucks;
+                trucks[index].truck = value;
+                return { trucks };
+            },
+            () => {
+                let job = Session.get('job_');
+                job.trucks = this.state.trucks;
+
+                Session.set('job_', job);
+            }
+        );
+    }
+
     addTruckCList() {
-        if (this.state.key.length > 0) {
-            return this.state.key.map(key => {
-                let nomre = key.toString();
-                return (
-                    <div id={nomre} key={key} className="input-field col s6 m6 l6 valideyn">
-                        <select
-                            ref={selected => (this.selected = selected)}
-                            className="browser-default truck-select col s10 m10 l10"
-                            defaultValue={key < 100 ? key : 'no_truck'}>
-                            <option value="no_truck" disabled={true}>
-                                Choose truck size
-                            </option>
-                            {this.renderTruckList()}
-                        </select>
-                        <i className="material-icons isare col s2 m2 l2 truck-delete" onClick={() => this.deleteTruck(nomre)}>
-                            delete_forever
-                        </i>
-                    </div>
-                );
-            });
-        }
+        return this.state.trucks.map((truck, index) => {
+            return (
+                <div id={'trucksAssigned' + index} key={'trucksAssigned' + index} className="input-field col s6 m6 l6 valideyn">
+                    <select
+                        ref={selected => (this.selected = selected)}
+                        onChange={e => this.changeHandler(e, index)}
+                        className="browser-default truck-select col s10 m10 l10"
+                        value={truck.truck < 100 ? truck.truck : 'no_truck'}>
+                        <option value="no_truck" disabled={true}>
+                            Choose truck size
+                        </option>
+                        {this.renderTruckList()}
+                    </select>
+                    <i className="material-icons isare col s2 m2 l2 truck-delete" onClick={() => this.deleteTruck(index)}>
+                        delete_forever
+                    </i>
+                </div>
+            );
+        });
     }
 
     render() {

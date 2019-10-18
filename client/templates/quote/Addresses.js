@@ -43,6 +43,7 @@ export default class Addresses extends React.Component {
     }
 
     calculateDistance() {
+        this.timeOut = null;
         let this_ = this;
         function callback(response, status) {
             if (status === 'OK') {
@@ -111,27 +112,34 @@ export default class Addresses extends React.Component {
         this.x.stop();
     }
 
+    setSession(what, value) {
+        let job = Session.get('job_');
+        job[what] = value;
+        Session.set('job_', job);
+    }
+
+    interval(what, value) {
+        clearTimeout(this.timeOut);
+        this.timeOut = setTimeout(() => this.setSession(what, value), 500);
+    }
+
     inputChangeHandler(i) {
         let arrayOfvalue = [...this.state.arrayOfvalue];
         arrayOfvalue[i] = event.target.value;
-        let job = Session.get('job_');
         this.setState({ arrayOfvalue }, () => {
-            job.addresses = arrayOfvalue;
-            Session.set('job_', job);
+            this.interval('addresses', arrayOfvalue);
         });
     }
 
     deleteAddress(index) {
         let oldArray = this.state.arrayOfvalue;
         oldArray.splice(index, 1);
-        let job = Session.get('job_');
-        job.addresses = oldArray;
         this.setState(
             {
                 arrayOfvalue: oldArray
             },
             () => {
-                Session.set('job_', job);
+                this.interval('addresses', oldArray);
             }
         );
     }
@@ -166,9 +174,7 @@ export default class Addresses extends React.Component {
                 arrayOfvalue: [...prevState.arrayOfvalue, '']
             }),
             () => {
-                let job = Session.get('job_');
-                job.addresses = this.state.arrayOfvalue;
-                Session.set('job_', job);
+                this.interval('addresses', this.state.arrayOfvalue);
                 let index = this.state.arrayOfvalue.length - 1;
                 this.setGoogleAutoComplete(index);
             }
@@ -177,14 +183,11 @@ export default class Addresses extends React.Component {
 
     handlePlaceSelect(id, address, formattedAddress) {
         if (address) {
-            let job = Session.get('job_');
-
             this.setState(prevState => {
                 let arrayOfvalue = prevState.arrayOfvalue;
                 arrayOfvalue[id] = formattedAddress;
-                job.addresses = arrayOfvalue;
 
-                Session.set('job_', job);
+                this.interval('addresses', arrayOfvalue);
 
                 return {
                     arrayOfvalue

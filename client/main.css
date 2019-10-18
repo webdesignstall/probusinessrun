@@ -4,6 +4,12 @@
     font-family: 'Roboto', sans-serif;
 }
 
+.btn {
+    border-radius: 5px !important;
+    margin: 2px !important;
+    font-weight: 500;
+}
+
 input::placeholder {
     color: rgb(168, 168, 168) !important;
 }
@@ -92,7 +98,7 @@ input {
 .isare {
     position: absolute;
     top: 10px;
-    left: 10px;
+    /*left: 10px;*/
 }
 
 .valideyn input {
@@ -335,14 +341,17 @@ input {
     background-color: #ffd32a;
     color: black;
 }
+
 .goy {
     background-color: #24b5d6;
     color: white;
 }
+
 .yasil_ {
     background-color: #4cd137;
     color: white;
 }
+
 .boz_ {
     background-color: #bdc3c7;
     color: black;
@@ -355,12 +364,15 @@ input {
 .sari-text {
     color: #ffd32a;
 }
+
 .goy-text {
     color: #24b5d6;
 }
+
 .yasil-text {
     color: #4cd137;
 }
+
 .narinci-text {
     color: #e84118;
 }
@@ -420,7 +432,7 @@ input {
     background: -moz-linear-gradient(45deg, #272994 0%, #3f42d4 100%);
     background: -webkit-linear-gradient(45deg, #272994 0%, #3f42d4 100%);
     background: linear-gradient(45deg, #272994 0%, #3f42d4 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#272994', endColorstr='#3f42d4',GradientType=1 );
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#272994', endColorstr='#3f42d4', GradientType=1);
     border-radius: 20px;
     -webkit-box-shadow: 0px 5px 14px 1px #272994;
     box-shadow: 0px 5px 14px -4px #272994;

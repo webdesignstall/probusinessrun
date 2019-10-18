@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Meteor } from 'meteor/meteor';
-import { Template } from 'meteor/templating';
-import { Tracker } from 'meteor/tracker';
-import { Session } from 'meteor/session';
+import {Meteor} from 'meteor/meteor';
+import {Template} from 'meteor/templating';
+import {Tracker} from 'meteor/tracker';
+import {Session} from 'meteor/session';
 import SignaturePad from 'signature_pad';
 import WorkData from '../../common/collections_2';
 
@@ -409,8 +409,8 @@ MY OWN FREE WILL`
             this.lessThanLabor = false;
             flatRateIsTrue
                 ? startToFinishTime < laborTime
-                    ? ((startToFinishTime = laborTime), (this.lessThanLabor = true), (totalWorkedHours = 0), (drivingTime = 0))
-                    : ((totalWorkedHours = startToFinishTime - laborTime), (drivingTime = 0))
+                ? ((startToFinishTime = laborTime), (this.lessThanLabor = true), (totalWorkedHours = 0), (drivingTime = 0))
+                : ((totalWorkedHours = startToFinishTime - laborTime), (drivingTime = 0))
                 : null;
 
             // DDT is true and work time less than labor time or opposite
@@ -439,14 +439,14 @@ MY OWN FREE WILL`
             // this.payCash ve this.payCard calculation
             this.payCash = (
                 (flatCashAmount + totalWorkedHours * cashRate + drivingTime * cashRate - cashDiscount) *
-                    ((100 - percentDiscount) / 100) +
+                ((100 - percentDiscount) / 100) +
                 (isDoubleDrive ? drivingTime * cashRate : 0) +
                 additionalCharges -
                 timeDiscount * cashRate
             ).toFixed(2);
             this.payCard = (
                 (flatCardAmount + totalWorkedHours * cardRate + drivingTime * cardRate - cashDiscount) *
-                    ((100 - percentDiscount) / 100) +
+                ((100 - percentDiscount) / 100) +
                 (isDoubleDrive ? drivingTime * cardRate : 0) +
                 additionalCharges -
                 timeDiscount * cardRate
@@ -924,7 +924,7 @@ MY OWN FREE WILL`
     renderDrivingTime() {
         if (this.state.vurulmusIs[0].drivingTime) {
             let number = 2000;
-            return this.state.vurulmusIs[0].drivingTime.map(function(driving) {
+            return this.state.vurulmusIs[0].drivingTime.map(function (driving) {
                 number = number + 1;
                 return (
                     <div key={number} className="driving-time-event">
@@ -938,7 +938,7 @@ MY OWN FREE WILL`
     renderBreakTime() {
         if (this.state.vurulmusIs[0].breakTime) {
             let number = 3000;
-            return this.state.vurulmusIs[0].breakTime.map(function(breaks) {
+            return this.state.vurulmusIs[0].breakTime.map(function (breaks) {
                 number = number + 1;
                 return (
                     <div key={number} className="break-time-event">
@@ -963,7 +963,7 @@ MY OWN FREE WILL`
     }
 
     round(number, precision) {
-        var shift = function(number, precision, reverseShift) {
+        var shift = function (number, precision, reverseShift) {
             if (reverseShift) {
                 precision = -precision;
             }
@@ -1017,7 +1017,7 @@ MY OWN FREE WILL`
     render() {
         let is = this.state.vurulmusIs[0];
         let takenById = is.takenBy;
-        let takenBy = Meteor.users.find({ _id: takenById }).fetch()[0];
+        let takenBy = Meteor.users.find({_id: takenById}).fetch()[0];
         this.totalSaat = 0;
         this.cardRate = 0;
         this.cashRate = 0;
@@ -1032,98 +1032,100 @@ MY OWN FREE WILL`
         return (
             <React.Fragment>
                 <div className={this.state.survey || this.state.ccForm ? '' : 'hide'}>
-                    {this.state.survey && <Survey finishSurvey={this.finishSurvey} />}
-                    {this.state.ccForm && <CcForm />}
+                    {this.state.survey && <Survey finishSurvey={this.finishSurvey}/>}
+                    {this.state.ccForm && <CcForm/>}
                 </div>
                 <div className={this.state.survey ? 'hide' : 'tabletJobRendered'}>
                     <a href="#" id="close-duymesi-id" className={this.state.survey ? 'hide' : 'close-duymesi'}>
                         CLOSE THIS PAGE X
                     </a>
                     <div>
-                        <p style={{ textAlign: 'center' }}>
+                        <p style={{textAlign: 'center'}}>
                             <h5>Combined Agreement for Moving Services and Freight Bill</h5>
                         </p>
                         <div className="row">
                             <div className="col s12 m12 l12">
-                                <hr />
+                                <hr/>
                             </div>
                         </div>
                         <div id="tabler-yuxari">
                             <table>
                                 <tbody>
-                                    <tr>
-                                        <td>
-                                            <div className="row">
-                                                <div className="col s8 m8 l8">
-                                                    <div className="card__">
-                                                        <div className="card-content">
-                                                            Company Name:{' '}
-                                                            {is.companyInfo === undefined ? '' : is.companyInfo.name}
-                                                            <br />
-                                                            <hr />
-                                                            License Number: BEARHFTI 0191555
-                                                            <br />
-                                                            <hr />
-                                                            Customer Name: {is.clientFirstName} {is.clientLastName}
-                                                            <br />
-                                                            <span
-                                                                className={
-                                                                    is.cardHolderInfo && is.cardHolderInfo.firstName ? '' : 'hide'
-                                                                }>
-                                                                <hr />
+                                <tr>
+                                    <td>
+                                        <div className="row">
+                                            <div className="col s8 m8 l8">
+                                                <div className="card__">
+                                                    <div className="card-content">
+                                                        Company Name:{' '}
+                                                        {is.companyInfo === undefined ? '' : is.companyInfo.name}
+                                                        <br/>
+                                                        <hr/>
+                                                        License Number: BEARHFTI 0191555
+                                                        <br/>
+                                                        <hr/>
+                                                        Customer Name: {is.clientFirstName} {is.clientLastName}
+                                                        <br/>
+                                                        <span
+                                                            className={
+                                                                is.cardHolderInfo && is.cardHolderInfo.firstName ? '' : 'hide'
+                                                            }>
+                                                                <hr/>
                                                                 Card Holder Name:{' '}
-                                                                {is.cardHolderInfo && is.cardHolderInfo.firstName}{' '}
-                                                                {is.cardHolderInfo && is.cardHolderInfo.lastName}
-                                                                <br />
+                                                            {is.cardHolderInfo && is.cardHolderInfo.firstName}{' '}
+                                                            {is.cardHolderInfo && is.cardHolderInfo.lastName}
+                                                            <br/>
                                                             </span>
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </td>
-                                        <td className="sag card__" style={{ marginRight: '20px' }}>
-                                            <tr>
-                                                <td className="sag">Order Date:</td>
-                                                <td>&nbsp; {is.workDate}</td>
-                                            </tr>
-                                            <tr>
-                                                <td className="sag">Move Date:</td>
-                                                <td>&nbsp; {is.workDate}</td>
-                                            </tr>
-                                            <tr>
-                                                <td className="sag">Pack Date:</td>
-                                                <td>&nbsp; {is.workDate}</td>
-                                            </tr>
-                                            <tr>
-                                                <td className="sag">Del Date:</td>
-                                                <td>&nbsp; {is.workDate}</td>
-                                            </tr>
-                                            <tr>
-                                                <td className="sag">Taken By:</td>
-                                                <td>&nbsp; {takenBy ? takenBy.profile.firstName : ''}</td>
-                                            </tr>
-                                            <tr>
-                                                <td className="sag">Job Number:</td>
-                                                <td>&nbsp; {is.jobNumber}</td>
-                                            </tr>
-                                        </td>
-                                    </tr>
+                                        </div>
+                                    </td>
+                                    <td className="sag card__" style={{marginRight: '20px'}}>
+                                        <tr>
+                                            <td className="sag">Order Date:</td>
+                                            <td>&nbsp; {is.workDate}</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="sag">Move Date:</td>
+                                            <td>&nbsp; {is.workDate}</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="sag">Pack Date:</td>
+                                            <td>&nbsp; {is.workDate}</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="sag">Del Date:</td>
+                                            <td>&nbsp; {is.workDate}</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="sag">Taken By:</td>
+                                            <td>&nbsp; {takenBy ? takenBy.profile.firstName : ''}</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="sag">Job Number:</td>
+                                            <td>&nbsp; {is.jobNumber}</td>
+                                        </tr>
+                                    </td>
+                                </tr>
                                 </tbody>
                             </table>
-                            <div className="clear" />
+                            <div className="clear"/>
                             <div className="row">
-                                <div style={{ textTransform: 'uppercase' }} className="card__ warning">
+                                <div style={{textTransform: 'uppercase'}} className="card__ warning">
                                     SHIPPER (CUSTOMER) IS REQUESTED TO READ THIS DOCUMENT CAREFULLY, INCLUDING TERMS AND
-                                    CONDITIONS, BEFORE SIGNING. BY SIGNING THIS CONTRACT, THIS WILL CONFIRM INSTRUCTIONS AND
-                                    AUTHORIZE {is.companyInfo === undefined ? '' : is.companyInfo.name} TO MOVE, SHIP, PACK,
+                                    CONDITIONS, BEFORE SIGNING. BY SIGNING THIS CONTRACT, THIS WILL CONFIRM INSTRUCTIONS
+                                    AND
+                                    AUTHORIZE {is.companyInfo === undefined ? '' : is.companyInfo.name} TO MOVE, SHIP,
+                                    PACK,
                                     STORE, AND/OR PERFORM THE SERVICES HEREIN.
                                 </div>
                             </div>
-                            <div className="clear" />
+                            <div className="clear"/>
                             <div className="row from-to">
                                 <div className="row">
                                     {this.renderAddresses()}
-                                    <div className="clear" />
+                                    <div className="clear"/>
                                     <div className="col s6 m6 l6">
                                         <div className="card__">
                                             <div>
@@ -1140,63 +1142,66 @@ MY OWN FREE WILL`
                                             </div>
                                         </div>
                                     </div>
-                                    <hr />
-                                    <div className="clear" />
-                                    <AdditionalContactsRender contacts={is.additionalContacts || []} />
+                                    <hr/>
+                                    <div className="clear"/>
+                                    <AdditionalContactsRender contacts={is.additionalContacts || []}/>
                                 </div>
                             </div>
                             <div className="row from-to">
                                 <div className="card__ warning">
-                                    NOTE: Additional charges for storage, extra handling, and transportation will accrue if goods
+                                    NOTE: Additional charges for storage, extra handling, and transportation will accrue
+                                    if goods
                                     are not promptly accepted
                                 </div>
-                                <div className="clear" />
+                                <div className="clear"/>
                                 <div className="card__ xxx">
                                     <div className="row">
                                         <div className="cardTitle">Pricing:</div>
-                                        <div className="clear margin-top" />
+                                        <div className="clear margin-top"/>
                                         <div className="col s6 m6 l6">
                                             Number Of Movers: {is.workers.length}
-                                            <br />
+                                            <br/>
                                             Your Flat Rates:{' '}
                                             {is.flatRate && is.flatRate[0].isTrue
                                                 ? '$' +
-                                                  is.flatRate[0].cashAmount +
-                                                  '(cash)' +
-                                                  ' $' +
-                                                  is.flatRate[0].cardAmount +
-                                                  '(card)'
+                                                is.flatRate[0].cashAmount +
+                                                '(cash)' +
+                                                ' $' +
+                                                is.flatRate[0].cardAmount +
+                                                '(card)'
                                                 : 'No'}
-                                            <br />
+                                            <br/>
                                             Your Hourly Rates:{' '}
                                             {is.hourlyRatesCash && is.hourlyRatesCard
                                                 ? '$' + is.hourlyRatesCash + '(cash)' + ' $' + is.hourlyRatesCard + '(card)'
                                                 : 'No'}
-                                            <br />
+                                            <br/>
                                             Minimum Labor Time: {is.laborTime} hour(s)
-                                            <br />
+                                            <br/>
                                             Moving Size: {this.state.movingSizeList[is.movingSize]}
-                                            <br />
+                                            <br/>
                                         </div>
                                         <div className="col s6 m6 l6">
-                                            Travel Fee (one time): {is.gasFee && is.gasFee > 0 ? '$' + is.gasFee : 'Waived'}
-                                            <br />
+                                            Travel Fee (one
+                                            time): {is.gasFee && is.gasFee > 0 ? '$' + is.gasFee : 'Waived'}
+                                            <br/>
                                             Double Drive Time: {is.doubleDrive === 'yes' ? 'Yes' : 'Waived'}
-                                            <br />
-                                            Extra Large/Heavy Item Fee: {is.largeItemFee > 0 ? '$' + is.largeItemFee : 'No'}
-                                            <br />
+                                            <br/>
+                                            Extra Large/Heavy Item
+                                            Fee: {is.largeItemFee > 0 ? '$' + is.largeItemFee : 'No'}
+                                            <br/>
                                             Flat Small Item Packing Price:{' '}
                                             {is.smallItemPacking && is.smallItemPacking < 0
                                                 ? 'Yes'
                                                 : is.smallItemPacking && is.smallItemPacking > 0
                                                     ? '$' + is.smallItemPacking
                                                     : 'No'}
-                                            <br />
+                                            <br/>
                                             Not to Exceed Price: ${is.price}
-                                            <br />
+                                            <br/>
                                         </div>
-                                        <div className="clear" />
-                                        <hr />
+                                        <div className="clear"/>
+                                        <hr/>
                                         <div className="card__ valign-wrapper">
                                             <div className="col s6 m6 l6">
                                                 I have received the CPUC’s Important Information Booklet
@@ -1217,13 +1222,15 @@ MY OWN FREE WILL`
                                                 <span id="importantInformationBooklet_date">
                                                     {moment(
                                                         (is.importantInformationBooklet && is.importantInformationBooklet.date) ||
-                                                            new Date()
+                                                        new Date()
                                                     ).format('MM/DD/YYYY hh:mm a')}
                                                 </span>
                                             </div>
                                         </div>
                                         <div className="card__ valign-wrapper">
-                                            <div className="col s6 m6 l6">Did you choose to waive this requirement entirely?</div>
+                                            <div className="col s6 m6 l6">Did you choose to waive this requirement
+                                                entirely?
+                                            </div>
                                             <div className="col s6 m6 l6 center-align">
                                                 <button
                                                     className={
@@ -1264,7 +1271,8 @@ MY OWN FREE WILL`
                                         </div>
                                         <div className="card__ valign-wrapper">
                                             <div className="col s6 m6 l6">
-                                                Was the moving date agreed to between you &amp; the carrier less than 3 days prior
+                                                Was the moving date agreed to between you &amp; the carrier less than 3
+                                                days prior
                                                 to the day of your move?
                                             </div>
                                             <div className="col s6 m6 l6 center-align">
@@ -1304,174 +1312,179 @@ MY OWN FREE WILL`
                                     </div>
                                 </div>
                                 <div className="card__">
-                                    <div className="cardTitle">VALUATION OPTIONS: VALUATION DECLARATION &amp; DISCLAIMER</div>
+                                    <div className="cardTitle">VALUATION OPTIONS: VALUATION
+                                        DECLARATION &amp; DISCLAIMER
+                                    </div>
                                     <tbody>
-                                        <tr
+                                    <tr
+                                        style={{
+                                            backgroundColor: '#C3D6FF'
+                                        }}>
+                                        <th/>
+                                        <th
                                             style={{
-                                                backgroundColor: '#C3D6FF'
+                                                textAlign: 'center',
+                                                padding: '5px !important'
                                             }}>
-                                            <th />
-                                            <th
-                                                style={{
-                                                    textAlign: 'center',
-                                                    padding: '5px !important'
-                                                }}>
-                                                Initial your choice
-                                            </th>
-                                            <th
-                                                style={{
-                                                    textAlign: 'center',
-                                                    padding: '5px !important'
-                                                }}>
-                                                Transportation
-                                            </th>
-                                            <th
-                                                style={{
-                                                    textAlign: 'center',
-                                                    padding: '5px !important'
-                                                }}>
-                                                Maximum Rate
-                                            </th>
-                                            <th
-                                                style={{
-                                                    textAlign: 'center',
-                                                    padding: '5px !important'
-                                                }}>
-                                                Storage-in-Transit
-                                            </th>
-                                            <th
-                                                style={{
-                                                    textAlign: 'center',
-                                                    padding: '5px !important'
-                                                }}>
-                                                Deductible
-                                            </th>
-                                        </tr>
-                                        <tr
+                                            Initial your choice
+                                        </th>
+                                        <th
                                             style={{
-                                                backgroundColor: '#E6EEFF'
+                                                textAlign: 'center',
+                                                padding: '5px !important'
                                             }}>
-                                            <td>Basic: $0.60 cents/lb./art.</td>
-                                            <td>
-                                                Initial:
-                                                <input
-                                                    onChange={e => this.changeBasicValuation(0, e)}
-                                                    className="initial_x"
-                                                    type="text"
-                                                    disabled={
-                                                        is.valuationOption &&
-                                                        typeof is.valuationOption.initial === 'string' &&
-                                                        is.valuationOption.initial !== ''
-                                                    }
-                                                    value={
-                                                        is.valuationOption &&
-                                                        typeof is.valuationOption.initial === 'string' &&
-                                                        is.valuationOption.initial !== '' &&
-                                                        is.valuationOption.typeNumber === 0
-                                                            ? is.valuationOption.initial
-                                                            : this.state.valuationOption.typeNumber === 0
-                                                                ? this.state.valuationOption.initial
-                                                                : ''
-                                                    }
-                                                />
-                                            </td>
-                                            <td>No Additional Charge</td>
-                                            <td>No Additional Charge</td>
-                                            <td>No Additional Charge</td>
-                                            <td>No Deductible</td>
-                                        </tr>
-                                        <tr
+                                            Transportation
+                                        </th>
+                                        <th
                                             style={{
-                                                backgroundColor: '#C3D6FF'
+                                                textAlign: 'center',
+                                                padding: '5px !important'
                                             }}>
-                                            <td>Actual Cash Value</td>
-                                            <td>
-                                                Initial:
-                                                <input
-                                                    className="initial_x"
-                                                    type="text"
-                                                    onChange={e => this.changeBasicValuation(1, e)}
-                                                    disabled={
-                                                        is.valuationOption &&
-                                                        typeof is.valuationOption.initial === 'string' &&
-                                                        is.valuationOption.initial !== ''
-                                                    }
-                                                    value={
-                                                        is.valuationOption &&
-                                                        typeof is.valuationOption.initial === 'string' &&
-                                                        is.valuationOption.initial !== '' &&
-                                                        is.valuationOption.typeNumber === 1
-                                                            ? is.valuationOption.initial
-                                                            : this.state.valuationOption.typeNumber === 1
-                                                                ? this.state.valuationOption.initial
-                                                                : ''
-                                                    }
-                                                />
-                                            </td>
-                                            <td>
-                                                $
-                                                <input id="basic_initial" className="initial_x" type="text" /> per $100
-                                            </td>
-                                            <td>
-                                                $
-                                                <input id="basic_initial" className="initial_x" type="text" />
-                                            </td>
-                                            <td>
-                                                $
-                                                <input id="basic_initial" className="initial_x" type="text" /> per $100
-                                            </td>
-                                            <td>Deductible of $250</td>
-                                        </tr>
-                                        <tr
+                                            Maximum Rate
+                                        </th>
+                                        <th
                                             style={{
-                                                backgroundColor: '#E6EEFF'
+                                                textAlign: 'center',
+                                                padding: '5px !important'
                                             }}>
-                                            <td>Full Value</td>
-                                            <td>
-                                                Initial:
-                                                <input
-                                                    className="initial_x"
-                                                    type="text"
-                                                    onChange={e => this.changeBasicValuation(2, e)}
-                                                    disabled={
-                                                        is.valuationOption &&
-                                                        typeof is.valuationOption.initial === 'string' &&
-                                                        is.valuationOption.initial !== ''
-                                                    }
-                                                    value={
-                                                        is.valuationOption &&
-                                                        typeof is.valuationOption.initial === 'string' &&
-                                                        is.valuationOption.initial !== '' &&
-                                                        is.valuationOption.typeNumber === 2
-                                                            ? is.valuationOption.initial
-                                                            : this.state.valuationOption.typeNumber === 2
-                                                                ? this.state.valuationOption.initial
-                                                                : ''
-                                                    }
-                                                />
-                                            </td>
-                                            <td>
-                                                $
-                                                <input id="basic_initial" className="initial_x" type="text" /> per $100
-                                            </td>
-                                            <td>
-                                                $
-                                                <input id="basic_initial" className="initial_x" type="text" />
-                                            </td>
-                                            <td>
-                                                $
-                                                <input id="basic_initial" className="initial_x" type="text" /> per $100
-                                            </td>
-                                            <td>Deductible of $250</td>
-                                        </tr>
+                                            Storage-in-Transit
+                                        </th>
+                                        <th
+                                            style={{
+                                                textAlign: 'center',
+                                                padding: '5px !important'
+                                            }}>
+                                            Deductible
+                                        </th>
+                                    </tr>
+                                    <tr
+                                        style={{
+                                            backgroundColor: '#E6EEFF'
+                                        }}>
+                                        <td>Basic: $0.60 cents/lb./art.</td>
+                                        <td>
+                                            Initial:
+                                            <input
+                                                onChange={e => this.changeBasicValuation(0, e)}
+                                                className="initial_x"
+                                                type="text"
+                                                disabled={
+                                                    is.valuationOption &&
+                                                    typeof is.valuationOption.initial === 'string' &&
+                                                    is.valuationOption.initial !== ''
+                                                }
+                                                value={
+                                                    is.valuationOption &&
+                                                    typeof is.valuationOption.initial === 'string' &&
+                                                    is.valuationOption.initial !== '' &&
+                                                    is.valuationOption.typeNumber === 0
+                                                        ? is.valuationOption.initial
+                                                        : this.state.valuationOption.typeNumber === 0
+                                                        ? this.state.valuationOption.initial
+                                                        : ''
+                                                }
+                                            />
+                                        </td>
+                                        <td>No Additional Charge</td>
+                                        <td>No Additional Charge</td>
+                                        <td>No Additional Charge</td>
+                                        <td>No Deductible</td>
+                                    </tr>
+                                    <tr
+                                        style={{
+                                            backgroundColor: '#C3D6FF'
+                                        }}>
+                                        <td>Actual Cash Value</td>
+                                        <td>
+                                            Initial:
+                                            <input
+                                                className="initial_x"
+                                                type="text"
+                                                onChange={e => this.changeBasicValuation(1, e)}
+                                                disabled={
+                                                    is.valuationOption &&
+                                                    typeof is.valuationOption.initial === 'string' &&
+                                                    is.valuationOption.initial !== ''
+                                                }
+                                                value={
+                                                    is.valuationOption &&
+                                                    typeof is.valuationOption.initial === 'string' &&
+                                                    is.valuationOption.initial !== '' &&
+                                                    is.valuationOption.typeNumber === 1
+                                                        ? is.valuationOption.initial
+                                                        : this.state.valuationOption.typeNumber === 1
+                                                        ? this.state.valuationOption.initial
+                                                        : ''
+                                                }
+                                            />
+                                        </td>
+                                        <td>
+                                            $
+                                            <input id="basic_initial" className="initial_x" type="text"/> per $100
+                                        </td>
+                                        <td>
+                                            $
+                                            <input id="basic_initial" className="initial_x" type="text"/>
+                                        </td>
+                                        <td>
+                                            $
+                                            <input id="basic_initial" className="initial_x" type="text"/> per $100
+                                        </td>
+                                        <td>Deductible of $250</td>
+                                    </tr>
+                                    <tr
+                                        style={{
+                                            backgroundColor: '#E6EEFF'
+                                        }}>
+                                        <td>Full Value</td>
+                                        <td>
+                                            Initial:
+                                            <input
+                                                className="initial_x"
+                                                type="text"
+                                                onChange={e => this.changeBasicValuation(2, e)}
+                                                disabled={
+                                                    is.valuationOption &&
+                                                    typeof is.valuationOption.initial === 'string' &&
+                                                    is.valuationOption.initial !== ''
+                                                }
+                                                value={
+                                                    is.valuationOption &&
+                                                    typeof is.valuationOption.initial === 'string' &&
+                                                    is.valuationOption.initial !== '' &&
+                                                    is.valuationOption.typeNumber === 2
+                                                        ? is.valuationOption.initial
+                                                        : this.state.valuationOption.typeNumber === 2
+                                                        ? this.state.valuationOption.initial
+                                                        : ''
+                                                }
+                                            />
+                                        </td>
+                                        <td>
+                                            $
+                                            <input id="basic_initial" className="initial_x" type="text"/> per $100
+                                        </td>
+                                        <td>
+                                            $
+                                            <input id="basic_initial" className="initial_x" type="text"/>
+                                        </td>
+                                        <td>
+                                            $
+                                            <input id="basic_initial" className="initial_x" type="text"/> per $100
+                                        </td>
+                                        <td>Deductible of $250</td>
+                                    </tr>
                                     </tbody>
                                 </div>
                                 <div className="card__ warning">
-                                    CUSTOMER AGREES THAT TITLE TO ALL PACKING MATERIALS AND OTHER PROPERTY SOLD TO CUSTOMER PASSES
-                                    TO CUSTOMER PRIOR TO THE TRANSPORTATION OF SUCH PROPERTY TO THE CUSTOMER BY CARRIER. THIS ALSO
-                                    MEANS THAT ANY PACKING MATERIALS OR TRASH/DONATION ITEMS ARE YOUR OWN PROPERTY AND, AS SUCH,
+                                    CUSTOMER AGREES THAT TITLE TO ALL PACKING MATERIALS AND OTHER PROPERTY SOLD TO
+                                    CUSTOMER PASSES
+                                    TO CUSTOMER PRIOR TO THE TRANSPORTATION OF SUCH PROPERTY TO THE CUSTOMER BY CARRIER.
+                                    THIS ALSO
+                                    MEANS THAT ANY PACKING MATERIALS OR TRASH/DONATION ITEMS ARE YOUR OWN PROPERTY AND,
+                                    AS SUCH,
                                     CARRIER IS NOT RESPONSIBLE FOR THE DISPOSAL AND/OR REMOVAL OF THESE ITEMS.
-                                    <br />
+                                    <br/>
                                     Read and Agree
                                     <input
                                         type="checkbox"
@@ -1482,10 +1495,12 @@ MY OWN FREE WILL`
                                     />
                                 </div>
                                 <div className="card__ warning">
-                                    NOTE: All cargo is subject to a Mover’s Lien as described by the CPUC until entire amount due
-                                    is paid IN FULL. Any loss/damage claims must be received in writing AFTER your move and DO NOT
+                                    NOTE: All cargo is subject to a Mover’s Lien as described by the CPUC until entire
+                                    amount due
+                                    is paid IN FULL. Any loss/damage claims must be received in writing AFTER your move
+                                    and DO NOT
                                     exempt you from paying the total amount due as outlined above.
-                                    <br />
+                                    <br/>
                                     Read and Agree
                                     <input
                                         type="checkbox"
@@ -1496,10 +1511,12 @@ MY OWN FREE WILL`
                                     />
                                 </div>
                                 <div className="card__ warning">
-                                    I understand that it’s my responsibility to hold a parking space for the moving truck at each
-                                    location. Failure to do so will result in my being held responsible to pay for any, and all,
+                                    I understand that it’s my responsibility to hold a parking space for the moving
+                                    truck at each
+                                    location. Failure to do so will result in my being held responsible to pay for any,
+                                    and all,
                                     parking tickets/fines resulting from my negligence to do so.
-                                    <br />
+                                    <br/>
                                     Read and Agree
                                     <input
                                         type="checkbox"
@@ -1512,11 +1529,12 @@ MY OWN FREE WILL`
                             </div>
                             {/* ise baslamamisdan qabaq ki sign */}
                             <div className="card__ margin-top">
-                                <p className="cardTitle" style={{ textAlign: 'center' }}>
-                                    BY SIGNING BELOW, I {is.clientFirstName} {is.clientLastName}, CONFIRM THAT THE INFORMATION
-                                    ABOVE IS TRUE AND CORRECT TO THE BEST OF MY KNOWLEDGE. <br />
+                                <p className="cardTitle" style={{textAlign: 'center'}}>
+                                    BY SIGNING BELOW, I {is.clientFirstName} {is.clientLastName}, CONFIRM THAT THE
+                                    INFORMATION
+                                    ABOVE IS TRUE AND CORRECT TO THE BEST OF MY KNOWLEDGE. <br/>
                                     SHIPPER’S (CUSTOMER’S) SIGNATURE:
-                                    <br />
+                                    <br/>
                                     DATE:{' '}
                                     {this.state.initSign
                                         ? moment(this.state.initSignDate).format('MM/DD/YYYY hh:mm a')
@@ -1536,25 +1554,25 @@ MY OWN FREE WILL`
                                             disabled={!!this.state.initSign}
                                             onChange={e => this.startFullName(e)}
                                             value={this.state.startFullName}
-                                            style={{ width: '400px' }}
+                                            style={{width: '400px'}}
                                             className="validate"
                                             placeholder="Type full name here"
                                         />
-                                        <br />
+                                        <br/>
                                         <a
                                             id="submit-sign"
                                             className={
                                                 (this.state.initSign
                                                     ? 'hide'
                                                     : this.state.initialSignAlphabet !== '' &&
-                                                      this.state.valuationOption.initial !== '' &&
-                                                      this.state.initSignature &&
-                                                      (this.state.startFullName && this.state.startFullName !== '') &&
-                                                      this.state.goster
+                                                    this.state.valuationOption.initial !== '' &&
+                                                    this.state.initSignature &&
+                                                    (this.state.startFullName && this.state.startFullName !== '') &&
+                                                    this.state.goster
                                                         ? ''
                                                         : 'disabled') + ' waves-effect waves-light btn blue'
                                             }
-                                            style={{ width: '400px' }}
+                                            style={{width: '400px'}}
                                             onClick={this.activateStart}>
                                             Submit AND START
                                         </a>
@@ -1572,20 +1590,20 @@ MY OWN FREE WILL`
                                             src={this.state.initSign}
                                             width={400}
                                             height={200}
-                                            style={{ zIndex: '0' }}
+                                            style={{zIndex: '0'}}
                                             alt="img"
                                         />
                                     </div>
                                     <a
                                         id="clear3"
-                                        style={{ width: '400px' }}
+                                        style={{width: '400px'}}
                                         className={(this.state.initSign ? 'hide' : '') + ' waves-effect waves-light btn blue'}>
                                         Clear
                                     </a>
                                 </div>
                             </div>
                         </div>
-                        <div className="clear margin-top" />
+                        <div className="clear margin-top"/>
 
                         {/* start, stop, break driving buttons */}
                         <div id="secondStep" className={this.state.initSign ? 'card__' : 'hide card__'}>
@@ -1616,8 +1634,8 @@ MY OWN FREE WILL`
                                 listOfAddedSignature={this.state.additionalSignature}
                                 listOfAdditionalSignature={this.state.additionalSignatureList}
                             />
-                            <AddedDiscountRender listOfDiscounts={this.state.discount} />
-                            <AdditionalChargesRender list={this.state.additionalCharge} />
+                            <AddedDiscountRender listOfDiscounts={this.state.discount}/>
+                            <AdditionalChargesRender list={this.state.additionalCharge}/>
                             {/* Finish rendering discounts */}
                             <div className="timeline">
                                 <div className={is.isPayed ? 'hide' : ''}>
@@ -1634,7 +1652,7 @@ MY OWN FREE WILL`
                                             }>
                                             Start Work time
                                         </a>
-                                        <a className="waves-effect waves-light btn blue" />
+                                        <a className="waves-effect waves-light btn blue"/>
                                         <a
                                             id="stop-work"
                                             onClick={() => {
@@ -1650,9 +1668,9 @@ MY OWN FREE WILL`
                                         </a>
                                     </div>
                                     <div className="center-align">
-                                        <hr />
+                                        <hr/>
                                         Driving time
-                                        <br />
+                                        <br/>
                                         <a
                                             id="driving-start"
                                             className={
@@ -1663,7 +1681,7 @@ MY OWN FREE WILL`
                                             onClick={() => this.drivingTime(is._id)}>
                                             Start Driving time
                                         </a>
-                                        <a className="waves-effect waves-light btn deep-purple lighten-1" />
+                                        <a className="waves-effect waves-light btn deep-purple lighten-1"/>
                                         <a
                                             id="driving-stop"
                                             className={
@@ -1676,9 +1694,9 @@ MY OWN FREE WILL`
                                         </a>
                                     </div>
                                     <div className="center-align">
-                                        <hr />
+                                        <hr/>
                                         Break
-                                        <br />
+                                        <br/>
                                         <a
                                             id="break-start"
                                             className={
@@ -1689,7 +1707,7 @@ MY OWN FREE WILL`
                                             onClick={() => this.breatTime(is._id)}>
                                             Start Break time
                                         </a>
-                                        <a className="waves-effect waves-light btn pink" />
+                                        <a className="waves-effect waves-light btn pink"/>
                                         <a
                                             id="break-stop"
                                             className={
@@ -1880,7 +1898,7 @@ MY OWN FREE WILL`
                                                     ? '$' + this.state.totalPul
                                                     : 'Yes'
                                                 : is.smallItemPacking > 0
-                                                    ? '$' + (is.smallItemPacking + (this.state.totalPul? this.state.totalPul : 0))
+                                                    ? '$' + (is.smallItemPacking + (this.state.totalPul ? this.state.totalPul : 0))
                                                     : 'Waived'}
                                         </span>
                                     </li>
@@ -1956,7 +1974,7 @@ MY OWN FREE WILL`
                                 <div className="cardTitle">Make the payment</div>
                                 <div id="odenis-yeri">
                                     <div id="make-a-payment" className="row center-align">
-                                        <div className="card_ col s12 m6 l6 center-align" style={{ height: '144px' }}>
+                                        <div className="card_ col s12 m6 l6 center-align" style={{height: '144px'}}>
                                             <a className="enter">Enter cash amount</a>
                                             {/* cash payment */}
                                             <div className="input-field">
@@ -1971,7 +1989,7 @@ MY OWN FREE WILL`
                                                 />
                                             </div>
                                         </div>
-                                        <div className="card_ col s6 m6 l6 center-align" style={{ height: '144px' }}>
+                                        <div className="card_ col s6 m6 l6 center-align" style={{height: '144px'}}>
                                             <a className="enter">Enter card amount</a>
                                             {/* card payemnt */}
                                             <div className="input-field">
@@ -1984,10 +2002,10 @@ MY OWN FREE WILL`
                                                     value={is.cardPayed || (this.state.payCard > 0 ? this.state.payCard : '')}
                                                 />
                                             </div>
-                                            <div id="pay-card" className={is.isPayed && 'hide'} />
+                                            <div id="pay-card" className={is.isPayed && 'hide'}/>
                                         </div>
-                                        <div className="clear" />
-                                        <div className="row" style={{ margin: '15px 0 0' }}>
+                                        <div className="clear"/>
+                                        <div className="row" style={{margin: '15px 0 0'}}>
                                             <a
                                                 id="mark-as-payed"
                                                 className={
@@ -2005,14 +2023,15 @@ MY OWN FREE WILL`
                                     <h5>Fully paid!</h5>
                                 </div>
                             </div>
-                            <div className="clear margin-top" />
+                            <div className="clear margin-top"/>
                             <div
                                 id="finel_step"
                                 className={
                                     is.isPayed ? 'card__ center-align darken-2-text' : 'card__ center-align darken-2-text hide'
                                 }>
                                 <div className="cardTitle red darken-3">
-                                    I agree that this move was completed to my satisfaction and that none of my items were damaged
+                                    I agree that this move was completed to my satisfaction and that none of my items
+                                    were damaged
                                     or broken.
                                 </div>
                                 {/* musteri signature */}
@@ -2031,7 +2050,7 @@ MY OWN FREE WILL`
                                             src={is.lastSignCustomer}
                                             width={400}
                                             height={200}
-                                            style={{ zIndex: '0' }}
+                                            style={{zIndex: '0'}}
                                         />
                                     </div>
                                     <a id="clear" className="waves-effect waves-light btn clearing">
@@ -2054,17 +2073,17 @@ MY OWN FREE WILL`
                                             src={is.lastSignEmployee}
                                             width={400}
                                             height={200}
-                                            style={{ zIndex: '0' }}
+                                            style={{zIndex: '0'}}
                                         />
                                     </div>
                                     <a id="clear2" className="waves-effect waves-light btn clearing">
                                         Clear
                                     </a>
                                 </div>
-                                <p />
+                                <p/>
                                 <div
                                     className={is.finished ? 'hide' : ' col s12 m12 l12 margin-top'}
-                                    style={{ marginBottom: '20px' }}>
+                                    style={{marginBottom: '20px'}}>
                                     <a
                                         className={
                                             this.state.showFinish1 && this.state.showFinish2
@@ -2087,60 +2106,60 @@ MY OWN FREE WILL`
 }
 
 Template.tablet.events({
-    'click #close-duymesi-id': function() {
+    'click #close-duymesi-id': function () {
         Session.set('tabletIsId', '');
-        ReactDOM.render(<TabletIsList />, document.getElementById('tablet-is-siyahi'));
+        ReactDOM.render(<TabletIsList/>, document.getElementById('tablet-is-siyahi'));
 
         $('#tablet-is-siyahi').show();
         $('#tebler-render').hide();
     }
 });
 
-Template.tablet.onRendered(function() {
-    ReactDOM.render(<TabletRender />, document.getElementById('tebler-render'));
+Template.tablet.onRendered(function () {
+    ReactDOM.render(<TabletRender/>, document.getElementById('tebler-render'));
 
-    paypal.Button.render(
-        {
-            env: 'production', // Or 'sandbox'
-
-            style: {
-                label: 'pay',
-                size: 'small', // small | medium | large | responsive
-                shape: 'rect', // pill | rect
-                color: 'blue' // gold | blue | silver | black
-            },
-
-            client: {
-                sandbox: 'ASree96P5IIPryoEkaURjZl_uCCGHLcso9ZNy6U_4vLFUnFc5qhU7hIP7KsLIfZoepVvPhxtdwvTsao5',
-                production: 'AeKzmDv5m4KcyrlQI7Y9qiyjYr5jyUYVKd1FsKrXF9Nce7qmfekBC35JIAFbV2am3TdVKhszmcOdFJhK'
-            },
-
-            commit: true, // Show a 'Pay Now' button
-
-            payment: function(data, actions) {
-                return actions.payment.create({
-                    payment: {
-                        transactions: [
-                            {
-                                amount: {
-                                    total: odenilmelidir,
-                                    currency: 'USD'
-                                }
-                            }
-                        ]
-                    }
-                });
-            },
-
-            onAuthorize: function(data, actions) {
-                return actions.payment.execute().then(function(payment) {
-                    document.getElementById('odenis-yeri').classList.add('hide');
-                    Session.set('payed', true);
-                    // The payment is complete!
-                    // You can now show a confirmation message to the customer
-                });
-            }
-        },
-        '#pay-card'
-    );
+    // paypal.Button.render(
+    //     {
+    //         env: 'production', // Or 'sandbox'
+    //
+    //         style: {
+    //             label: 'pay',
+    //             size: 'small', // small | medium | large | responsive
+    //             shape: 'rect', // pill | rect
+    //             color: 'blue' // gold | blue | silver | black
+    //         },
+    //
+    //         client: {
+    //             sandbox: 'ASree96P5IIPryoEkaURjZl_uCCGHLcso9ZNy6U_4vLFUnFc5qhU7hIP7KsLIfZoepVvPhxtdwvTsao5',
+    //             production: 'AeKzmDv5m4KcyrlQI7Y9qiyjYr5jyUYVKd1FsKrXF9Nce7qmfekBC35JIAFbV2am3TdVKhszmcOdFJhK'
+    //         },
+    //
+    //         commit: true, // Show a 'Pay Now' button
+    //
+    //         payment: function(data, actions) {
+    //             return actions.payment.create({
+    //                 payment: {
+    //                     transactions: [
+    //                         {
+    //                             amount: {
+    //                                 total: odenilmelidir,
+    //                                 currency: 'USD'
+    //                             }
+    //                         }
+    //                     ]
+    //                 }
+    //             });
+    //         },
+    //
+    //         onAuthorize: function(data, actions) {
+    //             return actions.payment.execute().then(function(payment) {
+    //                 document.getElementById('odenis-yeri').classList.add('hide');
+    //                 Session.set('payed', true);
+    //                 // The payment is complete!
+    //                 // You can now show a confirmation message to the customer
+    //             });
+    //         }
+    //     },
+    //     '#pay-card'
+    // );
 });

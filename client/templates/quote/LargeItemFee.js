@@ -1,25 +1,22 @@
 import React, { Component } from 'react';
-import { Tracker } from 'meteor/tracker';
 import { Session } from 'meteor/session';
+import { Tracker } from 'meteor/tracker';
 
-export default class NoteForMovers extends Component {
+export default class LargeItemFee extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
             value: ''
         };
-        this.changeHandler = this.changeHandler.bind(this);
     }
 
     componentDidMount() {
         this.x = Tracker.autorun(() => {
             this.timeOut = null;
-            let job = Session.get('job_');
-
-            if (job.note) {
+            let value = Session.get('job_').largeItemFee;
+            if (value) {
                 this.setState({
-                    value: job.noteForMovers
+                    value
                 });
             } else {
                 this.setState({
@@ -27,10 +24,6 @@ export default class NoteForMovers extends Component {
                 });
             }
         });
-    }
-
-    componentWillUnmount() {
-        this.x.stop();
     }
 
     setSession(what, value) {
@@ -44,28 +37,37 @@ export default class NoteForMovers extends Component {
         this.timeOut = setTimeout(() => this.setSession(what, value), 500);
     }
 
-    changeHandler(e) {
+    componentWillUnmount() {
+        this.x.stop();
+    }
+
+    onChange(e) {
         let value = e.target.value;
+
         this.setState(
             {
                 value
             },
             () => {
-                this.interval('noteForMovers', value);
+                this.interval('largeItemFee', Number(value) || '');
             }
         );
     }
 
     render() {
         return (
-            <div className="input-field">
-                <textarea
-                    style={{ height: '100px' }}
+            <div className="input-field valideyn">
+                <i className="material-icons isare">view_carousel</i>
+                <input
+                    onChange={e => this.onChange(e)}
+                    id="large_item_fee"
+                    className="xx"
+                    type="number"
+                    placeholder="0"
                     value={this.state.value}
-                    onChange={e => this.changeHandler(e)}
-                    className="materialize-textarea"></textarea>
-                <label htmlFor="textarea1" className="active">
-                    Note for Movers
+                />
+                <label className="active" htmlFor="large_item_fee">
+                    Large item fee
                 </label>
             </div>
         );

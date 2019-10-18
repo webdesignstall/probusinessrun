@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
 import { Tracker } from 'meteor/tracker';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
-import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
-
-import WorkData from '../../../common/collections_2';
-
-/*global swal*/
 
 export default class QuoteExpiration extends TrackerReact(Component) {
     constructor(props) {
@@ -14,64 +9,61 @@ export default class QuoteExpiration extends TrackerReact(Component) {
 
         this.state = {
             checked: false,
-            time: 0
+            time: 0,
+            expirationDate: new Date()
         };
 
         this.changeHandler = this.changeHandler.bind(this);
     }
 
     componentDidMount() {
-        this.x = Tracker.autorun(() => {});
+        this.x = Tracker.autorun(() => {
+            let job = Session.get('job_');
+            job.quoteExpirationDate
+                ? this.setState({
+                    expirationDate: new Date(job.quoteExpirationDate).getTime()
+                })
+                : this.setState({ time: 0 });
+        });
     }
 
     componentWillUnmount() {
         this.x.stop();
     }
 
-    changeHandler(e) {
-        this.setState({
-            time: e.target.value
-        });
+    timeToDate() {
+        return Number(this.state.time) * 3600000 + new Date().getTime();
     }
 
-    renew(e) {
-        e.preventDefault();
-
-        let time = Number(this.state.time) * 3600000 + new Date().getTime();
-        let doc = WorkData.findOne({ _id: Session.get('is') });
-
-        doc.quoteExpirationDate = new Date(time);
-        doc.ip = Session.get('ip');
-
-        Meteor.call('updateWork', doc, err => {
-            err
-                ? (swal({
-                    title: 'Error, can\'t renew expiration date!',
-                    text: err.reason,
-                    icon: 'error',
-                    button: 'OK'
-                }),
-                Session.set('loading', false),
-                console.error(err))
-                : swal({
-                    title: 'Success!',
-                    text: 'Expiration date updated successfully',
-                    icon: 'success',
-                    button: 'OK'
-                });
-        });
+    changeHandler(e) {
+        let job = Session.get('job_');
+        this.setState(
+            {
+                time: e.target.value
+            },
+            () => {
+                job.quoteExpirationDate = new Date(this.timeToDate());
+                Session.set('job_', job);
+            }
+        );
     }
 
     render() {
+        let active = new Date().getTime() < this.state.expirationDate;
         return (
             <React.Fragment>
                 <label className="active" htmlFor="quote-job-number">
-                    Quote Expiration Date
+                    Quote Expiration Date{' '}
+                    {Session.get('addingJob') ? (
+                        ''
+                    ) : (
+                        <span className={active ? 'expired_' : 'expired'}>{active ? 'active' : 'expired'}</span>
+                    )}
                 </label>
                 <select
                     onChange={e => this.changeHandler(e)}
                     name="quoteExpirationDate"
-                    className="browser-default col s8 m8 l8"
+                    className="browser-default"
                     id="quoteExpirationDate"
                     value={this.state.time}>
                     <option value="0">in 0 hour</option>
@@ -84,16 +76,6 @@ export default class QuoteExpiration extends TrackerReact(Component) {
                     <option value="72">in 3 days</option>
                     <option value="168">in 1 week</option>
                 </select>
-                {Session.get('is') !== '' ? (
-                    <a
-                        onClick={e => this.renew(e)}
-                        className="col s3 m3 l3 waves-effect waves-light btn offset-s1 offset-m1 offset-l1"
-                        style={{ height: '42px' }}>
-                        Renew
-                    </a>
-                ) : (
-                    ''
-                )}
             </React.Fragment>
         );
     }

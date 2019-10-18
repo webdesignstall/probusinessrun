@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import WorkData from '../../../common/collections_2';
 import { Session } from 'meteor/session';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
+import { Tracker } from 'meteor/tracker';
 
 /*global moment*/
 
@@ -43,16 +44,22 @@ export default class FollowUps extends TrackerReact(Component) {
     }
 
     componentDidMount() {
-        this.setState({
-            followUpOriginal:
-                this.workData()[0] && this.workData()[0].followUp && this.workData()[0].followUp.length > 0
-                    ? this.workData()[0].followUp
-                    : [{ note: '' }]
+        this.x = Tracker.autorun(() => {
+            this.setState({
+                followUpOriginal:
+                    this.workData()[0] && this.workData()[0].followUp && this.workData()[0].followUp.length > 0
+                        ? this.workData()[0].followUp
+                        : [{ note: '' }]
+            });
         });
     }
 
+    componentWillUnmount() {
+        this.x.stop();
+    }
+
     workData() {
-        return WorkData.find({ _id: Session.get('is') }).fetch();
+        return WorkData.find({ _id: Session.get('job_')._id }).fetch();
     }
 
     onChangeHandler(e, index) {
@@ -67,8 +74,10 @@ export default class FollowUps extends TrackerReact(Component) {
                     console.error(err);
                 } else {
                     let followUp = this.state.followUp;
+                    let job = Session.get('job_');
                     followUp[index].date = new Date();
-                    this.props.updateJob && this.props.updateJob({ followUp });
+                    job.followUp = followUp;
+                    Session.set('job_', job);
                 }
             }
         );
@@ -86,8 +95,10 @@ export default class FollowUps extends TrackerReact(Component) {
                     console.error(err);
                 } else {
                     let followUp = this.state.followUp;
+                    let job = Session.get('job_');
                     followUp[index].date = new Date();
-                    this.props.updateJob && this.props.updateJob({ followUp });
+                    job.followUp = followUp;
+                    Session.set('job_', job);
                 }
             }
         );
@@ -140,8 +151,3 @@ export default class FollowUps extends TrackerReact(Component) {
         return <React.Fragment>{this.renderList()}</React.Fragment>;
     }
 }
-
-FollowUps.propTypes = {
-    followUpList: PropTypes.array,
-    updateJob: PropTypes.func
-};

@@ -7,27 +7,22 @@ import { Session } from 'meteor/session';
 import ReactDOM from 'react-dom';
 import React from 'react';
 import { Tracker } from 'meteor/tracker';
-
 //import componenets
 import UpdateAddTruck from './../../client/templates/quote/UpdateAddTruck';
 import ArrivalWindow from './../../client/templates/quote/ArrivalWindow';
 import MovingSize from './../../client/templates/quote/MovingSize';
-import CompanySelector from './../../client/templates/quote/CompanySelector';
-import Addresses from './../../client/templates/quote/Addresses';
 import RenderEmployees from './../../client/templates/quote/RenderEmployees';
 import UpdateDoubleDrive from './../../client/templates/quote/UpdateDoubleDrive';
 import TempTrucks from './../../client/templates/quote/TempTrucks';
 import NumberOfUsers from '../../client/templates/quote/NumberOfUsers';
-import TakenBy from '../../client/templates/quote/TakenBy';
 import DailyStats from './DailyStats';
-import AdditionalContact from '../../client/templates/quote/AdditionalContact';
 import QuoteExpiration from '../../client/templates/quote/QuoteExpariation';
 import Status from '../../client/templates/quote/Status';
 import NewAppointment from '../../client/templates/quote/NewAppointment';
 import AdditionalInfo from '../../client/templates/quote/AdditionalInfo';
-import CustomerPriority from '../../client/templates/quote/CustomerPriority';
 import NoteForMovers from '../../client/templates/quote/NoteForMovers';
-
+import EditCalendarQuote from '../../client/templates/quote/editCalendarQuote/EditCalendarQuote';
+import QuoteMainPage from '../../client/templates/quote/QuoteMainPage';
 /*global moment $ swal*/
 
 function colorIndigator() {
@@ -95,7 +90,7 @@ function jobNumber_() {
     }
     let result = WorkData.find({ jobNumber }).fetch();
     result && result.length > 0 ? jobNumber_() : null;
-    document.getElementById('quote-job-number').value = jobNumber;
+    // document.getElementById('quote-job-number').value = jobNumber;
 }
 
 function Xuban() {
@@ -119,34 +114,35 @@ Template.kalendar.onCreated(function() {
 Template.preQuote.onDestroyed(function() {
     $('#add-schedule-page').hide();
     $('#edit-schedule-page').hide();
-    ReactDOM.unmountComponentAtNode(document.getElementById('truck-list-update'));
-    ReactDOM.unmountComponentAtNode(document.getElementById('update_time_window'));
+    // ReactDOM.unmountComponentAtNode(document.getElementById('truck-list-update'));
+    // ReactDOM.unmountComponentAtNode(document.getElementById('update_time_window'));
     // ReactDOM.unmountComponentAtNode(document.getElementById('arrival-time'));
-    ReactDOM.unmountComponentAtNode(document.getElementById('moving-size'));
-    ReactDOM.unmountComponentAtNode(document.getElementById('iscilerinSiyahisiRender'));
-    ReactDOM.unmountComponentAtNode(document.getElementById('moving-company'));
-    ReactDOM.unmountComponentAtNode(document.getElementById('tempTruck'));
+    // ReactDOM.unmountComponentAtNode(document.getElementById('moving-size'));
+    // ReactDOM.unmountComponentAtNode(document.getElementById('iscilerinSiyahisiRender'));
+    // ReactDOM.unmountComponentAtNode(document.getElementById('moving-company'));
+    // ReactDOM.unmountComponentAtNode(document.getElementById('tempTruck'));
     Session.set('secilmisIsciler', '');
 });
 
 Template.kalendar.onDestroyed(() => {
-    ReactDOM.unmountComponentAtNode(document.getElementById('truck-list-update'));
-    ReactDOM.unmountComponentAtNode(document.getElementById('update_time_window'));
-    ReactDOM.unmountComponentAtNode(document.getElementById('iscilerinSiyahisiRender'));
-    ReactDOM.unmountComponentAtNode(document.getElementById('number-of-movers'));
-    ReactDOM.unmountComponentAtNode(document.getElementById('update_time_window'));
+    // ReactDOM.unmountComponentAtNode(document.getElementById('truck-list-update'));
+    // ReactDOM.unmountComponentAtNode(document.getElementById('update_time_window'));
+    // ReactDOM.unmountComponentAtNode(document.getElementById('iscilerinSiyahisiRender'));
+    // ReactDOM.unmountComponentAtNode(document.getElementById('number-of-movers'));
+    // ReactDOM.unmountComponentAtNode(document.getElementById('update_time_window'));
     // ReactDOM.unmountComponentAtNode(document.getElementById('arrival-time'));
-    ReactDOM.unmountComponentAtNode(document.getElementById('moving-size'));
-    ReactDOM.unmountComponentAtNode(document.getElementById('moving-company'));
-    ReactDOM.unmountComponentAtNode(document.getElementById('tempTruck'));
-    ReactDOM.unmountComponentAtNode(document.getElementById('addressesId'));
+    // ReactDOM.unmountComponentAtNode(document.getElementById('moving-size'));
+    // ReactDOM.unmountComponentAtNode(document.getElementById('moving-company'));
+    // ReactDOM.unmountComponentAtNode(document.getElementById('tempTruck'));
+    // ReactDOM.unmountComponentAtNode(document.getElementById('addressesId'));
     // ReactDOM.unmountComponentAtNode(document.getElementById('takenBy'));
-    ReactDOM.unmountComponentAtNode(document.getElementById('additional-contact-update'));
-    ReactDOM.unmountComponentAtNode(document.getElementById('quote-date-expiration-add'));
-    ReactDOM.unmountComponentAtNode(document.getElementById('quote-customer-priority'));
-    ReactDOM.unmountComponentAtNode(document.getElementById('new_appointment_update'));
-    ReactDOM.unmountComponentAtNode(document.getElementById('note_for_movers_'));
+    // ReactDOM.unmountComponentAtNode(document.getElementById('additional-contact-update'));
+    // ReactDOM.unmountComponentAtNode(document.getElementById('quote-date-expiration-add'));
+    // ReactDOM.unmountComponentAtNode(document.getElementById('quote-customer-priority'));
+    // ReactDOM.unmountComponentAtNode(document.getElementById('new_appointment_update'));
+    // ReactDOM.unmountComponentAtNode(document.getElementById('note_for_movers_'));
     Session.set('addingJob', false);
+    ReactDOM.unmountComponentAtNode(document.getElementById('edit_calendar_quote'));
     let dailyStatsList = document.getElementsByClassName('dailyStatsComponent');
     let i = 0;
     for (i = 0; i < dailyStatsList.length; i++) {
@@ -238,8 +234,6 @@ Template.kalendar.onRendered(() => {
             }
         });
     });
-
-    ReactDOM.unmountComponentAtNode(document.getElementById('number-of-movers'));
 
     let dataBase = [];
     let sayi = 0;
@@ -563,6 +557,7 @@ Template.kalendar.onRendered(() => {
         });
         return result;
     }
+
     $('.dayData').click(function() {
         $('#modal1').modal();
     });
@@ -630,18 +625,18 @@ Template.kalendar.events({
         event.preventDefault();
         $('#add-schedule-page').show();
         $('#kalendar').hide();
-        ReactDOM.unmountComponentAtNode(document.getElementById('truck-list-update'));
-        ReactDOM.unmountComponentAtNode(document.getElementById('update_time_window'));
-        ReactDOM.unmountComponentAtNode(document.getElementById('number-of-movers2'));
+        // ReactDOM.unmountComponentAtNode(document.getElementById('truck-list-update'));
+        // ReactDOM.unmountComponentAtNode(document.getElementById('update_time_window'));
+        // ReactDOM.unmountComponentAtNode(document.getElementById('number-of-movers2'));
         // ReactDOM.render(<ArrivalWindow />, document.getElementById('arrival-time'));
-        ReactDOM.render(<CompanySelector />, document.getElementById('moving-company'));
-        ReactDOM.render(<TempTrucks />, document.getElementById('tempTruck'));
+        // ReactDOM.render(<CompanySelector/>, document.getElementById('moving-company'));
+        // ReactDOM.render(<TempTrucks/>, document.getElementById('tempTruck'));
         // ReactDOM.render(<TakenBy />, document.getElementById('takenBy'));
-        ReactDOM.render(<NumberOfUsers />, document.getElementById('number-of-movers'));
+        // ReactDOM.render(<NumberOfUsers />, document.getElementById('number-of-movers'));
         // ReactDOM.render(<AdditionalContact />, document.getElementById('additional-contact'));
-        ReactDOM.render(<QuoteExpiration />, document.getElementById('quote-date-expiration-add'));
-        ReactDOM.render(<CustomerPriority />, document.getElementById('quote-customer-priority'));
-        ReactDOM.render(<NoteForMovers />, document.getElementById('note_for_movers_'));
+        // ReactDOM.render(<QuoteExpiration/>, document.getElementById('quote-date-expiration-add'));
+        // ReactDOM.render(<CustomerPriority/>, document.getElementById('quote-customer-priority'));
+        // ReactDOM.render(<NoteForMovers/>, document.getElementById('note_for_movers_'));
         // window.addresses = ReactDOM.render(<Addresses />, document.getElementById('addressesId'));
         Session.set('is', '');
 
@@ -656,19 +651,19 @@ Template.kalendar.events({
         $('#add-schedule-page').show();
         $('#edit-schedule-page').hide();
         // $('#kalendar').hide();
-        ReactDOM.unmountComponentAtNode(document.getElementById('truck-list-update'));
-        ReactDOM.unmountComponentAtNode(document.getElementById('update_time_window'));
-        ReactDOM.unmountComponentAtNode(document.getElementById('number-of-movers2'));
+        // ReactDOM.unmountComponentAtNode(document.getElementById('truck-list-update'));
+        // ReactDOM.unmountComponentAtNode(document.getElementById('update_time_window'));
+        // ReactDOM.unmountComponentAtNode(document.getElementById('number-of-movers2'));
         // ReactDOM.render(<ArrivalWindow />, document.getElementById('arrival-time'));
-        ReactDOM.render(<CompanySelector />, document.getElementById('moving-company'));
-        ReactDOM.render(<TempTrucks />, document.getElementById('tempTruck'));
+        // ReactDOM.render(<CompanySelector/>, document.getElementById('moving-company'));
+        // ReactDOM.render(<TempTrucks/>, document.getElementById('tempTruck'));
         // ReactDOM.render(<TakenBy />, document.getElementById('takenBy'));
-        ReactDOM.render(<NumberOfUsers />, document.getElementById('number-of-movers'));
+        // ReactDOM.render(<NumberOfUsers />, document.getElementById('number-of-movers'));
         // ReactDOM.render(<AdditionalContact />, document.getElementById('additional-contact'));
-        ReactDOM.render(<QuoteExpiration />, document.getElementById('quote-date-expiration-add'));
-        ReactDOM.render(<CustomerPriority />, document.getElementById('quote-customer-priority'));
-        ReactDOM.render(<AdditionalInfo />, document.getElementById('additional_info_add'));
-        ReactDOM.render(<NoteForMovers />, document.getElementById('note_for_movers_'));
+        // ReactDOM.render(<QuoteExpiration/>, document.getElementById('quote-date-expiration-add'));
+        // ReactDOM.render(<CustomerPriority/>, document.getElementById('quote-customer-priority'));
+        // ReactDOM.render(<AdditionalInfo />, document.getElementById('additional_info_add'));
+        // ReactDOM.render(<NoteForMovers />, document.getElementById('note_for_movers_'));
         // window.addresses = ReactDOM.render(<Addresses />, document.getElementById('addressesId'));
         Session.set('is', '');
 
@@ -676,7 +671,8 @@ Template.kalendar.events({
             $('select').material_select();
         });
 
-        jobNumber_();
+        ReactDOM.render(<QuoteMainPage />, document.getElementById('pre_quote'));
+
         document.getElementById('add-schedule-page').scrollIntoView({ behavior: 'smooth' });
         Session.set('addingJob', true);
     },
@@ -685,25 +681,28 @@ Template.kalendar.events({
         colorIndigator();
         $('#add-schedule-page').hide();
         $('#edit-schedule-page').hide();
-        ReactDOM.unmountComponentAtNode(document.getElementById('number-of-movers'));
-        ReactDOM.unmountComponentAtNode(document.getElementById('truck-list-update'));
-        ReactDOM.unmountComponentAtNode(document.getElementById('update_time_window'));
+        // ReactDOM.unmountComponentAtNode(document.getElementById('number-of-movers'));
+        // ReactDOM.unmountComponentAtNode(document.getElementById('truck-list-update'));
+        // ReactDOM.unmountComponentAtNode(document.getElementById('update_time_window'));
         // ReactDOM.unmountComponentAtNode(document.getElementById('arrival-time'));
-        ReactDOM.unmountComponentAtNode(document.getElementById('moving-size'));
-        ReactDOM.unmountComponentAtNode(document.getElementById('iscilerinSiyahisiRender'));
-        ReactDOM.unmountComponentAtNode(document.getElementById('moving-company'));
-        ReactDOM.unmountComponentAtNode(document.getElementById('tempTruck'));
-        ReactDOM.unmountComponentAtNode(document.getElementById('addressesId'));
+        // ReactDOM.unmountComponentAtNode(document.getElementById('moving-size'));
+        // ReactDOM.unmountComponentAtNode(document.getElementById('iscilerinSiyahisiRender'));
+        // ReactDOM.unmountComponentAtNode(document.getElementById('moving-company'));
+        // ReactDOM.unmountComponentAtNode(document.getElementById('tempTruck'));
+        // ReactDOM.unmountComponentAtNode(document.getElementById('addressesId'));
         // ReactDOM.unmountComponentAtNode(document.getElementById('takenBy'));
-        ReactDOM.unmountComponentAtNode(document.getElementById('additional-contact-update'));
-        ReactDOM.unmountComponentAtNode(document.getElementById('quote-date-expiration-add'));
-        ReactDOM.unmountComponentAtNode(document.getElementById('quote-customer-priority'));
-        ReactDOM.unmountComponentAtNode(document.getElementById('new_appointment_update'));
-        ReactDOM.unmountComponentAtNode(document.getElementById('additional_info_add'));
-        ReactDOM.unmountComponentAtNode(document.getElementById('note_for_movers_'));
+        // ReactDOM.unmountComponentAtNode(document.getElementById('additional-contact-update'));
+        // ReactDOM.unmountComponentAtNode(document.getElementById('quote-date-expiration-add'));
+        // ReactDOM.unmountComponentAtNode(document.getElementById('quote-customer-priority'));
+        // ReactDOM.unmountComponentAtNode(document.getElementById('new_appointment_update'));
+        // ReactDOM.unmountComponentAtNode(document.getElementById('additional_info_add'));
+        // ReactDOM.unmountComponentAtNode(document.getElementById('note_for_movers_'));
         Session.set('secilmisIsciler', '');
         Session.set('is', '');
         Session.set('addingJob', false);
+        Session.set('job_', {});
+
+        ReactDOM.unmountComponentAtNode(document.getElementById('edit_calendar_quote'));
 
         let btns = document.getElementsByClassName('btn');
         for (let i = 0; i < btns.length; i++) {
@@ -711,65 +710,16 @@ Template.kalendar.events({
         }
     },
     'click .edit-duymesi': function(event) {
-        if (Session.get('addingJob') !== true) {
-            event.preventDefault();
-            // Reset before mount
-            ReactDOM.unmountComponentAtNode(document.getElementById('number-of-movers'));
-            ReactDOM.unmountComponentAtNode(document.getElementById('truck-list-update'));
-            ReactDOM.unmountComponentAtNode(document.getElementById('update_time_window'));
-            // ReactDOM.unmountComponentAtNode(document.getElementById('arrival-time'));
-            ReactDOM.unmountComponentAtNode(document.getElementById('moving-size'));
-            ReactDOM.unmountComponentAtNode(document.getElementById('iscilerinSiyahisiRender'));
-            ReactDOM.unmountComponentAtNode(document.getElementById('moving-company'));
-            ReactDOM.unmountComponentAtNode(document.getElementById('tempTruck'));
-            ReactDOM.unmountComponentAtNode(document.getElementById('addressesId'));
-            // ReactDOM.unmountComponentAtNode(document.getElementById('takenBy'));
-            ReactDOM.unmountComponentAtNode(document.getElementById('additional-contact-update'));
-            ReactDOM.unmountComponentAtNode(document.getElementById('quote-date-expiration-add'));
+        event.preventDefault();
+        $('#edit-schedule-page').hide();
 
-            Session.set('secilmisIsciler', '');
-            Session.set('is', '');
-            Session.set('addingJob', false);
-            $('#edit-schedule-page').hide();
+        $('#edit-schedule-page').show();
+        let job = WorkData.findOne({ _id: this._id });
+        Session.set('job_', job);
+        ReactDOM.unmountComponentAtNode(document.getElementById('pre_quote'));
+        ReactDOM.render(<EditCalendarQuote />, document.getElementById('edit_calendar_quote'));
 
-            Template.instance().vurulanId.set(this._id);
-            $('#edit-schedule-page').show();
-            Session.set('is', this._id);
-            let job = WorkData.findOne({ _id: Session.get('is') });
-            ReactDOM.unmountComponentAtNode(document.getElementById('addTruck'));
-            ReactDOM.render(<UpdateAddTruck />, document.querySelector('#truck-list-update'));
-            // ReactDOM.unmountComponentAtNode(document.getElementById('arrival-time'));
-            ReactDOM.render(<ArrivalWindow update={true} />, document.getElementById('update_time_window'));
-            ReactDOM.render(<MovingSize />, document.getElementById('moving-size'));
-            ReactDOM.render(<RenderEmployees />, document.getElementById('iscilerinSiyahisiRender'));
-            ReactDOM.render(<UpdateDoubleDrive />, document.getElementById('double-drive-time-update'));
-            // ReactDOM.render(<Addresses />, document.getElementById('addressesIdUpdate'));
-            ReactDOM.render(<NumberOfUsers />, document.getElementById('number-of-movers2'));
-            ReactDOM.render(<TempTrucks update={true} />, document.getElementById('tempTruckUpdate'));
-            ReactDOM.render(<QuoteExpiration />, document.getElementById('quoteExpireDateUpdate'));
-            ReactDOM.render(<Status status={job.status} />, document.getElementById('status_update'));
-            ReactDOM.render(<NewAppointment />, document.getElementById('new_appointment_update'));
-            ReactDOM.render(<AdditionalInfo />, document.getElementById('additional_info_update'));
-            ReactDOM.render(<NoteForMovers />, document.getElementById('note_for_movers_update'));
-            // ReactDOM.render(
-            //     <AdditionalContact contacts={job ? job.additionalContacts : []} />,
-            //     document.getElementById('additional-contact-update')
-            // );
-
-            let x = WorkData.findOne({ _id: Session.get('is') });
-            let takenById = x.takenBy;
-            // ReactDOM.render(<TakenBy id={takenById} update={true} />, document.getElementById('takenBy--update'));
-            $('#quote-date-picker_2').datepicker();
-            $(function() {
-                $('#quote-date-picker_2').datepicker('setDate', new Date(x.workDate));
-            });
-
-            $(document).ready(function() {
-                $('select').material_select();
-            });
-
-            document.getElementById('edit-schedule-page').scrollIntoView({ behavior: 'smooth' });
-        }
+        document.getElementById('edit-schedule-page').scrollIntoView({ behavior: 'smooth' });
     },
     'click #testucun': function() {
         function yenidenIsled() {

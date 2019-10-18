@@ -43,7 +43,7 @@ export default class SourceOfLeads extends Component {
 
     render() {
         return (
-            <div className="col s12 m3 l3">
+            <React.Fragment>
                 <label className="active" htmlFor="source_of_leads_add">
                     Source of Leads
                 </label>
@@ -60,7 +60,7 @@ export default class SourceOfLeads extends Component {
                     <option value="groupon">Groupon</option>
                     <option value="other">Other</option>
                 </select>
-            </div>
+            </React.Fragment>
         );
     }
 }

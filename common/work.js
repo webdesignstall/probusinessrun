@@ -1,8 +1,7 @@
 import SimpleSchema from 'simpl-schema';
-import { Tracker } from 'meteor/tracker';
-import { Meteor } from 'meteor/meteor';
-import { Template } from 'meteor/templating';
-import { array } from 'prop-types';
+import {Tracker} from 'meteor/tracker';
+import {Meteor} from 'meteor/meteor';
+import {Template} from 'meteor/templating';
 
 // Required AutoForm setup
 SimpleSchema.extendOptions(['autoform']);
@@ -73,7 +72,7 @@ Schemas.workSchema = new SimpleSchema(
             label: 'Worker ID',
             optional: true,
             minCount: 1,
-            autoValue: function() {
+            autoValue: function () {
                 let iscilerinBazasi = this.value;
                 let ikiNoqteninYeri;
                 let tamId;
@@ -145,7 +144,7 @@ Schemas.workSchema = new SimpleSchema(
         },
         company: {
             type: String,
-            autoValue: function() {
+            autoValue: function () {
                 return this.userId;
             },
             autoform: {
@@ -824,5 +823,5 @@ Schemas.workSchema = new SimpleSchema(
             optional: true
         }
     },
-    { tracker: Tracker }
+    {tracker: Tracker}
 );

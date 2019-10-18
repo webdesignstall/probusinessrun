@@ -35,4 +35,5 @@ Template.followUp.onDestroyed(() => {
     Session.set('loading', false);
     Session.set('status', 'inProgress');
     Session.set('searchWords', '');
+    Session.set('job_', {});
 });

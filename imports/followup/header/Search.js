@@ -31,7 +31,7 @@ export default class Search extends TrackerReact(Component) {
         });
     }
 
-    componentWillUnMount() {
+    componentWillUnmount() {
         this.x.stop();
     }
 

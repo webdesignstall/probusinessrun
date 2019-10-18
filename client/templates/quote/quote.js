@@ -77,7 +77,6 @@ Template.updateQuote.onRendered(function() {
                 (document.querySelector('#flatRateCardUpdate').defaultValue = ish.flatRate[0].cardAmount);
             document.querySelector('#flatBoxUpdate') &&
                 (document.querySelector('#flatBoxUpdate').checked = ish.flatRate[0].isTrue);
-            Session.set('flatRate', ish.flatRate[0].isTrue);
             document.querySelector('#flatRateUpdate_')
                 ? ish.flatRate[0].isTrue
                     ? document.querySelector('#flatRateUpdate_').classList.remove('hide')
@@ -358,7 +357,6 @@ Template.updateQuote.events({
     },
     'click #hide-update-quote': function() {
         document.querySelector('#updateQuote2').classList.add('hide');
-        ReactDOM.unmountComponentAtNode('');
     }
 });
 
@@ -370,29 +368,29 @@ Template.preQuote.onRendered(function() {
     // Meteor.subscribe('workSchema');
 
     // declare job number
-    function jobNumber_() {
-        let jobNumber = Math.round(Math.random() * (999999 - 1) + 1);
-        jobNumber = jobNumber.toString();
-        let howManyZero = 6 - jobNumber.length;
-        if (howManyZero > 0) {
-            for (let i = 0; i < howManyZero; i++) {
-                jobNumber = '0' + jobNumber;
-            }
-        }
-        let result = WorkData.find({ jobNumber }).fetch();
-        result && result.length > 0 ? jobNumber_() : null;
-        document.getElementById('quote-job-number').value = jobNumber;
-    }
+    // function jobNumber_() {
+    //     let jobNumber = Math.round(Math.random() * (999999 - 1) + 1);
+    //     jobNumber = jobNumber.toString();
+    //     let howManyZero = 6 - jobNumber.length;
+    //     if (howManyZero > 0) {
+    //         for (let i = 0; i < howManyZero; i++) {
+    //             jobNumber = '0' + jobNumber;
+    //         }
+    //     }
+    //     let result = WorkData.find({ jobNumber }).fetch();
+    //     result && result.length > 0 ? jobNumber_() : null;
+    //     // document.getElementById('quote-job-number').value = jobNumber;
+    // }
 
     // run job number
-    jobNumber_();
+    // jobNumber_();
 
     $('#quote-date-picker').datepicker();
     $(function() {
         $('#quote-date-picker').datepicker('setDate', new Date());
     });
 
-    let regex = new RegExp(/^\d+$/);
+    // let regex = new RegExp(/^\d+$/);
 
     // document.querySelector('#phoneNumber').addEventListener('input', e => {
     //     e.preventDefault();
@@ -523,7 +521,7 @@ Template.preQuote.events({
             }
             let result = WorkData.find({ jobNumber }).fetch();
             result && result.length > 0 ? jobNumber_() : null;
-            document.getElementById('quote-job-number').value = jobNumber;
+            // document.getElementById('quote-job-number').value = jobNumber;
         }
 
         let jobInfo = {
@@ -615,6 +613,7 @@ Template.preQuote.events({
         };
 
         let emailReg = new RegExp(
+            // eslint-disable-next-line no-useless-escape
             /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         );
 
@@ -681,10 +680,6 @@ Template.preQuote.events({
             Session.set('loading', false),
             enableButtons());
     },
-    'click #work-request-reset': function() {
-        Session.set('reset', true);
-        enableButtons();
-    },
     'click #confirmed_job': function(e) {
         e.preventDefault();
         let firstName = document.getElementById('firstName').value;
@@ -717,7 +712,7 @@ Template.preQuote.events({
         let largeItemFee = document.getElementById('large_item_fee').value;
         let jobNumber = document.getElementById('quote-job-number').value;
         let movingSize = document.getElementById('moving_size_2').value;
-        let note = document.getElementById('textarea1').value;
+        // let note = document.getElementById('textarea1').value;
         let secilmisIsci = document.getElementsByClassName('secilmisIsci');
         let iscilerinSayi = document.getElementById('iscinin-sayi').value;
         if (isNaN(iscilerinSayi)) {
@@ -781,7 +776,7 @@ Template.preQuote.events({
             }
             let result = WorkData.find({ jobNumber }).fetch();
             result && result.length > 0 ? jobNumber_() : null;
-            document.getElementById('quote-job-number').value = jobNumber;
+            // document.getElementById('quote-job-number').value = jobNumber;
         }
 
         let doc = {
@@ -900,7 +895,7 @@ Template.preQuote.events({
         let largeItemFee = document.getElementById('large_item_fee').value;
         let jobNumber = document.getElementById('quote-job-number').value;
         let movingSize = document.getElementById('moving_size_2').value;
-        let note = document.getElementById('textarea1').value;
+        // let note = document.getElementById('textarea1').value;
         let secilmisIsci = document.getElementsByClassName('secilmisIsci');
         let iscilerinSayi = document.getElementById('iscinin-sayi').value;
         if (isNaN(iscilerinSayi)) {
@@ -941,8 +936,8 @@ Template.preQuote.events({
         }
 
         function idniSec(soz) {
-            var baslama = soz.indexOf(':');
-            var secme = soz.substr(baslama + 1, soz.lenght);
+            let baslama = soz.indexOf(':');
+            let secme = soz.substr(baslama + 1, soz.lenght);
             return secme;
         }
 
@@ -963,7 +958,7 @@ Template.preQuote.events({
             }
             let result = WorkData.find({ jobNumber }).fetch();
             result && result.length > 0 ? jobNumber_() : null;
-            document.getElementById('quote-job-number').value = jobNumber;
+            // document.getElementById('quote-job-number').value = jobNumber;
         }
 
         let doc = {
@@ -1059,16 +1054,16 @@ Template.quoteTam.events({
         });
     },
     'click #close-update-work': function() {
-        ReactDOM.unmountComponentAtNode(document.querySelector('#truck-list-update'));
-        ReactDOM.unmountComponentAtNode(document.querySelector('#update_time_window'));
-        ReactDOM.unmountComponentAtNode(document.querySelector('#number-of-movers2'));
-        ReactDOM.unmountComponentAtNode(document.querySelector('#moving-size'));
-        ReactDOM.unmountComponentAtNode(document.querySelector('#double-drive-time-update'));
-        ReactDOM.unmountComponentAtNode(document.querySelector('#iscilerinSiyahisiRender'));
-        ReactDOM.unmountComponentAtNode(document.querySelector('#tempTruckUpdate'));
-        ReactDOM.unmountComponentAtNode(document.querySelector('#addressesIdUpdate'));
-        ReactDOM.unmountComponentAtNode(document.querySelector('#takenBy--update'));
-        ReactDOM.unmountComponentAtNode(document.querySelector('#additional-contact-update'));
+        // ReactDOM.unmountComponentAtNode(document.querySelector('#truck-list-update'));
+        // ReactDOM.unmountComponentAtNode(document.querySelector('#update_time_window'));
+        // ReactDOM.unmountComponentAtNode(document.querySelector('#number-of-movers2'));
+        // ReactDOM.unmountComponentAtNode(document.querySelector('#moving-size'));
+        // ReactDOM.unmountComponentAtNode(document.querySelector('#double-drive-time-update'));
+        // ReactDOM.unmountComponentAtNode(document.querySelector('#iscilerinSiyahisiRender'));
+        // ReactDOM.unmountComponentAtNode(document.querySelector('#tempTruckUpdate'));
+        // ReactDOM.unmountComponentAtNode(document.querySelector('#addressesIdUpdate'));
+        // ReactDOM.unmountComponentAtNode(document.querySelector('#takenBy--update'));
+        // ReactDOM.unmountComponentAtNode(document.querySelector('#additional-contact-update'));
         tracker_.stop();
         // ReactDOM.unmountComponentAtNode(document.querySelector('#tempTruck'));
 
@@ -1079,17 +1074,17 @@ Template.quoteTam.events({
 });
 
 Template.quoteTam.onDestroyed(function() {
-    ReactDOM.unmountComponentAtNode(document.querySelector('#truck-list-update'));
-    ReactDOM.unmountComponentAtNode(document.querySelector('#update_time_window'));
-    ReactDOM.unmountComponentAtNode(document.querySelector('#number-of-movers2'));
-    ReactDOM.unmountComponentAtNode(document.querySelector('#moving-size'));
-    ReactDOM.unmountComponentAtNode(document.querySelector('#double-drive-time-update'));
-    ReactDOM.unmountComponentAtNode(document.querySelector('#iscilerinSiyahisiRender'));
-    ReactDOM.unmountComponentAtNode(document.querySelector('#tempTruckUpdate'));
-    ReactDOM.unmountComponentAtNode(document.querySelector('#quoteTam'));
-    ReactDOM.unmountComponentAtNode(document.querySelector('#addressesIdUpdate'));
-    ReactDOM.unmountComponentAtNode(document.querySelector('#takenBy--update'));
-    ReactDOM.unmountComponentAtNode(document.querySelector('#additional-contact-update'));
+    // ReactDOM.unmountComponentAtNode(document.querySelector('#truck-list-update'));
+    // ReactDOM.unmountComponentAtNode(document.querySelector('#update_time_window'));
+    // ReactDOM.unmountComponentAtNode(document.querySelector('#number-of-movers2'));
+    // ReactDOM.unmountComponentAtNode(document.querySelector('#moving-size'));
+    // ReactDOM.unmountComponentAtNode(document.querySelector('#double-drive-time-update'));
+    // ReactDOM.unmountComponentAtNode(document.querySelector('#iscilerinSiyahisiRender'));
+    // ReactDOM.unmountComponentAtNode(document.querySelector('#tempTruckUpdate'));
+    // ReactDOM.unmountComponentAtNode(document.querySelector('#quoteTam'));
+    // ReactDOM.unmountComponentAtNode(document.querySelector('#addressesIdUpdate'));
+    // ReactDOM.unmountComponentAtNode(document.querySelector('#takenBy--update'));
+    // ReactDOM.unmountComponentAtNode(document.querySelector('#additional-contact-update'));
 
     document.querySelector('#quoteTam').classList.remove('hide');
     document.querySelector('#updateQuote2').classList.add('hide');
@@ -1098,11 +1093,11 @@ Template.quoteTam.onDestroyed(function() {
 });
 
 Template.preQuote.onRendered(function() {
-    let checked = document.querySelector('#flatRateCheck');
     ReactDOM.render(<QuoteMainPage />, document.getElementById('pre_quote'));
-    checked.addEventListener('change', function() {
-        Session.set('flatRate', !Session.get('flatRate'));
-    });
+});
+
+Template.preQuote.onDestroyed(function() {
+    ReactDOM.unmountComponentAtNode(document.getElementById('pre_quote'));
 });
 
 Template.navBar.events({

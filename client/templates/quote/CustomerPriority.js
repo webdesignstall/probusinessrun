@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import WorkData from '../../../common/collections_2';
 import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
 import { Tracker } from 'meteor/tracker';
+import PropTypes from 'prop-types';
+import swal from 'sweetalert';
 
 export default class CustomerPriority extends Component {
     constructor(props) {
         super(props);
-
+        // noinspection JSValidateTypes
         this.state = {
             id: '',
+            jobId: '',
             star: ['', '', ''],
             rate: 0,
             rateClicked: 0,
@@ -24,14 +25,27 @@ export default class CustomerPriority extends Component {
         this.onClick_ = this.onClick_.bind(this);
     }
 
+    UNSAFE_componentWillReceiveProps(nextProps) {
+        this.setState({
+            id: nextProps.id,
+            rate: nextProps.rate,
+            rateClicked: nextProps.rate
+        });
+    }
+
     componentDidMount() {
         this.x = Tracker.autorun(() => {
-            Session.set('customerRate', 0);
-            let reset = Session.get('reset');
-            if (reset) {
-                Session.set('customerRate', 0);
+            let job = Session.get('job_');
+            // eslint-disable-next-line react/prop-types
+            if (this.props.id || (job.customerRate && !isNaN(job.customerRate))) {
                 this.setState({
-                    id: '',
+                    id: this.props.id,
+                    rate: this.props.rate || job.customerRate,
+                    // eslint-disable-next-line react/prop-types
+                    rateClicked: this.props.rate || job.customerRate || 0
+                });
+            } else {
+                this.setState({
                     star: ['', '', ''],
                     rate: 0,
                     rateClicked: 0,
@@ -39,21 +53,6 @@ export default class CustomerPriority extends Component {
                     animation: ''
                 });
             }
-            let count = 0;
-            this.setState(
-                {
-                    id: this.props.id || ''
-                },
-                () => {
-                    if (this.state.id) {
-                        count = WorkData.find({ _id: this.state.id }).fetch()[0].customerRate || 0;
-                    }
-                    this.setState({
-                        rate: count,
-                        rateClicked: count
-                    });
-                }
-            );
         });
     }
 
@@ -87,19 +86,21 @@ export default class CustomerPriority extends Component {
                 clicked: true
             },
             () => {
-                Session.set('customerRate', this.state.rateClicked);
+                let job = Session.get('job_');
+                job.customerRate = this.state.rateClicked;
+                Session.set('job_', job);
                 if (this.state.id) {
-                    let job = WorkData.find(this.state.id).fetch()[0];
-                    Meteor.call('rate', this.state.id, this.state.rateClicked, job.customerRate || 0, err => {
+                    Meteor.call('rate', this.state.id, this.state.rateClicked, err => {
                         if (err) {
                             console.error(err);
                         } else {
                             swal({
                                 title: 'Success!',
-                                text: `Job #${job.jobNumber} Rate Changed Successfully`,
+                                text: 'Job Rate Changed Successfully',
                                 icon: 'success',
                                 button: 'OK'
-                            });
+                                // eslint-disable-next-line no-console
+                            }).then(r => console.log(r));
                         }
                     });
                 }
@@ -124,13 +125,16 @@ export default class CustomerPriority extends Component {
             );
         });
     }
+
     render() {
         return (
-            <div className={this.state.id !== '' ? 'customer-rate-main' : ''}>
-                <label className={this.state.id === '' ? 'active' : 'hide'} htmlFor="quote-job-number">
+            <div className={this.props.id ? 'customer-rate-main' : ''}>
+                <label className={this.props.id ? 'hide' : 'active'} htmlFor="quote-job-number">
                     Customer Priority
                 </label>
-                <div className={this.state.id === '' ? 'customer-rate' : 'customer-rate-follow'}>{this.renderStars()}</div>
+                <div className={!this.state.id || this.state.id === '' ? 'customer-rate' : 'customer-rate-follow'}>
+                    {this.renderStars()}
+                </div>
             </div>
         );
     }

@@ -3,16 +3,18 @@ import { Session } from 'meteor/session';
 import { Tracker } from 'meteor/tracker';
 
 export default class AdditionalInfoValue extends Component {
-    changeValue(e) {
-        this.setState({
+    constructor(props) {
+        super(props);
+        this.state = {
             value: []
-        });
+        };
     }
 
     componentDidMount() {
         this.x = Tracker.autorun(() => {
+            let job = Session.get('job_');
             this.setState({
-                value: Session.get('additionalInfo')
+                value: job.additionalInfo || []
             });
         });
     }
@@ -21,17 +23,26 @@ export default class AdditionalInfoValue extends Component {
         this.x.stop();
     }
 
+    setSession(value) {
+        let job = Session.get('job_');
+        job.additionalInfo = value;
+
+        Session.set('job_', job);
+    }
+
     delete(index) {
-        let arr = Session.get('additionalInfo');
+        let job = Session.get('job_');
+        job.additionalInfo ? null : [];
+        let arr = job.additionalInfo;
         arr.splice(index, 1);
 
-        Session.set('additionalInfo', arr);
+        Session.set('job_', job);
     }
 
     renderList() {
         return (
             <ul>
-                {Session.get('additionalInfo').map((info, index) => {
+                {this.state.value.map((info, index) => {
                     return (
                         <li
                             key={index + 'addInfoVal'}

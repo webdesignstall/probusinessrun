@@ -1,5 +1,5 @@
-import { Meteor } from 'meteor/meteor';
-import { Accounts } from 'meteor/accounts-base';
+import {Meteor} from 'meteor/meteor';
+import {Accounts} from 'meteor/accounts-base';
 import WorkData from '../common/collections_2';
 import email from 'emailjs';
 
@@ -8,11 +8,11 @@ import email from 'emailjs';
 if (Meteor.isServer) {
     Meteor.methods({
         // remove user
-        removeUser: function(id) {
+        removeUser: function (id) {
             Meteor.users.remove(id);
         },
         // add user
-        addUserOrTruck: function(obj) {
+        addUserOrTruck: function (obj) {
             let userInfo = Accounts.createUser(obj);
             if (userInfo) {
                 return userInfo;
@@ -20,9 +20,9 @@ if (Meteor.isServer) {
                 throw new Meteor.Error('Error', 'Can\'t create information in the database');
             }
         },
-        updateUserOrTruck: function(id, obj) {
+        updateUserOrTruck: function (id, obj) {
             Meteor.users.update(
-                { _id: id },
+                {_id: id},
                 {
                     $set: {
                         profile: obj
@@ -36,31 +36,31 @@ if (Meteor.isServer) {
                 }
             );
         },
-        checkId: function(id) {
-            let list = WorkData.find({ _id: id }).fetch();
+        checkId: function (id) {
+            let list = WorkData.find({_id: id}).fetch();
             if (list.length > 0) {
                 return list[0];
             } else {
                 return false;
             }
         },
-        officeEmployees: function() {
-            return Meteor.users.find({ 'profile.rank': 'officeEmployee' }).fetch();
+        officeEmployees: function () {
+            return Meteor.users.find({'profile.rank': 'officeEmployee'}).fetch();
         },
-        employees: function() {
+        employees: function () {
             return Meteor.users.find({}).fetch();
         },
-        findJobEx: function(param) {
+        findJobEx: function (param) {
             let data = WorkData.find(param || {}).fetch();
             return data;
         },
-        findJobNumber: function(jobNumber) {
-            return WorkData.findOne({ jobNumber });
+        findJobNumber: function (jobNumber) {
+            return WorkData.findOne({jobNumber});
         },
-        findJobID: function(_id) {
-            return WorkData.findOne({ _id });
+        findJobID: function (_id) {
+            return WorkData.findOne({_id});
         },
-        followUpEmail: function(job, template) {
+        followUpEmail: function (job, template) {
             let server = email.server.connect({
                 user: job.companyInfo.email,
                 password: 'MCla7724!',
@@ -87,7 +87,7 @@ if (Meteor.isServer) {
                 ]
             };
 
-            server.send(message, function(err) {
+            server.send(message, function (err) {
                 if (err) {
                     console.error(err);
                     throw new Meteor.Error('500', 'Can\'t send email. Please contact system adminstration');
@@ -95,8 +95,9 @@ if (Meteor.isServer) {
                 console.info('Follow up Email succesfully sent to: ' + job.email);
             });
         },
-        rate: function(_id, rate, oldRate) {
-            let job = WorkData.findOne({ _id });
+        rate: function (_id, rate) {
+            let job = WorkData.findOne({_id});
+            let oldRate = job.customerRate || 0;
             let oldJobUpdates = job.updates || [];
             let updates = {
                 by: Meteor.userId(),
@@ -111,7 +112,7 @@ if (Meteor.isServer) {
                 ]
             };
             oldJobUpdates.push(updates);
-            WorkData.update({ _id }, { $set: { customerRate: rate, updates: oldJobUpdates } }, err => {
+            WorkData.update({_id}, {$set: {customerRate: rate, updates: oldJobUpdates}}, err => {
                 console.error(err);
             });
         }

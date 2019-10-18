@@ -112,7 +112,7 @@ if (Meteor.isServer) {
                 text: ' ',
                 from: job.companyInfo.name + ' ' + job.companyInfo.email,
                 to: job.email,
-                subject: 'Guaranteed Moving Estimate for ' + job.firstName + ' ' + job.lastName,
+                subject: 'Guaranteed Moving Estimate for ' + job.clientFirstName + ' ' + job.clientLastName,
                 attachment: [
                     {
                         data: EmailContent(job),
@@ -120,14 +120,15 @@ if (Meteor.isServer) {
                     }
                 ]
             };
+
             this.x = false;
 
             server.send(message, function(err) {
                 if (err) {
-                    console.error(err);
+                    console.error(JSON.stringify(err));
                     throw new Meteor.Error('Can\'t send email', 'Impossible send email. Contact system administration');
                 } else {
-                    console.error('Email successfully sent to: ' + job.email);
+                    console.info('Email successfully sent to: ' + job.email);
                 }
             });
         },
@@ -301,7 +302,6 @@ if (Meteor.isServer) {
             });
         },
         emailToCardHolder: function(obj) {
-            console.log(obj);
             let server = email.server.connect({
                 user: 'movinglosangeles111@gmail.com',
                 password: '!QAZ1qaz',

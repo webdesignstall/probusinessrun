@@ -7,9 +7,10 @@ let companies = require('../../../imports/helpers/companyInfos.json');
 export default class CompanySelector extends React.Component {
     constructor(props) {
         super(props);
-
+        // noinspection JSValidateTypes
         this.state = {
             companies: [],
+            companiesObj: {},
             value: 'select-company'
         };
 
@@ -18,29 +19,27 @@ export default class CompanySelector extends React.Component {
     }
 
     componentDidMount() {
-        this.x = Tracker.autorun(() => {
-            let reset = Session.get('reset');
-            if (reset) {
-                this.setState({
-                    value: 'select-company'
-                });
-            }
+        let objectOfCompanies = {};
 
+        companies.companies.map(company => {
+            objectOfCompanies[company.name] = company;
+        });
+
+        this.setState({
+            companiesObj: objectOfCompanies
+        });
+
+        this.x = Tracker.autorun(() => {
+            let job = Session.get('job_');
             this.setState({
                 companies: companies.companies,
-                value: this.props.value || 'select-company'
+                value: job.companyInfo && job.companyInfo.name ? job.companyInfo.name : 'select-company'
             });
         });
     }
 
     componentWillUnmount() {
         this.x.stop();
-    }
-
-    UNSAFE_componentWillReceiveProps(nextProps) {
-        this.setState({
-            value: nextProps.value || 'select-company'
-        });
     }
 
     renderCompanies() {
@@ -53,34 +52,37 @@ export default class CompanySelector extends React.Component {
         });
     }
 
-    onChange() {
+    onChange(e) {
+        let job = Session.get('job_');
+        let value = e.target.value;
         this.setState(
             {
-                value: this.companyName.value
+                value
             },
             () => {
-                let secilmisIs = this.state.companies.find(companies => {
-                    return companies.name === this.companyName.value;
-                });
-                Session.set('companyInfo', secilmisIs);
+                job.companyInfo = this.state.companiesObj[value];
+                Session.set('job_', job);
             }
         );
     }
 
     render() {
         return (
-            <select
-                value={this.state.value}
-                ref={company => (this.companyName = company)}
-                name="select-company"
-                id="select-company"
-                className="browser-default"
-                onChange={this.onChange}>
-                <option value="select-company" disabled>
-                    Select the Company
-                </option>
-                {this.renderCompanies()}
-            </select>
+            <React.Fragment>
+                <label htmlFor="select-company">Company</label>
+                <select
+                    value={this.state.value}
+                    name="select-company"
+                    id="select-company"
+                    data-x="ff"
+                    className="browser-default"
+                    onChange={e => this.onChange(e)}>
+                    <option value="select-company" disabled>
+                        Select the Company
+                    </option>
+                    {this.renderCompanies()}
+                </select>
+            </React.Fragment>
         );
     }
 }

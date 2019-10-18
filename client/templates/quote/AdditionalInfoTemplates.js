@@ -16,10 +16,11 @@ export default class AdditionalInfoTemplates extends Component {
     }
 
     valueChange(template) {
-        let arr = Session.get('additionalInfo');
+        let job = Session.get('job_');
+        job.additionalInfo ? null : (job.additionalInfo = []);
+        let arr = job.additionalInfo;
         arr.push(template);
-        console.log(arr);
-        Session.set('additionalInfo', arr);
+        Session.set('job_', job);
     }
 
     renderList() {

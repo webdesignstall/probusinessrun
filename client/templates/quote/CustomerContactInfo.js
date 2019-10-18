@@ -13,6 +13,7 @@ export default class CustomerContactInfo extends Component {
 
     componentDidMount() {
         this.x = Tracker.autorun(() => {
+            this.timeOut = null;
             let { clientFirstName, clientLastName, phoneNumber, phoneAdditional, email } = Session.get('job_');
             this.setState({
                 clientFirstName,
@@ -24,20 +25,30 @@ export default class CustomerContactInfo extends Component {
         });
     }
 
-    componenWillUnmount() {
+    setSession(what, value) {
+        let job = Session.get('job_');
+        job[what] = value;
+        Session.set('job_', job);
+    }
+
+    interval(what, value) {
+        clearTimeout(this.timeOut);
+        this.timeOut = setTimeout(() => this.setSession(what, value), 500);
+    }
+
+    componentWillUnmount() {
         this.x.stop();
     }
 
     changeHangdler(e, what) {
         let value = e.target.value;
-        let job = Session.get('job_');
-        job[what] = value;
+
         this.setState(
             {
                 [what]: value
             },
             () => {
-                Session.set('job_', job);
+                this.interval(what, value);
             }
         );
     }

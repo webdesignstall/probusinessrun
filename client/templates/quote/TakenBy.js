@@ -34,7 +34,7 @@ export default class TakenBy extends TrackerReact(Component) {
         });
     }
 
-    componentWilUnmount() {
+    componentWillUnmount() {
         this.x.stop();
     }
 
@@ -49,7 +49,7 @@ export default class TakenBy extends TrackerReact(Component) {
 
     render() {
         return (
-            <div id="takenBy" className="col s12 m3 l3">
+            <div id="takenBy">
                 <label htmlFor="taken_by_add">Taken by</label>
                 <select id="takenBy--value" ref={this.selectRef} disabled={true} className="browser-default">
                     {this.renderList()}
