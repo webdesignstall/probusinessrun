@@ -64,91 +64,6 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
         this.x.stop();
     }
 
-    // sendQuote() {
-    //     if (!confirm('Are you sure to send quote email to customer?')) {
-    //         throw new Error('Email doesn\'t send to customer');
-    //     }
-
-    //     let workDate = document.getElementById('quote-date-picker-followup').value;
-    //     let doc = this.state.job;
-    //     doc.workDate = workDate;
-    //     doc.quote = true;
-    //     doc.isFollowUp = true;
-    //     doc.confirmed = false;
-    //     doc.followUp && doc.followUp.length > 0 && doc.followUp[doc.followUp.length - 1].note === '' && doc.followUp.pop();
-    //     doc.emailSent = true;
-    //     doc.emailSentDate = new Date();
-    //     doc.additionalInfo = Session.get('additionalInfo');
-
-    //     let objNew = {
-    //         _id: doc._id,
-    //         firstName: doc.clientFirstName,
-    //         lastName: doc.clientLastName,
-    //         phone: doc.phoneNumber,
-    //         phoneAdditional: doc.phoneAdditional,
-    //         email: doc.email,
-    //         addresses: doc.addresses,
-    //         movingDateConverted: doc.workDate,
-    //         workMustBeginTime: doc.workMustBeginTime,
-    //         price: doc.price,
-    //         minimumLaborTime: doc.laborTime,
-    //         hourlyRatesCash: doc.hourlyRatesCash,
-    //         hourlyRatesCard: doc.hourlyRatesCard,
-    //         companyInfo: doc.companyInfo,
-    //         doubleDrive: doc.doubleDrive,
-    //         gasFee: doc.gasFee,
-    //         smallPackingItems: doc.smallItemPacking,
-    //         largeItemFee: doc.largeItemFee,
-    //         movingSize: doc.movingSize,
-    //         trucksTemp: doc.trucksTemp,
-    //         flatRate: doc.flatRate[0].isTrue,
-    //         flatRateCash: doc.flatRate[0].cashAmount,
-    //         flatRateCard: doc.flatRate[0].cardAmount,
-    //         jobNumber: doc.jobNumber,
-    //         numberOfWorkers: doc.numberOfWorkers,
-    //         additionalContacts: doc.additionalContacts,
-    //         emailSent: true,
-    //         additionalInfo: doc.additionalInfo,
-    //         noteForYourMove: doc.noteForYourMove
-    //     };
-
-    //     let ip = '';
-    //     // ip = getUserIP();
-    //     doc.ip = ip;
-
-    //     Meteor.call('updateWork', doc, err => {
-    //         if (err) {
-    //             swal({
-    //                 title: 'Error!',
-    //                 text: 'Something went wrong. Can\'t send quote email. Reason: ' + err.message,
-    //                 icon: 'error',
-    //                 button: 'OK'
-    //             });
-    //             Session.set('loading', false);
-    //         } else {
-    //             Meteor.call('emailGonder', objNew, err => {
-    //                 err
-    //                     ? (console.error(err),
-    //                     swal({
-    //                         title: 'Error!',
-    //                         text: 'Something went wrong. Can\'t send quote email. Reason: ' + err.message,
-    //                         icon: 'error',
-    //                         button: 'OK'
-    //                     }),
-    //                     Session.set('loading', false))
-    //                     : (swal({
-    //                         title: 'Success!',
-    //                         text: 'Quote sent successfully',
-    //                         icon: 'success',
-    //                         button: 'OK'
-    //                     }),
-    //                     Session.set('is', ''),
-    //                     Session.set('ExtendedJobInformation', ''));
-    //             });
-    //         }
-    //     });
-    // }
-
     update() {
         Session.set('loading', true);
         let doc = Session.get('job_');
@@ -176,24 +91,51 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
 
     sendQuote() {
         let doc = Session.get('job_');
-        // console.log(EmailContent(doc));
-        Meteor.call('emailGonder', doc, err => {
-            err
-                ? (console.error(err),
+        doc.emailSentDate = new Date();
+        doc.emailSent = true;
+
+        Meteor.call('updateWork', doc, err => {
+            if (err) {
+                console.error(err);
                 swal({
                     title: 'Error!',
-                    text: 'Something went wrong. Can\'t send quote email. Reason: ' + err.message,
+                    text: 'Unable save job info: ' + err.message,
                     icon: 'error',
                     button: 'OK'
-                }),
-                Session.set('loading', false))
-                : (swal({
+                });
+            } else {
+                swal({
                     title: 'Success!',
-                    text: 'Quote sent successfully',
+                    text: 'Information updated successfully',
                     icon: 'success',
                     button: 'OK'
-                }),
-                Session.set('loading', false));
+                }).then(() => {
+                    Meteor.call('emailGonder', doc, err => {
+                        if (err) {
+                            console.error(err);
+                            swal({
+                                title: 'Error!',
+                                text: 'Something went wrong. Can\'t send quote email. Reason: ' + err.message,
+                                icon: 'error',
+                                button: 'OK'
+                            });
+                            delete doc.emailSentDate;
+                            delete doc.emailSent;
+                            Meteor.call('updateWork', doc);
+                        } else {
+                            Session.set('loading', false);
+                            swal({
+                                title: 'Success!',
+                                text: 'Quote sent successfully',
+                                icon: 'success',
+                                button: 'OK'
+                            }),
+                            Session.set('loading', false);
+                            Session.set('job_', doc);
+                        }
+                    });
+                });
+            }
         });
     }
 

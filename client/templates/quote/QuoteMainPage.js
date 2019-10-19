@@ -64,6 +64,8 @@ export default class QuoteMainPage extends Component {
                     icon: 'success'
                 }).then(() => {
                     if (email) {
+                        job.emailSentDate = new Date();
+                        job.emailSent = true;
                         Meteor.call('emailGonder', job, (err, res) => {
                             if (err) {
                                 swal({
