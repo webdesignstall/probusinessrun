@@ -4,6 +4,8 @@ import ReactDOM from 'react-dom';
 import FollowUpMain from './FollowUpMain';
 import { Session } from 'meteor/session';
 import { Tracker } from 'meteor/tracker';
+import { Meteor } from 'meteor/meteor';
+import jobNumberCreator from '../../client/templates/quote/JobNumberCreator';
 
 Template.followUp.onRendered(() => {
     this.x = Tracker.autorun(() => {
@@ -35,5 +37,10 @@ Template.followUp.onDestroyed(() => {
     Session.set('loading', false);
     Session.set('status', 'inProgress');
     Session.set('searchWords', '');
-    Session.set('job_', {});
+    Session.set('job_', {
+        takenBy: Meteor.userId(),
+        sourceOfLeads: 'call',
+        quoteDate: new Date()
+    });
+    jobNumberCreator();
 });

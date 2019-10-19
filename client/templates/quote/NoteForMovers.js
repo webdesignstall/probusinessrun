@@ -17,9 +17,9 @@ export default class NoteForMovers extends Component {
             this.timeOut = null;
             let job = Session.get('job_');
 
-            if (job.note) {
+            if (job.noteForMovers) {
                 this.setState({
-                    value: job.noteForMovers
+                    value: job.noteForMovers || ''
                 });
             } else {
                 this.setState({

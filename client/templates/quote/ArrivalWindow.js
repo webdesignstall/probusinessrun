@@ -90,7 +90,7 @@ export default class ArrivalWindow extends TrackerReact(Component) {
                 this.setState({ custom: false }))
                 : null;
 
-            if (id !== '') {
+            if (job._id !== '') {
                 selected = job.workMustBeginTime || [];
                 let isMorningAfternoon = selected[0] === '04:00 am' && selected[1] === '04:00 am'; // is it Morning Afternoon aviability selected
                 let isCustom = false; // is custom time selected

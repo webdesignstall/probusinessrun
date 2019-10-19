@@ -49,17 +49,17 @@ export default class ReserveQuote extends TrackerReact(Component) {
     }
 
     componentDidMount() {
-        // this.x = Tracker.autorun(() => {
-        //     // Session.set('loading', true);
-        //     // Meteor.subscribe('workSchema', {
-        //     //     onReady: function() {
-        //     //         Session.set('loading', false);
-        //     //     },
-        //     //     onError: function() {
-        //     //         Session.set('loading', false);
-        //     //     }
-        //     // });
-        // });
+        this.x = Tracker.autorun(() => {
+            Session.set('loading', true);
+            Meteor.subscribe('workSchema', {
+                onReady: function() {
+                    Session.set('loading', false);
+                },
+                onError: function() {
+                    Session.set('loading', false);
+                }
+            });
+        });
     }
 
     componentWillUnmount() {
@@ -89,7 +89,7 @@ export default class ReserveQuote extends TrackerReact(Component) {
         if (jobNumber.length === 6) {
             Meteor.call('findJobNumber', jobNumber, (err, res) => {
                 if (err) {
-                    console.log(err);
+                    console.error(err);
                     Bert.alert({
                         title: 'Uncorrect job number',
                         message: 'Can\'t find the job information. Please enter correct job number',
@@ -100,7 +100,7 @@ export default class ReserveQuote extends TrackerReact(Component) {
                         let isJob = res;
                         this.deposit = res.deposit || 0;
                         this.job = res || {};
-                        console.log(res);
+                        console.info(res);
                         if (isJob) {
                             this.setState(
                                 {
@@ -121,21 +121,24 @@ export default class ReserveQuote extends TrackerReact(Component) {
     }
 
     addressesRender(addressler) {
-        return addressler.map((address, index) => {
-            return (
-                <tr key={index + 'key'}>
-                    <td>Address#{index + 1}:</td>
-                    <td>{address}</td>
-                </tr>
-            );
-        });
+        return (
+            addressler &&
+            addressler.map((address, index) => {
+                return (
+                    <tr key={index + 'key'}>
+                        <td>Address#{index + 1}:</td>
+                        <td>{address}</td>
+                    </tr>
+                );
+            })
+        );
     }
 
     submit() {
         let jobNumber = document.getElementById('code').value;
         Meteor.call('findJobNumber', jobNumber, (err, res) => {
             if (err) {
-                console.log(err);
+                console.error(err);
                 Bert.alert({
                     title: 'Uncorrect job number',
                     message: 'Can\'t find the job information. Please enter correct job number',
@@ -144,6 +147,7 @@ export default class ReserveQuote extends TrackerReact(Component) {
             } else {
                 this.x = Tracker.autorun(() => {
                     let isJob = res;
+                    console.log('TCL: submit -> isJob', isJob);
                     this.deposit = res.deposit || 0;
                     this.job = res || {};
                     if (isJob) {
@@ -220,20 +224,26 @@ export default class ReserveQuote extends TrackerReact(Component) {
     }
     renderTrucks(truck) {
         let x = Array(truck.qty).fill(1);
-        return x.map((x, index) => {
-            return (
-                <tr key={index + 'trucksListConfirmation'}>
-                    <td>Truck Size:</td>
-                    <td>{truck.size}</td>
-                </tr>
-            );
-        });
+        return (
+            x &&
+            x.map((x, index) => {
+                return (
+                    <tr key={index + 'trucksListConfirmation'}>
+                        <td>Truck Size:</td>
+                        <td>{truck.size}</td>
+                    </tr>
+                );
+            })
+        );
     }
 
     trucksRender(job) {
-        return job.trucksTemp.map((truck, index) => {
-            return <React.Fragment key={index + 'trucksRenderConfirm'}>{this.renderTrucks(truck)}</React.Fragment>;
-        });
+        return (
+            job.trucksTemp &&
+            job.trucksTemp.map((truck, index) => {
+                return <React.Fragment key={index + 'trucksRenderConfirm'}>{this.renderTrucks(truck)}</React.Fragment>;
+            })
+        );
     }
 
     numberOfTrucks(job) {
@@ -271,9 +281,12 @@ export default class ReserveQuote extends TrackerReact(Component) {
     }
 
     additionalInfo(job) {
-        return job.additionalInfo.map((addInfo, index) => {
-            return <div key={index + 'addInfoConfirm'}>✓ {addInfo}</div>;
-        });
+        return (
+            job.additionalInfo &&
+            job.additionalInfo.map((addInfo, index) => {
+                return <div key={index + 'addInfoConfirm'}>✓ {addInfo}</div>;
+            })
+        );
     }
 
     axtarisinNeticesi() {

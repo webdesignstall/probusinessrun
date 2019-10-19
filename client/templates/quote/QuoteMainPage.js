@@ -28,6 +28,7 @@ import NoteForMovers from './NoteForMovers';
 import NoteForYourMove from './NoteForYourMove';
 import AdditionalInfo from './AdditionalInfo';
 import Button from './Button';
+import jobNumberCreator from './JobNumberCreator';
 
 export default class QuoteMainPage extends Component {
     componentDidMount() {
@@ -50,7 +51,12 @@ export default class QuoteMainPage extends Component {
                     icon: 'error'
                 });
             } else {
-                Session.set('job_', {});
+                Session.set('job_', {
+                    takenBy: Meteor.userId(),
+                    sourceOfLeads: 'call',
+                    quoteDate: new Date()
+                });
+                jobNumberCreator();
                 enableButtons();
                 swal({
                     title: 'Success',
@@ -170,8 +176,13 @@ export default class QuoteMainPage extends Component {
                     <Button
                         color="grey darken-1"
                         func={function(enableButtons) {
-                            Session.set('job_', {});
+                            Session.set('job_', {
+                                takenBy: Meteor.userId(),
+                                sourceOfLeads: 'call',
+                                quoteDate: new Date()
+                            });
                             enableButtons();
+                            jobNumberCreator();
                         }}
                         text="Reset"
                     />
