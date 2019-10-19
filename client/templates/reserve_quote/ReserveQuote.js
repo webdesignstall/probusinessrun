@@ -48,24 +48,6 @@ export default class ReserveQuote extends TrackerReact(Component) {
         }).fetch();
     }
 
-    componentDidMount() {
-        this.x = Tracker.autorun(() => {
-            Session.set('loading', true);
-            Meteor.subscribe('workSchema', {
-                onReady: function() {
-                    Session.set('loading', false);
-                },
-                onError: function() {
-                    Session.set('loading', false);
-                }
-            });
-        });
-    }
-
-    componentWillUnmount() {
-        this.x.stop();
-    }
-
     checked() {
         const secilmislerinSayi = document.querySelectorAll('.secilib:checked').length;
         this.setState(

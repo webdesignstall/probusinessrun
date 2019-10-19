@@ -162,7 +162,8 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                     </div>
                     <div className="col s12 m3 l3">
                         <label htmlFor="quoteDate">First Contact Date</label>
-                        <input id="quoteDate" disabled defaultValue={moment(quoteDate).format('D MMMM YYYY hh:mm a') || ''} />
+                        {console.log(quoteDate)}
+                        <input id="quoteDate" disabled defaultValue={(quoteDate && moment(quoteDate).format('D MMMM YYYY hh:mm a')) || ''} />
                     </div>
                     <div className="col s12 m2 l2">
                         <label htmlFor="jobNumber">Job Number</label>
