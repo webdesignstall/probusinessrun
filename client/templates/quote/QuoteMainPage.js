@@ -32,9 +32,12 @@ import jobNumberCreator from './JobNumberCreator';
 
 export default class QuoteMainPage extends Component {
     componentDidMount() {
-        let job = Session.get('job_');
-        job.quoteDate = new Date();
-        Session.set('job_', job);
+        Session.set('job_', {
+            takenBy: Meteor.userId(),
+            sourceOfLeads: 'call',
+            quoteDate: new Date()
+        });
+        jobNumberCreator();
     }
 
     clickHandle(status, email, enableButtons) {

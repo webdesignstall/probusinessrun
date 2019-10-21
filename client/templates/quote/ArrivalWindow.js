@@ -81,11 +81,10 @@ export default class ArrivalWindow extends TrackerReact(Component) {
 
     componentDidMount() {
         this.x = Tracker.autorun(() => {
-            let id = Session.get('is');
             let selected = [];
             let job = Session.get('job_');
 
-            !job.workMustBeginTime
+            !job.workMustBeginTime || !job.workMustBeginTime[0] || !job.workMustBeginTime[1]
                 ? ((document.getElementById('select-arrive-time' + this.state.randomNumber).value = 'Select moving time window'),
                 this.setState({ custom: false }))
                 : null;

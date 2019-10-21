@@ -8,21 +8,10 @@ import ReactDOM from 'react-dom';
 import React from 'react';
 import { Tracker } from 'meteor/tracker';
 //import componenets
-import UpdateAddTruck from './../../client/templates/quote/UpdateAddTruck';
-import ArrivalWindow from './../../client/templates/quote/ArrivalWindow';
-import MovingSize from './../../client/templates/quote/MovingSize';
-import RenderEmployees from './../../client/templates/quote/RenderEmployees';
-import UpdateDoubleDrive from './../../client/templates/quote/UpdateDoubleDrive';
-import TempTrucks from './../../client/templates/quote/TempTrucks';
-import NumberOfUsers from '../../client/templates/quote/NumberOfUsers';
 import DailyStats from './DailyStats';
-import QuoteExpiration from '../../client/templates/quote/QuoteExpariation';
-import Status from '../../client/templates/quote/Status';
-import NewAppointment from '../../client/templates/quote/NewAppointment';
-import AdditionalInfo from '../../client/templates/quote/AdditionalInfo';
-import NoteForMovers from '../../client/templates/quote/NoteForMovers';
 import EditCalendarQuote from '../../client/templates/quote/editCalendarQuote/EditCalendarQuote';
 import QuoteMainPage from '../../client/templates/quote/QuoteMainPage';
+import jobNumberCreator from '../../client/templates/quote/JobNumberCreator';
 /*global moment $ swal*/
 
 function colorIndigator() {
@@ -672,6 +661,13 @@ Template.kalendar.events({
         });
 
         ReactDOM.render(<QuoteMainPage />, document.getElementById('pre_quote'));
+
+        Session.set('job_', {
+            takenBy: Meteor.userId(),
+            sourceOfLeads: 'call',
+            quoteDate: new Date()
+        });
+        jobNumberCreator();
 
         document.getElementById('add-schedule-page').scrollIntoView({ behavior: 'smooth' });
         Session.set('addingJob', true);
