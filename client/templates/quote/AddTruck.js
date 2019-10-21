@@ -64,7 +64,7 @@ export default class AddTruck extends React.Component {
         return this.state.trucksBase.map(truck => {
             return (
                 <option key={truck._id} value={truck.profile.number}>
-                    #{truck.profile.number} - {truck.profile.size}
+                    #{truck.profile.number} - {truck.profile.lenght}
                 </option>
             );
         });
