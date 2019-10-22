@@ -34,6 +34,7 @@ import NoteForCustomerService from '../../../client/templates/quote/NoteForCusto
 import NoteForMovers from '../../../client/templates/quote/NoteForMovers';
 import NoteForYourMove from '../../../client/templates/quote/NoteForYourMove';
 import Button from '../../../client/templates/quote/Button';
+import UpdateList from './UpdateList';
 
 /*global moment*/
 
@@ -250,6 +251,11 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                     <Button func={this.sendQuote} text="Send Quote" color="yellow darken-2 black-text" />
                     {this.state.job.status === 'won' ? <NewAppointment /> : ''}
                 </div>
+                {this.state.job.updates && this.state.job.updates.length > 0 ? (
+                    <UpdateList updates={this.state.job.updates} />
+                ) : (
+                    ''
+                )}
             </div>
         );
     }
