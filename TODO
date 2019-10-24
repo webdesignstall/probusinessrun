@@ -78,4 +78,4 @@ Disable buttons after click untill response from server:
     ✔ Create button display status in Sessions @started(19-07-29 18:53) @done(19-07-29 18:54) @lasted(1m25s)
     ✔ After click disable all buttons @started(19-07-29 18:54) @done(19-08-01 14:58) @lasted(2d20h4m58s)
     ✔ On close page or changeing page reset buttons @started(19-08-01 15:11) @done(19-08-01 15:18) @lasted(7m19s)
-    ✔ On error or response from server enable all buttons @started(19-08-01 15:19) @done(19-08-01 16:37) @lasted(1h18m29s)
+    ✔ On error or response from server enable all buttons @done(19-10-22 10:53)

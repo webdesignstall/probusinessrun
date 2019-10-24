@@ -33,8 +33,10 @@ export default class StairInfo extends Component {
 
     checkbox(value) {
         this.setState(
-            {
-                checked: value
+            prevState => {
+                return {
+                    checked: prevState.checked === value ? '' : value
+                };
             },
             () => {
                 this.setSession();
@@ -112,6 +114,7 @@ export default class StairInfo extends Component {
                             <option value="3 flight of stairs">3 flights of stairs</option>
                             <option value="4 flight of stairs">4 flights of stairs</option>
                             <option value="5 flight of stairs">5 flights of stairs</option>
+                            <option value="More than 5 flights">More than 5 flights</option>
                         </select>
                     </li>
                 </ul>

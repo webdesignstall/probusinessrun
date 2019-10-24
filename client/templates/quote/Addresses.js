@@ -150,7 +150,7 @@ export default class Addresses extends React.Component {
                 <i className="material-icons isare">location_on</i>
                 <input
                     id={'addressInputId' + i}
-                    key={i}
+                    key={'addresslerForGoogle' + i}
                     className="addresses"
                     type="text"
                     placeholder=""

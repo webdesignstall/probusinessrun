@@ -28,6 +28,7 @@ import Button from '../Button';
 import AdditionalInfo from '../AdditionalInfo';
 import { Meteor } from 'meteor/meteor';
 import Alert from '../../../../imports/alertMessage/Alert';
+import WorkData from '../../../../common/collections_2';
 
 /*global moment*/
 
@@ -43,6 +44,44 @@ export default class EditCalendarQuote extends Component {
             } else {
                 Alert('success', 'Information saved successfully');
                 enableButtons();
+
+                let isler = document.getElementsByClassName('work-list-show');
+                let i = 0;
+
+                for (i; i < isler.length; i++) {
+                    let moverIndigator = isler[i].getElementsByClassName('mover--status')[0];
+                    let truckIndigator = isler[i].getElementsByClassName('truck--status')[0];
+                    let id = isler[i].id;
+                    if (id !== '' && id !== null && id !== undefined) {
+                        let is = WorkData.findOne({ _id: id });
+                        let shouldSelectMovers = is.numberOfWorkers;
+                        let shouldSelectTrucks = is.trucksTemp.length;
+                        let selectedMovers = is.workers.length;
+                        let selectedTruck = is.trucks.length;
+
+                        truckIndigator.classList.remove('sari');
+                        truckIndigator.classList.remove('qirmizi');
+                        truckIndigator.classList.remove('yasil');
+                        moverIndigator.classList.remove('sari');
+                        moverIndigator.classList.remove('qirmizi');
+                        moverIndigator.classList.remove('yasil');
+
+                        selectedMovers < shouldSelectMovers && selectedMovers > 0
+                            ? moverIndigator.classList.add('sari')
+                            : selectedMovers === shouldSelectMovers && selectedMovers > 0
+                                ? moverIndigator.classList.add('yasil')
+                                : selectedMovers > shouldSelectMovers && shouldSelectMovers === 0
+                                    ? moverIndigator.classList.add('yasil')
+                                    : null;
+                        selectedTruck < shouldSelectTrucks && selectedTruck > 0
+                            ? truckIndigator.classList.add('sari')
+                            : selectedTruck === shouldSelectTrucks && selectedTruck > 0
+                                ? truckIndigator.classList.add('yasil')
+                                : selectedTruck > shouldSelectTrucks && shouldSelectTrucks === 0
+                                    ? truckIndigator.classList.add('yasil')
+                                    : null;
+                    }
+                }
             }
         });
     }
