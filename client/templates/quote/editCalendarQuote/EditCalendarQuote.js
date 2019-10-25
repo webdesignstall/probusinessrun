@@ -54,10 +54,10 @@ export default class EditCalendarQuote extends Component {
                     let id = isler[i].id;
                     if (id !== '' && id !== null && id !== undefined) {
                         let is = WorkData.findOne({ _id: id });
-                        let shouldSelectMovers = is.numberOfWorkers;
-                        let shouldSelectTrucks = is.trucksTemp.length;
-                        let selectedMovers = is.workers.length;
-                        let selectedTruck = is.trucks.length;
+                        let shouldSelectMovers = is.numberOfWorkers || 0;
+                        let shouldSelectTrucks = (is.trucksTemp && is.trucksTemp.length) || 0;
+                        let selectedMovers = (is.workers && is.workers.length) || 0;
+                        let selectedTruck = (is.trucks && is.trucks.length) || 0;
 
                         truckIndigator.classList.remove('sari');
                         truckIndigator.classList.remove('qirmizi');
