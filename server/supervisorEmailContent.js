@@ -42,7 +42,7 @@ export default function supervisorEmailContent(job) {
     };
 
     let notes = function() {
-        return job.comment
+        return job.noteForMovers
             ? `
 					<p style="font-size: 14px; line-height: 16px; margin: 0;">Notes: ${job.noteForMovers}</p>
 					`
