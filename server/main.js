@@ -88,10 +88,7 @@ if (Meteor.isServer) {
             return WorkData.insert(doc, (err, id) => {
                 if (err) {
                     console.error(err);
-                    throw new Meteor.Error(
-                        'Can\'t create new job',
-                        'Error while creating new job. Pls Contact with the help desk. Reason: ' + err.message
-                    );
+                    throw new Meteor.Error('Can\'t create new job', 'Reason: ' + err.message);
                 } else {
                     return id;
                 }

@@ -1,7 +1,7 @@
 import SimpleSchema from 'simpl-schema';
-import {Tracker} from 'meteor/tracker';
-import {Meteor} from 'meteor/meteor';
-import {Template} from 'meteor/templating';
+import { Tracker } from 'meteor/tracker';
+import { Meteor } from 'meteor/meteor';
+import { Template } from 'meteor/templating';
 
 // Required AutoForm setup
 SimpleSchema.extendOptions(['autoform']);
@@ -72,7 +72,7 @@ Schemas.workSchema = new SimpleSchema(
             label: 'Worker ID',
             optional: true,
             minCount: 1,
-            autoValue: function () {
+            autoValue: function() {
                 let iscilerinBazasi = this.value;
                 let ikiNoqteninYeri;
                 let tamId;
@@ -118,8 +118,7 @@ Schemas.workSchema = new SimpleSchema(
         // Isin baslama araliqi
         workMustBeginTime: {
             type: Array,
-            optional: true,
-            label: 'Arriving time window'
+            optional: true
         },
         'workMustBeginTime.$': {
             type: String
@@ -144,7 +143,7 @@ Schemas.workSchema = new SimpleSchema(
         },
         company: {
             type: String,
-            autoValue: function () {
+            autoValue: function() {
                 return this.userId;
             },
             autoform: {
@@ -434,7 +433,8 @@ Schemas.workSchema = new SimpleSchema(
         },
         trucksTemp: {
             type: Array,
-            optional: true
+            optional: false,
+            label: 'Temporary Trucks'
         },
         'trucksTemp.$': {
             type: Object,
@@ -823,5 +823,5 @@ Schemas.workSchema = new SimpleSchema(
             optional: true
         }
     },
-    {tracker: Tracker}
+    { tracker: Tracker }
 );
