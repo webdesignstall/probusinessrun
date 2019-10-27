@@ -6,7 +6,12 @@ export default class TempTrucks extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            trucks: [],
+            trucks: [
+                {
+                    size: 'Select Trucks Size',
+                    qty: 1
+                }
+            ],
             trucksList: ['16 foot', '18 foot', '20 foot', '22 foot', '24 foot', '26 foot']
         };
 
@@ -21,7 +26,12 @@ export default class TempTrucks extends Component {
 
             if (!job.trucksTemp) {
                 this.setState({
-                    trucks: [],
+                    trucks: [
+                        {
+                            size: 'Select Trucks Size',
+                            qty: 1
+                        }
+                    ],
                     trucksList: ['16 foot', '18 foot', '20 foot', '22 foot', '24 foot', '26 foot']
                 });
             } else {
