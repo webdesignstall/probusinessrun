@@ -79,6 +79,13 @@ if (Meteor.userId()) {
             this.render('statistic');
         }
     });
+    Router.route('/bonuscalculator', {
+        onBeforeAction: function() {
+            if (Meteor.user() && Meteor.user().profile.isAdmin) {
+                this.render('bonusCalculator');
+            }
+        }
+    });
 }
 
 Router.route('/reserve', {

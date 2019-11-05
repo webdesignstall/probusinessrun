@@ -63,6 +63,16 @@
                     </li>
                 </a>
                 {{/if}}
+                {{#if isAdmin}}
+                <a href="/bonuscalculator" id="send_cc_form_id" class="collection-item menyuElement">
+                    <li>
+                        <a class="item menyu">
+                            <i class="material-icons">attach_money</i>
+                            <br />Bonus
+                        </a>
+                    </li>
+                </a>
+                {{/if}}
                 <li id="logout" class="collection-item">
                     <a href="/" class="item menyu">
                         <i class="material-icons">exit_to_app</i>

@@ -6,7 +6,8 @@ import { Mongo } from 'meteor/mongo';
 const Collections = {};
 
 Meteor.isClient && Template.registerHelper('Collections', Collections);
-let PromoCodes = Collections.PromoCodes = new Mongo.Collection('PromoCodes');
+let PromoCodes = (Collections.PromoCodes = new Mongo.Collection('PromoCodes'));
+// let BonusSettings = (Collections.BonusSettings = new Mongo.Collection('BonusSettings'));
 
 export default WorkData = Collections.WorkData = new Mongo.Collection('WorkData');
 export { PromoCodes };

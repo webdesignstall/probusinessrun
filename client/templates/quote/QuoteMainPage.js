@@ -38,6 +38,7 @@ export default class QuoteMainPage extends Component {
             quoteDate: new Date()
         });
         jobNumberCreator();
+        Meteor.call('createBonusSettings');
     }
 
     clickHandle(status, email, enableButtons) {
@@ -73,7 +74,9 @@ export default class QuoteMainPage extends Component {
                         Meteor.call('emailGonder', job, (err, res) => {
                             if (err) {
                                 swal({
-                                    title: 'Impossible send email to work job number: ' + job.jobNumber,
+                                    title:
+                                        'Impossible send email to work job number: ' +
+                                        job.jobNumber,
                                     text: err.message,
                                     icon: 'error'
                                 });

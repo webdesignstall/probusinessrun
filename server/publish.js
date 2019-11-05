@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import WorkData from '../common/collections_2';
 import Discounts from '../common/discountData';
+import bonusData from '../common/bonusData';
 
 /*global moment*/
 
@@ -8,7 +9,8 @@ if (Meteor.isServer) {
     Meteor.methods({
         findWorks: function(obj) {
             return (
-                (Meteor.user().profile.rank === 'admin' || Meteor.user().profile.rank === 'officeEmployee') &&
+                (Meteor.user().profile.rank === 'admin' ||
+                    Meteor.user().profile.rank === 'officeEmployee') &&
                 WorkData.find(obj || {}).fetch()
             );
         }
@@ -37,6 +39,10 @@ Meteor.publish('fullUser', function() {
 
 Meteor.publish('Dicsounts', function() {
     return Discounts.find({});
+});
+
+Meteor.publish('bonusData', function() {
+    return bonusData.find();
 });
 
 Meteor.publish('searchFollowUp', function(words) {

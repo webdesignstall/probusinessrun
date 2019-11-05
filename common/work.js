@@ -821,6 +821,11 @@ Schemas.workSchema = new SimpleSchema(
         'addressExt.$.stairs': {
             type: String,
             optional: true
+        },
+        isAdmin : {
+            type: Boolean,
+            optional: true,
+            label: 'Admin status'
         }
     },
     { tracker: Tracker }

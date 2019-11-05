@@ -77,6 +77,9 @@ Template.navBar.helpers({
         let id = Session.get('tabletIsId');
         let job = WorkData.findOne({ _id: id });
         return job && job.cardHolderInfo && job.cardHolderInfo.firstName;
+    },
+    isAdmin: function() {
+        return Meteor.user().profile.isAdmin;
     }
 });
 

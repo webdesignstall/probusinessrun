@@ -20,3 +20,6 @@ import './timeSelector/TimeSelector';
 // statistic
 import './statistic/statistic.html';
 import './statistic/Statistic';
+
+// bonus calculator
+import './bonus/bonus';

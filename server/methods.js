@@ -1,6 +1,7 @@
-import {Meteor} from 'meteor/meteor';
-import {Accounts} from 'meteor/accounts-base';
+import { Meteor } from 'meteor/meteor';
+import { Accounts } from 'meteor/accounts-base';
 import WorkData from '../common/collections_2';
+import BonusSettings from '../common/bonusData';
 import email from 'emailjs';
 
 /*global moment*/
@@ -8,11 +9,11 @@ import email from 'emailjs';
 if (Meteor.isServer) {
     Meteor.methods({
         // remove user
-        removeUser: function (id) {
+        removeUser: function(id) {
             Meteor.users.remove(id);
         },
         // add user
-        addUserOrTruck: function (obj) {
+        addUserOrTruck: function(obj) {
             let userInfo = Accounts.createUser(obj);
             if (userInfo) {
                 return userInfo;
@@ -20,9 +21,9 @@ if (Meteor.isServer) {
                 throw new Meteor.Error('Error', 'Can\'t create information in the database');
             }
         },
-        updateUserOrTruck: function (id, obj) {
+        updateUserOrTruck: function(id, obj) {
             Meteor.users.update(
-                {_id: id},
+                { _id: id },
                 {
                     $set: {
                         profile: obj
@@ -31,36 +32,39 @@ if (Meteor.isServer) {
                 err => {
                     if (err) {
                         console.error(err);
-                        throw new Meteor.Error('Error', 'Can\'t update information. Please contact with the administration');
+                        throw new Meteor.Error(
+                            'Error',
+                            'Can\'t update information. Please contact with the administration'
+                        );
                     }
                 }
             );
         },
-        checkId: function (id) {
-            let list = WorkData.find({_id: id}).fetch();
+        checkId: function(id) {
+            let list = WorkData.find({ _id: id }).fetch();
             if (list.length > 0) {
                 return list[0];
             } else {
                 return false;
             }
         },
-        officeEmployees: function () {
-            return Meteor.users.find({'profile.rank': 'officeEmployee'}).fetch();
+        officeEmployees: function() {
+            return Meteor.users.find({ 'profile.rank': 'officeEmployee' }).fetch();
         },
-        employees: function () {
+        employees: function() {
             return Meteor.users.find({}).fetch();
         },
-        findJobEx: function (param) {
+        findJobEx: function(param) {
             let data = WorkData.find(param || {}).fetch();
             return data;
         },
-        findJobNumber: function (jobNumber) {
-            return WorkData.findOne({jobNumber});
+        findJobNumber: function(jobNumber) {
+            return WorkData.findOne({ jobNumber });
         },
-        findJobID: function (_id) {
-            return WorkData.findOne({_id});
+        findJobID: function(_id) {
+            return WorkData.findOne({ _id });
         },
-        followUpEmail: function (job, template) {
+        followUpEmail: function(job, template) {
             let server = email.server.connect({
                 user: job.companyInfo.email,
                 password: 'MCla7724!',
@@ -87,16 +91,19 @@ if (Meteor.isServer) {
                 ]
             };
 
-            server.send(message, function (err) {
+            server.send(message, function(err) {
                 if (err) {
                     console.error(err);
-                    throw new Meteor.Error('500', 'Can\'t send email. Please contact system adminstration');
+                    throw new Meteor.Error(
+                        '500',
+                        'Can\'t send email. Please contact system adminstration'
+                    );
                 }
                 console.info('Follow up Email succesfully sent to: ' + job.email);
             });
         },
-        rate: function (_id, rate) {
-            let job = WorkData.findOne({_id});
+        rate: function(_id, rate) {
+            let job = WorkData.findOne({ _id });
             let oldRate = job.customerRate || 0;
             let oldJobUpdates = job.updates || [];
             let updates = {
@@ -112,9 +119,100 @@ if (Meteor.isServer) {
                 ]
             };
             oldJobUpdates.push(updates);
-            WorkData.update({_id}, {$set: {customerRate: rate, updates: oldJobUpdates}}, err => {
-                console.error(err);
+            WorkData.update(
+                { _id },
+                { $set: { customerRate: rate, updates: oldJobUpdates } },
+                err => {
+                    console.error(err);
+                }
+            );
+        },
+        saveBonusSettings: function(_id, settings) {
+            BonusSettings.update({ _id }, { $set: { options: settings } }, err => {
+                if (err) {
+                    console.error(err);
+                    throw new Meteor.Error('Error while saving settings');
+                }
             });
+        },
+        createBonusSettings: function() {
+            let dateForSettings = `${new Date().getMonth()}/01/${new Date().getFullYear()}`;
+            let countFoundedeData = BonusSettings.find({
+                date: dateForSettings
+            }).fetch();
+
+            if (!(countFoundedeData.length > 0)) {
+                BonusSettings.insert({
+                    date: dateForSettings,
+                    options: [
+                        {
+                            value: 'limit',
+                            name: 'Jobs Limit',
+                            bonus: 200
+                        },
+                        {
+                            value: 'items',
+                            name: 'Items',
+                            bonus: 0
+                        },
+                        {
+                            value: 'studio',
+                            name: 'Studio',
+                            bonus: 0
+                        },
+                        {
+                            value: '1_bedroom',
+                            name: '1 Bedroom',
+                            bonus: 0
+                        },
+                        {
+                            value: '2_bedroom_small',
+                            name: '2 Bedroom (small size, few items)',
+                            bonus: 0
+                        },
+                        {
+                            value: '2_bedroom_avg',
+                            name: '2 Bedroom (avg. size, avg. items)',
+                            bonus: 0
+                        },
+                        {
+                            value: '2_bedroom_large',
+                            name: '2 Bedroom (large size, many items)',
+                            bonus: 0
+                        },
+                        {
+                            value: '3_bedroom_avg',
+                            name: '3 Bedroom (avg. size, avg. items)',
+                            bonus: 0
+                        },
+                        {
+                            value: '3_bedroom_large',
+                            name: '3 Bedroom (large size, many items)',
+                            bonus: 0
+                        },
+                        {
+                            value: '4_bedrooom_avg',
+                            name: '4 Bedroom (avg. size, avg. items)',
+                            bonus: 0
+                        },
+                        {
+                            value: '4_bedroom_large',
+                            name: '4 Bedroom (large size, many items)',
+                            bonus: 0
+                        },
+                        {
+                            value: 'commercial_avg',
+                            name: 'Commercial (avg. size, avg. items)',
+                            bonus: 0
+                        },
+                        {
+                            value: 'commercial_large',
+                            name: 'Commercial (large size, many items)',
+                            bonus: 0
+                        }
+                    ]
+                });
+            }
         }
     });
 }

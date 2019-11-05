@@ -72,7 +72,9 @@ export default class MovingSize extends Component {
         this.x = Tracker.autorun(() => {
             let job = Session.get('job_');
 
-            job.movingSize ? this.setState({ value: job.movingSize }) : this.setState({ value: 'select_moving_size' });
+            job.movingSize
+                ? this.setState({ value: job.movingSize })
+                : this.setState({ value: 'select_moving_size' });
         });
     }
 
@@ -108,17 +110,7 @@ export default class MovingSize extends Component {
     render() {
         return (
             <div className="">
-                <label
-                    // style={{
-                    //     backgroundColor: 'rgb(237, 240, 241)',
-                    //     padding: '0px 5px',
-                    //     margin: ' 5px 15px',
-                    //     top: '0',
-                    //     left: '0',
-                    //     position: 'absolute'
-                    // }}
-                    htmlFor="moving_size_2"
-                    className="active">
+                <label htmlFor="moving_size_2" className="active">
                     Moving Size
                 </label>
                 <select
