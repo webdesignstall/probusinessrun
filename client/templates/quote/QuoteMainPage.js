@@ -45,6 +45,7 @@ export default class QuoteMainPage extends Component {
         Session.set('loading', true);
         let job = Session.get('job_');
         job.status = status;
+        job.quoteDate = new Date();
 
         Meteor.call('quotaniBazayaElaveEt', job, err => {
             if (err) {

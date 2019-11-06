@@ -7,9 +7,9 @@ Notification center:
     ☐ only admins can modify notifications
 
 Bonus Component:
-    ☐ Hemin ay ucun olan butun won isleri fetch ele
-    ☐ Hemin aydan 1 ay evvelki won islerin informasiyalarini fetch et eger previos month secilibse
-    ☐ Dashboard default olaraq aktiv ayin statistikasini gostersin kimler ne qeder is goturubdur
+    ✔ Hemin ay ucun olan butun won isleri fetch ele @done(19-11-05 15:56)
+    ✔ Hemin aydan 1 ay evvelki won islerin informasiyalarini fetch et eger previos month secilibse @done(19-11-05 16:19)
+    ✔ Dashboard default olaraq aktiv ayin statistikasini gostersin kimler ne qeder is goturubdur @done(19-11-05 15:56)
 
 Rebuild adding job and updatede job component: 
     ✔ create centralized object in the session @started(19-09-25 17:16) @done(19-09-25 17:26) @lasted(10m1s)

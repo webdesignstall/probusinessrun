@@ -67,6 +67,7 @@ Meteor.startup(() => {
     Session.set('dataUpdated', false);
     Session.set('addressExt', []);
     Session.set('job_', {});
+    Session.set('lastMont', false);
 
     Tracker.autorun(() => {
         let user = Meteor.userId();
@@ -76,7 +77,9 @@ Meteor.startup(() => {
             let user1 = Meteor.users.find({ _id: user }).fetch()[0];
             if (
                 user1 &&
-                (user1.profile.rank === 'admin' || user1.profile.rank === 'officeEmployee' || user1.profile.rank === 'tablet')
+                (user1.profile.rank === 'admin' ||
+                    user1.profile.rank === 'officeEmployee' ||
+                    user1.profile.rank === 'tablet')
             ) {
                 Session.set('loading', true);
 

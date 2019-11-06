@@ -3,6 +3,7 @@ import { Tracker } from 'meteor/tracker';
 import { Meteor } from 'meteor/meteor';
 import BonusSettings from '../../common/bonusData';
 import WorkData from '../../common/collections_2';
+import { Session } from 'meteor/session';
 
 export default class BonusDash extends Component {
     constructor(props) {
@@ -22,6 +23,14 @@ export default class BonusDash extends Component {
 
     componentDidMount() {
         this.x = Tracker.autorun(() => {
+            this.setState({
+                options: [],
+                totalJobs: 0,
+                jobs: [],
+                jobsCalculated: [],
+                employeeBonusInfo: {},
+                employeeBonusInfoKey: []
+            });
             Meteor.subscribe('bonusData');
             let dateForSettings = `${new Date().getMonth()}/01/${new Date().getFullYear()}`;
             let data = BonusSettings.find({
@@ -29,6 +38,7 @@ export default class BonusDash extends Component {
             }).fetch();
             let date_ = new Date();
             let ay = date_.getMonth();
+            Session.get('lastMont') ? ay-- : null;
             let yearOfDate_ = date_.getFullYear();
             let newDate = new Date(ay + 1 + '/01/' + yearOfDate_);
 
@@ -102,9 +112,11 @@ export default class BonusDash extends Component {
     renderBonusesForEmployee(keys, employeeBonusInfo) {
         return keys.map((key, index) => {
             return (
-                <React.Fragment key={'jobNumberBonus' + key}>
+                <React.Fragment key={'jobNumberBonus' + index}>
                     <div className="col s12 m6 l6">#{key}</div>
-                    <div className="col s12 m6 l6 right-align">{employeeBonusInfo[index][key]}</div>
+                    <div className="col s12 m6 l6 right-align">
+                        ${employeeBonusInfo[index][key]}
+                    </div>
                 </React.Fragment>
             );
         });
