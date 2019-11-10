@@ -41,11 +41,12 @@ export default class QuoteMainPage extends Component {
         Meteor.call('createBonusSettings');
     }
 
-    clickHandle(status, email, enableButtons) {
+    clickHandle(status, email, enableButtons, sendQuote) {
         Session.set('loading', true);
         let job = Session.get('job_');
         job.status = status;
-        job.quoteDate = new Date();
+        sendQuote ? (job.emailSentDate = new Date()) : null;
+        sendQuote ? (job.emailSent = true) : null;
 
         Meteor.call('quotaniBazayaElaveEt', job, err => {
             if (err) {
@@ -198,7 +199,9 @@ export default class QuoteMainPage extends Component {
                     />
                     <Button
                         color="green darken-1"
-                        func={enableButtons => this.clickHandle('inProgress', true, enableButtons)}
+                        func={enableButtons =>
+                            this.clickHandle('inProgress', true, enableButtons, true)
+                        }
                         text="Send quote & save"
                     />
                     <Button
