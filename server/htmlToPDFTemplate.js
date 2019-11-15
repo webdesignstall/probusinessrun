@@ -8,7 +8,7 @@ export default function pdfTemplate(canvas) {
     <title>Document</title>
 </head>
 <body>
-    <div><img width="600px" src="${canvas}" /></div>
+    <div style="width: ${canvas.width}px; height: ${canvas.height}px;"><img width="100%" src="${canvas}" /></div>
 </body>
 </html>`;
 }

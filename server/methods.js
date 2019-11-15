@@ -3,15 +3,23 @@ import { Accounts } from 'meteor/accounts-base';
 import WorkData from '../common/collections_2';
 import email from 'emailjs';
 import pdfTemplate from './htmlToPDFTemplate';
-import fs from 'fs';
 import AWS from 'aws-sdk';
 import pdf from 'html-pdf';
+// Set the region
+AWS.config.update({
+    region: 'us-west-1',
+    accessKeyId: 'AKIAT6GWTJD2WI5MB5FA',
+    secretAccessKey: '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'
+});
+
+// Create S3 service object
+let s3 = new AWS.S3({ apiVersion: '2006-03-01' });
 
 /*global moment*/
 
 if (Meteor.isServer) {
     Meteor.methods({
-        // remove user
+    // remove user
         removeUser: function(id) {
             Meteor.users.remove(id);
         },
@@ -21,7 +29,10 @@ if (Meteor.isServer) {
             if (userInfo) {
                 return userInfo;
             } else {
-                throw new Meteor.Error('Error', 'Can\'t create information in the database');
+                throw new Meteor.Error(
+                    'Error',
+                    'Can\'t create information in the database'
+                );
             }
         },
         updateUserOrTruck: function(id, obj) {
@@ -35,7 +46,10 @@ if (Meteor.isServer) {
                 err => {
                     if (err) {
                         console.error(err);
-                        throw new Meteor.Error('Error', 'Can\'t update information. Please contact with the administration');
+                        throw new Meteor.Error(
+                            'Error',
+                            'Can\'t update information. Please contact with the administration'
+                        );
                     }
                 }
             );
@@ -82,7 +96,9 @@ if (Meteor.isServer) {
                 text: ' ',
                 from: job.companyInfo.name + ' ' + job.companyInfo.email,
                 to: job.email,
-                subject: `${diff} more ${diff === 1 ? 'day' : 'days'}! Job #${job.jobNumber}`,
+                subject: `${diff} more ${diff === 1 ? 'day' : 'days'}! Job #${
+                    job.jobNumber
+                }`,
                 attachment: [
                     {
                         data: template,
@@ -94,7 +110,10 @@ if (Meteor.isServer) {
             server.send(message, function(err) {
                 if (err) {
                     console.error(err);
-                    throw new Meteor.Error('500', 'Can\'t send email. Please contact system adminstration');
+                    throw new Meteor.Error(
+                        '500',
+                        'Can\'t send email. Please contact system adminstration'
+                    );
                 }
                 console.info('Follow up Email succesfully sent to: ' + job.email);
             });
@@ -115,26 +134,49 @@ if (Meteor.isServer) {
                 ]
             };
             oldJobUpdates.push(updates);
-            WorkData.update({ _id }, { $set: { customerRate: rate, updates: oldJobUpdates } }, err => {
-                console.error(err);
-            });
+            WorkData.update(
+                { _id },
+                { $set: { customerRate: rate, updates: oldJobUpdates } },
+                err => {
+                    console.error(err);
+                }
+            );
         },
-        saveToPdf: function(canvas) {
+        saveToPdf: function(canvas, id) {
             let htmlTemplate = pdfTemplate(canvas);
             let options = { format: 'Letter' };
 
-            pdf.create(htmlTemplate, options).toFile('../imports/pdfFiles/test.pdf', (err, res) => {
-                if (err) console.log(err);
+            pdf.create(htmlTemplate, options).toStream((err, stream) => {
+                if (err) {
+                    console.error(err);
+                } else {
+                    console.info('pdf file created successfully for id:' + id);
 
-                console.log(res);
-            });
+                    // call S3 to retrieve upload file to specified bucket
+                    var uploadParams = {
+                        Bucket: 'probusinessrun.finished.jobs.pdf',
+                        Key: id + '.pdf',
+                        Body: ''
+                    };
 
-            AWS.config.getCredentials(function(err) {
-                if (err) console.log(err.stack);
-                // credentials not loaded
-                else {
-                    console.log('Access key:', AWS.config.credentials.accessKeyId);
-                    console.log('Secret access key:', AWS.config.credentials.secretAccessKey);
+                    // Configure the file stream and obtain the upload parameters
+                    var fileStream = stream;
+                    fileStream.on('error', function(err) {
+                        console.error('File Error', err);
+                    });
+                    uploadParams.Body = fileStream;
+
+                    // call S3 to retrieve upload file to specified bucket
+                    s3.upload(uploadParams, function(err, data) {
+                        if (err) {
+                            console.error('Error', err);
+                        }
+                        if (data) {
+                            console.info(
+                                'Upload Success: pdf for job: ' + id + ' ' + data.Location
+                            );
+                        }
+                    });
                 }
             });
         }

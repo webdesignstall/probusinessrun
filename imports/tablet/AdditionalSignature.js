@@ -24,12 +24,14 @@ export default class AdditionalSignature extends React.Component {
     }
 
     show(id) {
-        let target_ = document.querySelector(`#${ id }`);
-        target_.classList.contains('hide') ? target_.classList.remove('hide') : target_.classList.add('hide');
-        this.setState((prevState) => {
-            return ({
+        let target_ = document.querySelector(`#${id}`);
+        target_.classList.contains('hide')
+            ? target_.classList.remove('hide')
+            : target_.classList.add('hide');
+        this.setState(prevState => {
+            return {
                 animate: !prevState.animate
-            });
+            };
         });
     }
 
@@ -37,12 +39,15 @@ export default class AdditionalSignature extends React.Component {
         return (
             <div className={!this.state.clicked ? 'hide' : ''}>
                 <div className="card__">
-                    <AdditionalSignaturesRender listOfSignature={this.props.additionalSignatureList} saveSignature={this.props.saveSignature} />
+                    <AdditionalSignaturesRender
+                        listOfSignature={this.props.additionalSignatureList}
+                        saveSignature={this.props.saveSignature}
+                    />
                 </div>
                 <AdditionalCharge saveSignature={this.props.saveSignature} />
                 <div className="card__">
-                    <div onClick={() => this.show('discount_')} >Discount</div>
-                    <div id="discount_" className="hide" >
+                    <div onClick={() => this.show('discount_')}>Discount</div>
+                    <div id="discount_" className="hide">
                         <Discount
                             unclick={this.show}
                             saveSignature={this.props.saveSignature}

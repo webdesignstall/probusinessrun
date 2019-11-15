@@ -8,11 +8,11 @@ Notification center:
 
 Send PDF to customer after finish job:
     ✔ create and save pdf in temporary folder @done(19-09-10 18:31)
-    ☐ name created file uniquie
+    ✔ name created file uniquie @done(19-11-15 15:49)
     ☐ use this name for creating file url
-    ☐ upload created file to server via rest 'put' api
+    ✔ upload created file to server via rest 'put' api @started(19-11-15 15:50) @done(19-11-15 15:50) @lasted(2s)
     ☐ add information about pdf link to finished job
-    ☐ remove created file from tmp folder
+    ✔ remove created file from tmp folder @done(19-11-15 15:50)
 
 Small Item packing redesign:
     ✔ add total line @done(19-09-06 16:44)
