@@ -17,7 +17,7 @@ export default class NoteForYourMove extends Component {
             this.timeOut = null;
             let job = Session.get('job_');
 
-            if (job.note) {
+            if (job.noteForYourMove) {
                 this.setState({
                     value: job.noteForYourMove
                 });
@@ -63,7 +63,8 @@ export default class NoteForYourMove extends Component {
                     style={{ height: '100px' }}
                     value={this.state.value}
                     onChange={e => this.changeHandler(e)}
-                    className="materialize-textarea"></textarea>
+                    className="materialize-textarea"
+                ></textarea>
                 <label htmlFor="textarea1" className="active">
                     Note for Your Move
                 </label>
