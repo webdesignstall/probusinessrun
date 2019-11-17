@@ -12,6 +12,7 @@ Send PDF to customer after finish job:
     ☐ use this name for creating file url
     ✔ upload created file to server via rest 'put' api @started(19-11-15 15:50) @done(19-11-15 15:50) @lasted(2s)
     ☐ add information about pdf link to finished job
+    ☐ attach and send file to customer
     ✔ remove created file from tmp folder @done(19-11-15 15:50)
 
 Small Item packing redesign:
