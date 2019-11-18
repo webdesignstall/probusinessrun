@@ -145,6 +145,7 @@ if (Meteor.isServer) {
         saveToPdf: function(canvas, id) {
             let htmlTemplate = pdfTemplate(canvas);
             let options = { format: 'Letter' };
+            let job = WorkData.findOne({ _id: id });
 
             pdf.create(htmlTemplate, options).toStream((err, stream) => {
                 if (err) {
@@ -167,7 +168,7 @@ if (Meteor.isServer) {
                     uploadParams.Body = fileStream;
 
                     // call S3 to retrieve upload file to specified bucket
-                    s3.upload(uploadParams, function(err, data) {
+                    s3.upload(uploadParams, (err, data) => {
                         if (err) {
                             console.error('Error', err);
                         }

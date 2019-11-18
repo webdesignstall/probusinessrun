@@ -10,6 +10,7 @@ import squareConnect from 'square-connect';
 
 import DifferenceCalculator from './DifferenceCalculator';
 import depositPaymentEmail from './depositPaymentEmail';
+import pdfToCustomer from './pdfToCustomer';
 
 var config = require('../imports/helpers/config.json');
 
@@ -23,10 +24,13 @@ Meteor.startup(() => {
 
     // prepare mailing server
     process.env.MAIL_URL =
-        'smtp://postmaster%40probusinessrun.com:6d0eb775d8a76c5f1efd0b02030ea3fa-e89319ab-67f4f8af@smtp.mailgun.org:587';
+    'smtp://postmaster%40probusinessrun.com:6d0eb775d8a76c5f1efd0b02030ea3fa-e89319ab-67f4f8af@smtp.mailgun.org:587';
     // code to run on server at startup
     Meteor.publish('userData', function() {
-        if ((this.userId && Meteor.user().profile.rank === 'admin') || Meteor.user().profile.rank === 'officeEmployee') {
+        if (
+            (this.userId && Meteor.user().profile.rank === 'admin') ||
+      Meteor.user().profile.rank === 'officeEmployee'
+        ) {
             return Meteor.users.find({
                 'profile.rank': 'mover'
             });
@@ -35,7 +39,10 @@ Meteor.startup(() => {
         }
     });
     Meteor.publish('tabletData', function() {
-        if ((this.userId && Meteor.user().profile.rank === 'admin') || Meteor.user().profile.rank === 'officeEmployee') {
+        if (
+            (this.userId && Meteor.user().profile.rank === 'admin') ||
+      Meteor.user().profile.rank === 'officeEmployee'
+        ) {
             return Meteor.users.find({
                 'profile.rank': 'tablet'
             });
@@ -52,13 +59,13 @@ Meteor.startup(() => {
 
 if (Meteor.isServer) {
     Meteor.methods({
-        // duymeniVurma: function (id) {
-        // //     WorkData.update(id, {
-        // //         $set: {
-        // //             clientName: Math.random()
-        // //         }
-        // //     });
-        // // },
+    // duymeniVurma: function (id) {
+    // //     WorkData.update(id, {
+    // //         $set: {
+    // //             clientName: Math.random()
+    // //         }
+    // //     });
+    // // },
 
         isiSilmek: function(id) {
             WorkData.remove(id);
@@ -75,7 +82,8 @@ if (Meteor.isServer) {
                     console.error(err);
                     throw new Meteor.Error(
                         'Can\'t create new job',
-                        'Error while creating new job. Pls Contact with the help desk. Reason: ' + err.message
+                        'Error while creating new job. Pls Contact with the help desk. Reason: ' +
+              err.message
                     );
                 } else {
                     return id;
@@ -97,7 +105,11 @@ if (Meteor.isServer) {
                 text: ' ',
                 from: job.companyInfo.name + ' ' + job.companyInfo.email,
                 to: job.email,
-                subject: 'Guaranteed Moving Estimate for ' + job.firstName + ' ' + job.lastName,
+                subject:
+          'Guaranteed Moving Estimate for ' +
+          job.firstName +
+          ' ' +
+          job.lastName,
                 attachment: [
                     {
                         data: EmailContent(job),
@@ -110,7 +122,10 @@ if (Meteor.isServer) {
             server.send(message, function(err) {
                 if (err) {
                     console.error(err);
-                    throw new Meteor.Error('Can\'t send email', 'Impossible send email. Contact system administration');
+                    throw new Meteor.Error(
+                        'Can\'t send email',
+                        'Impossible send email. Contact system administration'
+                    );
                 } else {
                     console.error('Email successfully sent to: ' + job.email);
                 }
@@ -139,7 +154,8 @@ if (Meteor.isServer) {
                 text: ' ',
                 from: job.companyInfo.name + ' ' + job.companyInfo.email,
                 to: job.email,
-                subject: `Moving Confirmation for ${job.clientFirstName || ''} ${job.clientLastName || ''}`,
+                subject: `Moving Confirmation for ${job.clientFirstName ||
+          ''} ${job.clientLastName || ''}`,
                 attachment: [
                     {
                         data: ConfirmationEmail(job),
@@ -149,18 +165,26 @@ if (Meteor.isServer) {
             };
 
             server.send(message, function(err) {
-                err ? console.error(err) : console.info('Email succesfully sent to: ' + job.email);
+                err
+                    ? console.error(err)
+                    : console.info('Email succesfully sent to: ' + job.email);
             });
         },
 
         saveEmployeeInfo: function(isinIdsi, value, iscininIdsi) {
-            WorkData.update({ _id: isinIdsi, 'workers.id': iscininIdsi }, { $set: { 'workers.$.payed': value } });
+            WorkData.update(
+                { _id: isinIdsi, 'workers.id': iscininIdsi },
+                { $set: { 'workers.$.payed': value } }
+            );
         },
 
         updateWork: function(doc) {
             // console.log('Update information: ' + doc.ip + ' :', doc);
 
-            if (doc.status === 'lost' && (doc.finalNote === 'none' || doc.finalNote === undefined)) {
+            if (
+                doc.status === 'lost' &&
+        (doc.finalNote === 'none' || doc.finalNote === undefined)
+            ) {
                 throw new Meteor.Error('Please select final note for lost job');
             }
 
@@ -207,7 +231,10 @@ if (Meteor.isServer) {
                 function(error, result) {
                     if (error) {
                         console.error(error);
-                        throw new Meteor.Error('Error updating', 'Reason: ' + error.message);
+                        throw new Meteor.Error(
+                            'Error updating',
+                            'Reason: ' + error.message
+                        );
                     } else {
                         // console.info(result);
                     }
@@ -242,6 +269,39 @@ if (Meteor.isServer) {
                     throw new Meteor.Error('Impossible to send email to supervisor');
                 } else {
                     console.info('Email successfully sent to supervisor');
+                }
+            });
+        },
+        pdfToCustomer: function(job, url) {
+            let server = email.server.connect({
+                user: job.companyInfo.email,
+                password: 'MCla7724!',
+                timeout: 60000,
+                host: job.companyInfo.smtp
+                // ssl: true
+            });
+
+            let message = {
+                text: ' ',
+                from: job.companyInfo.name + ' ' + job.companyInfo.email,
+                to: job.email,
+                subject: 'Contract Copy for your move on ' + job.movingDate,
+                attachment: [
+                    {
+                        data: pdfToCustomer(url),
+                        alternative: true
+                    }
+                ]
+            };
+
+            server.send(message, function(err) {
+                if (err) {
+                    console.error(err);
+                    throw new Meteor.Error(
+                        'Impossible to send contract email to customer'
+                    );
+                } else {
+                    console.info('Email successfully sent to customer');
                 }
             });
         },
@@ -282,7 +342,11 @@ if (Meteor.isServer) {
             };
 
             server.send(message, function(err) {
-                err ? console.error(err) : console.info('Info about payment successfully sent to administration email');
+                err
+                    ? console.error(err)
+                    : console.info(
+                        'Info about payment successfully sent to administration email'
+                    );
             });
         },
         emailToCardHolder: function(obj) {
@@ -346,7 +410,11 @@ ${obj.companyInfo.email}<br>
                         'Problem while sending email. Please chack email address.'
                     );
                 } else {
-                    console.log('Info about payment successfully sent to ' + obj.cardHolderInfo.email + ' email');
+                    console.log(
+                        'Info about payment successfully sent to ' +
+              obj.cardHolderInfo.email +
+              ' email'
+                    );
                 }
             });
         }

@@ -331,8 +331,16 @@ MY OWN FREE WILL`
                 mediumBoxes: this.state.valueMediumBoxes,
                 largeBoxes: this.state.valueLargeBoxes
             };
+
+            let job = WorkData.findOne({ _id: Session.get('tabletIsId') });
             Meteor.call('updateWork', doc, () => {
-                Meteor.call('saveToPdf', png, Session.get('tabletIsId'));
+                Meteor.call('saveToPdf', png, Session.get('tabletIsId'), () => {
+                    let url =
+            'https://s3-us-west-1.amazonaws.com/probusinessrun.finished.jobs.pdf/' +
+            job._id +
+            '.pdf';
+                    Meteor.call('pdfToCustomer', job, url);
+                });
             });
         });
     }
