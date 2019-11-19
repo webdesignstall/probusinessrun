@@ -3,6 +3,18 @@ import { Accounts } from 'meteor/accounts-base';
 import WorkData from '../common/collections_2';
 import BonusSettings from '../common/bonusData';
 import email from 'emailjs';
+import pdfTemplate from './htmlToPDFTemplate';
+import AWS from 'aws-sdk';
+import pdf from 'html-pdf';
+// Set the region
+AWS.config.update({
+    region: 'us-west-1',
+    accessKeyId: 'AKIAT6GWTJD2WI5MB5FA',
+    secretAccessKey: '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'
+});
+
+// Create S3 service object
+let s3 = new AWS.S3({ apiVersion: '2006-03-01' });
 
 /*global moment*/
 
@@ -132,6 +144,44 @@ if (Meteor.isServer) {
                 if (err) {
                     console.error(err);
                     throw new Meteor.Error('Error while saving settings');
+                }
+            });
+        },
+        saveToPdf: function(canvas, id) {
+            let htmlTemplate = pdfTemplate(canvas);
+            let options = { format: 'Letter' };
+
+            pdf.create(htmlTemplate, options).toStream((err, stream) => {
+                if (err) {
+                    console.error(err);
+                } else {
+                    console.info('pdf file created successfully for id:' + id);
+
+                    // call S3 to retrieve upload file to specified bucket
+                    var uploadParams = {
+                        Bucket: 'probusinessrun.finished.jobs.pdf',
+                        Key: id + '.pdf',
+                        Body: ''
+                    };
+
+                    // Configure the file stream and obtain the upload parameters
+                    var fileStream = stream;
+                    fileStream.on('error', function(err) {
+                        console.error('File Error', err);
+                    });
+                    uploadParams.Body = fileStream;
+
+                    // call S3 to retrieve upload file to specified bucket
+                    s3.upload(uploadParams, (err, data) => {
+                        if (err) {
+                            console.error('Error', err);
+                        }
+                        if (data) {
+                            console.info(
+                                'Upload Success: pdf for job: ' + id + ' ' + data.Location
+                            );
+                        }
+                    });
                 }
             });
         },
