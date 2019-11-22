@@ -1272,7 +1272,7 @@ MY OWN FREE WILL`
                                         <div className="cardTitle">Pricing:</div>
                                         <div className="clear margin-top" />
                                         <div className="col s6 m6 l6">
-                                            Number Of Movers: {is.workers.length}
+                                            Number Of Movers: {is.workers && is.workers.length}
                                             <br />
                                             Your Flat Rates:{' '}
                                             {is.flatRate && is.flatRate[0].isTrue
@@ -2123,7 +2123,11 @@ MY OWN FREE WILL`
                                     <li className="collection-item blue">
                                         Total calculated hours:
                                         <span className="sag">
-                                            = {this.totalWorkLaborTime} hours
+                                            ={' '}
+                                            {!isNaN(this.totalWorkLaborTime)
+                                                ? this.totalWorkLaborTime
+                                                : 0}{' '}
+                                            hours
                                         </span>
                                     </li>
                                     <li className="collection-item blue">
@@ -2201,7 +2205,7 @@ MY OWN FREE WILL`
                                         <span className="sag">
                                             = $
                                             {(() => {
-                                                return this.payCash || 0;
+                                                return isNaN(this.payCash) ? 0 : this.payCash;
                                             })()}
                                         </span>
                                     </li>
@@ -2210,7 +2214,7 @@ MY OWN FREE WILL`
                                         <span className="sag">
                                             = $
                                             {(() => {
-                                                return this.payCard || 0;
+                                                return isNaN(this.payCard) ? 0 : this.payCard;
                                             })()}
                                         </span>
                                     </li>
@@ -2221,13 +2225,19 @@ MY OWN FREE WILL`
                                     <li className="collection-item blue">
                                         Grand Total Cash:
                                         <span className="sag">
-                                            = ${(this.payCash - is.deposit).toFixed(2) || 0}
+                                            = $
+                                            {!isNaN((this.payCash - is.deposit).toFixed(2))
+                                                ? (this.payCash - is.deposit).toFixed(2)
+                                                : 0}
                                         </span>
                                     </li>
                                     <li className="collection-item blue">
                                         Grand Total Card:
                                         <span className="sag">
-                                            = ${(this.payCard - is.deposit).toFixed(2) || 0}
+                                            = $
+                                            {!isNaN((this.payCard - is.deposit).toFixed(2))
+                                                ? (this.payCard - is.deposit).toFixed(2)
+                                                : 0}
                                         </span>
                                     </li>
                                 </ul>
