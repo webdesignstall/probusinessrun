@@ -2070,8 +2070,7 @@ MY OWN FREE WILL`
                                     <li className="collection-item blue">
                                         Start to Finish:
                                         <span className="sag">
-                                            ={' '}
-                                            {is.totalWorkTime ? is.totalWorkTime.toFixed(2) : null}{' '}
+                                            = {is.totalWorkTime ? is.totalWorkTime.toFixed(2) : 0}{' '}
                                             hours
                                         </span>
                                     </li>
@@ -2160,7 +2159,7 @@ MY OWN FREE WILL`
                                     >
                                         Additional Charge:
                                         <span className="sag">
-                                            = ${this.totalAdditionalChargeAmount}
+                                            = ${this.totalAdditionalChargeAmount || 0}
                                         </span>
                                     </li>
                                     <li
@@ -2175,7 +2174,7 @@ MY OWN FREE WILL`
                                         Discount:
                                         {this.totalDiscountTime && this.totalDiscountTime > 0 ? (
                                             <span className="sag discountYeri">
-                                                {this.totalDiscountTime} minutes
+                                                {this.totalDiscountTime || 0} minutes
                                             </span>
                                         ) : (
                                             ''
@@ -2183,7 +2182,7 @@ MY OWN FREE WILL`
                                         {this.totalDiscountPercent &&
                                         this.totalDiscountPercent > 0 ? (
                                                 <span className="sag discountYeri">
-                                                    {this.totalDiscountPercent}%
+                                                    {this.totalDiscountPercent || 0}%
                                                 </span>
                                             ) : (
                                                 ''
@@ -2191,7 +2190,7 @@ MY OWN FREE WILL`
                                         {this.totalDiscountAmount &&
                                         this.totalDiscountAmount > 0 ? (
                                                 <span className="sag discountYeri">
-                                                ${this.totalDiscountAmount}
+                                                ${this.totalDiscountAmount || 0}
                                                 </span>
                                             ) : (
                                                 ''
@@ -2202,7 +2201,7 @@ MY OWN FREE WILL`
                                         <span className="sag">
                                             = $
                                             {(() => {
-                                                return this.payCash;
+                                                return this.payCash || 0;
                                             })()}
                                         </span>
                                     </li>
@@ -2211,24 +2210,24 @@ MY OWN FREE WILL`
                                         <span className="sag">
                                             = $
                                             {(() => {
-                                                return this.payCard;
+                                                return this.payCard || 0;
                                             })()}
                                         </span>
                                     </li>
                                     <li className="collection-item blue">
                                         Deposit Paid:
-                                        <span className="sag">= ${is.deposit}</span>
+                                        <span className="sag">= ${is.deposit || 0}</span>
                                     </li>
                                     <li className="collection-item blue">
                                         Grand Total Cash:
                                         <span className="sag">
-                                            = ${(this.payCash - is.deposit).toFixed(2)}
+                                            = ${(this.payCash - is.deposit).toFixed(2) || 0}
                                         </span>
                                     </li>
                                     <li className="collection-item blue">
                                         Grand Total Card:
                                         <span className="sag">
-                                            = ${(this.payCard - is.deposit).toFixed(2)}
+                                            = ${(this.payCard - is.deposit).toFixed(2) || 0}
                                         </span>
                                     </li>
                                 </ul>
