@@ -1311,7 +1311,7 @@ MY OWN FREE WILL`
                                             Extra Large/Heavy Item Fee:{' '}
                                             {is.largeItemFee > 0 ? '$' + is.largeItemFee : 'No'}
                                             <br />
-                                            Flat Small Item Packing Price:{' '}
+                                            Small Item Packing Price:{' '}
                                             {is.smallItemPacking && is.smallItemPacking < 0
                                                 ? 'Yes'
                                                 : is.smallItemPacking && is.smallItemPacking > 0
