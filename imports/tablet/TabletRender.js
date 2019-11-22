@@ -408,8 +408,10 @@ MY OWN FREE WILL`
             let cashDiscount = Number(this.totalDiscountAmount) || 0; // $ amount discount
             let timeDiscount = Number(this.totalDiscountTime) / 60 || 0; // time amount hours
             let flatRateIsTrue = workData.flatRate ? workData.flatRate[0].isTrue : false; // flat rate var ?
-            let flatCashAmount = workData.flatRate ? Number(workData.flatRate[0].cashAmount) : 0; // flat cash amount
-            let flatCardAmount = workData.flatRate ? Number(workData.flatRate[0].cardAmount) : 0; // flat card amount
+            let flatCashAmount =
+                workData.flatRate && flatRateIsTrue ? Number(workData.flatRate[0].cashAmount) : 0; // flat cash amount
+            let flatCardAmount =
+                workData.flatRate && flatRateIsTrue ? Number(workData.flatRate[0].cardAmount) : 0; // flat card amount
             let cashRate = Number(workData.hourlyRatesCash) || 0; // cash rate
             let cardRate = Number(workData.hourlyRatesCard) || 0; // card rate
             let startToFinishTime = Math.ceil(workData.totalWorkTime / 0.25) * 0.25; // SF start to finish time included break and driving time 15 minutes interval
@@ -474,6 +476,17 @@ MY OWN FREE WILL`
                 additionalCharges -
                 timeDiscount * cashRate
             ).toFixed(2);
+            console.log('TCL: calculateAmount -> flatCashAmount', flatCashAmount);
+            console.log('TCL: calculateAmount -> flatCashAmount', totalWorkedHours);
+            console.log('TCL: calculateAmount -> flatCashAmount', cashRate);
+            console.log('TCL: calculateAmount -> flatCashAmount', cashDiscount);
+            console.log('TCL: calculateAmount -> flatCashAmount', percentDiscount);
+            console.log('TCL: calculateAmount -> flatCashAmount', isDoubleDrive);
+            console.log('TCL: calculateAmount -> flatCashAmount', drivingTime);
+            console.log('TCL: calculateAmount -> flatCashAmount', cashRate);
+            console.log('TCL: calculateAmount -> flatCashAmount', additionalCharges);
+            console.log('TCL: calculateAmount -> flatCashAmount', timeDiscount);
+            console.log('TCL: calculateAmount -> flatCashAmount', cashRate);
             this.payCard = (
                 (flatCardAmount +
                     totalWorkedHours * cardRate +
@@ -768,7 +781,12 @@ MY OWN FREE WILL`
                 let isFinished = isRender[0].finished;
                 let startFullName = isRender[0].initFullName;
                 let initSignDate = isRender[0].initSignDate || new Date();
-                let valuationOption = isRender[0].valuationOption;
+                let valuationOption = isRender[0].valuationOption
+                    ? isRender[0].valuationOption
+                    : {
+                        initial: '',
+                        typeNumber: 0
+                    };
                 let checks = isRender[0].checks || {
                     packMater: false,
                     cargoIsSubject: false,

@@ -37,5 +37,6 @@ SchemaOfBonusSettings.bonusSettings = new SimpleSchema(
 const DiscountData = {}; // discount data
 
 Meteor.isClient && Template.registerHelper('SchemaOfBonusSettings', SchemaOfBonusSettings);
+let BonusSettings = null;
 export default BonusSettings = DiscountData.BonusSettings = new Mongo.Collection('BonusSettings');
 BonusSettings.attachSchema(SchemaOfBonusSettings.bonusSettings);
