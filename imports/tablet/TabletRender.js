@@ -1341,6 +1341,7 @@ MY OWN FREE WILL`
                                                     onChange={this.initialAlphabet}
                                                     value={this.state.initialSignAlphabet}
                                                     placeholder="Write initial here please"
+                                                    style={{ textTransform: 'uppercase' }}
                                                 />
                                                 <span id="importantInformationBooklet_date">
                                                     {moment(
@@ -1537,6 +1538,7 @@ MY OWN FREE WILL`
                                                     onChange={e => this.changeBasicValuation(0, e)}
                                                     className="initial_x"
                                                     type="text"
+                                                    style={{ textTransform: 'uppercase' }}
                                                     disabled={
                                                         is.valuationOption &&
                                                         typeof is.valuationOption.initial ===
@@ -1573,6 +1575,7 @@ MY OWN FREE WILL`
                                                 <input
                                                     className="initial_x"
                                                     type="text"
+                                                    style={{ textTransform: 'uppercase' }}
                                                     onChange={e => this.changeBasicValuation(1, e)}
                                                     disabled={
                                                         is.valuationOption &&
@@ -1633,6 +1636,7 @@ MY OWN FREE WILL`
                                                 <input
                                                     className="initial_x"
                                                     type="text"
+                                                    style={{ textTransform: 'uppercase' }}
                                                     onChange={e => this.changeBasicValuation(2, e)}
                                                     disabled={
                                                         is.valuationOption &&
