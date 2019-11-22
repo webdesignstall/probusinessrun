@@ -33,6 +33,7 @@ export default class DiscountAdminRender extends TrackerReact(React.Component) {
             truckNumber: discount.truckNumber,
             responded: true
         };
+        console.log('TCL: DiscountAdminRender -> deny -> doc', doc);
 
         Meteor.call('updateDiscount', doc, discount._id);
     }
@@ -93,10 +94,10 @@ export default class DiscountAdminRender extends TrackerReact(React.Component) {
                             {discount.type === 'amount'
                                 ? '$'
                                 : discount.type === 'time'
-                                    ? 'minutes'
-                                    : discount.type === 'percent'
-                                        ? '%'
-                                        : 'Not valid discount type'}
+                                ? 'minutes'
+                                : discount.type === 'percent'
+                                ? '%'
+                                : 'Not valid discount type'}
                         </div>
                     </div>
                     <div className="col s3 m3 l3" />
