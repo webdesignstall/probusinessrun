@@ -476,17 +476,6 @@ MY OWN FREE WILL`
                 additionalCharges -
                 timeDiscount * cashRate
             ).toFixed(2);
-            console.log('TCL: calculateAmount -> flatCashAmount', flatCashAmount);
-            console.log('TCL: calculateAmount -> flatCashAmount', totalWorkedHours);
-            console.log('TCL: calculateAmount -> flatCashAmount', cashRate);
-            console.log('TCL: calculateAmount -> flatCashAmount', cashDiscount);
-            console.log('TCL: calculateAmount -> flatCashAmount', percentDiscount);
-            console.log('TCL: calculateAmount -> flatCashAmount', isDoubleDrive);
-            console.log('TCL: calculateAmount -> flatCashAmount', drivingTime);
-            console.log('TCL: calculateAmount -> flatCashAmount', cashRate);
-            console.log('TCL: calculateAmount -> flatCashAmount', additionalCharges);
-            console.log('TCL: calculateAmount -> flatCashAmount', timeDiscount);
-            console.log('TCL: calculateAmount -> flatCashAmount', cashRate);
             this.payCard = (
                 (flatCardAmount +
                     totalWorkedHours * cardRate +
@@ -807,8 +796,14 @@ MY OWN FREE WILL`
                     });
                 }
                 if (isFinished) {
+                    // this.deactivateAll();
                     this.setState({
                         finished: true
+                    });
+                } else {
+                    this.activateAll();
+                    this.setState({
+                        finished: false
                     });
                 }
 
@@ -996,6 +991,19 @@ MY OWN FREE WILL`
 
         for (let i = 0; i < buttons.length; i++) {
             buttons[i].classList.add('disabled');
+        }
+    }
+
+    activateAll() {
+        let inputs = document.getElementsByTagName('input');
+        let buttons = document.getElementsByClassName('btn');
+
+        for (let i = 0; i < inputs.length; i++) {
+            inputs[i].disabled = false;
+        }
+
+        for (let i = 0; i < buttons.length; i++) {
+            buttons[i].classList.remove('disabled');
         }
     }
 
@@ -2396,8 +2404,6 @@ MY OWN FREE WILL`
                                 </div>
                             </div>
                         </div>
-                        {this.state.finished && this.deactivateAll()}
-                        {/* son */}
                     </div>
                 </div>
             </React.Fragment>
@@ -2412,54 +2418,20 @@ Template.tablet.events({
 
         $('#tablet-is-siyahi').show();
         $('#tebler-render').hide();
+
+        let inputs = document.getElementsByTagName('input');
+        let buttons = document.getElementsByClassName('btn');
+
+        for (let i = 0; i < inputs.length; i++) {
+            inputs[i].disabled = false;
+        }
+
+        for (let i = 0; i < buttons.length; i++) {
+            buttons[i].classList.remove('disabled');
+        }
     }
 });
 
 Template.tablet.onRendered(function() {
     ReactDOM.render(<TabletRender />, document.getElementById('tebler-render'));
-
-    // paypal.Button.render(
-    //     {
-    //         env: 'production', // Or 'sandbox'
-    //
-    //         style: {
-    //             label: 'pay',
-    //             size: 'small', // small | medium | large | responsive
-    //             shape: 'rect', // pill | rect
-    //             color: 'blue' // gold | blue | silver | black
-    //         },
-    //
-    //         client: {
-    //             sandbox: 'ASree96P5IIPryoEkaURjZl_uCCGHLcso9ZNy6U_4vLFUnFc5qhU7hIP7KsLIfZoepVvPhxtdwvTsao5',
-    //             production: 'AeKzmDv5m4KcyrlQI7Y9qiyjYr5jyUYVKd1FsKrXF9Nce7qmfekBC35JIAFbV2am3TdVKhszmcOdFJhK'
-    //         },
-    //
-    //         commit: true, // Show a 'Pay Now' button
-    //
-    //         payment: function(data, actions) {
-    //             return actions.payment.create({
-    //                 payment: {
-    //                     transactions: [
-    //                         {
-    //                             amount: {
-    //                                 total: odenilmelidir,
-    //                                 currency: 'USD'
-    //                             }
-    //                         }
-    //                     ]
-    //                 }
-    //             });
-    //         },
-    //
-    //         onAuthorize: function(data, actions) {
-    //             return actions.payment.execute().then(function(payment) {
-    //                 document.getElementById('odenis-yeri').classList.add('hide');
-    //                 Session.set('payed', true);
-    //                 // The payment is complete!
-    //                 // You can now show a confirmation message to the customer
-    //             });
-    //         }
-    //     },
-    //     '#pay-card'
-    // );
 });

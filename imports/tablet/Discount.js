@@ -57,10 +57,10 @@ export default class Discount extends TrackerReact(React.Component) {
     componentDidUpdate() {
         this.state.discountApproved
             ? swal({
-                title: 'Success',
-                text: 'Discount accepted',
-                icon: 'success'
-            })
+                  title: 'Success',
+                  text: 'Discount accepted',
+                  icon: 'success'
+              })
             : null;
     }
 
@@ -83,17 +83,17 @@ export default class Discount extends TrackerReact(React.Component) {
             return code === promoCode;
         })
             ? this.setState({
-                discountApproved: true,
-                waiting: true
-            })
+                  discountApproved: true,
+                  waiting: true
+              })
             : // document.getElementById('signatureForDiscount').classList.remove('hide'),
-        // document.getElementById('askDiscount').setAttribute('disabled', true)
-            (swal({
-                title: 'Wrong promo code',
-                text: 'You entered wrong Promo Code',
-                icon: 'error'
-            }),
-            Session.set('loading', false));
+              // document.getElementById('askDiscount').setAttribute('disabled', true)
+              (swal({
+                  title: 'Wrong promo code',
+                  text: 'You entered wrong Promo Code',
+                  icon: 'error'
+              }),
+              Session.set('loading', false));
     }
 
     askDiscount() {
@@ -103,41 +103,41 @@ export default class Discount extends TrackerReact(React.Component) {
         this.promoCode.current.value !== null
             ? this.checkPromoCode(this.promoCode.current.value)
             : onlineStatus
-                ? Discounts.insert(
-                    {
-                        amount: this.state.valueOfSelected,
-                        note: this.state.note,
-                        type: this.state.selected,
-                        confirmed: false,
-                        truckNumber: Meteor.user().profile.number
-                    },
-                    (error, _id) => {
-                        error
-                            ? console.error(error)
-                            : (this.setState({ discountId: _id }),
+            ? Discounts.insert(
+                  {
+                      amount: this.state.valueOfSelected,
+                      note: this.state.note,
+                      type: this.state.selected,
+                      confirmed: false,
+                      truckNumber: Meteor.user().profile.number
+                  },
+                  (error, _id) => {
+                      error
+                          ? console.error(error)
+                          : (this.setState({ discountId: _id }),
                             this.setState({ waiting: true }),
                             Session.set('discountId', _id),
                             setTimeout(() => {
                                 !this.state.discountApproved
                                     ? (Meteor.call('removeDiscount', this.state.discountId, err =>
-                                        err ? console.error(err) : null
-                                    ),
-                                    swal({
-                                        title: 'Discount doesn\'t accepted',
-                                        text: 'For more info contact with the manager',
-                                        icon: 'error'
-                                    }),
-                                    Session.set('loading', false),
-                                    this.setState({ waiting: false }, err =>
-                                        err ? console.error(err) : null
-                                    ),
-                                    Session.set('discountId', ''),
-                                    Session.set('discountAproved', false))
+                                          err ? console.error(err) : null
+                                      ),
+                                      swal({
+                                          title: "Discount doesn't accepted",
+                                          text: 'For more info contact with the manager',
+                                          icon: 'error'
+                                      }),
+                                      Session.set('loading', false),
+                                      this.setState({ waiting: false }, err =>
+                                          err ? console.error(err) : null
+                                      ),
+                                      Session.set('discountId', ''),
+                                      Session.set('discountAproved', false))
                                     : null;
                             }, 120000));
-                    }
-                )
-                : alert('You have not internet connection try to call to manager and get promo Code');
+                  }
+              )
+            : alert('You have not internet connection try to call to manager and get promo Code');
     }
 
     noteChange(e) {
