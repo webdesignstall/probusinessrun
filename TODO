@@ -6,6 +6,11 @@ Notification center:
     ☐ Make possible to create and delete the notifications from client side
     ☐ only admins can modify notifications
 
+CC Form Extended functionality:
+    ✔ Create button for sending to new card holder @started(19-11-27 13:36) @done(19-11-27 14:05) @lasted(29m48s)
+    ✔ Make possible to add new card holder in the database @done(19-11-27 14:08)
+    ✔ After adding new card holder send email to him/her @done(19-11-27 15:05)
+
 Bonus Component:
     ✔ Hemin ay ucun olan butun won isleri fetch ele @done(19-11-05 15:56)
     ✔ Hemin aydan 1 ay evvelki won islerin informasiyalarini fetch et eger previos month secilibse @done(19-11-05 16:19)
@@ -22,6 +27,7 @@ Rebuild adding job and updatede job component:
     ☐ fix the new appointment component if status won @started(19-10-14 12:30)
     ✔ it doesnt display anything when opening new appointment component after calendar edit component @done(19-10-17 18:32)
     ✔ fix edit jobs component from calendar @done(19-10-16 19:14)
+
 Send PDF to customer after finish job:
     ✔ create and save pdf in temporary folder @done(19-09-10 18:31)
     ✔ name created file uniquie @done(19-11-15 15:49)
