@@ -109,7 +109,7 @@ if (Meteor.isServer) {
                 text: ' ',
                 from: job.companyInfo.name + ' ' + job.companyInfo.email,
                 to: job.email,
-                subject: 'Guaranteed Moving Estimate for ' + job.firstName + ' ' + job.lastName,
+                subject: 'Guaranteed Moving Estimate for ' + job.clientFirstName + ' ' + job.clientLastName,
                 attachment: [
                     {
                         data: EmailContent(job),
