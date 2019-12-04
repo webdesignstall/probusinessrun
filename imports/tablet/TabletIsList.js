@@ -5,7 +5,7 @@ import { Meteor } from 'meteor/meteor';
 import WorkData from '../../common/collections_2';
 import { Tracker } from 'meteor/tracker';
 import { Session } from 'meteor/session';
-/*global $*/
+/*global $, moment*/
 
 export default class TabletIsList extends React.Component {
     constructor(props) {
@@ -19,17 +19,21 @@ export default class TabletIsList extends React.Component {
 
     UNSAFE_componentWillMount() {
         this.x = Tracker.autorun(() => {
-            Meteor.subscribe('workSchema');
-            // const isler = WorkData.find({ truckNumber: Meteor.user().profile.number, quote: false }).fetch();
             const truckId = Number(Meteor.user().profile.number);
-            const isler = WorkData.find({
+            let todayDate = new Date();
+            todayDate = moment(todayDate).format('MM/DD/YYYY');
+
+            Meteor.subscribe('workSchema', {
+                workDate: todayDate,
                 trucks: {
                     $elemMatch: {
                         truck: truckId
                     }
                 },
                 status: 'won'
-            }).fetch();
+            });
+
+            const isler = WorkData.find({}).fetch();
             this.setState({
                 tabletIsler: isler
             });
@@ -52,7 +56,8 @@ export default class TabletIsList extends React.Component {
                         Session.set('tabletIsId', is._id);
                         $('#tebler-render').show();
                         $('#tablet-is-siyahi').hide();
-                    }}>
+                    }}
+                >
                     <span
                         style={{
                             borderRadius: '10px',
@@ -62,7 +67,8 @@ export default class TabletIsList extends React.Component {
                             color: '#52A39A',
                             margin: '0 5px',
                             padding: '0 10px'
-                        }}>
+                        }}
+                    >
                         {is.clientFirstName} {is.clientLastName}
                     </span>
                     <span
@@ -73,7 +79,8 @@ export default class TabletIsList extends React.Component {
                             fontWeight: 'bold',
                             color: 'black',
                             padding: '0 10px'
-                        }}>
+                        }}
+                    >
                         |
                     </span>
 
@@ -86,7 +93,8 @@ export default class TabletIsList extends React.Component {
                             color: '#78ab64',
                             padding: '0 10px',
                             margin: '0 5px'
-                        }}>
+                        }}
+                    >
                         {is.jobNumber}
                     </span>
                     {is.finished && (
@@ -101,7 +109,8 @@ export default class TabletIsList extends React.Component {
                                 padding: '0 10px',
                                 margin: '0 5px',
                                 textShadow: '1px 1px black'
-                            }}>
+                            }}
+                        >
                             CLOSED
                         </span>
                     )}

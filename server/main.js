@@ -38,14 +38,10 @@ Meteor.startup(() => {
     oauth2.accessToken = config.squareAccessToken;
 
     // prepare mailing server
-    process.env.MAIL_URL =
-        'smtp://postmaster%40probusinessrun.com:6d0eb775d8a76c5f1efd0b02030ea3fa-e89319ab-67f4f8af@smtp.mailgun.org:587';
+    process.env.MAIL_URL = 'smtp://postmaster%40probusinessrun.com:6d0eb775d8a76c5f1efd0b02030ea3fa-e89319ab-67f4f8af@smtp.mailgun.org:587';
     // code to run on server at startup
     Meteor.publish('userData', function() {
-        if (
-            (this.userId && Meteor.user().profile.rank === 'admin') ||
-            Meteor.user().profile.rank === 'officeEmployee'
-        ) {
+        if ((this.userId && Meteor.user().profile.rank === 'admin') || Meteor.user().profile.rank === 'officeEmployee') {
             return Meteor.users.find({
                 'profile.rank': 'mover'
             });
@@ -54,10 +50,7 @@ Meteor.startup(() => {
         }
     });
     Meteor.publish('tabletData', function() {
-        if (
-            (this.userId && Meteor.user().profile.rank === 'admin') ||
-            Meteor.user().profile.rank === 'officeEmployee'
-        ) {
+        if ((this.userId && Meteor.user().profile.rank === 'admin') || Meteor.user().profile.rank === 'officeEmployee') {
             return Meteor.users.find({
                 'profile.rank': 'tablet'
             });
@@ -95,11 +88,7 @@ if (Meteor.isServer) {
             return WorkData.insert(doc, (err, id) => {
                 if (err) {
                     console.error(err);
-                    throw new Meteor.Error(
-                        "Can't create new job",
-                        'Error while creating new job. Pls Contact with the help desk. Reason: ' +
-                            err.message
-                    );
+                    throw new Meteor.Error('Can\'t create new job', 'Error while creating new job. Pls Contact with the help desk. Reason: ' + err.message);
                 } else {
                     return id;
                 }
@@ -134,10 +123,7 @@ if (Meteor.isServer) {
             server.send(message, function(err) {
                 if (err) {
                     console.error(err);
-                    throw new Meteor.Error(
-                        "Can't send email",
-                        'Impossible send email. Contact system administration'
-                    );
+                    throw new Meteor.Error('Can\'t send email', 'Impossible send email. Contact system administration');
                 } else {
                     console.info('Email successfully sent to: ' + job.email);
                 }
@@ -166,8 +152,7 @@ if (Meteor.isServer) {
                 text: ' ',
                 from: job.companyInfo.name + ' ' + job.companyInfo.email,
                 to: job.email,
-                subject: `Moving Confirmation for ${job.clientFirstName ||
-                    ''} ${job.clientLastName || ''}`,
+                subject: `Moving Confirmation for ${job.clientFirstName || ''} ${job.clientLastName || ''}`,
                 attachment: [
                     {
                         data: ConfirmationEmail(job),
@@ -182,19 +167,13 @@ if (Meteor.isServer) {
         },
 
         saveEmployeeInfo: function(isinIdsi, value, iscininIdsi) {
-            WorkData.update(
-                { _id: isinIdsi, 'workers.id': iscininIdsi },
-                { $set: { 'workers.$.payed': value } }
-            );
+            WorkData.update({ _id: isinIdsi, 'workers.id': iscininIdsi }, { $set: { 'workers.$.payed': value } });
         },
 
         updateWork: function(doc) {
             // console.log('Update information: ' + doc.ip + ' :', doc);
 
-            if (
-                doc.status === 'lost' &&
-                (doc.finalNote === 'none' || doc.finalNote === undefined)
-            ) {
+            if (doc.status === 'lost' && (doc.finalNote === 'none' || doc.finalNote === undefined)) {
                 throw new Meteor.Error('Please select final note for lost job');
             }
 
@@ -292,7 +271,7 @@ if (Meteor.isServer) {
                 text: ' ',
                 from: job.companyInfo.name + ' ' + job.companyInfo.email,
                 to: job.email,
-                subject: 'Contract Copy for your move on ' + job.movingDate,
+                subject: 'Copy of the contract for your move on ' + job.workDate,
                 attachment: [
                     {
                         data: pdfToCustomer(url),
@@ -347,18 +326,16 @@ if (Meteor.isServer) {
             };
 
             server.send(message, function(err) {
-                err
-                    ? console.error(err)
-                    : console.info('Info about payment successfully sent to administration email');
+                err ? console.error(err) : console.info('Info about payment successfully sent to administration email');
             });
         },
         emailToCardHolder: function(obj) {
             let server = email.server.connect({
-                user: 'movinglosangeles111@gmail.com',
-                password: '!QAZ1qaz',
+                user: obj.companyInfo.email,
+                password: 'MCla7724!',
                 timeout: 60000,
-                host: 'smtp.gmail.com',
-                ssl: true
+                host: obj.companyInfo.smtp
+                // ssl: true
             });
 
             //sending email
@@ -407,16 +384,9 @@ ${obj.companyInfo.email}<br>
             server.send(message, function(err, message) {
                 if (err) {
                     console.log('Error while trying send email to cardholder ' + err);
-                    throw new Meteor.Error(
-                        'Impossible to send email',
-                        'Problem while sending email. Please chack email address.'
-                    );
+                    throw new Meteor.Error('Impossible to send email', 'Problem while sending email. Please chack email address.');
                 } else {
-                    console.log(
-                        'Info about payment successfully sent to ' +
-                            obj.cardHolderInfo.email +
-                            ' email'
-                    );
+                    console.log('Info about payment successfully sent to ' + obj.cardHolderInfo.email + ' email');
                 }
             });
         }
