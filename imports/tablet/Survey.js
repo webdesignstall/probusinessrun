@@ -4,6 +4,7 @@ import { Tracker } from 'meteor/tracker';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import { Session } from 'meteor/session';
 import { Meteor } from 'meteor/meteor';
+import swal from 'sweetalert';
 
 import WorkData from '../../common/collections_2';
 import './survey.styl';
@@ -60,23 +61,36 @@ export default class Survey extends TrackerReact(Component) {
         this.x.stop();
     }
 
+    actionHandler(action) {
+        Meteor.call(action, this.state.doc);
+        this.props.finishSurvey();
+        this.setState({
+            status: 'start'
+        });
+    }
+
     changeStatus(status) {
         if (typeof status === 'string') {
             this.setState({
                 status
             });
         } else {
-            this.setState(
-                {
-                    status: 'start'
-                },
-                () => {
-                    Object.keys(status).map(action => {
-                        Meteor.call(action, this.state.doc);
-                    });
-                    this.props.finishSurvey();
+            let { firstName, lastName, email } = this.state.doc.cardHolderInfo;
+            Object.keys(status).map(action => {
+                if (action === 'emailToCardHolder' || action === 'updateWork') {
+                    if (firstName && firstName.length > 0 && lastName && lastName.length > 0 && email && email.length > 0) {
+                        this.actionHandler(action);
+                    } else {
+                        swal({
+                            title: 'Error! Can\'t continue',
+                            text: 'Please fill all fields before continue',
+                            icon: 'error'
+                        });
+                    }
+                } else {
+                    this.actionHandler(action);
                 }
-            );
+            });
         }
     }
 
@@ -124,13 +138,10 @@ export default class Survey extends TrackerReact(Component) {
         return Object.keys(this.state.surveys[this.state.status].buttons).map((key, index) => {
             return (
                 <button
-                    onClick={
-                        key === 'ⓧ close'
-                            ? this.close
-                            : () => this.changeStatus(this.state.surveys[this.state.status].buttons[key])
-                    }
+                    onClick={key === 'ⓧ close' ? this.close : () => this.changeStatus(this.state.surveys[this.state.status].buttons[key])}
                     className={key === '◂ back' ? 'btn yellow darken-4' : key === 'ⓧ close' ? 'btn red' : 'btn'}
-                    key={index + 'surveyButtons'}>
+                    key={index + 'surveyButtons'}
+                >
                     {key}
                 </button>
             );
