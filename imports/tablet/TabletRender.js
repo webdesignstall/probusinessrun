@@ -765,7 +765,7 @@ MY OWN FREE WILL`
                         finished: true
                     });
                 } else {
-                    this.activateAll();
+                    // this.activateAll();
                     this.setState({
                         finished: false
                     });
@@ -1642,7 +1642,9 @@ MY OWN FREE WILL`
                                                 this.vaxtiDayandir(is._id);
                                             }}
                                             className={
-                                                this.state.started && (is.finishTime === undefined || is.finishTime === '' || is.finishTime === null)
+                                                (this.state.started && (is.finishTime === undefined || is.finishTime === '' || is.finishTime === null)) &&
+                                                !this.state.drivingClicked &&
+                                                !this.state.breakClicked
                                                     ? 'waves-effect waves-light btn red'
                                                     : 'waves-effect waves-light btn red disabled'
                                             }
@@ -1669,8 +1671,8 @@ MY OWN FREE WILL`
                                         <a
                                             id="driving-stop"
                                             className={
-                                                this.state.drivingClicked || this.state.breakClicked
-                                                    ? 'waves-effect waves-light btn red disabled'
+                                                this.state.drivingClicked 
+                                                    ? 'waves-effect waves-light btn red'
                                                     : 'waves-effect waves-light btn red disabled'
                                             }
                                             onClick={() => this.drivingTimeStop(is._id)}
