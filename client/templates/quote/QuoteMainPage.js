@@ -44,6 +44,15 @@ export default class QuoteMainPage extends Component {
     clickHandle(status, email, enableButtons, sendQuote) {
         Session.set('loading', true);
         let job = Session.get('job_');
+        if (job.email === '' && sendQuote) {
+            swal({
+                title: 'Email is empty',
+                text: 'Please fill email before continue',
+                icon: 'error'
+            });
+            enableButtons();
+            return new Error();
+        }
         job.status = status;
         sendQuote ? (job.emailSentDate = new Date()) : null;
         sendQuote ? (job.emailSent = true) : null;
@@ -76,9 +85,7 @@ export default class QuoteMainPage extends Component {
                         Meteor.call('emailGonder', job, (err, res) => {
                             if (err) {
                                 swal({
-                                    title:
-                                        'Impossible send email to work job number: ' +
-                                        job.jobNumber,
+                                    title: 'Impossible send email to work job number: ' + job.jobNumber,
                                     text: err.message,
                                     icon: 'error'
                                 });
@@ -197,23 +204,9 @@ export default class QuoteMainPage extends Component {
                         }}
                         text="Reset"
                     />
-                    <Button
-                        color="green darken-1"
-                        func={enableButtons =>
-                            this.clickHandle('inProgress', true, enableButtons, true)
-                        }
-                        text="Send quote & save"
-                    />
-                    <Button
-                        color="yellow black-text"
-                        func={enableButtons => this.clickHandle('inProgress', false, enableButtons)}
-                        text="follow up"
-                    />
-                    <Button
-                        color="blue darken-1"
-                        func={enableButtons => this.clickHandle('won', false, enableButtons)}
-                        text="Add To Calendar as confirmed job"
-                    />
+                    <Button color="green darken-1" func={enableButtons => this.clickHandle('inProgress', true, enableButtons, true)} text="Send quote & save" />
+                    <Button color="yellow black-text" func={enableButtons => this.clickHandle('inProgress', false, enableButtons)} text="follow up" />
+                    <Button color="blue darken-1" func={enableButtons => this.clickHandle('won', false, enableButtons)} text="Add To Calendar as confirmed job" />
                 </div>
             </div>
         );
