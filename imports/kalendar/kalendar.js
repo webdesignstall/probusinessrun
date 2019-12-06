@@ -162,6 +162,7 @@ Template.kalendar.onRendered(() => {
         this.xx && this.xx.stop();
         Session.get('calendarCurrentDate') || Session.set('calendarCurrentDate', new Date());
         let calendarDate = Session.get('calendarCurrentDate');
+        console.log('TCL: calendarDate', calendarDate);
         this.xx = Meteor.subscribe('calendar', calendarDate, {
             onReady: function() {
                 let gunler = Array.from(document.getElementsByClassName('dayData'));
@@ -423,13 +424,18 @@ Template.kalendar.onRendered(() => {
             $('.tarixSecimay').click(function(event) {
                 if (event.target.name < 12) {
                     ay = Number(event.target.name);
-                    let date_ = new Date();
-                    let yearOfDate_ = date_.getFullYear();
-                    let newDate = new Date(ay + 1 + '/01/' + yearOfDate_);
+                    let oldDate = Session.get('calendarCurrentDate');
+                    il = moment(oldDate).format('YYYY');
+                    console.log('TCL: il', il);
+                    let newDate = new Date(ay + 1 + '/01/' + il);
                     Session.set('calendarCurrentDate', newDate);
                 }
                 if (event.target.name > 2000 && event.target.name < 2100) {
                     il = Number(event.target.name);
+                    let oldDate = Session.get('calendarCurrentDate');
+                    ay = moment(oldDate).format('M') - 1;
+                    let newDate = new Date(Number(ay) + 1 + '/01/' + il);
+                    Session.set('calendarCurrentDate', newDate);
                 }
                 dateChanged = 1;
                 ayDeqiq = ay + 1;
