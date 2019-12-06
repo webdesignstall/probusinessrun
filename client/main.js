@@ -5,6 +5,9 @@ import '../imports/imports';
 import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
 import { Tracker } from 'meteor/tracker';
+import Discounts from '../common/discountData';
+import Push from 'push.js';
+
 import LogRocket from 'logrocket';
 
 // LogRocket.init('wplgg5/probusinessrun');
@@ -73,14 +76,22 @@ Meteor.startup(() => {
         let user = Meteor.userId();
         getUserIP().then(result => Session.set('ip', result));
 
+        let discounts = Discounts.find({ confirmed: false }).fetch();
+
+        if (discounts.length > 0 && !(window.location.href === window.location.origin + '/discount')) {
+            Push.create(`Truck #${discounts[discounts.length - 1].truckNumber} asking for discount`, {
+                timeout: 120000,
+                onClick: function() {
+                    window.focus();
+                    window.location.href = window.location.origin + '/discount';
+                    this.close();
+                }
+            });
+        }
+
         if (user) {
             let user1 = Meteor.users.find({ _id: user }).fetch()[0];
-            if (
-                user1 &&
-                (user1.profile.rank === 'admin' ||
-                    user1.profile.rank === 'officeEmployee' ||
-                    user1.profile.rank === 'tablet')
-            ) {
+            if (user1 && (user1.profile.rank === 'admin' || user1.profile.rank === 'officeEmployee' || user1.profile.rank === 'tablet')) {
                 Session.set('loading', true);
 
                 Meteor.subscribe('fullUser', {
