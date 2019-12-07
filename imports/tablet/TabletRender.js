@@ -425,7 +425,9 @@ MY OWN FREE WILL`
                 ? ((startToFinishTime = laborTime + drivingTime * 2), (totalWorkedHours = laborTime))
                 : (startToFinishTime = totalWorkedHours + drivingTime * 2);
 
-            !isDoubleDrive && !flatRateIsTrue && totalWorkedHours <= laborTime ? ((totalWorkedHours = laborTime), (drivingTime = 0), (startToFinishTime = laborTime)) : null;
+            !isDoubleDrive && !flatRateIsTrue && totalWorkedHours <= laborTime
+                ? ((totalWorkedHours = laborTime), (drivingTime = 0), (startToFinishTime = laborTime))
+                : null;
 
             this.totalWorkLaborTime = (totalWorkedHours + drivingTime + (isDoubleDrive ? drivingTime : 0)).toFixed(2);
 
@@ -1164,9 +1166,10 @@ MY OWN FREE WILL`
                             <div className="clear" />
                             <div className="row">
                                 <div style={{ textTransform: 'uppercase' }} className="card__ warning">
-                                    SHIPPER (CUSTOMER) IS REQUESTED TO READ THIS DOCUMENT CAREFULLY, INCLUDING TERMS AND CONDITIONS, BEFORE SIGNING. BY SIGNING THIS CONTRACT, THIS
-                                    WILL CONFIRM INSTRUCTIONS AND AUTHORIZE {is.companyInfo === undefined ? '' : is.companyInfo.name} TO MOVE, SHIP, PACK, STORE, AND/OR PERFORM THE
-                                    SERVICES HEREIN.
+                                    SHIPPER (CUSTOMER) IS REQUESTED TO READ THIS DOCUMENT CAREFULLY, INCLUDING TERMS AND CONDITIONS, BEFORE SIGNING.
+                                    BY SIGNING THIS CONTRACT, THIS WILL CONFIRM INSTRUCTIONS AND AUTHORIZE{' '}
+                                    {is.companyInfo === undefined ? '' : is.companyInfo.name} TO MOVE, SHIP, PACK, STORE, AND/OR PERFORM THE SERVICES
+                                    HEREIN.
                                 </div>
                             </div>
                             <div className="clear" />
@@ -1197,7 +1200,8 @@ MY OWN FREE WILL`
                             </div>
                             <div className="row from-to">
                                 <div className="card__ warning">
-                                    NOTE: Additional charges for storage, extra handling, and transportation will accrue if goods are not promptly accepted
+                                    NOTE: Additional charges for storage, extra handling, and transportation will accrue if goods are not promptly
+                                    accepted
                                 </div>
                                 <div className="clear" />
                                 <div className="card__ xxx">
@@ -1208,10 +1212,14 @@ MY OWN FREE WILL`
                                             Number Of Movers: {is.workers && is.workers.length}
                                             <br />
                                             Your Flat Rates:{' '}
-                                            {is.flatRate && is.flatRate[0].isTrue ? '$' + is.flatRate[0].cashAmount + '(cash)' + ' $' + is.flatRate[0].cardAmount + '(card)' : 'No'}
+                                            {is.flatRate && is.flatRate[0].isTrue
+                                                ? '$' + is.flatRate[0].cashAmount + '(cash)' + ' $' + is.flatRate[0].cardAmount + '(card)'
+                                                : 'No'}
                                             <br />
                                             Your Hourly Rates:{' '}
-                                            {is.hourlyRatesCash && is.hourlyRatesCard ? '$' + is.hourlyRatesCash + '(cash)' + ' $' + is.hourlyRatesCard + '(card)' : 'No'}
+                                            {is.hourlyRatesCash && is.hourlyRatesCard
+                                                ? '$' + is.hourlyRatesCash + '(cash)' + ' $' + is.hourlyRatesCard + '(card)'
+                                                : 'No'}
                                             <br />
                                             Minimum Labor Time: {is.laborTime} hour(s)
                                             <br />
@@ -1251,7 +1259,9 @@ MY OWN FREE WILL`
                                                     style={{ textTransform: 'uppercase' }}
                                                 />
                                                 <span id="importantInformationBooklet_date">
-                                                    {moment((is.importantInformationBooklet && is.importantInformationBooklet.date) || new Date()).format('MM/DD/YYYY hh:mm a')}
+                                                    {moment(
+                                                        (is.importantInformationBooklet && is.importantInformationBooklet.date) || new Date()
+                                                    ).format('MM/DD/YYYY hh:mm a')}
                                                 </span>
                                             </div>
                                         </div>
@@ -1259,7 +1269,11 @@ MY OWN FREE WILL`
                                             <div className="col s6 m6 l6">Did you choose to waive this requirement entirely?</div>
                                             <div className="col s6 m6 l6 center-align">
                                                 <button
-                                                    className={this.state.requirementEntirely ? 'waves-effect waves-light btn' : 'waves-effect waves-light btn grey'}
+                                                    className={
+                                                        this.state.requirementEntirely
+                                                            ? 'waves-effect waves-light btn'
+                                                            : 'waves-effect waves-light btn grey'
+                                                    }
                                                     style={
                                                         is.requirementEntirely === true
                                                             ? {
@@ -1274,7 +1288,11 @@ MY OWN FREE WILL`
                                                 </button>
                                                 &nbsp; &nbsp; &nbsp; &nbsp;
                                                 <button
-                                                    className={this.state.requirementEntirely ? 'waves-effect waves-light btn grey' : 'waves-effect waves-light btn'}
+                                                    className={
+                                                        this.state.requirementEntirely
+                                                            ? 'waves-effect waves-light btn grey'
+                                                            : 'waves-effect waves-light btn'
+                                                    }
                                                     disabled={is.requirementEntirely === true || is.requirementEntirely === false}
                                                     style={
                                                         is.requirementEntirely === false
@@ -1291,7 +1309,8 @@ MY OWN FREE WILL`
                                         </div>
                                         <div className="card__ valign-wrapper">
                                             <div className="col s6 m6 l6">
-                                                Was the moving date agreed to between you &amp; the carrier less than 3 days prior to the day of your move?
+                                                Was the moving date agreed to between you &amp; the carrier less than 3 days prior to the day of your
+                                                move?
                                             </div>
                                             <div className="col s6 m6 l6 center-align">
                                                 <button
@@ -1390,7 +1409,11 @@ MY OWN FREE WILL`
                                                     className="initial_x"
                                                     type="text"
                                                     style={{ textTransform: 'uppercase' }}
-                                                    disabled={is.valuationOption && typeof is.valuationOption.initial === 'string' && is.valuationOption.initial !== ''}
+                                                    disabled={
+                                                        is.valuationOption &&
+                                                        typeof is.valuationOption.initial === 'string' &&
+                                                        is.valuationOption.initial !== ''
+                                                    }
                                                     value={
                                                         is.valuationOption &&
                                                         typeof is.valuationOption.initial === 'string' &&
@@ -1421,7 +1444,11 @@ MY OWN FREE WILL`
                                                     type="text"
                                                     style={{ textTransform: 'uppercase' }}
                                                     onChange={e => this.changeBasicValuation(1, e)}
-                                                    disabled={is.valuationOption && typeof is.valuationOption.initial === 'string' && is.valuationOption.initial !== ''}
+                                                    disabled={
+                                                        is.valuationOption &&
+                                                        typeof is.valuationOption.initial === 'string' &&
+                                                        is.valuationOption.initial !== ''
+                                                    }
                                                     value={
                                                         is.valuationOption &&
                                                         typeof is.valuationOption.initial === 'string' &&
@@ -1461,7 +1488,11 @@ MY OWN FREE WILL`
                                                     type="text"
                                                     style={{ textTransform: 'uppercase' }}
                                                     onChange={e => this.changeBasicValuation(2, e)}
-                                                    disabled={is.valuationOption && typeof is.valuationOption.initial === 'string' && is.valuationOption.initial !== ''}
+                                                    disabled={
+                                                        is.valuationOption &&
+                                                        typeof is.valuationOption.initial === 'string' &&
+                                                        is.valuationOption.initial !== ''
+                                                    }
                                                     value={
                                                         is.valuationOption &&
                                                         typeof is.valuationOption.initial === 'string' &&
@@ -1491,9 +1522,10 @@ MY OWN FREE WILL`
                                     </tbody>
                                 </div>
                                 <div className="card__ warning">
-                                    CUSTOMER AGREES THAT TITLE TO ALL PACKING MATERIALS AND OTHER PROPERTY SOLD TO CUSTOMER PASSES TO CUSTOMER PRIOR TO THE TRANSPORTATION OF SUCH
-                                    PROPERTY TO THE CUSTOMER BY CARRIER. THIS ALSO MEANS THAT ANY PACKING MATERIALS OR TRASH/DONATION ITEMS ARE YOUR OWN PROPERTY AND, AS SUCH,
-                                    CARRIER IS NOT RESPONSIBLE FOR THE DISPOSAL AND/OR REMOVAL OF THESE ITEMS.
+                                    CUSTOMER AGREES THAT TITLE TO ALL PACKING MATERIALS AND OTHER PROPERTY SOLD TO CUSTOMER PASSES TO CUSTOMER PRIOR
+                                    TO THE TRANSPORTATION OF SUCH PROPERTY TO THE CUSTOMER BY CARRIER. THIS ALSO MEANS THAT ANY PACKING MATERIALS OR
+                                    TRASH/DONATION ITEMS ARE YOUR OWN PROPERTY AND, AS SUCH, CARRIER IS NOT RESPONSIBLE FOR THE DISPOSAL AND/OR
+                                    REMOVAL OF THESE ITEMS.
                                     <br />
                                     Read and Agree
                                     <input
@@ -1505,8 +1537,9 @@ MY OWN FREE WILL`
                                     />
                                 </div>
                                 <div className="card__ warning">
-                                    NOTE: All cargo is subject to a Mover’s Lien as described by the CPUC until entire amount due is paid IN FULL. Any loss/damage claims must be
-                                    received in writing AFTER your move and DO NOT exempt you from paying the total amount due as outlined above.
+                                    NOTE: All cargo is subject to a Mover’s Lien as described by the CPUC until entire amount due is paid IN FULL. Any
+                                    loss/damage claims must be received in writing AFTER your move and DO NOT exempt you from paying the total amount
+                                    due as outlined above.
                                     <br />
                                     Read and Agree
                                     <input
@@ -1518,8 +1551,9 @@ MY OWN FREE WILL`
                                     />
                                 </div>
                                 <div className="card__ warning">
-                                    I understand that it’s my responsibility to hold a parking space for the moving truck at each location. Failure to do so will result in my being
-                                    held responsible to pay for any, and all, parking tickets/fines resulting from my negligence to do so.
+                                    I understand that it’s my responsibility to hold a parking space for the moving truck at each location. Failure to
+                                    do so will result in my being held responsible to pay for any, and all, parking tickets/fines resulting from my
+                                    negligence to do so.
                                     <br />
                                     Read and Agree
                                     <input
@@ -1534,11 +1568,14 @@ MY OWN FREE WILL`
                             {/* ise baslamamisdan qabaq ki sign */}
                             <div className="card__ margin-top">
                                 <p className="cardTitle" style={{ textAlign: 'center' }}>
-                                    BY SIGNING BELOW, I {is.clientFirstName} {is.clientLastName}, CONFIRM THAT THE INFORMATION ABOVE IS TRUE AND CORRECT TO THE BEST OF MY
-                                    KNOWLEDGE. <br />
+                                    BY SIGNING BELOW, I {is.clientFirstName} {is.clientLastName}, CONFIRM THAT THE INFORMATION ABOVE IS TRUE AND
+                                    CORRECT TO THE BEST OF MY KNOWLEDGE. <br />
                                     SHIPPER’S (CUSTOMER’S) SIGNATURE:
                                     <br />
-                                    DATE: {this.state.initSign ? moment(this.state.initSignDate).format('MM/DD/YYYY hh:mm a') : moment(Date()).format('MM/DD/YYYY hh:mm a')}
+                                    DATE:{' '}
+                                    {this.state.initSign
+                                        ? moment(this.state.initSignDate).format('MM/DD/YYYY hh:mm a')
+                                        : moment(Date()).format('MM/DD/YYYY hh:mm a')}
                                 </p>
                                 <div className="col s12 m12 l12">
                                     <p>Customer Sign below</p>
@@ -1581,7 +1618,12 @@ MY OWN FREE WILL`
                                         </a>
                                     </div>
                                     <div className="wrapper">
-                                        <canvas id="signature-pad-before-start" className={(this.state.initSign ? 'hide' : '') + ' signature-pad'} width={400} height={200} />
+                                        <canvas
+                                            id="signature-pad-before-start"
+                                            className={(this.state.initSign ? 'hide' : '') + ' signature-pad'}
+                                            width={400}
+                                            height={200}
+                                        />
                                         <img
                                             id="init-sign-img"
                                             className={this.state.initSign ? '' : 'hide'}
@@ -1592,7 +1634,11 @@ MY OWN FREE WILL`
                                             alt="img"
                                         />
                                     </div>
-                                    <a id="clear3" style={{ width: '400px' }} className={(this.state.initSign ? 'hide' : '') + ' waves-effect waves-light btn blue'}>
+                                    <a
+                                        id="clear3"
+                                        style={{ width: '400px' }}
+                                        className={(this.state.initSign ? 'hide' : '') + ' waves-effect waves-light btn blue'}
+                                    >
                                         Clear
                                     </a>
                                 </div>
@@ -1619,7 +1665,10 @@ MY OWN FREE WILL`
                                     saveSignature={this.saveSignature}
                                 />
                             </div>
-                            <AddedAdditionalSignaturesRender listOfAddedSignature={this.state.additionalSignature} listOfAdditionalSignature={this.state.additionalSignatureList} />
+                            <AddedAdditionalSignaturesRender
+                                listOfAddedSignature={this.state.additionalSignature}
+                                listOfAdditionalSignature={this.state.additionalSignatureList}
+                            />
                             <AddedDiscountRender listOfDiscounts={this.state.discount} />
                             <AdditionalChargesRender list={this.state.additionalCharge} />
                             {/* Finish rendering discounts */}
@@ -1631,7 +1680,11 @@ MY OWN FREE WILL`
                                             onClick={() => {
                                                 this.vaxtiBaslat(is._id);
                                             }}
-                                            className={this.state.started ? 'waves-effect waves-light btn blue disabled' : 'waves-effect waves-light btn blue'}
+                                            className={
+                                                this.state.started
+                                                    ? 'waves-effect waves-light btn blue disabled'
+                                                    : 'waves-effect waves-light btn blue'
+                                            }
                                         >
                                             Start Work time
                                         </a>
@@ -1642,7 +1695,8 @@ MY OWN FREE WILL`
                                                 this.vaxtiDayandir(is._id);
                                             }}
                                             className={
-                                                (this.state.started && (is.finishTime === undefined || is.finishTime === '' || is.finishTime === null)) &&
+                                                this.state.started &&
+                                                (is.finishTime === undefined || is.finishTime === '' || is.finishTime === null) &&
                                                 !this.state.drivingClicked &&
                                                 !this.state.breakClicked
                                                     ? 'waves-effect waves-light btn red'
@@ -1671,7 +1725,7 @@ MY OWN FREE WILL`
                                         <a
                                             id="driving-stop"
                                             className={
-                                                this.state.drivingClicked 
+                                                this.state.drivingClicked
                                                     ? 'waves-effect waves-light btn red'
                                                     : 'waves-effect waves-light btn red disabled'
                                             }
@@ -1698,7 +1752,11 @@ MY OWN FREE WILL`
                                         <a className="waves-effect waves-light btn pink" />
                                         <a
                                             id="break-stop"
-                                            className={this.state.breakClicked ? 'waves-effect waves-light btn red' : 'waves-effect waves-light btn red disabled'}
+                                            className={
+                                                this.state.breakClicked
+                                                    ? 'waves-effect waves-light btn red'
+                                                    : 'waves-effect waves-light btn red disabled'
+                                            }
                                             onClick={() => this.breakTimeStop(is._id)}
                                         >
                                             Stop Break time
@@ -1716,15 +1774,27 @@ MY OWN FREE WILL`
                                         Wardrobe Boxes:
                                         <span className="sag">
                                             $15 x{' '}
-                                            <input disabled={is.isPayed} id="wardrobe-boxes" type="number" value={this.state.valueWardrobeBoxes} onChange={this.wardrobeBoxes} /> =
-                                            ${this.state.wardrobeBoxes}
+                                            <input
+                                                disabled={is.isPayed}
+                                                id="wardrobe-boxes"
+                                                type="number"
+                                                value={this.state.valueWardrobeBoxes}
+                                                onChange={this.wardrobeBoxes}
+                                            />{' '}
+                                            = ${this.state.wardrobeBoxes}
                                         </span>
                                     </li>
                                     <li className="collection-item">
                                         Moving Blankets:
                                         <span className="sag">
                                             $15 x{' '}
-                                            <input disabled={is.isPayed} id="moving-blankets" type="number" value={this.state.valueMovingBlankets} onChange={this.movingBlankets} />{' '}
+                                            <input
+                                                disabled={is.isPayed}
+                                                id="moving-blankets"
+                                                type="number"
+                                                value={this.state.valueMovingBlankets}
+                                                onChange={this.movingBlankets}
+                                            />{' '}
                                             = ${this.state.movingBlankets}
                                         </span>
                                     </li>
@@ -1745,29 +1815,57 @@ MY OWN FREE WILL`
                                     <li className="collection-item">
                                         Bubble Wrap Roll:
                                         <span className="sag">
-                                            $45 x <input disabled={is.isPayed} id="buuble-wrap-roll" type="number" value={this.state.valueWrapRoll} onChange={this.wrapRoll} /> = $
-                                            {this.state.wrapRoll}
+                                            $45 x{' '}
+                                            <input
+                                                disabled={is.isPayed}
+                                                id="buuble-wrap-roll"
+                                                type="number"
+                                                value={this.state.valueWrapRoll}
+                                                onChange={this.wrapRoll}
+                                            />{' '}
+                                            = ${this.state.wrapRoll}
                                         </span>
                                     </li>
                                     <li className="collection-item">
                                         Small Boxes:
                                         <span className="sag">
-                                            $2 x <input disabled={is.isPayed} id="small-boxes" type="number" value={this.state.valueSmallBoxes} onChange={this.smallBoxes} /> = $
-                                            {this.state.smallBoxes}
+                                            $2 x{' '}
+                                            <input
+                                                disabled={is.isPayed}
+                                                id="small-boxes"
+                                                type="number"
+                                                value={this.state.valueSmallBoxes}
+                                                onChange={this.smallBoxes}
+                                            />{' '}
+                                            = ${this.state.smallBoxes}
                                         </span>
                                     </li>
                                     <li className="collection-item">
                                         Medium Boxes:
                                         <span className="sag">
-                                            $3 x <input disabled={is.isPayed} id="medium-boxes" type="number" value={this.state.valueMediumBoxes} onChange={this.mediumBoxes} /> = $
-                                            {this.state.mediumBoxes}
+                                            $3 x{' '}
+                                            <input
+                                                disabled={is.isPayed}
+                                                id="medium-boxes"
+                                                type="number"
+                                                value={this.state.valueMediumBoxes}
+                                                onChange={this.mediumBoxes}
+                                            />{' '}
+                                            = ${this.state.mediumBoxes}
                                         </span>
                                     </li>
                                     <li className="collection-item">
                                         Large Boxes:
                                         <span className="sag">
-                                            $4 x <input disabled={is.isPayed} id="large-boxes" type="number" value={this.state.valueLargeBoxes} onChange={this.largeBoxes} /> = $
-                                            {this.state.largeBoxes}
+                                            $4 x{' '}
+                                            <input
+                                                disabled={is.isPayed}
+                                                id="large-boxes"
+                                                type="number"
+                                                value={this.state.valueLargeBoxes}
+                                                onChange={this.largeBoxes}
+                                            />{' '}
+                                            = ${this.state.largeBoxes}
                                         </span>
                                     </li>
                                     <li className="collection-item">
@@ -1857,7 +1955,11 @@ MY OWN FREE WILL`
                                         <span className="sag">= ${this.totalAdditionalChargeAmount || 0}</span>
                                     </li>
                                     <li
-                                        className={this.totalDiscountAmount > 0 || this.totalDiscountPercent > 0 || this.totalDiscountPercent > 0 ? 'collection-item blue' : 'hide'}
+                                        className={
+                                            this.totalDiscountAmount > 0 || this.totalDiscountPercent > 0 || this.totalDiscountPercent > 0
+                                                ? 'collection-item blue'
+                                                : 'hide'
+                                        }
                                     >
                                         Discount:
                                         {this.totalDiscountTime && this.totalDiscountTime > 0 ? (
@@ -1870,7 +1972,11 @@ MY OWN FREE WILL`
                                         ) : (
                                             ''
                                         )}
-                                        {this.totalDiscountAmount && this.totalDiscountAmount > 0 ? <span className="sag discountYeri">${this.totalDiscountAmount || 0}</span> : ''}
+                                        {this.totalDiscountAmount && this.totalDiscountAmount > 0 ? (
+                                            <span className="sag discountYeri">${this.totalDiscountAmount || 0}</span>
+                                        ) : (
+                                            ''
+                                        )}
                                     </li>
                                     <li className="collection-item blue">
                                         Total amount cash:
@@ -1896,11 +2002,17 @@ MY OWN FREE WILL`
                                     </li>
                                     <li className="collection-item blue">
                                         Grand Total Cash:
-                                        <span className="sag">= ${!isNaN((this.payCash - is.deposit).toFixed(2)) ? (this.payCash - is.deposit).toFixed(2) : 0}</span>
+                                        <span className="sag">
+                                            = ${!isNaN((this.payCash - is.deposit).toFixed(2)) ? (this.payCash - is.deposit).toFixed(2) : 0}
+                                        </span>
+                                        {console.log('TCL: is.deposit', is.deposit)}
+                                        {console.log('TCL: this.payCash', this.payCash)}
                                     </li>
                                     <li className="collection-item blue">
                                         Grand Total Card:
-                                        <span className="sag">= ${!isNaN((this.payCard - is.deposit).toFixed(2)) ? (this.payCard - is.deposit).toFixed(2) : 0}</span>
+                                        <span className="sag">
+                                            = ${!isNaN((this.payCard - is.deposit).toFixed(2)) ? (this.payCard - is.deposit).toFixed(2) : 0}
+                                        </span>
                                     </li>
                                 </ul>
                             </div>
@@ -1955,13 +2067,23 @@ MY OWN FREE WILL`
                                 </div>
                             </div>
                             <div className="clear margin-top" />
-                            <div id="finel_step" className={is.isPayed ? 'card__ center-align darken-2-text' : 'card__ center-align darken-2-text hide'}>
-                                <div className="cardTitle red darken-3">I AGREE THAT MY MOVE IS COMPLETED AND ALL MY BELONGINGS ARE DELIVERED TO MY NEW PLACE.</div>
+                            <div
+                                id="finel_step"
+                                className={is.isPayed ? 'card__ center-align darken-2-text' : 'card__ center-align darken-2-text hide'}
+                            >
+                                <div className="cardTitle red darken-3">
+                                    I AGREE THAT MY MOVE IS COMPLETED AND ALL MY BELONGINGS ARE DELIVERED TO MY NEW PLACE.
+                                </div>
                                 {/* musteri signature */}
                                 <div className="col s12 m6 l6">
                                     <p>Customer Sign below</p>
                                     <div className="wrapper">
-                                        <canvas id="signature-pad1" className={is.lastSignCustomer ? 'hide' : 'signature-pad'} width={400} height={200} />
+                                        <canvas
+                                            id="signature-pad1"
+                                            className={is.lastSignCustomer ? 'hide' : 'signature-pad'}
+                                            width={400}
+                                            height={200}
+                                        />
                                         <img
                                             id="last-sign-customer-img"
                                             className={is.lastSignCustomer ? '' : 'hide'}
@@ -1979,7 +2101,12 @@ MY OWN FREE WILL`
                                 <div className="col s12 m6 l6">
                                     <p>Employee Sign below</p>
                                     <div className="wrapper">
-                                        <canvas id="signature-pad" className={is.lastSignEmployee ? 'hide' : 'signature-pad'} width={400} height={200} />
+                                        <canvas
+                                            id="signature-pad"
+                                            className={is.lastSignEmployee ? 'hide' : 'signature-pad'}
+                                            width={400}
+                                            height={200}
+                                        />
                                         <img
                                             id="last-sign-employee-img"
                                             className={is.lastSignEmployee ? '' : 'hide'}
@@ -1997,7 +2124,9 @@ MY OWN FREE WILL`
                                 <div className={is.finished ? 'hide' : ' col s12 m12 l12 margin-top'} style={{ marginBottom: '20px' }}>
                                     <a
                                         className={
-                                            this.state.showFinish1 && this.state.showFinish2 ? 'waves-effect waves-light btn blue' : 'waves-effect waves-light btn blue disabled'
+                                            this.state.showFinish1 && this.state.showFinish2
+                                                ? 'waves-effect waves-light btn blue'
+                                                : 'waves-effect waves-light btn blue disabled'
                                         }
                                         onClick={this.finishJob}
                                     >
