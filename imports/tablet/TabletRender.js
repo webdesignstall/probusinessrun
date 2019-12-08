@@ -17,7 +17,7 @@ import AdditionalContactsRender from './AdditionalContactsRender';
 import Survey from './Survey';
 import CcForm from './CcForm';
 
-/*global moment, paypal, $*/
+/*global moment, $*/
 
 let odenilmelidir = 0;
 
@@ -311,6 +311,11 @@ MY OWN FREE WILL`
     }
 
     finishJob() {
+        let x = document.querySelectorAll('.need_collapse');
+        let l = 0;
+        for(l; l < x.length; l++){
+            x[l].classList.remove('hide');
+        }
         let htmlOfCanvas = document.body;
         html2canvas(htmlOfCanvas).then(canvas => {
             let png = canvas.toDataURL('image/png');
@@ -2005,8 +2010,6 @@ MY OWN FREE WILL`
                                         <span className="sag">
                                             = ${!isNaN((this.payCash - is.deposit).toFixed(2)) ? (this.payCash - is.deposit).toFixed(2) : 0}
                                         </span>
-                                        {console.log('TCL: is.deposit', is.deposit)}
-                                        {console.log('TCL: this.payCash', this.payCash)}
                                     </li>
                                     <li className="collection-item blue">
                                         Grand Total Card:

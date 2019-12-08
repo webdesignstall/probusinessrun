@@ -51,7 +51,6 @@ export default class TopMenu extends Component {
                     <Button
                         func={() => {
                             let isLastMont = Session.get('lastMont');
-                            console.log(isLastMont);
                             Session.set('lastMont', !isLastMont);
                         }}
                         text={this.state.lastMonth ? 'Current Month' : 'Last Month'}

@@ -4,6 +4,9 @@ import React from 'react';
 export default class AddedAdditionalSignaturesRender extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            hide: ''
+        };
     }
 
     showContent(id) {
@@ -31,14 +34,11 @@ export default class AddedAdditionalSignaturesRender extends React.Component {
                     <span className="col s2 m2 l2 blue darken-1 white-text center-align">
                         {moment(additionalSignature.date).format('hh:mm a')}
                     </span>
-                    <div id={spesificId} className="hide">
+                    <div id={spesificId} className="hide need_collapse">
                         <div className="clear margin-top" />
                         <hr />
                         <p>{signatureInfo.content}</p>
-                        <div
-                            className="col s12 m9 l9"
-                            style={{ position: 'relative', width: '400px', height: '200px' }}
-                        >
+                        <div className="col s12 m9 l9" style={{ position: 'relative', width: '400px', height: '200px' }}>
                             <img
                                 src={additionalSignature.signature}
                                 alt="Customer sign"
@@ -46,15 +46,10 @@ export default class AddedAdditionalSignaturesRender extends React.Component {
                             />
                         </div>
                         <div className="col s12 m3 l3">
+                            <input type="text" value={additionalSignature.fullname} disabled className="black-text" />
                             <input
                                 type="text"
-                                value={additionalSignature.fullname}
-                                disabled
-                                className="black-text"
-                            />
-                            <input
-                                type="text"
-                                value={additionalSignature.date}
+                                value={moment(additionalSignature.date).format('MM/DD/YYYY hh:mm a')}
                                 disabled
                                 className="black-text"
                             />
@@ -67,14 +62,8 @@ export default class AddedAdditionalSignaturesRender extends React.Component {
 
     render() {
         return (
-            <div
-                className={
-                    this.props.listOfAddedSignature.length > 0 ? 'cadr___ collection' : 'hide'
-                }
-            >
-                <div className="collection-item purple lighten-2 white-text">
-                    ADDED ADDITIONAL SIGNATURES
-                </div>
+            <div className={this.props.listOfAddedSignature.length > 0 ? 'cadr___ collection' : 'hide'}>
+                <div className="collection-item purple lighten-2 white-text">ADDED ADDITIONAL SIGNATURES</div>
                 {(() => this.renderAdditionalSignatures(this.props.listOfAddedSignature))()}
             </div>
         );

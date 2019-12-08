@@ -162,7 +162,6 @@ Template.kalendar.onRendered(() => {
         this.xx && this.xx.stop();
         Session.get('calendarCurrentDate') || Session.set('calendarCurrentDate', new Date());
         let calendarDate = Session.get('calendarCurrentDate');
-        console.log('TCL: calendarDate', calendarDate);
         this.xx = Meteor.subscribe('calendar', calendarDate, {
             onReady: function() {
                 let gunler = Array.from(document.getElementsByClassName('dayData'));
@@ -426,7 +425,6 @@ Template.kalendar.onRendered(() => {
                     ay = Number(event.target.name);
                     let oldDate = Session.get('calendarCurrentDate');
                     il = moment(oldDate).format('YYYY');
-                    console.log('TCL: il', il);
                     let newDate = new Date(ay + 1 + '/01/' + il);
                     Session.set('calendarCurrentDate', newDate);
                 }

@@ -41,6 +41,7 @@ export default class BonusDash extends Component {
             Session.get('lastMont') ? ay-- : null;
             let yearOfDate_ = date_.getFullYear();
             let newDate = new Date(ay + 1 + '/01/' + yearOfDate_);
+            console.log('TCL: BonusDash -> componentDidMount -> newDate', newDate);
 
             Meteor.subscribe('calendar', newDate);
 
@@ -170,7 +171,8 @@ export default class BonusDash extends Component {
                             this.state.options[0] && totalJobs > this.state.options[0].bonus
                                 ? 'col more_than'
                                 : 'col less_than'
-                        }>
+                        }
+                    >
                         Job Total this month: {this.state.totalJobs || 0}
                     </div>
                 </div>
