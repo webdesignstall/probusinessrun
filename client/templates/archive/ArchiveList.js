@@ -46,10 +46,7 @@ export default class ArchiveList extends TrackerReact(Component) {
     extend(id) {
         this.setState(prevState => {
             return {
-                extend:
-          prevState.id === id || prevState.id === ''
-              ? !prevState.extend
-              : prevState.extend,
+                extend: prevState.id === id || prevState.id === '' ? !prevState.extend : prevState.extend,
                 id: prevState.id === '' || prevState.id !== id ? id : ''
             };
         });
@@ -85,19 +82,15 @@ export default class ArchiveList extends TrackerReact(Component) {
                     </div>
                     <div className="right-content">
                         <a
-                            href={
-                                'https://s3-us-west-1.amazonaws.com/probusinessrun.finished.jobs.pdf/' +
-                job._id +
-                '.pdf'
-                            }
+                            href={'https://s3-us-west-1.amazonaws.com/probusinessrun.finished.jobs.pdf/' + job._id + '.pdf'}
                             className="archive-list--contract"
                         >
-              CONTRACT{' '}
+                            CONTRACT{' '}
                             <i style={{ color: 'black' }} className="material-icons">
-                insert_drive_file
+                                insert_drive_file
                             </i>
                         </a>
-                        <a
+                        {/* <a
                             className="archive-list--contract"
                             href={job.finishedJobPDF || ''}
                         >
@@ -105,13 +98,9 @@ export default class ArchiveList extends TrackerReact(Component) {
                             <i style={{ color: 'black' }} className="material-icons">
                 insert_drive_file
                             </i>
-                        </a>
+                        </a> */}
                     </div>
-                    {this.state.extend && this.state.id === job._id ? (
-                        <ExtendArchive job={job || {}} />
-                    ) : (
-                        ''
-                    )}
+                    {this.state.extend && this.state.id === job._id ? <ExtendArchive job={job || {}} /> : ''}
                 </div>
             );
         });

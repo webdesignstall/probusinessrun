@@ -4,13 +4,15 @@ import { Meteor } from 'meteor/meteor';
 
 import ExtendedArchiveTrucs from './ExtendedArchiveTrucs';
 import ExtendedArchiveEmployee from './ExtendedArchiveEmployee';
+import ExtendedArchiveCardHolder from './ExtendedArchiveCardHolder';
 
 export default class ExtendArchive extends Component {
     constructor(props) {
         super(props);
         this.state = {
             employee: [],
-            trucks: []
+            trucks: [],
+            cardHolder: {}
         };
     }
 
@@ -63,7 +65,8 @@ export default class ExtendArchive extends Component {
 
             this.setState({
                 employee,
-                trucks
+                trucks,
+                cardHolder: this.props.job.cardHolderInfo ? this.props.job.cardHolderInfo : {}
             });
         }
     }
@@ -80,6 +83,9 @@ export default class ExtendArchive extends Component {
                 <div className="row">
                     <ExtendedArchiveEmployee employee={this.state.employee} />
                     <ExtendedArchiveTrucs trucks={this.state.trucks} />
+                </div>
+                <div className="row">
+                    <ExtendedArchiveCardHolder cardHolder={this.state.cardHolder} />
                 </div>
             </div>
         );

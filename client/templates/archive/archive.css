@@ -141,3 +141,12 @@
     box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
     margin-right: 10px;
 }
+
+.cardHolderInformation {
+    border: 1px solid rgb(230, 230, 230);
+    padding: 20px;
+    border-radius: 15px;
+    -webkit-box-shadow: 0px 10px 20px -5px #ababab;
+    box-shadow: 0px 10px 20px -5px #ababab;
+    margin-top: 40px;
+}
