@@ -32,8 +32,11 @@ export default class ReserveQuote extends TrackerReact(Component) {
                 '3_bedroom_large': '3 Bedroom (large size, many items)',
                 '4_bedrooom_avg': '4 Bedroom (avg. size, avg. items)',
                 '4_bedroom_large': '4 Bedroom (large size, many items)',
+                '5_bedroom_avarage': '5 Bedrooms (avarage size, avg items)',
+                commercial_sml: 'Commercial (small size, few items)',
                 commercial_avg: 'Commercial (avg. size, avg. items)',
-                commercial_large: 'Commercial (large size, many items)'
+                commercial_large: 'Commercial (large size, many items)',
+                long_distance_moves: 'Long Distance Moves'
             }
         };
 
@@ -162,7 +165,8 @@ export default class ReserveQuote extends TrackerReact(Component) {
                                 href="http://www.moverslegion.com/wp-content/uploads/2018/12/small-item-pricing.pdf"
                                 download="http://www.moverslegion.com/wp-content/uploads/2018/12/small-item-pricing.pdf"
                                 target="_blank"
-                                rel="noopener noreferrer">
+                                rel="noopener noreferrer"
+                            >
                                 learn more
                             </a>
                         </div>
@@ -299,7 +303,8 @@ export default class ReserveQuote extends TrackerReact(Component) {
                                 job.phoneAdditional === '' || job.phoneAdditional === undefined || job.phoneAdditional === null
                                     ? 'hide'
                                     : ''
-                            }>
+                            }
+                        >
                             <td>Customer Secondary Number:</td>
                             <td>{job.phoneAdditional}</td>
                         </tr>
@@ -394,7 +399,8 @@ export default class ReserveQuote extends TrackerReact(Component) {
                                         href="http://www.moverslegion.com/wp-content/uploads/2019/02/DDT.pdf"
                                         download="http://www.moverslegion.com/wp-content/uploads/2019/02/DDT.pdf"
                                         target="_blank"
-                                        rel="noopener noreferrer">
+                                        rel="noopener noreferrer"
+                                    >
                                         learn more
                                     </a>
                                 </td>
@@ -443,7 +449,8 @@ export default class ReserveQuote extends TrackerReact(Component) {
                                 href="https://www.moverslegion.com/wp-content/uploads/2019/01/included.pdf"
                                 download="https://www.moverslegion.com/wp-content/uploads/2019/01/included.pdf"
                                 target="_blank"
-                                rel="noopener noreferrer">
+                                rel="noopener noreferrer"
+                            >
                                 &quot;What&apos;s Included&quot; Section.
                             </a>
                         </i>
@@ -456,7 +463,8 @@ export default class ReserveQuote extends TrackerReact(Component) {
                                 href="https://www.moverslegion.com/wp-content/uploads/2019/01/not-included.pdf"
                                 download="http://www.moverslegion.com/wp-content/uploads/2019/01/not-included.pdf"
                                 target="_blank"
-                                rel="noopener noreferrer">
+                                rel="noopener noreferrer"
+                            >
                                 &quot;What&apos;s Not Included&quot; Section.
                             </a>
                         </i>
@@ -469,7 +477,8 @@ export default class ReserveQuote extends TrackerReact(Component) {
                                 href="https://www.moverslegion.com/wp-content/uploads/2019/06/for-you-1.pdf"
                                 download="https://www.moverslegion.com/wp-content/uploads/2019/06/for-you-1.pdf"
                                 target="_blank"
-                                rel="noopener noreferrer">
+                                rel="noopener noreferrer"
+                            >
                                 &quot;For Your Information&quot; Section.
                             </a>
                         </i>
@@ -482,7 +491,8 @@ export default class ReserveQuote extends TrackerReact(Component) {
                                 href="http://www.moverslegion.com/wp-content/uploads/2018/12/important.pdf"
                                 download="http://www.moverslegion.com/wp-content/uploads/2018/12/important.pdf"
                                 target="_blank"
-                                rel="noopener noreferrer">
+                                rel="noopener noreferrer"
+                            >
                                 CPUC &quot;Important Information About Your Move&quot; booklet.
                             </a>
                         </i>
@@ -495,7 +505,8 @@ export default class ReserveQuote extends TrackerReact(Component) {
                                 href="http://www.moverslegion.com/wp-content/uploads/2018/12/Hazard.pdf"
                                 download="http://www.moverslegion.com/wp-content/uploads/2018/12/Hazard.pdf"
                                 target="_blank"
-                                rel="noopener noreferrer">
+                                rel="noopener noreferrer"
+                            >
                                 CPUC Hazardous Material List
                             </a>
                         </i>{' '}
@@ -545,7 +556,8 @@ export default class ReserveQuote extends TrackerReact(Component) {
                 text="Loading..."
                 className="loader"
                 active={Session.get('loading')}
-                spinner={<BarLoader color={'#6DD4B8'} />}>
+                spinner={<BarLoader color={'#6DD4B8'} />}
+            >
                 <div id="jobInfoMain" className="jobMain">
                     <div className="job-number-enter">
                         <div id="enter-number" className="enter-code">
@@ -563,7 +575,8 @@ export default class ReserveQuote extends TrackerReact(Component) {
                                 className="btn waves-effect waves-light"
                                 type="submit"
                                 name="action"
-                                onClick={this.submit}>
+                                onClick={this.submit}
+                            >
                                 <i className="material-icons right">send</i>
                             </button>
                         </div>

@@ -29,6 +29,7 @@ import AdditionalInfo from '../AdditionalInfo';
 import { Meteor } from 'meteor/meteor';
 import Alert from '../../../../imports/alertMessage/Alert';
 import WorkData from '../../../../common/collections_2';
+import NewAppointment from '../NewAppointment';
 
 /*global moment*/
 
@@ -235,7 +236,7 @@ export default class EditCalendarQuote extends Component {
                     <Button text="Resend Quote" disable={true} color="orange darken-2" func={this.resendQuote} />
                     <Button text="Resend Confirmation" disable={true} color="orange darken-2" func={this.resendConfirmation} />
                     <Button text="For Supervasior" disable={true} color="red darken-1" func={this.forSupervisor} />
-                    <Button text="New Appointment" disable={true} color="green darken-1" func={this.newAppointment} />
+                    <NewAppointment />
                 </div>
             </div>
         );

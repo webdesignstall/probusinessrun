@@ -90,15 +90,6 @@ export default class ArchiveList extends TrackerReact(Component) {
                                 insert_drive_file
                             </i>
                         </a>
-                        {/* <a
-                            className="archive-list--contract"
-                            href={job.finishedJobPDF || ''}
-                        >
-              CARDHOLDER{' '}
-                            <i style={{ color: 'black' }} className="material-icons">
-                insert_drive_file
-                            </i>
-                        </a> */}
                     </div>
                     {this.state.extend && this.state.id === job._id ? <ExtendArchive job={job || {}} /> : ''}
                 </div>

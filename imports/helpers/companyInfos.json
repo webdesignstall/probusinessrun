@@ -143,6 +143,24 @@
             "smtp": "mail.promoverssandiego.com",
             "userName": "info@promoverssandiego.com",
             "key": "1016"
+        },
+        {
+            "name": "Cheap Movers California",
+            "phoneNumber": "(714) 696-6565",
+            "url": "www.cheapmoverscalifornia.com",
+            "email": "info@cheapmoverscalifornia.com",
+            "smtp": "mail.cheapmoverscalifornia.com",
+            "userName": "info@cheapmoverscalifornia.com",
+            "key": "1017"
+        },
+        {
+            "name": "Cheap Movers Santa Monica",
+            "phoneNumber": "(424) 352-1615",
+            "url": "www.cheapmoverssantamonica.com",
+            "email": "info@cheapmoverssantamonica.com",
+            "smtp": "mail.cheapmoverssantamonica.com",
+            "userName": "info@cheapmoverssantamonica.com",
+            "key": "1018"
         }
     ]
 }

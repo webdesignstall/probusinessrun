@@ -44,10 +44,7 @@ if (Meteor.isServer) {
                 err => {
                     if (err) {
                         console.error(err);
-                        throw new Meteor.Error(
-                            'Error',
-                            'Can\'t update information. Please contact with the administration'
-                        );
+                        throw new Meteor.Error('Error', 'Can\'t update information. Please contact with the administration');
                     }
                 }
             );
@@ -106,10 +103,7 @@ if (Meteor.isServer) {
             server.send(message, function(err) {
                 if (err) {
                     console.error(err);
-                    throw new Meteor.Error(
-                        '500',
-                        'Can\'t send email. Please contact system adminstration'
-                    );
+                    throw new Meteor.Error('500', 'Can\'t send email. Please contact system adminstration');
                 }
                 console.info('Follow up Email succesfully sent to: ' + job.email);
             });
@@ -131,13 +125,9 @@ if (Meteor.isServer) {
                 ]
             };
             oldJobUpdates.push(updates);
-            WorkData.update(
-                { _id },
-                { $set: { customerRate: rate, updates: oldJobUpdates } },
-                err => {
-                    console.error(err);
-                }
-            );
+            WorkData.update({ _id }, { $set: { customerRate: rate, updates: oldJobUpdates } }, err => {
+                console.error(err);
+            });
         },
         saveBonusSettings: function(_id, settings) {
             BonusSettings.update({ _id }, { $set: { options: settings } }, err => {
@@ -177,9 +167,7 @@ if (Meteor.isServer) {
                             console.error('Error', err);
                         }
                         if (data) {
-                            console.info(
-                                'Upload Success: pdf for job: ' + id + ' ' + data.Location
-                            );
+                            console.info('Upload Success: pdf for job: ' + id + ' ' + data.Location);
                         }
                     });
                 }
@@ -242,12 +230,22 @@ if (Meteor.isServer) {
                         },
                         {
                             value: '4_bedrooom_avg',
-                            name: '4 Bedroom (avg. size, avg. items)',
+                            name: '4 Bedrooms (avg. size, avg. items)',
                             bonus: 0
                         },
                         {
                             value: '4_bedroom_large',
-                            name: '4 Bedroom (large size, many items)',
+                            name: '4 Bedrooms (large size, many items)',
+                            bonus: 0
+                        },
+                        {
+                            value: '5_bedroom_avarage',
+                            name: '5 Bedrooms (avarage size, avg items)',
+                            bonus: 0
+                        },
+                        {
+                            value: 'commercial_sml',
+                            name: 'Commercial (small size, few items)',
                             bonus: 0
                         },
                         {
@@ -258,6 +256,11 @@ if (Meteor.isServer) {
                         {
                             value: 'commercial_large',
                             name: 'Commercial (large size, many items)',
+                            bonus: 0
+                        },
+                        {
+                            value: 'long_distance_moves',
+                            name: 'Long Distance Moves',
                             bonus: 0
                         }
                     ]

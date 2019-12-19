@@ -33,37 +33,47 @@ export default class BonusSettings_ extends Component {
                 },
                 {
                     value: '2_bedroom_small',
-                    name: '2 Bedroom (small size, few items)',
+                    name: '2 Bedrooms (small size, few items)',
                     bonus: 0
                 },
                 {
                     value: '2_bedroom_avg',
-                    name: '2 Bedroom (avg. size, avg. items)',
+                    name: '2 Bedrooms (avg. size, avg. items)',
                     bonus: 0
                 },
                 {
                     value: '2_bedroom_large',
-                    name: '2 Bedroom (large size, many items)',
+                    name: '2 Bedrooms (large size, many items)',
                     bonus: 0
                 },
                 {
                     value: '3_bedroom_avg',
-                    name: '3 Bedroom (avg. size, avg. items)',
+                    name: '3 Bedrooms (avg. size, avg. items)',
                     bonus: 0
                 },
                 {
                     value: '3_bedroom_large',
-                    name: '3 Bedroom (large size, many items)',
+                    name: '3 Bedrooms (large size, many items)',
                     bonus: 0
                 },
                 {
                     value: '4_bedrooom_avg',
-                    name: '4 Bedroom (avg. size, avg. items)',
+                    name: '4 Bedrooms (avg. size, avg. items)',
                     bonus: 0
                 },
                 {
                     value: '4_bedroom_large',
-                    name: '4 Bedroom (large size, many items)',
+                    name: '4 Bedrooms (large size, many items)',
+                    bonus: 0
+                },
+                {
+                    value: '5_bedroom_avarage',
+                    name: '5 Bedrooms (avarage size, avg items)',
+                    bonus: 0
+                },
+                {
+                    value: 'commercial_sml',
+                    name: 'Commercial (small size, few items)',
                     bonus: 0
                 },
                 {
@@ -74,6 +84,11 @@ export default class BonusSettings_ extends Component {
                 {
                     value: 'commercial_large',
                     name: 'Commercial (large size, many items)',
+                    bonus: 0
+                },
+                {
+                    value: 'long_distance_moves',
+                    name: 'Long Distance Moves',
                     bonus: 0
                 }
             ]

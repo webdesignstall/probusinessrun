@@ -37,8 +37,11 @@ export default function EmailContent(job) {
             '3_bedroom_large': '3 Bedroom (large size, many items)',
             '4_bedrooom_avg': '4 Bedroom (avg. size, avg. items)',
             '4_bedroom_large': '4 Bedroom (large size, many items)',
+            '5_bedroom_avarage': '5 Bedrooms (avarage size, avg items)',
+            commercial_sml: 'Commercial (small size, few items)',
             commercial_avg: 'Commercial (avg. size, avg. items)',
-            commercial_large: 'Commercial (large size, many items)'
+            commercial_large: 'Commercial (large size, many items)',
+            long_distance_moves: 'Long Distance Moves'
         };
 
         return movingSizeList[job.movingSize];
@@ -1389,7 +1392,8 @@ export default function EmailContent(job) {
                 ${
     job.gasFee >= 0 ||
                     job.doubleDrive !== 'notSure' ||
-                    (job.smallItemPacking > 0 || job.smallItemPacking < 0) ||
+                    job.smallItemPacking > 0 ||
+                    job.smallItemPacking < 0 ||
                     job.largeItemFee > 0
         ? `
                 <div style="background-color:transparent;">

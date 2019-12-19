@@ -36,8 +36,11 @@ export default class TabletRender extends React.Component {
                 '3_bedroom_large': '3 Bedroom (large size, many items)',
                 '4_bedrooom_avg': '4 Bedroom (avg. size, avg. items)',
                 '4_bedroom_large': '4 Bedroom (large size, many items)',
+                '5_bedroom_avarage': '5 Bedrooms (avarage size, avg items)',
+                commercial_sml: 'Commercial (small size, few items)',
                 commercial_avg: 'Commercial (avg. size, avg. items)',
-                commercial_large: 'Commercial (large size, many items)'
+                commercial_large: 'Commercial (large size, many items)',
+                long_distance_moves: 'Long Distance Moves'
             },
             valuePaperBundles: 0,
             paperBundles: 0,
@@ -313,7 +316,7 @@ MY OWN FREE WILL`
     finishJob() {
         let x = document.querySelectorAll('.need_collapse');
         let l = 0;
-        for(l; l < x.length; l++){
+        for (l; l < x.length; l++) {
             x[l].classList.remove('hide');
         }
         let htmlOfCanvas = document.body;
@@ -383,15 +386,21 @@ MY OWN FREE WILL`
             this.totalAdditionalChargeAmount = 0;
 
             this.state.discount && this.state.discount.length > -1
-                ? this.state.discount.filter(discount => discount.type === 'time').map(discount => (this.totalDiscountTime += discount.amount))
+                ? this.state.discount
+                    .filter(discount => discount.type === 'time')
+                    .map(discount => (this.totalDiscountTime += discount.amount))
                 : null;
 
             this.state.discount && this.state.discount.length > -1
-                ? this.state.discount.filter(discount => discount.type === 'amount').map(discount => (this.totalDiscountAmount += discount.amount))
+                ? this.state.discount
+                    .filter(discount => discount.type === 'amount')
+                    .map(discount => (this.totalDiscountAmount += discount.amount))
                 : null;
 
             this.state.discount && this.state.discount.length > -1
-                ? this.state.discount.filter(discount => discount.type === 'percent').map(discount => (this.totalDiscountPercent += discount.amount))
+                ? this.state.discount
+                    .filter(discount => discount.type === 'percent')
+                    .map(discount => (this.totalDiscountPercent += discount.amount))
                 : null;
 
             this.state.additionalCharge.map(charge => {
@@ -450,13 +459,15 @@ MY OWN FREE WILL`
                 packingSupplies;
             // this.payCash ve this.payCard calculation
             this.payCash = (
-                (flatCashAmount + totalWorkedHours * cashRate + drivingTime * cashRate - cashDiscount) * ((100 - percentDiscount) / 100) +
+                (flatCashAmount + totalWorkedHours * cashRate + drivingTime * cashRate - cashDiscount) *
+                    ((100 - percentDiscount) / 100) +
                 (isDoubleDrive ? drivingTime * cashRate : 0) +
                 additionalCharges -
                 timeDiscount * cashRate
             ).toFixed(2);
             this.payCard = (
-                (flatCardAmount + totalWorkedHours * cardRate + drivingTime * cardRate - cashDiscount) * ((100 - percentDiscount) / 100) +
+                (flatCardAmount + totalWorkedHours * cardRate + drivingTime * cardRate - cashDiscount) *
+                    ((100 - percentDiscount) / 100) +
                 (isDoubleDrive ? drivingTime * cardRate : 0) +
                 additionalCharges -
                 timeDiscount * cardRate
@@ -823,7 +834,8 @@ MY OWN FREE WILL`
                             initialSignAlphabet: is.initialSignAlphabet,
                             requirementEntirely: is.requirementEntirely,
                             threeDayPrior: is.threeDayPrior,
-                            additionalSignature: is.additionalSignature && is.additionalSignature.length > 0 ? is.additionalSignature : [],
+                            additionalSignature:
+                                is.additionalSignature && is.additionalSignature.length > 0 ? is.additionalSignature : [],
                             discount: is.discount && is.discount.length > 0 ? is.discount : [],
                             additionalCharge: is.additionalCharge && is.additionalCharge.length > 0 ? is.additionalCharge : []
                         });
@@ -1120,7 +1132,8 @@ MY OWN FREE WILL`
                                                 <div className="col s8 m8 l8">
                                                     <div className="card__">
                                                         <div className="card-content">
-                                                            Company Name: {is.companyInfo === undefined ? '' : is.companyInfo.name}
+                                                            Company Name:{' '}
+                                                            {is.companyInfo === undefined ? '' : is.companyInfo.name}
                                                             <br />
                                                             <hr />
                                                             License Number: BEARHFTI 0191555
@@ -1128,9 +1141,14 @@ MY OWN FREE WILL`
                                                             <hr />
                                                             Customer Name: {is.clientFirstName} {is.clientLastName}
                                                             <br />
-                                                            <span className={is.cardHolderInfo && is.cardHolderInfo.firstName ? '' : 'hide'}>
+                                                            <span
+                                                                className={
+                                                                    is.cardHolderInfo && is.cardHolderInfo.firstName ? '' : 'hide'
+                                                                }
+                                                            >
                                                                 <hr />
-                                                                Card Holder Name: {is.cardHolderInfo && is.cardHolderInfo.firstName}{' '}
+                                                                Card Holder Name:{' '}
+                                                                {is.cardHolderInfo && is.cardHolderInfo.firstName}{' '}
                                                                 {is.cardHolderInfo && is.cardHolderInfo.lastName}
                                                                 <br />
                                                             </span>
@@ -1171,10 +1189,10 @@ MY OWN FREE WILL`
                             <div className="clear" />
                             <div className="row">
                                 <div style={{ textTransform: 'uppercase' }} className="card__ warning">
-                                    SHIPPER (CUSTOMER) IS REQUESTED TO READ THIS DOCUMENT CAREFULLY, INCLUDING TERMS AND CONDITIONS, BEFORE SIGNING.
-                                    BY SIGNING THIS CONTRACT, THIS WILL CONFIRM INSTRUCTIONS AND AUTHORIZE{' '}
-                                    {is.companyInfo === undefined ? '' : is.companyInfo.name} TO MOVE, SHIP, PACK, STORE, AND/OR PERFORM THE SERVICES
-                                    HEREIN.
+                                    SHIPPER (CUSTOMER) IS REQUESTED TO READ THIS DOCUMENT CAREFULLY, INCLUDING TERMS AND
+                                    CONDITIONS, BEFORE SIGNING. BY SIGNING THIS CONTRACT, THIS WILL CONFIRM INSTRUCTIONS AND
+                                    AUTHORIZE {is.companyInfo === undefined ? '' : is.companyInfo.name} TO MOVE, SHIP, PACK,
+                                    STORE, AND/OR PERFORM THE SERVICES HEREIN.
                                 </div>
                             </div>
                             <div className="clear" />
@@ -1205,8 +1223,8 @@ MY OWN FREE WILL`
                             </div>
                             <div className="row from-to">
                                 <div className="card__ warning">
-                                    NOTE: Additional charges for storage, extra handling, and transportation will accrue if goods are not promptly
-                                    accepted
+                                    NOTE: Additional charges for storage, extra handling, and transportation will accrue if goods
+                                    are not promptly accepted
                                 </div>
                                 <div className="clear" />
                                 <div className="card__ xxx">
@@ -1218,7 +1236,12 @@ MY OWN FREE WILL`
                                             <br />
                                             Your Flat Rates:{' '}
                                             {is.flatRate && is.flatRate[0].isTrue
-                                                ? '$' + is.flatRate[0].cashAmount + '(cash)' + ' $' + is.flatRate[0].cardAmount + '(card)'
+                                                ? '$' +
+                                                  is.flatRate[0].cashAmount +
+                                                  '(cash)' +
+                                                  ' $' +
+                                                  is.flatRate[0].cardAmount +
+                                                  '(card)'
                                                 : 'No'}
                                             <br />
                                             Your Hourly Rates:{' '}
@@ -1251,13 +1274,18 @@ MY OWN FREE WILL`
                                         <div className="clear" />
                                         <hr />
                                         <div className="card__ valign-wrapper">
-                                            <div className="col s6 m6 l6">I have received the CPUC’s Important Information Booklet</div>
+                                            <div className="col s6 m6 l6">
+                                                I have received the CPUC’s Important Information Booklet
+                                            </div>
                                             <div className="col s6 m6 l6">
                                                 Initial:
                                                 <input
                                                     id="initial_"
                                                     type="text"
-                                                    disabled={typeof is.initialSignAlphabet === 'string' && is.initialSignAlphabet !== ''}
+                                                    disabled={
+                                                        typeof is.initialSignAlphabet === 'string' &&
+                                                        is.initialSignAlphabet !== ''
+                                                    }
                                                     onChange={this.initialAlphabet}
                                                     value={this.state.initialSignAlphabet}
                                                     placeholder="Write initial here please"
@@ -1265,7 +1293,8 @@ MY OWN FREE WILL`
                                                 />
                                                 <span id="importantInformationBooklet_date">
                                                     {moment(
-                                                        (is.importantInformationBooklet && is.importantInformationBooklet.date) || new Date()
+                                                        (is.importantInformationBooklet && is.importantInformationBooklet.date) ||
+                                                            new Date()
                                                     ).format('MM/DD/YYYY hh:mm a')}
                                                 </span>
                                             </div>
@@ -1314,12 +1343,14 @@ MY OWN FREE WILL`
                                         </div>
                                         <div className="card__ valign-wrapper">
                                             <div className="col s6 m6 l6">
-                                                Was the moving date agreed to between you &amp; the carrier less than 3 days prior to the day of your
-                                                move?
+                                                Was the moving date agreed to between you &amp; the carrier less than 3 days prior
+                                                to the day of your move?
                                             </div>
                                             <div className="col s6 m6 l6 center-align">
                                                 <button
-                                                    className={(this.state.threeDayPrior ? '' : 'grey') + ' waves-effect waves-light btn'}
+                                                    className={
+                                                        (this.state.threeDayPrior ? '' : 'grey') + ' waves-effect waves-light btn'
+                                                    }
                                                     disabled={is.threeDayPrior === true || is.threeDayPrior === false}
                                                     style={
                                                         is.threeDayPrior === true
@@ -1334,7 +1365,9 @@ MY OWN FREE WILL`
                                                 </button>
                                                 &nbsp; &nbsp; &nbsp; &nbsp;
                                                 <button
-                                                    className={(this.state.threeDayPrior ? 'grey' : '') + ' waves-effect waves-light btn'}
+                                                    className={
+                                                        (this.state.threeDayPrior ? 'grey' : '') + ' waves-effect waves-light btn'
+                                                    }
                                                     disabled={is.threeDayPrior === true || is.threeDayPrior === false}
                                                     style={
                                                         is.threeDayPrior === false
@@ -1527,10 +1560,10 @@ MY OWN FREE WILL`
                                     </tbody>
                                 </div>
                                 <div className="card__ warning">
-                                    CUSTOMER AGREES THAT TITLE TO ALL PACKING MATERIALS AND OTHER PROPERTY SOLD TO CUSTOMER PASSES TO CUSTOMER PRIOR
-                                    TO THE TRANSPORTATION OF SUCH PROPERTY TO THE CUSTOMER BY CARRIER. THIS ALSO MEANS THAT ANY PACKING MATERIALS OR
-                                    TRASH/DONATION ITEMS ARE YOUR OWN PROPERTY AND, AS SUCH, CARRIER IS NOT RESPONSIBLE FOR THE DISPOSAL AND/OR
-                                    REMOVAL OF THESE ITEMS.
+                                    CUSTOMER AGREES THAT TITLE TO ALL PACKING MATERIALS AND OTHER PROPERTY SOLD TO CUSTOMER PASSES
+                                    TO CUSTOMER PRIOR TO THE TRANSPORTATION OF SUCH PROPERTY TO THE CUSTOMER BY CARRIER. THIS ALSO
+                                    MEANS THAT ANY PACKING MATERIALS OR TRASH/DONATION ITEMS ARE YOUR OWN PROPERTY AND, AS SUCH,
+                                    CARRIER IS NOT RESPONSIBLE FOR THE DISPOSAL AND/OR REMOVAL OF THESE ITEMS.
                                     <br />
                                     Read and Agree
                                     <input
@@ -1542,9 +1575,9 @@ MY OWN FREE WILL`
                                     />
                                 </div>
                                 <div className="card__ warning">
-                                    NOTE: All cargo is subject to a Mover’s Lien as described by the CPUC until entire amount due is paid IN FULL. Any
-                                    loss/damage claims must be received in writing AFTER your move and DO NOT exempt you from paying the total amount
-                                    due as outlined above.
+                                    NOTE: All cargo is subject to a Mover’s Lien as described by the CPUC until entire amount due
+                                    is paid IN FULL. Any loss/damage claims must be received in writing AFTER your move and DO NOT
+                                    exempt you from paying the total amount due as outlined above.
                                     <br />
                                     Read and Agree
                                     <input
@@ -1556,9 +1589,9 @@ MY OWN FREE WILL`
                                     />
                                 </div>
                                 <div className="card__ warning">
-                                    I understand that it’s my responsibility to hold a parking space for the moving truck at each location. Failure to
-                                    do so will result in my being held responsible to pay for any, and all, parking tickets/fines resulting from my
-                                    negligence to do so.
+                                    I understand that it’s my responsibility to hold a parking space for the moving truck at each
+                                    location. Failure to do so will result in my being held responsible to pay for any, and all,
+                                    parking tickets/fines resulting from my negligence to do so.
                                     <br />
                                     Read and Agree
                                     <input
@@ -1573,8 +1606,8 @@ MY OWN FREE WILL`
                             {/* ise baslamamisdan qabaq ki sign */}
                             <div className="card__ margin-top">
                                 <p className="cardTitle" style={{ textAlign: 'center' }}>
-                                    BY SIGNING BELOW, I {is.clientFirstName} {is.clientLastName}, CONFIRM THAT THE INFORMATION ABOVE IS TRUE AND
-                                    CORRECT TO THE BEST OF MY KNOWLEDGE. <br />
+                                    BY SIGNING BELOW, I {is.clientFirstName} {is.clientLastName}, CONFIRM THAT THE INFORMATION
+                                    ABOVE IS TRUE AND CORRECT TO THE BEST OF MY KNOWLEDGE. <br />
                                     SHIPPER’S (CUSTOMER’S) SIGNATURE:
                                     <br />
                                     DATE:{' '}
@@ -1653,7 +1686,13 @@ MY OWN FREE WILL`
 
                         {/* start, stop, break driving buttons */}
                         <div id="secondStep" className={this.state.initSign ? 'card__' : 'hide card__'}>
-                            <div className={is.isPayed ? 'card__ additionalSignature center-align hide' : 'card__ additionalSignature center-align'}>
+                            <div
+                                className={
+                                    is.isPayed
+                                        ? 'card__ additionalSignature center-align hide'
+                                        : 'card__ additionalSignature center-align'
+                                }
+                            >
                                 <a
                                     className="waves-effect waves-light btn"
                                     onClick={() =>
@@ -1662,7 +1701,9 @@ MY OWN FREE WILL`
                                         })
                                     }
                                 >
-                                    {this.state.additionalSignatiure ? 'Need additional signature HIDE' : 'Need additonal signature SHOW'}{' '}
+                                    {this.state.additionalSignatiure
+                                        ? 'Need additional signature HIDE'
+                                        : 'Need additonal signature SHOW'}{' '}
                                 </a>
                                 <AdditionalSignature
                                     clicked={this.state.additionalSignatiure}
@@ -1933,7 +1974,9 @@ MY OWN FREE WILL`
                                     </li>
                                     <li className="collection-item blue">
                                         Total calculated hours:
-                                        <span className="sag">= {!isNaN(this.totalWorkLaborTime) ? this.totalWorkLaborTime : 0} hours</span>
+                                        <span className="sag">
+                                            = {!isNaN(this.totalWorkLaborTime) ? this.totalWorkLaborTime : 0} hours
+                                        </span>
                                     </li>
                                     <li className="collection-item blue">
                                         Total Small Item Pck Supplies:
@@ -1961,7 +2004,9 @@ MY OWN FREE WILL`
                                     </li>
                                     <li
                                         className={
-                                            this.totalDiscountAmount > 0 || this.totalDiscountPercent > 0 || this.totalDiscountPercent > 0
+                                            this.totalDiscountAmount > 0 ||
+                                            this.totalDiscountPercent > 0 ||
+                                            this.totalDiscountPercent > 0
                                                 ? 'collection-item blue'
                                                 : 'hide'
                                         }
@@ -2008,13 +2053,19 @@ MY OWN FREE WILL`
                                     <li className="collection-item blue">
                                         Grand Total Cash:
                                         <span className="sag">
-                                            = ${!isNaN((this.payCash - is.deposit).toFixed(2)) ? (this.payCash - is.deposit).toFixed(2) : 0}
+                                            = $
+                                            {!isNaN((this.payCash - is.deposit).toFixed(2))
+                                                ? (this.payCash - is.deposit).toFixed(2)
+                                                : 0}
                                         </span>
                                     </li>
                                     <li className="collection-item blue">
                                         Grand Total Card:
                                         <span className="sag">
-                                            = ${!isNaN((this.payCard - is.deposit).toFixed(2)) ? (this.payCard - is.deposit).toFixed(2) : 0}
+                                            = $
+                                            {!isNaN((this.payCard - is.deposit).toFixed(2))
+                                                ? (this.payCard - is.deposit).toFixed(2)
+                                                : 0}
                                         </span>
                                     </li>
                                 </ul>
@@ -2057,7 +2108,11 @@ MY OWN FREE WILL`
                                         <div className="row" style={{ margin: '15px 0 0' }}>
                                             <a
                                                 id="mark-as-payed"
-                                                className={is.isPayed ? 'waves-effect waves-light btn disabled' : 'waves-effect waves-light btn'}
+                                                className={
+                                                    is.isPayed
+                                                        ? 'waves-effect waves-light btn disabled'
+                                                        : 'waves-effect waves-light btn'
+                                                }
                                                 onClick={this.markPayed}
                                             >
                                                 Mark as fully payed
@@ -2072,7 +2127,9 @@ MY OWN FREE WILL`
                             <div className="clear margin-top" />
                             <div
                                 id="finel_step"
-                                className={is.isPayed ? 'card__ center-align darken-2-text' : 'card__ center-align darken-2-text hide'}
+                                className={
+                                    is.isPayed ? 'card__ center-align darken-2-text' : 'card__ center-align darken-2-text hide'
+                                }
                             >
                                 <div className="cardTitle red darken-3">
                                     I AGREE THAT MY MOVE IS COMPLETED AND ALL MY BELONGINGS ARE DELIVERED TO MY NEW PLACE.
@@ -2124,7 +2181,10 @@ MY OWN FREE WILL`
                                     </a>
                                 </div>
                                 <p />
-                                <div className={is.finished ? 'hide' : ' col s12 m12 l12 margin-top'} style={{ marginBottom: '20px' }}>
+                                <div
+                                    className={is.finished ? 'hide' : ' col s12 m12 l12 margin-top'}
+                                    style={{ marginBottom: '20px' }}
+                                >
                                     <a
                                         className={
                                             this.state.showFinish1 && this.state.showFinish2

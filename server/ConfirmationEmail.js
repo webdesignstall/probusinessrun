@@ -26,8 +26,11 @@ export default function ConfirmationEmail(job) {
             '3_bedroom_large': '3 Bedroom (large size, many items)',
             '4_bedrooom_avg': '4 Bedroom (avg. size, avg. items)',
             '4_bedroom_large': '4 Bedroom (large size, many items)',
+            '5_bedroom_avarage': '5 Bedrooms (avarage size, avg items)',
+            commercial_sml: 'Commercial (small size, few items)',
             commercial_avg: 'Commercial (avg. size, avg. items)',
-            commercial_large: 'Commercial (large size, many items)'
+            commercial_large: 'Commercial (large size, many items)',
+            long_distance_moves: 'Long Distance Moves'
         };
 
         return movingSizeList[job.movingSize];
@@ -155,9 +158,7 @@ export default function ConfirmationEmail(job) {
             <div style="font-size:16px;text-align:center;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif">
 <div  style="font-size: 13px; margin-bottom: 5px; border-bottom: 1px solid #BBBEC3">
 <div style="width: 49%; display: inline-block; text-align: left;">Flat Rate Up to ${job.laborTime} hours</div>
-<div style="width: 49%; display: inline-block; text-align: left;">cash $${job.flatRate[0].cashAmount}, card $${
-    job.flatRate[0].cardAmount
-}</div>
+<div style="width: 49%; display: inline-block; text-align: left;">cash $${job.flatRate[0].cashAmount}, card $${job.flatRate[0].cardAmount}</div>
 </div>
 </div>`
             : '';
@@ -169,9 +170,7 @@ export default function ConfirmationEmail(job) {
         <div style="font-size:16px;text-align:center;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif">
 <div  style="font-size: 13px; margin-bottom: 5px; border-bottom: 1px solid #BBBEC3">
 <div style="width: 49%; display: inline-block; text-align: left;">Hourly Rate After ${job.laborTime} hours</div>
-<div style="width: 49%; display: inline-block; text-align: left;">cash $${job.hourlyRatesCash}/hr, card $${
-    job.hourlyRatesCard
-}/hr </div>
+<div style="width: 49%; display: inline-block; text-align: left;">cash $${job.hourlyRatesCash}/hr, card $${job.hourlyRatesCard}/hr </div>
 </div>
 </div> 
         `
@@ -261,9 +260,7 @@ export default function ConfirmationEmail(job) {
             <div style="font-size:16px;text-align:center;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif">
 <div  style="font-size: 13px; margin-bottom: 5px; border-bottom: 1px solid #BBBEC3">
 <div style="width: 49%; display: inline-block; text-align: left;">Deposit required to lock the spot:</div>
-<div style="width: 49%; display: inline-block; text-align: left;">+$${
-    job.deposit
-} (to be applied as a credit toward this move’s bill)</div>
+<div style="width: 49%; display: inline-block; text-align: left;">+$${job.deposit} (to be applied as a credit toward this move’s bill)</div>
 </div>
 </div>`
             : '';
