@@ -38,7 +38,8 @@ Meteor.startup(() => {
     oauth2.accessToken = config.squareAccessToken;
 
     // prepare mailing server
-    process.env.MAIL_URL = 'smtp://postmaster%40probusinessrun.com:6d0eb775d8a76c5f1efd0b02030ea3fa-e89319ab-67f4f8af@smtp.mailgun.org:587';
+    process.env.MAIL_URL =
+        'smtp://postmaster%40probusinessrun.com:6d0eb775d8a76c5f1efd0b02030ea3fa-e89319ab-67f4f8af@smtp.mailgun.org:587';
     // code to run on server at startup
     Meteor.publish('userData', function() {
         if ((this.userId && Meteor.user().profile.rank === 'admin') || Meteor.user().profile.rank === 'officeEmployee') {
@@ -88,7 +89,10 @@ if (Meteor.isServer) {
             return WorkData.insert(doc, (err, id) => {
                 if (err) {
                     console.error(err);
-                    throw new Meteor.Error('Can\'t create new job', 'Error while creating new job. Pls Contact with the help desk. Reason: ' + err.message);
+                    throw new Meteor.Error(
+                        'Can\'t create new job',
+                        'Error while creating new job. Pls Contact with the help desk. Reason: ' + err.message
+                    );
                 } else {
                     return id;
                 }
@@ -384,7 +388,10 @@ ${obj.companyInfo.email}<br>
             server.send(message, function(err, message) {
                 if (err) {
                     console.log('Error while trying send email to cardholder ' + err);
-                    throw new Meteor.Error('Impossible to send email', 'Problem while sending email. Please chack email address.');
+                    throw new Meteor.Error(
+                        'Impossible to send email',
+                        'Problem while sending email. Please chack email address.'
+                    );
                 } else {
                     console.log('Info about payment successfully sent to ' + obj.cardHolderInfo.email + ' email');
                 }

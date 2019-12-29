@@ -54,8 +54,7 @@ export default class BonusDash extends Component {
                 return dateA - dateB;
             });
 
-            let jobsCalculated =
-                data[0] && data[0].options ? totalJobs.slice(data[0].options[0].bonus) : [];
+            let jobsCalculated = data[0] && data[0].options ? totalJobs.slice(data[0].options[0].bonus) : [];
 
             data.length > 0
                 ? this.setState(
@@ -74,9 +73,7 @@ export default class BonusDash extends Component {
                                     let bonusAmount = 0;
 
                                     this.state.options.map(option => {
-                                        option.value === job.movingSize
-                                            ? (bonusAmount = option.bonus)
-                                            : null;
+                                        option.value === job.movingSize ? (bonusAmount = option.bonus) : null;
                                     });
                                     employeeBonusInfo[job.takenBy].push({
                                         [job.jobNumber]: bonusAmount
@@ -85,14 +82,10 @@ export default class BonusDash extends Component {
                                     let bonusAmount = 0;
 
                                     this.state.options.map(option => {
-                                        option.value === job.movingSize
-                                            ? (bonusAmount = option.bonus)
-                                            : null;
+                                        option.value === job.movingSize ? (bonusAmount = option.bonus) : null;
                                     });
 
-                                    employeeBonusInfo[job.takenBy] = [
-                                        { [job.jobNumber]: bonusAmount }
-                                    ];
+                                    employeeBonusInfo[job.takenBy] = [{ [job.jobNumber]: bonusAmount }];
                                 }
 
                                 return {
@@ -115,9 +108,7 @@ export default class BonusDash extends Component {
             return (
                 <React.Fragment key={'jobNumberBonus' + index}>
                     <div className="col s12 m6 l6">#{key}</div>
-                    <div className="col s12 m6 l6 right-align">
-                        ${employeeBonusInfo[index][key]}
-                    </div>
+                    <div className="col s12 m6 l6 right-align">${employeeBonusInfo[index][key]}</div>
                 </React.Fragment>
             );
         });
@@ -145,13 +136,11 @@ export default class BonusDash extends Component {
                         <div className="row">
                             <div className="col s12 m6 l6">
                                 {(takenBy && takenBy.profile && takenBy.profile.firstName) || ''}{' '}
-                                {(takenBy && takenBy.profile && takenBy.profile.firstName) || ''}
+                                {(takenBy && takenBy.profile && takenBy.profile.lastName) || ''}
                             </div>
                             <div className="col s12 m6 l6 right-align">Total: ${total}</div>
                         </div>
-                        <div className="row">
-                            {this.renderBonusesForEmployee(keys, employeeBonusInfo[_id])}
-                        </div>
+                        <div className="row">{this.renderBonusesForEmployee(keys, employeeBonusInfo[_id])}</div>
                     </div>
                 </div>
             );
@@ -163,23 +152,17 @@ export default class BonusDash extends Component {
         return (
             <div>
                 <div className="row">
-                    <div className="col">
-                        Job Limit: {this.state.options[0] ? this.state.options[0].bonus : 0}
-                    </div>
+                    <div className="col">Job Limit: {this.state.options[0] ? this.state.options[0].bonus : 0}</div>
                     <div
                         className={
-                            this.state.options[0] && totalJobs > this.state.options[0].bonus
-                                ? 'col more_than'
-                                : 'col less_than'
+                            this.state.options[0] && totalJobs > this.state.options[0].bonus ? 'col more_than' : 'col less_than'
                         }
                     >
                         Job Total this month: {this.state.totalJobs || 0}
                     </div>
                 </div>
                 <div className="row">
-                    {this.state.options[0] && totalJobs > this.state.options[0].bonus
-                        ? this.renderBonusList()
-                        : ''}
+                    {this.state.options[0] && totalJobs > this.state.options[0].bonus ? this.renderBonusList() : ''}
                 </div>
             </div>
         );
