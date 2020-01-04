@@ -30,6 +30,7 @@ import { Meteor } from 'meteor/meteor';
 import Alert from '../../../../imports/alertMessage/Alert';
 import WorkData from '../../../../common/collections_2';
 import NewAppointment from '../NewAppointment';
+import JobNumber from '../JobNumber';
 
 /*global moment*/
 
@@ -192,8 +193,7 @@ export default class EditCalendarQuote extends Component {
                 </div>
                 <div className="row">
                     <div className="col s12 m3 l3">
-                        <label htmlFor="jobNumber">Job Number</label>
-                        <input id="jobNumber" disabled defaultValue={jobNumber || ''} />
+                        <JobNumber />
                     </div>
                     <div className="col s12 m3 l3">
                         <DoubleDriveTime />

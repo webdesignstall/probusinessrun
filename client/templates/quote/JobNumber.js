@@ -8,14 +8,15 @@ class JobNumber extends Component {
         super(props);
         // noinspection JSValidateTypes
         this.state = {
-            value: undefined
+            value: ''
         };
     }
 
     componentDidMount() {
         this.x = Tracker.autorun(() => {
             let job = Session.get('job_');
-            if (job.jobNumber) {
+            console.log('TCL: JobNumber -> componentDidMount -> job.jobNumber', job.jobNumber);
+            if (job.jobNumber && job.jobNumber !== '') {
                 this.setState({ value: job.jobNumber });
             } else {
                 this.setState({ value: this.jobNumber_() });
@@ -50,11 +51,11 @@ class JobNumber extends Component {
                 <i className="material-icons isare">local_offer</i>
                 <input
                     id="quote-job-number"
-                    className="xx"
+                    className="xx disabled"
                     type="text"
-                    defaultValue={this.state.value}
+                    onChange={() => console.log('changed job number')}
+                    value={this.state.value}
                     placeholder="Job ID"
-                    disabled
                 />
                 <label className="active" htmlFor="quote-job-number">
                     Job Number
