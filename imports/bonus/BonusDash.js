@@ -37,12 +37,7 @@ export default class BonusDash extends Component {
                 date: dateForSettings
             }).fetch();
             let date_ = new Date();
-            console.log('TCL: BonusDash -> componentDidMount -> date_', date_);
             let ay = date_.getMonth();
-            console.log('TCL: BonusDash -> componentDidMount -> ay', ay);
-            Session.get('lastMont') ? ay-- : null;
-
-            console.log('TCL: BonusDash -> componentDidMount -> ay', ay);
             let yearOfDate_ = date_.getFullYear();
             if (Session.get('lastMont')) {
                 ay--;
@@ -52,9 +47,7 @@ export default class BonusDash extends Component {
                     ay = 11;
                 }
             }
-            console.log('TCL: BonusDash -> componentDidMount -> yearOfDate_', yearOfDate_);
             let newDate = new Date(ay + 1 + '/01/' + yearOfDate_);
-            console.log('TCL: BonusDash -> componentDidMount -> newDate', newDate);
 
             Meteor.subscribe('calendar', newDate);
 

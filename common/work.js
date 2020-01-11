@@ -822,7 +822,7 @@ Schemas.workSchema = new SimpleSchema(
             type: String,
             optional: true
         },
-        isAdmin : {
+        isAdmin: {
             type: Boolean,
             optional: true,
             label: 'Admin status'

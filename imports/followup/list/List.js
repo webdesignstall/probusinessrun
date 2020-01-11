@@ -76,8 +76,13 @@ export default class List extends TrackerReact(Component) {
                             Meteor.subscribe('searchFollowUp', arrayOfWords);
 
                             let reg = arrayOfWords.map(function(word) {
+                                word = word.replace('/', '');
+                                word = word.replace('(', '');
+                                word = word.replace(')', '');
+                                word = word.replace('\\', '');
                                 return new RegExp(word, 'gi');
                             });
+                            console.log('TCL: List -> componentDidMount -> reg', reg);
 
                             let resultConverted = WorkData.find({
                                 $or: [

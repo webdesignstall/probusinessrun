@@ -137,6 +137,9 @@ if (Meteor.isServer) {
                 }
             });
         },
+        saveSmallItemPacking: function(value, what, id) {
+            WorkData.update({ _id: id }, { $set: { [what]: value } });
+        },
         saveToPdf: function(canvas, id) {
             let htmlTemplate = pdfTemplate(canvas);
             let options = { format: 'Letter' };

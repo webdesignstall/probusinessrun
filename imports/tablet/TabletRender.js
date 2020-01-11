@@ -285,6 +285,7 @@ MY OWN FREE WILL`
         this.changeBasicValuation = this.changeBasicValuation.bind(this);
         this.markPayed = this.markPayed.bind(this);
         this.finishSurvey = this.finishSurvey.bind(this);
+        this.totalCalculate = this.totalCalculate.bind(this);
     }
 
     requirementEntirely(param, whichState) {
@@ -582,160 +583,124 @@ MY OWN FREE WILL`
     }
 
     largeBoxes(e) {
+        let value_ = e.target.value;
+
         this.setState({
             valueLargeBoxes: e.target.value,
             largeBoxes: 4 * e.target.value
         });
-
-        function xuban() {
-            this.setState({
-                totalPul:
-                    this.state.largeBoxes +
-                    this.state.smallBoxes +
-                    this.state.mediumBoxes +
-                    this.state.wrapRoll +
-                    this.state.movingBlankets +
-                    this.state.wardrobeBoxes +
-                    this.state.paperBundles
-            });
-        }
-
-        setTimeout(xuban.bind(this), 500);
+        this.saveInformationToDatabase(value_, 'largeBoxes');
     }
 
     mediumBoxes(e) {
-        this.setState({
-            valueMediumBoxes: e.target.value,
-            mediumBoxes: 3 * e.target.value
-        });
+        let value_ = e.target.value;
 
-        function xuban() {
-            this.setState({
-                totalPul:
-                    this.state.largeBoxes +
-                    this.state.smallBoxes +
-                    this.state.mediumBoxes +
-                    this.state.wrapRoll +
-                    this.state.movingBlankets +
-                    this.state.wardrobeBoxes +
-                    this.state.paperBundles
-            });
-        }
+        this.setState(
+            {
+                valueMediumBoxes: e.target.value,
+                mediumBoxes: 3 * e.target.value
+            },
+            this.totalCalculate()
+        );
 
-        setTimeout(xuban.bind(this), 500);
+        this.saveInformationToDatabase(value_, 'mediumBoxes');
     }
 
     smallBoxes(e) {
-        this.setState({
-            valueSmallBoxes: e.target.value,
-            smallBoxes: 2 * e.target.value
-        });
+        let value_ = e.target.value;
+        this.setState(
+            {
+                valueSmallBoxes: e.target.value,
+                smallBoxes: 2 * e.target.value
+            },
+            this.totalCalculate()
+        );
 
-        function xuban() {
-            this.setState({
-                totalPul:
-                    this.state.largeBoxes +
-                    this.state.smallBoxes +
-                    this.state.mediumBoxes +
-                    this.state.wrapRoll +
-                    this.state.movingBlankets +
-                    this.state.wardrobeBoxes +
-                    this.state.paperBundles
-            });
-        }
-
-        setTimeout(xuban.bind(this), 500);
+        this.saveInformationToDatabase(value_, 'smallBoxes');
     }
 
     wrapRoll(e) {
-        this.setState({
-            valueWrapRoll: e.target.value,
-            wrapRoll: 45 * e.target.value
-        });
+        let value_ = e.target.value;
 
-        function xuban() {
-            this.setState({
-                totalPul:
-                    this.state.largeBoxes +
-                    this.state.smallBoxes +
-                    this.state.mediumBoxes +
-                    this.state.wrapRoll +
-                    this.state.movingBlankets +
-                    this.state.wardrobeBoxes +
-                    this.state.paperBundles
-            });
-        }
+        this.setState(
+            {
+                valueWrapRoll: e.target.value,
+                wrapRoll: 45 * e.target.value
+            },
+            this.totalCalculate()
+        );
 
-        setTimeout(xuban.bind(this), 500);
+        this.saveInformationToDatabase(value_, 'bundleWrapRoll');
     }
 
     movingBlankets(e) {
+        let value_ = e.target.value;
+
+        this.setState(
+            {
+                valueMovingBlankets: value_,
+                movingBlankets: 15 * value_
+            },
+            this.totalCalculate()
+        );
+
+        this.saveInformationToDatabase(value_, 'movingBlankets');
+    }
+
+    saveInformationToDatabase(value, what) {
+        clearTimeout(this.test);
+        let id = Session.get('tabletIsId');
+
+        this.timeout = 500;
+        this.test = setTimeout(() => {
+            Meteor.call('saveSmallItemPacking', value, what, id);
+        }, this.timeout);
+    }
+
+    totalCalculate() {
         this.setState({
-            valueMovingBlankets: e.target.value,
-            movingBlankets: 15 * e.target.value
+            totalPul:
+                this.state.largeBoxes +
+                this.state.smallBoxes +
+                this.state.mediumBoxes +
+                this.state.wrapRoll +
+                this.state.movingBlankets +
+                this.state.wardrobeBoxes +
+                this.state.paperBundles
         });
-
-        function xuban() {
-            this.setState({
-                totalPul:
-                    this.state.largeBoxes +
-                    this.state.smallBoxes +
-                    this.state.mediumBoxes +
-                    this.state.wrapRoll +
-                    this.state.movingBlankets +
-                    this.state.wardrobeBoxes +
-                    this.state.paperBundles
-            });
-        }
-
-        setTimeout(xuban.bind(this), 500);
     }
 
     wardrobeBoxes(e) {
-        this.setState({
-            valueWardrobeBoxes: e.target.value,
-            wardrobeBoxes: 15 * e.target.value
-        });
+        let value_ = e.target.value;
 
-        function xuban() {
-            this.setState({
-                totalPul:
-                    this.state.largeBoxes +
-                    this.state.smallBoxes +
-                    this.state.mediumBoxes +
-                    this.state.wrapRoll +
-                    this.state.movingBlankets +
-                    this.state.wardrobeBoxes +
-                    this.state.paperBundles
-            });
-        }
+        this.setState(
+            {
+                valueWardrobeBoxes: value_,
+                wardrobeBoxes: 15 * value_
+            },
+            this.totalCalculate()
+        );
 
-        setTimeout(xuban.bind(this), 500);
+        this.saveInformationToDatabase(value_, 'wardrobeBoxes');
     }
 
-    paperBundles(event) {
-        this.setState({
-            valuePaperBundles: event.target.value,
-            paperBundles: 25 * event.target.value
-        });
+    paperBundles(e) {
+        let value_ = e.target.value;
 
-        function xuban() {
-            this.setState({
-                totalPul:
-                    this.state.largeBoxes +
-                    this.state.smallBoxes +
-                    this.state.mediumBoxes +
-                    this.state.wrapRoll +
-                    this.state.movingBlankets +
-                    this.state.wardrobeBoxes +
-                    this.state.paperBundles
-            });
-        }
+        this.setState(
+            {
+                valuePaperBundles: value_,
+                paperBundles: 25 * value_
+            },
+            this.totalCalculate()
+        );
 
-        setTimeout(xuban.bind(this), 500);
+        this.saveInformationToDatabase(value_, 'packingPaperBundles');
     }
 
     componentDidMount() {
+        this.timeout = null;
+
         this.x = Tracker.autorun(() => {
             // Meteor.subscribe('workSchema');
             // Meteor.subscribe('fullUser');
@@ -1824,8 +1789,9 @@ MY OWN FREE WILL`
                                                 disabled={is.isPayed}
                                                 id="wardrobe-boxes"
                                                 type="number"
-                                                value={this.state.valueWardrobeBoxes}
+                                                value={this.state.valueWardrobeBoxes ? this.state.valueWardrobeBoxes : ''}
                                                 onChange={this.wardrobeBoxes}
+                                                placeholder="0"
                                             />{' '}
                                             = ${this.state.wardrobeBoxes}
                                         </span>
@@ -1838,8 +1804,9 @@ MY OWN FREE WILL`
                                                 disabled={is.isPayed}
                                                 id="moving-blankets"
                                                 type="number"
-                                                value={this.state.valueMovingBlankets}
+                                                value={this.state.valueMovingBlankets ? this.state.valueMovingBlankets : ''}
                                                 onChange={this.movingBlankets}
+                                                placeholder="0"
                                             />{' '}
                                             = ${this.state.movingBlankets}
                                         </span>
@@ -1852,8 +1819,9 @@ MY OWN FREE WILL`
                                                 disabled={is.isPayed}
                                                 id="packing-paper-bundles"
                                                 type="number"
-                                                value={this.state.valuePaperBundles}
+                                                value={this.state.valuePaperBundles ? this.state.valuePaperBundles : ''}
                                                 onChange={this.paperBundles}
+                                                placeholder="0"
                                             />{' '}
                                             = ${this.state.paperBundles}
                                         </span>
@@ -1866,8 +1834,9 @@ MY OWN FREE WILL`
                                                 disabled={is.isPayed}
                                                 id="buuble-wrap-roll"
                                                 type="number"
-                                                value={this.state.valueWrapRoll}
+                                                value={this.state.valueWrapRoll ? this.state.valueWrapRoll : ''}
                                                 onChange={this.wrapRoll}
+                                                placeholder="0"
                                             />{' '}
                                             = ${this.state.wrapRoll}
                                         </span>
@@ -1880,8 +1849,9 @@ MY OWN FREE WILL`
                                                 disabled={is.isPayed}
                                                 id="small-boxes"
                                                 type="number"
-                                                value={this.state.valueSmallBoxes}
+                                                value={this.state.valueSmallBoxes ? this.state.valueSmallBoxes : ''}
                                                 onChange={this.smallBoxes}
+                                                placeholder="0"
                                             />{' '}
                                             = ${this.state.smallBoxes}
                                         </span>
@@ -1894,8 +1864,9 @@ MY OWN FREE WILL`
                                                 disabled={is.isPayed}
                                                 id="medium-boxes"
                                                 type="number"
-                                                value={this.state.valueMediumBoxes}
+                                                value={this.state.valueMediumBoxes ? this.state.valueMediumBoxes : ''}
                                                 onChange={this.mediumBoxes}
+                                                placeholder="0"
                                             />{' '}
                                             = ${this.state.mediumBoxes}
                                         </span>
@@ -1908,8 +1879,9 @@ MY OWN FREE WILL`
                                                 disabled={is.isPayed}
                                                 id="large-boxes"
                                                 type="number"
-                                                value={this.state.valueLargeBoxes}
+                                                value={this.state.valueLargeBoxes ? this.state.valueLargeBoxes : ''}
                                                 onChange={this.largeBoxes}
+                                                placeholder="0"
                                             />{' '}
                                             = ${this.state.largeBoxes}
                                         </span>
