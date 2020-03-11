@@ -9,8 +9,7 @@ if (Meteor.isServer) {
     Meteor.methods({
         findWorks: function(obj) {
             return (
-                (Meteor.user().profile.rank === 'admin' ||
-                    Meteor.user().profile.rank === 'officeEmployee') &&
+                (Meteor.user().profile.rank === 'admin' || Meteor.user().profile.rank === 'officeEmployee') &&
                 WorkData.find(obj || {}).fetch()
             );
         }
@@ -23,6 +22,15 @@ Meteor.publish('calendar', function(date) {
     let regex_ = month + '/[0-9][0-9]/' + year;
 
     return WorkData.find({ workDate: { $regex: regex_ }, status: 'won' });
+});
+
+Meteor.publish('dateSubscribe', function(date) {
+    let day = moment(date).format('DD');
+    let month = moment(date).format('MM');
+    let year = moment(date).format('YYYY');
+    let date_ = month + '/' + day + '/' + year;
+
+    return WorkData.find({ workDate: date_, status: 'won' });
 });
 
 Meteor.publish('workSchema', function(param) {

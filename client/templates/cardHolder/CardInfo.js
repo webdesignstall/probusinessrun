@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+/*global $*/
+
 class CardInfo extends Component {
     constructor(props) {
         super(props);
@@ -19,6 +21,10 @@ class CardInfo extends Component {
         this.setState({ [what]: value }, () => {
             this.props.change(what, value);
         });
+    }
+
+    componentDidMount() {
+        $('select').material_select();
     }
 
     // UNSAFE_componentWillReceiveProps(nextProps) {
@@ -65,7 +71,6 @@ class CardInfo extends Component {
                     <div className="input-field col s12 m6 l6">
                         <select
                             id="cardholder_cardtype"
-                            className="browser-default"
                             value={this.state.creditCardType}
                             onChange={e => this.inputChange(e, 'creditCardType')}
                         >
@@ -82,7 +87,7 @@ class CardInfo extends Component {
                                 AmEx
                             </option>
                         </select>
-                        <label htmlFor="cardholder_cardtype" className="active">
+                        <label htmlFor="cardholder_cardtype">
                             Credit Card Type <span className="red_star">*</span>
                         </label>
                     </div>

@@ -176,6 +176,44 @@ if (Meteor.isServer) {
                 }
             });
         },
+        cardHolderPDF: function(canvas, id, nameOfpdf) {
+            console.log('pdf creating began');
+            let htmlTemplate = pdfTemplate(canvas);
+            console.log('pdf template created');
+            let options = { format: 'Letter' };
+
+            pdf.create(htmlTemplate, options).toStream((err, stream) => {
+                if (err) {
+                    console.error(err);
+                } else {
+                    console.info('pdf file created successfully for cardholder in id:' + id);
+
+                    // call S3 to retrieve upload file to specified bucket
+                    var uploadParams = {
+                        Bucket: 'probusinessrun.finished.jobs.pdf',
+                        Key: nameOfpdf,
+                        Body: ''
+                    };
+
+                    // Configure the file stream and obtain the upload parameters
+                    var fileStream = stream;
+                    fileStream.on('error', function(err) {
+                        console.error('File Error', err);
+                    });
+                    uploadParams.Body = fileStream;
+
+                    // call S3 to retrieve upload file to specified bucket
+                    s3.upload(uploadParams, (err, data) => {
+                        if (err) {
+                            console.error('Error', err);
+                        }
+                        if (data) {
+                            console.info('Upload Success: cardholder pdf for job: ' + id + ' ' + data.Location);
+                        }
+                    });
+                }
+            });
+        },
         createBonusSettings: function() {
             let dateForSettings = `${new Date().getMonth()}/01/${new Date().getFullYear()}`;
             let countFoundedeData = BonusSettings.find({

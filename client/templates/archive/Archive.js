@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import { Template } from 'meteor/templating';
-import { Meteor } from 'meteor/meteor';
 
 // importing style
 import './archive.css';
@@ -18,7 +17,7 @@ Template.archive.onDestroyed(() => {
     ReactDOM.unmountComponentAtNode(document.getElementById('archive'));
 });
 
-export default class Archive extends TrackerReact(Component) {
+class Archive extends TrackerReact(Component) {
     constructor(props) {
         super(props);
         this.state = {

@@ -182,6 +182,10 @@ export default class PaymentForm extends TrackerReact(Component) {
                             nonce: nonce
                         },
                         () => {
+                            let job_ = Session.get('job');
+                            delete job_.updates;
+                            delete job_.cardholderInfo;
+                            delete job_.cardholderInfo;
                             fetch('https://www.probusinessrun.com/charge/', {
                                 // fetch('http://localhost:3000/charge/', {
                                 method: 'POST',
@@ -193,18 +197,16 @@ export default class PaymentForm extends TrackerReact(Component) {
                                     jobNumber: Session.get('jobNumber'),
                                     clientFirstName: Session.get('job').clientFirstName || '',
                                     clientLastName: Session.get('job').clientLastName || '',
-                                    job: Session.get('job')
+                                    job: job_
                                 }),
                                 headers: {
                                     'Content-Type': 'application/json'
                                 }
                             })
                                 .then(data => {
-                                    console.log('TCL: componentDidMount -> data', data);
                                     return data.json();
                                 })
                                 .then(data => {
-                                    console.log(data);
                                     if (!data.error) {
                                         Session.set('loading', false);
                                         swal({

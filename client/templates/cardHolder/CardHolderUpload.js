@@ -1,17 +1,33 @@
 import React, { Component } from 'react';
 import { Session } from 'meteor/session';
 import swal from 'sweetalert';
+import { Tracker } from 'meteor/tracker';
 
 class CardHolderUpload extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            cardFront: false,
-            cardBack: false,
-            cardHolderId: false
+            cardFront: '',
+            cardBack: '',
+            cardHolderId: '',
+            file: '',
+            displayFiles: false
         };
 
         this.fileSelect = this.fileSelect.bind(this);
+    }
+
+    componentDidMount() {
+        this.x = Tracker.autorun(() => {
+            let displayFiles = Session.get('displayFiles');
+            this.setState({
+                displayFiles
+            });
+        });
+    }
+
+    componentWillUnmount() {
+        this.x.stop();
     }
 
     fileSelect(e, nameOfFile) {
@@ -32,7 +48,7 @@ class CardHolderUpload extends Component {
                 this_.props.change(nameOfFile, reader.result);
                 this_.setState(
                     {
-                        [nameOfFile]: true
+                        [nameOfFile]: reader.result
                     },
                     () => Session.set('loading', false)
                 );
@@ -50,16 +66,25 @@ class CardHolderUpload extends Component {
             };
         }
 
-        file
-            ? getBase64(file)
-            : ((document.getElementById(nameOfFile).innerHTML = icon),
-            Session.set('loading', false));
+        file ? getBase64(file) : ((document.getElementById(nameOfFile).innerHTML = icon), Session.set('loading', false));
     }
     render() {
+        let fileDisplayStyle = 'upload_section row';
         return (
             <div className="col s12 m6 l6 offset-m3 offset-l3 cardholder_upload cardHolder-cardInfo">
                 UPLOAD FILES <span className="red_star">*</span>
-                <div className="upload_section row">
+                <div className={this.state.displayFiles ? 'row uploaded_files' : 'hide'}>
+                    <div className="col s12 m12 l12">
+                        <img src={this.state.cardFront} alt="card front" />
+                    </div>
+                    <div className="col s12 m12 l12">
+                        <img src={this.state.cardBack} alt="card back" />
+                    </div>
+                    <div className="col s12 m12 l12">
+                        <img src={this.state.cardHolderId} alt="id" />
+                    </div>
+                </div>
+                <div className={this.state.displayFiles ? 'hide' : fileDisplayStyle}>
                     <label htmlFor="card_front">
                         <div className="upload_cardholder_sections">
                             <p>Upload picture of the card front side</p>
@@ -167,10 +192,7 @@ class CardHolderUpload extends Component {
                     <label htmlFor="cardholder_id">
                         <div className="upload_cardholder_sections">
                             <p>Upload picture of government issued ID</p>
-                            <div
-                                id="cardHolderId"
-                                className={this.state.cardHolderId ? 'hide' : ''}
-                            >
+                            <div id="cardHolderId" className={this.state.cardHolderId ? 'hide' : ''}>
                                 <svg
                                     aria-hidden="true"
                                     focusable="false"

@@ -14,7 +14,8 @@
     font-weight: bold;
     color: #808080;
     position: absolute;
-    top: 33px;
+    top: 29px;
+    /* margin-left: 20px; */
 }
 #search {
     margin: 0 !important;

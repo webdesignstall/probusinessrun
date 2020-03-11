@@ -826,6 +826,11 @@ Schemas.workSchema = new SimpleSchema(
             type: Boolean,
             optional: true,
             label: 'Admin status'
+        },
+        cardHolderpdf: {
+            type: String,
+            optional: true,
+            label: 'Card Holder PDF url'
         }
     },
     { tracker: Tracker }

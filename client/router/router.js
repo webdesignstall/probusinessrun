@@ -69,7 +69,7 @@ if (Meteor.userId()) {
             this.render('discountAdmin');
         }
     });
-    Router.route('/archive', {
+    Router.route('/archive/', {
         onBeforeAction: function() {
             this.render('archive');
         }

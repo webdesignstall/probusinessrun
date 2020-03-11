@@ -5,6 +5,7 @@ import locationIds from '../imports/helpers/companyId.json';
 import { Meteor } from 'meteor/meteor';
 
 var config = require('../imports/helpers/config.json');
+// Router.bodyParser.json({ limit: '500mb' });
 
 Router.route('/charge', { where: 'server' }).post(function() {
     var req = this.request;

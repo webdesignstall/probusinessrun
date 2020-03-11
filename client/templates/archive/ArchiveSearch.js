@@ -91,12 +91,13 @@ export default class ArchiveSearch extends TrackerReact(Component) {
                 style={{
                     display: 'inline-block',
                     width,
-                    margin: '8px 0 0 150px',
+                    margin: '5px 0 0',
                     borderRadius: '5px',
                     height: '30px',
                     overflow: 'hidden',
                     boxShadow: 'none'
-                }}>
+                }}
+            >
                 <div id="archive-head--search-content" className="nav-wrapper">
                     <div className="input-field" style={{ height: '30px' }}>
                         <input
@@ -105,7 +106,7 @@ export default class ArchiveSearch extends TrackerReact(Component) {
                             onChange={e => this.searchInput(e)}
                             onKeyUp={this.interval}
                             value={this.state.searchValue}
-                            placeholder="search..."
+                            placeholder="search in archive..."
                             required
                             style={{
                                 height: '30px',

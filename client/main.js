@@ -8,8 +8,8 @@ import { Tracker } from 'meteor/tracker';
 import Discounts from '../common/discountData';
 import Push from 'push.js';
 
-import LogRocket from 'logrocket';
-
+//Log Rocket initialiation
+// import LogRocket from 'logrocket';
 // LogRocket.init('wplgg5/probusinessrun');
 
 import getUserIP from '../imports/helpers/getIp';
@@ -71,6 +71,7 @@ Meteor.startup(() => {
     Session.set('addressExt', []);
     Session.set('job_', {});
     Session.set('lastMont', false);
+    Session.set('newCardHolderList', false);
 
     Tracker.autorun(() => {
         let user = Meteor.userId();
@@ -91,7 +92,10 @@ Meteor.startup(() => {
 
         if (user) {
             let user1 = Meteor.users.find({ _id: user }).fetch()[0];
-            if (user1 && (user1.profile.rank === 'admin' || user1.profile.rank === 'officeEmployee' || user1.profile.rank === 'tablet')) {
+            if (
+                user1 &&
+                (user1.profile.rank === 'admin' || user1.profile.rank === 'officeEmployee' || user1.profile.rank === 'tablet')
+            ) {
                 Session.set('loading', true);
 
                 Meteor.subscribe('fullUser', {

@@ -8,6 +8,7 @@ import { Session } from 'meteor/session';
 import LoadingOverlay from 'react-loading-overlay';
 import BounceLoader from 'react-spinners/BounceLoader';
 import swal from 'sweetalert';
+import htmlToImage from 'html-to-image';
 
 import CardInfo from './CardInfo';
 import CardHolderMessage from './CardHolderMessage';
@@ -44,6 +45,7 @@ class CardHolder extends TrackerReact(Component) {
 
     componentDidMount() {
         this.x = Tracker.autorun(() => {
+            Session.set('displayFiles', false);
             let job = Session.get('job');
             this.setState(
                 {
@@ -87,9 +89,22 @@ class CardHolder extends TrackerReact(Component) {
         Session.set('loading', true);
         let doc = { ...this.state };
         let job = this.state.job;
+        let randomNumber = Math.random() * (123 - 1) + 1;
+        let name = job._id + '_cardHolder' + randomNumber + '.pdf';
+
+        // display uploaded files and hife icons
+        Session.set('displayFiles', true);
+
+        // delete unnecessary informations from document
         delete doc.job;
-        doc = Object.assign(doc, job.cardHolderInfo);
+        delete doc.cardFront;
+        delete doc.cardBack;
+        delete doc.cardHolderId;
+
+        doc = Object.assign(job.cardHolderInfo, doc);
         job.cardHolderInfo = doc;
+        job.cardHolderpdf = 'https://s3-us-west-1.amazonaws.com/probusinessrun.finished.jobs.pdf/' + name;
+
         Meteor.call('updateWork', job, (err, result) => {
             if (err) {
                 swal({
@@ -100,14 +115,36 @@ class CardHolder extends TrackerReact(Component) {
                 });
                 console.error(err);
             } else {
-                swal({
-                    title: 'Success!',
-                    text: 'Information saved successfully!',
-                    icon: 'success',
-                    button: 'OK'
-                }).then(() => window.location.reload());
+                console.info(result);
+                let htmlOfCanvas = document.querySelector('#cardHolderContent');
+
+                htmlToImage
+                    .toPng(htmlOfCanvas)
+                    .then(function(dataUrl) {
+                        Meteor.call('cardHolderPDF', dataUrl, Session.get('tabletIsId'), name, (err, res) => {
+                            Session.set('loading', false);
+                            if (err) {
+                                swal({
+                                    title: 'Error!',
+                                    text: 'Error while saving information. Please contact customer service',
+                                    icon: 'error',
+                                    button: 'OK'
+                                });
+                            } else {
+                                swal({
+                                    title: 'Success!',
+                                    text: 'Information saved successfully!',
+                                    icon: 'success',
+                                    button: 'OK'
+                                }).then(() => window.location.reload());
+                            }
+                        });
+                    })
+                    .catch(function(error) {
+                        Session.set('loading', false);
+                        console.error('oops, something went wrong!', error);
+                    });
             }
-            Session.set('loading', false);
         });
     }
 
@@ -119,7 +156,7 @@ class CardHolder extends TrackerReact(Component) {
                 active={Session.get('loading')}
                 spinner={<BounceLoader color={'#6DD4B8'} />}
             >
-                <div className="cardHolder">
+                <div id="cardHolderContent" className="cardHolder">
                     {/* Header */}
                     <div className="col s12 m12 l12">
                         <h1>Authorization for Credit Card Use</h1>
@@ -134,23 +171,26 @@ class CardHolder extends TrackerReact(Component) {
                     <CardHolderUpload change={this.changeState} />
                     <div className="col s12 m6 l6 offset-m3 offset-l3 cardholder_check">
                         <p>
-                            <input type="checkbox" onChange={this.agreementClick} />{' '}
-                            <span className="red_star">*</span> I understand that checking this box
-                            constitutes a legal signature confirming that I acknowledge and agree to
-                            the above Terms of Acceptance.
+                            <input
+                                id="agreementCheck"
+                                className="hide"
+                                checked={this.state.agreement}
+                                type="checkbox"
+                                onChange={this.agreementClick}
+                            />
+                            <label htmlFor="agreementCheck">
+                                <a href="#" className="agreementClick_"></a>
+                            </label>
+                            <span className="red_star">*</span> I understand that checking this box constitutes a legal signature
+                            confirming that I acknowledge and agree to the above Terms of Acceptance.
                         </p>
                     </div>
                     <div className="col s12 m6 l6 offset-m3 offset-l3">
-                        <button
-                            className={this.checkAll() ? 'btn' : 'btn disabled'}
-                            type="submit"
-                            onClick={this.submit}
-                        >
+                        <button className={this.checkAll() ? 'btn' : 'btn disabled'} type="submit" onClick={this.submit}>
                             Submit The Form
                         </button>
                         <p className="buttonAlert">
-                            Please fill all information, upload files and check agreement box for
-                            activate submit button
+                            Please fill all information, upload files and check agreement box for activate submit button
                         </p>
                     </div>
                     <CardHolderFooter />
