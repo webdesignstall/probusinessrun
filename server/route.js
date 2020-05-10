@@ -34,7 +34,7 @@ Router.route('/charge', { where: 'server' }).post(function() {
             // }
         )
         .catch(error => {
-            console.error(error);
+            console.error(`id: ${request_params._id}`, error);
             res.end(JSON.stringify({ error: true }));
         });
 
@@ -85,7 +85,7 @@ Router.route('/charge', { where: 'server' }).post(function() {
                 Meteor.call('sendPaymentConfirmationEmail', obj);
                 Meteor.call('confirmationGonder', job, (err, response) => {
                     if (err) {
-                        console.error(err);
+                        console.error(`id: ${job._id}`, err);
                         throw new Meteor.Error('Error while sending email', 'Error while sending email');
                     }
                     // let json = JSON.stringify(data);
@@ -93,7 +93,7 @@ Router.route('/charge', { where: 'server' }).post(function() {
             });
         },
         function(error) {
-            console.log('route line 62: ' + error);
+            console.error('route line 62: ' + error);
             // res.writeHead(500);
             res.end(JSON.stringify({ error: true }));
         }

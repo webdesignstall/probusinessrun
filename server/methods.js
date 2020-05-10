@@ -43,7 +43,7 @@ if (Meteor.isServer) {
                 },
                 err => {
                     if (err) {
-                        console.error(err);
+                        console.error(`id: ${obj._id}`, err);
                         throw new Meteor.Error('Error', 'Can\'t update information. Please contact with the administration');
                     }
                 }
@@ -102,7 +102,7 @@ if (Meteor.isServer) {
 
             server.send(message, function(err) {
                 if (err) {
-                    console.error(err);
+                    console.error(`id: ${job._id}`, err);
                     throw new Meteor.Error('500', 'Can\'t send email. Please contact system adminstration');
                 }
                 console.info('Follow up Email succesfully sent to: ' + job.email);
@@ -126,13 +126,13 @@ if (Meteor.isServer) {
             };
             oldJobUpdates.push(updates);
             WorkData.update({ _id }, { $set: { customerRate: rate, updates: oldJobUpdates } }, err => {
-                console.error(err);
+                console.error(`id: ${_id}`, err);
             });
         },
         saveBonusSettings: function(_id, settings) {
             BonusSettings.update({ _id }, { $set: { options: settings } }, err => {
                 if (err) {
-                    console.error(err);
+                    console.error(`id: ${_id}`, err);
                     throw new Meteor.Error('Error while saving settings');
                 }
             });
@@ -146,7 +146,7 @@ if (Meteor.isServer) {
 
             pdf.create(htmlTemplate, options).toStream((err, stream) => {
                 if (err) {
-                    console.error(err);
+                    console.error(`id: ${id}`, err);
                 } else {
                     console.info('pdf file created successfully for id:' + id);
 
@@ -160,14 +160,14 @@ if (Meteor.isServer) {
                     // Configure the file stream and obtain the upload parameters
                     var fileStream = stream;
                     fileStream.on('error', function(err) {
-                        console.error('File Error', err);
+                        console.error(`File error on id: ${id}`, err);
                     });
                     uploadParams.Body = fileStream;
 
                     // call S3 to retrieve upload file to specified bucket
                     s3.upload(uploadParams, (err, data) => {
                         if (err) {
-                            console.error('Error', err);
+                            console.error(`Error to upload file to S3 server on id: ${id}`, err);
                         }
                         if (data) {
                             console.info('Upload Success: pdf for job: ' + id + ' ' + data.Location);
@@ -177,14 +177,12 @@ if (Meteor.isServer) {
             });
         },
         cardHolderPDF: function(canvas, id, nameOfpdf) {
-            console.log('pdf creating began');
             let htmlTemplate = pdfTemplate(canvas);
-            console.log('pdf template created');
             let options = { format: 'Letter' };
 
             pdf.create(htmlTemplate, options).toStream((err, stream) => {
                 if (err) {
-                    console.error(err);
+                    console.error(`id: ${id}`, err);
                 } else {
                     console.info('pdf file created successfully for cardholder in id:' + id);
 
@@ -198,14 +196,14 @@ if (Meteor.isServer) {
                     // Configure the file stream and obtain the upload parameters
                     var fileStream = stream;
                     fileStream.on('error', function(err) {
-                        console.error('File Error', err);
+                        console.error(`Error while uploading file on id: ${id}`, err);
                     });
                     uploadParams.Body = fileStream;
 
                     // call S3 to retrieve upload file to specified bucket
                     s3.upload(uploadParams, (err, data) => {
                         if (err) {
-                            console.error('Error', err);
+                            console.error(`id: ${id}`, err);
                         }
                         if (data) {
                             console.info('Upload Success: cardholder pdf for job: ' + id + ' ' + data.Location);

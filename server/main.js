@@ -88,7 +88,7 @@ if (Meteor.isServer) {
             doc.statusChange = new Date();
             return WorkData.insert(doc, (err, id) => {
                 if (err) {
-                    console.error(err);
+                    console.error(`id: ${doc._id}`, err);
                     throw new Meteor.Error(
                         'Can\'t create new job',
                         'Error while creating new job. Pls Contact with the help desk. Reason: ' + err.message
@@ -126,7 +126,7 @@ if (Meteor.isServer) {
 
             server.send(message, function(err) {
                 if (err) {
-                    console.error(err);
+                    console.error(`id: ${job._id}`,err);
                     throw new Meteor.Error('Can\'t send email', 'Impossible send email. Contact system administration');
                 } else {
                     console.info('Email successfully sent to: ' + job.email);
@@ -166,7 +166,7 @@ if (Meteor.isServer) {
             };
 
             server.send(message, function(err) {
-                err ? console.error(err) : console.info('Email succesfully sent to: ' + job.email);
+                err ? console.error(`id: ${job._id}`, err) : console.info('Email succesfully sent to: ' + job.email);
             });
         },
 
@@ -223,7 +223,7 @@ if (Meteor.isServer) {
                 },
                 function(error, result) {
                     if (error) {
-                        console.error(error);
+                        console.error(`id: ${doc._id}`, error);
                         throw new Meteor.Error('Error updating', 'Reason: ' + error.message);
                     } else {
                         // console.info(result);
@@ -255,7 +255,7 @@ if (Meteor.isServer) {
 
             server.send(message, function(err) {
                 if (err) {
-                    console.error(err);
+                    console.error(`id: ${job._id}`, err);
                     throw new Meteor.Error('Impossible to send email to supervisor');
                 } else {
                     console.info('Email successfully sent to supervisor');
@@ -286,7 +286,7 @@ if (Meteor.isServer) {
 
             server.send(message, function(err) {
                 if (err) {
-                    console.error(err);
+                    console.error(`id: ${job._id}`, err);
                     throw new Meteor.Error('Impossible to send contract email to customer');
                 } else {
                     console.info('Email successfully sent to customer');
@@ -300,7 +300,7 @@ if (Meteor.isServer) {
                     $set: doc
                 },
                 function(error, result) {
-                    error ? console.error(error) : null;
+                    error ? console.error(`id: ${doc._id}`,error) : null;
                 }
             );
         },
@@ -334,7 +334,7 @@ if (Meteor.isServer) {
             };
 
             server.send(message, function(err) {
-                err ? console.error(err) : console.info('Info about payment successfully sent to administration email');
+                err ? console.error(`id: ${obj._id}`, err) : console.info('Info about payment successfully sent to administration email');
             });
         },
         emailToCardHolder: function(obj) {
@@ -391,13 +391,13 @@ ${obj.companyInfo.email}<br>
 
             server.send(message, function(err, message) {
                 if (err) {
-                    console.log('Error while trying send email to cardholder ' + err);
+                    console.error(`Error while trying send email to cardholder. id: ${obj._id}` + err);
                     throw new Meteor.Error(
                         'Impossible to send email',
                         'Problem while sending email. Please chack email address.'
                     );
                 } else {
-                    console.log('Info about payment successfully sent to ' + obj.cardHolderInfo.email + ' email');
+                    console.info('Info about payment successfully sent to ' + obj.cardHolderInfo.email + ' email');
                 }
             });
         }
