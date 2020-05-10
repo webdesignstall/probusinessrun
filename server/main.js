@@ -309,18 +309,22 @@ if (Meteor.isServer) {
         },
         sendPaymentConfirmationEmail: function(obj) {
             let server = email.server.connect({
-                user: 'info@movingcompanylosangeles.com',
+                user: 'lamovingcom@gmail.com',
                 password: 'MCla7724!',
                 timeout: 60000,
-                host: 'mail.movingcompanylosangeles.com'
-                // ssl: true
+                host: 'smtp.gmail.com',
+                // password: 'MCla7724!',
+                // timeout: 60000,
+                // host: 'mail.movingcompanylosangeles.com'
+                ssl: true
             });
-
+            
             let message = {
+                // user: 'info@movingcompanylosangeles.com',
                 text: ' ',
-                from: 'ProBusinessRun info@probusinessrun.com',
+                from: 'ProBusinessRun lamovingcom@gmail.com',
                 to: 'lamovingcom@gmail.com',
-                subject: `${obj.clientFirstName} ${obj.clientLastName} payed $${obj.amount} deposit`,
+                subject: `${obj.clientFirstName} ${obj.clientLastName} payed $${obj.amount} deposit. Job Number:  ${obj.jobNumber}`,
                 attachment: [
                     {
                         data: depositPaymentEmail(obj),

@@ -79,7 +79,7 @@ Router.route('/charge', { where: 'server' }).post(function() {
             Meteor.call('updateWork', job, (err, response) => {
                 res.end(JSON.stringify({ error: false }));
                 if (err) {
-                    console.error(err);
+                    console.error(`Erro with job: ${job.jobNumber}`, err);
                     throw new Meteor.Error('Error while saving data', 'Error while saving data');
                 }
                 Meteor.call('sendPaymentConfirmationEmail', obj);

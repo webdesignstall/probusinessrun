@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { Session } from 'meteor/session';
-import WorkData from '../../common/collections_2';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 
 /*global swal */
@@ -187,7 +186,7 @@ export default class PaymentForm extends TrackerReact(Component) {
                             delete job_.cardholderInfo;
                             delete job_.cardholderInfo;
                             fetch('https://www.probusinessrun.com/charge/', {
-                                // fetch('http://localhost:3000/charge/', {
+                            // fetch('http://localhost:3000/charge/', {
                                 method: 'POST',
                                 body: JSON.stringify({
                                     nonce: this.state.nonce,
@@ -307,7 +306,6 @@ export default class PaymentForm extends TrackerReact(Component) {
                         />
                         <hr />
                     </div>
-
                     <div id="sq-ccbox">
                         <p id="card_header">
                             <span style={styles.leftCenter}>Enter Card Info Below </span>

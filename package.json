@@ -14,7 +14,7 @@
         "@babel/runtime": "^7.4.5",
         "@sentry/browser": "^4.6.4",
         "@types/react": "^16.8.2",
-        "aws-sdk": "^2.571.0",
+        "aws-sdk": "^2.673.0",
         "babel-runtime": "^6.26.0",
         "bcrypt": "^1.0.3",
         "buffer": "^5.2.1",
