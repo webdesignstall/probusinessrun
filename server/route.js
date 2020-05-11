@@ -60,6 +60,7 @@ Router.route('/charge', { where: 'server' }).post(function() {
     transactions_api.charge(locationIds[jobInfo.companyInfo.name], request_body).then(
         function(data) {
             let obj = {
+                _id: request_params.id,
                 clientFirstName: request_params.clientFirstName,
                 clientLastName: request_params.clientLastName,
                 amount,

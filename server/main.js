@@ -12,7 +12,7 @@ import DifferenceCalculator from './DifferenceCalculator';
 import depositPaymentEmail from './depositPaymentEmail';
 import pdfToCustomer from './pdfToCustomer';
 
-var config = require('../imports/helpers/config.json');
+let config = require('../imports/helpers/config.json');
 
 Meteor.startup(() => {
     WorkData.update(
@@ -31,10 +31,10 @@ Meteor.startup(() => {
         { multi: true }
     );
     // Set Square Connect credentials
-    var defaultClient = squareConnect.ApiClient.instance;
+    let defaultClient = squareConnect.ApiClient.instance;
 
     // Configure OAuth2 access token for authorization: oauth2
-    var oauth2 = defaultClient.authentications['oauth2'];
+    let oauth2 = defaultClient.authentications['oauth2'];
     oauth2.accessToken = config.squareAccessToken;
 
     // prepare mailing server
@@ -126,7 +126,7 @@ if (Meteor.isServer) {
 
             server.send(message, function(err) {
                 if (err) {
-                    console.error(`id: ${job._id}`,err);
+                    console.error(`id: ${job._id}`, err);
                     throw new Meteor.Error('Can\'t send email', 'Impossible send email. Contact system administration');
                 } else {
                     console.info('Email successfully sent to: ' + job.email);
@@ -200,7 +200,7 @@ if (Meteor.isServer) {
                     changes: diff
                 };
 
-                // push update informations into the doc
+                // push update information into the doc
                 if (job.updates) {
                     job.updates.push(update);
                     doc.updates = job.updates;
@@ -211,9 +211,7 @@ if (Meteor.isServer) {
             }
 
             doc.status !== job.status ? (doc.statusChange = new Date()) : null;
-
             doc.status === 'won' && !doc.wonDate ? (doc.wonDate = new Date()) : null;
-
             doc.lastChange = new Date();
 
             WorkData.update(
@@ -300,13 +298,15 @@ if (Meteor.isServer) {
                     $set: doc
                 },
                 function(error, result) {
-                    error ? console.error(`id: ${doc._id}`,error) : null;
+                    error ? console.error(`id: ${doc._id}`, error) : null;
                 }
             );
         },
+
         removeDiscount: function(id) {
             Discounts.remove(id);
         },
+
         sendPaymentConfirmationEmail: function(obj) {
             let server = email.server.connect({
                 user: 'lamovingcom@gmail.com',
@@ -316,9 +316,10 @@ if (Meteor.isServer) {
                 // password: 'MCla7724!',
                 // timeout: 60000,
                 // host: 'mail.movingcompanylosangeles.com'
-                ssl: true
+                // ssl: true
+                tls: true
             });
-            
+
             let message = {
                 // user: 'info@movingcompanylosangeles.com',
                 text: ' ',
@@ -334,7 +335,9 @@ if (Meteor.isServer) {
             };
 
             server.send(message, function(err) {
-                err ? console.error(`id: ${obj._id}`, err) : console.info('Info about payment successfully sent to administration email');
+                err
+                    ? console.error(`id: ${obj._id}`, err)
+                    : console.info('Info about payment successfully sent to administration email');
             });
         },
         emailToCardHolder: function(obj) {
