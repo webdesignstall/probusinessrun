@@ -90,7 +90,7 @@ if (Meteor.isServer) {
                 if (err) {
                     console.error(`id: ${doc._id}`, err);
                     throw new Meteor.Error(
-                        'Can\'t create new job',
+                        "Can't create new job",
                         'Error while creating new job. Pls Contact with the help desk. Reason: ' + err.message
                     );
                 } else {
@@ -127,7 +127,7 @@ if (Meteor.isServer) {
             server.send(message, function(err) {
                 if (err) {
                     console.error(`id: ${job._id}`, err);
-                    throw new Meteor.Error('Can\'t send email', 'Impossible send email. Contact system administration');
+                    throw new Meteor.Error("Can't send email", 'Impossible send email. Contact system administration');
                 } else {
                     console.info('Email successfully sent to: ' + job.email);
                 }
@@ -231,7 +231,8 @@ if (Meteor.isServer) {
         },
         supervisorEmail: function(job) {
             let server = email.server.connect({
-                user: job.companyInfo.email,
+                user: 'info@cheapmoverslosangeles.com',
+                // user: job.companyInfo.email,
                 password: 'MCla7724!',
                 timeout: 60000,
                 host: job.companyInfo.smtp
@@ -240,7 +241,8 @@ if (Meteor.isServer) {
 
             let message = {
                 text: ' ',
-                from: job.companyInfo.name + ' ' + job.companyInfo.email,
+                from: job.companyInfo.name + ' info@cheapmoverslosangeles.com',
+                // from: job.companyInfo.name + ' ' + job.companyInfo.email,
                 to: 'movinglosangeles111@gmail.com',
                 subject: 'Confirmation email',
                 attachment: [
@@ -309,7 +311,8 @@ if (Meteor.isServer) {
 
         sendPaymentConfirmationEmail: function(obj) {
             let server = email.server.connect({
-                user: 'info@movingcompanylosangeles.com',
+                user: 'info@cheapmoverslosangeles.com',
+                // user: 'info@movingcompanylosangeles.com',
                 password: 'MCla7724!',
                 timeout: 60000,
                 host: 'mail.movingcompanylosangeles.com'
