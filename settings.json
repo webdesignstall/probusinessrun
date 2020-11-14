@@ -1,7 +1,6 @@
 {
     "galaxy.meteor.com": {
         "env": {
-            // "MONGO_URL": "mongodb://probusinessrun:plbpXmry!26i@ds123499.mlab.com:23499/probusinessrun",
             "MONGO_URL": "mongodb+srv://probusinessrun:bVvg1MGhwVUc5OPl@probusinessrun.qnpoa.mongodb.net/probusinessrun?retryWrites=true&w=majority",
             "MAIL_URL": "smtp: //postmaster%40probusinessrun.com:6d0eb775d8a76c5f1efd0b02030ea3fa-e89319ab-67f4f8af@smtp.mailgun.org:587"
         }
