@@ -31,3 +31,9 @@ dist/
 node_modules/
 aws-exports.js
 awsconfiguration.json
+
+# personal files
+settings.json
+TODO
+databaseBackup
+README.md
