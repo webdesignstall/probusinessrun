@@ -30,7 +30,7 @@ if (Meteor.isServer) {
             if (userInfo) {
                 return userInfo;
             } else {
-                throw new Meteor.Error('Error', 'Can\'t create information in the database');
+                throw new Meteor.Error('Error', "Can't create information in the database");
             }
         },
         updateUserOrTruck: function(id, obj) {
@@ -44,7 +44,7 @@ if (Meteor.isServer) {
                 err => {
                     if (err) {
                         console.error(`id: ${obj._id}`, err);
-                        throw new Meteor.Error('Error', 'Can\'t update information. Please contact with the administration');
+                        throw new Meteor.Error('Error', "Can't update information. Please contact with the administration");
                     }
                 }
             );
@@ -78,10 +78,11 @@ if (Meteor.isServer) {
                 user: job.companyInfo.email,
                 password: 'MCla7724!',
                 timeout: 60000,
-                host: job.companyInfo.smtp
+                host: job.companyInfo.smtp,
+                authentication: ['PLAIN', 'LOGIN', 'CRAM-MD5', 'XOAUTH2']
                 // ssl: true
             });
-
+            console.log(job.workDate);
             let workDate = moment(job.workDate);
             let today = moment(new Date());
 
@@ -103,7 +104,7 @@ if (Meteor.isServer) {
             server.send(message, function(err) {
                 if (err) {
                     console.error(`id: ${job._id}`, err);
-                    throw new Meteor.Error('500', 'Can\'t send email. Please contact system adminstration');
+                    throw new Meteor.Error('500', "Can't send email. Please contact system adminstration");
                 }
                 console.info('Follow up Email succesfully sent to: ' + job.email);
             });

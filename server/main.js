@@ -101,11 +101,14 @@ if (Meteor.isServer) {
 
         emailGonder: function(job) {
             // server connection
+            console.info('🚀 ~ file: main.js ~ line 112 ~ job.companyInfo.smtp,', job.companyInfo.smtp);
             let server = email.server.connect({
                 user: job.companyInfo.email,
                 password: 'MCla7724!',
                 host: job.companyInfo.smtp,
-                timeout: 60000
+                timeout: 60000,
+                ssl: true
+                // authentication: ['PLAIN', 'LOGIN', 'CRAM-MD5', 'XOAUTH2']
             });
 
             //sending email
@@ -148,7 +151,8 @@ if (Meteor.isServer) {
                 user: job.companyInfo.email,
                 password: 'MCla7724!',
                 timeout: 60000,
-                host: job.companyInfo.smtp
+                host: job.companyInfo.smtp,
+                authentication: ['PLAIN', 'LOGIN', 'CRAM-MD5', 'XOAUTH2']
                 // ssl: true
             });
 
@@ -235,7 +239,9 @@ if (Meteor.isServer) {
                 // user: job.companyInfo.email,
                 password: 'MCla7724!',
                 timeout: 60000,
-                host: job.companyInfo.smtp
+                host: job.companyInfo.smtp,
+                authentication: ['PLAIN', 'LOGIN', 'CRAM-MD5', 'XOAUTH2']
+
                 // ssl: true
             });
 
@@ -267,7 +273,9 @@ if (Meteor.isServer) {
                 user: job.companyInfo.email,
                 password: 'MCla7724!',
                 timeout: 60000,
-                host: job.companyInfo.smtp
+                host: job.companyInfo.smtp,
+                authentication: ['PLAIN', 'LOGIN', 'CRAM-MD5', 'XOAUTH2']
+
                 // ssl: true
             });
 
@@ -315,7 +323,9 @@ if (Meteor.isServer) {
                 // user: 'info@movingcompanylosangeles.com',
                 password: 'MCla7724!',
                 timeout: 60000,
-                host: 'mail.movingcompanylosangeles.com'
+                host: 'mail.cheapmoverslosangeles.com',
+                authentication: ['PLAIN', 'LOGIN', 'CRAM-MD5', 'XOAUTH2']
+
                 // ssl: true
             });
 
@@ -344,7 +354,9 @@ if (Meteor.isServer) {
                 user: obj.companyInfo.email,
                 password: 'MCla7724!',
                 timeout: 60000,
-                host: obj.companyInfo.smtp
+                host: obj.companyInfo.smtp,
+                authentication: ['PLAIN', 'LOGIN', 'CRAM-MD5', 'XOAUTH2']
+
                 // ssl: true
             });
 
