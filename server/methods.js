@@ -78,7 +78,7 @@ if (Meteor.isServer) {
                 user: job.companyInfo.email,
                 password: 'MCla7724!',
                 timeout: 60000,
-                host: job.companyInfo.smtp,
+                host: '162-0-208-35.cprapid.com',
                 ssl: true
             });
 

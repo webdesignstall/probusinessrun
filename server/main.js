@@ -90,7 +90,7 @@ if (Meteor.isServer) {
                 if (err) {
                     console.error(`id: ${doc._id}`, err);
                     throw new Meteor.Error(
-                        "Can't create new job",
+                        'Can not create new job',
                         'Error while creating new job. Pls Contact with the help desk. Reason: ' + err.message
                     );
                 } else {
@@ -101,11 +101,10 @@ if (Meteor.isServer) {
 
         emailGonder: function(job) {
             // server connection
-            console.info('🚀 ~ file: main.js ~ line 112 ~ job.companyInfo.smtp,', job.companyInfo.smtp);
             let server = email.server.connect({
                 user: job.companyInfo.email,
                 password: 'MCla7724!',
-                host: job.companyInfo.smtp,
+                host: '162-0-208-35.cprapid.com',
                 timeout: 60000,
                 ssl: true
                 // authentication: ['PLAIN', 'LOGIN', 'CRAM-MD5', 'XOAUTH2']
@@ -151,7 +150,7 @@ if (Meteor.isServer) {
                 user: job.companyInfo.email,
                 password: 'MCla7724!',
                 timeout: 60000,
-                host: job.companyInfo.smtp,
+                host: '162-0-208-35.cprapid.com',
                 ssl: true
             });
 
@@ -238,7 +237,7 @@ if (Meteor.isServer) {
                 // user: job.companyInfo.email,
                 password: 'MCla7724!',
                 timeout: 60000,
-                host: job.companyInfo.smtp,
+                host: '162-0-208-35.cprapid.com',
                 ssl: true
             });
 
@@ -270,7 +269,7 @@ if (Meteor.isServer) {
                 user: job.companyInfo.email,
                 password: 'MCla7724!',
                 timeout: 60000,
-                host: job.companyInfo.smtp,
+                host: '162-0-208-35.cprapid.com',
                 ssl: true
             });
 
@@ -318,7 +317,7 @@ if (Meteor.isServer) {
                 // user: 'info@movingcompanylosangeles.com',
                 password: 'MCla7724!',
                 timeout: 60000,
-                host: 'mail.cheapmoverslosangeles.com',
+                host: '162-0-208-35.cprapid.com',
                 ssl: true
             });
 
