@@ -22,17 +22,18 @@ export default class NewAppointment extends Component {
         }
 
         if (confirm('Are you sure to create new Appointment')) {
-            let job = WorkData.findOne({ _id: Session.get('is') });
+            let job = Session.get('job_');
 
             job.jobNumber = jobNumber_();
             job.quoteDate = new Date();
             job.status = 'inProgress';
+            job.workers = [];
             delete job._id;
 
             Meteor.call('quotaniBazayaElaveEt', job, (err, doc) => {
                 if (err) {
                     swal({
-                        title: 'Error! Can\'t create new appointment',
+                        title: 'Error! Cant create new appointment',
                         text: err.reason,
                         icon: 'error',
                         button: 'OK'
@@ -40,19 +41,19 @@ export default class NewAppointment extends Component {
                 } else {
                     swal({
                         title: 'Success!',
-                        text:
-                            'New appointment created successfully. Please edit and save!',
+                        text: 'New appointment created successfully. Please edit and save!',
                         icon: 'success',
                         button: 'OK'
                     });
                     Session.set('is', doc);
+                    job._id = doc;
                     Session.set('ExtendedJobInformation', doc);
                     Session.set('update', !Session.get('update'));
                     Session.set('loading', false);
                     Session.set('status', 'inProgress');
+                    Session.set('job_', job);
                     document.getElementById('jobStatus_followup') &&
-                        (document.getElementById('jobStatus_followup').value =
-                            'inProgress');
+                        (document.getElementById('jobStatus_followup').value = 'inProgress');
                 }
             });
         }
@@ -69,10 +70,9 @@ export default class NewAppointment extends Component {
                         backgroundColor: '#2ecc71',
                         color: 'black',
                         fontWeight: '500'
-                    }}>
-                    <i
-                        className="material-icons left"
-                        style={{ color: 'white' }}>
+                    }}
+                >
+                    <i className="material-icons left" style={{ color: 'white' }}>
                         note_add
                     </i>
                     New Appointment

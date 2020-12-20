@@ -88,7 +88,8 @@ export default class RenderEmployees extends TrackerReact(Component) {
                     id={isci._id}
                     key={isci._id}
                     className={this.check(isci._id) ? 'green animated' : 'animated'}
-                    onClick={() => this.employeeClick(isci._id)}>
+                    onClick={() => this.employeeClick(isci._id)}
+                >
                     {isci.profile.firstName} {isci.profile.lastName}
                 </a>
             );
