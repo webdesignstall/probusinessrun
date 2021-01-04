@@ -3,9 +3,9 @@ import { Meteor } from 'meteor/meteor';
 export default function supervisorEmailContent(job) {
     let addresses = function() {
         return job.addresses
-            .map(address => {
+            .map((address, index) => {
                 return `
-            <p style="font-size: 14px; line-height: 16px; margin: 0;">${address}</p>
+            <p style="font-size: 14px; line-height: 16px; margin: 0;">${job.fromTo[index]}: ${address}</p>
             `;
             })
             .join('');
@@ -437,8 +437,8 @@ ${job.deposit && job.deposit > 0 ? `<p style="font-size: 14px; line-height: 16px
 <p style="font-size: 14px; line-height: 16px; margin: 0;">DDT: ${job.doubleDrive}</p>
 <p style="font-size: 14px; line-height: 16px; margin: 0;">Gas: ${job.gasFee > 0 ? job.gasFee : job.gasFee < 0 ? 'Yes' : 'No'}</p>
 <p style="font-size: 14px; line-height: 16px; margin: 0;">Small T.P.S: ${
-    job.smallItemPacking > 0 ? job.smallItemPacking : job.smallItemPacking < 0 ? 'Yes' : 'No'
-}</p>
+        job.smallItemPacking > 0 ? job.smallItemPacking : job.smallItemPacking < 0 ? 'Yes' : 'No'
+    }</p>
 ${largeItemFee()}
 ${nte()}
 ${trucks()}

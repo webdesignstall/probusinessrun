@@ -1,5 +1,14 @@
+ReDesign supervisior email:
+    ☐ change design of email @started(21-01-03 16:53)
+    ☐ design database for "Dropoff & Pickup"
+    ☐ display addresses as a "from" & "to"
+    ☐ add new field to database for from to menu
+    google timing calculation:
+        ☐ check if it is easy to add
+        ☐ implement calculation
+
 Create new appointment:
-    ✔ Eployees signed alredy need to be reset @started(20-12-20 02:22) @done(20-12-20 03:10) @lasted(48m5s)
+    ✔ Eployees signed alredy need to be reset @started(20-12-20 02:22) @done(21-01-03 16:40) @lasted(2w14h18m46s)
 
 Notification center:
     ☐ Create notification center database
