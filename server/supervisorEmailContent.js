@@ -3,24 +3,26 @@ import { Meteor } from 'meteor/meteor';
 export default function supervisorEmailContent(job) {
     let addresses = function() {
         return job.addresses
-            .map(address => {
+            .map((address, index) => {
                 return `
-            <p style="font-size: 14px; line-height: 16px; margin: 0;">${address}</p>
+            <p style="font-size: 14px; line-height: 16px; margin: 0;">${job.fromTo[index] || ''}: ${address}</p>
             `;
             })
             .join('');
     };
 
     let trucks = function() {
-        return job.trucks
-            .map(truck => {
-                return `
-            <p style="font-size: 14px; line-height: 16px; margin: 0;">
-                Truck #${truck.truck}
-            </p>
-            `;
-            })
-            .join('');
+        if (Array.isArray(job.trucks) && job.trucks.length > 0) {
+            let trucksList = job.trucks
+                .map(truck => {
+                    return '#' + truck.truck;
+                })
+                .join(', ');
+
+            return `<p style="font-size: 14px; line-height: 16px; margin: 0;">
+            Truck${job.trucks.length > 1 ? 's' : ''}: ${trucksList}
+            </p>`;
+        }
     };
 
     let employees = function() {
@@ -49,38 +51,60 @@ export default function supervisorEmailContent(job) {
             : '';
     };
 
-    let nte = function() {
-        return job.price
-            ? `
-<p style="font-size: 14px; line-height: 16px; margin: 0;">NTE ${job.price}</p>
-			`
-            : '';
-    };
+    //     let largeItemFee = function() {
+    //         return job.largeItemFee
+    //             ? `
+    // 		<p style="font-size: 14px; line-height: 16px; margin: 0;">Large I.F: ${job.largeItemFee}</p>`
+    //             : '';
+    //     };
 
-    let largeItemFee = function() {
-        return job.largeItemFee
-            ? `
-		<p style="font-size: 14px; line-height: 16px; margin: 0;">Large I.F: ${job.largeItemFee}</p>`
-            : '';
-    };
-
-    let flatRate = function() {
-        return job.flatRate[0].isTrue
-            ? `
-<p style="font-size: 14px; line-height: 16px; margin: 0;">${job.flatRate[0].cashAmount} / ${job.flatRate[0].cardAmount}</p>
-		`
-            : '';
-    };
+    //     let flatRate = function() {
+    //         return job.flatRate[0].isTrue
+    //             ? `
+    // <p style="font-size: 14px; line-height: 16px; margin: 0;">${job.flatRate[0].cashAmount} / ${job.flatRate[0].cardAmount}</p>
+    // 		`
+    //             : '';
+    //     };
 
     let additionalContacts = function() {
         return (
             job.additionalContacts &&
             job.additionalContacts.length > 0 &&
             job.additionalContacts.map(addContacts => {
-                return `<p>${addContacts.firstName} ${addContacts.lastName}</p><p>${addContacts.phoneNumber ||
-                    ''}</p><p>${addContacts.additionalPhoneNumber || ''}</p>`;
+                return `<p style="font-size: 14px; line-height: 16px; margin: 0;">
+				${addContacts.firstName} ${addContacts.lastName} / ${addContacts.phoneNumber || ''} / ${addContacts.additionalPhoneNumber || ''}
+					</p>`;
             })
         );
+    };
+
+    let flatRateInfoDisplay = function() {
+        return `<p style="font-size: 14px; line-height: 16px; margin: 0;">
+            $${job.flatRate.cashAmount}/${job.flatRate.cardAmount} for first ${job.laborTime} hour(s), after $
+            ${job.hourlyRatesCash}/${job.hourlyRatesCard} p/h ${job.doubleDrive && job.doubleDrive === 'yes' && ', + DDT'} 
+            ${job.gasFee && job.gasFee > 0 ? `, +$${job.gasFee} gas fee` : ', +Travel Fee'} 
+            ${job.largeItemFee && job.largeItemFee > 0 ? `, +$${job.largeItemFee} L.I.F.` : ''}
+            ${job.stairsFee && job.stairsFee > 0 ? `, $${job.stairsFee} Stairs Fee` : ''}
+            ${job.deposit && job.deposit > 0 ? `, $${job.deposit} deposit paid` : ''}
+        </p>`;
+    };
+
+    // let trucks = function() {
+    //     if(Array.isArray(job.trucksTemp) && job.trucksTemp.length > 0){
+
+    //     }
+    // }
+
+    let hourlyRateDisplay = function() {
+        return `<p style="font-size: 14px; line-height: 16px; margin: 0;">
+            $${job.hourlyRatesCash}/${job.hourlyRatesCard} p/h 
+            ${job.laborTime && job.laborTime > 0 ? `with ${job.laborTime}hrs min.` : ''}
+            ${job.doubleDrive && job.doubleDrive === 'yes' && ', + DDT'} 
+            ${job.gasFee && job.gasFee > 0 ? `, +$${job.gasFee} gas fee` : ', +Travel Fee'} 
+            ${job.largeItemFee && job.largeItemFee > 0 ? `, +$${job.largeItemFee} L.I.F.` : ''}
+            ${job.stairsFee && job.stairsFee > 0 ? `, $${job.stairsFee} Stairs Fee` : ''}
+            ${job.deposit && job.deposit > 0 ? `, $${job.deposit} deposit paid` : ''}
+        </p>`;
     };
 
     return `
@@ -420,32 +444,37 @@ export default function supervisorEmailContent(job) {
 <div style="color:#555555;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif;line-height:120%;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;">
 <div style="font-size: 12px; line-height: 14px; color: #555555; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;">
 <p style="font-size: 14px; line-height: 16px; margin: 0;">${job.companyInfo.name}</p>
-<p style="font-size: 14px; line-height: 16px; margin: 0;">${job.clientFirstName || ''} ${job.clientLastName || ''}</p>
-<p style="font-size: 14px; line-height: 16px; margin: 0;">${job.phoneNumber || ''}</p>
+<p style="font-size: 14px; line-height: 16px; margin: 0;">${'Ise Gelme Vaxti'}</p>
+<p style="font-size: 14px; line-height: 16px; margin: 0;">${employees()}</p>
+<br/>
+<p style="font-size: 14px; line-height: 16px; margin: 0;">
+${job.clientFirstName || ''} ${job.clientLastName || ''} / ${job.phoneNumber || ''}
 ${additionalContacts()}
-<p style="font-size: 14px; line-height: 16px; margin: 0;">${job.workMustBeginTime[0]} - ${job.workMustBeginTime[1]}</p>
-<p style="font-size: 14px; line-height: 16px; margin: 0;">${job.movingSize || ''}</p>
+</p>
+<br/>
+<p style="font-size: 14px; line-height: 16px; margin: 0;"></p>;
+<p style="font-size: 14px; line-height: 16px; margin: 0;">Start window:
+${job.workMustBeginTime[0]} - ${job.workMustBeginTime[1]}
+</p>
 ${addresses()}
-${
-    job.hourlyRatesCash && job.hourlyRatesCard && job.hourlyRatesCash > 0 && job.hourlyRatesCard > 0
-        ? `<p style="font-size: 14px; line-height: 16px; margin: 0;">${job.hourlyRatesCash} / ${job.hourlyRatesCard}</p>`
-        : ''
-}
-${flatRate()}
-${job.laborTime && job.laborTime > 0 ? `<p style="font-size: 14px; line-height: 16px; margin: 0;">${job.laborTime}hr</p>` : ''}
-${job.deposit && job.deposit > 0 ? `<p style="font-size: 14px; line-height: 16px; margin: 0;">${job.deposit}$</p>` : ''}
-<p style="font-size: 14px; line-height: 16px; margin: 0;">DDT: ${job.doubleDrive}</p>
-<p style="font-size: 14px; line-height: 16px; margin: 0;">Gas: ${job.gasFee > 0 ? job.gasFee : job.gasFee < 0 ? 'Yes' : 'No'}</p>
-<p style="font-size: 14px; line-height: 16px; margin: 0;">Small T.P.S: ${
-    job.smallItemPacking > 0 ? job.smallItemPacking : job.smallItemPacking < 0 ? 'Yes' : 'No'
-}</p>
-${largeItemFee()}
-${nte()}
+<br/>
+${job.movingSize}, ${job.flatRate.isTrue ? flatRateInfoDisplay() : hourlyRateDisplay()}
+${job.price && `NTE: $${job.price}`}
 ${trucks()}
-Employees:
-${employees()}
 ${takenBy()}
 ${notes()}
+<p style="font-size: 14px; line-height: 16px; margin: 0;">
+----------------------------
+</p>
+<p style="font-size: 14px; line-height: 16px; margin: 0;">${job.companyInfo.name}</p>
+<p style="font-size: 14px; line-height: 16px; margin: 0;">${'Ise Gelme Vaxti'}</p>
+<p style="font-size: 14px; line-height: 16px; margin: 0;">${employees()}</p>
+<br/>
+${addresses()}
+<br/>
+${job.movingSize}, ${job.flatRate.isTrue ? flatRateInfoDisplay() : hourlyRateDisplay()}
+${job.price && `NTE: $${job.price}`}
+${trucks()}
 </div>
 </div>
 <!--[if mso]></td></tr></table><![endif]-->

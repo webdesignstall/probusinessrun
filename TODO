@@ -1,5 +1,32 @@
+ReDesign supervisior email:
+    change design of email:
+        Forman: 
+            ✔ company name @done(21-01-04 16:04)
+            ☐ time to arrive to office
+            ✔ movers list @done(21-01-04 16:10)
+            ✔ customer name @done(21-01-04 16:10)
+            ✔ customer phone @done(21-01-04 16:11)
+            ✔ starting time @done(21-01-04 16:12)
+            ✔ addresses @done(21-01-04 16:13)
+            ✔ job info @done(21-01-09 14:13)
+            ✔ not to exceed @done(21-01-09 15:30)
+            ☐ trucks
+            ✔ taken by @done(21-01-09 15:55)
+            ☐ notes
+        Helper:
+            ☐ company name
+            ☐ time to arrive to office
+            ☐ adresses
+            ☐ truck
+    ☐ design database for "Dropoff & Pickup"
+    ☐ display addresses as a "from" & "to"
+    ☐ add new field to database for from to menu
+    google timing calculation:
+        ☐ check if it is easy to add
+        ☐ implement calculation
+
 Create new appointment:
-    ✔ Eployees signed alredy need to be reset @started(20-12-20 02:22) @done(20-12-20 03:10) @lasted(48m5s)
+    ✔ Eployees signed alredy need to be reset @started(20-12-20 02:22) @done(21-01-03 16:40) @lasted(2w14h18m46s)
 
 Notification center:
     ☐ Create notification center database
