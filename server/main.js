@@ -15,6 +15,16 @@ import pdfToCustomer from './pdfToCustomer';
 let config = require('../imports/helpers/config.json');
 
 Meteor.startup(() => {
+    // const originalMeteorDebug = Meteor._debug;
+    // Meteor._debug = (message, stack) => {
+    //     if (Meteor.isDevelopment) {
+    //         console.log('===== message =====', message);
+    //         console.log('===== stack =====', stack);
+    //     }
+
+    //     return originalMeteorDebug.apply(this, arguments);
+    // };
+
     WorkData.update(
         { addressExt: { $exists: false } },
         {
@@ -246,6 +256,7 @@ if (Meteor.isServer) {
                 from: job.companyInfo.name + ' info@cheapmoverslosangeles.com',
                 // from: job.companyInfo.name + ' ' + job.companyInfo.email,
                 to: 'movinglosangeles111@gmail.com',
+                // to: 'joseph.khalilov@gmail.com',
                 subject: 'Confirmation email',
                 attachment: [
                     {
