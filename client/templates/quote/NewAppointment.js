@@ -27,6 +27,7 @@ export default class NewAppointment extends Component {
             job.jobNumber = jobNumber_();
             job.quoteDate = new Date();
             job.status = 'inProgress';
+            job.takenBy = Meteor.userId();
             job.workers = [];
             delete job._id;
 
