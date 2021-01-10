@@ -450,7 +450,7 @@ Schemas.workSchema = new SimpleSchema(
         },
         flatRate: {
             type: Array,
-            label: 'Driving time',
+            label: 'Flat Rate',
             optional: true
         },
         'flatRate.$': {
@@ -471,7 +471,8 @@ Schemas.workSchema = new SimpleSchema(
         },
         additionalSignature: {
             type: Array,
-            optional: true
+            optional: true,
+            label: 'Additional signature'
         },
         'additionalSignature.$': {
             type: Object,
@@ -495,7 +496,8 @@ Schemas.workSchema = new SimpleSchema(
         },
         discount: {
             type: Array,
-            optional: true
+            optional: true,
+            label: 'Discount'
         },
         'discount.$': {
             type: Object,
@@ -831,6 +833,11 @@ Schemas.workSchema = new SimpleSchema(
             type: String,
             optional: true,
             label: 'Card Holder PDF url'
+        },
+        stairsFee: {
+            type: Number,
+            optional: true,
+            label: 'Stairs fee'
         }
     },
     { tracker: Tracker }
