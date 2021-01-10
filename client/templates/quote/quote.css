@@ -12,6 +12,10 @@
     color: rgb(27, 27, 27);
 }
 
+.inlineblock {
+    display: inline-block;
+}
+
 #quote-2nd-header {
     border-bottom: 1px solid rgb(82, 117, 151);
     padding: 10px;

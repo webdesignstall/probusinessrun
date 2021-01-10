@@ -37,8 +37,8 @@ export default class Addresses extends React.Component {
             job.addresses && job.addresses.length > 0
                 ? this.setState({ arrayOfvalue: job.addresses })
                 : this.setState({
-                    arrayOfvalue: ['', '']
-                });
+                      arrayOfvalue: ['', '']
+                  });
         });
     }
 
@@ -160,8 +160,23 @@ export default class Addresses extends React.Component {
                 <i className="material-icons sag delete-address animated" onClick={() => this.deleteAddress(i)}>
                     delete_forever
                 </i>
-                <label className="active" htmlFor="movingFrom">
+                {/* <label className="active" htmlFor="movingFrom">
                     {'Address #' + (i + 1)}
+                </label> */}
+                <label className="active" htmlFor="movingFrom">
+                    <div
+                        className="inlineblock"
+                        style={{
+                            marginRight: '5px'
+                        }}
+                    >
+                        Pick up
+                        <input type="checkbox" />
+                    </div>{' '}
+                    <div className="inlineblock">
+                        Drop Off
+                        <input type="checkbox" />
+                    </div>
                 </label>
                 <StairInfo index={i} />
             </div>
@@ -233,7 +248,8 @@ export default class Addresses extends React.Component {
                                 letterSpacing: '0.5px',
                                 position: 'absolute',
                                 top: '-27px'
-                            }}>
+                            }}
+                        >
                             ADDRESSES
                         </span>
                         <div className="addMoreAddress-button addMoreAddress" onClick={this.addMore}>
