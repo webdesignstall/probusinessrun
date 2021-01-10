@@ -10,14 +10,14 @@ ReDesign supervisior email:
             ✔ addresses @done(21-01-04 16:13)
             ✔ job info @done(21-01-09 14:13)
             ✔ not to exceed @done(21-01-09 15:30)
-            ☐ trucks
+            ✔ trucks @done(21-01-09 17:21)
             ✔ taken by @done(21-01-09 15:55)
-            ☐ notes
+            ✔ notes @done(21-01-09 17:21)
         Helper:
-            ☐ company name
+            ✔ company name @done(21-01-09 17:21)
             ☐ time to arrive to office
-            ☐ adresses
-            ☐ truck
+            ✔ adresses @done(21-01-09 17:21)
+            ✔ truck @done(21-01-09 17:21)
     ☐ design database for "Dropoff & Pickup"
     ☐ display addresses as a "from" & "to"
     ☐ add new field to database for from to menu
