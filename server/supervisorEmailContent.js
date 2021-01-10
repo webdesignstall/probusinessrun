@@ -26,15 +26,17 @@ export default function supervisorEmailContent(job) {
     };
 
     let employees = function() {
-        return job.workers
+        let workersList = job.workers
             .map(worker => {
                 let workerInfo = Meteor.users.find({ _id: worker.id }).fetch()[0];
 
-                return `
-            <p style="font-size: 14px; line-height: 16px; margin: 0;">${workerInfo.profile.firstName} ${workerInfo.profile.lastName}</p>            
-            `;
+                return `${workerInfo.profile.firstName} ${workerInfo.profile.lastName}`;
             })
-            .join('');
+            .join(', ');
+
+        return `<p style="font-size: 14px; line-height: 16px; margin: 0;">
+        ${workersList}
+        </p>`;
     };
 
     let takenBy = function() {
@@ -46,7 +48,7 @@ export default function supervisorEmailContent(job) {
     let notes = function() {
         return job.noteForMovers
             ? `
-					<p style="font-size: 14px; line-height: 16px; margin: 0;">Notes: ${job.noteForMovers}</p>
+					< style="font-size: 14px; line-height: 16px; margin: 0;">Notes: ${job.noteForMovers}</>
 					`
             : '';
     };
@@ -80,6 +82,7 @@ export default function supervisorEmailContent(job) {
 
     let flatRateInfoDisplay = function() {
         return `<p style="font-size: 14px; line-height: 16px; margin: 0;">
+            ${job.movingSize}
             $${job.flatRate.cashAmount}/${job.flatRate.cardAmount} for first ${job.laborTime} hour(s), after $
             ${job.hourlyRatesCash}/${job.hourlyRatesCard} p/h ${job.doubleDrive && job.doubleDrive === 'yes' && ', + DDT'} 
             ${job.gasFee && job.gasFee > 0 ? `, +$${job.gasFee} gas fee` : ', +Travel Fee'} 
@@ -97,6 +100,7 @@ export default function supervisorEmailContent(job) {
 
     let hourlyRateDisplay = function() {
         return `<p style="font-size: 14px; line-height: 16px; margin: 0;">
+            ${job.movingSize}
             $${job.hourlyRatesCash}/${job.hourlyRatesCard} p/h 
             ${job.laborTime && job.laborTime > 0 ? `with ${job.laborTime}hrs min.` : ''}
             ${job.doubleDrive && job.doubleDrive === 'yes' && ', + DDT'} 
@@ -105,6 +109,10 @@ export default function supervisorEmailContent(job) {
             ${job.stairsFee && job.stairsFee > 0 ? `, $${job.stairsFee} Stairs Fee` : ''}
             ${job.deposit && job.deposit > 0 ? `, $${job.deposit} deposit paid` : ''}
         </p>`;
+    };
+
+    let NTE = function() {
+        return job.price && `<p style="font-size: 14px; line-height: 16px; margin: 0;">NTE: $${job.price}</p>`;
     };
 
     return `
@@ -444,36 +452,32 @@ export default function supervisorEmailContent(job) {
 <div style="color:#555555;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif;line-height:120%;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px;">
 <div style="font-size: 12px; line-height: 14px; color: #555555; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;">
 <p style="font-size: 14px; line-height: 16px; margin: 0;">${job.companyInfo.name}</p>
-<p style="font-size: 14px; line-height: 16px; margin: 0;">${'Ise Gelme Vaxti'}</p>
-<p style="font-size: 14px; line-height: 16px; margin: 0;">${employees()}</p>
+<p style="font-size: 14px; line-height: 16px; margin: 0;">${'Tmrw at '}</p>
+${employees()}
 <br/>
 <p style="font-size: 14px; line-height: 16px; margin: 0;">
 ${job.clientFirstName || ''} ${job.clientLastName || ''} / ${job.phoneNumber || ''}
 ${additionalContacts()}
 </p>
 <br/>
-<p style="font-size: 14px; line-height: 16px; margin: 0;"></p>;
 <p style="font-size: 14px; line-height: 16px; margin: 0;">Start window:
 ${job.workMustBeginTime[0]} - ${job.workMustBeginTime[1]}
 </p>
 ${addresses()}
 <br/>
-${job.movingSize}, ${job.flatRate.isTrue ? flatRateInfoDisplay() : hourlyRateDisplay()}
-${job.price && `NTE: $${job.price}`}
+${job.flatRate.isTrue ? flatRateInfoDisplay() : hourlyRateDisplay()}
+${NTE()}
 ${trucks()}
 ${takenBy()}
 ${notes()}
-<p style="font-size: 14px; line-height: 16px; margin: 0;">
 ----------------------------
-</p>
+</>
 <p style="font-size: 14px; line-height: 16px; margin: 0;">${job.companyInfo.name}</p>
-<p style="font-size: 14px; line-height: 16px; margin: 0;">${'Ise Gelme Vaxti'}</p>
-<p style="font-size: 14px; line-height: 16px; margin: 0;">${employees()}</p>
+<p style="font-size: 14px; line-height: 16px; margin: 0;">${'Tmrw at '}</p>
+${employees()}
 <br/>
 ${addresses()}
 <br/>
-${job.movingSize}, ${job.flatRate.isTrue ? flatRateInfoDisplay() : hourlyRateDisplay()}
-${job.price && `NTE: $${job.price}`}
 ${trucks()}
 </div>
 </div>
