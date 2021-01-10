@@ -5,7 +5,7 @@ export default function supervisorEmailContent(job) {
         return job.addresses
             .map((address, index) => {
                 return `
-            <p style="font-size: 14px; line-height: 16px; margin: 0;">${job.fromTo[index] || ''}: ${address}</p>
+            <p style="font-size: 14px; line-height: 16px; margin: 0;">${(job.fromTo && job.fromTo[index]) || ''}: ${address}</p>
             `;
             })
             .join('');
