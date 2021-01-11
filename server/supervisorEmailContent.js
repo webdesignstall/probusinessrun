@@ -73,14 +73,15 @@ export default function supervisorEmailContent(job) {
 
     let additionalContacts = function() {
         return (
-            job.additionalContacts &&
-            job.additionalContacts.length > 0 &&
-            job.additionalContacts.map(addContacts => {
-                return `<p style="font-size: 14px; line-height: 16px; margin: 0;">
+            (job.additionalContacts &&
+                job.additionalContacts.length > 0 &&
+                job.additionalContacts.map(addContacts => {
+                    return `<p style="font-size: 14px; line-height: 16px; margin: 0;">
                 ${addContacts.firstName || ''} ${addContacts.lastName || ''}<br/>
                 ${addContacts.phoneNumber || ''} / ${addContacts.additionalPhoneNumber || ''}
                 </p>`;
-            })
+                })) ||
+            ''
         );
     };
 
@@ -487,6 +488,7 @@ ${job.flatRate[0].isTrue ? flatRateInfoDisplay() : hourlyRateDisplay()}
 ${NTE()}
 ${trucks()}
 ${takenBy()}
+<br/>
 ${notes()}
 <br/>
 ----------------------------
