@@ -846,6 +846,10 @@ Schemas.workSchema = new SimpleSchema(
         'fromTo.$': {
             type: String,
             optional: true
+        },
+        pets: {
+            type: Boolean,
+            optional: true
         }
     },
     { tracker: Tracker }

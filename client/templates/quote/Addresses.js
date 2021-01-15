@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import Script from 'react-load-script';
 import swal from 'sweetalert';
 import StairInfo from './StairInfo';
+import PetsInfo from './PetsInfo';
 
 /*global google*/
 
@@ -296,11 +297,14 @@ export default class Addresses extends React.Component {
                     </div>
                     <hr style={{ marginTop: '30px' }} />
                     {this.renderAddressFields()}
-                    <div className="totalDistance col s12 m12 l12">
+                    <div className="totalDistance col s12 m3 l3">
                         <span className="totalDistance_button" onClick={this.calculateDistance}>
                             Calculate Total Distance
                         </span>
                         <span className="totalDistance_distance">{this.state.distance} mi</span>
+                    </div>
+                    <div className="col s12 m2 l2">
+                        <PetsInfo />
                     </div>
                     <div className="clear" />
                     <Script
