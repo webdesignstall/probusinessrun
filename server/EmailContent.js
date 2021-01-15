@@ -25,7 +25,7 @@ export default function EmailContent(job) {
         </div>`
         : '';
 
-    let movingSize = function () {
+    let movingSize = function() {
         let movingSizeList = {
             items: 'Items',
             studio: 'Studio',
@@ -41,7 +41,7 @@ export default function EmailContent(job) {
             commercial_sml: 'Commercial (small size, few items)',
             commercial_avg: 'Commercial (avg. size, avg. items)',
             commercial_large: 'Commercial (large size, many items)',
-            long_distance_moves: 'Long Distance Moves',
+            long_distance_moves: 'Long Distance Moves'
         };
 
         return movingSizeList[job.movingSize];
@@ -464,7 +464,7 @@ export default function EmailContent(job) {
     let additionalContacts =
         job.additionalContacts && job.additionalContacts.length > 0
             ? job.additionalContacts
-                  .map((contact) => {
+                  .map(contact => {
                       return `
                     <div
             style="font-size:16px;text-align:center;font-family:'Roboto', Tahoma, Verdana, Segoe, sans-serif"
@@ -596,7 +596,7 @@ export default function EmailContent(job) {
     let totalTrucks = 0;
     job.trucksTemp && job.trucksTemp.length > 0
         ? job.trucksTemp
-              .map((truck) => {
+              .map(truck => {
                   totalTrucks += Number(truck.qty);
               })
               .join('')
@@ -633,7 +633,7 @@ export default function EmailContent(job) {
     let trucksList =
         job.trucksTemp && job.trucksTemp.length > 0
             ? job.trucksTemp
-                  .map((truck) => {
+                  .map(truck => {
                       let render = '';
                       let i = 0;
                       for (i = 0; i < Number(truck.qty); i++) {
@@ -698,7 +698,7 @@ export default function EmailContent(job) {
 
     function renderAdditionalInfo() {
         return job.additionalInfo
-            .map((addInfo) => {
+            .map(addInfo => {
                 return `
         <div>✓ ${addInfo}</div>
           `;
@@ -1310,7 +1310,7 @@ export default function EmailContent(job) {
                                   <td
                                     style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px 0 3px 10px; width: 50%;"
                                   >
-                                    ${job.clientFirstName} ${job.clientLastName}
+                                    ${job.clientFirstName || ''} ${job.clientLastName || ''}
                                   </td>
                                 </tr>
                               </table>
