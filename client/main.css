@@ -447,3 +447,31 @@ input {
     background: -webkit-linear-gradient(45deg, #67ad5b 0%, #97c05c 100%);
     background: linear-gradient(45deg, #67ad5b 0%, #97c05c 100%);
 }
+
+/* drop off and pickup */
+.droppick {
+    position: relative;
+    width: 80px;
+    cursor: pointer !important;
+}
+
+.droppick input {
+    margin-top: 6px;
+}
+
+.droppicklabel {
+    top: 11px !important;
+    left: -1px !important;
+    background-color: white;
+    padding: 0 10px;
+    border-radius: 5px 5px 0 0;
+    border: 1px solid #cacaca;
+    color: #6d6d6d;
+}
+
+.droppick label {
+    position: absolute;
+    top: 2px !important;
+    left: 18px !important;
+    cursor: pointer !important;
+}

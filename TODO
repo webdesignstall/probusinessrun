@@ -18,9 +18,10 @@ ReDesign supervisior email:
             ☐ time to arrive to office
             ✔ adresses @done(21-01-09 17:21)
             ✔ truck @done(21-01-09 17:21)
-    ☐ design database for "Dropoff & Pickup"
-    ☐ display addresses as a "from" & "to"
-    ☐ add new field to database for from to menu
+    ✔ design database for "Dropoff & Pickup" @done(21-01-15 07:41)
+    ✔ toggle for drop off pickup checkboxes @done(21-01-15 07:12)
+    ✔ display addresses as a "from" & "to" @done(21-01-15 07:41)
+    ✔ add new field to database for from to menu @done(21-01-15 07:41)
     google timing calculation:
         ☐ check if it is easy to add
         ☐ implement calculation
