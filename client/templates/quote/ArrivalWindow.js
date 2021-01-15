@@ -86,7 +86,7 @@ export default class ArrivalWindow extends TrackerReact(Component) {
 
             !job.workMustBeginTime || !job.workMustBeginTime[0] || !job.workMustBeginTime[1]
                 ? ((document.getElementById('select-arrive-time' + this.state.randomNumber).value = 'Select moving time window'),
-                this.setState({ custom: false }))
+                  this.setState({ custom: false }))
                 : null;
 
             if (job._id !== '') {
@@ -109,55 +109,92 @@ export default class ArrivalWindow extends TrackerReact(Component) {
 
                 difValue !== ''
                     ? this.setState(
-                        {
-                            time1: selected[0],
-                            time2: selected[1],
-                            custom: false
-                        },
-                        err => {
-                            err ? console.error(err) : null;
-                            document.getElementById('select-arrive-time' + this.state.randomNumber)
-                                ? (document.getElementById('select-arrive-time' + this.state.randomNumber).value = difValue)
-                                : null;
-                            let workMustBeginTime = [this.state.time1, this.state.time2];
-                            let job = Session.get('job_');
-                            job.workMustBeginTime = workMustBeginTime;
+                          {
+                              time1: selected[0],
+                              time2: selected[1],
+                              custom: false
+                          },
+                          err => {
+                              err ? console.error(err) : null;
+                              document.getElementById('select-arrive-time' + this.state.randomNumber)
+                                  ? (document.getElementById('select-arrive-time' + this.state.randomNumber).value = difValue)
+                                  : null;
+                              let workMustBeginTime = [this.state.time1, this.state.time2];
+                              let job = Session.get('job_');
+                              job.workMustBeginTime = workMustBeginTime;
 
-                            Session.set('job_', job);
-                        }
-                    )
+                              Session.set('job_', job);
+                          }
+                      )
                     : isMorningAfternoon
-                        ? this.setState(
-                            {
-                                time1: selected[0],
-                                time2: selected[1],
-                                custom: false
-                            },
-                            err => {
-                                err ? console.error(err) : null;
-                                document.getElementById('select-arrive-time' + this.state.randomNumber)
-                                    ? (document.getElementById('select-arrive-time' + this.state.randomNumber).value =
+                    ? this.setState(
+                          {
+                              time1: selected[0],
+                              time2: selected[1],
+                              custom: false
+                          },
+                          err => {
+                              err ? console.error(err) : null;
+                              document.getElementById('select-arrive-time' + this.state.randomNumber)
+                                  ? (document.getElementById('select-arrive-time' + this.state.randomNumber).value =
                                         'Morning & Afternoon')
-                                    : null;
-                                let workMustBeginTime = [this.state.time1, this.state.time2];
-                                let job = Session.get('job_');
-                                job.workMustBeginTime = workMustBeginTime;
+                                  : null;
+                              let workMustBeginTime = [this.state.time1, this.state.time2];
+                              let job = Session.get('job_');
+                              job.workMustBeginTime = workMustBeginTime;
 
-                                Session.set('job_', job);
-                            }
-                        )
-                        : isCustom
-                            ? this.setState(
+                              Session.set('job_', job);
+                          }
+                      )
+                    : isCustom
+                    ? this.setState(
+                          {
+                              time1: selected[0],
+                              time2: selected[1],
+                              custom: true
+                          },
+                          err => {
+                              err ? console.error(err) : null;
+                              document.getElementById('select-arrive-time' + this.state.randomNumber)
+                                  ? (document.getElementById('select-arrive-time' + this.state.randomNumber).value = 'Custom')
+                                  : null;
+                              let workMustBeginTime = [this.state.time1, this.state.time2];
+                              let job = Session.get('job_');
+                              job.workMustBeginTime = workMustBeginTime;
+
+                              Session.set('job_', job);
+                          }
+                      )
+                    : null;
+            }
+            let arrTime = document.getElementById('select-arrive-time' + this.state.randomNumber);
+
+            arrTime
+                ? (document.getElementById('select-arrive-time' + this.state.randomNumber).onchange = () => {
+                      let value = document.getElementById('select-arrive-time' + this.state.randomNumber).value;
+                      if (value === 'Custom') {
+                          this.setState({
+                              custom: true
+                          });
+                      } else {
+                          this.setState({
+                              custom: false
+                          });
+                      }
+
+                      let selectedOption = '';
+
+                      Array.from(document.getElementsByTagName('option')).map(option => {
+                          option.value === this.arrivalTime.current.value ? (selectedOption = option) : null;
+                      });
+
+                      selectedOption !== ''
+                          ? this.setState(
                                 {
-                                    time1: selected[0],
-                                    time2: selected[1],
-                                    custom: true
+                                    time1: selectedOption.getAttribute('data-time1'),
+                                    time2: selectedOption.getAttribute('data-time2')
                                 },
-                                err => {
-                                    err ? console.error(err) : null;
-                                    document.getElementById('select-arrive-time' + this.state.randomNumber)
-                                        ? (document.getElementById('select-arrive-time' + this.state.randomNumber).value = 'Custom')
-                                        : null;
+                                () => {
                                     let workMustBeginTime = [this.state.time1, this.state.time2];
                                     let job = Session.get('job_');
                                     job.workMustBeginTime = workMustBeginTime;
@@ -165,45 +202,8 @@ export default class ArrivalWindow extends TrackerReact(Component) {
                                     Session.set('job_', job);
                                 }
                             )
-                            : null;
-            }
-            let arrTime = document.getElementById('select-arrive-time' + this.state.randomNumber);
-
-            arrTime
-                ? (document.getElementById('select-arrive-time' + this.state.randomNumber).onchange = () => {
-                    let value = document.getElementById('select-arrive-time' + this.state.randomNumber).value;
-                    if (value === 'Custom') {
-                        this.setState({
-                            custom: true
-                        });
-                    } else {
-                        this.setState({
-                            custom: false
-                        });
-                    }
-
-                    let selectedOption = '';
-
-                    Array.from(document.getElementsByTagName('option')).map(option => {
-                        option.value === this.arrivalTime.current.value ? (selectedOption = option) : null;
-                    });
-
-                    selectedOption !== ''
-                        ? this.setState(
-                            {
-                                time1: selectedOption.getAttribute('data-time1'),
-                                time2: selectedOption.getAttribute('data-time2')
-                            },
-                            () => {
-                                let workMustBeginTime = [this.state.time1, this.state.time2];
-                                let job = Session.get('job_');
-                                job.workMustBeginTime = workMustBeginTime;
-
-                                Session.set('job_', job);
-                            }
-                        )
-                        : null;
-                })
+                          : null;
+                  })
                 : null;
         });
     }
@@ -220,7 +220,8 @@ export default class ArrivalWindow extends TrackerReact(Component) {
                     value={option.name}
                     disabled={option.status === 0}
                     data-time1={option.value1 || '08:00 am'}
-                    data-time2={option.value2 || '10:00 am'}>
+                    data-time2={option.value2 || '10:00 am'}
+                >
                     {option.name}
                 </option>
             );
@@ -234,7 +235,8 @@ export default class ArrivalWindow extends TrackerReact(Component) {
                 ref={this.arrivalTime}
                 className="browser-default custom--select-arrivalWindow"
                 name={'select-arrive-time' + this.state.randomNumber}
-                id={'select-arrive-time' + this.state.randomNumber}>
+                id={'select-arrive-time' + this.state.randomNumber}
+            >
                 {this.renderOptions()}
             </select>
         );
@@ -295,7 +297,7 @@ export default class ArrivalWindow extends TrackerReact(Component) {
 
     render() {
         return (
-            <div id="arrival-time" style={{ marginTop: '10px' }} className="input-field valideyn">
+            <div id="arrival-time" style={{ marginTop: '0px' }} className="input-field valideyn">
                 <div className="arrivalWindow">
                     <div id="arrivalWindow--id" className="parent">
                         <i className="material-icons isare">date_range</i>
@@ -305,7 +307,8 @@ export default class ArrivalWindow extends TrackerReact(Component) {
                     <label
                         className="active"
                         htmlFor="arrivalWindow--id"
-                        style={{ backgroundColor: '#EDF0F1', padding: '0 5px', margin: '8px 15px' }}>
+                        style={{ backgroundColor: '#EDF0F1', padding: '0 5px', margin: '8px 15px' }}
+                    >
                         Arrival Window
                     </label>
                 </div>

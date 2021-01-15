@@ -31,6 +31,7 @@ import Alert from '../../../../imports/alertMessage/Alert';
 import WorkData from '../../../../common/collections_2';
 import NewAppointment from '../NewAppointment';
 import JobNumber from '../JobNumber';
+import StairsFee from '../StairsFee';
 
 /*global moment*/
 
@@ -41,7 +42,7 @@ export default class EditCalendarQuote extends Component {
         Meteor.call('updateWork', job, err => {
             if (err) {
                 console.error(err);
-                Alert('error', 'Can\'t save information');
+                Alert('error', "Can't save information");
                 enableButtons();
             } else {
                 Alert('success', 'Information saved successfully');
@@ -71,17 +72,17 @@ export default class EditCalendarQuote extends Component {
                         selectedMovers < shouldSelectMovers && selectedMovers > 0
                             ? moverIndigator.classList.add('sari')
                             : selectedMovers === shouldSelectMovers && selectedMovers > 0
-                                ? moverIndigator.classList.add('yasil')
-                                : selectedMovers > shouldSelectMovers && shouldSelectMovers === 0
-                                    ? moverIndigator.classList.add('yasil')
-                                    : null;
+                            ? moverIndigator.classList.add('yasil')
+                            : selectedMovers > shouldSelectMovers && shouldSelectMovers === 0
+                            ? moverIndigator.classList.add('yasil')
+                            : null;
                         selectedTruck < shouldSelectTrucks && selectedTruck > 0
                             ? truckIndigator.classList.add('sari')
                             : selectedTruck === shouldSelectTrucks && selectedTruck > 0
-                                ? truckIndigator.classList.add('yasil')
-                                : selectedTruck > shouldSelectTrucks && shouldSelectTrucks === 0
-                                    ? truckIndigator.classList.add('yasil')
-                                    : null;
+                            ? truckIndigator.classList.add('yasil')
+                            : selectedTruck > shouldSelectTrucks && shouldSelectTrucks === 0
+                            ? truckIndigator.classList.add('yasil')
+                            : null;
                     }
                 }
             }
@@ -94,7 +95,7 @@ export default class EditCalendarQuote extends Component {
         Meteor.call('emailGonder', job, err => {
             if (err) {
                 console.error(err);
-                Alert('error', 'Can\'t send quote');
+                Alert('error', "Can't send quote");
                 enableButtons();
             } else {
                 Alert('success', 'Quote sent successfully');
@@ -109,7 +110,7 @@ export default class EditCalendarQuote extends Component {
         Meteor.call('confirmationGonder', job, err => {
             if (err) {
                 console.error(err);
-                Alert('error', 'Can\'t send confirmation');
+                Alert('error', "Can't send confirmation");
                 enableButtons();
             } else {
                 Alert('success', 'Confirmation sent successfully');
@@ -124,7 +125,7 @@ export default class EditCalendarQuote extends Component {
         Meteor.call('supervisorEmail', job, err => {
             if (err) {
                 console.error(err);
-                Alert('error', 'Can\'t send email to supervisor');
+                Alert('error', "Can't send email to supervisor");
                 enableButtons();
             } else {
                 Alert('success', 'Email sent to supervisor successfully');
@@ -158,21 +159,26 @@ export default class EditCalendarQuote extends Component {
                     <Addresses />
                 </div>
                 <div className="row">
-                    <div className="col s12 m6 l6">
-                        <ArrivalWindow />
-                    </div>
-                    <div className="col s12 m6 l6">
-                        <div className="col s12 m6 l6">
+                    <div className="col s12 m12 l12">
+                        <div className="col s12 m4 l4">
+                            <ArrivalWindow />
+                        </div>
+                        <div className="col s12 m4 l4">
                             <SmallItemPacking />
                         </div>
-                        <div className="col s12 m6 l6">
+                        <div className="col s12 m4 l4">
                             <LargeItemFee />
                         </div>
-                        <div className="col s12 m6 l6">
+                    </div>
+                    <div className="col s12 m12 l12">
+                        <div className="col s12 m4 l4">
                             <TravelFee />
                         </div>
-                        <div className="col s12 m6 l6">
+                        <div className="col s12 m4 l4">
                             <Deposit />
+                        </div>
+                        <div className="col s12 m4 l4">
+                            <StairsFee />
                         </div>
                     </div>
                 </div>
