@@ -15,7 +15,6 @@ class JobNumber extends Component {
     componentDidMount() {
         this.x = Tracker.autorun(() => {
             let job = Session.get('job_');
-            console.log('TCL: JobNumber -> componentDidMount -> job.jobNumber', job.jobNumber);
             if (job.jobNumber && job.jobNumber !== '') {
                 this.setState({ value: job.jobNumber });
             } else {

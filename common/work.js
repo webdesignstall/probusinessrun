@@ -838,6 +838,14 @@ Schemas.workSchema = new SimpleSchema(
             type: Number,
             optional: true,
             label: 'Stairs fee'
+        },
+        fromTo: {
+            type: Array,
+            optional: true
+        },
+        'fromTo.$': {
+            type: String,
+            optional: true
         }
     },
     { tracker: Tracker }

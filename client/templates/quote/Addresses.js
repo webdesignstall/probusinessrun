@@ -16,7 +16,9 @@ export default class Addresses extends React.Component {
 
         this.state = {
             arrayOfvalue: ['', ''],
-            distance: 0
+            distance: 0,
+            pickup: {},
+            dropoff: {}
         };
 
         this.renderAddressFields = this.renderAddressFields.bind(this);
@@ -144,8 +146,32 @@ export default class Addresses extends React.Component {
         );
     }
 
+    togglePickUpDropOff(value, key, index) {
+        this.setState(
+            prevState => {
+                let oldkey = prevState[key];
+                if (oldkey[value]) {
+                    delete oldkey[value];
+
+                    return oldkey;
+                } else {
+                    oldkey[value] = true;
+                    return oldkey;
+                }
+            },
+            () => {
+                let job = Session.get('job_');
+                Array.isArray(job.fromTo) ? '' : (job.fromTo = []);
+                job.fromTo[index] = key;
+
+                Session.set('job_', job);
+            }
+        );
+    }
+
     renderAddressFields() {
-        return this.state.arrayOfvalue.map((el, i) => (
+        let { dropoff, pickup, arrayOfvalue } = this.state;
+        return arrayOfvalue.map((el, i) => (
             <div key={i} id={i + '_id'} className="input-field valideyn col s12 m6 l6 address_list">
                 <i className="material-icons isare">location_on</i>
                 <input
@@ -154,28 +180,35 @@ export default class Addresses extends React.Component {
                     className="addresses"
                     type="text"
                     placeholder=""
-                    value={this.state.arrayOfvalue[i]}
+                    value={arrayOfvalue[i]}
                     onChange={this.inputChangeHandler.bind(this, i)}
                 />
                 <i className="material-icons sag delete-address animated" onClick={() => this.deleteAddress(i)}>
                     delete_forever
                 </i>
-                {/* <label className="active" htmlFor="movingFrom">
-                    {'Address #' + (i + 1)}
-                </label> */}
-                <label className="active" htmlFor="movingFrom">
+                <label className="active droppicklabel" htmlFor="movingFrom">
                     <div
-                        className="inlineblock"
+                        className="inlineblock droppick"
                         style={{
-                            marginRight: '5px'
+                            marginRight: '10px'
                         }}
                     >
-                        Pick up
-                        <input type="checkbox" />
+                        <label htmlFor={i + 'addresspick'}>Pick up</label>
+                        <input
+                            id={i + 'addresspick'}
+                            disabled={dropoff[i + 'addressdrop']}
+                            type="checkbox"
+                            onClick={() => this.togglePickUpDropOff(i + 'addresspick', 'pickup', i)}
+                        />
                     </div>{' '}
-                    <div className="inlineblock">
-                        Drop Off
-                        <input type="checkbox" />
+                    <div className="inlineblock droppick">
+                        <label htmlFor={i + 'addressdrop'}>Drop Off</label>
+                        <input
+                            id={i + 'addressdrop'}
+                            disabled={pickup[i + 'addresspick']}
+                            type="checkbox"
+                            onClick={() => this.togglePickUpDropOff(i + 'addressdrop', 'dropoff', i)}
+                        />
                     </div>
                 </label>
                 <StairInfo index={i} />
