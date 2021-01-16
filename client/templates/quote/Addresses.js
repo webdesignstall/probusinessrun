@@ -42,6 +42,18 @@ export default class Addresses extends React.Component {
                 : this.setState({
                       arrayOfvalue: ['', '']
                   });
+
+            Array.isArray(job.fromTo) &&
+                job.fromTo.length > 0 &&
+                job.fromTo.map((fromto, index) => {
+                    typeof fromto === 'string' &&
+                        this.setState(prevState => {
+                            let oldfromto = prevState[fromto];
+
+                            oldfromto[index + fromto] = true;
+                            return oldfromto;
+                        });
+                });
         });
     }
 
@@ -163,9 +175,13 @@ export default class Addresses extends React.Component {
             () => {
                 let job = Session.get('job_');
                 Array.isArray(job.fromTo) ? '' : (job.fromTo = []);
-                job.fromTo[index] = key;
-
-                Session.set('job_', job);
+                if (job.fromTo[index]) {
+                    job.fromTo[index] = key;
+                    Session.set('job_', job);
+                } else {
+                    job.fromTo[index] = null;
+                    Session.set('job_', job);
+                }
             }
         );
     }
@@ -194,21 +210,23 @@ export default class Addresses extends React.Component {
                             marginRight: '10px'
                         }}
                     >
-                        <label htmlFor={i + 'addresspick'}>Pick up</label>
+                        <label htmlFor={i + 'pickup'}>Pick up</label>
                         <input
-                            id={i + 'addresspick'}
-                            disabled={dropoff[i + 'addressdrop']}
+                            id={i + 'pickup'}
+                            disabled={dropoff[i + 'dropoff']}
+                            checked={!!pickup[i + 'pickup']}
                             type="checkbox"
-                            onClick={() => this.togglePickUpDropOff(i + 'addresspick', 'pickup', i)}
+                            onChange={() => this.togglePickUpDropOff(i + 'pickup', 'pickup', i)}
                         />
                     </div>{' '}
                     <div className="inlineblock droppick">
-                        <label htmlFor={i + 'addressdrop'}>Drop Off</label>
+                        <label htmlFor={i + 'dropoff'}>Drop Off</label>
                         <input
-                            id={i + 'addressdrop'}
-                            disabled={pickup[i + 'addresspick']}
+                            id={i + 'dropoff'}
+                            checked={!!dropoff[i + 'dropoff']}
+                            disabled={pickup[i + 'pickup']}
                             type="checkbox"
-                            onClick={() => this.togglePickUpDropOff(i + 'addressdrop', 'dropoff', i)}
+                            onChange={() => this.togglePickUpDropOff(i + 'dropoff', 'dropoff', i)}
                         />
                     </div>
                 </label>
