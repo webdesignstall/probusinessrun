@@ -11,6 +11,7 @@ import squareConnect from 'square-connect';
 import DifferenceCalculator from './DifferenceCalculator';
 import depositPaymentEmail from './depositPaymentEmail';
 import pdfToCustomer from './pdfToCustomer';
+import { getParsedCommandLineOfConfigFile } from 'typescript';
 
 let config = require('../imports/helpers/config.json');
 
@@ -255,8 +256,9 @@ if (Meteor.isServer) {
                 text: ' ',
                 from: job.companyInfo.name + ' info@cheapmoverslosangeles.com',
                 // from: job.companyInfo.name + ' ' + job.companyInfo.email,
-                to: 'movinglosangeles111@gmail.com',
+                // to: 'movinglosangeles111@gmail.com',
                 // to: 'joseph.khalilov@gmail.com',
+                to: 'lamovingjobs@gmail.com',
                 subject: 'Confirmation email',
                 attachment: [
                     {
