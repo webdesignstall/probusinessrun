@@ -843,10 +843,16 @@ Schemas.workSchema = new SimpleSchema(
             type: Array,
             optional: true
         },
-        'fromTo.$': {
-            type: String,
-            optional: true
-        },
+        'fromTo.$': SimpleSchema.oneOf(
+            {
+                type: String,
+                optional: true
+            },
+            {
+                type: Boolean,
+                optional: true
+            }
+        ),
         pets: {
             type: Boolean,
             optional: true

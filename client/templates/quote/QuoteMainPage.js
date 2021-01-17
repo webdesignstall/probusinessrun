@@ -29,6 +29,7 @@ import NoteForYourMove from './NoteForYourMove';
 import AdditionalInfo from './AdditionalInfo';
 import Button from './Button';
 import jobNumberCreator from './JobNumberCreator';
+import StairsFee from './StairsFee';
 
 export default class QuoteMainPage extends Component {
     componentDidMount() {
@@ -85,9 +86,7 @@ export default class QuoteMainPage extends Component {
                         Meteor.call('emailGonder', job, (err, res) => {
                             if (err) {
                                 swal({
-                                    title:
-                                        'Impossible send email to work job number: ' +
-                                        job.jobNumber,
+                                    title: 'Impossible send email to work job number: ' + job.jobNumber,
                                     text: err.message,
                                     icon: 'error'
                                 });
@@ -135,14 +134,17 @@ export default class QuoteMainPage extends Component {
                     <div className="col s12 m3 l3">
                         <SmallItemPacking />
                     </div>
-                    <div className="col s12 m3 l3">
+                    <div className="col s12 m2 l2">
                         <LargeItemFee />
                     </div>
                     <div className="col s12 m3 l3">
                         <TravelFee />
                     </div>
-                    <div className="col s12 m3 l3">
+                    <div className="col s12 m2 l2">
                         <Deposit />
+                    </div>
+                    <div className="col s12 m2 l2">
+                        <StairsFee />
                     </div>
                 </div>
                 <div className="row">
@@ -208,9 +210,7 @@ export default class QuoteMainPage extends Component {
                     />
                     <Button
                         color="green darken-1"
-                        func={enableButtons =>
-                            this.clickHandle('inProgress', true, enableButtons, true)
-                        }
+                        func={enableButtons => this.clickHandle('inProgress', true, enableButtons, true)}
                         text="Send quote & save"
                     />
                     <Button

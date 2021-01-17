@@ -25,6 +25,7 @@ import AdditionalContact from '../../../client/templates/quote/AdditionalContact
 import WorkDate from '../../../client/templates/quote/WorkDate';
 import SourceOfLeads from '../../../client/templates/quote/SourceOfLeads';
 import SmallItemPacking from '../../../client/templates/quote/SmallItemPacking';
+import StairsFee from '../../../client/templates/quote/StairsFee';
 import LargeItemFee from '../../../client/templates/quote/LargeItemFee';
 import TravelFee from '../../../client/templates/quote/TravelFee';
 import Deposit from '../../../client/templates/quote/Deposit';
@@ -73,20 +74,20 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
         Meteor.call('updateWork', doc, err => {
             err
                 ? (console.error(err),
-                swal({
-                    title: 'Error!',
-                    text: 'Reason: ' + err.message,
-                    icon: 'error',
-                    button: 'OK'
-                }),
-                Session.set('loading', false))
+                  swal({
+                      title: 'Error!',
+                      text: 'Reason: ' + err.message,
+                      icon: 'error',
+                      button: 'OK'
+                  }),
+                  Session.set('loading', false))
                 : (swal({
-                    title: 'Success!',
-                    text: 'Information updated successfully',
-                    icon: 'success',
-                    button: 'OK'
-                }),
-                Session.set('loading', false));
+                      title: 'Success!',
+                      text: 'Information updated successfully',
+                      icon: 'success',
+                      button: 'OK'
+                  }),
+                  Session.set('loading', false));
         });
     }
 
@@ -116,7 +117,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                             console.error(err);
                             swal({
                                 title: 'Error!',
-                                text: 'Something went wrong. Can\'t send quote email. Reason: ' + err.message,
+                                text: "Something went wrong. Can't send quote email. Reason: " + err.message,
                                 icon: 'error',
                                 button: 'OK'
                             });
@@ -131,7 +132,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                                 icon: 'success',
                                 button: 'OK'
                             }),
-                            Session.set('loading', false);
+                                Session.set('loading', false);
                             Session.set('job_', doc);
                         }
                     });
@@ -182,17 +183,20 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                     <Addresses />
                 </div>
                 <div className="row">
-                    <div className="col s12 m2 l2">
+                    <div className="col s12 m3 l3">
                         <SmallItemPacking />
                     </div>
                     <div className="col s12 m2 l2">
                         <LargeItemFee />
                     </div>
-                    <div className="col s12 m2 l2">
+                    <div className="col s12 m3 l3">
                         <TravelFee />
                     </div>
                     <div className="col s12 m2 l2">
                         <Deposit />
+                    </div>
+                    <div className="col s12 m2 l2">
+                        <StairsFee />
                     </div>
                     <div className="col s12 m2 l2">
                         <DoubleDriveTime />
