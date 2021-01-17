@@ -175,11 +175,24 @@ export default class Addresses extends React.Component {
             () => {
                 let job = Session.get('job_');
                 Array.isArray(job.fromTo) ? '' : (job.fromTo = []);
-                if (job.fromTo[index]) {
-                    job.fromTo[index] = key;
+
+                // replace all non string values to false
+                let finterArray = array => {
+                    let i = 0;
+
+                    for (i; i < array.length; i++) {
+                        array[i] !== 'pickup' && array[i] !== 'dropoff' && (array[i] = false);
+                    }
+                };
+
+                // if value is string then replace with false
+                if (typeof job.fromTo[index] === 'string') {
+                    job.fromTo[index] = false;
+                    finterArray(job.fromTo);
                     Session.set('job_', job);
                 } else {
-                    job.fromTo[index] = null;
+                    job.fromTo[index] = key;
+                    finterArray(job.fromTo);
                     Session.set('job_', job);
                 }
             }
