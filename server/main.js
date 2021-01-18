@@ -149,6 +149,7 @@ if (Meteor.isServer) {
         },
 
         confirmationGonder: function(job) {
+            console.log(job.stairsFee);
             WorkData.update(job._id, {
                 $set: {
                     clientFirstName: job.clientFirstName,
