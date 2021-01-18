@@ -71,7 +71,8 @@ export default class QuoteMainPage extends Component {
                 Session.set('job_', {
                     takenBy: Meteor.userId(),
                     sourceOfLeads: 'call',
-                    quoteDate: new Date()
+                    quoteDate: new Date(),
+                    fromTo: [false, false]
                 });
                 jobNumberCreator();
                 enableButtons();

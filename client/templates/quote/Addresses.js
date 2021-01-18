@@ -43,17 +43,18 @@ export default class Addresses extends React.Component {
                       arrayOfvalue: ['', '']
                   });
 
-            Array.isArray(job.fromTo) &&
-                job.fromTo.length > 0 &&
-                job.fromTo.map((fromto, index) => {
-                    typeof fromto === 'string' &&
-                        this.setState(prevState => {
-                            let oldfromto = prevState[fromto];
+            let objFromTo = {
+                pickup: {},
+                dropoff: {}
+            };
 
-                            oldfromto[index + fromto] = true;
-                            return oldfromto;
-                        });
+            if (Array.isArray(job.fromTo) && job.fromTo.length > 0) {
+                job.fromTo.map((fromto, index) => {
+                    typeof fromto === 'string' ? (objFromTo[fromto][index + fromto] = true) : '';
                 });
+
+                this.setState(objFromTo);
+            }
         });
     }
 
@@ -160,16 +161,24 @@ export default class Addresses extends React.Component {
     }
 
     togglePickUpDropOff(value, key, index) {
+        console.log(`🚀 ~ file: Addresses.js ~ line 167 ~ Addresses ~ togglePickUpDropOff ~ key`, key);
+        console.log(`🚀 ~ file: Addresses.js ~ line 167 ~ Addresses ~ togglePickUpDropOff ~ value`, value);
         this.setState(
             prevState => {
                 let oldkey = prevState[key];
+                console.log(`🚀 ~ file: Addresses.js ~ line 170 ~ Addresses ~ togglePickUpDropOff ~ oldkey`, oldkey);
                 if (oldkey[value]) {
                     delete oldkey[value];
 
-                    return oldkey;
+                    return {
+                        [key]: oldkey
+                    };
                 } else {
                     oldkey[value] = true;
-                    return oldkey;
+                    console.log(`🚀 ~ file: Addresses.js ~ line 181 ~ Addresses ~ togglePickUpDropOff ~ oldkey`, oldkey);
+                    return {
+                        [key]: oldkey
+                    };
                 }
             },
             () => {
