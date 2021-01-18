@@ -393,7 +393,7 @@ export default function EmailContent(job) {
                     <td
                     style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px 0 3px 10px; width: 50%;"
                     >
-                    Extra-Large Item Handling Fee
+                    Extra-Large Item Handling Fee:
                     </td>
                     <td
                     style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px 0 3px 10px; width: 50%;"
@@ -407,7 +407,7 @@ export default function EmailContent(job) {
             : '';
 
     let stairsFee =
-        job.stairsFee && job.stairsFee > 0
+        job.stairsFee >= 0
             ? `
             <div
             style="font-size:13px;text-align:left;font-family:'Roboto', Tahoma, Verdana, Segoe, sans-serif"
@@ -421,7 +421,7 @@ export default function EmailContent(job) {
                     <td
                     style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px 0 3px 10px; width: 50%;"
                     >
-                    Extra-Large Item Handling Fee
+                    Stairs Fee:
                     </td>
                     <td
                     style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px 0 3px 10px; width: 50%;"

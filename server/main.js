@@ -111,6 +111,7 @@ if (Meteor.isServer) {
         },
 
         emailGonder: function(job) {
+            console.log(job.stairsFee);
             // server connection
             let server = email.server.connect({
                 user: job.companyInfo.email,
@@ -126,7 +127,7 @@ if (Meteor.isServer) {
                 text: ' ',
                 from: job.companyInfo.name + ' ' + job.companyInfo.email,
                 to: job.email,
-                subject: 'Guaranteed Moving Estimate for ' + job.clientFirstName + ' ' + job.clientLastName,
+                subject: `Guaranteed Moving Estimate for ${job.clientFirstName || ' '} ${job.clientLastName || ''}`,
                 attachment: [
                     {
                         data: EmailContent(job),
