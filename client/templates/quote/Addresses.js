@@ -50,7 +50,7 @@ export default class Addresses extends React.Component {
 
             if (Array.isArray(job.fromTo) && job.fromTo.length > 0) {
                 job.fromTo.map((fromto, index) => {
-                    typeof fromto === 'string' ? (objFromTo[fromto][index + fromto] = true) : '';
+                    typeof fromto === 'string' && fromto !== 'false' ? (objFromTo[fromto][index + fromto] = true) : '';
                 });
 
                 this.setState(objFromTo);
