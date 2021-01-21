@@ -22,15 +22,15 @@ function StairsFee() {
 
     return (
         <div className="input-field">
-            <label htmlFor="stairsfee" className="active">
+            <label htmlFor="stairsFee" className="active">
                 Stairs Fee
             </label>
             <input
                 className="xx"
+                id="stairsFee"
                 type="number"
                 placeholder="0"
                 onChange={e => onChangeHandler(e)}
-                id="stairsfee"
                 value={stairsFee > 0 ? stairsFee : ''}
             />
         </div>

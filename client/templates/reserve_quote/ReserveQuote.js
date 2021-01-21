@@ -77,7 +77,7 @@ export default class ReserveQuote extends TrackerReact(Component) {
                     console.error(err);
                     Bert.alert({
                         title: 'Uncorrect job number',
-                        message: 'Can\'t find the job information. Please enter correct job number',
+                        message: "Can't find the job information. Please enter correct job number",
                         type: 'danger'
                     });
                 } else {
@@ -94,8 +94,8 @@ export default class ReserveQuote extends TrackerReact(Component) {
                                 },
                                 () => {
                                     $('#axtarisin-neticesi').show(),
-                                    document.getElementById('enter-number').classList.add('hide'),
-                                    Session.set('jobNumber', jobNumber);
+                                        document.getElementById('enter-number').classList.add('hide'),
+                                        Session.set('jobNumber', jobNumber);
                                 }
                             );
                         }
@@ -126,7 +126,7 @@ export default class ReserveQuote extends TrackerReact(Component) {
                 console.error(err);
                 Bert.alert({
                     title: 'Uncorrect job number',
-                    message: 'Can\'t find the job information. Please enter correct job number',
+                    message: "Can't find the job information. Please enter correct job number",
                     type: 'danger'
                 });
             } else {
@@ -143,8 +143,8 @@ export default class ReserveQuote extends TrackerReact(Component) {
                             },
                             () => {
                                 $('#axtarisin-neticesi').show(),
-                                document.getElementById('enter-number').classList.add('hide'),
-                                Session.set('jobNumber', jobNumber);
+                                    document.getElementById('enter-number').classList.add('hide'),
+                                    Session.set('jobNumber', jobNumber);
                             }
                         );
                     }
@@ -181,31 +181,31 @@ export default class ReserveQuote extends TrackerReact(Component) {
     renderAdditionalContacts(addContacts) {
         return addContacts
             ? addContacts.map((value, index) => {
-                return (
-                    <React.Fragment key={index + 'addContact'}>
-                        <tr>
-                            <td>Additional Contact name:</td>
-                            <td>
-                                {value.firstName} {value.lastName}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Contact Main Number:</td>
-                            <td>{value.phoneNumber}</td>
-                        </tr>
-                        {value.additionalPhoneNumber !== null &&
+                  return (
+                      <React.Fragment key={index + 'addContact'}>
+                          <tr>
+                              <td>Additional Contact name:</td>
+                              <td>
+                                  {value.firstName} {value.lastName}
+                              </td>
+                          </tr>
+                          <tr>
+                              <td>Contact Main Number:</td>
+                              <td>{value.phoneNumber}</td>
+                          </tr>
+                          {value.additionalPhoneNumber !== null &&
                           value.additionalPhoneNumber !== undefined &&
                           value.additionalPhoneNumber !== '' ? (
-                                <tr>
-                                    <td>Contact Secondary Number:</td>
-                                    <td>{value.additionalPhoneNumber}</td>
-                                </tr>
-                            ) : (
-                                ''
-                            )}
-                    </React.Fragment>
-                );
-            })
+                              <tr>
+                                  <td>Contact Secondary Number:</td>
+                                  <td>{value.additionalPhoneNumber}</td>
+                              </tr>
+                          ) : (
+                              ''
+                          )}
+                      </React.Fragment>
+                  );
+              })
             : null;
     }
     renderTrucks(truck) {
@@ -236,10 +236,10 @@ export default class ReserveQuote extends TrackerReact(Component) {
         let totalTrucks = 0;
         job.trucksTemp && job.trucksTemp.length > 0
             ? job.trucksTemp
-                .map(truck => {
-                    totalTrucks += Number(truck.qty);
-                })
-                .join('')
+                  .map(truck => {
+                      totalTrucks += Number(truck.qty);
+                  })
+                  .join('')
             : '';
 
         return job.trucksTemp && job.trucksTemp.length > 0 ? (
@@ -419,6 +419,16 @@ export default class ReserveQuote extends TrackerReact(Component) {
                         ) : (
                             ''
                         )}
+
+                        {job.stairsFee && job.stairsFee > 0 ? (
+                            <tr>
+                                <td>Stairs Fee:</td>
+                                <td>${job.stairsFee}</td>
+                            </tr>
+                        ) : (
+                            ''
+                        )}
+
                         {job.deposit && job.deposit > 0 ? (
                             <tr>
                                 <td style={{ width: '49%' }}>Deposit required to lock the spot:</td>

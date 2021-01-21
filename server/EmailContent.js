@@ -448,12 +448,40 @@ export default function EmailContent(job) {
                     <td
                     style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px 0 3px 10px; width: 50%;"
                     >
-                    Extra-Large Item Handling Fee
+                    Extra-Large Item Handling Fee:
                     </td>
                     <td
                     style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px 0 3px 10px; width: 50%;"
                     >
                     $${job.largeItemFee}
+                    </td>
+                </tr>
+                </table>
+            </div>
+        `
+            : '';
+
+    let stairsFee =
+        job.stairsFee >= 0
+            ? `
+            <div
+            style="font-size:13px;text-align:left;font-family:'Roboto', Tahoma, Verdana, Segoe, sans-serif"
+            >
+                <table
+                style="width: 100%; text-align: left; font-size: 13px"
+                >
+                <tr
+                    style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse;"
+                >
+                    <td
+                    style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px 0 3px 10px; width: 50%;"
+                    >
+                    Stairs Fee:
+                    </td>
+                    <td
+                    style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px 0 3px 10px; width: 50%;"
+                    >
+                    $${job.stairsFee}
                     </td>
                 </tr>
                 </table>
@@ -505,7 +533,7 @@ export default function EmailContent(job) {
                     <td
                     style="border-bottom: 1px solid #a5a5a6; border-collapse: collapse; padding: 3px 0 3px 10px; width: 50%;"
                     >
-                    ${contact.phoneNumber}
+                    ${contact.phoneNumber || ''}
                     </td>
                 </tr>
                 </table>
@@ -1449,7 +1477,8 @@ export default function EmailContent(job) {
                     job.doubleDrive !== 'notSure' ||
                     job.smallItemPacking > 0 ||
                     job.smallItemPacking < 0 ||
-                    job.largeItemFee > 0
+                    job.largeItemFee > 0 ||
+                    job.stairsFee > 0
                         ? `
                 <div style="background-color:transparent;">
                   <div
@@ -1520,7 +1549,7 @@ export default function EmailContent(job) {
                           >
                             <!--<![endif]-->
                             ${gasFee} ${doubleDrive} ${smallItemPacking}
-                            ${extraLargeItemPacking}
+                            ${extraLargeItemPacking} ${stairsFee}
                             <!--[if (!mso)&(!IE)]><!-->
                           </div>
                           <!--<![endif]-->
