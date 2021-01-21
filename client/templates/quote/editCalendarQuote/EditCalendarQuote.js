@@ -175,10 +175,10 @@ export default class EditCalendarQuote extends Component {
                             <TravelFee />
                         </div>
                         <div className="col s12 m4 l4">
-                            <Deposit />
+                            <StairsFee />
                         </div>
                         <div className="col s12 m4 l4">
-                            <StairsFee />
+                            <Deposit />
                         </div>
                     </div>
                 </div>
