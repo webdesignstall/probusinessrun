@@ -68,15 +68,13 @@ Template.updateQuote.onRendered(function() {
             ish.smallItemPacking && ish.smallItemPacking == -1
                 ? document.querySelector('#smallItemPackUpdate')
                     ? ((document.querySelector('#smallItemPackUpdate').checked = true),
-                    (document.querySelector('#small_item_pack_2').disabled = true))
+                      (document.querySelector('#small_item_pack_2').disabled = true))
                     : null
                 : null;
             document.querySelector('#flatRateCashUpdate') &&
-                (document.querySelector('#flatRateCashUpdate').defaultValue =
-                    ish.flatRate[0].cashAmount);
+                (document.querySelector('#flatRateCashUpdate').defaultValue = ish.flatRate[0].cashAmount);
             document.querySelector('#flatRateCardUpdate') &&
-                (document.querySelector('#flatRateCardUpdate').defaultValue =
-                    ish.flatRate[0].cardAmount);
+                (document.querySelector('#flatRateCardUpdate').defaultValue = ish.flatRate[0].cardAmount);
             document.querySelector('#flatBoxUpdate') &&
                 (document.querySelector('#flatBoxUpdate').checked = ish.flatRate[0].isTrue);
             document.querySelector('#flatRateUpdate_')
@@ -87,12 +85,12 @@ Template.updateQuote.onRendered(function() {
 
             document.querySelector('#flatBoxUpdate')
                 ? document.querySelector('#flatBoxUpdate').addEventListener('change', function() {
-                    if (document.querySelector('#flatBoxUpdate').checked === false) {
-                        document.querySelector('#flatRateUpdate_').classList.add('hide');
-                    } else {
-                        document.querySelector('#flatRateUpdate_').classList.remove('hide');
-                    }
-                })
+                      if (document.querySelector('#flatBoxUpdate').checked === false) {
+                          document.querySelector('#flatRateUpdate_').classList.add('hide');
+                      } else {
+                          document.querySelector('#flatRateUpdate_').classList.remove('hide');
+                      }
+                  })
                 : null;
             ishDeyisibdir = Session.get('is');
         }
@@ -104,8 +102,7 @@ Template.updateQuote.helpers({
         return WorkData.findOne({ _id: Session.get('is') });
     },
     isGasFee: () => {
-        return WorkData.findOne({ _id: Session.get('is') }) &&
-            WorkData.findOne({ _id: Session.get('is') }).gasFee < 0
+        return WorkData.findOne({ _id: Session.get('is') }) && WorkData.findOne({ _id: Session.get('is') }).gasFee < 0
             ? true
             : false;
     },
@@ -115,9 +112,7 @@ Template.updateQuote.helpers({
             : false;
     },
     isConfirmed: () => {
-        return WorkData.findOne({ _id: Session.get('is') })
-            ? !WorkData.findOne({ _id: Session.get('is') }).quote
-            : false;
+        return WorkData.findOne({ _id: Session.get('is') }) ? !WorkData.findOne({ _id: Session.get('is') }).quote : false;
     }
 });
 
@@ -130,46 +125,46 @@ Template.updateQuote.events({
         Meteor.call('supervisorEmail', job, err => {
             err
                 ? (console.error(err),
-                swal({
-                    title: 'Error! Can\'t send email to supervisor pls contact help desk',
-                    text: 'Reason: ' + err.message,
-                    icon: 'error'
-                }),
-                Session.set('loading', false))
+                  swal({
+                      title: "Error! Can't send email to supervisor pls contact help desk",
+                      text: 'Reason: ' + err.message,
+                      icon: 'error'
+                  }),
+                  Session.set('loading', false))
                 : swal({
-                    title: 'Success',
-                    text: 'Email sent successfully',
-                    icon: 'success'
-                });
+                      title: 'Success',
+                      text: 'Email sent successfully',
+                      icon: 'success'
+                  });
         });
     },
     'click #resend-confirmation': function(e) {
         e.preventDefault();
         if (!confirm('Are you sure to send confirmation email to customer?')) {
-            throw new Error('Email doesn\'t send to customer');
+            throw new Error("Email doesn't send to customer");
         }
         let job = WorkData.findOne({ _id: Session.get('is') });
 
         Meteor.call('confirmationGonder', job, err => {
             err
                 ? (console.error(err),
-                swal({
-                    title: 'Error! Can\'t send email to supervisor pls contact help desk',
-                    text: 'Reason: ' + err.message,
-                    icon: 'error'
-                }),
-                Session.set('loading', false))
+                  swal({
+                      title: "Error! Can't send email to supervisor pls contact help desk",
+                      text: 'Reason: ' + err.message,
+                      icon: 'error'
+                  }),
+                  Session.set('loading', false))
                 : swal({
-                    title: 'Success',
-                    text: 'Email sent successfully',
-                    icon: 'success'
-                });
+                      title: 'Success',
+                      text: 'Email sent successfully',
+                      icon: 'success'
+                  });
         });
     },
     'click #resend-email': function(e) {
         e.preventDefault();
         if (!confirm('Are you sure to send email to customer?')) {
-            throw new Error('Email doesn\'t send to customer');
+            throw new Error("Email doesn't send to customer");
         }
 
         let job = WorkData.findOne({ _id: Session.get('is') });
@@ -211,10 +206,7 @@ Template.updateQuote.events({
             email: document.getElementById('musteriEmail_2').value,
             addresses,
             movingDateConverted: workDate,
-            workMustBeginTime: [
-                document.getElementById('customTime--1').value,
-                document.getElementById('customTime--2').value
-            ],
+            workMustBeginTime: [document.getElementById('customTime--1').value, document.getElementById('customTime--2').value],
             price: document.getElementById('quote_price_2').value,
             minimumLaborTime: document.getElementById('labor_time_2').value,
             hourlyRatesCash: document.getElementById('hourly_rates_cash_2').value,
@@ -225,6 +217,7 @@ Template.updateQuote.events({
             gasFee: document.getElementById('gas_fee_2').value,
             smallPackingItems: document.getElementById('small_item_pack_2').value,
             largeItemFee: document.getElementById('large_item_fee_2').value,
+            stairsFee: document.getElementById('stairsFee').value,
             movingSize: Session.get('movingSize'),
             workers: Session.get('secilmisIsciler'),
             note: document.getElementById('textarea2').value,
@@ -244,26 +237,26 @@ Template.updateQuote.events({
             noteForYourMove: document.getElementById('for_your_move_update').value,
             additionalInfo: Session.get('additionalInfo')
         };
-
+        console.log(doc.stairsFee);
         Meteor.call('emailGonder', doc, err => {
             err
                 ? (console.error(err),
-                swal({
-                    title: 'Error while sending email',
-                    text: err.message,
-                    icon: 'error'
-                }),
-                Session.set('loading', false))
+                  swal({
+                      title: 'Error while sending email',
+                      text: err.message,
+                      icon: 'error'
+                  }),
+                  Session.set('loading', false))
                 : (swal({
-                    title: 'Success',
-                    text: 'Email sent successfully',
-                    icon: 'success'
-                }),
-                Meteor.call('updateWork', {
-                    _id: Session.get('is'),
-                    emailSent: true,
-                    ip: Session.get('ip')
-                }));
+                      title: 'Success',
+                      text: 'Email sent successfully',
+                      icon: 'success'
+                  }),
+                  Meteor.call('updateWork', {
+                      _id: Session.get('is'),
+                      emailSent: true,
+                      ip: Session.get('ip')
+                  }));
         });
     },
     'click #work-update': function(e) {
@@ -307,10 +300,7 @@ Template.updateQuote.events({
             email: document.getElementById('musteriEmail_2').value,
             addresses,
             workDate,
-            workMustBeginTime: [
-                document.getElementById('customTime--1').value,
-                document.getElementById('customTime--2').value
-            ],
+            workMustBeginTime: [document.getElementById('customTime--1').value, document.getElementById('customTime--2').value],
             price: document.getElementById('quote_price_2').value,
             laborTime: document.getElementById('labor_time_2').value,
             hourlyRatesCash: document.getElementById('hourly_rates_cash_2').value,
@@ -471,27 +461,17 @@ Template.preQuote.events({
         if (isNaN(iscilerinSayi)) {
             iscilerinSayi = 0;
         }
-        let workMustBeginTime = [
-            document.getElementById('customTime--1').value,
-            document.getElementById('customTime--2').value
-        ];
+        let workMustBeginTime = [document.getElementById('customTime--1').value, document.getElementById('customTime--2').value];
         let numberOfWorkers = document.getElementById('iscinin-sayi').value;
         let companyInfo = Session.get('companyInfo');
         let trucksTemp = Session.get('trucklar');
         let flatRate = document.getElementById('flatRateCheck').checked;
-        let flatRateCash = document.querySelector('#flatRateCash').value
-            ? document.querySelector('#flatRateCash').value
-            : 0;
-        let flatRateCard = document.querySelector('#flatRateCash').value
-            ? document.querySelector('#flatRateCard').value
-            : 0;
+        let flatRateCash = document.querySelector('#flatRateCash').value ? document.querySelector('#flatRateCash').value : 0;
+        let flatRateCard = document.querySelector('#flatRateCash').value ? document.querySelector('#flatRateCard').value : 0;
         let comment = document.getElementById('textarea1').value;
         let deposit = document.getElementById('deposit').value;
         let takenBy_ = document.getElementById('takenBy--value').value;
-        let takenBy =
-            takenBy_ !== '' && takenBy_ !== null && takenBy_ !== undefined && takenBy_ !== '_'
-                ? takenBy_
-                : undefined;
+        let takenBy = takenBy_ !== '' && takenBy_ !== null && takenBy_ !== undefined && takenBy_ !== '_' ? takenBy_ : undefined;
         let additionalContacts = Session.get('additionalContacts');
         let quoteDate = new Date();
         let quote = true;
@@ -640,66 +620,66 @@ Template.preQuote.events({
 
         typeof email === 'string' && email !== '' && emailReg.test(email)
             ? Meteor.call('quotaniBazayaElaveEt', doc, function(err) {
-                if (err) {
-                    swal({
-                        title: 'Impossible add quote to database',
-                        text: err.message,
-                        icon: 'error'
-                    });
-                    enableButtons();
-                    Session.set('loading', false);
-                } else {
-                    swal({
-                        title: 'Success',
-                        text: 'Quote added to database successfully',
-                        icon: 'success'
-                    });
+                  if (err) {
+                      swal({
+                          title: 'Impossible add quote to database',
+                          text: err.message,
+                          icon: 'error'
+                      });
+                      enableButtons();
+                      Session.set('loading', false);
+                  } else {
+                      swal({
+                          title: 'Success',
+                          text: 'Quote added to database successfully',
+                          icon: 'success'
+                      });
 
-                    document.querySelector('#flatRateCheck').checked = false;
-                    document.getElementById('gas_fee').disabled = false;
+                      document.querySelector('#flatRateCheck').checked = false;
+                      document.getElementById('gas_fee').disabled = false;
 
-                    document.querySelector('#paymentContent').classList.remove('hide');
-                    document.querySelector('#flatRate_').classList.add('hide');
+                      document.querySelector('#paymentContent').classList.remove('hide');
+                      document.querySelector('#flatRate_').classList.add('hide');
 
-                    window.addresses.resetComponent();
+                      window.addresses.resetComponent();
 
-                    document.getElementById('quote-request').reset();
+                      document.getElementById('quote-request').reset();
 
-                    // run job number
-                    jobNumber_();
+                      // run job number
+                      jobNumber_();
 
-                    Session.set('reset', true);
-                    Session.set('additionalContacts', []);
-                    setTimeout(() => Session.set('reset', false), 3000);
+                      Session.set('reset', true);
+                      Session.set('additionalContacts', []);
+                      setTimeout(() => Session.set('reset', false), 3000);
 
-                    Meteor.call('emailGonder', jobInfo, err => {
-                        if (err) {
-                            swal({
-                                title: 'Impossible send email to customer',
-                                text: err.message,
-                                icon: 'error'
-                            });
-                            console.error(err);
-                            Session.set('loading', false);
-                            enableButtons();
-                        } else {
-                            swal({
-                                title: 'Success',
-                                text: 'Email successfully sent to customer',
-                                icon: 'success'
-                            });
-                            enableButtons();
-                        }
-                    });
-                }
-            })
+                      Meteor.call('emailGonder', jobInfo, err => {
+                          if (err) {
+                              swal({
+                                  title: 'Impossible send email to customer',
+                                  text: err.message,
+                                  icon: 'error'
+                              });
+                              console.error(err);
+                              Session.set('loading', false);
+                              enableButtons();
+                          } else {
+                              swal({
+                                  title: 'Success',
+                                  text: 'Email successfully sent to customer',
+                                  icon: 'success'
+                              });
+                              enableButtons();
+                          }
+                      });
+                  }
+              })
             : (swal({
-                title: 'Impossible add quote to database',
-                text: 'Email field is empty or incorrect email',
-                icon: 'error'
-            }),
-            Session.set('loading', false),
-            enableButtons());
+                  title: 'Impossible add quote to database',
+                  text: 'Email field is empty or incorrect email',
+                  icon: 'error'
+              }),
+              Session.set('loading', false),
+              enableButtons());
     },
     'click #confirmed_job': function(e) {
         e.preventDefault();
@@ -739,27 +719,17 @@ Template.preQuote.events({
         if (isNaN(iscilerinSayi)) {
             iscilerinSayi = 0;
         }
-        let workMustBeginTime = [
-            document.getElementById('customTime--1').value,
-            document.getElementById('customTime--2').value
-        ];
+        let workMustBeginTime = [document.getElementById('customTime--1').value, document.getElementById('customTime--2').value];
         let numberOfWorkers = document.getElementById('iscinin-sayi').value;
         let companyInfo = Session.get('companyInfo');
         let trucksTemp = Session.get('trucklar');
         let flatRate = document.getElementById('flatRateCheck').checked;
-        let flatRateCash = document.querySelector('#flatRateCash').value
-            ? document.querySelector('#flatRateCash').value
-            : 0;
-        let flatRateCard = document.querySelector('#flatRateCash').value
-            ? document.querySelector('#flatRateCard').value
-            : 0;
+        let flatRateCash = document.querySelector('#flatRateCash').value ? document.querySelector('#flatRateCash').value : 0;
+        let flatRateCard = document.querySelector('#flatRateCash').value ? document.querySelector('#flatRateCard').value : 0;
         let comment = document.getElementById('textarea1').value;
         let deposit = document.getElementById('deposit').value;
         let takenBy_ = document.getElementById('takenBy--value').value;
-        let takenBy =
-            takenBy_ !== '' && takenBy_ !== null && takenBy_ !== undefined && takenBy_ !== '_'
-                ? takenBy_
-                : undefined;
+        let takenBy = takenBy_ !== '' && takenBy_ !== null && takenBy_ !== undefined && takenBy_ !== '_' ? takenBy_ : undefined;
         let additionalContacts = Session.get('additionalContacts');
         let quoteDate = new Date();
         let quote = false;
@@ -932,27 +902,17 @@ Template.preQuote.events({
         if (isNaN(iscilerinSayi)) {
             iscilerinSayi = 0;
         }
-        let workMustBeginTime = [
-            document.getElementById('customTime--1').value,
-            document.getElementById('customTime--2').value
-        ];
+        let workMustBeginTime = [document.getElementById('customTime--1').value, document.getElementById('customTime--2').value];
         let numberOfWorkers = document.getElementById('iscinin-sayi').value;
         let companyInfo = Session.get('companyInfo');
         let trucksTemp = Session.get('trucklar');
         let flatRate = document.getElementById('flatRateCheck').checked;
-        let flatRateCash = document.querySelector('#flatRateCash').value
-            ? document.querySelector('#flatRateCash').value
-            : 0;
-        let flatRateCard = document.querySelector('#flatRateCash').value
-            ? document.querySelector('#flatRateCard').value
-            : 0;
+        let flatRateCash = document.querySelector('#flatRateCash').value ? document.querySelector('#flatRateCash').value : 0;
+        let flatRateCard = document.querySelector('#flatRateCash').value ? document.querySelector('#flatRateCard').value : 0;
         let comment = document.getElementById('textarea1').value;
         let deposit = document.getElementById('deposit').value;
         let takenBy_ = document.getElementById('takenBy--value').value;
-        let takenBy =
-            takenBy_ !== '' && takenBy_ !== null && takenBy_ !== undefined && takenBy_ !== '_'
-                ? takenBy_
-                : undefined;
+        let takenBy = takenBy_ !== '' && takenBy_ !== null && takenBy_ !== undefined && takenBy_ !== '_' ? takenBy_ : undefined;
         let additionalContacts = Session.get('additionalContacts');
         let quoteDate = new Date();
         let quote = false;
@@ -1143,11 +1103,7 @@ Template.preQuote.onDestroyed(function() {
 
 Template.navBar.events({
     'click .quoteDuymesi': function() {
-        document.querySelector('#quoteTam')
-            ? document.querySelector('#quoteTam').classList.remove('hide')
-            : '';
-        document.querySelector('#updateQuote2')
-            ? document.querySelector('#updateQuote2').classList.add('hide')
-            : '';
+        document.querySelector('#quoteTam') ? document.querySelector('#quoteTam').classList.remove('hide') : '';
+        document.querySelector('#updateQuote2') ? document.querySelector('#updateQuote2').classList.add('hide') : '';
     }
 });
