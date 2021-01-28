@@ -85,11 +85,27 @@ export default function supervisorEmailContent(job) {
         );
     };
 
+    // let flatRateInfoDisplay = function() {
+    //     return `<p style="font-size: 14px; line-height: 16px; margin: 0;">
+    //         ${job.movingSize}
+    //         $${job.flatRate[0].cashAmount || ''}/${job.flatRate[0].cardAmount || ''} for up to ${job.laborTime || ''} hours, after $
+    //         ${job.hourlyRatesCash || ''}/${job.hourlyRatesCard || ''} p/h
+    //         ${(job.doubleDrive && job.doubleDrive === 'yes' && ', + DDT') || ''}
+    //         ${job.gasFee && job.gasFee > 0 ? `, +$${job.gasFee} gas fee` : ''}
+    //         ${job.largeItemFee && job.largeItemFee > 0 ? `, +$${job.largeItemFee} L.I.F.` : ''}
+    //         ${job.stairsFee && job.stairsFee > 0 ? `, $${job.stairsFee} Stairs Fee` : ''}
+    //         ${job.deposit && job.deposit > 0 ? `, $${job.deposit} deposit paid` : ''}
+    //     </p>`;
+    // };
+
     let flatRateInfoDisplay = function() {
         return `<p style="font-size: 14px; line-height: 16px; margin: 0;">
-            ${job.movingSize}
-            $${job.flatRate.cashAmount || ''}/${job.flatRate.cardAmount || ''} for up to ${job.laborTime || ''} hours, after $
-            ${job.hourlyRatesCash || ''}/${job.hourlyRatesCard || ''} p/h 
+            ${job.movingSize`,`}
+            $${job.flatRate[0].cashAmount || ''}/$${job.flatRate[0].cardAmount || ''}  ${
+            job.laborTime > 0
+                ? `for up to ${job.laborTime} hours, after $${job.hourlyRatesCash || ''}/$${job.hourlyRatesCard || ''} p/h `
+                : ''
+        }
             ${(job.doubleDrive && job.doubleDrive === 'yes' && ', + DDT') || ''} 
             ${job.gasFee && job.gasFee > 0 ? `, +$${job.gasFee} gas fee` : ''} 
             ${job.largeItemFee && job.largeItemFee > 0 ? `, +$${job.largeItemFee} L.I.F.` : ''}
@@ -113,7 +129,7 @@ export default function supervisorEmailContent(job) {
             ${job.gasFee && job.gasFee > 0 ? `, +$${job.gasFee} gas fee` : ''} 
             ${job.largeItemFee && job.largeItemFee > 0 ? `, +$${job.largeItemFee} L.I.F.` : ''}
             ${job.stairsFee && job.stairsFee > 0 ? `, $${job.stairsFee} Stairs Fee` : ''}
-            ${job.deposit && job.deposit > 0 ? `, $${job.deposit} deposit paid` : ''}
+            ${job.deposit && job.deposit > 0 ? `, Paid $${job.deposit} deposit` : ''}
         </p>`;
     };
 

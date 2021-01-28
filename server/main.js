@@ -246,6 +246,7 @@ if (Meteor.isServer) {
             let server = email.server.connect({
                 user: 'info@cheapmoverslosangeles.com',
                 // user: job.companyInfo.email,
+                // user: 'lamovingjobs@gmail.com',
                 password: 'MCla7724!',
                 timeout: 60000,
                 host: job.companyInfo.smtp,
