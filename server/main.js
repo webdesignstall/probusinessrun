@@ -11,11 +11,11 @@ import squareConnect from 'square-connect';
 import DifferenceCalculator from './DifferenceCalculator';
 import depositPaymentEmail from './depositPaymentEmail';
 import pdfToCustomer from './pdfToCustomer';
-import { getParsedCommandLineOfConfigFile } from 'typescript';
 
 let config = require('../imports/helpers/config.json');
 
 Meteor.startup(() => {
+    process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
     // const originalMeteorDebug = Meteor._debug;
     // Meteor._debug = (message, stack) => {
     //     if (Meteor.isDevelopment) {
@@ -111,12 +111,11 @@ if (Meteor.isServer) {
         },
 
         emailGonder: function(job) {
-            console.log(job.stairsFee);
             // server connection
             let server = email.server.connect({
                 user: job.companyInfo.email,
                 password: 'MCla7724!',
-                host: '162-0-208-35.cprapid.com',
+                host: job.companyInfo.smtp,
                 timeout: 60000,
                 ssl: true
                 // authentication: ['PLAIN', 'LOGIN', 'CRAM-MD5', 'XOAUTH2']
@@ -149,7 +148,6 @@ if (Meteor.isServer) {
         },
 
         confirmationGonder: function(job) {
-            console.log(job.stairsFee);
             WorkData.update(job._id, {
                 $set: {
                     clientFirstName: job.clientFirstName,
@@ -163,7 +161,7 @@ if (Meteor.isServer) {
                 user: job.companyInfo.email,
                 password: 'MCla7724!',
                 timeout: 60000,
-                host: '162-0-208-35.cprapid.com',
+                host: job.companyInfo.smtp,
                 ssl: true
             });
 
@@ -250,7 +248,7 @@ if (Meteor.isServer) {
                 // user: job.companyInfo.email,
                 password: 'MCla7724!',
                 timeout: 60000,
-                host: '162-0-208-35.cprapid.com',
+                host: job.companyInfo.smtp,
                 ssl: true
             });
 
@@ -258,9 +256,9 @@ if (Meteor.isServer) {
                 text: ' ',
                 from: job.companyInfo.name + ' info@cheapmoverslosangeles.com',
                 // from: job.companyInfo.name + ' ' + job.companyInfo.email,
-                // to: 'movinglosangeles111@gmail.com',
+                to: 'movinglosangeles111@gmail.com',
                 // to: 'joseph.khalilov@gmail.com',
-                to: 'lamovingjobs@gmail.com',
+                // to: 'lamovingjobs@gmail.com',
                 subject: 'Confirmation email',
                 attachment: [
                     {
@@ -284,7 +282,7 @@ if (Meteor.isServer) {
                 user: job.companyInfo.email,
                 password: 'MCla7724!',
                 timeout: 60000,
-                host: '162-0-208-35.cprapid.com',
+                host: job.companyInfo.smtp,
                 ssl: true
             });
 
@@ -332,7 +330,7 @@ if (Meteor.isServer) {
                 // user: 'info@movingcompanylosangeles.com',
                 password: 'MCla7724!',
                 timeout: 60000,
-                host: '162-0-208-35.cprapid.com',
+                host: 'mail.cheapmoverslosangeles.com',
                 ssl: true
             });
 
