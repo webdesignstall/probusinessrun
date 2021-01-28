@@ -142,10 +142,10 @@ export default class QuoteMainPage extends Component {
                         <TravelFee />
                     </div>
                     <div className="col s12 m2 l2">
-                        <Deposit />
+                        <StairsFee />
                     </div>
                     <div className="col s12 m2 l2">
-                        <StairsFee />
+                        <Deposit />
                     </div>
                 </div>
                 <div className="row">

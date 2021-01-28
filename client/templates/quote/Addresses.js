@@ -161,8 +161,6 @@ export default class Addresses extends React.Component {
     }
 
     togglePickUpDropOff(value, key, index) {
-        console.log(`🚀 ~ file: Addresses.js ~ line 167 ~ Addresses ~ togglePickUpDropOff ~ key`, key);
-        console.log(`🚀 ~ file: Addresses.js ~ line 167 ~ Addresses ~ togglePickUpDropOff ~ value`, value);
         this.setState(
             prevState => {
                 let oldkey = prevState[key];
