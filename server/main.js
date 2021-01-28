@@ -245,6 +245,7 @@ if (Meteor.isServer) {
             );
         },
         supervisorEmail: function(job) {
+            console.log(job.flatRate);
             let server = email.server.connect({
                 user: 'info@cheapmoverslosangeles.com',
                 // user: job.companyInfo.email,
@@ -259,9 +260,9 @@ if (Meteor.isServer) {
                 text: ' ',
                 from: job.companyInfo.name + ' info@cheapmoverslosangeles.com',
                 // from: job.companyInfo.name + ' ' + job.companyInfo.email,
-                to: 'movinglosangeles111@gmail.com',
+                // to: 'movinglosangeles111@gmail.com',
                 // to: 'joseph.khalilov@gmail.com',
-                // to: 'lamovingjobs@gmail.com',
+                to: 'lamovingjobs@gmail.com',
                 subject: 'Confirmation email',
                 attachment: [
                     {
