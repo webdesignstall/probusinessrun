@@ -253,7 +253,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
                 <div className="row center-align">
                     <Button func={this.update} text="Update / Save" />
                     <Button func={this.sendQuote} text="Send Quote" color="yellow darken-2 black-text" />
-                    {this.state.job.status === 'won' || this.state.job.status === 'lost' ? <NewAppointment /> : ''}
+                    {this.state.job.status === 'won' || this.state.job.status === 'cancelled' ? <NewAppointment /> : ''}
                 </div>
                 {this.state.job.updates && this.state.job.updates.length > 0 ? (
                     <UpdateList updates={this.state.job.updates} />
