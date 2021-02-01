@@ -53,8 +53,10 @@ export default class List extends TrackerReact(Component) {
                 loading: true
             });
 
-            let regEx = /^[a-zA-Z0-9 /\b]+$/;
+            let regEx = /^[a-zA-Z0-9 \b]+$/;
             let searchWord = Session.get('searchWords');
+            console.log(`🚀 ~ file: List.js ~ line 58 ~ List ~ this.x=Tracker.autorun ~ searchWord`, searchWord.length);
+            searchWord.length > 0 ? '' : (Session.set('loading', false), Session.set('searching', false));
 
             if (searchWord || (regEx.test(searchWord) && (Session.get('update') || !Session.get('update')))) {
                 let value = searchWord;
@@ -67,9 +69,12 @@ export default class List extends TrackerReact(Component) {
                         if (err) {
                             console.error(err);
                         } else {
+                            // convert words into array
                             let arrayOfWords = this.state.searchWords.split(' ');
                             let indexOfEmpty = arrayOfWords.indexOf('');
                             indexOfEmpty > -1 ? arrayOfWords.splice(indexOfEmpty, 1) : null;
+                            let indexOfSpace = arrayOfWords.indexOf(' ');
+                            indexOfSpace > -1 ? arrayOfWords.splice(indexOfSpace, 1) : null;
                             let result = new Set();
                             let sort = Session.get('sort');
 
@@ -80,6 +85,15 @@ export default class List extends TrackerReact(Component) {
                                 word = word.replace('(', '');
                                 word = word.replace(')', '');
                                 word = word.replace('\\', '');
+                                word = word.replace(':', '');
+                                word = word.replace(';', '');
+                                word = word.replace('`', '');
+                                word = word.replace('[', '');
+                                word = word.replace('.', '');
+                                word = word.replace(',', '');
+                                word = word.replace('"', '');
+                                word = word.replace(']', '');
+                                word = word.replace('?', '');
                                 return new RegExp(word, 'gi');
                             });
                             console.log('TCL: List -> componentDidMount -> reg', reg);
