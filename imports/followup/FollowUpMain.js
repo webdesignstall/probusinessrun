@@ -8,6 +8,7 @@ import { Tracker } from 'meteor/tracker';
 import { Meteor } from 'meteor/meteor';
 import LoadingOverlay from 'react-loading-overlay';
 import RingLoader from 'react-spinners/RingLoader';
+import ListInnerDisplay from './list/ListInnerDisplay';
 
 export default class FollowUpMain extends TrackerReact(Component) {
     constructor(props) {
@@ -110,10 +111,28 @@ export default class FollowUpMain extends TrackerReact(Component) {
                 text="Loading..."
                 className="loader"
                 active={Session.get('loading')}
-                spinner={<RingLoader color={'#6DD4B8'} />}>
+                spinner={<RingLoader color={'#6DD4B8'} />}
+            >
                 <div className="followup-header">
                     <Header />
-                    {this.state.dataReady ? <List /> : ''}
+                    {this.state.dataReady && Session.get('ExtendedJobInformation') === '' ? <List /> : ''}
+                    {Session.get('ExtendedJobInformation') !== '' ? (
+                        <div
+                            key={Session.get('job_')._id + 'followUpList'}
+                            className="collection-item"
+                            style={{
+                                border: '1px solid #e0e0e0',
+                                borderRadius: '5px',
+                                marginTop: '10px',
+                                padding: '20px',
+                                backgroundColor: 'white'
+                            }}
+                        >
+                            <ListInnerDisplay loading={this.startStopLoading} job={Session.get('job_')} />
+                        </div>
+                    ) : (
+                        ''
+                    )}
                 </div>
             </LoadingOverlay>
         );

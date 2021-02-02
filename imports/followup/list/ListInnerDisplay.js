@@ -55,19 +55,20 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
                             this.state.job.status === 'inProgress'
                                 ? 'material-icons sari-text'
                                 : this.state.job.status === 'won'
-                                    ? 'material-icons yasil-text'
-                                    : this.state.job.status === 'lost'
-                                        ? 'material-icons narinci-text'
-                                        : this.state.job.status === 'cancelled'
-                                            ? 'material-icons boz-text'
-                                            : 'material-icons'
+                                ? 'material-icons yasil-text'
+                                : this.state.job.status === 'lost'
+                                ? 'material-icons narinci-text'
+                                : this.state.job.status === 'cancelled'
+                                ? 'material-icons boz-text'
+                                : 'material-icons'
                         }
                         style={{
                             position: 'relative',
                             top: '4px',
                             margin: '0 5px 0 10px',
                             fontSize: '18px'
-                        }}>
+                        }}
+                    >
                         fiber_manual_record
                     </i>
                 </span>
@@ -75,12 +76,12 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
                     {this.state.job.status === 'inProgress'
                         ? 'IN PROGRESS'
                         : this.state.job.status === 'won'
-                            ? 'WON'
-                            : this.state.job.status === 'lost'
-                                ? 'LOST'
-                                : this.state.job.status === 'cancelled'
-                                    ? 'CANCELLED'
-                                    : 'STATUS UNDEFINED'}
+                        ? 'WON'
+                        : this.state.job.status === 'lost'
+                        ? 'LOST'
+                        : this.state.job.status === 'cancelled'
+                        ? 'CANCELLED'
+                        : 'STATUS UNDEFINED'}
                 </span>
             </span>
         );
@@ -144,16 +145,17 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
                         style={{
                             position: 'relative',
                             top: '3px'
-                        }}>
+                        }}
+                    >
                         {index < (this.state.job.followUp ? this.state.job.followUp.length : -1)
                             ? index === (this.state.job.followUp ? this.state.job.followUp.length - 1 : -1)
                                 ? this.state.job.status && this.state.job.status === 'lost'
                                     ? redFollowUp
                                     : this.state.job.status && this.state.job.status === 'won'
-                                        ? greenFollowUp
-                                        : this.state.job.status && this.state.job.status === 'cancelled'
-                                            ? lightGreyFollowUp
-                                            : sariFollowUp
+                                    ? greenFollowUp
+                                    : this.state.job.status && this.state.job.status === 'cancelled'
+                                    ? lightGreyFollowUp
+                                    : sariFollowUp
                                 : sariFollowUp
                             : greyFollowUp}
                     </span>
@@ -163,7 +165,8 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
                             position: 'relative',
                             top: '-4px',
                             margin: '0 5px'
-                        }}>
+                        }}
+                    >
                         <svg xmlns="http://www.w3.org/2000/svg" width="40" height="2" viewBox="0 0 40 2">
                             <line
                                 x2="40"
@@ -217,7 +220,8 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
                         fontWeight: '500',
                         overflow: 'hidden',
                         whiteSpace: 'nowrap'
-                    }}>
+                    }}
+                >
                     <div className="fade" />
                     {this.state.job ? this.state.job.clientFirstName : ''} {this.state.job ? this.state.job.clientLastName : ''}
                 </div>
@@ -229,7 +233,8 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
                         color: '#D1E0FB',
                         padding: '1px 10px',
                         fontWeight: 'bold'
-                    }}>
+                    }}
+                >
                     {this.state.job ? this.state.job.workDate : ''}
                 </span>
                 <span
@@ -240,7 +245,8 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
                         color: '#E6FDDF',
                         padding: '1px 10px',
                         fontWeight: 'bold'
-                    }}>
+                    }}
+                >
                     {this.state.job ? this.state.job.jobNumber : ''}
                 </span>
                 {this.statusOfJob()}
@@ -251,22 +257,25 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
                         borderRadius: '5px',
                         color: '#50325C',
                         padding: '5px 10px'
-                    }}>
+                    }}
+                >
                     {this.state.job.companyInfo ? this.state.job.companyInfo.name || '' : ''}
                 </span>
                 {this.reason()}
-                {Session.get('is') !== '' && Session.get('is') === this.state.show ? (
+                {Session.get('ExtendedJobInformation') !== '' ? (
                     <i
                         style={{ top: '-5px', cursor: 'pointer' }}
                         className="material-icons right"
-                        onClick={e => this.showMore(e)}>
+                        onClick={e => this.showMore(e)}
+                    >
                         close
                     </i>
                 ) : (
                     <i
                         style={{ top: '-5px', cursor: 'pointer' }}
                         className="material-icons right"
-                        onClick={() => this.showMore()}>
+                        onClick={() => this.showMore()}
+                    >
                         edit
                     </i>
                 )}
@@ -278,7 +287,8 @@ export default class ListInnerDisplay extends TrackerReact(Component) {
                         color: this.state.job.emailSent ? '#2AC852' : '#D21324',
                         padding: '1px 10px',
                         fontWeight: 'bold'
-                    }}>
+                    }}
+                >
                     QUOTE{' '}
                     <span style={{ color: 'black' }}>
                         {this.state.job.emailSent
