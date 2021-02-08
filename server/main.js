@@ -15,7 +15,7 @@ import pdfToCustomer from './pdfToCustomer';
 let config = require('../imports/helpers/config.json');
 
 Meteor.startup(() => {
-    process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
+    // process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
     // const originalMeteorDebug = Meteor._debug;
     // Meteor._debug = (message, stack) => {
     //     if (Meteor.isDevelopment) {
@@ -91,9 +91,9 @@ if (Meteor.isServer) {
             WorkData.remove(id);
         },
 
-        isciniSilmek: function(id) {
-            Meteor.users.remove(id);
-        },
+        // isciniSilmek: function(id) {
+        //     Meteor.users.remove(id);
+        // },
 
         quotaniBazayaElaveEt: function(doc) {
             doc.statusChange = new Date();
@@ -183,9 +183,9 @@ if (Meteor.isServer) {
             });
         },
 
-        saveEmployeeInfo: function(isinIdsi, value, iscininIdsi) {
-            WorkData.update({ _id: isinIdsi, 'workers.id': iscininIdsi }, { $set: { 'workers.$.payed': value } });
-        },
+        // saveEmployeeInfo: function(isinIdsi, value, iscininIdsi) {
+        //     WorkData.update({ _id: isinIdsi, 'workers.id': iscininIdsi }, { $set: { 'workers.$.payed': value } });
+        // },
 
         updateWork: function(doc) {
             // console.log('Update information: ' + doc.ip + ' :', doc);
@@ -232,7 +232,7 @@ if (Meteor.isServer) {
                 {
                     $set: doc
                 },
-                function(error, result) {
+                function(error) {
                     if (error) {
                         console.error(`id: ${doc._id}`, error);
                         throw new Meteor.Error('Error updating', 'Reason: ' + error.message);
@@ -315,7 +315,7 @@ if (Meteor.isServer) {
                 {
                     $set: doc
                 },
-                function(error, result) {
+                function(error) {
                     error ? console.error(`id: ${doc._id}`, error) : null;
                 }
             );
@@ -373,7 +373,7 @@ if (Meteor.isServer) {
                 attachment: [
                     {
                         data: `<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <title>Parcel Sandbox</title>
 <meta charset="UTF-8">
@@ -416,6 +416,7 @@ ${obj.companyInfo.email}<br>
                     );
                 } else {
                     console.info('Info about payment successfully sent to ' + obj.cardHolderInfo.email + ' email');
+                    console.info(message);
                 }
             });
         }

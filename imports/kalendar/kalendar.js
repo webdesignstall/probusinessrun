@@ -12,6 +12,7 @@ import DailyStats from './DailyStats';
 import EditCalendarQuote from '../../client/templates/quote/editCalendarQuote/EditCalendarQuote';
 import QuoteMainPage from '../../client/templates/quote/QuoteMainPage';
 import jobNumberCreator from '../../client/templates/quote/JobNumberCreator';
+
 /*global moment $ swal*/
 
 function colorIndigator() {
@@ -96,7 +97,7 @@ Template.kalendar.onDestroyed(() => {
     Session.set('addingJob', false);
     ReactDOM.unmountComponentAtNode(document.getElementById('edit_calendar_quote'));
     let dailyStatsList = document.getElementsByClassName('dailyStatsComponent');
-    let i = 0;
+    let i;
     for (i = 0; i < dailyStatsList.length; i++) {
         ReactDOM.unmountComponentAtNode(dailyStatsList[i]);
     }
@@ -122,39 +123,33 @@ Template.kalendar.helpers({
     labelName: function(label) {
         return label.name;
     },
-    labelColor: function(label) {
-        return label.color;
-    },
+    // labelColor: function(label) {
+    //     return label.color;
+    // },
     isGunMelumatVar: function() {
-        if (
-            WorkData.find({
-                status: 'won',
-                workDate: Template.instance()
-                    .secilenTarix2.get()
-                    .toString()
-            }).fetch().length
-        ) {
-            return true;
-        } else {
-            return false;
-        }
+        return !!WorkData.find({
+            status: 'won',
+            workDate: Template.instance()
+                .secilenTarix2.get()
+                .toString()
+        }).fetch().length;
     },
-    isAM: function(saat) {
-        if (Number(saat.substr(0, 2)) < 12) {
-            return true;
-        } else {
-            return false;
-        }
-    },
+    // isAM: function(saat) {
+    //     if (Number(saat.substr(0, 2)) < 12) {
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
+    // },
     saatDeqiq: function(saat) {
         return saat[0] + ' - ' + saat[1];
     },
-    buDocument: function() {
-        return WorkData.findOne({ _id: Template.instance().vurulanId.get() });
-    },
-    quotedir: function(quote) {
-        return quote;
-    }
+    // buDocument: function() {
+    //     return WorkData.findOne({ _id: Template.instance().vurulanId.get() });
+    // },
+    // quotedir: function(quote) {
+    //     return quote;
+    // }
 });
 
 Template.kalendar.onRendered(() => {
@@ -167,10 +162,9 @@ Template.kalendar.onRendered(() => {
                 let gunler = Array.from(document.getElementsByClassName('dayData'));
                 let baza = WorkData.find({}).fetch();
                 let fileterdJobs_ = function(date, status) {
-                    let result = baza.filter(job => {
+                    return baza.filter(job => {
                         return job.workDate === date && job.status === status;
                     });
-                    return result;
                 };
 
                 gunler.map(gun => {
@@ -502,16 +496,14 @@ Template.kalendar.onRendered(() => {
     });
 
     Tracker.autorun(() => {
-        let baza = WorkData.find({}).fetch();
-        dataBase = baza;
+        dataBase = WorkData.find({}).fetch();
         gunYerlesdirme();
     });
 
     function filterJob(date, status) {
-        let result = dataBase.filter(job => {
+        return dataBase.filter(job => {
             return job.workDate === date && job.status === status;
         });
-        return result;
     }
 
     $('.dayData').click(function() {
@@ -673,11 +665,7 @@ Template.kalendar.events({
 });
 
 Template.registerHelper('isBosdur', function(workMustBeginTime) {
-    if (workMustBeginTime === '' || workMustBeginTime === undefined) {
-        return true;
-    } else {
-        return false;
-    }
+    return workMustBeginTime === '' || workMustBeginTime === undefined;
 });
 
 // Bazaya melumat daxil olduqdan sonra cixan mesaj
