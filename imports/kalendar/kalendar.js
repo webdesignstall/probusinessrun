@@ -40,17 +40,17 @@ function colorIndigator() {
             selectedMovers < shouldSelectMovers && selectedMovers > 0
                 ? moverIndigator.classList.add('sari')
                 : selectedMovers === shouldSelectMovers && selectedMovers > 0
-                    ? moverIndigator.classList.add('yasil')
-                    : selectedMovers > shouldSelectMovers && shouldSelectMovers === 0
-                        ? moverIndigator.classList.add('yasil')
-                        : null;
+                ? moverIndigator.classList.add('yasil')
+                : selectedMovers > shouldSelectMovers && shouldSelectMovers === 0
+                ? moverIndigator.classList.add('yasil')
+                : null;
             selectedTruck < shouldSelectTrucks && selectedTruck > 0
                 ? truckIndigator.classList.add('sari')
                 : selectedTruck === shouldSelectTrucks && selectedTruck > 0
-                    ? truckIndigator.classList.add('yasil')
-                    : selectedTruck > shouldSelectTrucks && shouldSelectTrucks === 0
-                        ? truckIndigator.classList.add('yasil')
-                        : null;
+                ? truckIndigator.classList.add('yasil')
+                : selectedTruck > shouldSelectTrucks && shouldSelectTrucks === 0
+                ? truckIndigator.classList.add('yasil')
+                : null;
         }
     }
 }
@@ -143,7 +143,7 @@ Template.kalendar.helpers({
     // },
     saatDeqiq: function(saat) {
         return saat[0] + ' - ' + saat[1];
-    },
+    }
     // buDocument: function() {
     //     return WorkData.findOne({ _id: Template.instance().vurulanId.get() });
     // },
@@ -219,11 +219,18 @@ Template.kalendar.onRendered(() => {
             if (dateChanged === 1) {
                 tarixIn.innerHTML =
                     gun +
-                    `<a href="#" id="ay" class="tarixSecim"></a><a href="#" id="il" class="tarixSecim"></a><a href="#" id="goToday" class="tarixSecimGoToday"></a><a href="#" id="totalMonth">Total Jobs: ${totalJobs.get()}</a><div class="add-moreschedule-button">Create New Job + </div>`;
+                    `<a href="#" id="ay" class="tarixSecim"></a>
+<a href="#" id="il" class="tarixSecim"></a>
+<a href="#" id="goToday" class="tarixSecimGoToday"></a>
+<a href="#" id="totalMonth">Total Jobs: ${totalJobs.get()}</a>
+<div class="add-moreschedule-button">Create New Job + </div>`;
             } else {
                 tarixIn.innerHTML =
                     gun +
-                    `<a href="#" id="ay" class="tarixSecim"></a><a href="#" id="il" class="tarixSecim"></a><a href="#" id="totalMonth">Total Jobs: ${totalJobs.get()}</a><div class="add-moreschedule-button">Create New Job + </div>`;
+                    `<a href="#" id="ay" class="tarixSecim"></a>
+<a href="#" id="il" class="tarixSecim"></a>
+<a href="#" id="totalMonth">Total Jobs: ${totalJobs.get()}</a>
+<div class="add-moreschedule-button">Create New Job + </div>`;
             }
             let ayHedef = document.getElementById('ay');
             let ilHedef = document.getElementById('il');
@@ -256,11 +263,18 @@ Template.kalendar.onRendered(() => {
         if (dateChanged === 1) {
             tarixIn.innerHTML =
                 gun +
-                `<a href="#" id="ay" class="tarixSecim"></a><a href="#" id="il" class="tarixSecim"></a><a href="#" id="goToday" class="tarixSecimGoToday"></a><a href="#" id="totalMonth">Total Jobs: ${totalJobs.get()}</a><div class="add-moreschedule-button">Create New Job + </div>`;
+                `<a href="#" id="ay" class="tarixSecim"></a>
+<a href="#" id="il" class="tarixSecim"></a>
+<a href="#" id="goToday" class="tarixSecimGoToday"></a>
+<a href="#" id="totalMonth">Total Jobs: ${totalJobs.get()}</a>
+<div class="add-moreschedule-button">Create New Job + </div>`;
         } else {
             tarixIn.innerHTML =
                 gun +
-                `<a href="#" id="ay" class="tarixSecim"></a><a href="#" id="il" class="tarixSecim"></a><a href="#" id="totalMonth">Total Jobs: ${totalJobs.get()}</a><div class="add-moreschedule-button">Create New Job + </div>`;
+                `<a href="#" id="ay" class="tarixSecim"></a>
+<a href="#" id="il" class="tarixSecim"></a>
+<a href="#" id="totalMonth">Total Jobs: ${totalJobs.get()}</a>
+<div class="add-moreschedule-button">Create New Job + </div>`;
         }
         let ayHedef = document.getElementById('ay');
         let ilHedef = document.getElementById('il');
@@ -281,38 +295,37 @@ Template.kalendar.onRendered(() => {
             .endOf('month')
             .date();
         ayDeqiq = ayx + 1;
-        // cedvelden gun xanalrini sec
-        let xanalar = document.getElementsByClassName('dayData');
+        let dayBoxes = document.getElementsByClassName('dayData');
         // xanalari loop edib icine gunleri yerlesdirmek ve idlerini hemin gun etmesi
         let gunYerlesdirilecekHedef; // gunun nomresi yerlesdirilecek hedef
         let y;
-        for (y = 0; y < xanalar.length; y++) {
+        for (y = 0; y < dayBoxes.length; y++) {
             // idlerin teyin ve aid edilmesi
             if (sayi < ayin1ciGunu || gunSayimi > aydaGunlerinSayi) {
-                xanalar[y].setAttribute('id', '');
-                xanalar[y].setAttribute('id', 'gunNomre' + sayi);
+                dayBoxes[y].setAttribute('id', '');
+                dayBoxes[y].setAttribute('id', 'gunNomre' + sayi);
                 document.getElementById('gunNomre' + sayi).innerHTML = '';
             }
             if (sayi >= ayin1ciGunu && gunSayimi < aydaGunlerinSayi + 1) {
                 if (gunSayimi < 10) {
                     if (ayx < 9) {
                         let teqvim = '0' + ayDeqiq + '/0' + gunSayimi + '/' + ilx;
-                        xanalar[y].setAttribute('id', '');
-                        xanalar[y].setAttribute('id', teqvim);
+                        dayBoxes[y].setAttribute('id', '');
+                        dayBoxes[y].setAttribute('id', teqvim);
                     } else {
                         let teqvim = ayDeqiq + '/0' + gunSayimi + '/' + ilx;
-                        xanalar[y].setAttribute('id', '');
-                        xanalar[y].setAttribute('id', teqvim);
+                        dayBoxes[y].setAttribute('id', '');
+                        dayBoxes[y].setAttribute('id', teqvim);
                     }
                 } else {
                     if (ayx < 9) {
                         let teqvim = '0' + ayDeqiq + '/' + gunSayimi + '/' + ilx;
-                        xanalar[y].setAttribute('id', '');
-                        xanalar[y].setAttribute('id', teqvim);
+                        dayBoxes[y].setAttribute('id', '');
+                        dayBoxes[y].setAttribute('id', teqvim);
                     } else {
                         let teqvim = ayDeqiq + '/' + gunSayimi + '/' + ilx;
-                        xanalar[y].setAttribute('id', '');
-                        xanalar[y].setAttribute('id', teqvim);
+                        dayBoxes[y].setAttribute('id', '');
+                        dayBoxes[y].setAttribute('id', teqvim);
                     }
                 }
             }
@@ -376,6 +389,8 @@ Template.kalendar.onRendered(() => {
         if (event.target.id === 'goToday') {
             clickOnSelect = 0;
             dateChanged = 0;
+            console.log(ayOriginiali);
+            console.log(ilOriginal);
             tarixiGoster(ayOriginiali, ilOriginal);
             $('#teqvimSecim').slideUp(500);
             gunYerlesdirme(ayOriginiali, ilOriginal);
@@ -399,7 +414,7 @@ Template.kalendar.onRendered(() => {
                 let ilSiyahi = '';
                 let ilHesab = il;
                 for (z = -3; z < 2; z++) {
-                    ilHesab = il + z;
+                    ilHesab = Number(il) + z;
                     ilSiyahi += '<a href="#" name="' + ilHesab + '" class="tarixSecim tarixSecimay">' + ilHesab + '</a>';
                 }
                 hedefInsert.innerHTML = ilSiyahi;

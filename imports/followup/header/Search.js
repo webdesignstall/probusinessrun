@@ -47,11 +47,12 @@ export default class Search extends TrackerReact(Component) {
     }
 
     search_() {
-        Session.set('loading', true);
+        // Session.set('loading', true);
         Session.set('searchWords', this.state.searchWords);
     }
 
     interval() {
+        console.log('set interval for search');
         clearTimeout(this.timeOut);
         this.timeOut = setTimeout(this.search_, 500);
     }

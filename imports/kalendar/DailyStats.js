@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import WorkData from '../../common/collections_2';
 import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import MorningJobs from './MorningJobs';
 import AfternoonJobs from './AfternoonJobs';
@@ -34,8 +33,7 @@ export default class DailyStats extends TrackerReact(Component) {
 
         this.props.workDataList &&
             this.props.workDataList.map(work => {
-                Date.parse('1 Aug 2018 ' + work.workMustBeginTime[0]) <
-                Date.parse('1 Aug 2018 01:00 pm')
+                Date.parse('1 Aug 2018 ' + work.workMustBeginTime[0]) < Date.parse('1 Aug 2018 01:00 pm')
                     ? ((employees += work.numberOfWorkers), jobs++)
                     : null;
             });
@@ -54,8 +52,7 @@ export default class DailyStats extends TrackerReact(Component) {
 
         this.props.workDataList &&
             this.props.workDataList.map(work => {
-                Date.parse('1 Aug 2018 ' + work.workMustBeginTime[0]) >
-                Date.parse('1 Aug 2018 12:45 pm')
+                Date.parse('1 Aug 2018 ' + work.workMustBeginTime[0]) > Date.parse('1 Aug 2018 12:45 pm')
                     ? ((employees += work.numberOfWorkers), jobs++)
                     : null;
             });
@@ -71,17 +68,9 @@ export default class DailyStats extends TrackerReact(Component) {
     render() {
         return (
             <div className="dailystat--main">
-                <MorningJobs
-                    jobsNumber={this.morningJobs().jobs}
-                    employeeNumber={this.morningJobs().employees}
-                />
-                <AfternoonJobs
-                    jobsNumber={this.afterNoonJobs().jobs}
-                    employeeNumber={this.afterNoonJobs().employees}
-                />
-                <span className="free">
-                    {this.jobsMorning + this.jobsAfterNoon}
-                </span>
+                <MorningJobs jobsNumber={this.morningJobs().jobs} employeeNumber={this.morningJobs().employees} />
+                <AfternoonJobs jobsNumber={this.afterNoonJobs().jobs} employeeNumber={this.afterNoonJobs().employees} />
+                <span className="free">{this.jobsMorning + this.jobsAfterNoon}</span>
             </div>
         );
     }

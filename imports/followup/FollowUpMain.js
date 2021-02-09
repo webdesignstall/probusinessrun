@@ -27,13 +27,13 @@ export default class FollowUpMain extends TrackerReact(Component) {
         return WorkData.find({ status: 'inProgress' }).fetch() || [];
     }
 
-    UNSAFE_componentWillMount() {
-        Session.set('loading', true);
-    }
+    // UNSAFE_componentWillMount() {
+    //     Session.set('loading', true);
+    // }
 
     componentDidMount() {
         this.x = Tracker.autorun(() => {
-            Session.set('loading', true);
+            // Session.set('loading', true);
             Session.set('_', '');
             let status = Session.get('status');
             this.setState({
@@ -115,8 +115,16 @@ export default class FollowUpMain extends TrackerReact(Component) {
             >
                 <div className="followup-header">
                     <Header />
-                    {this.state.dataReady && Session.get('ExtendedJobInformation') === '' ? <List /> : ''}
-                    {Session.get('ExtendedJobInformation') !== '' ? (
+                    {}
+                    {/* <div
+                        style={{
+                            visibility:
+                                this.state.dataReady && Session.get('ExtendedJobInformation') === '' ? 'visible' : 'hidden'
+                        }}
+                    > */}
+                    <List />
+                    {/* </div> */}
+                    {/* {Session.get('ExtendedJobInformation') !== '' ? (
                         <div
                             key={Session.get('job_')._id + 'followUpList'}
                             className="collection-item"
@@ -132,7 +140,7 @@ export default class FollowUpMain extends TrackerReact(Component) {
                         </div>
                     ) : (
                         ''
-                    )}
+                    )} */}
                 </div>
             </LoadingOverlay>
         );

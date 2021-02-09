@@ -388,20 +388,20 @@ MY OWN FREE WILL`
 
             this.state.discount && this.state.discount.length > -1
                 ? this.state.discount
-                    .filter(discount => discount.type === 'time')
-                    .map(discount => (this.totalDiscountTime += discount.amount))
+                      .filter(discount => discount.type === 'time')
+                      .map(discount => (this.totalDiscountTime += discount.amount))
                 : null;
 
             this.state.discount && this.state.discount.length > -1
                 ? this.state.discount
-                    .filter(discount => discount.type === 'amount')
-                    .map(discount => (this.totalDiscountAmount += discount.amount))
+                      .filter(discount => discount.type === 'amount')
+                      .map(discount => (this.totalDiscountAmount += discount.amount))
                 : null;
 
             this.state.discount && this.state.discount.length > -1
                 ? this.state.discount
-                    .filter(discount => discount.type === 'percent')
-                    .map(discount => (this.totalDiscountPercent += discount.amount))
+                      .filter(discount => discount.type === 'percent')
+                      .map(discount => (this.totalDiscountPercent += discount.amount))
                 : null;
 
             this.state.additionalCharge.map(charge => {
@@ -552,11 +552,11 @@ MY OWN FREE WILL`
             () => {
                 this.state.packMater && this.state.cargoIsSubject && this.state.myResponsibility
                     ? this.setState({
-                        goster: true
-                    })
+                          goster: true
+                      })
                     : this.setState({
-                        goster: false
-                    }); // Update information in the database
+                          goster: false
+                      }); // Update information in the database
             }
         );
     }
@@ -720,9 +720,9 @@ MY OWN FREE WILL`
                 let valuationOption = isRender[0].valuationOption
                     ? isRender[0].valuationOption
                     : {
-                        initial: '',
-                        typeNumber: 0
-                    };
+                          initial: '',
+                          typeNumber: 0
+                      };
                 let checks = isRender[0].checks || {
                     packMater: false,
                     cargoIsSubject: false,
@@ -1230,8 +1230,8 @@ MY OWN FREE WILL`
                                             {is.smallItemPacking && is.smallItemPacking < 0
                                                 ? 'Yes'
                                                 : is.smallItemPacking && is.smallItemPacking > 0
-                                                    ? '$' + is.smallItemPacking
-                                                    : 'No'}
+                                                ? '$' + is.smallItemPacking
+                                                : 'No'}
                                             <br />
                                             Not to Exceed Price: ${is.price}
                                             <br />
@@ -1276,8 +1276,8 @@ MY OWN FREE WILL`
                                                     style={
                                                         is.requirementEntirely === true
                                                             ? {
-                                                                border: '2px solid blue'
-                                                            }
+                                                                  border: '2px solid blue'
+                                                              }
                                                             : null
                                                     }
                                                     disabled={is.requirementEntirely === true || is.requirementEntirely === false}
@@ -1296,8 +1296,8 @@ MY OWN FREE WILL`
                                                     style={
                                                         is.requirementEntirely === false
                                                             ? {
-                                                                border: '2px solid blue'
-                                                            }
+                                                                  border: '2px solid blue'
+                                                              }
                                                             : null
                                                     }
                                                     onClick={() => this.requirementEntirely(false, 'requirementEntirely')}
@@ -1320,8 +1320,8 @@ MY OWN FREE WILL`
                                                     style={
                                                         is.threeDayPrior === true
                                                             ? {
-                                                                border: '2px solid blue'
-                                                            }
+                                                                  border: '2px solid blue'
+                                                              }
                                                             : null
                                                     }
                                                     onClick={() => this.requirementEntirely(true, 'threeDayPrior')}
@@ -1337,8 +1337,8 @@ MY OWN FREE WILL`
                                                     style={
                                                         is.threeDayPrior === false
                                                             ? {
-                                                                border: '2px solid blue'
-                                                            }
+                                                                  border: '2px solid blue'
+                                                              }
                                                             : null
                                                     }
                                                     onClick={() => this.requirementEntirely(false, 'threeDayPrior')}
@@ -1424,8 +1424,8 @@ MY OWN FREE WILL`
                                                         is.valuationOption.typeNumber === 0
                                                             ? is.valuationOption.initial
                                                             : this.state.valuationOption.typeNumber === 0
-                                                                ? this.state.valuationOption.initial
-                                                                : ''
+                                                            ? this.state.valuationOption.initial
+                                                            : ''
                                                     }
                                                 />
                                             </td>
@@ -1434,6 +1434,7 @@ MY OWN FREE WILL`
                                             <td>No Additional Charge</td>
                                             <td>No Deductible</td>
                                         </tr>
+                                        dshjhkhasdhk
                                         <tr
                                             style={{
                                                 backgroundColor: '#C3D6FF'
@@ -1459,8 +1460,8 @@ MY OWN FREE WILL`
                                                         is.valuationOption.typeNumber === 1
                                                             ? is.valuationOption.initial
                                                             : this.state.valuationOption.typeNumber === 1
-                                                                ? this.state.valuationOption.initial
-                                                                : ''
+                                                            ? this.state.valuationOption.initial
+                                                            : ''
                                                     }
                                                 />
                                             </td>
@@ -1503,8 +1504,8 @@ MY OWN FREE WILL`
                                                         is.valuationOption.typeNumber === 2
                                                             ? is.valuationOption.initial
                                                             : this.state.valuationOption.typeNumber === 2
-                                                                ? this.state.valuationOption.initial
-                                                                : ''
+                                                            ? this.state.valuationOption.initial
+                                                            : ''
                                                     }
                                                 />
                                             </td>
@@ -1611,8 +1612,8 @@ MY OWN FREE WILL`
                                                       this.state.startFullName &&
                                                       this.state.startFullName !== '' &&
                                                       this.state.goster
-                                                        ? 'waves-effect waves-light btn blue'
-                                                        : 'waves-effect waves-light btn blue disabled'
+                                                    ? 'waves-effect waves-light btn blue'
+                                                    : 'waves-effect waves-light btn blue disabled'
                                             }
                                             style={{ width: '400px' }}
                                             onClick={this.activateStart}
@@ -1959,8 +1960,8 @@ MY OWN FREE WILL`
                                                     ? '$' + this.state.totalPul
                                                     : 'Yes'
                                                 : is.smallItemPacking > 0
-                                                    ? '$' + (is.smallItemPacking + (this.state.totalPul ? this.state.totalPul : 0))
-                                                    : 'Waived'}
+                                                ? '$' + (is.smallItemPacking + (this.state.totalPul ? this.state.totalPul : 0))
+                                                : 'Waived'}
                                         </span>
                                     </li>
                                     <li className="collection-item blue">

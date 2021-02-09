@@ -89,21 +89,19 @@ export default function supervisorEmailContent(job) {
     // ${job.hourlyRatesCash || ''}/$${job.hourlyRatesCard || ''} p/h
 
     let flatRateInfoDisplay = function() {
-        let flatRate =
-            job.laborTime > 0
-                ? `<p style="font-size: 14px; line-height: 16px; margin: 0;">${job.movingSize}, $${job.flatRate[0].cashAmount ||
-                      ''}/$${job.flatRate[0].cardAmount || ''} for up to ${job.laborTime || ''} hours, after $
-				${job.hourlyRatesCash || ''}/$${job.hourlyRatesCard || ''} p/h</p>`
-                : `<p style="font-size: 14px; line-height: 16px; margin: 0;">${job.movingSize}, $${job.flatRate[0].cashAmount ||
-                      ''}/$${job.flatRate[0].cardAmount || ''}</p>`;
-
         return `<p style="font-size: 14px; line-height: 16px; margin: 0;">
-		${flatRate}
-		${(job.doubleDrive && job.doubleDrive === 'yes' && ', + DDT') || ''}
-		${job.gasFee && job.gasFee > 0 ? `, +$${job.gasFee} Gas Fee` : ''}
-		${job.largeItemFee && job.largeItemFee > 0 ? `, +$${job.largeItemFee} L.I.F.` : ''}
-		${job.stairsFee && job.stairsFee > 0 ? `, $${job.stairsFee} Stairs Fee` : ''}
-		${job.deposit && job.deposit > 0 ? `, $${job.deposit} deposit paid` : ''}
+            ${job.movingSize`,`}
+            $${job.flatRate[0].cashAmount || ''}/$${job.flatRate[0].cardAmount || ''}  ${
+            job.laborTime > 0
+                ? `for up to ${job.laborTime} hours, after $${job.hourlyRatesCash || ''}/$${job.hourlyRatesCard || ''} p/h `
+                : ''
+        }
+            ${(job.doubleDrive && job.doubleDrive === 'yes' && ', + DDT') || ''} 
+            ${job.gasFee && job.gasFee > 0 ? `, +$${job.gasFee} Gas Fee` : ''} 
+			${job.largeItemFee && job.largeItemFee > 0 ? `, +$${job.largeItemFee} Large Item Fee,` : ''}
+			${job.smallItemPacking && job.smallItemPacking > 0 ? `+$${job.smallItemPacking} Small Item Packing Fee` : ''}
+            ${job.stairsFee && job.stairsFee > 0 ? `, $${job.stairsFee} Stairs Fee` : ''}
+            ${job.deposit && job.deposit > 0 ? `, $${job.deposit} deposit paid` : ''}
         </p>`;
     };
     // ${job.movingSize`,`}
@@ -139,10 +137,11 @@ export default function supervisorEmailContent(job) {
             $${job.hourlyRatesCash || ''}/${job.hourlyRatesCard || ''} p/h 
             ${job.laborTime && job.laborTime > 0 ? `within ${job.laborTime || ''}hrs min.` : ''}
             ${(job.doubleDrive && job.doubleDrive === 'yes' && ', + DDT') || ''} 
-            ${job.gasFee && job.gasFee > 0 ? `, +$${job.gasFee} gas fee` : ''} 
-            ${job.largeItemFee && job.largeItemFee > 0 ? `, +$${job.largeItemFee} L.I.F.` : ''}
+            ${job.gasFee && job.gasFee > 0 ? `, +$${job.gasFee} gas Fee` : ''} 
+			${job.largeItemFee && job.largeItemFee > 0 ? `, +$${job.largeItemFee} Large Item Fee` : ''}
+			${job.smallItemPacking && job.smallItemPacking > 0 ? `+$${job.smallItemPacking} Small Item Packing Fee` : ''}
             ${job.stairsFee && job.stairsFee > 0 ? `, $${job.stairsFee} Stairs Fee` : ''}
-            ${job.deposit && job.deposit > 0 ? `, Paid $${job.deposit} deposit` : ''}
+            ${job.deposit && job.deposit > 0 ? `, $${job.deposit} deposit paid` : ''}
         </p>`;
     };
 
