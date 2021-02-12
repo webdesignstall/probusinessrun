@@ -167,7 +167,7 @@ export default class PaymentForm extends TrackerReact(Component) {
                             Session.set('loading', false);
                             swal({
                                 title: 'Error!',
-                                text: 'Can\'t proccess payment. Reason: ' + error.message,
+                                text: "Can't proccess payment. Reason: " + error.message,
                                 icon: 'error',
                                 button: 'OK'
                             });
@@ -185,8 +185,8 @@ export default class PaymentForm extends TrackerReact(Component) {
                             delete job_.updates;
                             delete job_.cardholderInfo;
                             delete job_.cardholderInfo;
-                            fetch('https://www.probusinessrun.com/charge/', {
-                            // fetch('http://localhost:3000/charge/', {
+                            // fetch('https://www.probusinessrun.com/charge/', {
+                            fetch('http://localhost:3000/charge/', {
                                 method: 'POST',
                                 body: JSON.stringify({
                                     nonce: this.state.nonce,
@@ -229,7 +229,7 @@ export default class PaymentForm extends TrackerReact(Component) {
                                         swal({
                                             title: 'Error!',
                                             text:
-                                                'Can\'t proccess payment. Please ensure that you entered correct card information',
+                                                "Can't proccess payment. Please ensure that you entered correct card information",
                                             icon: 'error',
                                             button: 'OK'
                                         });
@@ -241,31 +241,31 @@ export default class PaymentForm extends TrackerReact(Component) {
                 unsupportedBrowserDetected: () => {},
                 inputEventReceived: inputEvent => {
                     switch (inputEvent.eventType) {
-                    case 'focusClassAdded':
-                        break;
-                    case 'focusClassRemoved':
-                        break;
-                    case 'errorClassAdded':
-                        document.getElementById('error').innerHTML = 'Please fix card information errors before continuing.';
-                        break;
-                    case 'errorClassRemoved':
-                        document.getElementById('error').style.display = 'none';
-                        break;
-                    case 'cardBrandChanged':
-                        if (inputEvent.cardBrand !== 'unknown') {
-                            this.setState({
-                                cardBrand: inputEvent.cardBrand
-                            });
-                        } else {
-                            this.setState({
-                                cardBrand: ''
-                            });
-                        }
-                        break;
-                    case 'postalCodeChanged':
-                        break;
-                    default:
-                        break;
+                        case 'focusClassAdded':
+                            break;
+                        case 'focusClassRemoved':
+                            break;
+                        case 'errorClassAdded':
+                            document.getElementById('error').innerHTML = 'Please fix card information errors before continuing.';
+                            break;
+                        case 'errorClassRemoved':
+                            document.getElementById('error').style.display = 'none';
+                            break;
+                        case 'cardBrandChanged':
+                            if (inputEvent.cardBrand !== 'unknown') {
+                                this.setState({
+                                    cardBrand: inputEvent.cardBrand
+                                });
+                            } else {
+                                this.setState({
+                                    cardBrand: ''
+                                });
+                            }
+                            break;
+                        case 'postalCodeChanged':
+                            break;
+                        default:
+                            break;
                     }
                 },
                 paymentFormLoaded: function() {

@@ -15,7 +15,7 @@ import pdfToCustomer from './pdfToCustomer';
 let config = require('../imports/helpers/config.json');
 
 Meteor.startup(() => {
-    // process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
+    process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
     // const originalMeteorDebug = Meteor._debug;
     // Meteor._debug = (message, stack) => {
     //     if (Meteor.isDevelopment) {
