@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import WorkData from '../../../common/collections_2';
 import { Tracker } from 'meteor/tracker';
-// import TrackerReact from 'meteor/ultimatejs:tracker-react';
+import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import { Session } from 'meteor/session';
 import ListInnerDisplay from './ListInnerDisplay';
 import { Meteor } from 'meteor/meteor';
 
 import MainContext from '../Context';
 
-export default class List extends Component {
+export default class List extends TrackerReact(Component) {
     static contextType = MainContext;
 
     constructor(props) {
@@ -206,6 +206,7 @@ export default class List extends Component {
     componentDidMount() {
         this.x = Tracker.autorun(
             () => {
+                Meteor.subscribe('workSchema', { status: Session.get('status') });
                 this.buildComponent();
             },
             error => {

@@ -37,68 +37,71 @@ export default class FollowUpMain extends TrackerReact(Component) {
             // Session.set('loading', true);
             Session.set('_', '');
             let status = Session.get('status');
+            let isId = Session.get('ExtendedJobInformation');
+            console.log(`🚀 ~ file: FollowUpMain.js ~ line 41 ~ FollowUpMain ~ this.x=Tracker.autorun ~ isId`, isId);
             this.setState({
                 dataReady: false
             });
-            Meteor.subscribe(
-                'workSchema',
-                { status },
-                {
-                    onReady: () => {
-                        this.setState(
-                            {
-                                dataReady: true
-                            },
-                            () => {
-                                let data = this.workDataInProgress();
+            isId === '' &&
+                Meteor.subscribe(
+                    'workSchema',
+                    { status },
+                    {
+                        onReady: () => {
+                            this.setState(
+                                {
+                                    dataReady: true
+                                },
+                                () => {
+                                    let data = this.workDataInProgress();
 
-                                this.setState(
-                                    {
-                                        workDataInProgress: data
-                                    },
-                                    () => {
-                                        Session.set('_', '_');
-                                    }
-                                );
+                                    this.setState(
+                                        {
+                                            workDataInProgress: data
+                                        },
+                                        () => {
+                                            Session.set('_', '_');
+                                        }
+                                    );
 
-                                let progressJobs = data;
-                                let sess = Session.get('_');
-                                let date = new Date().getTime();
-                                this.setState({
-                                    loading: true
-                                });
-                                progressJobs.map(job => {
-                                    let jobDateTime = new Date(job.workDate).getTime();
-                                    if (jobDateTime + 86400000 < date) {
-                                        job.status = 'lost';
-                                        let finalNote_ = {
-                                            reason: 'Time Expired',
-                                            other: false
-                                        };
-                                        job.finalNote = finalNote_;
+                                    let progressJobs = data;
+                                    let sess = Session.get('_');
+                                    let date = new Date().getTime();
+                                    this.setState({
+                                        loading: true
+                                    });
+                                    progressJobs.map(job => {
+                                        let jobDateTime = new Date(job.workDate).getTime();
+                                        if (jobDateTime + 86400000 < date) {
+                                            job.status = 'lost';
+                                            let finalNote_ = {
+                                                reason: 'Time Expired',
+                                                other: false
+                                            };
+                                            job.finalNote = finalNote_;
 
-                                        job.ip = Session.get('ip');
+                                            job.ip = Session.get('ip');
 
-                                        Meteor.call('updateWork', job, err => {
-                                            err
-                                                ? console.error('Error while trying to make lost some jobs. ' + err.reason)
-                                                : null;
-                                        });
-                                    }
-                                });
-                                this.setState(
-                                    {
-                                        loading: false
-                                    },
-                                    () => {
-                                        Session.set('loading', false);
-                                    }
-                                );
-                            }
-                        );
+                                            Meteor.call('updateWork', job, err => {
+                                                err
+                                                    ? console.error('Error while trying to make lost some jobs. ' + err.reason)
+                                                    : null;
+                                            });
+                                        }
+                                    });
+                                    this.setState(
+                                        {
+                                            loading: false
+                                        },
+                                        () => {
+                                            Session.set('loading', false);
+                                        }
+                                    );
+                                }
+                            );
+                        }
                     }
-                }
-            );
+                );
         });
     }
 
