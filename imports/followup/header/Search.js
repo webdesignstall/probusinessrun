@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import './search.css';
-import TrackerReact from 'meteor/ultimatejs:tracker-react';
+// import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import { Tracker } from 'meteor/tracker';
 import { Session } from 'meteor/session';
 
-export default class Search extends TrackerReact(Component) {
+import MainContext from '../Context';
+
+export default class Search extends Component {
+    static contextType = MainContext;
+
     constructor(props) {
         super(props);
 
@@ -21,11 +25,17 @@ export default class Search extends TrackerReact(Component) {
     }
 
     componentDidMount() {
+        let { searchWord, setSearchWord } = this.context;
+        this.setSearchWord = setSearchWord;
         this.timeOut = null;
+        this.setState({
+            searchWords: searchWord
+        });
+
         this.x = Tracker.autorun(() => {
-            let searching = Session.get('searching');
+            let searching = Session.get('isSearch');
+
             this.setState({
-                searchWords: Session.get('searchWords'),
                 searching
             });
         });
@@ -36,25 +46,28 @@ export default class Search extends TrackerReact(Component) {
     }
 
     search(e) {
-        e.preventDefault();
         Session.set('loading', false);
         let value = e.target.value;
         let searching = true;
-        this.setState({
-            searchWords: value,
-            searching
-        });
+
+        this.setState(
+            {
+                searchWords: value,
+                searching
+            },
+            () => this.interval(value)
+        );
     }
 
-    search_() {
+    search_(value) {
         // Session.set('loading', true);
-        Session.set('searchWords', this.state.searchWords);
+        this.setSearchWord(value);
+        // Session.set('searchWords', this.state.searchWords);
     }
 
-    interval() {
-        console.log('set interval for search');
+    interval(value) {
         clearTimeout(this.timeOut);
-        this.timeOut = setTimeout(this.search_, 500);
+        this.timeOut = setTimeout(() => this.search_(value), 500);
     }
 
     render() {
@@ -97,8 +110,9 @@ export default class Search extends TrackerReact(Component) {
                     </svg>
                 </i>
                 <input
+                    onKeyDown={() => Session.set('isSearch', true)}
                     onChange={e => this.search(e)}
-                    onKeyUp={this.interval}
+                    // onKeyUp={this.interval}
                     type="text"
                     placeholder="type for searching..."
                     value={this.state.searchWords}

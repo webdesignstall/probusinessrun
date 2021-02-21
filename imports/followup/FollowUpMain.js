@@ -9,6 +9,7 @@ import { Meteor } from 'meteor/meteor';
 import LoadingOverlay from 'react-loading-overlay';
 import RingLoader from 'react-spinners/RingLoader';
 import ListInnerDisplay from './list/ListInnerDisplay';
+import { MainProvider } from './Context';
 
 export default class FollowUpMain extends TrackerReact(Component) {
     constructor(props) {
@@ -107,42 +108,43 @@ export default class FollowUpMain extends TrackerReact(Component) {
 
     render() {
         return (
-            <LoadingOverlay
-                text="Loading..."
-                className="loader"
-                active={Session.get('loading')}
-                spinner={<RingLoader color={'#6DD4B8'} />}
-            >
-                <div className="followup-header">
-                    <Header />
-                    {}
-                    {/* <div
+            <MainProvider value={{ searchWord: '' }}>
+                <LoadingOverlay
+                    text="Loading..."
+                    className="loader"
+                    active={Session.get('loading')}
+                    spinner={<RingLoader color={'#6DD4B8'} />}
+                >
+                    <div className="followup-header">
+                        <Header />
+                        {/* <div
                         style={{
                             visibility:
                                 this.state.dataReady && Session.get('ExtendedJobInformation') === '' ? 'visible' : 'hidden'
                         }}
-                    > */}
-                    <List />
-                    {/* </div> */}
-                    {/* {Session.get('ExtendedJobInformation') !== '' ? (
-                        <div
-                            key={Session.get('job_')._id + 'followUpList'}
-                            className="collection-item"
-                            style={{
-                                border: '1px solid #e0e0e0',
-                                borderRadius: '5px',
-                                marginTop: '10px',
-                                padding: '20px',
-                                backgroundColor: 'white'
-                            }}
-                        >
-                            <ListInnerDisplay loading={this.startStopLoading} job={Session.get('job_')} />
-                        </div>
-                    ) : (
-                        ''
-                    )} */}
-                </div>
-            </LoadingOverlay>
+                    >
+                        <List />
+                    </div> */}
+                        {Session.get('ExtendedJobInformation') !== '' ? (
+                            <div
+                                key={Session.get('job_')._id + 'followUpList'}
+                                className="collection-item"
+                                style={{
+                                    border: '1px solid #e0e0e0',
+                                    borderRadius: '5px',
+                                    marginTop: '10px',
+                                    padding: '20px',
+                                    backgroundColor: 'white'
+                                }}
+                            >
+                                <ListInnerDisplay loading={this.startStopLoading} job={Session.get('job_')} />
+                            </div>
+                        ) : (
+                            <List />
+                        )}
+                    </div>
+                </LoadingOverlay>
+            </MainProvider>
         );
     }
 }
