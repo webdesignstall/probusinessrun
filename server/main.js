@@ -188,8 +188,6 @@ if (Meteor.isServer) {
         // },
 
         updateWork: function(doc) {
-            // console.log('Update information: ' + doc.ip + ' :', doc);
-
             if (doc.status === 'lost' && (doc.finalNote === 'none' || doc.finalNote === undefined)) {
                 throw new Meteor.Error('Please select final note for lost job');
             }

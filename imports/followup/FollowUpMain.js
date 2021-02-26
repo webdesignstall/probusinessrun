@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Header from './header/Header';
 import List from './list/List';
 import { Session } from 'meteor/session';
-import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import WorkData from '../../common/collections_2';
 import { Tracker } from 'meteor/tracker';
 import { Meteor } from 'meteor/meteor';
@@ -10,15 +9,21 @@ import LoadingOverlay from 'react-loading-overlay';
 import RingLoader from 'react-spinners/RingLoader';
 import ListInnerDisplay from './list/ListInnerDisplay';
 import { MainProvider } from './Context';
+import TrackerReact from 'meteor/ultimatejs:tracker-react';
+
+import MainContext from './Context';
 
 export default class FollowUpMain extends TrackerReact(Component) {
+    static contextType = MainContext;
+
     constructor(props) {
         super(props);
 
         this.state = {
             loading: false,
-            dataReady: false,
-            workDataInProgress: []
+            dataReady: true,
+            workDataInProgress: [],
+            status: 'inProgress'
         };
 
         this.workDataInProgress = this.workDataInProgress.bind(this);
@@ -33,77 +38,83 @@ export default class FollowUpMain extends TrackerReact(Component) {
     // }
 
     componentDidMount() {
+        let { status, setStatus } = this.context;
+
         this.x = Tracker.autorun(() => {
             // Session.set('loading', true);
             Session.set('_', '');
-            let status = Session.get('status');
-            let isId = Session.get('ExtendedJobInformation');
-            console.log(`🚀 ~ file: FollowUpMain.js ~ line 41 ~ FollowUpMain ~ this.x=Tracker.autorun ~ isId`, isId);
+            // let status = Session.get('status');
+
             this.setState({
-                dataReady: false
+                dataReady: false,
+                status
             });
-            isId === '' &&
-                Meteor.subscribe(
-                    'workSchema',
-                    { status },
-                    {
-                        onReady: () => {
-                            this.setState(
-                                {
-                                    dataReady: true
-                                },
-                                () => {
-                                    let data = this.workDataInProgress();
 
-                                    this.setState(
-                                        {
-                                            workDataInProgress: data
-                                        },
-                                        () => {
-                                            Session.set('_', '_');
-                                        }
-                                    );
-
-                                    let progressJobs = data;
-                                    let sess = Session.get('_');
-                                    let date = new Date().getTime();
-                                    this.setState({
-                                        loading: true
-                                    });
-                                    progressJobs.map(job => {
-                                        let jobDateTime = new Date(job.workDate).getTime();
-                                        if (jobDateTime + 86400000 < date) {
-                                            job.status = 'lost';
-                                            let finalNote_ = {
-                                                reason: 'Time Expired',
-                                                other: false
-                                            };
-                                            job.finalNote = finalNote_;
-
-                                            job.ip = Session.get('ip');
-
-                                            Meteor.call('updateWork', job, err => {
-                                                err
-                                                    ? console.error('Error while trying to make lost some jobs. ' + err.reason)
-                                                    : null;
-                                            });
-                                        }
-                                    });
-                                    this.setState(
-                                        {
-                                            loading: false
-                                        },
-                                        () => {
-                                            Session.set('loading', false);
-                                        }
-                                    );
-                                }
-                            );
-                        }
+            Meteor.subscribe(
+                'workSchema',
+                { status },
+                {
+                    onReady: () => {
+                        this.buildComponent();
                     }
-                );
+                }
+            );
         });
     }
+
+    buildComponent() {
+        this.setState(
+            {
+                dataReady: true
+            },
+            () => {
+                let data = this.workDataInProgress();
+
+                this.setState(
+                    {
+                        workDataInProgress: data
+                    },
+                    () => {
+                        Session.set('_', '_');
+                    }
+                );
+
+                let progressJobs = data;
+                let sess = Session.get('_');
+                let date = new Date().getTime();
+                this.setState({
+                    loading: true
+                });
+                progressJobs.map(job => {
+                    let jobDateTime = new Date(job.workDate).getTime();
+                    if (jobDateTime + 86400000 < date) {
+                        job.status = 'lost';
+                        let finalNote_ = {
+                            reason: 'Time Expired',
+                            other: false
+                        };
+                        job.finalNote = finalNote_;
+
+                        job.ip = Session.get('ip');
+
+                        Meteor.call('updateWork', job, err => {
+                            err ? console.error('Error while trying to make lost some jobs. ' + err.reason) : null;
+                        });
+                    }
+                });
+                this.setState(
+                    {
+                        loading: false
+                    },
+                    () => {
+                        Session.set('loading', false);
+                    }
+                );
+            }
+        );
+    }
+
+    componentDidUpdate(prevProps, prevState) {}
 
     componentWillUnmount() {
         this.x.stop();
@@ -111,43 +122,40 @@ export default class FollowUpMain extends TrackerReact(Component) {
 
     render() {
         return (
-            <MainProvider value={{ searchWord: '' }}>
-                <LoadingOverlay
-                    text="Loading..."
-                    className="loader"
-                    active={Session.get('loading')}
-                    spinner={<RingLoader color={'#6DD4B8'} />}
-                >
-                    <div className="followup-header">
-                        <Header />
-                        {/* <div
+            <LoadingOverlay
+                text="Loading..."
+                className="loader"
+                active={Session.get('loading')}
+                spinner={<RingLoader color={'#6DD4B8'} />}
+            >
+                <div className="followup-header">
+                    <Header />
+                    {/* <div
                         style={{
-                            visibility:
-                                this.state.dataReady && Session.get('ExtendedJobInformation') === '' ? 'visible' : 'hidden'
+                            display: Session.get('ExtendedJobInformation') === '' ? 'block' : 'none'
                         }}
                     >
                         <List />
                     </div> */}
-                        {Session.get('ExtendedJobInformation') !== '' ? (
-                            <div
-                                key={Session.get('job_')._id + 'followUpList'}
-                                className="collection-item"
-                                style={{
-                                    border: '1px solid #e0e0e0',
-                                    borderRadius: '5px',
-                                    marginTop: '10px',
-                                    padding: '20px',
-                                    backgroundColor: 'white'
-                                }}
-                            >
-                                <ListInnerDisplay loading={this.startStopLoading} job={Session.get('job_')} />
-                            </div>
-                        ) : (
-                            <List />
-                        )}
-                    </div>
-                </LoadingOverlay>
-            </MainProvider>
+                    {Session.get('ExtendedJobInformation') !== '' ? (
+                        <div
+                            key={Session.get('job_')._id + 'followUpList'}
+                            className="collection-item"
+                            style={{
+                                border: '1px solid #e0e0e0',
+                                borderRadius: '5px',
+                                marginTop: '10px',
+                                padding: '20px',
+                                backgroundColor: 'white'
+                            }}
+                        >
+                            <ListInnerDisplay loading={this.startStopLoading} job={Session.get('job_')} />
+                        </div>
+                    ) : (
+                        <List />
+                    )}
+                </div>
+            </LoadingOverlay>
         );
     }
 }

@@ -36,7 +36,8 @@ export default class Sorting extends Component {
                     className="browser-default"
                     name="sortBy"
                     id="sort_by"
-                    value={this.state.sort}>
+                    value={this.state.sort}
+                >
                     <option value="default">Default</option>
                     <option value="az">Moving Date A-Z</option>
                     <option value="za">Moving Date Z-A</option>

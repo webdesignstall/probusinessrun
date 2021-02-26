@@ -13,10 +13,11 @@ import SendEmailFollowUp from './SendEmailFollowUp';
 export default class FollowUps extends TrackerReact(Component) {
     constructor(props) {
         super(props);
+        let job = this.workData()[0];
 
         this.state = {
             followUp: [{ note: '' }],
-            followUpOriginal: (this.workData()[0] && this.workData()[0].followUp) || [{ note: '' }]
+            followUpOriginal: (job && job.followUp) || [{ note: '' }]
         };
 
         this.onChangeHandler = this.onChangeHandler.bind(this);
@@ -25,31 +26,24 @@ export default class FollowUps extends TrackerReact(Component) {
 
     UNSAFE_componentWillReceiveProps(nextProps) {
         let list = nextProps.followUpList || [];
-        this.workData()[0] &&
-        this.workData()[0].followUp &&
-        this.workData()[0].followUp.length > 0 &&
-        list.length <= this.workData()[0].followUp.length
+        let job = this.workData()[0];
+        job && job.followUp && job.followUp.length > 0 && list.length <= job.followUp.length
             ? list.push({ note: '' })
             : list.length > 0
-                ? null
-                : (list = [{ note: '' }]);
+            ? null
+            : (list = [{ note: '' }]);
 
         this.setState({
             followUp: list,
-            followUpOriginal:
-                this.workData()[0] && this.workData()[0].followUp && this.workData()[0].followUp.length > 0
-                    ? this.workData()[0].followUp
-                    : [{ note: '' }]
+            followUpOriginal: job && job.followUp && job.followUp.length > 0 ? job.followUp : [{ note: '' }]
         });
     }
 
     componentDidMount() {
         this.x = Tracker.autorun(() => {
+            let job = this.workData()[0];
             this.setState({
-                followUpOriginal:
-                    this.workData()[0] && this.workData()[0].followUp && this.workData()[0].followUp.length > 0
-                        ? this.workData()[0].followUp
-                        : [{ note: '' }]
+                followUpOriginal: job && job.followUp && job.followUp.length > 0 ? job.followUp : [{ note: '' }]
             });
         });
     }
@@ -128,8 +122,8 @@ export default class FollowUps extends TrackerReact(Component) {
                                 this.state.followUpOriginal && index === this.state.followUpOriginal.length
                                     ? false
                                     : this.state.followUp.length === 1
-                                        ? false
-                                        : true
+                                    ? false
+                                    : true
                             }
                             style={{
                                 borderRadius: '5px',

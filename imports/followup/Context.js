@@ -1,12 +1,3 @@
-// import React from 'react';
-
-// const MainContext = React.createContext({ search: '' });
-
-// export const MainProvider = MainContext.Provider;
-// export const MainConsumer = MainContext.Consumer;
-
-// export default MainContext;
-
 import React, { Component } from 'react';
 
 const MainContext = React.createContext();
@@ -14,24 +5,32 @@ const MainContext = React.createContext();
 class MainProvider extends Component {
     // Context state
     state = {
-        searchWord: ''
+        searchWord: '',
+        status: 'inProgress'
     };
 
-    // Method to update state
+    // Method to update searchWord state
     setSearchWord = searchWord => {
         this.setState(prevState => ({ searchWord }));
     };
 
+    // Method to update status state
+    setStatus = status => {
+        this.setState(prevState => ({ status }));
+    };
+
     render() {
         const { children } = this.props;
-        const { searchWord } = this.state;
-        const { setSearchWord } = this;
+        const { searchWord, status } = this.state;
+        const { setSearchWord, setStatus } = this;
 
         return (
             <MainContext.Provider
                 value={{
                     searchWord,
-                    setSearchWord
+                    status,
+                    setSearchWord,
+                    setStatus
                 }}
             >
                 {children}

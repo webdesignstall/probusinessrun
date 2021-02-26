@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import WorkData from '../../../common/collections_2';
 import { Tracker } from 'meteor/tracker';
-import TrackerReact from 'meteor/ultimatejs:tracker-react';
+// import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import { Session } from 'meteor/session';
 import ListInnerDisplay from './ListInnerDisplay';
 import { Meteor } from 'meteor/meteor';
 
 import MainContext from '../Context';
 
-export default class List extends TrackerReact(Component) {
+export default class List extends Component {
     static contextType = MainContext;
 
     constructor(props) {
@@ -20,7 +20,8 @@ export default class List extends TrackerReact(Component) {
             searchWord: '',
             searchWords: '',
             jobsBase: [],
-            showLimit: 30
+            showLimit: 30,
+            status: 'inProgress'
         };
 
         this.renderList = this.renderList.bind(this);
@@ -52,12 +53,20 @@ export default class List extends TrackerReact(Component) {
     }
 
     componentDidUpdate() {
-        let { searchWord, setSearchWord } = this.context;
-
-        searchWord !== this.state.searchWord &&
+        this.state.status !== this.context.status
+            ? this.setState({ status: this.context.status }, () => {
+                  Meteor.subscribe('workSchema', { status: this.state.status }, () => this.buildComponent());
+              })
+            : '';
+        // this.setState({ searchWord: this.context.searchWord }, () => {
+        //     // () => this.buildComponent();
+        // });
+        // this.buildComponent();
+        // this.buildComponent();
+        this.state.searchWord !== this.context.searchWord &&
             this.setState(
                 {
-                    searchWord
+                    searchWord: this.context.searchWord
                 },
                 () => {
                     this.buildComponent();
@@ -66,26 +75,29 @@ export default class List extends TrackerReact(Component) {
     }
 
     buildComponent() {
-        let { searchWord, setSearchWord } = this.context;
-        let value = this.context;
-        let status = Session.get('status');
+        // let { searchWord, setSearchWord, status, setStatus } = this.context;
+        // let status = this.state.status;
+
         let rate = Session.get('customerRate_');
-        this.workData(status, rate);
+        this.workData(this.state.status, rate);
         this.setState({
             loading: true
         });
-        console.log('List Updated');
 
         let regEx = /^[a-zA-Z0-9 \b]+$/;
         // let searchWord = Session.get('searchWords');
-        // let searchWord = this.searchWord;
-        searchWord.length > 0 ? '' : (Session.set('loading', false), Session.set('searching', false));
+        // let searchWord = this.state.searchWord;
+        this.state.searchWord.length > 0 ? '' : (Session.set('loading', false), Session.set('searching', false));
 
-        if (searchWord || (regEx.test(searchWord) && (Session.get('update') || !Session.get('update')))) {
+        if (
+            (this.state.searchWord && this.state.searchWord.length > 0) ||
+            (regEx.test(this.state.searchWord) && (Session.get('update') || !Session.get('update')))
+        ) {
             // this.workData();
+
             this.setState(
                 {
-                    searchWords: searchWord
+                    searchWords: this.state.searchWord
                 },
                 err => {
                     if (err) {
@@ -118,7 +130,6 @@ export default class List extends TrackerReact(Component) {
                             word = word.replace('?', '');
                             return new RegExp(word, 'gi');
                         });
-                        console.log('TCL: List -> componentDidMount -> reg', reg);
 
                         let resultConverted = WorkData.find({
                             $or: [
@@ -204,13 +215,16 @@ export default class List extends TrackerReact(Component) {
     }
 
     componentDidMount() {
-        this.x = Tracker.autorun(
-            () => {
-                Meteor.subscribe('workSchema', { status: Session.get('status') });
-                this.buildComponent();
+        let { searchWord, setSearchWord, status, setStatus } = this.context;
+        // let searchWord = Session.get('searchWord');
+
+        this.setState(
+            {
+                status,
+                searchWord
             },
-            error => {
-                console.error(error);
+            () => {
+                Meteor.subscribe('workSchema', { status }, () => this.buildComponent());
             }
         );
     }
@@ -224,7 +238,7 @@ export default class List extends TrackerReact(Component) {
     }
 
     componentWillUnmount() {
-        this.x.stop();
+        // this.x.stop();
     }
 
     renderList() {
@@ -260,8 +274,6 @@ export default class List extends TrackerReact(Component) {
     }
 
     render() {
-        let { searchWord, setSearchWord } = this.context;
-
         return (
             <React.Fragment>
                 <div className="collection">{this.renderList()}</div>

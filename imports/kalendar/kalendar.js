@@ -389,8 +389,6 @@ Template.kalendar.onRendered(() => {
         if (event.target.id === 'goToday') {
             clickOnSelect = 0;
             dateChanged = 0;
-            console.log(ayOriginiali);
-            console.log(ilOriginal);
             tarixiGoster(ayOriginiali, ilOriginal);
             $('#teqvimSecim').slideUp(500);
             gunYerlesdirme(ayOriginiali, ilOriginal);

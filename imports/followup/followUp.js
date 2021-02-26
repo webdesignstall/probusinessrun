@@ -1,7 +1,7 @@
 import { Template } from 'meteor/templating';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import FollowUpMain from './FollowUpMain';
+import FollowUpMainX from './FollowUpMainX';
 import { Session } from 'meteor/session';
 import { Tracker } from 'meteor/tracker';
 import { Meteor } from 'meteor/meteor';
@@ -9,7 +9,7 @@ import jobNumberCreator from '../../client/templates/quote/JobNumberCreator';
 
 Template.followUp.onRendered(() => {
     this.x = Tracker.autorun(() => {
-        ReactDOM.render(<FollowUpMain />, document.getElementById('follow-up'));
+        ReactDOM.render(<FollowUpMainX />, document.getElementById('follow-up'));
     });
 });
 

@@ -25,8 +25,10 @@ export default class Search extends Component {
     }
 
     componentDidMount() {
-        let { searchWord, setSearchWord } = this.context;
+        let { searchWord, setSearchWord, setStatus } = this.context;
+
         this.setSearchWord = setSearchWord;
+        this.setStatus = this.setStatus;
         this.timeOut = null;
         this.setState({
             searchWords: searchWord
@@ -62,6 +64,7 @@ export default class Search extends Component {
     search_(value) {
         // Session.set('loading', true);
         this.setSearchWord(value);
+        value === '' || !value ? this.setState({ searching: false }) : '';
         // Session.set('searchWords', this.state.searchWords);
     }
 
@@ -112,7 +115,7 @@ export default class Search extends Component {
                 <input
                     onKeyDown={() => Session.set('isSearch', true)}
                     onChange={e => this.search(e)}
-                    // onKeyUp={this.interval}
+                    onKeyUp={e => this.search(e)}
                     type="text"
                     placeholder="type for searching..."
                     value={this.state.searchWords}

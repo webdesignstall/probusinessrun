@@ -132,7 +132,7 @@ export default class ReserveQuote extends TrackerReact(Component) {
             } else {
                 this.x = Tracker.autorun(() => {
                     let isJob = res;
-                    console.log('TCL: submit -> isJob', isJob);
+
                     this.deposit = res.deposit || 0;
                     this.job = res || {};
                     if (isJob) {
