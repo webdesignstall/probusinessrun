@@ -16,7 +16,7 @@ if (Meteor.isServer) {
     });
 }
 
-Meteor.publish('calendar', function(date) {
+Meteor.publish('calendar', function(date, status) {
     let month = moment(date).format('MM');
     let year = moment(date).format('YYYY');
     let regex_ = month + '/[0-9][0-9]/' + year;
@@ -33,8 +33,8 @@ Meteor.publish('dateSubscribe', function(date) {
     return WorkData.find({ workDate: date_, status: 'won' });
 });
 
-Meteor.publish('workSchema', function(param) {
-    return WorkData.find(param || {});
+Meteor.publish('workSchema', function(query, options) {
+    return WorkData.find(query || {}, options || {});
 });
 
 Meteor.publish('usersData', function() {

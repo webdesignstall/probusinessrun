@@ -55,7 +55,14 @@ export default class List extends Component {
     componentDidUpdate() {
         this.state.status !== this.context.status
             ? this.setState({ status: this.context.status }, () => {
-                  Meteor.subscribe('workSchema', { status: this.state.status }, () => this.buildComponent());
+                  console.log(this.subscribe);
+                  this.subscribe.stop();
+                  Meteor.subscribe(
+                      'workSchema',
+                      { status: this.state.status },
+                      { limit: this.state.showLimit, sort: { _id: -1 } },
+                      () => this.buildComponent()
+                  );
               })
             : '';
         // this.setState({ searchWord: this.context.searchWord }, () => {
@@ -69,6 +76,7 @@ export default class List extends Component {
                     searchWord: this.context.searchWord
                 },
                 () => {
+                    this.subscribe.stop();
                     this.buildComponent();
                 }
             );
@@ -112,6 +120,7 @@ export default class List extends Component {
                         let result = new Set();
                         let sort = Session.get('sort');
 
+                        this.subscribe.stop();
                         Meteor.subscribe('searchFollowUp', arrayOfWords);
 
                         let reg = arrayOfWords.map(function(word) {
@@ -224,7 +233,12 @@ export default class List extends Component {
                 searchWord
             },
             () => {
-                Meteor.subscribe('workSchema', { status }, () => this.buildComponent());
+                this.subscribe = Meteor.subscribe(
+                    'workSchema',
+                    { status },
+                    { limit: this.state.showLimit, sort: { _id: -1 } },
+                    () => this.buildComponent()
+                );
             }
         );
     }
