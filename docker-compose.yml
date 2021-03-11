@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '80:3000'
+    environment:
+      ROOT_URL: ${APP_ROOT_URL:-http://localhost}
+      MONGO_URL: mongodb+srv://probusinessrun:bVvg1MGhwVUc5OPl@probusinessrun.qnpoa.mongodb.net/probusinessrun?retryWrites=true&w=majority
+      PORT: 3000
+
+volumes:
+  data:
