@@ -1,0 +1,22 @@
+name: Test latest changes
+
+on:
+  push:
+    brancher:
+  pull_requests:
+    branches:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build Docker image
+        run: docker-compose up -d
+        
+      - name: Check running containers
+        run: docker ps -a
+      - name: Check logs
+        run: docker logs probusinessrun
