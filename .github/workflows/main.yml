@@ -2,9 +2,7 @@ name: Test latest changes
 
 on:
   push:
-    brancher:
-  pull_requests:
-    branches:
+  pull_request:
 
 jobs:
   build:
