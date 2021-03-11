@@ -3,8 +3,7 @@
     "private": true,
     "scripts": {
         "start": "NODE_PATH=client:imports:server:common meteor run",
-        "build": "babel src/ -d lib/",
-        "prepublish": "npm run build",
+        "build": "babel . -d lib/",
         "flow": "flow"
     },
     "engines": {
