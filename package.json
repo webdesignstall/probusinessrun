@@ -3,9 +3,8 @@
 	"private": true,
 	"scripts": {
 		"start": "NODE_PATH=client:imports:server:common meteor run",
+		"build": "babel . -d lib/",
 		"runRemote": "MONGO_URL=mongodb+srv://probusinessrun:bVvg1MGhwVUc5OPl@probusinessrun.qnpoa.mongodb.net/probusinessrun?retryWrites=true&w=majority meteor",
-		"build": "babel src/ -d lib/",
-		"prepublish": "npm run build",
 		"flow": "flow"
 	},
 	"engines": {
