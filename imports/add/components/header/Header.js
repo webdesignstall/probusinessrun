@@ -5,58 +5,62 @@ import MoverList from '../mover/MoverList';
 import SubMenu from './SubMenu';
 
 export default class Header extends Component {
-    constructor(props) {
-        super(props);
+	constructor(props) {
+		super(props);
 
-        this.state = {
-            subMenu: [],
-            selectedMenu: '',
-        };
+		this.state = {
+			subMenu: [],
+			selectedMenu: ''
+		};
 
-        this.setSubMenu = this.setSubMenu.bind(this);
-        this.selectMenu = this.selectMenu.bind(this);
-    }
+		this.setSubMenu = this.setSubMenu.bind(this);
+		this.selectMenu = this.selectMenu.bind(this);
+	}
 
-    setSubMenu(menus) {
-        this.setState({
-            subMenu: menus,
-            selectedMenu: '',
-        });
-    }
+	setSubMenu(menus) {
+		this.setState({
+			subMenu: menus,
+			selectedMenu: ''
+		});
+	}
 
-    selectMenu(menu) {
-        this.setState({
-            selectedMenu: menu,
-        });
-    }
+	selectMenu(menu) {
+		this.setState({
+			selectedMenu: menu
+		});
+	}
 
-    render() {
-        return (
-            <React.Fragment>
-                <div key="main-menu" className="card__ add-header">
-                    <Equipments setSubMenu={this.setSubMenu} />
-                    <Mover setSubMenu={this.setSubMenu} />
-                </div>
-                <div key="sub-menu" className={this.state.subMenu.length > 0 ? 'card__ add-header' : 'hide'}>
-                    <SubMenu subMenu={this.state.subMenu} selectMenu={this.selectMenu} />
-                </div>
-                <div
-                    key="listing"
-                    className={this.state.subMenu.length > 0 ? '' : 'hide'}
-                    style={{ backgroundColor: '#FFFDF3', fontFamily: 'monospace' }}>
-                    {this.state.selectedMenu !== '' ? (
-                        <MoverList
-                            whatToDisplay={
-                                this.state.selectedMenu === 'movers'
-                                    ? 'mover'
-                                    : this.state.selectedMenu === 'office employees'
-                                        ? 'officeEmployee'
-                                        : 'tablet'
-                            }
-                        />
-                    ) : null}
-                </div>
-            </React.Fragment>
-        );
-    }
+	render() {
+		return (
+			<React.Fragment>
+				<div key="main-menu" className="card__ add-header">
+					<Equipments setSubMenu={this.setSubMenu} />
+					<Mover setSubMenu={this.setSubMenu} />
+				</div>
+				<div
+					key="sub-menu"
+					className={this.state.subMenu.length > 0 ? 'card__ add-header' : 'hide'}
+				>
+					<SubMenu subMenu={this.state.subMenu} selectMenu={this.selectMenu} />
+				</div>
+				<div
+					key="listing"
+					className={this.state.subMenu.length > 0 ? '' : 'hide'}
+					style={{ backgroundColor: '#FFFDF3', fontFamily: 'monospace' }}
+				>
+					{this.state.selectedMenu !== '' ? (
+						<MoverList
+							whatToDisplay={
+								this.state.selectedMenu === 'movers'
+									? 'mover'
+									: this.state.selectedMenu === 'office employees'
+									? 'officeEmployee'
+									: 'tablet'
+							}
+						/>
+					) : null}
+				</div>
+			</React.Fragment>
+		);
+	}
 }

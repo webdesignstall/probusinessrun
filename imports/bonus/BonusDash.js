@@ -51,7 +51,7 @@ export default class BonusDash extends Component {
 
             Meteor.subscribe('calendar', newDate);
 
-            let totalJobs = WorkData.find({}).fetch();
+            let totalJobs = WorkData.find({}, { limit: 30 }).fetch();
 
             totalJobs.sort((a, b) => {
                 let dateA = new Date(a.wonDate).getTime();
@@ -64,43 +64,43 @@ export default class BonusDash extends Component {
 
             data.length > 0
                 ? this.setState(
-                    {
-                        _id: data[0]._id,
-                        options: data[0].options,
-                        jobs: totalJobs,
-                        totalJobs: totalJobs.length,
-                        jobsCalculated
-                    },
-                    () => {
-                        this.state.jobsCalculated.map(job => {
-                            this.setState(prevState => {
-                                let employeeBonusInfo = prevState.employeeBonusInfo;
-                                if (Array.isArray(employeeBonusInfo[job.takenBy])) {
-                                    let bonusAmount = 0;
+                      {
+                          _id: data[0]._id,
+                          options: data[0].options,
+                          jobs: totalJobs,
+                          totalJobs: totalJobs.length,
+                          jobsCalculated
+                      },
+                      () => {
+                          this.state.jobsCalculated.map(job => {
+                              this.setState(prevState => {
+                                  let employeeBonusInfo = prevState.employeeBonusInfo;
+                                  if (Array.isArray(employeeBonusInfo[job.takenBy])) {
+                                      let bonusAmount = 0;
 
-                                    this.state.options.map(option => {
-                                        option.value === job.movingSize ? (bonusAmount = option.bonus) : null;
-                                    });
-                                    employeeBonusInfo[job.takenBy].push({
-                                        [job.jobNumber]: bonusAmount
-                                    });
-                                } else {
-                                    let bonusAmount = 0;
+                                      this.state.options.map(option => {
+                                          option.value === job.movingSize ? (bonusAmount = option.bonus) : null;
+                                      });
+                                      employeeBonusInfo[job.takenBy].push({
+                                          [job.jobNumber]: bonusAmount
+                                      });
+                                  } else {
+                                      let bonusAmount = 0;
 
-                                    this.state.options.map(option => {
-                                        option.value === job.movingSize ? (bonusAmount = option.bonus) : null;
-                                    });
+                                      this.state.options.map(option => {
+                                          option.value === job.movingSize ? (bonusAmount = option.bonus) : null;
+                                      });
 
-                                    employeeBonusInfo[job.takenBy] = [{ [job.jobNumber]: bonusAmount }];
-                                }
+                                      employeeBonusInfo[job.takenBy] = [{ [job.jobNumber]: bonusAmount }];
+                                  }
 
-                                return {
-                                    employeeBonusInfo
-                                };
-                            });
-                        });
-                    }
-                )
+                                  return {
+                                      employeeBonusInfo
+                                  };
+                              });
+                          });
+                      }
+                  )
                 : null;
         });
     }
