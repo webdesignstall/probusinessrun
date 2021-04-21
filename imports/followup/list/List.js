@@ -63,7 +63,6 @@ export default class List extends Component {
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-		console.log(prevState.rate);
 		this.state.status !== this.context.status
 			? this.setState({ status: this.context.status }, () => {
 					console.log(this.subscribe);
