@@ -64,9 +64,7 @@ export default class DateSelector extends Component {
         });
     }
 
-    onChangehandler() {
-        console.log('date changed');
-    }
+    onChangehandler() {}
 
     componentWillUnmount() {
         this.x.stop();
@@ -76,7 +74,12 @@ export default class DateSelector extends Component {
         const { startDate, endDate } = this.state;
         return (
             <React.Fragment>
-                <input id="statitic__date_picker" onChange={this.onChangehandler} type="text" value={startDate + ' - ' + endDate} />
+                <input
+                    id="statitic__date_picker"
+                    onChange={this.onChangehandler}
+                    type="text"
+                    value={startDate + ' - ' + endDate}
+                />
             </React.Fragment>
         );
     }

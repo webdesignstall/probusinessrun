@@ -237,7 +237,7 @@ Template.updateQuote.events({
             noteForYourMove: document.getElementById('for_your_move_update').value,
             additionalInfo: Session.get('additionalInfo')
         };
-        console.log(doc.stairsFee);
+
         Meteor.call('emailGonder', doc, err => {
             err
                 ? (console.error(err),

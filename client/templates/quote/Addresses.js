@@ -164,7 +164,7 @@ export default class Addresses extends React.Component {
         this.setState(
             prevState => {
                 let oldkey = prevState[key];
-                console.log(`🚀 ~ file: Addresses.js ~ line 170 ~ Addresses ~ togglePickUpDropOff ~ oldkey`, oldkey);
+
                 if (oldkey[value]) {
                     delete oldkey[value];
 
@@ -173,7 +173,7 @@ export default class Addresses extends React.Component {
                     };
                 } else {
                     oldkey[value] = true;
-                    console.log(`🚀 ~ file: Addresses.js ~ line 181 ~ Addresses ~ togglePickUpDropOff ~ oldkey`, oldkey);
+
                     return {
                         [key]: oldkey
                     };

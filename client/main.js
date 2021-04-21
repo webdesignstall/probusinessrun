@@ -34,101 +34,109 @@ import getUserIP from '../imports/helpers/getIp';
 // });
 
 Meteor.startup(() => {
-    Session.set('isciId', '');
-    Session.set('jobNumber', '');
-    Session.set('tabletIsId', '');
-    Session.set('is', '');
-    Session.set('payed', false);
-    Session.set('companyInfo', {});
-    Session.set('secilmisIsciler', []);
-    Session.set('trucklar', []);
-    Session.set('clicked', false);
-    Session.set('flatRate', false);
-    Session.set('promoCodes', ['zumka']);
-    Session.set('discountAproved', false);
-    Session.set('discountId', null);
-    Session.set('movingSize', 'select_moving_size');
-    Session.set('job', {});
-    Session.set('reset', false);
-    Session.set('additionalContacts', []);
-    Session.set('ExtendedJobInformation', '');
-    Session.set('isSearch', false);
-    Session.set('loading', false);
-    Session.set('status', 'inProgress');
-    Session.set('searchWords', '');
-    Session.set('sort', 'default');
-    Session.set('addingJob', false);
-    Session.set('update', false);
-    Session.set('additionalInfo', []);
-    Session.set('cardHolder', {});
-    Session.set('ccForm', false);
-    Session.set('buttonsDisabled', false);
-    Session.set('dataReady', false);
-    Session.set('searching', false);
-    Session.set('customerRate', 0);
-    Session.set('customerRate_', 0);
-    Session.set('dataUpdated', false);
-    Session.set('addressExt', []);
-    Session.set('job_', {});
-    Session.set('lastMont', false);
-    Session.set('newCardHolderList', false);
+	Session.set('isciId', '');
+	Session.set('jobNumber', '');
+	Session.set('tabletIsId', '');
+	Session.set('is', '');
+	Session.set('payed', false);
+	Session.set('companyInfo', {});
+	Session.set('secilmisIsciler', []);
+	Session.set('trucklar', []);
+	Session.set('clicked', false);
+	Session.set('flatRate', false);
+	Session.set('promoCodes', ['zumka']);
+	Session.set('discountAproved', false);
+	Session.set('discountId', null);
+	Session.set('movingSize', 'select_moving_size');
+	Session.set('job', {});
+	Session.set('reset', false);
+	Session.set('additionalContacts', []);
+	Session.set('ExtendedJobInformation', '');
+	Session.set('isSearch', false);
+	Session.set('loading', false);
+	Session.set('status', 'inProgress');
+	Session.set('searchWords', '');
+	Session.set('sort', 'default');
+	Session.set('addingJob', false);
+	Session.set('update', false);
+	Session.set('additionalInfo', []);
+	Session.set('cardHolder', {});
+	Session.set('ccForm', false);
+	Session.set('buttonsDisabled', false);
+	Session.set('dataReady', false);
+	Session.set('searching', false);
+	Session.set('customerRate', 0);
+	Session.set('customerRate_', 0);
+	Session.set('dataUpdated', false);
+	Session.set('addressExt', []);
+	Session.set('job_', {});
+	Session.set('lastMont', false);
+	Session.set('newCardHolderList', false);
 
-    Tracker.autorun(() => {
-        let user = Meteor.userId();
-        getUserIP().then(result => Session.set('ip', result));
+	Tracker.autorun(() => {
+		let user = Meteor.userId();
+		getUserIP().then(result => Session.set('ip', result));
 
-        let discounts = Discounts.find({ confirmed: false }).fetch();
+		let discounts = Discounts.find({ confirmed: false }).fetch();
 
-        if (discounts.length > 0 && !(window.location.href === window.location.origin + '/discount')) {
-            Push.create(`Truck #${discounts[discounts.length - 1].truckNumber} asking for discount`, {
-                timeout: 120000,
-                onClick: function() {
-                    window.focus();
-                    window.location.href = window.location.origin + '/discount';
-                    this.close();
-                }
-            });
-        }
+		if (
+			discounts.length > 0 &&
+			!(window.location.href === window.location.origin + '/discount')
+		) {
+			Push.create(
+				`Truck #${discounts[discounts.length - 1].truckNumber} asking for discount`,
+				{
+					timeout: 120000,
+					onClick: function() {
+						window.focus();
+						window.location.href = window.location.origin + '/discount';
+						this.close();
+					}
+				}
+			);
+		}
 
-        if (user) {
-            let user1 = Meteor.users.find({ _id: user }).fetch()[0];
-            if (
-                user1 &&
-                (user1.profile.rank === 'admin' || user1.profile.rank === 'officeEmployee' || user1.profile.rank === 'tablet')
-            ) {
-                Session.set('loading', true);
+		if (user) {
+			let user1 = Meteor.users.find({ _id: user }).fetch()[0];
+			if (
+				user1 &&
+				(user1.profile.rank === 'admin' ||
+					user1.profile.rank === 'officeEmployee' ||
+					user1.profile.rank === 'tablet')
+			) {
+				Session.set('loading', true);
 
-                Meteor.subscribe('fullUser', {
-                    onReady: function() {
-                        // Meteor.subscribe('workSchema', {
-                        // onReady: function() {
-                        Meteor.subscribe('Dicsounts', {
-                            onReady: function() {
-                                Meteor.subscribe('tabletData', {
-                                    onReady: function() {
-                                        Session.set('loading', false);
-                                    },
-                                    onError: function() {
-                                        Session.set('loading', false);
-                                    }
-                                });
-                            }
-                        });
-                    }
-                });
-            }
-        } else {
-            console.info('User doesnt sign');
-        }
-    });
+				Meteor.subscribe('fullUser', {
+					onReady: function() {
+						// Meteor.subscribe('workSchema', {
+						// onReady: function() {
+						Meteor.subscribe('Dicsounts', {
+							onReady: function() {
+								Meteor.subscribe('tabletData', {
+									onReady: function() {
+										Session.set('loading', false);
+									},
+									onError: function() {
+										Session.set('loading', false);
+									}
+								});
+							}
+						});
+					}
+				});
+			}
+		} else {
+			console.info('User doesnt sign');
+		}
+	});
 
-    Bert.defaults = {
-        hideDelay: 6000,
-        // Accepts: a number in milliseconds.
-        style: 'fixed-top',
-        // Accepts: fixed-top, fixed-bottom, growl-top-left,   growl-top-right,
-        // growl-bottom-left, growl-bottom-right.
-        type: 'default'
-        // Accepts: default, success, info, warning, danger.
-    };
+	Bert.defaults = {
+		hideDelay: 6000,
+		// Accepts: a number in milliseconds.
+		style: 'fixed-top',
+		// Accepts: fixed-top, fixed-bottom, growl-top-left,   growl-top-right,
+		// growl-bottom-left, growl-bottom-right.
+		type: 'default'
+		// Accepts: default, success, info, warning, danger.
+	};
 });

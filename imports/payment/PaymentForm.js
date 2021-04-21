@@ -185,8 +185,8 @@ export default class PaymentForm extends TrackerReact(Component) {
                             delete job_.updates;
                             delete job_.cardholderInfo;
                             delete job_.cardholderInfo;
-                            // fetch('https://www.probusinessrun.com/charge/', {
-                            fetch('http://localhost:3000/charge/', {
+                            fetch('https://www.probusinessrun.com/charge/', {
+                                // fetch('http://localhost:3000/charge/', {
                                 method: 'POST',
                                 body: JSON.stringify({
                                     nonce: this.state.nonce,

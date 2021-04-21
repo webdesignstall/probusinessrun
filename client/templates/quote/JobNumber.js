@@ -52,7 +52,7 @@ class JobNumber extends Component {
                     id="quote-job-number"
                     className="xx disabled"
                     type="text"
-                    onChange={() => console.log('changed job number')}
+                    onChange={() => console.info('changed job number')}
                     value={this.state.value}
                     placeholder="Job ID"
                 />

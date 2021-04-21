@@ -1,245 +1,336 @@
 import React, { Component } from 'react';
 import WorkData from '../../../common/collections_2';
 import { Tracker } from 'meteor/tracker';
-import TrackerReact from 'meteor/ultimatejs:tracker-react';
+// import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import { Session } from 'meteor/session';
 import ListInnerDisplay from './ListInnerDisplay';
 import { Meteor } from 'meteor/meteor';
 
-export default class List extends TrackerReact(Component) {
-    constructor(props) {
-        super(props);
+import MainContext from '../Context';
 
-        this.state = {
-            jobs: [],
-            loading: false,
-            searchWords: '',
-            jobsBase: [],
-            showLimit: 30
-        };
+export default class List extends Component {
+	static contextType = MainContext;
 
-        this.renderList = this.renderList.bind(this);
-        this.startStopLoading = this.startStopLoading.bind(this);
-        this.workData = this.workData.bind(this);
-        this.increaseLimit = this.increaseLimit.bind(this);
-    }
+	constructor(props) {
+		super(props);
 
-    workData(status, rate) {
-        let obj = status !== '' && typeof status === 'string' ? { status: status } : {};
-        if (rate && rate > 1) {
-            rate = Number(rate);
-            obj = { customerRate: rate };
-        }
+		this.state = {
+			jobs: [],
+			loading: false,
+			searchWord: '',
+			searchWords: '',
+			jobsBase: [],
+			showLimit: 30,
+			status: 'inProgress',
+			rate: 0
+		};
 
-        this.setState({
-            loading: true
-        });
-        let res = WorkData.find(obj).fetch();
+		this.renderList = this.renderList.bind(this);
+		this.startStopLoading = this.startStopLoading.bind(this);
+		this.workData = this.workData.bind(this);
+		this.increaseLimit = this.increaseLimit.bind(this);
+		this.buildComponent = this.buildComponent.bind(this);
+	}
 
-        res.sort((a, b) => {
-            return (
-                new Date(b.statusChange || '1 november 1989').getTime() - new Date(a.statusChange || '1 november 1989').getTime()
-            );
-        });
-        this.setState({ jobs: res, jobsBase: res, loading: false });
-    }
+	workData(status, rate) {
+		let obj = status !== '' && typeof status === 'string' ? { status } : {};
 
-    componentDidMount() {
-        this.x = Tracker.autorun(
-            () => {
-                let status = Session.get('status');
-                let rate = Session.get('customerRate_');
-                this.workData(status, rate);
-                this.setState({
-                    loading: true
-                });
-                console.log('List Updated');
+		if (rate && rate > 1) {
+			obj = { customerRate: Number(rate) };
+		}
 
-                let regEx = /^[a-zA-Z0-9 \b]+$/;
-                let searchWord = Session.get('searchWords');
-                console.log(`🚀 ~ file: List.js ~ line 58 ~ List ~ this.x=Tracker.autorun ~ searchWord`, searchWord.length);
-                searchWord.length > 0 ? '' : (Session.set('loading', false), Session.set('searching', false));
+		let jobs = WorkData.find(obj, {
+			limit: this.state.showLimit,
+			sort: {
+				_id: -1
+			}
+		}).fetch();
 
-                if (searchWord || (regEx.test(searchWord) && (Session.get('update') || !Session.get('update')))) {
-                    // this.workData();
-                    this.setState(
-                        {
-                            searchWords: searchWord
-                        },
-                        err => {
-                            if (err) {
-                                console.error(err);
-                            } else {
-                                // convert words into array
-                                let arrayOfWords = this.state.searchWords.split(' ');
-                                let indexOfEmpty = arrayOfWords.indexOf('');
-                                indexOfEmpty > -1 ? arrayOfWords.splice(indexOfEmpty, 1) : null;
-                                let indexOfSpace = arrayOfWords.indexOf(' ');
-                                indexOfSpace > -1 ? arrayOfWords.splice(indexOfSpace, 1) : null;
-                                let result = new Set();
-                                let sort = Session.get('sort');
+		this.setState({
+			loading: true
+		});
 
-                                Meteor.subscribe('searchFollowUp', arrayOfWords);
+		jobs.sort((a, b) => {
+			return (
+				new Date(b.statusChange || '1 november 1989').getTime() -
+				new Date(a.statusChange || '1 november 1989').getTime()
+			);
+		});
 
-                                let reg = arrayOfWords.map(function(word) {
-                                    word = word.replace('/', '');
-                                    word = word.replace('(', '');
-                                    word = word.replace(')', '');
-                                    word = word.replace('\\', '');
-                                    word = word.replace(':', '');
-                                    word = word.replace(';', '');
-                                    word = word.replace('`', '');
-                                    word = word.replace('[', '');
-                                    word = word.replace('.', '');
-                                    word = word.replace(',', '');
-                                    word = word.replace('"', '');
-                                    word = word.replace(']', '');
-                                    word = word.replace('?', '');
-                                    return new RegExp(word, 'gi');
-                                });
-                                console.log('TCL: List -> componentDidMount -> reg', reg);
+		this.setState({ jobs, jobsBase: jobs, loading: false }, () =>
+			Session.set('isSearch', false)
+		);
+	}
 
-                                let resultConverted = WorkData.find({
-                                    $or: [
-                                        {
-                                            clientFirstName: {
-                                                $in: reg
-                                            }
-                                        },
-                                        {
-                                            clientLastName: {
-                                                $in: reg
-                                            }
-                                        },
-                                        {
-                                            jobNumber: {
-                                                $in: reg
-                                            }
-                                        },
-                                        {
-                                            phoneNumber: {
-                                                $in: reg
-                                            }
-                                        }
-                                    ]
-                                }).fetch();
-                                arrayOfWords.length > 0 ? null : (resultConverted = this.state.jobs);
-                                resultConverted.length > 0 ? null : (resultConverted = [{}]);
-                                arrayOfWords.length > 0 ? Session.set('isSearch', true) : Session.set('isSearch', false);
-                                this.setState(
-                                    {
-                                        jobs: resultConverted
-                                    },
-                                    () => {
-                                        Session.set('loading', false);
-                                        Session.set('searching', false);
-                                    }
-                                );
-                            }
-                        }
-                    );
-                } else {
-                    let sort_ = Session.get('sort');
-                    let baza = this.state.jobsBase;
+	componentDidUpdate(prevProps, prevState) {
+		console.log(prevState.rate);
+		this.state.status !== this.context.status
+			? this.setState({ status: this.context.status }, () => {
+					console.log(this.subscribe);
+					this.subscribe.stop();
+					Meteor.subscribe(
+						'workSchema',
+						{ status: this.state.status },
+						{ limit: this.state.showLimit, sort: { _id: -1 } },
+						() => this.buildComponent()
+					);
+			  })
+			: '';
+		prevState.rate !== this.state.rate
+			? (this.subscribe.stop(),
+			  Meteor.subscribe(
+					'workSchema',
+					{ status: this.state.status, customerRate: this.state.rate },
+					{ limit: this.state.showLimit, sort: { _id: -1 } },
+					() => this.buildComponent()
+			  ))
+			: '';
+		// this.setState({ searchWord: this.context.searchWord }, () => {
+		//     // () => this.buildComponent();
+		// });
+		// this.buildComponent();
+		// this.buildComponent();
+		this.state.searchWord !== this.context.searchWord &&
+			this.setState(
+				{
+					searchWord: this.context.searchWord
+				},
+				() => {
+					this.subscribe.stop();
+					this.buildComponent();
+				}
+			);
+	}
 
-                    baza.sort((a, b) => {
-                        if (sort_ === 'default') {
-                            return (
-                                new Date(b.statusChange || '1 november 1989').getTime() -
-                                new Date(a.statusChange || '1 november 1989').getTime()
-                            );
-                        }
+	buildComponent() {
+		// let { searchWord, setSearchWord, status, setStatus } = this.context;
+		// let status = this.state.status;
 
-                        if (sort_ === 'az') {
-                            return (
-                                new Date(a.workDate || '1 november 1989').getTime() -
-                                new Date(b.workDate || '1 november 1989').getTime()
-                            );
-                        }
+		// let rate = Session.get('customerRate_');
+		this.workData(this.state.status, this.state.rate);
+		this.setState({
+			loading: true
+		});
 
-                        if (sort_ === 'za') {
-                            return (
-                                new Date(b.workDate || '1 november 1989').getTime() -
-                                new Date(a.workDate || '1 november 1989').getTime()
-                            );
-                        }
+		let regEx = /^[a-zA-Z0-9 \b]+$/;
+		// let searchWord = Session.get('searchWords');
+		// let searchWord = this.state.searchWord;
+		this.state.searchWord.length > 0
+			? ''
+			: (Session.set('loading', false), Session.set('searching', false));
 
-                        if (sort_ === 'lc') {
-                            return (
-                                new Date(b.lastChange || '1 november 1989').getTime() -
-                                new Date(a.lastChange || '1 november 1989').getTime()
-                            );
-                        }
-                    });
+		if (
+			(this.state.searchWord && this.state.searchWord.length > 0) ||
+			(regEx.test(this.state.searchWord) && (Session.get('update') || !Session.get('update')))
+		) {
+			// this.workData();
 
-                    this.setState(
-                        prevState => {
-                            return { jobs: prevState.jobsBase };
-                        },
-                        () => {
-                            Session.set('loading', false);
-                        }
-                    );
-                }
-            },
-            error => {
-                console.error(error);
-            }
-        );
-    }
+			this.setState(
+				{
+					searchWords: this.state.searchWord
+				},
+				err => {
+					if (err) {
+						console.error(err);
+					} else {
+						// convert words into array
+						let arrayOfWords = this.state.searchWords.split(' ');
+						let indexOfEmpty = arrayOfWords.indexOf('');
+						indexOfEmpty > -1 ? arrayOfWords.splice(indexOfEmpty, 1) : null;
+						let indexOfSpace = arrayOfWords.indexOf(' ');
+						indexOfSpace > -1 ? arrayOfWords.splice(indexOfSpace, 1) : null;
+						let result = new Set();
+						let sort = Session.get('sort');
 
-    startStopLoading() {
-        this.setState(prevState => {
-            return {
-                loading: !prevState.loading
-            };
-        });
-    }
+						this.subscribe.stop();
+						Meteor.subscribe('searchFollowUp', arrayOfWords);
 
-    componentWillUnmount() {
-        this.x.stop();
-    }
+						let reg = arrayOfWords.map(function(word) {
+							word = word.replace('/', '');
+							word = word.replace('(', '');
+							word = word.replace(')', '');
+							word = word.replace('\\', '');
+							word = word.replace(':', '');
+							word = word.replace(';', '');
+							word = word.replace('`', '');
+							word = word.replace('[', '');
+							word = word.replace('.', '');
+							word = word.replace(',', '');
+							word = word.replace('"', '');
+							word = word.replace(']', '');
+							word = word.replace('?', '');
+							return new RegExp(word, 'gi');
+						});
 
-    renderList() {
-        let jobs = this.state.jobs;
-        let newJobs = [];
+						let resultConverted = WorkData.find(
+							{
+								$or: [
+									{
+										clientFirstName: {
+											$in: reg
+										}
+									},
+									{
+										clientLastName: {
+											$in: reg
+										}
+									},
+									{
+										jobNumber: {
+											$in: reg
+										}
+									},
+									{
+										phoneNumber: {
+											$in: reg
+										}
+									}
+								]
+							},
+							{ limit: 100, sort: { _id: -1 } }
+						).fetch();
+						arrayOfWords.length > 0 ? null : (resultConverted = this.state.jobs);
+						resultConverted.length > 0 ? null : (resultConverted = [{}]);
+						arrayOfWords.length > 0
+							? Session.set('isSearch', true)
+							: Session.set('isSearch', false);
+						this.setState(
+							{
+								jobs: resultConverted
+							},
+							() => {
+								Session.set('loading', false);
+								Session.set('isSearch', false);
+							}
+						);
+					}
+				}
+			);
+		} else {
+			let sort_ = Session.get('sort');
+			let baza = this.state.jobsBase;
 
-        if (jobs.length > this.state.showLimit) {
-            newJobs = jobs.slice(0, this.state.showLimit + 1);
-        } else {
-            newJobs = jobs;
-        }
+			baza.sort((a, b) => {
+				if (sort_ === 'default') {
+					return (
+						new Date(b.statusChange || '1 november 1989').getTime() -
+						new Date(a.statusChange || '1 november 1989').getTime()
+					);
+				}
 
-        return newJobs.map(job => {
-            return Session.get('is') === job._id ? (
-                <div key={job._id + 'followUpList'} className="collection-item">
-                    <ListInnerDisplay loading={this.startStopLoading} job={job} />
-                </div>
-            ) : Session.get('is') === '' ? (
-                <div key={job._id + 'followUpList'} className="collection-item">
-                    <ListInnerDisplay loading={this.startStopLoading} job={job} />
-                </div>
-            ) : null;
-        });
-    }
-    increaseLimit() {
-        this.setState(prevState => {
-            let limit = prevState.showLimit + 10;
+				if (sort_ === 'az') {
+					return (
+						new Date(a.workDate || '1 november 1989').getTime() -
+						new Date(b.workDate || '1 november 1989').getTime()
+					);
+				}
 
-            return {
-                showLimit: limit
-            };
-        });
-    }
+				if (sort_ === 'za') {
+					return (
+						new Date(b.workDate || '1 november 1989').getTime() -
+						new Date(a.workDate || '1 november 1989').getTime()
+					);
+				}
 
-    render() {
-        return (
-            <React.Fragment>
-                <div className="collection">{this.renderList()}</div>
-                <div className={this.state.jobs.length > 30 ? 'showMore' : 'hide'} onClick={this.increaseLimit}>
-                    show more
-                </div>
-            </React.Fragment>
-        );
-    }
+				if (sort_ === 'lc') {
+					return (
+						new Date(b.lastChange || '1 november 1989').getTime() -
+						new Date(a.lastChange || '1 november 1989').getTime()
+					);
+				}
+			});
+
+			this.setState(
+				prevState => {
+					return { jobs: prevState.jobsBase };
+				},
+				() => {
+					Session.set('loading', false);
+					Session.set('isSearch', false);
+				}
+			);
+		}
+	}
+
+	componentDidMount() {
+		this.x = Tracker.autorun(() => {
+			let { searchWord, setSearchWord, status, setStatus } = this.context;
+			// let searchWord = Session.get('searchWord');
+			let rate = Session.get('customerRate_');
+
+			this.setState(
+				{
+					rate,
+					status,
+					searchWord
+				},
+				() => {
+					this.subscribe = Meteor.subscribe(
+						'workSchema',
+						{ status },
+						{ limit: this.state.showLimit, sort: { _id: -1 } },
+						() => this.buildComponent()
+					);
+				}
+			);
+		});
+	}
+
+	startStopLoading() {
+		this.setState(prevState => {
+			return {
+				loading: !prevState.loading
+			};
+		});
+	}
+
+	componentWillUnmount() {
+		this.x.stop();
+	}
+
+	renderList() {
+		let jobs = this.state.jobs;
+		let newJobs = [];
+
+		if (jobs.length > this.state.showLimit) {
+			newJobs = jobs.slice(0, this.state.showLimit + 1);
+		} else {
+			newJobs = jobs;
+		}
+
+		return newJobs.map(job => {
+			return Session.get('is') === job._id ? (
+				<div key={job._id + 'followUpList'} className="collection-item">
+					<ListInnerDisplay loading={this.startStopLoading} job={job} />
+				</div>
+			) : Session.get('is') === '' ? (
+				<div key={job._id + 'followUpList'} className="collection-item">
+					<ListInnerDisplay loading={this.startStopLoading} job={job} />
+				</div>
+			) : null;
+		});
+	}
+	increaseLimit() {
+		this.setState(prevState => {
+			let limit = prevState.showLimit + 10;
+
+			return {
+				showLimit: limit
+			};
+		});
+	}
+
+	render() {
+		return (
+			<React.Fragment>
+				<div className="collection">{this.renderList()}</div>
+				<div
+					className={this.state.jobs.length > 30 ? 'showMore' : 'hide'}
+					onClick={this.increaseLimit}
+				>
+					show more
+				</div>
+			</React.Fragment>
+		);
+	}
 }
