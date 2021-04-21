@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import MainContext, { MainProvider } from './Context';
+import React from 'react';
+import { MainProvider } from './Context';
 import FollowUpMain from './FollowUpMain';
 
-export default class FollowUpMainX extends Component {
-	render() {
-		return (
-			<MainProvider>
-				<FollowUpMain />
-			</MainProvider>
-		);
-	}
-}
+const FollowUpMainX = () => {
+	return (
+		<MainProvider>
+			<FollowUpMain />
+		</MainProvider>
+	);
+};
+
+export default FollowUpMainX;
