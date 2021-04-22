@@ -1,82 +1,76 @@
-import React, { Component } from 'react';
 import { Session } from 'meteor/session';
-import { Tracker } from 'meteor/tracker';
+import React, { useEffect, useState } from 'react';
 
-export default class AdditionalInfoValue extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			value: []
-		};
-	}
+const AdditionalInfoValue = () => {
+	const [value, setValue] = useState([]);
+	const [job, setJob] = useState({});
+	// const { additionalInfo, setAdditionalInfo } = useContext(MainContext);
 
-	componentDidMount() {
-		this.x = Tracker.autorun(() => {
-			let job = Session.get('job_');
-			this.setState({
-				value: job.additionalInfo || []
-			});
-		});
-	}
+	useEffect(() => {
+		let jobSession = Session.get('job_');
+		setJob(jobSession);
+		// setAdditionalInfo(jobSession.additionalInfo);
+		setValue(jobSession.additionalInfo);
+	}, []);
 
-	componentWillUnmount() {
-		this.x.stop();
-	}
-
-	setSession(value) {
-		let job = Session.get('job_');
-		job.additionalInfo = value;
-
+	useEffect(() => {
 		Session.set('job_', job);
-	}
+	}, [job]);
 
-	delete(index) {
-		let job = Session.get('job_');
-		job.additionalInfo ? null : [];
-		let arr = job.additionalInfo;
+	const deleteValue = index => {
+		// let job = Session.get('job_');
+		// job.additionalInfo ? null : [];
+		let arr = [...value];
 		arr.splice(index, 1);
+		setValue(arr);
+		let jobDb = { ...job };
+		jobDb.additionalInfo = arr;
+		setJob(jobDb);
 
-		Session.set('job_', job);
-	}
+		// setJob(job);
+		// setAdditionalInfo(arr);
+	};
 
-	renderList() {
+	const renderList = () => {
 		return (
 			<ul>
-				{this.state.value.map((info, index) => {
-					return (
-						<li
-							key={index + 'addInfoVal'}
-							style={{
-								listStyleType: 'circle',
-								cursor: 'pointer'
-							}}
-							onClick={() => this.delete(index)}
-						>
-							✓ {info}
-						</li>
-					);
-				})}
+				{value &&
+					value.length > 0 &&
+					value.map((info, index) => {
+						return (
+							<li
+								key={index + 'addInfoVal'}
+								style={{
+									listStyleType: 'circle',
+									cursor: 'pointer'
+								}}
+								onClick={() => deleteValue(index)}
+							>
+								✓ {info}
+							</li>
+						);
+					})}
 			</ul>
 		);
-	}
+	};
 
-	render() {
-		return (
-			<div
-				style={{
-					maxWidth: '50%',
-					minWidth: '50%',
-					minHeight: '100px',
-					maxHeight: '100px',
-					border: 'none',
-					padding: '10px',
-					outline: 'none',
-					float: 'left',
-					overflow: 'auto'
-				}}
-			>
-				{this.renderList()}
-			</div>
-		);
-	}
-}
+	return (
+		<div
+			style={{
+				maxWidth: '50%',
+				minWidth: '50%',
+				minHeight: '100px',
+				maxHeight: '100px',
+				border: 'none',
+				padding: '10px',
+				outline: 'none',
+				float: 'left',
+				overflow: 'auto'
+			}}
+		>
+			{renderList()}
+		</div>
+	);
+};
+
+export default AdditionalInfoValue;
