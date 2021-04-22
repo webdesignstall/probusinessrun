@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 const MainContext = React.createContext();
 
@@ -6,6 +7,7 @@ function MainProvider({ children }) {
 	// Context state
 	const [searchWord, setSearchWord] = useState('');
 	const [status, setStatus] = useState('inProgress');
+	const [additionalInfo, setAdditionalInfo] = useState([]);
 	// state = {
 	//     searchWord: '',
 	//     status: 'inProgress'
@@ -30,13 +32,19 @@ function MainProvider({ children }) {
 				searchWord,
 				status,
 				setSearchWord,
-				setStatus
+				setStatus,
+				additionalInfo,
+				setAdditionalInfo
 			}}
 		>
 			{children}
 		</MainContext.Provider>
 	);
 }
+
+MainProvider.propTypes = {
+	children: PropTypes.any
+};
 
 export default MainContext;
 

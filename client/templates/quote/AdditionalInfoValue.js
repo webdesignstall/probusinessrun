@@ -1,82 +1,77 @@
-import React, { Component } from 'react';
 import { Session } from 'meteor/session';
-import { Tracker } from 'meteor/tracker';
+import React, { useContext, useEffect, useState } from 'react';
+import MainContext from '../../../imports/followup/Context';
 
-export default class AdditionalInfoValue extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			value: []
-		};
+const AdditionalInfoValue = () => {
+	const [job, setJob] = useState({});
+	const { additionalInfo, setAdditionalInfo } = useContext(MainContext);
+
+	useEffect(() => {
+		setJob(Session.get('job_') || []);
+		setAdditionalInfo(Session.get('job_').additionalInfo || []);
+	}, []);
+
+	useEffect(() => {
+		let arr = [...additionalInfo];
+		let jobDb = { ...job };
+		jobDb.additionalInfo = arr;
+		jobDb.additionalInfo = additionalInfo;
+		setSession(jobDb);
+	}, [additionalInfo]);
+
+	function setSession(jobChanged) {
+		if (jobChanged._id) {
+			Session.set('job_', jobChanged);
+		}
 	}
 
-	componentDidMount() {
-		this.x = Tracker.autorun(() => {
-			let job = Session.get('job_');
-			this.setState({
-				value: job.additionalInfo || []
-			});
-		});
-	}
-
-	componentWillUnmount() {
-		this.x.stop();
-	}
-
-	setSession(value) {
-		let job = Session.get('job_');
-		job.additionalInfo = value;
-
-		Session.set('job_', job);
-	}
-
-	delete(index) {
-		let job = Session.get('job_');
-		job.additionalInfo ? null : [];
-		let arr = job.additionalInfo;
+	const deleteValue = index => {
+		let arr = [...additionalInfo];
 		arr.splice(index, 1);
 
-		Session.set('job_', job);
-	}
+		setAdditionalInfo(arr);
+	};
 
-	renderList() {
+	const renderList = () => {
 		return (
 			<ul>
-				{this.state.value.map((info, index) => {
-					return (
-						<li
-							key={index + 'addInfoVal'}
-							style={{
-								listStyleType: 'circle',
-								cursor: 'pointer'
-							}}
-							onClick={() => this.delete(index)}
-						>
-							✓ {info}
-						</li>
-					);
-				})}
+				{additionalInfo &&
+					additionalInfo.length > 0 &&
+					additionalInfo.map((info, index) => {
+						return (
+							<li
+								key={index + 'addInfoVal'}
+								style={{
+									listStyleType: 'circle',
+									cursor: 'pointer'
+								}}
+								onClick={() => deleteValue(index)}
+							>
+								✓ {info}
+							</li>
+						);
+					})}
 			</ul>
 		);
-	}
+	};
 
-	render() {
-		return (
-			<div
-				style={{
-					maxWidth: '50%',
-					minWidth: '50%',
-					minHeight: '100px',
-					maxHeight: '100px',
-					border: 'none',
-					padding: '10px',
-					outline: 'none',
-					float: 'left',
-					overflow: 'auto'
-				}}
-			>
-				{this.renderList()}
-			</div>
-		);
-	}
-}
+	return (
+		<div
+			style={{
+				maxWidth: '50%',
+				minWidth: '50%',
+				minHeight: '100px',
+				maxHeight: '100px',
+				border: 'none',
+				padding: '10px',
+				outline: 'none',
+				float: 'left',
+				overflow: 'auto'
+			}}
+		>
+			{renderList()}
+		</div>
+	);
+};
+
+export default AdditionalInfoValue;
