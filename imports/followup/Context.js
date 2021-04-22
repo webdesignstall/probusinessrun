@@ -7,7 +7,7 @@ function MainProvider({ children }) {
 	// Context state
 	const [searchWord, setSearchWord] = useState('');
 	const [status, setStatus] = useState('inProgress');
-	const [additionalInfo, setAdditionalInfo] = useState('');
+	const [additionalInfo, setAdditionalInfo] = useState([]);
 	// state = {
 	//     searchWord: '',
 	//     status: 'inProgress'

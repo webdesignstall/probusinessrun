@@ -1,42 +1,43 @@
 import { Session } from 'meteor/session';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import MainContext from '../../../imports/followup/Context';
 
 const AdditionalInfoValue = () => {
-	const [value, setValue] = useState([]);
 	const [job, setJob] = useState({});
-	// const { additionalInfo, setAdditionalInfo } = useContext(MainContext);
+	const { additionalInfo, setAdditionalInfo } = useContext(MainContext);
 
 	useEffect(() => {
-		let jobSession = Session.get('job_');
-		setJob(jobSession);
-		// setAdditionalInfo(jobSession.additionalInfo);
-		setValue(jobSession.additionalInfo);
+		setJob(Session.get('job_') || []);
+		setAdditionalInfo(Session.get('job_').additionalInfo || []);
 	}, []);
 
 	useEffect(() => {
-		Session.set('job_', job);
-	}, [job]);
-
-	const deleteValue = index => {
-		// let job = Session.get('job_');
-		// job.additionalInfo ? null : [];
-		let arr = [...value];
-		arr.splice(index, 1);
-		setValue(arr);
+		let arr = [...additionalInfo];
 		let jobDb = { ...job };
 		jobDb.additionalInfo = arr;
-		setJob(jobDb);
+		jobDb.additionalInfo = additionalInfo;
+		setSession(jobDb);
+	}, [additionalInfo]);
 
-		// setJob(job);
-		// setAdditionalInfo(arr);
+	function setSession(jobChanged) {
+		if (jobChanged._id) {
+			Session.set('job_', jobChanged);
+		}
+	}
+
+	const deleteValue = index => {
+		let arr = [...additionalInfo];
+		arr.splice(index, 1);
+
+		setAdditionalInfo(arr);
 	};
 
 	const renderList = () => {
 		return (
 			<ul>
-				{value &&
-					value.length > 0 &&
-					value.map((info, index) => {
+				{additionalInfo &&
+					additionalInfo.length > 0 &&
+					additionalInfo.map((info, index) => {
 						return (
 							<li
 								key={index + 'addInfoVal'}
