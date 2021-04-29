@@ -4,7 +4,13 @@ module.exports = {
 		commonjs: true,
 		es6: true
 	},
-	extends: ['eslint:recommended', 'plugin:react/recommended'],
+	extends: [
+		'eslint:recommended',
+		'plugin:react/recommended',
+		'airbnb-base',
+		'prettier',
+		'plugin:react-hooks/recommended'
+	],
 	parserOptions: {
 		ecmaFeatures: {
 			experimentalObjectRestSpread: true,

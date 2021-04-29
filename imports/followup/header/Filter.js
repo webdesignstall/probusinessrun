@@ -8,92 +8,52 @@ import MainContext from '../Context';
 const Filter = () => {
 	// static contextType = MainContext;
 
-	const [clicked, setClicked] = useState('inProgress');
+	// const [status, setStatus] = useState('inProgress');
 	const { status, setStatus } = useContext(MainContext);
 
-	// constructor(props) {
-	//     super(props);
-
-	//     this.state = {
-	//         clicked: 'inProgress'
-	//     };
-
-	//     filter = filter.bind(this);
-	// }
-
 	useEffect(() => {
-		// let { status, setStatus } = MainContext;
-		// this.status = status;
-		// this.setStatus = setStatus;
-		// this.setState({
-		//     clicked: status
-		// });
-
-		clicked === status ? null : setClicked(status);
+		status === status ? null : setStatus(status);
 	}, []);
 
-	// componentDidMount() {
-	//     let { status, setStatus } = this.context;
-	//     this.status = status;
-	//     this.setStatus = setStatus;
-	//     this.setState({
-	//         clicked: status
-	//     });
-	// }
 	useEffect(() => {
-		// clicked === status ? null : setStatus(clicked);
-		if (clicked !== status) {
-			setStatus(clicked);
-			Session.set('status', clicked);
-			if (clicked !== '') {
+		if (status !== status) {
+			setStatus(status);
+			Session.set('status', status);
+			if (status !== '') {
 				Session.set('searchWords', '');
 				Session.set('is', '');
 				Session.set('ExtendedJobInformation', '');
 			}
 		}
-	}, [clicked]);
+	}, [status]);
 
 	const filter = statusNew => {
-		clicked === statusNew ? setClicked('') : setClicked(statusNew);
-
-		// this.setState(
-		// 	prevState => {
-		// 		return prevState.clicked === status ? { clicked: '' } : { clicked: status };
-		// 	},
-		// 	() => {
-		// 		this.setStatus(status);
-		// 		Session.set('status', status);
-		// 		Session.set('searchWords', '');
-		// 		Session.set('is', '');
-		// 		Session.set('ExtendedJobInformation', '');
-		// 		// Session.set('dataReady', false);
-		// 	}
-		// );
+		status === statusNew ? setStatus('') : setStatus(statusNew);
 	};
 
 	return (
 		<div className="filter--main">
 			<ul className="filter--list">
 				<li
-					className={clicked === '' || clicked === 'inProgress' ? 'sari_' : 'hide'}
+					className={status === '' || status === 'inProgress' ? 'sari_' : 'hide'}
 					onClick={() => filter('inProgress')}
 				>
 					IN PROGRESS
 				</li>
 				<li
-					className={clicked === '' || clicked === 'lost' ? 'qirmizi_' : 'hide'}
+					className={status === '' || status === 'lost' ? 'qirmizi_' : 'hide'}
 					onClick={() => filter('lost')}
 				>
 					LOST
 				</li>
 				<li
-					className={clicked === '' || clicked === 'won' ? 'yasil_' : 'hide'}
+					className={status === '' || status === 'won' ? 'yasil_' : 'hide'}
 					onClick={() => filter('won')}
 				>
 					WON
 				</li>
 				<li
-					className={clicked === '' || clicked === 'cancelled' ? 'boz_' : 'hide'}
+					className={status === '' || status === 'cancelled' ? 'boz_' : 'hide'}
 					onClick={() => filter('cancelled')}
 				>
 					CANCELLED

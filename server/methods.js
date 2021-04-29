@@ -1,12 +1,11 @@
-import { Accounts } from 'meteor/accounts-base';
-import { Meteor } from 'meteor/meteor';
 import AWS from 'aws-sdk';
 import email from 'emailjs';
 import pdf from 'html-pdf';
-
+import { Accounts } from 'meteor/accounts-base';
+import { Meteor } from 'meteor/meteor';
 import BonusSettings from '../common/bonusData';
-import pdfTemplate from './htmlToPDFTemplate';
 import WorkData from '../common/collections_2';
+import pdfTemplate from './htmlToPDFTemplate';
 
 // Set the region
 AWS.config.update({
@@ -326,6 +325,44 @@ if (Meteor.isServer) {
 					]
 				});
 			}
+		},
+		getQueryData(selector, options) {
+			const data = WorkData.find(selector || {}, options || { limit: 31 }).fetch();
+			return data;
+		},
+		searchByWords(words, aggr) {
+			console.log(`🚀 ~ file: methods.js ~ line 335 ~ searchByWords ~ words`, words);
+			let reg = words.map(function(word) {
+				return new RegExp(word, 'gi');
+			});
+
+			return WorkData.find(
+				{
+					$or: [
+						{
+							clientFirstName: {
+								$in: reg
+							}
+						},
+						{
+							clientLastName: {
+								$in: reg
+							}
+						},
+						{
+							jobNumber: {
+								$in: reg
+							}
+						},
+						{
+							phoneNumber: {
+								$in: reg
+							}
+						}
+					]
+				},
+				aggr
+			).fetch();
 		}
 		// countData: function(param) {
 		//     let x = WorkData.find({}).count();

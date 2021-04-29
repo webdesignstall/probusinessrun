@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
 
 const MainContext = React.createContext();
 
@@ -8,33 +8,39 @@ function MainProvider({ children }) {
 	const [searchWord, setSearchWord] = useState('');
 	const [status, setStatus] = useState('inProgress');
 	const [additionalInfo, setAdditionalInfo] = useState([]);
-	// state = {
-	//     searchWord: '',
-	//     status: 'inProgress'
-	// };
+	const [jobList, setJobList] = useState([]);
+	const [loading, setLoading] = useState(false);
+	const [displayExtendedJobInformation, setDisplayExtendedInformation] = useState(false);
+	const [rate, setRate] = useState(0);
+	const [showLimit, setShowLimit] = useState(30);
+	const [sorting, setSorting] = useState('default');
 
-	// Method to update searchWord state
-	// const setSearchWord = searchWord => {
-	//     this.setState(prevState => ({ searchWord }));
-	// };
+	useEffect(() => {
+		console.log('setDisplayExtendedInformation changed');
+	}, [setDisplayExtendedInformation]);
 
-	// // Method to update status state
-	// const setStatus = status => {
-	//     this.setState(prevState => ({ status }));
-	// };
-
+	// Provide Context to children components
 	return (
-		// const { children } = this.props;
-		// const { searchWord, status } = this.state;
-		// const { setSearchWord, setStatus } = this;
 		<MainContext.Provider
 			value={{
-				searchWord,
 				status,
-				setSearchWord,
 				setStatus,
+				searchWord,
+				setSearchWord,
 				additionalInfo,
-				setAdditionalInfo
+				setAdditionalInfo,
+				jobList,
+				setJobList,
+				rate,
+				setRate,
+				showLimit,
+				setShowLimit,
+				loading,
+				setLoading,
+				sorting,
+				setSorting,
+				displayExtendedJobInformation,
+				setDisplayExtendedInformation
 			}}
 		>
 			{children}

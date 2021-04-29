@@ -1,40 +1,39 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Session } from 'meteor/session';
-import TrackerReact from 'meteor/ultimatejs:tracker-react';
 import { Meteor } from 'meteor/meteor';
-import WorkData from '../../../common/collections_2';
-import swal from 'sweetalert';
+import { Session } from 'meteor/session';
 import { Tracker } from 'meteor/tracker';
-
-import ArrivalWindow from '../../../client/templates/quote/ArrivalWindow';
-import Addresses from '../../../client/templates/quote/Addresses';
-import PaymentOptions from '../../../client/templates/quote/PaymentOptions';
-import TempTrucks from '../../../client/templates/quote/TempTrucks';
-import FollowUps from './FollowUps';
-import FinalNote from './FinalNote';
-import MovingSize from '../../../client/templates/quote/MovingSize';
-import QuoteExpiration from '../../../client/templates/quote/QuoteExpariation';
-import TakenBy from '../../../client/templates/quote/TakenBy';
-import CompanySelector from '../../../client/templates/quote/CompanySelector';
-import NumberOfUsers from '../../../client/templates/quote/NumberOfUsers';
-import NewAppointment from '../../../client/templates/quote/NewAppointment';
-import AdditionalInfo from '../../../client/templates/quote/AdditionalInfo';
-import CustomerContactInfo from '../../../client/templates/quote/CustomerContactInfo';
+import TrackerReact from 'meteor/ultimatejs:tracker-react';
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import swal from 'sweetalert';
 import AdditionalContact from '../../../client/templates/quote/AdditionalContact';
-import WorkDate from '../../../client/templates/quote/WorkDate';
-import SourceOfLeads from '../../../client/templates/quote/SourceOfLeads';
-import SmallItemPacking from '../../../client/templates/quote/SmallItemPacking';
-import StairsFee from '../../../client/templates/quote/StairsFee';
-import LargeItemFee from '../../../client/templates/quote/LargeItemFee';
-import TravelFee from '../../../client/templates/quote/TravelFee';
+import AdditionalInfo from '../../../client/templates/quote/AdditionalInfo';
+import Addresses from '../../../client/templates/quote/Addresses';
+import ArrivalWindow from '../../../client/templates/quote/ArrivalWindow';
+import Button from '../../../client/templates/quote/Button';
+import CompanySelector from '../../../client/templates/quote/CompanySelector';
+import CustomerContactInfo from '../../../client/templates/quote/CustomerContactInfo';
 import Deposit from '../../../client/templates/quote/Deposit';
 import DoubleDriveTime from '../../../client/templates/quote/DoubleDriveTime';
 import JobStatus from '../../../client/templates/quote/JobStatus';
+import LargeItemFee from '../../../client/templates/quote/LargeItemFee';
+import MovingSize from '../../../client/templates/quote/MovingSize';
+import NewAppointment from '../../../client/templates/quote/NewAppointment';
 import NoteForCustomerService from '../../../client/templates/quote/NoteForCustomerService';
 import NoteForMovers from '../../../client/templates/quote/NoteForMovers';
 import NoteForYourMove from '../../../client/templates/quote/NoteForYourMove';
-import Button from '../../../client/templates/quote/Button';
+import NumberOfUsers from '../../../client/templates/quote/NumberOfUsers';
+import PaymentOptions from '../../../client/templates/quote/PaymentOptions';
+import QuoteExpiration from '../../../client/templates/quote/QuoteExpariation';
+import SmallItemPacking from '../../../client/templates/quote/SmallItemPacking';
+import SourceOfLeads from '../../../client/templates/quote/SourceOfLeads';
+import StairsFee from '../../../client/templates/quote/StairsFee';
+import TakenBy from '../../../client/templates/quote/TakenBy';
+import TempTrucks from '../../../client/templates/quote/TempTrucks';
+import TravelFee from '../../../client/templates/quote/TravelFee';
+import WorkDate from '../../../client/templates/quote/WorkDate';
+import WorkData from '../../../common/collections_2';
+import FinalNote from './FinalNote';
+import FollowUps from './FollowUps';
 import UpdateList from './UpdateList';
 
 /*global moment*/
@@ -54,7 +53,7 @@ export default class ExtendedJobInformation extends TrackerReact(Component) {
 
 	componentDidMount() {
 		this.x = Tracker.autorun(() => {
-			let job = Session.get('job_');
+			let job = this.props.job;
 			this.workData(job._id);
 			this.setState({
 				job
