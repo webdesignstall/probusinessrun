@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
+import bonusData from '../common/bonusData';
 import WorkData from '../common/collections_2';
 import Discounts from '../common/discountData';
-import bonusData from '../common/bonusData';
 
 /*global moment*/
 
@@ -35,7 +35,10 @@ Meteor.publish('dateSubscribe', function(date) {
 });
 
 Meteor.publish('workSchema', function(query, options) {
-	return WorkData.find(query || {}, options || {});
+	console.log(`🚀 ~ file: publish.js ~ line 38 ~ Meteor.publish ~ query`, query);
+	const data = WorkData.find(query || {}, options || {});
+	console.log(`🚀 ~ file: publish.js ~ line 39 ~ Meteor.publish ~ data`, data.fetch().length);
+	return data;
 });
 
 Meteor.publish('usersData', function() {
@@ -52,35 +55,4 @@ Meteor.publish('Dicsounts', function() {
 
 Meteor.publish('bonusData', function() {
 	return bonusData.find();
-});
-
-Meteor.publish('searchFollowUp', function(words) {
-	let reg = words.map(function(word) {
-		return new RegExp(word, 'gi');
-	});
-
-	return WorkData.find({
-		$or: [
-			{
-				clientFirstName: {
-					$in: reg
-				}
-			},
-			{
-				clientLastName: {
-					$in: reg
-				}
-			},
-			{
-				jobNumber: {
-					$in: reg
-				}
-			},
-			{
-				phoneNumber: {
-					$in: reg
-				}
-			}
-		]
-	});
 });
