@@ -1,52 +1,33 @@
-import React, { Component } from 'react';
-import companies from '../helpers/companyInfos.json';
-import { Tracker } from 'meteor/tracker';
-import { Session } from 'meteor/session';
+// react
+import React, { useContext } from 'react';
+// helpers
+import companies_ from '../helpers/companyInfos.json';
+import StatisticContext from './StatisticContext';
 
-companies = companies.companies;
+export default CompanySelector = () => {
+	const { companies } = companies_;
+	const { company, setCompany } = useContext(StatisticContext);
 
-export default class CompanySelector extends Component {
-    constructor(props) {
-        super(props);
+	const renderCompaniesList = () => {
+		return companies.map((company, index) => {
+			return <option key={'companyList' + index}>{company.name}</option>;
+		});
+	};
 
-        this.state = {
-            company: 'all'
-        };
-    }
+	const companyChanger = e => {
+		let value = e.target.value;
 
-    componentDidMount() {
-        this.x = Tracker.autorun(() => {
-            let company = Session.get('company');
+		setCompany(value);
+	};
 
-            this.setState({
-                company
-            });
-        });
-    }
-
-    componentWillUnmount() {
-        this.x.stop();
-    }
-
-    renderCompaniesList() {
-        return companies.map((company, index) => {
-            return <option key={'companyList' + index}>{company.name}</option>;
-        });
-    }
-
-    companyChanger(e) {
-        Session.set('company', e.target.value);
-    }
-
-    render() {
-        return (
-            <select
-                onChange={e => this.companyChanger(e)}
-                value={this.state.company}
-                className="browser-default statistic__company_selector">
-                <option value="all">All Companies</option>
-                {this.renderCompaniesList()}
-            </select>
-        );
-    }
-}
+	return (
+		<select
+			onChange={e => companyChanger(e)}
+			value={company}
+			className="browser-default statistic__company_selector"
+		>
+			<option value="all">All Companies</option>
+			{renderCompaniesList()}
+		</select>
+	);
+};

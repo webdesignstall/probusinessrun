@@ -331,7 +331,6 @@ if (Meteor.isServer) {
 			return data;
 		},
 		searchByWords(words, aggr) {
-			console.log(`🚀 ~ file: methods.js ~ line 335 ~ searchByWords ~ words`, words);
 			let reg = words.map(function(word) {
 				return new RegExp(word, 'gi');
 			});
@@ -363,10 +362,81 @@ if (Meteor.isServer) {
 				},
 				aggr
 			).fetch();
+		},
+		dataCounterStatistic(param) {
+			return WorkData.count(param || {});
+		},
+		fetchUsers(_id) {
+			if (_id) {
+				let user = Meteor.users.find({ _id }).fetch();
+				let userRank = user[0] && user[0].profile.rank;
+
+				if (userRank === 'admin') {
+					return Meteor.users.find({}).fetch();
+				} else {
+					return user;
+				}
+			} else {
+				throw new Meteor.Error(500, 'No User information', 'Cant get user id');
+			}
+		},
+		statisticDataFetch(dateRange, company, status, employee) {
+			let query = {};
+			console.log(dateRange[1]);
+			const pipeline = [
+				{
+					$match: {
+						$expr: {
+							$gte: [
+								{
+									$dateFromString: {
+										dateString: '$workDate'
+									}
+								},
+								dateRange[0]
+							]
+						}
+					}
+				}
+			];
+
+			const pipeline2 = [
+				{
+					$match: {
+						$expr: {
+							$lte: [
+								{
+									$dateFromString: {
+										dateString: '$workDate',
+										format: '%m/%d/%Y'
+									}
+								},
+								{
+									$dateFromString: {
+										dateString: dateRange[1],
+										format: '%m/%d/%Y'
+									}
+								}
+							]
+						}
+					}
+				}
+			];
+
+			const aggregateMyStuff = async () => {
+				const result = await WorkData.rawCollection()
+					.aggregate(pipeline)
+					.toArray();
+				return result;
+			};
+
+			company && company != 'all' && (query.company = company);
+			status && status != 'all' && (query.status = status);
+			employee && employee != 'all' && (query.employee = employee);
+
+			let count_ = aggregateMyStuff();
+
+			return count_;
 		}
-		// countData: function(param) {
-		//     let x = WorkData.find({}).count();
-		//     return x;
-		// }
 	});
 }

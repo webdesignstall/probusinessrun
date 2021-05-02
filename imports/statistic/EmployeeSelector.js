@@ -1,51 +1,52 @@
-import React, { Component } from 'react';
-import { Meteor } from 'meteor/meteor';
-import { Session } from 'meteor/session';
-import { Tracker } from 'meteor/tracker';
+import React, { useContext, useEffect } from 'react';
+import StatisticContext from './StatisticContext';
 
-export default class EmployeeSelector extends Component {
-    constructor(props) {
-        super(props);
+export default EmployeeSelector = () => {
+	const { employees, setEmployees, setEmployee, employee } = useContext(StatisticContext);
 
-        this.state = {
-            employees: [],
-            takenBy: 'all'
-        };
+	useEffect(() => {
+		const userId = Meteor.userId();
 
-        this.renderEmployeeList = this.renderEmployeeList.bind(this);
-    }
+		setEmployee(userId); // select current user as default value
 
-    componentDidMount() {
-        this.x = Tracker.autorun(() => {
-            let takenBy = Session.get('takenBy');
-            let employeesList = Session.get('employeesList') || [];
-            this.setState({
-                employees: employeesList,
-                takenBy
-            });
-        });
-    }
+		Meteor.call('fetchUsers', userId, (err, res) => {
+			if (err) {
+				console.error(err.details);
+			} else {
+				setEmployees(res);
+				if (!(res.length > 1)) {
+					setEmployee(userId);
+				} else {
+					setEmployee('all');
+				}
+			}
+		});
+	}, []);
 
-    renderEmployeeList() {
-        return this.state.employees.map((employee, index) => {
-            return (
-                <option key={'employeeSelector' + index} value={employee._id}>
-                    {employee.profile.firstName} {employee.profile.lastName}
-                </option>
-            );
-        });
-    }
+	const renderEmployeeList = () => {
+		return employees.map((employee, index) => {
+			return (
+				<option key={'employeeSelector' + index} value={employee._id}>
+					{employee.profile.firstName} {employee.profile.lastName}
+				</option>
+			);
+		});
+	};
 
-    changeEmployee(e) {
-        Session.set('takenBy', e.target.value);
-    }
+	// set selected employee id
+	const changeEmployee = e => {
+		const value = e.target.value;
+		setEmployee(value);
+	};
 
-    render() {
-        return (
-            <select onChange={e => this.changeEmployee(e)} value={this.state.takenBy} className="browser-default statistic__employee_selector">
-                <option value="all">All Employee</option>
-                {this.renderEmployeeList()}
-            </select>
-        );
-    }
-}
+	return (
+		<select
+			onChange={e => changeEmployee(e)}
+			value={employee}
+			className="browser-default statistic__employee_selector"
+		>
+			{employees.length > 1 ? <option value="all">All Employee</option> : ''}
+			{renderEmployeeList()}
+		</select>
+	);
+};

@@ -1,25 +1,23 @@
-// calendar
-import './kalendar/kalendar.css';
-import './kalendar/kalendar.html';
-import './kalendar/kalendar';
-
+// add
+import './add/add.html';
+import './add/add.js';
+// bonus calculator
+import './bonus/bonus.js';
+import './followup/followup.css';
 // followup
 import './followup/followup.html';
 import './followup/followUp.js';
-import './followup/followup.css';
-
-import './tablet/tablet.html';
-import './tablet/tablet';
-import './tablet/tablet.css';
-import './tablet/TabletRender';
-import './tablet/TabletIsList';
-import './add/add.html';
-import './add/add';
-import './timeSelector/TimeSelector';
-
+// calendar
+import './kalendar/kalendar.css';
+import './kalendar/kalendar.html';
+import './kalendar/kalendar.js';
 // statistic
 import './statistic/statistic.html';
-import './statistic/Statistic';
-
-// bonus calculator
-import './bonus/bonus';
+import './statistic/StatisticMain';
+import './tablet/tablet.css';
+import './tablet/tablet.html';
+// tablet
+import './tablet/tablet.js';
+import './tablet/TabletIsList.js';
+import './tablet/TabletRender.js';
+import './timeSelector/TimeSelector.js';

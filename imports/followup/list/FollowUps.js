@@ -98,7 +98,6 @@ export default class FollowUps extends TrackerReact(Component) {
 	}
 
 	renderList() {
-		console.log('Followups');
 		return this.state.followUp.map((note, index) => {
 			return (
 				<React.Fragment key={'followup_note_fragment' + index}>

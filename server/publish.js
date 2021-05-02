@@ -35,9 +35,7 @@ Meteor.publish('dateSubscribe', function(date) {
 });
 
 Meteor.publish('workSchema', function(query, options) {
-	console.log(`🚀 ~ file: publish.js ~ line 38 ~ Meteor.publish ~ query`, query);
 	const data = WorkData.find(query || {}, options || {});
-	console.log(`🚀 ~ file: publish.js ~ line 39 ~ Meteor.publish ~ data`, data.fetch().length);
 	return data;
 });
 

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 const MainContext = React.createContext();
 
@@ -14,10 +14,6 @@ function MainProvider({ children }) {
 	const [rate, setRate] = useState(0);
 	const [showLimit, setShowLimit] = useState(30);
 	const [sorting, setSorting] = useState('default');
-
-	useEffect(() => {
-		console.log('setDisplayExtendedInformation changed');
-	}, [setDisplayExtendedInformation]);
 
 	// Provide Context to children components
 	return (
