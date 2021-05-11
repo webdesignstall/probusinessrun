@@ -5,7 +5,12 @@ import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
 import BonusSettings from '../common/bonusData';
 import WorkData from '../common/collections_2';
+import locations from '../imports/helpers/companyInfos.json';
 import pdfTemplate from './htmlToPDFTemplate';
+
+const locationsFetched = locations.companies.map((locationInfo, index) => {
+	return locationInfo.name;
+});
 
 // Set the region
 AWS.config.update({
@@ -372,7 +377,11 @@ if (Meteor.isServer) {
 				let userRank = user[0] && user[0].profile.rank;
 
 				if (userRank === 'admin') {
-					return Meteor.users.find({}).fetch();
+					return Meteor.users
+						.find({
+							$or: [{ 'profile.rank': 'admin' }, { 'profile.rank': 'officeEmployee' }]
+						})
+						.fetch();
 				} else {
 					return user;
 				}
@@ -380,63 +389,89 @@ if (Meteor.isServer) {
 				throw new Meteor.Error(500, 'No User information', 'Cant get user id');
 			}
 		},
-		statisticDataFetch(dateRange, company, status, employee) {
-			let query = {};
-			console.log(dateRange[1]);
-			const pipeline = [
-				{
-					$match: {
-						$expr: {
-							$gte: [
-								{
-									$dateFromString: {
-										dateString: '$workDate'
-									}
-								},
-								dateRange[0]
-							]
-						}
-					}
-				}
-			];
-
-			const pipeline2 = [
-				{
-					$match: {
-						$expr: {
-							$lte: [
-								{
-									$dateFromString: {
-										dateString: '$workDate',
-										format: '%m/%d/%Y'
-									}
-								},
-								{
-									$dateFromString: {
-										dateString: dateRange[1],
-										format: '%m/%d/%Y'
-									}
-								}
-							]
-						}
-					}
-				}
-			];
-
-			const aggregateMyStuff = async () => {
-				const result = await WorkData.rawCollection()
-					.aggregate(pipeline)
-					.toArray();
-				return result;
+		async statisticDataFetch(userId, dateRange, company, status, employee, monthList) {
+			const locationsList = locationsFetched;
+			let query = {
+				workDateConverted: { $gte: dateRange[0], $lt: dateRange[1] }
+			};
+			let results = {
+				companiesResult: {},
+				employeeResults: {},
+				statusResult: {},
+				monthResult: {}
 			};
 
-			company && company != 'all' && (query.company = company);
-			status && status != 'all' && (query.status = status);
-			employee && employee != 'all' && (query.employee = employee);
+			// find by company names and assign to results
+			let companyQueryLoop = { ...query };
+			let companySelection = company === 'all' ? locationsList : [company]; // if selected all assign all locations
 
-			let count_ = aggregateMyStuff();
+			companySelection.map((company_, index) => {
+				companyQueryLoop['companyInfo.name'] = company_;
+				status && status != 'all' && (companyQueryLoop.status = status);
+				employee && employee != 'all' && (companyQueryLoop.takenBy = employee);
+				results.companiesResult[company_] = WorkData.find(companyQueryLoop).count();
+				return null;
+			});
 
-			return count_;
+			// find by employees and assign to results
+			let employeeQueryLoop = { ...query };
+			let usersList = await Meteor.call('fetchUsers', userId);
+
+			usersList.map((employee, index) => {
+				company &&
+					company != 'all' &&
+					(employeeQueryLoop['companyInfo.name'] = companySelection[0]);
+				status && status != 'all' && (employeeQueryLoop.status = status);
+				employee && (employeeQueryLoop.takenBy = employee._id);
+				results.employeeResults[employee.profile.firstName] = WorkData.find(
+					employeeQueryLoop
+				).count();
+				return null;
+			});
+
+			// find by status and assign to results
+			let statusQueryLoop = { ...query };
+			const statusList =
+				status === 'all' ? ['won', 'lost', 'inProgress', 'cancelled'] : [status];
+
+			statusList.map((status_, index) => {
+				company &&
+					company != 'all' &&
+					(statusQueryLoop['companyInfo.name'] = companySelection[0]);
+				usersList && usersList.length === 1 && (statusQueryLoop.takenBy = employee._id);
+				statusQueryLoop.status = status_;
+				results.statusResult[status_] = WorkData.find(statusQueryLoop).count();
+				return null;
+			});
+
+			// find by monthls and assign to results
+			monthList.map((month_, index) => {
+				let monthQuery = {
+					workDateConverted: {
+						$gte: new Date(
+							moment(month_)
+								.startOf('month')
+								.toISOString()
+						),
+						$lt: new Date(
+							moment(month_)
+								.endOf('month')
+								.toISOString()
+						)
+					}
+				};
+
+				status !== 'all' && (monthQuery.status = status);
+				company &&
+					company != 'all' &&
+					(monthQuery['companyInfo.name'] = companySelection[0]);
+				usersList && usersList.length === 1 && (monthQuery.takenBy = userId);
+				const monthResult = WorkData.find(monthQuery).count();
+				results.monthResult[moment(month_).format('YYYY MM')] = monthResult;
+				return null;
+			});
+
+			return results;
 		}
 	});
 }

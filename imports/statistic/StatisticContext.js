@@ -8,11 +8,20 @@ function StatisticProvider({ children }) {
 	const [status, setStatus] = useState('all');
 	const [company, setCompany] = useState('all');
 	const [dateRange, setDateRange] = useState([
-		moment().format('MM/DD/YYYY'),
-		moment().format('MM/DD/YYYY')
+		new Date(
+			moment()
+				.startOf('day')
+				.toISOString()
+		),
+		new Date(
+			moment()
+				.endOf('day')
+				.toISOString()
+		)
 	]);
 	const [employees, setEmployees] = useState([]);
 	const [employee, setEmployee] = useState('all');
+	const [data, setData] = useState(null);
 
 	// Provide Context to children components
 	return (
@@ -27,7 +36,9 @@ function StatisticProvider({ children }) {
 				employees,
 				setEmployees,
 				employee,
-				setEmployee
+				setEmployee,
+				data,
+				setData
 			}}
 		>
 			{children}

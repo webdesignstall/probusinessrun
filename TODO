@@ -1,8 +1,8 @@
 Statistics: 
 	☐ ReDesign charts component
-	☐ Convert into hook component
-	☐ Chart ucun lazim olan datalari teyin et
-	☐ o datalari verilen melumatlara esasen tapan module yaz
+	✔ Convert into hook component @done(21-05-05 07:25)
+	✔ Chart ucun lazim olan datalari teyin et @done(21-05-05 07:25)
+	✔ o datalari verilen melumatlara esasen tapan module yaz @done(21-05-05 07:25)
 
 Stairs Fee:
     ✔ Create component @done(21-01-15 14:54)
