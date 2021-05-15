@@ -1,16 +1,15 @@
 /*global process*/
-import { Meteor } from 'meteor/meteor';
 import email from 'emailjs';
+import { Meteor } from 'meteor/meteor';
+import squareConnect from 'square-connect';
 import WorkData from '../common/collections_2';
 import Discounts from '../common/discountData';
-import EmailContent from './EmailContent';
 import ConfirmationEmail from './ConfirmationEmail';
-import supervisorEmailContent from './supervisorEmailContent';
-import squareConnect from 'square-connect';
-
-import DifferenceCalculator from './DifferenceCalculator';
 import depositPaymentEmail from './depositPaymentEmail';
+import DifferenceCalculator from './DifferenceCalculator';
+import EmailContent from './EmailContent';
 import pdfToCustomer from './pdfToCustomer';
+import supervisorEmailContent from './supervisorEmailContent';
 
 let config = require('../imports/helpers/config.json');
 
@@ -103,6 +102,7 @@ if (Meteor.isServer) {
 
 		quotaniBazayaElaveEt: function(doc) {
 			doc.statusChange = new Date();
+			doc.workDateConverted = new Date(moment(doc.workDate, 'MM/DD/YYYY').toISOString());
 			return WorkData.insert(doc, (err, id) => {
 				if (err) {
 					console.error(`id: ${doc._id}`, err);
