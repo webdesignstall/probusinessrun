@@ -5,7 +5,8 @@
 		"start": "NODE_PATH=client:imports:server:common meteor run",
 		"build": "babel . -d lib/",
 		"runRemote": "MONGO_URL=mongodb+srv://probusinessrun:bVvg1MGhwVUc5OPl@probusinessrun.qnpoa.mongodb.net/probusinessrun?retryWrites=true&w=majority meteor",
-		"flow": "flow"
+		"flow": "flow",
+		"deployMeteor": "DEPLOY_HOSTNAME=galaxy.meteor.com meteor deploy www.probusinessrun.com --settings settings.json"
 	},
 	"engines": {
 		"node": "8.11.2"
