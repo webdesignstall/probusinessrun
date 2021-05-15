@@ -18,7 +18,6 @@ function Statistic() {
 	);
 
 	useEffect(() => {
-		console.log('Statistic use effect');
 		// find wich month cover the daterange
 		const firstMonth = moment(dateRange[0]);
 		const secondMonth = moment(dateRange[1]);
@@ -46,7 +45,6 @@ function Statistic() {
 			employee,
 			monthList,
 			(err, res) => {
-				console.log(`🚀 ~ file: Statistic.js ~ line 49 ~ useEffect ~ res`, res);
 				setData(res);
 			}
 		);
@@ -185,46 +183,6 @@ function Statistic() {
 					<ChartMenu />
 				</div>
 				{data && Object.keys(data).length > 0 ? renderCahrts() : null}
-				{/* <div className="row">
-					<div className="col s12 m6 l6 center-align">
-						<ChartComp
-							title="Locations"
-							labels={locations.labels}
-							colors={locations.colors}
-							data={locations.data}
-							label="Locations"
-						/>
-					</div>
-					<div className="col s12 m6 l6 center-align">
-						<ChartComp
-							title="Employees"
-							labels={employees.labels}
-							colors={employees.colors}
-							data={employees.data}
-							label="Employees"
-						/>
-					</div>
-				</div>
-				<div className="row">
-					<div className="col s12 m6 l6 center-align">
-						<ChartComp
-							title="Status"
-							labels={status.labels}
-							colors={status.colors}
-							data={status.data}
-							label="Status"
-						/>
-					</div>
-					<div className="col s12 m6 l6 center-align">
-						<ChartComp
-							title="Date"
-							labels={date.labels}
-							colors={date.colors}
-							data={date.data}
-							label="Date"
-						/>
-					</div>
-				</div> */}
 			</div>
 		</div>
 	);
