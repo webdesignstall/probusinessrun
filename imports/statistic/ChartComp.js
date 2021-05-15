@@ -68,10 +68,7 @@ export default ChartComp = ({ title, label, labels, data, backgroundColor }) => 
 				}}
 			/>
 			<div className="result_header">Results</div>
-			<div className="result-list">
-				{listOfData()}
-				{listOfData()}
-			</div>
+			<div className="result-list">{listOfData()}</div>
 		</div>
 	);
 };
