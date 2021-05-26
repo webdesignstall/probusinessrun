@@ -35,7 +35,6 @@ function DataFilter() {
 
 	// data fetch function
 	const fetchJobs = () => {
-		console.log('Fetching jobs');
 		if (param) {
 			Meteor.call('getQueryData', param, aggr, (error, result) => setJobList(result));
 		}

@@ -1,362 +1,197 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import { Template } from 'meteor/templating';
-import { Session } from 'meteor/session';
-import { Tracker } from 'meteor/tracker';
-import LoadingOverlay from 'react-loading-overlay';
-import BounceLoader from 'react-spinners/BounceLoader';
-import { Meteor } from 'meteor/meteor';
-import swal from 'sweetalert';
-
 /*global moment*/
-
+/* ------------------------------ NPM PACKAGES ------------------------------ */
+import randomcolor from 'randomcolor';
+import React, { useContext, useEffect } from 'react';
+/* --------------------------------- HELPERS -------------------------------- */
+import companies from '../helpers/companyInfos.json';
+/* ------------------------------- COMPONENTS ------------------------------- */
 import './chart.styl';
 import ChartComp from './ChartComp';
 import ChartMenu from './ChartMenu';
-import WorkData from '../../common/collections_2';
-import companies from '../helpers/companyInfos.json';
+import StatisticContext from './StatisticContext';
 
 companies = companies.companies;
 
-export default class Statistic extends Component {
-    constructor(props) {
-        super(props);
+function Statistic() {
+	const { status, setStatus, dateRange, employee, company, data, setData } = useContext(
+		StatisticContext
+	);
 
-        this.state = {
-            loading: false,
-            locations: {
-                labels: [],
-                data: [],
-                colors: []
-            },
-            employees: {
-                labels: [],
-                data: [],
-                colors: []
-            },
-            status: {
-                labels: ['Won', 'In Progress', 'Lost', 'Cancelled'],
-                data: [],
-                colors: []
-            },
-            date: {
-                labels: [],
-                data: [],
-                colors: []
-            },
-            employeesList: [],
-            provided: {
-                startDate: new Date(),
-                endDate: new Date(),
-                company: 'all',
-                status: 'won',
-                takenBy: 'all'
-            }
-        };
+	/* ------------- ON dateRange, status, employee, company UPDATE ------------- */
 
-        this.setData = this.setData.bind(this);
-        this.dateRangeJobs = this.dateRangeJobs.bind(this);
-    }
+	useEffect(() => {
+		// find which month cover the date range
+		const firstMonth = moment(dateRange[0], 'MM/DD/YYYY');
+		const secondMonth = moment(dateRange[1], 'MM/DD/YYYY');
+		let monthList = [];
 
-    UNSAFE_componentWillMount() {
-        Session.set('loading', true);
-    }
+		// check are months same
+		if (firstMonth.month() === secondMonth.month()) {
+			monthList.push(firstMonth.toISOString()); // push month name to the monthList
+		} else {
+			let startMonth = moment(firstMonth);
 
-    componentDidMount() {
-        Meteor.call('officeEmployees', (error, result) => {
-            if (error) {
-                Session.set('loading', false);
-                console.log(error);
-                swal({
-                    title: 'Error!',
-                    text: 'Can\'t get data from server. Please resfresh the page or contact system administration',
-                    icon: 'error',
-                    button: 'OK'
-                });
-            } else {
-                Session.set('employeesList', result);
-                Session.set('loading', false);
-            }
-        });
-        this.x = Tracker.autorun(() => {
-            this.setState({
-                loading: true
-            });
-            Meteor.subscribe('workSchema', {
-                onReady: () => {
-                    this.setState({
-                        loading: false
-                    });
-                }
-            });
-            let startDate = Session.get('startDate');
-            let endDate = Session.get('endDate');
-            let company = Session.get('company');
-            let status = Session.get('status');
-            let takenBy = Session.get('takenBy');
-            let employeesList = Session.get('employeesList');
-            let loading = Session.get('loading');
+			while (startMonth.month() <= secondMonth.month()) {
+				monthList.push(startMonth.toISOString());
+				startMonth = startMonth.add(1, 'month');
+			}
+		}
 
-            this.setState(
-                prevState => {
-                    let provided = prevState.provided;
-                    provided.startDate = startDate;
-                    provided.endDate = endDate;
-                    provided.company = company;
-                    provided.status = status;
-                    provided.takenBy = takenBy;
+		// get data based on data range status company and employee
+		Meteor.call(
+			'statisticDataFetch',
+			Meteor.userId(),
+			dateRange,
+			company,
+			status,
+			employee,
+			monthList,
+			(err, res) => {
+				setData(res);
+			}
+		);
+	}, [dateRange, status, employee, company]);
 
-                    return { employeesList, provided, loading };
-                },
-                () => {
-                    this.calculateData();
-                }
-            );
-        });
-    }
+	/* ----------------------------- SORTING RESULTS ---------------------------- */
 
-    componentWillUnmount() {
-        this.x.stop();
-    }
+	const sortResult = data => {
+		let sortable = [];
+		for (let item in data) {
+			// filter 0 value keys
+			if (data[item] > 0) {
+				sortable.push([item, data[item]]);
+			}
+		}
 
-    setData(jobs) {
-        let locations = { labels: [], data: [], colors: [] };
-        let employees = { labels: [], data: [], colors: [] };
-        let status = { labels: [], data: [], colors: [] };
+		sortable.sort(function(a, b) {
+			return b[1] - a[1];
+		});
 
-        function randomColor() {
-            return '#' + (0x1000000 + Math.random() * 0x999fff).toString(16).substr(1, 6);
-        }
+		return sortable; // return sorted array version
+	};
 
-        if (Session.get('company') === 'all') {
-            companies.map((company, index) => {
-                locations.labels.push(company.name);
-                locations.data.push(0);
-                locations.colors.push(randomColor());
-                jobs.map(job => {
-                    if (job.companyInfo.name === company.name) {
-                        locations.data[index] = locations.data[index] + 1;
-                    }
-                    if (Session.get('takenBy') === 'all') {
-                        job.takenBy;
-                    }
-                });
-            });
-        } else {
-            locations.labels = [Session.get('company')];
-            locations.data.push(jobs.length);
-            locations.colors.push(randomColor());
-        }
+	/* ----------------------------- CHART RENDERING ---------------------------- */
 
-        if (this.state.provided.takenBy === 'all') {
-            this.state.employeesList &&
-                this.state.employeesList.map((employee, index) => {
-                    let empIndex = index;
-                    employees.labels.push(employee.profile.firstName + ' ' + employee.profile.lastName);
-                    employees.data.push(0);
-                    employees.colors.push(randomColor());
+	const renderCharts = () => {
+		const locationsLabel = companies.map((locationInfo, index) => {
+			return locationInfo.name;
+		});
+		let companyData = { ...data.companiesResult };
+		let locationsList = [];
+		let locationsData = [];
+		let sortedCompanyResult = sortResult(companyData);
+		let employeeList = [];
+		let employeeData = [];
+		let sortedEmployeeResult = sortResult(data.employeeResults);
+		let statusList = [];
+		let statusData = [];
+		let sortedStatusResult = sortResult(data.statusResult);
+		let monthList = [];
+		let monthData = [];
+		let sortedMonthResult = sortResult(data.monthResult);
 
-                    jobs.map(job => {
-                        if (job.takenBy === employee._id) {
-                            employees.data[empIndex]++;
-                        }
-                    });
-                });
-        } else {
-            this.state.employeesList &&
-                this.state.employeesList.map(employee => {
-                    if (employee._id === this.state.provided.takenBy) {
-                        employees.labels.push(employee.profile.firstName + ' ' + employee.profile.lastName);
-                        employees.data.push(0);
-                        employees.colors.push(randomColor());
+		// parse company results
+		sortedCompanyResult.map((result, index) => {
+			locationsList.push(result[0]);
+			locationsData.push(result[1]);
+		});
 
-                        jobs.map(job => {
-                            if (job.takenBy === employee._id) {
-                                employees.data[0]++;
-                            }
-                        });
-                    }
-                });
-        }
+		// parse employee results
+		sortedEmployeeResult.map((result, index) => {
+			employeeList.push(result[0]);
+			employeeData.push(result[1]);
+		});
 
-        if (this.state.provided.status === 'all') {
-            let listOfStatus = ['Won', 'In Progress', 'Lost', 'Cancelled'];
+		// parse status results
+		sortedStatusResult.map((result, index) => {
+			statusList.push(result[0]);
+			statusData.push(result[1]);
+		});
 
-            listOfStatus.map(status_ => {
-                status.labels.push(status_);
-                status.data.push(0);
-                status.colors.push(randomColor());
-            });
+		// parse month results
+		sortedMonthResult.map((result, index) => {
+			monthList.push(moment(result[0]).format('MMMM YYYY'));
+			monthData.push(result[1]);
+		});
 
-            jobs.map(job => {
-                if (job.status === 'won') {
-                    status.data[0]++;
-                } else if (job.status === 'inProgress') {
-                    status.data[1]++;
-                } else if (job.status === 'lost') {
-                    status.data[2]++;
-                } else if (job.status === 'cancelled') {
-                    status.data[3]++;
-                }
-            });
-        } else {
-            status.labels.push(this.state.provided.status);
-            status.colors.push(randomColor());
-            status.data.push(0);
-            jobs.map(job => {
-                if (job.status === this.state.provided.status) {
-                    status.data[0]++;
-                }
-            });
-        }
+		return (
+			<>
+				<div className="row" style={{ height: '600px' }}>
+					<div className="col s12 m4 l4 center-align" style={{ height: '600px' }}>
+						<ChartComp
+							title="Locations"
+							labels={locationsList}
+							backgroundColor={randomcolor({
+								hue: 'random',
+								count: locationsData.length,
+								luminosity: 'light'
+							})}
+							data={locationsData}
+							label="Locations"
+						/>
+					</div>
+					<div className="col s12 m4 l4 center-align" style={{ height: '600px' }}>
+						<ChartComp
+							title="Employees"
+							labels={employeeList}
+							backgroundColor={randomcolor({
+								hue: 'random',
+								count: employeeData.length,
+								luminosity: 'light'
+							})}
+							data={employeeData}
+							label="Employees"
+						/>
+					</div>
+					<div className="col s12 m4 l4 center-align" style={{ height: '600px' }}>
+						<ChartComp
+							title="Status"
+							labels={statusList}
+							backgroundColor={randomcolor({
+								hue: 'random',
+								count: statusData.length,
+								luminosity: 'light'
+							})}
+							data={statusData}
+							label="Status"
+						/>
+					</div>
+				</div>
+				<p></p>
+				<div className="row" style={{ height: '600px' }}>
+					<div
+						className="col s12 m4 l4 center-align"
+						style={{ height: '600px', marginTop: '30px' }}
+					>
+						<ChartComp
+							title="Months"
+							labels={monthList}
+							backgroundColor={randomcolor({
+								hue: 'random',
+								count: monthData.length,
+								luminosity: 'light'
+							})}
+							data={monthData}
+							label="Months"
+						/>
+					</div>
+				</div>
+			</>
+		);
+	};
 
-        this.dateRangeJobs(jobs, randomColor);
+	/* --------------------------------- RENDER --------------------------------- */
 
-        this.setState({
-            locations,
-            employees,
-            status
-        });
-    }
-
-    dateRangeJobs(jobs, randomColor) {
-        let date = { labels: [], data: [], colors: [] };
-        const { startDate, endDate } = this.state.provided;
-        let dateStart = moment(startDate);
-        let dateEnd = moment(endDate);
-        let timeValues = [];
-
-        while (dateEnd > dateStart || dateStart.format('M') === dateEnd.format('M')) {
-            timeValues.push(dateStart.format('MM/DD/YYYY'));
-            dateStart.add(1, 'month');
-        }
-
-        timeValues.map((dateUnformatted, index) => {
-            let index_ = index;
-            date.labels.push(moment(dateUnformatted).format('MMMM YYYY'));
-            date.data.push(0);
-            date.colors.push(randomColor());
-            let month = moment(dateUnformatted).format('MM');
-            let year = moment(dateUnformatted).format('YYYY');
-            let monthBegin = `${month}/01/${year}`;
-            let nextMonth = moment(dateUnformatted)
-                .add(1, 'M')
-                .format('MM');
-            let monthEnd = `${nextMonth}/01/${year}`;
-
-            jobs.map(job => {
-                if (
-                    new Date(job.workDate).getTime() < new Date(monthEnd).getTime() &&
-                    new Date(job.workDate).getTime() >= new Date(monthBegin).getTime()
-                ) {
-                    date.data[index_]++;
-                }
-            });
-        });
-
-        this.setState({ date });
-    }
-
-    calculateData() {
-        let state_ = this.state.provided;
-        let obj = {};
-
-        for (let key in state_) {
-            if (state_[key] !== undefined && state_[key] !== 'all' && key !== 'startDate' && key !== 'endDate') {
-                if (key === 'company') {
-                    obj['companyInfo.name'] = state_['company'];
-                } else {
-                    obj[key] = state_[key];
-                }
-            }
-        }
-
-        let jobs = WorkData.find(obj).fetch();
-
-        let filteredJobs = jobs.filter(job => {
-            let date = job.workDate;
-
-            if (
-                new Date(date).getTime() >= new Date(this.state.provided.startDate).getTime() &&
-                new Date(date).getTime() <= new Date(this.state.provided.endDate).getTime()
-            ) {
-                return job;
-            }
-        });
-
-        this.setData(filteredJobs);
-    }
-
-    render() {
-        const { locations, employees, status, date } = this.state;
-
-        return (
-            <LoadingOverlay
-                text="Loading..."
-                className="loader"
-                active={this.state.loading}
-                spinner={<BounceLoader color={'#6DD4B8'} />}>
-                <div className="statistic">
-                    <div className="col s12 m12 l12">
-                        <ChartMenu />
-                    </div>
-                    <div className="row">
-                        <div className="col s12 m6 l6 center-align">
-                            <ChartComp
-                                title="Locations"
-                                labels={locations.labels}
-                                colors={locations.colors}
-                                data={locations.data}
-                                label="Locations"
-                            />
-                        </div>
-                        <div className="col s12 m6 l6 center-align">
-                            <ChartComp
-                                title="Employees"
-                                labels={employees.labels}
-                                colors={employees.colors}
-                                data={employees.data}
-                                label="Locations"
-                            />
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col s12 m6 l6 center-align">
-                            <ChartComp
-                                title="Status"
-                                labels={status.labels}
-                                colors={status.colors}
-                                data={status.data}
-                                label="Locations"
-                            />
-                        </div>
-                        <div className="col s12 m6 l6 center-align">
-                            <ChartComp
-                                title="Date"
-                                labels={date.labels}
-                                colors={date.colors}
-                                data={date.data}
-                                label="Locations"
-                            />
-                        </div>
-                    </div>
-                </div>
-            </LoadingOverlay>
-        );
-    }
+	return (
+		<div>
+			<div className="statistic">
+				<div className="col s12 m12 l12">
+					<ChartMenu />
+				</div>
+				{data && Object.keys(data).length > 0 ? renderCharts() : null}
+			</div>
+		</div>
+	);
 }
 
-Template.statistic.onRendered(() => {
-    Session.set('status', 'won');
-    let newDate = moment(new Date()).startOf('month')._d;
-    Session.set('startDate', moment(newDate).format('MM/DD/YYYY'));
-    Session.set('endDate', moment(new Date()).format('MM/DD/YYYY'));
-    Session.set('company', 'all');
-    Session.set('takenBy', 'all');
-    ReactDOM.render(<Statistic />, document.getElementById('statistic_app'));
-});
-
-Template.statistic.onDestroyed(() => {
-    Session.set('status', 'inProgress');
-    ReactDOM.unmountComponentAtNode(document.getElementById('statistic_app'));
-});
+export default Statistic;

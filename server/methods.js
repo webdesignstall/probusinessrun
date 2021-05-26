@@ -5,7 +5,12 @@ import { Accounts } from 'meteor/accounts-base';
 import { Meteor } from 'meteor/meteor';
 import BonusSettings from '../common/bonusData';
 import WorkData from '../common/collections_2';
+import locations from '../imports/helpers/companyInfos.json';
 import pdfTemplate from './htmlToPDFTemplate';
+
+const locationsFetched = locations.companies.map((locationInfo, index) => {
+	return locationInfo.name;
+});
 
 // Set the region
 AWS.config.update({
@@ -19,7 +24,104 @@ let s3 = new AWS.S3({ apiVersion: '2006-03-01' });
 
 /*global moment*/
 
+async function dataCounter({ dateRange, status, takenBy, company }) {
+	let result = 0;
+
+	try {
+		let options = [];
+
+		if (Array.isArray(dateRange) && dateRange.length > 0) {
+			options.push({
+				$match: {
+					$expr: {
+						$gte: [
+							{
+								$dateFromString: {
+									dateString: '$workDate',
+									format: '%m/%d/%Y'
+								}
+							},
+							{
+								$dateFromString: {
+									dateString: dateRange[0],
+									format: '%m/%d/%Y'
+								}
+							}
+						]
+					}
+				}
+			});
+			options.push({
+				$match: {
+					$expr: {
+						$lte: [
+							{
+								$dateFromString: {
+									dateString: '$workDate',
+									format: '%m/%d/%Y'
+								}
+							},
+							{
+								$dateFromString: {
+									dateString: dateRange[1],
+									format: '%m/%d/%Y'
+								}
+							}
+						]
+					}
+				}
+			});
+		}
+
+		// set status
+		if (typeof status === 'string' && status !== 'all') {
+			options.push({
+				$match: {
+					status
+				}
+			});
+		}
+
+		// set company to query
+		if (typeof company === 'string' && company !== 'all') {
+			options.push({
+				$match: {
+					'companyInfo.name': company
+				}
+			});
+		}
+
+		// set taken by to query
+		if (typeof takenBy === 'string') {
+			options.push({
+				$match: {
+					takenBy
+				}
+			});
+		}
+
+		// count option for aggregate
+		options.push({
+			$count: 'Result'
+		});
+
+		const testAggregate = await WorkData.rawCollection()
+			.aggregate(options)
+			.toArray();
+
+		if (Array.isArray(testAggregate) && testAggregate.length > 0) {
+			result = testAggregate[0].Result;
+		}
+	} catch (err) {
+		console.log(err);
+		throw new Meteor.Error('Error while getting statistic data', err.reason);
+	}
+
+	return result;
+}
+
 if (Meteor.isServer) {
+	// methods
 	Meteor.methods({
 		// remove user
 		removeUser: function(id) {
@@ -34,7 +136,6 @@ if (Meteor.isServer) {
 				throw new Meteor.Error('Error', "Can't create information in the database");
 			}
 		},
-
 		updateUserOrTruck: function(id, obj) {
 			Meteor.users.update(
 				{ _id: id },
@@ -54,7 +155,6 @@ if (Meteor.isServer) {
 				}
 			);
 		},
-
 		checkId: function(id) {
 			let list = WorkData.find({ _id: id }).fetch();
 			if (list.length > 0) {
@@ -114,7 +214,7 @@ if (Meteor.isServer) {
 						"Can't send email. Please contact system adminstration"
 					);
 				}
-				console.info('Follow up Email succesfully sent to: ' + job.email);
+				console.info('Follow up Email successfully sent to: ' + job.email);
 			});
 		},
 		rate: function(_id, rate) {
@@ -331,7 +431,6 @@ if (Meteor.isServer) {
 			return data;
 		},
 		searchByWords(words, aggr) {
-			console.log(`🚀 ~ file: methods.js ~ line 335 ~ searchByWords ~ words`, words);
 			let reg = words.map(function(word) {
 				return new RegExp(word, 'gi');
 			});
@@ -363,10 +462,150 @@ if (Meteor.isServer) {
 				},
 				aggr
 			).fetch();
+		},
+		dataCounterStatistic(param) {
+			return WorkData.count(param || {});
+		},
+		fetchUsers(_id) {
+			if (_id) {
+				let user = Meteor.users.find({ _id }).fetch();
+				let userRank = user[0] && user[0].profile.rank;
+
+				if (userRank === 'admin') {
+					return Meteor.users
+						.find({
+							$or: [{ 'profile.rank': 'admin' }, { 'profile.rank': 'officeEmployee' }]
+						})
+						.fetch();
+				} else {
+					return user;
+				}
+			} else {
+				throw new Meteor.Error(500, 'No User information', 'Cant get user id');
+			}
+		},
+		async statisticDataFetch(userId, dateRange, company, status, employee, monthList) {
+			const locationsList = locationsFetched;
+			let results = {
+				companiesResult: {},
+				employeeResults: {},
+				statusResult: {},
+				monthResult: {}
+			};
+
+			/* --------------------------- COMPANY DATA FETCH --------------------------- */
+
+			let companyQueryLoop = { dateRange: dateRange };
+			let companySelection = company === 'all' ? locationsList : [company]; // if selected all assign all locations
+
+			companySelection.map(async (company_, index) => {
+				companyQueryLoop.company = company_;
+				if (status) {
+					if (status !== 'all') {
+						companyQueryLoop.status = status;
+					}
+				}
+				if (employee) {
+					if (employee !== 'all') {
+						companyQueryLoop.takenBy = employee;
+					}
+				}
+
+				const resultCompany = await dataCounter(companyQueryLoop);
+
+				results.companiesResult[company_] = resultCompany;
+			});
+
+			/* --------------------------- EMPLOYEE DATA FETCH -------------------------- */
+
+			let employeeQueryLoop = { dateRange: dateRange };
+			let usersList = [];
+
+			// set user list
+			if (employee !== 'all') {
+				const userInfo = Meteor.users.find({ _id: employee }).fetch();
+				usersList.push(userInfo[0]);
+			} else {
+				const users = await Meteor.call('fetchUsers', userId);
+				usersList = users;
+			}
+
+			// loop and fetch data for each employee
+			if (usersList.length > 0) {
+				for (let employee_ of usersList) {
+					// set status query
+					if (status && status !== 'all') {
+						employeeQueryLoop.status = status;
+					}
+					// set company query
+					if (company && company !== 'all') {
+						employeeQueryLoop.company = companySelection[0];
+					}
+					// set employee query
+					employee_ && (employeeQueryLoop.takenBy = employee_._id);
+
+					const resultForUsers = await dataCounter(employeeQueryLoop);
+					results.employeeResults[employee_.profile.firstName] = resultForUsers;
+				}
+			}
+
+			/* ---------------------------- STATUS DATA FETCH --------------------------- */
+
+			let statusQueryLoop = { dateRange: dateRange };
+			const statusList =
+				status === 'all' ? ['won', 'lost', 'inProgress', 'cancelled'] : [status];
+
+			if (statusList.length > 0) {
+				for (let status_ of statusList) {
+					if (company) {
+						if (company !== 'all') {
+							statusQueryLoop.company = companySelection[0];
+						}
+					}
+
+					usersList && usersList.length === 1 && (statusQueryLoop.takenBy = employee);
+					statusQueryLoop.status = status_;
+
+					const resultForStatus = await dataCounter(statusQueryLoop);
+					results.statusResult[status_] = resultForStatus;
+				}
+			}
+
+			/* ---------------------------- MONTH DATA FETCH ---------------------------- */
+
+			if (monthList.length > 0) {
+				for (let month_ of monthList) {
+					let monthQuery = {
+						dateRange: [
+							moment(month_)
+								.startOf('month')
+								.format('MM/DD/YYYY'),
+							moment(month_)
+								.endOf('month')
+								.format('MM/DD/YYYY')
+						]
+					};
+
+					// set status query
+					if (status && status !== 'all') {
+						monthQuery.status = status;
+					}
+					// set company query
+					if (company) {
+						if (company !== 'all') {
+							monthQuery.company = companySelection[0];
+						}
+					}
+					// set employee query
+					usersList && usersList.length === 1 && (monthQuery.takenBy = employee);
+
+					const monthResult = await dataCounter(monthQuery);
+					results.monthResult[moment(month_).format('YYYY MM')] = monthResult;
+				}
+			}
+
+			/* --------------------------------- RETURN --------------------------------- */
+			return results;
 		}
-		// countData: function(param) {
-		//     let x = WorkData.find({}).count();
-		//     return x;
-		// }
 	});
 }

@@ -9,11 +9,8 @@ import ListInnerDisplay from './ListInnerDisplay';
 const List = () => {
 	const [jobs, setJobs] = useState([]);
 	const [loading, setLoading] = useState(false);
-	// const [searchWord, setSearchWord] = useState('')
 	const [searchWords, setSearchWords] = useState('');
 	const [jobsBase, setJobsBase] = useState([]);
-	// const [showLimit, setShowLimit] = useState(30);
-	// const [status, setStatus] = useState('inProgress')
 	const [rate, setRate] = useState(0);
 	const [dataSubscribe, setDataSubscribe] = useState(null);
 
@@ -58,13 +55,6 @@ const List = () => {
 				_id: -1
 			}
 		}).fetch();
-		// let jobsFetched = WorkData.find(obj, {
-		// 	limit: showLimit,
-		// 	sort: {
-		// 		_id: -1
-		// 	}
-		// }).fetch();
-		console.log(`🚀 ~ file: List.js ~ line 52 ~ workDataFetcher ~ jobsFetched`, jobsFetched);
 
 		setLoading(true);
 
@@ -82,8 +72,6 @@ const List = () => {
 	};
 
 	const subscriber = () => {
-		console.log('subscriber runned');
-		console.log(`🚀 ~ file: List.js ~ line 91 ~ subscriber ~ status`, status);
 		dataSubscribe && dataSubscribe.stop();
 		const queryObj = { status, rate };
 		const queryFilter = { limit: showLimit, sort: { _id: -1 } };
@@ -93,7 +81,6 @@ const List = () => {
 	};
 
 	useEffect(() => {
-		console.log('Status or Rate changed');
 		if (dataSubscribe) {
 			subscriber();
 		}
@@ -106,15 +93,7 @@ const List = () => {
 	}, [searchWord]);
 
 	const buildComponent = () => {
-		console.log('building component');
-		// let { searchWord, setSearchWord, status, setStatus } = this.context;
-		// let status = status;
-
-		// let rate = Session.get('customerRate_');
 		setLoading(true);
-
-		// let searchWord = Session.get('searchWords');
-		// let searchWord = searchWord;
 
 		// if there is no word stop loading processes
 		if (!(searchWord.length > 0)) {
@@ -140,7 +119,7 @@ const List = () => {
 			dataSubscribe && dataSubscribe.stop();
 			// subscribe to new data
 			Meteor.subscribe('searchFollowUp', arrayOfWords, () =>
-				console.log('searchFollowUp subscribed')
+				console.info('searchFollowUp subscribed')
 			);
 
 			// clean up words from problematic characters
@@ -193,9 +172,6 @@ const List = () => {
 			!(arrayOfWords.length > 0) && (resultConverted = jobs);
 			!(resultConverted.length > 0) && (resultConverted = [{}]);
 
-			// arrayOfWords.length > 0
-			// 	? Session.set('isSearch', true)
-			// 	: Session.set('isSearch', false);
 			setJobs(resultConverted);
 		} else {
 			let sort_ = Session.get('sort');

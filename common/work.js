@@ -1,7 +1,7 @@
-import SimpleSchema from 'simpl-schema';
-import { Tracker } from 'meteor/tracker';
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
+import { Tracker } from 'meteor/tracker';
+import SimpleSchema from 'simpl-schema';
 
 // Required AutoForm setup
 SimpleSchema.extendOptions(['autoform']);
@@ -855,6 +855,11 @@ Schemas.workSchema = new SimpleSchema(
 		),
 		pets: {
 			type: Boolean,
+			optional: true
+		},
+		workDateConverted: {
+			label: 'converted iso date',
+			type: Date,
 			optional: true
 		}
 	},
