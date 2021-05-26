@@ -1,6 +1,3 @@
-// react
-// chart.js
-// import Chart from 'chart.js';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Pie } from 'react-chartjs-2';
@@ -43,31 +40,38 @@ export default ChartComp = ({ title, label, labels, data, backgroundColor }) => 
 
 	return (
 		<div className="statistic__graph_list" style={{ height: '600px' }}>
-			<Pie
-				data={{
-					labels,
-					datasets: [
-						{
-							label,
-							data,
-							backgroundColor,
-							hoverOffset: 10
-						}
-					]
-				}}
-				height={200}
-				width={200}
-				options={{
-					plugins: {
-						title: {
-							display: true,
-							text: title
-						}
-					},
-					responsive: true
-				}}
-			/>
-			<div className="result_header">Results</div>
+			<div className="chart">
+				<Pie
+					data={{
+						labels,
+						datasets: [
+							{
+								label,
+								data,
+								backgroundColor,
+								hoverOffset: 10
+							}
+						]
+					}}
+					height={300}
+					width={300}
+					options={{
+						plugins: {
+							legend: {
+								display: false
+							},
+							title: {
+								display: true
+							}
+						},
+						responsive: false
+					}}
+				/>
+			</div>
+
+			<div className="result_header">
+				Results for <span style={{ color: 'red', fontWeight: '600' }}>{label}</span>
+			</div>
 			<div className="result-list">{listOfData()}</div>
 		</div>
 	);

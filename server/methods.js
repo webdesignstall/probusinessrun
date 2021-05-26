@@ -24,6 +24,102 @@ let s3 = new AWS.S3({ apiVersion: '2006-03-01' });
 
 /*global moment*/
 
+async function dataCounter({ dateRange, status, takenBy, company }) {
+	let result = 0;
+
+	try {
+		let options = [];
+
+		if (Array.isArray(dateRange) && dateRange.length > 0) {
+			options.push({
+				$match: {
+					$expr: {
+						$gte: [
+							{
+								$dateFromString: {
+									dateString: '$workDate',
+									format: '%m/%d/%Y'
+								}
+							},
+							{
+								$dateFromString: {
+									dateString: dateRange[0],
+									format: '%m/%d/%Y'
+								}
+							}
+						]
+					}
+				}
+			});
+			options.push({
+				$match: {
+					$expr: {
+						$lte: [
+							{
+								$dateFromString: {
+									dateString: '$workDate',
+									format: '%m/%d/%Y'
+								}
+							},
+							{
+								$dateFromString: {
+									dateString: dateRange[1],
+									format: '%m/%d/%Y'
+								}
+							}
+						]
+					}
+				}
+			});
+		}
+
+		// set status
+		if (typeof status === 'string' && status !== 'all') {
+			options.push({
+				$match: {
+					status
+				}
+			});
+		}
+
+		// set company to query
+		if (typeof company === 'string' && company !== 'all') {
+			options.push({
+				$match: {
+					'companyInfo.name': company
+				}
+			});
+		}
+
+		// set taken by to query
+		if (typeof takenBy === 'string') {
+			options.push({
+				$match: {
+					takenBy
+				}
+			});
+		}
+
+		// count option for aggregate
+		options.push({
+			$count: 'Result'
+		});
+
+		const testAggregate = await WorkData.rawCollection()
+			.aggregate(options)
+			.toArray();
+
+		if (Array.isArray(testAggregate) && testAggregate.length > 0) {
+			result = testAggregate[0].Result;
+		}
+	} catch (err) {
+		console.log(err);
+		throw new Meteor.Error('Error while getting statistic data', err.reason);
+	}
+
+	return result;
+}
+
 if (Meteor.isServer) {
 	// methods
 	Meteor.methods({
@@ -40,7 +136,6 @@ if (Meteor.isServer) {
 				throw new Meteor.Error('Error', "Can't create information in the database");
 			}
 		},
-
 		updateUserOrTruck: function(id, obj) {
 			Meteor.users.update(
 				{ _id: id },
@@ -60,7 +155,6 @@ if (Meteor.isServer) {
 				}
 			);
 		},
-
 		checkId: function(id) {
 			let list = WorkData.find({ _id: id }).fetch();
 			if (list.length > 0) {
@@ -120,7 +214,7 @@ if (Meteor.isServer) {
 						"Can't send email. Please contact system adminstration"
 					);
 				}
-				console.info('Follow up Email succesfully sent to: ' + job.email);
+				console.info('Follow up Email successfully sent to: ' + job.email);
 			});
 		},
 		rate: function(_id, rate) {
@@ -392,9 +486,6 @@ if (Meteor.isServer) {
 		},
 		async statisticDataFetch(userId, dateRange, company, status, employee, monthList) {
 			const locationsList = locationsFetched;
-			let query = {
-				workDateConverted: { $gte: dateRange[0], $lt: dateRange[1] }
-			};
 			let results = {
 				companiesResult: {},
 				employeeResults: {},
@@ -402,76 +493,118 @@ if (Meteor.isServer) {
 				monthResult: {}
 			};
 
-			// find by company names and assign to results
-			let companyQueryLoop = { ...query };
+			/* --------------------------- COMPANY DATA FETCH --------------------------- */
+
+			let companyQueryLoop = { dateRange: dateRange };
 			let companySelection = company === 'all' ? locationsList : [company]; // if selected all assign all locations
 
-			companySelection.map((company_, index) => {
-				companyQueryLoop['companyInfo.name'] = company_;
-				status && status != 'all' && (companyQueryLoop.status = status);
-				employee && employee != 'all' && (companyQueryLoop.takenBy = employee);
-				results.companiesResult[company_] = WorkData.find(companyQueryLoop).count();
-				return null;
+			companySelection.map(async (company_, index) => {
+				companyQueryLoop.company = company_;
+				if (status) {
+					if (status !== 'all') {
+						companyQueryLoop.status = status;
+					}
+				}
+				if (employee) {
+					if (employee !== 'all') {
+						companyQueryLoop.takenBy = employee;
+					}
+				}
+
+				const resultCompany = await dataCounter(companyQueryLoop);
+
+				results.companiesResult[company_] = resultCompany;
 			});
 
-			// find by employees and assign to results
-			let employeeQueryLoop = { ...query };
-			let usersList = await Meteor.call('fetchUsers', userId);
+			/* --------------------------- EMPLOYEE DATA FETCH -------------------------- */
 
-			usersList.map((employee, index) => {
-				company &&
-					company != 'all' &&
-					(employeeQueryLoop['companyInfo.name'] = companySelection[0]);
-				status && status != 'all' && (employeeQueryLoop.status = status);
-				employee && (employeeQueryLoop.takenBy = employee._id);
-				results.employeeResults[employee.profile.firstName] = WorkData.find(
-					employeeQueryLoop
-				).count();
-				return null;
-			});
+			let employeeQueryLoop = { dateRange: dateRange };
+			let usersList = [];
 
-			// find by status and assign to results
-			let statusQueryLoop = { ...query };
+			// set user list
+			if (employee !== 'all') {
+				const userInfo = Meteor.users.find({ _id: employee }).fetch();
+				usersList.push(userInfo[0]);
+			} else {
+				const users = await Meteor.call('fetchUsers', userId);
+				usersList = users;
+			}
+
+			// loop and fetch data for each employee
+			if (usersList.length > 0) {
+				for (let employee_ of usersList) {
+					// set status query
+					if (status && status !== 'all') {
+						employeeQueryLoop.status = status;
+					}
+					// set company query
+					if (company && company !== 'all') {
+						employeeQueryLoop.company = companySelection[0];
+					}
+					// set employee query
+					employee_ && (employeeQueryLoop.takenBy = employee_._id);
+
+					const resultForUsers = await dataCounter(employeeQueryLoop);
+					results.employeeResults[employee_.profile.firstName] = resultForUsers;
+				}
+			}
+
+			/* ---------------------------- STATUS DATA FETCH --------------------------- */
+
+			let statusQueryLoop = { dateRange: dateRange };
 			const statusList =
 				status === 'all' ? ['won', 'lost', 'inProgress', 'cancelled'] : [status];
 
-			statusList.map((status_, index) => {
-				company &&
-					company != 'all' &&
-					(statusQueryLoop['companyInfo.name'] = companySelection[0]);
-				usersList && usersList.length === 1 && (statusQueryLoop.takenBy = employee._id);
-				statusQueryLoop.status = status_;
-				results.statusResult[status_] = WorkData.find(statusQueryLoop).count();
-				return null;
-			});
+			if (statusList.length > 0) {
+				for (let status_ of statusList) {
+					if (company) {
+						if (company !== 'all') {
+							statusQueryLoop.company = companySelection[0];
+						}
+					}
 
-			// find by monthls and assign to results
-			monthList.map((month_, index) => {
-				let monthQuery = {
-					workDateConverted: {
-						$gte: new Date(
+					usersList && usersList.length === 1 && (statusQueryLoop.takenBy = employee);
+					statusQueryLoop.status = status_;
+
+					const resultForStatus = await dataCounter(statusQueryLoop);
+					results.statusResult[status_] = resultForStatus;
+				}
+			}
+
+			/* ---------------------------- MONTH DATA FETCH ---------------------------- */
+
+			if (monthList.length > 0) {
+				for (let month_ of monthList) {
+					let monthQuery = {
+						dateRange: [
 							moment(month_)
 								.startOf('month')
-								.toISOString()
-						),
-						$lt: new Date(
+								.format('MM/DD/YYYY'),
 							moment(month_)
 								.endOf('month')
-								.toISOString()
-						)
+								.format('MM/DD/YYYY')
+						]
+					};
+
+					// set status query
+					if (status && status !== 'all') {
+						monthQuery.status = status;
 					}
-				};
+					// set company query
+					if (company) {
+						if (company !== 'all') {
+							monthQuery.company = companySelection[0];
+						}
+					}
+					// set employee query
+					usersList && usersList.length === 1 && (monthQuery.takenBy = employee);
 
-				status !== 'all' && (monthQuery.status = status);
-				company &&
-					company != 'all' &&
-					(monthQuery['companyInfo.name'] = companySelection[0]);
-				usersList && usersList.length === 1 && (monthQuery.takenBy = userId);
-				const monthResult = WorkData.find(monthQuery).count();
-				results.monthResult[moment(month_).format('YYYY MM')] = monthResult;
-				return null;
-			});
+					const monthResult = await dataCounter(monthQuery);
+					results.monthResult[moment(month_).format('YYYY MM')] = monthResult;
+				}
+			}
 
+			/* --------------------------------- RETURN --------------------------------- */
 			return results;
 		}
 	});

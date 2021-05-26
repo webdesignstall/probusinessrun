@@ -1,10 +1,10 @@
 /*global moment*/
-// npm packages
+/* ------------------------------ NPM PACKAGES ------------------------------ */
 import randomcolor from 'randomcolor';
 import React, { useContext, useEffect } from 'react';
-// helpers
+/* --------------------------------- HELPERS -------------------------------- */
 import companies from '../helpers/companyInfos.json';
-// components
+/* ------------------------------- COMPONENTS ------------------------------- */
 import './chart.styl';
 import ChartComp from './ChartComp';
 import ChartMenu from './ChartMenu';
@@ -17,15 +17,17 @@ function Statistic() {
 		StatisticContext
 	);
 
+	/* ------------- ON dateRange, status, employee, company UPDATE ------------- */
+
 	useEffect(() => {
-		// find wich month cover the daterange
-		const firstMonth = moment(dateRange[0]);
-		const secondMonth = moment(dateRange[1]);
+		// find which month cover the date range
+		const firstMonth = moment(dateRange[0], 'MM/DD/YYYY');
+		const secondMonth = moment(dateRange[1], 'MM/DD/YYYY');
 		let monthList = [];
 
 		// check are months same
 		if (firstMonth.month() === secondMonth.month()) {
-			monthList.push(firstMonth.toISOString()); // push month name to the monthlist
+			monthList.push(firstMonth.toISOString()); // push month name to the monthList
 		} else {
 			let startMonth = moment(firstMonth);
 
@@ -50,7 +52,7 @@ function Statistic() {
 		);
 	}, [dateRange, status, employee, company]);
 
-	useEffect(() => {}, [data]);
+	/* ----------------------------- SORTING RESULTS ---------------------------- */
 
 	const sortResult = data => {
 		let sortable = [];
@@ -68,7 +70,9 @@ function Statistic() {
 		return sortable; // return sorted array version
 	};
 
-	const renderCahrts = () => {
+	/* ----------------------------- CHART RENDERING ---------------------------- */
+
+	const renderCharts = () => {
 		const locationsLabel = companies.map((locationInfo, index) => {
 			return locationInfo.name;
 		});
@@ -176,13 +180,15 @@ function Statistic() {
 		);
 	};
 
+	/* --------------------------------- RENDER --------------------------------- */
+
 	return (
 		<div>
 			<div className="statistic">
 				<div className="col s12 m12 l12">
 					<ChartMenu />
 				</div>
-				{data && Object.keys(data).length > 0 ? renderCahrts() : null}
+				{data && Object.keys(data).length > 0 ? renderCharts() : null}
 			</div>
 		</div>
 	);

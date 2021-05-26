@@ -49,10 +49,7 @@ export default class DateSelector extends Component {
 									moment().subtract(1, 'days')
 								],
 								'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-								'Last 30 Days': [
-									moment().subtract(29, 'days'),
-									moment().endOf('day')
-								],
+								'Last 30 Days': [moment().subtract(29, 'days'), moment()],
 								'This Month': [moment().startOf('month'), moment().endOf('month')],
 								'Last Month': [
 									moment()
@@ -68,18 +65,7 @@ export default class DateSelector extends Component {
 							endDate: endDate
 						},
 						(start, end, label) => {
-							let range = [
-								new Date(
-									moment(start)
-										.startOf('day')
-										.toISOString()
-								),
-								new Date(
-									moment(end)
-										.endOf('day')
-										.toISOString()
-								)
-							];
+							let range = [start.format('MM/DD/YYYY'), end.format('MM/DD/YYYY')];
 
 							this.setDateRange(range);
 							this.setState({

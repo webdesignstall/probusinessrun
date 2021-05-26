@@ -1,8 +1,9 @@
 Statistics: 
-	☐ ReDesign charts component
+	✔ ReDesign charts component @done(21-05-25 03:38)
 	✔ Convert into hook component @done(21-05-05 07:25)
 	✔ Chart ucun lazim olan datalari teyin et @done(21-05-05 07:25)
 	✔ o datalari verilen melumatlara esasen tapan module yaz @done(21-05-05 07:25)
+	✔ fix userList fetching and status fetching @started(21-05-25 03:38) @critical @done(21-05-26 14:03) @lasted(1d10h25m29s)
 
 Stairs Fee:
     ✔ Create component @done(21-01-15 14:54)

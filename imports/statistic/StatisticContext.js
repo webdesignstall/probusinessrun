@@ -8,16 +8,8 @@ function StatisticProvider({ children }) {
 	const [status, setStatus] = useState('all');
 	const [company, setCompany] = useState('all');
 	const [dateRange, setDateRange] = useState([
-		new Date(
-			moment()
-				.startOf('day')
-				.toISOString()
-		),
-		new Date(
-			moment()
-				.endOf('day')
-				.toISOString()
-		)
+		moment().format('MM/DD/YYYY'),
+		moment().format('MM/DD/YYYY')
 	]);
 	const [employees, setEmployees] = useState([]);
 	const [employee, setEmployee] = useState('all');
