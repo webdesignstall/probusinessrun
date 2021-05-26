@@ -70,7 +70,7 @@ export default ChartComp = ({ title, label, labels, data, backgroundColor }) => 
 			</div>
 
 			<div className="result_header">
-				Results for <span style={{ color: 'red', fontWeight: '600' }}>{label}</span>
+				Results for <span style={{ color: '#284157', fontWeight: '600' }}>{label}</span>
 			</div>
 			<div className="result-list">{listOfData()}</div>
 		</div>
