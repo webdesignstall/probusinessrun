@@ -36,18 +36,7 @@ function DataFilter() {
 	// data fetch function
 	const fetchJobs = () => {
 		if (param) {
-			Meteor.call('getQueryData', param, aggr, (error, result) => {
-				result.map(job => {
-					if (job.status === 'inProgress' && new Date(job.workDate) < new Date()) {
-						//update status to lost if job expired
-						Meteor.call('updateExpiredJobStatus', job._id);
-					}
-				});
-			});
-			//fetch inProgress jobs
-			if (param) {
-				Meteor.call('getQueryData', param, aggr, (error, result) => setJobList(result));
-			}
+			Meteor.call('getQueryData', param, aggr, (error, result) => setJobList(result));
 		}
 	};
 
@@ -124,9 +113,7 @@ function DataFilter() {
 
 	const sortingData = () => {
 		let jobListData = [...jobList];
-		// console.log('joblistdata', jobListData);
 		jobListData.sort((a, b) => {
-			console.log('a', a);
 			if (sorting === 'default') {
 				return (
 					moment(b.statusChange || '1 november 1989') -
@@ -135,12 +122,6 @@ function DataFilter() {
 			}
 
 			if (sorting === 'az') {
-				// console.log('time', a);
-				// console.log('getTime', new Date(a.workDate).getTime());
-				// console.log('getTime2', new Date(b.workDate).getTime());
-				// console.log('timeB', b);
-				// let newList = new Date(a.workDate).getTime() - new Date(b.workDate).getTime();
-				// return new Date(b.workDate).getTime() - new Date(a.workDate).getTime();
 				return (
 					moment(a.workDate || '1 november 1989') -
 					moment(b.workDate || '1 november 1989')

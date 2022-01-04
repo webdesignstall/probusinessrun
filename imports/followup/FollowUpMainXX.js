@@ -41,7 +41,6 @@ export default class FollowUpMain extends TrackerReact(Component) {
 
 	componentDidMount() {
 		let { status, setStatus } = this.context;
-		console.log('hi');
 
 		this.x = Tracker.autorun(() => {
 			// Session.set('loading', true);
@@ -88,7 +87,6 @@ export default class FollowUpMain extends TrackerReact(Component) {
 				this.setState({
 					loading: true
 				});
-				console.log('progressData', progressJobs);
 				progressJobs.map(job => {
 					let jobDateTime = new Date(job.workDate).getTime();
 					if (jobDateTime + 86400000 < date) {

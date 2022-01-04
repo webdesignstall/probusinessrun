@@ -430,12 +430,6 @@ if (Meteor.isServer) {
 			const data = WorkData.find(selector || {}, options || { limit: 31 }).fetch();
 			return data;
 		},
-
-		//update status to lost if job expired
-		updateExpiredJobStatus(id) {
-			WorkData.update({ _id: id }, { $set: { status: 'lost' } });
-		},
-
 		searchByWords(words, aggr) {
 			let reg = words.map(function(word) {
 				return new RegExp(word, 'gi');
