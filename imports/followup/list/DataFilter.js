@@ -36,7 +36,29 @@ function DataFilter() {
 	// data fetch function
 	const fetchJobs = () => {
 		if (param) {
-			Meteor.call('getQueryData', param, aggr, (error, result) => setJobList(result));
+			Meteor.call('getQueryData', param, aggr, (error, result) => {
+				result.map(job => {
+					if (
+						job.status === 'inProgress' &&
+						job.workDateConverted.setHours(23, 0, 0) < new Date()
+					) {
+						//update status to lost if job expired
+						Meteor.call('updateExpiredJobStatus', job._id);
+					}
+				});
+				if (param.status === 'inProgress') {
+					let newRes = result.filter(
+						job => job.workDateConverted.setHours(23, 0, 0) >= new Date()
+					);
+					setJobList(newRes);
+				} else {
+					setJobList(result);
+				}
+			});
+			//fetch inProgress jobs
+			// if (param) {
+			// 	Meteor.call('getQueryData', param, aggr, (error, result) => setJobList(result));
+			// }
 		}
 	};
 
