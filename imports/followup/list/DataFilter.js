@@ -41,6 +41,7 @@ function DataFilter() {
 					console.log(job);
 					if (
 						job.status === 'inProgress' &&
+						job.workDate &&
 						new Date(job.workDate).setHours(23, 0, 0) < new Date()
 					) {
 						//update status to lost if job expired
