@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
@@ -21,7 +21,7 @@ import CcForm from './CcForm';
 
 let odenilmelidir = 0;
 
-export default class TabletRender extends React.Component {
+export default class TabletRender extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -40,7 +40,7 @@ export default class TabletRender extends React.Component {
 				commercial_sml: 'Commercial (small size, few items)',
 				commercial_avg: 'Commercial (avg. size, avg. items)',
 				commercial_large: 'Commercial (large size, many items)',
-				long_distance_moves: 'Long Distance Moves'
+				long_distance_moves: 'Long Distance Moves',
 			},
 			valuePaperBundles: 0,
 			paperBundles: 0,
@@ -91,54 +91,54 @@ export default class TabletRender extends React.Component {
 					hourlyRates: 45,
 					laborTime: 3,
 					gasFee: 60,
-					company: 'ukqBneo88GuHj3ETe'
-				}
+					company: 'ukqBneo88GuHj3ETe',
+				},
 			],
 			additionalSignatureList: [
 				{
 					id: '1additionalSignature',
 					title: 'WAIVER AND RELEASE OF LIABILITY FOR HAVING RIDE IN TRUCK',
 					content: `I HEREBY ASSUME ALL OF THE RISKS OF PARTICIPATING IN ANY/ALL ACTIVITIES
-                        ASSOCIATED WITH THIS EVENT, including by way of example and not limitation, any risks that may
-                        arise from negligence or carelessness on the part of the persons or entities being released, from dangerous
-                        or defective equipment or property owned, maintained, or controlled by them, or because of their possible
-                        liability without fault.
-                        I certify that I am physically fit, have sufficiently prepared or trained for participation in this activity, and
-                        have not been advised to not participate by a qualified medical professional.I certify that there are no
-                        health - related reasons or problems which preclude my participation in this activity.
-                        I acknowledge that this Accident Waiver and Release of Liability Form will be used by the event holders,
-                        sponsors, and organizers of the activity in which I may participate, and that it will govern my actions and
-                        responsibilities at said activity.
-                        In consideration of my application and permitting me to participate in this activity, I hereby take action for
-                        myself, my executors, administrators, heirs, next of kin, successors, and assigns as follows:
-                        (A) I WAIVE, RELEASE, AND DISCHARGE from any and all liability, including but not limited to,
-                        liability arising from the negligence or fault of the entities or persons released, for my death, disability,
-                        personal injury, property damage, property theft, or actions of any kind which may hereafter occur to
-                        me including my traveling to and from this activity, THE FOLLOWING ENTITIES OR PERSONS:
-                        Movers Legion, Inc and it’s DBA’s and / or their directors, officers, employees, volunteers,
-                        representatives, and agents, and the activity holders, sponsors, and volunteers;
-                        (B) INDEMNIFY, HOLD HARMLESS, AND PROMISE NOT TO SUE the entities or persons
-                        mentioned in this paragraph from any and all liabilities or claims made as a result of participation in
-                        this activity, whether caused by the negligence of release or otherwise.
-                        I acknowledge that Movers Legion, INC and DBA’s and their directors, officers, volunteers,
-                        representatives, and agents are NOT responsible for the errors, omissions, acts, or failures to act of any
-                        party or entity conducting a specific activity on their behalf.
-                        I acknowledge that this activity may involve a test of a person's physical and mental limits and carries with
-                        it the potential for death, serious injury, and property loss.The risks include, but are not limited to, those
-                        caused by terrain, facilities, temperature, weather, condition of participants, equipment, vehicular traffic,
-                        lack of hydration, and actions of other people including, but not limited to, participants, volunteers,
-                            monitors, and / or producers of the activity.These risks are not only inherent to participants, but are also
-                        present for volunteers.
-                                    I hereby consent to receive medical treatment which may be deemed advisable in the event of injury,
-                        accident, and / or illness during this activity.
-                        I understand while participating in this activity, I may be photographed.I agree to allow my photo, video,
-                        or film likeness to be used for any legitimate purpose by the activity holders, producers, sponsors,
-                            organizers, and assigns.
-                        The Accident Waiver and Release of Liability Form shall be construed broadly to provide a release and
-                        waiver to the maximum extent permissible under applicable law.
-                        I CERTIFY THAT I HAVE READ THIS DOCUMENT AND I FULLY UNDERSTAND ITS CONTENT.
-                        I AM AWARE THAT THIS IS A RELEASE OF LIABILITY AND A CONTRACT AND I SIGN IT OF
-                    MY OWN FREE WILL.`
+ASSOCIATED WITH THIS EVENT, including by way of example and not limitation, any risks that may
+arise from negligence or carelessness on the part of the persons or entities being released, from dangerous
+or defective equipment or property owned, maintained, or controlled by them, or because of their possible
+liability without fault.
+I certify that I am physically fit, have sufficiently prepared or trained for participation in this activity, and
+have not been advised to not participate by a qualified medical professional.I certify that there are no
+health - related reasons or problems which preclude my participation in this activity.
+I acknowledge that this Accident Waiver and Release of Liability Form will be used by the event holders,
+sponsors, and organizers of the activity in which I may participate, and that it will govern my actions and
+responsibilities at said activity.
+In consideration of my application and permitting me to participate in this activity, I hereby take action for
+myself, my executors, administrators, heirs, next of kin, successors, and assigns as follows:
+(A) I WAIVE, RELEASE, AND DISCHARGE from any and all liability, including but not limited to,
+liability arising from the negligence or fault of the entities or persons released, for my death, disability,
+personal injury, property damage, property theft, or actions of any kind which may hereafter occur to
+me including my traveling to and from this activity, THE FOLLOWING ENTITIES OR PERSONS:
+Movers Legion, Inc and it’s DBA’s and / or their directors, officers, employees, volunteers,
+representatives, and agents, and the activity holders, sponsors, and volunteers;
+(B) INDEMNIFY, HOLD HARMLESS, AND PROMISE NOT TO SUE the entities or persons
+mentioned in this paragraph from any and all liabilities or claims made as a result of participation in
+this activity, whether caused by the negligence of release or otherwise.
+I acknowledge that Movers Legion, INC and DBA’s and their directors, officers, volunteers,
+representatives, and agents are NOT responsible for the errors, omissions, acts, or failures to act of any
+party or entity conducting a specific activity on their behalf.
+I acknowledge that this activity may involve a test of a person's physical and mental limits and carries with
+it the potential for death, serious injury, and property loss.The risks include, but are not limited to, those
+caused by terrain, facilities, temperature, weather, condition of participants, equipment, vehicular traffic,
+lack of hydration, and actions of other people including, but not limited to, participants, volunteers,
+monitors, and / or producers of the activity.These risks are not only inherent to participants, but are also
+present for volunteers.
+I hereby consent to receive medical treatment which may be deemed advisable in the event of injury,
+accident, and / or illness during this activity.
+I understand while participating in this activity, I may be photographed.I agree to allow my photo, video,
+or film likeness to be used for any legitimate purpose by the activity holders, producers, sponsors,
+organizers, and assigns.
+The Accident Waiver and Release of Liability Form shall be construed broadly to provide a release and
+waiver to the maximum extent permissible under applicable law.
+I CERTIFY THAT I HAVE READ THIS DOCUMENT AND I FULLY UNDERSTAND ITS CONTENT.
+I AM AWARE THAT THIS IS A RELEASE OF LIABILITY AND A CONTRACT AND I SIGN IT OF
+MY OWN FREE WILL.`,
 				},
 				{
 					id: '2additionalSignature',
@@ -171,12 +171,11 @@ The Accident Waiver and Release of Liability Form shall be construed broadly to 
 waiver to the maximum extent permissible under applicable law.
 I CERTIFY THAT I HAVE READ THIS DOCUMENT AND I FULLY UNDERSTAND ITS CONTENT.
 I AM AWARE THAT THIS IS A RELEASE OF LIABILITY AND A CONTRACT AND I SIGN IT OF
-MY OWN FREE WILL.`
+MY OWN FREE WILL.`,
 				},
 				{
 					id: '3additionalSignature',
-					title:
-						'WAIVER AND RELEASE OF LIABILITY FOR NARROW HALLWAY, STAIRCASE, DOOR.ETC',
+					title: 'WAIVER AND RELEASE OF LIABILITY FOR NARROW HALLWAY, STAIRCASE, DOOR.ETC',
 					content: `I HEREBY ASSUME ALL OF THE RISKS OF PARTICIPATING IN ANY/ALL ACTIVITIES
 ASSOCIATED WITH THIS EVENT, including by way of example and not limitation, any risks that may
 arise from negligence or carelessness on the part of the persons or entities being released, from dangerous
@@ -205,7 +204,7 @@ The Accident Waiver and Release of Liability Form shall be construed broadly to 
 waiver to the maximum extent permissible under applicable law.
 I CERTIFY THAT I HAVE READ THIS DOCUMENT AND I FULLY UNDERSTAND ITS CONTENT.
 I AM AWARE THAT THIS IS A RELEASE OF LIABILITY AND A CONTRACT AND I SIGN IT OF
-MY OWN FREE WILL`
+MY OWN FREE WILL`,
 				},
 				{
 					id: '4additionalSignature',
@@ -238,8 +237,8 @@ The Accident Waiver and Release of Liability Form shall be construed broadly to 
 waiver to the maximum extent permissible under applicable law.
 I CERTIFY THAT I HAVE READ THIS DOCUMENT AND I FULLY UNDERSTAND ITS CONTENT.
 I AM AWARE THAT THIS IS A RELEASE OF LIABILITY AND A CONTRACT AND I SIGN IT OF
-MY OWN FREE WILL`
-				}
+MY OWN FREE WILL`,
+				},
 			],
 			additionalSignature: [],
 			totalAdditionalChargeAmount: 0,
@@ -252,19 +251,19 @@ MY OWN FREE WILL`
 			checks: {
 				packMater: false,
 				cargoIsSubject: false,
-				myResponsibility: false
+				myResponsibility: false,
 			},
 			initialized: false,
 			valuationOption: {
 				initial: '',
-				typeNumber: 0
+				typeNumber: 0,
 			},
 			isPayed: false,
 			finishJobButton: false,
 			showFinish1: false,
 			showFinish2: false,
 			survey: true,
-			ccForm: false
+			ccForm: false,
 		};
 
 		this.requirementEntirely = this.requirementEntirely.bind(this);
@@ -291,25 +290,25 @@ MY OWN FREE WILL`
 
 	requirementEntirely(param, whichState) {
 		this.setState({
-			[whichState]: param
+			[whichState]: param,
 		});
 	}
 
 	initialAlphabet(e) {
 		this.setState({
-			initialSignAlphabet: e.target.value
+			initialSignAlphabet: e.target.value,
 		});
 	}
 
 	saveSignature(which, information) {
 		let newList = this.state[which].concat(information);
 		this.setState({
-			[which]: newList
+			[which]: newList,
 		});
 
 		let doc = {
 			_id: Session.get('tabletIsId'),
-			[which]: newList // save additional signature
+			[which]: newList, // save additional signature
 		};
 
 		Meteor.call('updateWork', doc);
@@ -324,7 +323,7 @@ MY OWN FREE WILL`
 		}
 
 		let htmlOfCanvas = document.body;
-		html2canvas(htmlOfCanvas).then(canvas => {
+		html2canvas(htmlOfCanvas).then((canvas) => {
 			let png = canvas.toDataURL('image/png');
 			let doc = {
 				_id: Session.get('tabletIsId'),
@@ -339,7 +338,7 @@ MY OWN FREE WILL`
 				bundleWrapRoll: this.state.valueWrapRoll,
 				smallBoxes: this.state.valueSmallBoxes,
 				mediumBoxes: this.state.valueMediumBoxes,
-				largeBoxes: this.state.valueLargeBoxes
+				largeBoxes: this.state.valueLargeBoxes,
 			};
 			let job = WorkData.findOne({ _id: Session.get('tabletIsId') });
 
@@ -359,7 +358,7 @@ MY OWN FREE WILL`
 		let sign = this.signaturePad3.toDataURL();
 		if (!this.signaturePad3.isEmpty()) {
 			this.setState({
-				initSign: sign
+				initSign: sign,
 			});
 		}
 
@@ -378,8 +377,8 @@ MY OWN FREE WILL`
 			checks: {
 				packMater: this.state.packMater,
 				cargoIsSubject: this.state.cargoIsSubject,
-				myResponsibility: this.state.myResponsibility
-			}
+				myResponsibility: this.state.myResponsibility,
+			},
 		};
 		Meteor.call('updateWork', doc);
 	}
@@ -393,23 +392,23 @@ MY OWN FREE WILL`
 
 			this.state.discount && this.state.discount.length > -1
 				? this.state.discount
-						.filter(discount => discount.type === 'time')
-						.map(discount => (this.totalDiscountTime += discount.amount))
+						.filter((discount) => discount.type === 'time')
+						.map((discount) => (this.totalDiscountTime += discount.amount))
 				: null;
 
 			this.state.discount && this.state.discount.length > -1
 				? this.state.discount
-						.filter(discount => discount.type === 'amount')
-						.map(discount => (this.totalDiscountAmount += discount.amount))
+						.filter((discount) => discount.type === 'amount')
+						.map((discount) => (this.totalDiscountAmount += discount.amount))
 				: null;
 
 			this.state.discount && this.state.discount.length > -1
 				? this.state.discount
-						.filter(discount => discount.type === 'percent')
-						.map(discount => (this.totalDiscountPercent += discount.amount))
+						.filter((discount) => discount.type === 'percent')
+						.map((discount) => (this.totalDiscountPercent += discount.amount))
 				: null;
 
-			this.state.additionalCharge.map(charge => {
+			this.state.additionalCharge.map((charge) => {
 				this.totalAdditionalChargeAmount += charge.amount;
 			});
 
@@ -511,14 +510,14 @@ MY OWN FREE WILL`
 				odenilmelidir = (this.payCard - deposit).toFixed(2);
 				this.setState({
 					payCard: this.payCard - deposit,
-					payCash: 0
+					payCash: 0,
 				});
 			} else if (inputAmount >= this.payCash - deposit) {
 				inputAmount = this.payCash - deposit;
 				this.setState(
 					{
 						payCard: 0,
-						payCash: inputAmount
+						payCash: inputAmount,
 					},
 					() => {
 						document.getElementById('mark-as-payed').classList.remove('disabled');
@@ -533,14 +532,14 @@ MY OWN FREE WILL`
 				odenilmelidir = amountOf;
 				this.setState({
 					payCard: amountOf,
-					payCash: inputAmount
+					payCash: inputAmount,
 				});
 			}
 		} else {
 			if (inputAmount < 0 || inputAmount === 0) {
 				this.setState({
 					payCard: 0,
-					payCash: this.payCash - deposit
+					payCash: this.payCash - deposit,
 				});
 			} else if (inputAmount >= this.payCard - deposit) {
 				inputAmount = this.payCard - deposit;
@@ -548,7 +547,7 @@ MY OWN FREE WILL`
 				this.setState(
 					{
 						payCard: inputAmount,
-						payCash: 0
+						payCash: 0,
 					},
 					() => {
 						document.getElementById('mark-as-payed').classList.remove('disabled');
@@ -563,7 +562,7 @@ MY OWN FREE WILL`
 				odenilmelidir = inputAmount.toFixed(2);
 				this.setState({
 					payCard: inputAmount,
-					payCash: amountOf
+					payCash: amountOf,
 				});
 			}
 		}
@@ -571,18 +570,18 @@ MY OWN FREE WILL`
 
 	check(which) {
 		this.setState(
-			prevState => {
+			(prevState) => {
 				return {
-					[which]: !prevState[which]
+					[which]: !prevState[which],
 				};
 			},
 			() => {
 				this.state.packMater && this.state.cargoIsSubject && this.state.myResponsibility
 					? this.setState({
-							goster: true
+							goster: true,
 					  })
 					: this.setState({
-							goster: false
+							goster: false,
 					  }); // Update information in the database
 			}
 		);
@@ -602,7 +601,7 @@ MY OWN FREE WILL`
 				smallBoxes: this.state.valueSmallBoxes,
 				mediumBoxes: this.state.valueMediumBoxes,
 				largeBoxes: this.state.valueLargeBoxes,
-				isPayed: true
+				isPayed: true,
 			};
 
 			Meteor.call('updateWork', doc);
@@ -614,7 +613,7 @@ MY OWN FREE WILL`
 
 		this.setState({
 			valueLargeBoxes: e.target.value,
-			largeBoxes: 4 * e.target.value
+			largeBoxes: 4 * e.target.value,
 		});
 		this.saveInformationToDatabase(value_, 'largeBoxes');
 	}
@@ -625,7 +624,7 @@ MY OWN FREE WILL`
 		this.setState(
 			{
 				valueMediumBoxes: e.target.value,
-				mediumBoxes: 3 * e.target.value
+				mediumBoxes: 3 * e.target.value,
 			},
 			this.totalCalculate()
 		);
@@ -638,7 +637,7 @@ MY OWN FREE WILL`
 		this.setState(
 			{
 				valueSmallBoxes: e.target.value,
-				smallBoxes: 2 * e.target.value
+				smallBoxes: 2 * e.target.value,
 			},
 			this.totalCalculate()
 		);
@@ -652,7 +651,7 @@ MY OWN FREE WILL`
 		this.setState(
 			{
 				valueWrapRoll: e.target.value,
-				wrapRoll: 45 * e.target.value
+				wrapRoll: 45 * e.target.value,
 			},
 			this.totalCalculate()
 		);
@@ -666,7 +665,7 @@ MY OWN FREE WILL`
 		this.setState(
 			{
 				valueMovingBlankets: value_,
-				movingBlankets: 15 * value_
+				movingBlankets: 15 * value_,
 			},
 			this.totalCalculate()
 		);
@@ -693,7 +692,7 @@ MY OWN FREE WILL`
 				this.state.wrapRoll +
 				this.state.movingBlankets +
 				this.state.wardrobeBoxes +
-				this.state.paperBundles
+				this.state.paperBundles,
 		});
 	}
 
@@ -703,7 +702,7 @@ MY OWN FREE WILL`
 		this.setState(
 			{
 				valueWardrobeBoxes: value_,
-				wardrobeBoxes: 15 * value_
+				wardrobeBoxes: 15 * value_,
 			},
 			this.totalCalculate()
 		);
@@ -717,7 +716,7 @@ MY OWN FREE WILL`
 		this.setState(
 			{
 				valuePaperBundles: value_,
-				paperBundles: 25 * value_
+				paperBundles: 25 * value_,
 			},
 			this.totalCalculate()
 		);
@@ -732,12 +731,12 @@ MY OWN FREE WILL`
 			// Meteor.subscribe('workSchema');
 			// Meteor.subscribe('fullUser');
 			const isRender = WorkData.find({
-				_id: Session.get('tabletIsId')
+				_id: Session.get('tabletIsId'),
 			}).fetch();
 
 			let ccForm = Session.get('ccForm');
 			this.setState({
-				ccForm
+				ccForm,
 			});
 
 			if (isRender.length > 0) {
@@ -748,36 +747,36 @@ MY OWN FREE WILL`
 					? isRender[0].valuationOption
 					: {
 							initial: '',
-							typeNumber: 0
+							typeNumber: 0,
 					  };
 				let checks = isRender[0].checks || {
 					packMater: false,
 					cargoIsSubject: false,
-					myResponsibility: false
+					myResponsibility: false,
 				};
 
 				this.setState({
-					valuationOption
+					valuationOption,
 				});
 
 				if (checks.packMater && checks.cargoIsSubject && checks.myResponsibility) {
 					this.setState({
-						goster: true
+						goster: true,
 					});
 				} else {
 					this.setState({
-						goster: false
+						goster: false,
 					});
 				}
 				if (isFinished) {
 					// this.deactivateAll();
 					this.setState({
-						finished: true
+						finished: true,
 					});
 				} else {
 					// this.activateAll();
 					this.setState({
-						finished: false
+						finished: false,
 					});
 				}
 
@@ -804,7 +803,7 @@ MY OWN FREE WILL`
 						mediumBoxes: isRender[0].mediumBoxes * 3 || 0,
 						valueLargeBoxes: isRender[0].largeBoxes || 0,
 						largeBoxes: isRender[0].largeBoxes * 4 || 0,
-						survey: !isRender[0].cardHolderInfo
+						survey: !isRender[0].cardHolderInfo,
 					},
 
 					() => {
@@ -834,7 +833,7 @@ MY OWN FREE WILL`
 							additionalCharge:
 								is.additionalCharge && is.additionalCharge.length > 0
 									? is.additionalCharge
-									: []
+									: [],
 						});
 					}
 				);
@@ -850,16 +849,16 @@ MY OWN FREE WILL`
 				penColor: '#000000',
 				onEnd: () => {
 					this.setState({
-						initSignature: true
+						initSignature: true,
 					});
-				}
+				},
 			});
 
 			let cancelButton3 = document.querySelector('#clear3');
 			cancelButton3.addEventListener('click', () => {
 				this.signaturePad3.clear();
 				this.setState({
-					initSignature: false
+					initSignature: false,
 				});
 			});
 
@@ -872,16 +871,16 @@ MY OWN FREE WILL`
 				penColor: '#000000',
 				onEnd: () => {
 					this.setState({
-						showFinish1: true
+						showFinish1: true,
 					});
-				}
+				},
 			});
 
 			let cancelButton = document.querySelector('#clear');
 			cancelButton.addEventListener('click', () => {
 				this.signaturePad.clear();
 				this.setState({
-					showFinish1: false
+					showFinish1: false,
 				});
 			});
 
@@ -894,9 +893,9 @@ MY OWN FREE WILL`
 				penColor: '#000000',
 				onEnd: () => {
 					this.setState({
-						showFinish2: true
+						showFinish2: true,
 					});
-				}
+				},
 			});
 
 			let cancelButton2 = document.querySelector('#clear2');
@@ -904,13 +903,13 @@ MY OWN FREE WILL`
 				this.signaturePad2.clear();
 
 				this.setState({
-					showFinish2: false
+					showFinish2: false,
 				});
 			});
 		});
 
 		this.setState({
-			totalPul: this.state.largeBoxes
+			totalPul: this.state.largeBoxes,
 		});
 	}
 
@@ -928,24 +927,24 @@ MY OWN FREE WILL`
 
 	drivingTime(id) {
 		Meteor.call('setDrivingTime', id);
-		this.setState(prevState => {
+		this.setState((prevState) => {
 			let { drivingTimeStop } = prevState;
 			drivingTimeStop = !drivingTimeStop;
 
 			return {
-				drivingTimeStop
+				drivingTimeStop,
 			};
 		});
 	}
 
 	drivingTimeStop(id) {
 		Meteor.call('drivingTimeStop', id);
-		this.setState(prevState => {
+		this.setState((prevState) => {
 			let { drivingTimeStop } = prevState;
 			drivingTimeStop = !drivingTimeStop;
 
 			return {
-				drivingTimeStop
+				drivingTimeStop,
 			};
 		});
 	}
@@ -1000,7 +999,7 @@ MY OWN FREE WILL`
 	renderDrivingTime() {
 		if (this.state.vurulmusIs[0].drivingTime) {
 			let number = 2000;
-			return this.state.vurulmusIs[0].drivingTime.map(function(driving) {
+			return this.state.vurulmusIs[0].drivingTime.map(function (driving) {
 				number = number + 1;
 				return (
 					<div key={number} className="driving-time-event">
@@ -1015,7 +1014,7 @@ MY OWN FREE WILL`
 	renderBreakTime() {
 		if (this.state.vurulmusIs[0].breakTime) {
 			let number = 3000;
-			return this.state.vurulmusIs[0].breakTime.map(function(breaks) {
+			return this.state.vurulmusIs[0].breakTime.map(function (breaks) {
 				number = number + 1;
 				return (
 					<div key={number} className="break-time-event">
@@ -1045,7 +1044,7 @@ MY OWN FREE WILL`
 	}
 
 	round(number, precision) {
-		var shift = function(number, precision, reverseShift) {
+		var shift = function (number, precision, reverseShift) {
 			if (reverseShift) {
 				precision = -precision;
 			}
@@ -1076,7 +1075,7 @@ MY OWN FREE WILL`
 
 	startFullName(e) {
 		this.setState({
-			startFullName: e.target.value
+			startFullName: e.target.value,
 		});
 	}
 
@@ -1085,14 +1084,14 @@ MY OWN FREE WILL`
 		this.setState({
 			valuationOption: {
 				initial: value,
-				typeNumber: index
-			}
+				typeNumber: index,
+			},
 		});
 	}
 
 	finishSurvey() {
 		this.setState({
-			survey: false
+			survey: false,
 		});
 	}
 
@@ -1364,7 +1363,7 @@ MY OWN FREE WILL`
 													style={
 														is.requirementEntirely === true
 															? {
-																	border: '2px solid blue'
+																	border: '2px solid blue',
 															  }
 															: null
 													}
@@ -1395,7 +1394,7 @@ MY OWN FREE WILL`
 													style={
 														is.requirementEntirely === false
 															? {
-																	border: '2px solid blue'
+																	border: '2px solid blue',
 															  }
 															: null
 													}
@@ -1429,7 +1428,7 @@ MY OWN FREE WILL`
 													style={
 														is.threeDayPrior === true
 															? {
-																	border: '2px solid blue'
+																	border: '2px solid blue',
 															  }
 															: null
 													}
@@ -1455,7 +1454,7 @@ MY OWN FREE WILL`
 													style={
 														is.threeDayPrior === false
 															? {
-																	border: '2px solid blue'
+																	border: '2px solid blue',
 															  }
 															: null
 													}
@@ -1479,14 +1478,14 @@ MY OWN FREE WILL`
 									<tbody>
 										<tr
 											style={{
-												backgroundColor: '#C3D6FF'
+												backgroundColor: '#C3D6FF',
 											}}
 										>
 											<th />
 											<th
 												style={{
 													textAlign: 'center',
-													padding: '5px !important'
+													padding: '5px !important',
 												}}
 											>
 												Initial your choice
@@ -1494,7 +1493,7 @@ MY OWN FREE WILL`
 											<th
 												style={{
 													textAlign: 'center',
-													padding: '5px !important'
+													padding: '5px !important',
 												}}
 											>
 												Transportation
@@ -1502,7 +1501,7 @@ MY OWN FREE WILL`
 											<th
 												style={{
 													textAlign: 'center',
-													padding: '5px !important'
+													padding: '5px !important',
 												}}
 											>
 												Maximum Rate
@@ -1510,7 +1509,7 @@ MY OWN FREE WILL`
 											<th
 												style={{
 													textAlign: 'center',
-													padding: '5px !important'
+													padding: '5px !important',
 												}}
 											>
 												Storage-in-Transit
@@ -1518,7 +1517,7 @@ MY OWN FREE WILL`
 											<th
 												style={{
 													textAlign: 'center',
-													padding: '5px !important'
+													padding: '5px !important',
 												}}
 											>
 												Deductible
@@ -1526,14 +1525,16 @@ MY OWN FREE WILL`
 										</tr>
 										<tr
 											style={{
-												backgroundColor: '#E6EEFF'
+												backgroundColor: '#E6EEFF',
 											}}
 										>
 											<td>Basic: $0.60 cents/lb./art.</td>
 											<td>
 												Initial:
 												<input
-													onChange={e => this.changeBasicValuation(0, e)}
+													onChange={(e) =>
+														this.changeBasicValuation(0, e)
+													}
 													className="initial_x"
 													type="text"
 													style={{ textTransform: 'uppercase' }}
@@ -1565,7 +1566,7 @@ MY OWN FREE WILL`
 										dshjhkhasdhk
 										<tr
 											style={{
-												backgroundColor: '#C3D6FF'
+												backgroundColor: '#C3D6FF',
 											}}
 										>
 											<td>Actual Cash Value</td>
@@ -1575,7 +1576,9 @@ MY OWN FREE WILL`
 													className="initial_x"
 													type="text"
 													style={{ textTransform: 'uppercase' }}
-													onChange={e => this.changeBasicValuation(1, e)}
+													onChange={(e) =>
+														this.changeBasicValuation(1, e)
+													}
 													disabled={
 														is.valuationOption &&
 														typeof is.valuationOption.initial ===
@@ -1626,7 +1629,7 @@ MY OWN FREE WILL`
 										</tr>
 										<tr
 											style={{
-												backgroundColor: '#E6EEFF'
+												backgroundColor: '#E6EEFF',
 											}}
 										>
 											<td>Full Value</td>
@@ -1636,7 +1639,9 @@ MY OWN FREE WILL`
 													className="initial_x"
 													type="text"
 													style={{ textTransform: 'uppercase' }}
-													onChange={e => this.changeBasicValuation(2, e)}
+													onChange={(e) =>
+														this.changeBasicValuation(2, e)
+													}
 													disabled={
 														is.valuationOption &&
 														typeof is.valuationOption.initial ===
@@ -1756,14 +1761,14 @@ MY OWN FREE WILL`
 										className="col s12 m4 l4"
 										style={{
 											position: 'absolute',
-											left: '580px'
+											left: '580px',
 										}}
 									>
 										<input
 											id="customer-firts-sign"
 											type="text"
 											disabled={!!this.state.initSign}
-											onChange={e => this.startFullName(e)}
+											onChange={(e) => this.startFullName(e)}
 											value={this.state.startFullName}
 											style={{ width: '400px' }}
 											className="validate"
@@ -1841,7 +1846,7 @@ MY OWN FREE WILL`
 									className="waves-effect waves-light btn"
 									onClick={() =>
 										this.setState({
-											additionalSignatiure: !this.state.additionalSignatiure
+											additionalSignatiure: !this.state.additionalSignatiure,
 										})
 									}
 								>
@@ -2295,7 +2300,7 @@ MY OWN FREE WILL`
 													className=""
 													disabled={is.isPayed}
 													placeholder="enter cash amount"
-													onChange={e => this.hesabla('cash', e)}
+													onChange={(e) => this.hesabla('cash', e)}
 													value={
 														is.cashPayed ||
 														(this.state.payCash > 0
@@ -2317,7 +2322,7 @@ MY OWN FREE WILL`
 													type="number"
 													disabled={is.isPayed}
 													placeholder="enter card amount"
-													onChange={e => this.hesabla('card', e)}
+													onChange={(e) => this.hesabla('card', e)}
 													value={
 														is.cardPayed ||
 														(this.state.payCard > 0
@@ -2440,7 +2445,7 @@ MY OWN FREE WILL`
 }
 
 Template.tablet.events({
-	'click #close-duymesi-id': function() {
+	'click #close-duymesi-id': function () {
 		Session.set('tabletIsId', '');
 		ReactDOM.render(<TabletIsList />, document.getElementById('tablet-is-siyahi'));
 
@@ -2457,9 +2462,9 @@ Template.tablet.events({
 		for (let i = 0; i < buttons.length; i++) {
 			buttons[i].classList.remove('disabled');
 		}
-	}
+	},
 });
 
-Template.tablet.onRendered(function() {
+Template.tablet.onRendered(function () {
 	ReactDOM.render(<TabletRender />, document.getElementById('tebler-render'));
 });

@@ -8,34 +8,34 @@ import BonusDash from './BonusDash';
 import BonusSettings_ from './BonusSettings';
 
 export default class BonusMainPage extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            selectedMenu: 'dash'
-        };
-    }
+	constructor(props) {
+		super(props);
+		this.state = {
+			selectedMenu: 'dash',
+		};
+	}
 
-    componentDidMount() {
-        this.x = Tracker.autorun(() => {
-            let selectedMenu = Session.get('bonusMenu');
+	componentDidMount() {
+		this.x = Tracker.autorun(() => {
+			let selectedMenu = Session.get('bonusMenu');
 
-            this.setState({
-                selectedMenu
-            });
-        });
-    }
+			this.setState({
+				selectedMenu,
+			});
+		});
+	}
 
-    componentWillUnmount() {
-        this.x.stop();
-    }
+	componentWillUnmount() {
+		this.x.stop();
+	}
 
-    render() {
-        return (
-            <React.Fragment>
-                <TopMenu />
-                {this.state.selectedMenu === 'dash' && <BonusDash />}
-                {this.state.selectedMenu === 'settings' && <BonusSettings_ />}
-            </React.Fragment>
-        );
-    }
+	render() {
+		return (
+			<React.Fragment>
+				<TopMenu />
+				{this.state.selectedMenu === 'dash' && <BonusDash />}
+				{this.state.selectedMenu === 'settings' && <BonusSettings_ />}
+			</React.Fragment>
+		);
+	}
 }
