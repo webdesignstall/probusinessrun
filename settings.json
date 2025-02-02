@@ -2,7 +2,6 @@
 	"galaxy.meteor.com": {
 		"env": {
 			"NODE_TLS_REJECT_UNAUTHORIZED": "0",
-			// "MONGO_URL": "mongodb+srv://probusinessrun:bVvg1MGhwVUc5OPl@probusinessrun.qnpoa.mongodb.net/probusinessrun?retryWrites=true&w=majority",
 			"MONGO_URL": "mongodb://probusinessrun:bVvg1MGhwVUc5OPl@probusinessrun-shard-00-00.qnpoa.mongodb.net:27017,probusinessrun-shard-00-01.qnpoa.mongodb.net:27017,probusinessrun-shard-00-02.qnpoa.mongodb.net:27017/?ssl=true&replicaSet=atlas-b9fl8v-shard-0&authSource=admin&retryWrites=true&w=majority&appName=probusinessrun",
 			"MAIL_URL": "smtp: //postmaster%40probusinessrun.com:6d0eb775d8a76c5f1efd0b02030ea3fa-e89319ab-67f4f8af@smtp.mailgun.org:587"
 		}
